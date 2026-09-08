@@ -7,7 +7,7 @@ Updated: 2026-09-09
 | Iteration | Status | Output | Next |
 |---|---|---|---|
 | 0 Foundation | COMPLETE | Production repository, application scaffold, initial IA/design/SEO docs | — |
-| 1 Source/reference/licensing audit | **COMPLETE** | Deep reference audit, reuse classifications, expanded component matrix, attribution/license register | Iteration 2 — truth model & content completeness audit |
+| 1 Source/reference/licensing audit | **COMPLETE** | Deep reference audit, reuse classifications, expanded component matrix, attribution/license register, unused unresolved OGL dependency removed | Iteration 2 — truth model & content completeness audit |
 | 2 Truth model & content completeness | NEXT | — | Reconcile CVs, truth pack, GitHub/Drive/project evidence and structured data |
 | 3+ | NOT STARTED | — | Continue according to autonomous execution plan |
 
@@ -39,5 +39,5 @@ Updated: 2026-09-09
 - Aceternity template code is held as inspiration-only until exact artifact licensing is unambiguous.
 - Natalie/Aitezaz are primarily art-direction and motion references despite MIT source availability.
 - Preloaders, particles, ambient sound and custom cursor are rejected by default.
-- OGL is on licensing hold for production use until exact installed-package terms are verified.
+- OGL was removed from `package.json` because it was unused and upstream license metadata was not sufficiently clear in this audit; reconsider only after exact package terms are verified.
 - All third-party visual assets are excluded unless separately proven reusable.
