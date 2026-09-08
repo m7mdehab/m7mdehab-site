@@ -1,3 +1,7 @@
+// Curated runtime projection for the website UI.
+// The governed completeness/provenance layer is data/source-of-truth.public.yaml.
+// Never add private/confidential source facts here merely because they are verified.
+
 export type ProjectTone = "blue" | "graphite" | "emerald" | "teal" | "amber" | "coral";
 
 export const profile = {
@@ -24,24 +28,24 @@ export const capabilities = [
 ] as const;
 
 export const skillGroups = [
-  { title: "Data engineering", skills: ["SQL", "PostgreSQL", "Data Migration", "ETL", "Source-to-Target Mapping", "Data Validation", "Reconciliation", "ERPNext"] },
+  { title: "Data engineering", skills: ["SQL", "PostgreSQL", "Data Migration", "ETL", "Source-to-Target Mapping", "Data Cleansing & Validation", "Reconciliation", "ERPNext"] },
   { title: "Analytics", skills: ["Power BI", "Advanced Excel", "KPI Design", "Dashboards", "Reporting & Analytics", "Marketing Analytics"] },
-  { title: "ML & AI", skills: ["Python", "pandas", "NumPy", "scikit-learn", "TensorFlow", "PyTorch", "NLP", "Generative AI", "RAG", "Probabilistic Modeling"] },
+  { title: "ML & AI", skills: ["Python", "pandas", "NumPy", "scikit-learn", "Machine Learning", "Deep Learning", "TensorFlow", "PyTorch", "NLP", "Generative AI", "RAG", "Probabilistic Modeling"] },
   { title: "Product & web", skills: ["Next.js", "TypeScript", "JavaScript", "Web Development", "Supabase", "Vercel", "WordPress"] },
   { title: "Delivery", skills: ["Requirements Gathering", "Stakeholder Management", "Cross-functional Collaboration", "Team Leadership", "AWS Foundations"] },
 ] as const;
 
 export const projects = [
-  { slug: "presaira", title: "Presaira", kicker: "Probabilistic forecasting product", statement: "Forecasting the 2026 World Cup with calibrated probability models, reproducible prediction runs and a public product experience.", proof: "Data science · forecasting · calibration · Monte Carlo · software engineering", tone: "blue" as ProjectTone, href: "https://presaira.com" },
+  { slug: "presaira", title: "Presaira", kicker: "Probabilistic forecasting product", statement: "A full-tournament forecasting system that forecast all 104 matches of the 2026 World Cup, with reproducible runs, model evaluation and 50,000-iteration Monte Carlo simulation.", proof: "Data science · forecasting · calibration & evaluation · Monte Carlo · reproducibility", tone: "blue" as ProjectTone, href: "https://presaira.com" },
   { slug: "opportunityos", title: "OpportunityOS", kicker: "Governed AI system", statement: "A truth-locked opportunity workflow built around governed autonomous agents, provenance and controlled generation.", proof: "AI engineering · multi-agent architecture · governance · product systems", tone: "graphite" as ProjectTone, href: "https://github.com/m7mdehab/opportunityos-docs" },
   { slug: "ghareeb-oglu", title: "Ghareeb Oglu Commerce", kicker: "End-to-end ecommerce product", statement: "A commerce platform planned, architected and built from scratch — spanning storefront, backend, payments, fulfillment and deployment.", proof: "Product ownership · software architecture · ecommerce · execution", tone: "emerald" as ProjectTone },
-  { slug: "oil-spill-detection", title: "Oil Spill Detection", kicker: "SAR computer vision", statement: "Deep-learning systems for detecting marine oil spills in synthetic-aperture radar imagery, with technical validation and deployment.", proof: "Deep learning · computer vision · remote sensing · validation", tone: "teal" as ProjectTone, href: "https://github.com/m7mdehab/oil-spill-detection" },
-  { slug: "solar-site-selection", title: "Solar Site Selection", kicker: "Geospatial decision system", statement: "A geospatial analytics and optimization workflow for identifying suitable solar-installation locations from multiple decision factors.", proof: "Geospatial analytics · optimization · data integration · decision systems", tone: "amber" as ProjectTone, href: "https://github.com/m7mdehab/SolarSiteSelection" },
+  { slug: "oil-spill-detection", title: "Oil Spill Detection", kicker: "SAR computer vision", statement: "A Sentinel-1 SAR semantic-segmentation pipeline for detecting marine oil spills, with model evaluation, georeferenced outputs, API serving and an interactive map UI.", proof: "Deep learning · computer vision · remote sensing · validation", tone: "teal" as ProjectTone, href: "https://github.com/m7mdehab/oil-spill-detection" },
+  { slug: "solar-site-selection", title: "Solar Site Selection", kicker: "Geospatial decision system", statement: "A photovoltaic siting engine combining public geodata, AHP multi-criteria analysis, suitability mapping, ranked candidate sites and energy/LCOE estimates.", proof: "Geospatial analytics · optimization · data integration · decision systems", tone: "amber" as ProjectTone, href: "https://github.com/m7mdehab/SolarSiteSelection" },
   { slug: "makhbazy", title: "Makhbazy", kicker: "Mobile product leadership", statement: "Designed the UI/UX and led Android and iOS product delivery from concept through implementation, supervision and release approval.", proof: "Product leadership · UI/UX · technical supervision · mobile delivery", tone: "coral" as ProjectTone },
 ] as const;
 
 export const experience = [
-  { company: "Network International", role: "Data Migration Engineer", period: "2026 — Present", note: "Enterprise data-migration delivery, public-safe summary only." },
+  { company: "Network International", role: "Data Migration Engineer", period: "2026 — Present", note: "Enterprise data-migration role; project and client details intentionally limited for confidentiality." },
   { company: "Al Tayseer International", role: "Marketing Team Lead", period: "2025 — 2026", note: "Multi-brand reporting, commercial analytics and digital product execution." },
   { company: "Guksu", role: "Supply Chain Specialist & Data Analyst", period: "2025", note: "Sales, inventory, manufacturing and warehouse reporting for planning decisions." },
   { company: "Egyptian African Trade", role: "Technical Team Lead / Data Analyst", period: "2024 — 2025", note: "ERP data, KPI design, performance reporting and commercial analysis." },
@@ -55,16 +59,16 @@ export const additionalExperience = [
 ] as const;
 
 export const certifications = [
-  { name: "AI / LLM Engineering", issuer: "Udemy · Ed Donner" },
-  { name: "McKinsey Forward", issuer: "McKinsey Academy · Foundation & Advanced" },
-  { name: "Database Management with SQL", issuer: "Canadian International College" },
-  { name: "Problem Solving with C++", issuer: "Coach Academy" },
-  { name: "Data Analysis, Web Development & Digital Marketing", issuer: "Udacity / ITIDA · Challenger, Professional & Advanced" },
+  { name: "AI / LLM Engineering", issuer: "Udemy · Ed Donner", year: 2025 },
+  { name: "McKinsey Forward", issuer: "McKinsey Academy · Foundation & Advanced", year: 2024 },
+  { name: "Database Management with SQL", issuer: "Canadian International College", year: 2022 },
+  { name: "Problem Solving with C++", issuer: "Coach Academy", year: 2023 },
+  { name: "Data Analysis, Web Development & Digital Marketing", issuer: "Udacity / ITIDA · Challenger, Professional & Advanced", year: 2020 },
 ] as const;
 
 export const education = [
-  { qualification: "BSc Computer Science — Data Science Major", institution: "Canadian International College", period: "2021 — 2024" },
-  { qualification: "Data Science & AI Scholarship", institution: "ExploreAI Academy / ALX / African Leadership University", period: "2023 — 2024" },
+  { qualification: "BSc Computer Science — Data Science Major", institution: "Canadian International College", period: "2021 — 2024", detail: "CGPA 3.55" },
+  { qualification: "Data Science & AI Scholarship", institution: "ExploreAI Academy / ALX / African Leadership University", period: "2023 — 2024", detail: "15-month program" },
 ] as const;
 
 export const services = [
@@ -75,6 +79,6 @@ export const services = [
 ] as const;
 
 export const writing = [
-  { title: "When should you trust a probabilistic forecast?", topic: "Forecasting · calibration · evaluation", status: "Drafted" },
-  { title: "Why accuracy alone is not enough for oil-spill detection", topic: "Computer vision · metrics · validation", status: "Drafted" },
+  { title: "When should you trust a probabilistic forecast?", topic: "Forecasting · calibration · evaluation", status: "Planned" },
+  { title: "Why accuracy alone is not enough for oil-spill detection", topic: "Computer vision · metrics · validation", status: "Planned" },
 ] as const;
