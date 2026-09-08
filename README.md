@@ -4,6 +4,16 @@ The production repository for **Mohammed Ehab ElNomany's professional web identi
 
 This is intentionally broader than a portfolio. The site is designed to increase visibility, approachability, awareness, search presence, AI-search understanding, technical credibility, recruiter conversion, client acquisition and long-term professional authority.
 
+## Truth and content architecture
+
+The repository deliberately separates **truth completeness** from **homepage curation**:
+
+- `data/source-of-truth.public.yaml` — governed public/public-safe completeness and provenance registry.
+- `data/public.ts` — curated runtime projection used by the current UI.
+- `docs/TRUTH_MODEL_AUDIT_2026-09-09.md` — source reconciliation, classification semantics, confidentiality boundaries and resolved data defects.
+
+A fact being verified does not automatically make it publishable. Private/confidential source material must never leak through visible copy, JSON-LD, machine-readable endpoints, metadata or static build artifacts.
+
 ## Product direction
 
 The visual/interaction system is a custom synthesis of patterns studied from:
@@ -45,11 +55,13 @@ OGL was removed from the scaffold during the reference/licensing audit because t
 
 1. Truth and public-safe evidence before marketing copy.
 2. Real project proof before résumé chronology.
-3. Typography and imagery do more work than decoration.
-4. Motion is concentrated around state change, not ambient spectacle.
-5. SEO, entity SEO and AI extractability are architectural requirements.
-6. Accessibility, performance and mobile usability can veto an aesthetic treatment.
-7. Professional data stays centralized and extensible.
-8. Any direct third-party source adaptation must update the attribution register in the same change.
+3. Truth completeness and homepage inclusion are separate decisions.
+4. Capabilities and concrete skills are separate information types.
+5. Typography and imagery do more work than decoration.
+6. Motion is concentrated around state change, not ambient spectacle.
+7. SEO, entity SEO and AI extractability are architectural requirements.
+8. Accessibility, performance and mobile usability can veto an aesthetic treatment.
+9. Professional data stays centralized and extensible.
+10. Any direct third-party source adaptation must update the attribution register in the same change.
 
-See `/docs` for the governing product, design, SEO, reference and licensing system.
+See `/docs` for the governing product, design, truth, SEO, reference and licensing system.
