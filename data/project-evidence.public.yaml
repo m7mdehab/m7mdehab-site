@@ -1,0 +1,305 @@
+# Project evidence and visual-asset registry for m7mdehab.com
+# Updated: 2026-09-09
+#
+# This file governs what may be used as project proof and how it may be visualized.
+# It complements data/source-of-truth.public.yaml; it does not replace factual truth governance.
+# Internal asset names are recorded without private Drive URLs/IDs. Presence in an internal corpus
+# does not by itself authorize publishing the original bytes.
+
+meta:
+  canonical_name: "Mohammed Ehab ElNomany"
+  updated: "2026-09-09"
+  purpose: "Evidence provenance, visual selection, publication safety and service-proof coverage."
+  statuses:
+    public_repo_asset: "Already published in Mohammed's public repository; eligible for use subject to source/asset licence context."
+    public_code_renderable: "Public source/data can be rendered or captured into a first-party visual."
+    public_live_capture: "Public live product/page may be captured as portfolio evidence; do not extract unrelated third-party imagery as a standalone reusable asset."
+    public_safe_derived: "Create an original visual only from explicitly public-safe facts; never imply it is a product screenshot."
+    internal_candidate: "Useful internal evidence/visual candidate; original bytes must not ship until publication rights are explicitly established."
+    evidence_only: "Supports a claim but is not itself a suitable visual asset."
+    reject: "Do not use publicly."
+
+service_proof:
+  - id: data-migration-reconciliation
+    label: "Data migration & reconciliation"
+    strength: "strong experience evidence; weak public visual evidence"
+    primary_evidence:
+      - "Current Data Migration Engineer role at Network International - public-safe organization/title/dates only."
+      - "Verified skills: data migration, ETL, source-to-target mapping, cleansing/validation and reconciliation."
+    supporting_projects: []
+    visual_policy: "Use a clearly labelled generic capability/process visualization if needed; never fabricate a client migration screenshot, dataset, dashboard, bank diagram or proprietary workflow."
+    open_gap: "No publishable client/project migration artifact is currently available."
+
+  - id: analytics-power-bi
+    label: "Analytics & Power BI"
+    strength: "strong experience/skills evidence; limited publishable artifact evidence"
+    primary_evidence:
+      - "Al Tayseer / Guksu / Egyptian African Trade reporting and KPI work from the current CV/public truth model."
+      - "Verified Power BI, KPI design, dashboards, Advanced Excel and reporting/analytics skills."
+    supporting_projects:
+      - "Presaira - strong analytical/model-evaluation thinking, but not Power BI proof."
+      - "Solar Site Selection - strong analytical decision-system proof, but not Power BI proof."
+    visual_policy: "Do not label project analytics as Power BI unless the artifact is actually Power BI. Prefer an experience-backed capability treatment until a publishable dashboard exists."
+    open_gap: "No verified publishable Power BI dashboard screenshot is currently available."
+
+  - id: ml-ai-product-development
+    label: "ML & AI product development"
+    strength: "very strong public project evidence"
+    primary_evidence:
+      - "Presaira"
+      - "OpportunityOS"
+      - "Oil Spill Detection"
+      - "Solar Site Selection"
+    visual_policy: "Lead with real models, evaluation, interfaces, maps and governed-system evidence rather than generic AI imagery."
+
+  - id: product-web-development
+    label: "Product & web development"
+    strength: "very strong cross-project evidence"
+    primary_evidence:
+      - "Ghareeb Oglu Commerce"
+      - "Makhbazy"
+      - "Presaira"
+      - "Oil Spill Detection"
+      - "Solar Site Selection"
+    visual_policy: "Show shipped/public interfaces or clearly labelled design/product evidence; do not collapse product leadership into sole coding claims."
+
+projects:
+  - id: presaira
+    title: "Presaira"
+    proof_theme: "Probabilistic systems that remain inspectable after reality happens."
+    service_support: ["ml-ai-product-development", "product-web-development"]
+    source_classification: public
+    sources:
+      - "https://github.com/m7mdehab/WC2026-Live-Prediction-Engine"
+      - "https://presaira.com"
+    verified_proof:
+      - "Forecast all 104 World Cup 2026 matches."
+      - "Dixon-Coles goal model blended with Elo."
+      - "50,000-iteration full-tournament Monte Carlo simulation."
+      - "Committed calibration/backtest artifacts and postmortem."
+      - "Reproducible/versioned runs and automated tests."
+    visual_candidates:
+      - id: presaira-live-product
+        kind: "live product capture"
+        status: public_live_capture
+        source: "presaira.com"
+        priority: primary
+        use: "Current interface/product context, captured at implementation time."
+      - id: presaira-probability-trajectory
+        kind: "interactive chart"
+        status: public_code_renderable
+        source: "web/src/components/home/ProbabilityOverTimeChart.tsx"
+        priority: primary
+        use: "Animate or progressively reveal real champion-probability trajectories; static SVG/table fallback for reduced motion."
+      - id: presaira-reliability
+        kind: "calibration/reliability chart"
+        status: public_code_renderable
+        source: "web/src/components/methodology/ReliabilityChart.tsx + web/public/methodology/reliability_2026.csv"
+        priority: secondary
+        use: "Technical proof that the system evaluates calibration rather than presenting confidence theater."
+      - id: presaira-bracket
+        kind: "tournament bracket"
+        status: public_code_renderable
+        source: "web/src/components/bracket/DesktopBracket.tsx"
+        priority: supporting
+        use: "Contextual product proof; not the homepage's dominant football motif."
+    interaction_direction: "A restrained probability line develops with scroll/hover and resolves into evaluation evidence; motion must communicate forecast change, not act as ambient decoration."
+    avoid:
+      - "generic football poster treatment"
+      - "future-tense prediction copy"
+      - "fake live odds"
+      - "sports-betting visual language"
+
+  - id: opportunityos
+    title: "OpportunityOS"
+    proof_theme: "Autonomy governed by truth, provenance and explicit action authority."
+    service_support: ["ml-ai-product-development", "product-web-development"]
+    source_classification: public_safe
+    sources:
+      - "https://github.com/m7mdehab/opportunityos-docs"
+      - "docs/ARCHITECTURE_CURRENT.md in the public mirror"
+    verified_proof:
+      - "Public product flow: discover -> ingest -> qualify -> score -> truth-locked tailor -> prepare/fill/controlled-submit -> monitor outcomes -> learn safely."
+      - "Truth Graph / EvidenceClaim authority model."
+      - "Evidence-aware matching and explicit execution modes."
+      - "Private repository remains authoritative; public mirror is allowlisted documentation only."
+    visual_candidates:
+      - id: opportunityos-authority-flow
+        kind: "original conceptual system diagram"
+        status: public_safe_derived
+        source: "public docs/ARCHITECTURE_CURRENT.md"
+        priority: primary
+        use: "Create an original provenance-first workflow visualization; label as architecture/system flow, never as a product screenshot."
+      - id: opportunityos-action-modes
+        kind: "governance state visual"
+        status: public_safe_derived
+        source: "public DRY_RUN / ASSISTED / CONTROLLED_SUBMIT model"
+        priority: supporting
+        use: "Small state transition treatment showing escalating authority and checks."
+    interaction_direction: "A compact truth/provenance spine with stages activating on focus/scroll; no agent-particle swarm and no invented private UI."
+    avoid:
+      - "fake dashboard screenshots"
+      - "private founder/application data"
+      - "private implementation/code"
+      - "generic multi-agent node spaghetti"
+
+  - id: ghareeb-oglu
+    title: "Ghareeb Oglu Commerce"
+    proof_theme: "End-to-end digital product execution grounded in a real consumer brand."
+    service_support: ["product-web-development"]
+    source_classification: public_safe
+    sources:
+      - "https://ghareeboglu.com"
+      - "connected internal Ghareeb Oglu project corpus"
+    verified_proof:
+      - "Mohammed-authorized ownership wording: planned, designed, architected and built the commerce product end-to-end."
+      - "A live public Ghareeb Oglu ecommerce site exists."
+      - "Internal website/product corpus contains product/category/website materials and historical commerce-import evidence."
+    visual_candidates:
+      - id: ghareeb-live-storefront
+        kind: "live storefront capture"
+        status: public_live_capture
+        source: "ghareeboglu.com"
+        priority: primary
+        use: "Capture the actual live site as the principal UI proof. Keep screenshots contextual; do not separately redistribute third-party product photography without rights."
+      - id: ghareeb-brand-product-composition
+        kind: "brand/product visual"
+        status: internal_candidate
+        source: "internal Ghareeb Oglu Design / product mockup corpus"
+        priority: secondary
+        use: "Potential supporting brand atmosphere only after asset-publication rights are confirmed."
+      - id: ghareeb-coffee-tools-visual
+        kind: "editorial product mockup"
+        status: internal_candidate
+        source: "internal Coffee Tools Website design"
+        priority: supporting
+        use: "Atmosphere/support only; do not present as a live-page screenshot."
+      - id: ghareeb-commerce-import-evidence
+        kind: "implementation evidence"
+        status: evidence_only
+        source: "internal Website folder commerce-import files"
+        priority: supporting
+        use: "Historical implementation evidence only; do not infer the current production stack from legacy import files."
+    interaction_direction: "Use one real storefront/device capture with refined product/image transitions; a small commerce-flow cue may connect browse -> product -> cart -> fulfillment without turning the page into an ecommerce demo."
+    avoid:
+      - "presenting internal/AI-assisted marketing mockups as shipped UI"
+      - "inferring current architecture from legacy WooCommerce import files"
+      - "using isolated brand assets before rights are confirmed"
+
+  - id: makhbazy
+    title: "Makhbazy"
+    proof_theme: "Product design and delivery leadership for a multi-role mobile ordering journey."
+    service_support: ["product-web-development"]
+    source_classification: public_safe
+    sources:
+      - "website master plan authorized role wording"
+      - "connected internal Makhbazy handover and customer-journey corpus"
+    verified_proof:
+      - "Mohammed designed the UI/UX and led/supervised Android and iOS product delivery."
+      - "Customer-journey evidence covers onboarding, company setup/approval, reorder, catalog, product detail, cart, checkout, delivery tracking, receiving and support/documentation."
+    visual_candidates:
+      - id: makhbazy-customer-journey
+        kind: "mobile UX journey / interface screens"
+        status: internal_candidate
+        source: "Makhbazy Customer Journey, 23-page internal design document"
+        priority: primary_if_cleared
+        use: "Strongest evidence of actual UX/product design. Original slides/screens must not be published until company/asset rights are explicitly cleared."
+      - id: makhbazy-app-visual-identity
+        kind: "mobile/brand mockups"
+        status: internal_candidate
+        source: "Makhbazy App Visual Identity internal deck"
+        priority: secondary_if_cleared
+        use: "Visual atmosphere and product identity only; distinguish mockups from shipped functionality."
+      - id: makhbazy-public-safe-concept
+        kind: "original conceptual mobile-product treatment"
+        status: public_safe_derived
+        source: "authorized high-level role and product-flow facts"
+        priority: fallback
+        use: "If raw product assets remain uncleared, create an original phone/journey abstraction that demonstrates product leadership without reproducing protected UI."
+    interaction_direction: "A phone/journey sequence can move through discover -> order -> track -> receive, but the design must communicate Mohammed's UX/product leadership rather than claim sole app coding."
+    avoid:
+      - "publishing internal slides by default"
+      - "claiming sole Android/iOS coding ownership"
+      - "calling mockups shipped screenshots without evidence"
+
+  - id: oil-spill-detection
+    title: "Oil Spill Detection"
+    proof_theme: "Applied computer vision where the difficult class matters more than headline accuracy."
+    service_support: ["ml-ai-product-development", "product-web-development"]
+    source_classification: public
+    sources:
+      - "https://github.com/m7mdehab/oil-spill-detection"
+    verified_proof:
+      - "Sentinel-1 SAR five-class semantic segmentation."
+      - "Selected SegFormer mit-b2: oil IoU 0.566, oil recall 0.764, mean IoU 0.696, macro F1 0.802 on the committed test results."
+      - "Real MV Wakashio case study."
+      - "ONNX inference, georeferenced outputs, FastAPI and React/MapLibre product surface."
+    visual_candidates:
+      - id: oil-wakashio-detection
+        kind: "SAR + model detection case-study image"
+        status: public_repo_asset
+        source: "docs/case_study/wakashio_detection.png"
+        priority: primary
+        use: "Primary evidence visual; ideal for an image/mask comparison or reveal interaction."
+      - id: oil-sample-gallery
+        kind: "SAR samples"
+        status: public_repo_asset
+        source: "data/samples/sample_01..05"
+        priority: secondary
+        use: "Texture/context for the model task, not decorative stock imagery."
+      - id: oil-model-comparison
+        kind: "metrics visualization"
+        status: public_code_renderable
+        source: "docs/results/*.json"
+        priority: secondary
+        use: "Recreate a concise first-party model-comparison chart from committed evaluation outputs."
+    interaction_direction: "Use a controlled SAR-to-segmentation reveal/slider, then expose oil-specific metrics. Reduced-motion fallback is a static side-by-side figure."
+    avoid:
+      - "generic satellite imagery from unrelated sources"
+      - "pixel accuracy as the hero metric"
+      - "implying production certainty beyond documented limitations"
+
+  - id: solar-site-selection
+    title: "Solar Site Selection"
+    proof_theme: "Turning many geospatial criteria into an inspectable siting decision."
+    service_support: ["ml-ai-product-development", "product-web-development"]
+    source_classification: public
+    sources:
+      - "https://github.com/m7mdehab/SolarSiteSelection"
+      - "public Hugging Face demo linked from the repository"
+    verified_proof:
+      - "MapLibre AOI workflow."
+      - "Global public-data acquisition with documented WDPA limitation."
+      - "Consistency-checked AHP multi-criteria analysis and five-class LSI."
+      - "Ranked candidate sites plus pvlib energy/LCOE estimates and PDF export."
+    visual_candidates:
+      - id: solar-demo-landing
+        kind: "application screenshot"
+        status: public_repo_asset
+        source: "docs/assets/demo-1-landing.png"
+        priority: primary
+        use: "Use as real product context."
+      - id: solar-aoi-criteria
+        kind: "application screenshot"
+        status: public_repo_asset
+        source: "docs/assets/demo-2-aoi-criteria.png"
+        priority: primary
+        use: "Shows the actual decision inputs and map-based interaction."
+      - id: solar-lsi-map
+        kind: "suitability map"
+        status: public_repo_asset
+        source: "docs/validation/lsi_map.png"
+        priority: secondary
+        use: "Use as analytical output and validation context."
+    interaction_direction: "A map layer can transition from AOI/criteria to suitability classes and ranked sites; avoid a heavy embedded GIS app on the homepage."
+    avoid:
+      - "generic solar-panel stock photography"
+      - "claiming protected-area coverage globally when the repository documents the limitation"
+      - "turning the section into a full interactive map application"
+
+homepage_visual_policy:
+  current_placeholder: "components/project-visual.tsx"
+  finding: "The current single generic grid/orbit/sparkline visual is acceptable only as a temporary scaffold and conflicts with the requirement for project-specific proof."
+  next_action: "Replace it with project-specific visual components backed by this registry."
+  reduced_motion: "Every interaction must have a truthful static evidence fallback."
+  asset_rule: "Real project proof beats generated decoration. Generated/original conceptual graphics may explain public-safe systems but must never masquerade as screenshots or evidence."
