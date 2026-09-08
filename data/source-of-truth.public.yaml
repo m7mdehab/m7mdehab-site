@@ -1,0 +1,289 @@
+# Governed public-safe source registry for m7mdehab.com
+# Updated: 2026-09-09
+#
+# This file intentionally excludes private and confidential source material.
+# It is the completeness/provenance layer; data/public.ts remains the curated runtime projection.
+# Newer explicit instructions from Mohammed Ehab ElNomany override this file.
+
+meta:
+  canonical_name: "Mohammed Ehab ElNomany"
+  updated: "2026-09-09"
+  scope: "public and public-safe facts only"
+  runtime_projection: "data/public.ts"
+  classifications:
+    public: "Safe to publish as factual website content."
+    public_safe: "Publish only the explicitly allowed summarized fields."
+    public_eligible_deprioritized: "Safe, but intentionally not a primary homepage message."
+    editorial: "Positioning/copy, not an independently verifiable biographical fact."
+
+identity:
+  name:
+    value: "Mohammed Ehab ElNomany"
+    classification: public
+    evidence: ["latest explicit instruction", "website master plan"]
+  handle:
+    value: "M7mdehab"
+    classification: public
+    evidence: ["GitHub handle", "website master plan"]
+  location:
+    value: "Cairo, Egypt"
+    classification: public
+    evidence: ["Aug 2026 CV"]
+  current_role:
+    value: "Data Migration Engineer"
+    classification: public_safe
+    evidence: ["Aug 2026 CV"]
+  current_employer:
+    value: "Network International"
+    classification: public_safe
+    evidence: ["Aug 2026 CV"]
+  email:
+    value: "M7mdehab999@gmail.com"
+    classification: public
+    evidence: ["Aug 2026 CV"]
+  linkedin:
+    value: "https://www.linkedin.com/in/mohammed-ehab"
+    classification: public
+    evidence: ["Aug 2026 CV"]
+  github:
+    value: "https://github.com/m7mdehab"
+    classification: public
+    evidence: ["Aug 2026 CV", "GitHub"]
+  languages:
+    value:
+      - { language: "English", proficiency: "Native" }
+      - { language: "Arabic", proficiency: "Native" }
+    classification: public
+    evidence: ["Aug 2026 CV"]
+
+positioning:
+  classification: editorial
+  core_narrative: "Operates across the boundary between business problems and technical systems."
+  proposition: "I turn complex data and business problems into reliable systems, models, analytics and products."
+  capability_families:
+    - "Data Engineering & Migration"
+    - "Analytics & BI"
+    - "Data Science & Machine Learning"
+    - "AI Engineering"
+    - "Product & Software"
+  evidence: ["website master plan", "cross-project evidence"]
+
+employment:
+  - id: network-international
+    organization: "Network International"
+    title: "Data Migration Engineer"
+    start: "2026-01"
+    end: null
+    classification: public_safe
+    publishable_fields: ["organization", "title", "dates"]
+    evidence: ["Aug 2026 CV", "website master plan confidentiality rule"]
+    do_not_publish:
+      - client identities
+      - client counts
+      - card/account migration specifics
+      - internal or client systems/platform details
+      - proprietary mapping/migration workflows
+      - cutover/internal operational detail
+  - id: al-tayseer-international
+    organization: "Al Tayseer International for Mills & Food Industries"
+    group: "Al Tayseer Group"
+    title: "Marketing Team Lead"
+    start: "2025-06"
+    end: "2026-01"
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    public_summary:
+      - "Consolidated multi-brand and external-agency performance data into a single reporting view."
+      - "Built and maintained two WordPress brand websites."
+  - id: guksu
+    organization: "Guksu"
+    group: "Al Tayseer Group"
+    title: "Supply Chain Specialist & Data Analyst"
+    start: "2025-08"
+    end: "2025-11"
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    public_summary:
+      - "Built recurring sales, inventory, production and warehouse reporting."
+      - "Aligned manufacturing and sales plans with available raw materials and finished goods."
+  - id: egyptian-african-trade
+    organization: "Egyptian African Trade"
+    group: "Al Tayseer Group"
+    title: "Technical Team Lead / Data Analyst"
+    start: "2024-07"
+    end: "2025-06"
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    public_summary:
+      - "Used ERPNext data to define KPIs and regular performance reporting with operations and finance."
+      - "Linked paid-social performance to commercial outcomes."
+  - id: orcas
+    organization: "Orcas Online"
+    title: "Private Tutor (Computer Science & Data)"
+    start: "2024-01"
+    end: null
+    classification: public_eligible_deprioritized
+    evidence: ["Aug 2026 CV"]
+    public_summary:
+      - "Tutors Python, Java, data analysis, data science and machine learning."
+  - id: freelance
+    organization: "Self-employed"
+    title: "Freelance Web Developer / Consultant"
+    start: "2024-01"
+    end: null
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    public_summary:
+      - "Delivered two business websites end-to-end from requirements through launch."
+  - id: narss
+    organization: "National Authority for Remote Sensing & Space Sciences (NARSS)"
+    title: "Data / ML Intern"
+    start: "2023-11"
+    end: "2023-12"
+    classification: public_eligible_deprioritized
+    evidence: ["Aug 2026 CV"]
+  - id: zewail
+    organization: "Zewail City for Science & Technology"
+    title: "ML Intern"
+    start: "2023-08"
+    end: "2023-08"
+    classification: public_eligible_deprioritized
+    evidence: ["Aug 2026 CV"]
+  - id: phpc
+    organization: "Pharaonic Petroleum Company (PhPC)"
+    title: "IT Intern"
+    start: "2023-09"
+    end: "2023-09"
+    classification: public_eligible_deprioritized
+    evidence: ["Aug 2026 CV"]
+
+education:
+  - id: cic
+    institution: "Canadian International College"
+    qualification: "BSc Computer Science (Data Science Major)"
+    start: "2021-09"
+    end: "2024-08"
+    cgpa: 3.55
+    classification: public
+    evidence: ["Aug 2026 CV"]
+  - id: exploreai
+    institution: "ExploreAI Academy / ALX / African Leadership University"
+    qualification: "Data Science & AI Scholarship"
+    start: "2023-05"
+    end: "2024-07"
+    duration_months: 15
+    classification: public
+    evidence: ["Aug 2026 CV"]
+  - id: manarat
+    institution: "Manarat Jeddah International Schools"
+    qualification: "High School Diploma (British Curriculum & IGCSE)"
+    end: "2017"
+    detail: "8 O-Level and 3 AS subjects"
+    classification: public_eligible_deprioritized
+    evidence: ["Aug 2026 CV"]
+
+certifications:
+  - { name: "AI / LLM Engineering", issuer: "Udemy (Ed Donner)", year: 2025, classification: public, evidence: ["Aug 2026 CV"] }
+  - { name: "McKinsey Forward (Foundation & Advanced)", issuer: "McKinsey Academy", year: 2024, classification: public, evidence: ["Aug 2026 CV"] }
+  - { name: "Database Management with SQL", issuer: "Canadian International College", year: 2022, classification: public, evidence: ["Aug 2026 CV"] }
+  - { name: "Problem Solving with C++", issuer: "Coach Academy", year: 2023, classification: public, evidence: ["Aug 2026 CV"] }
+  - { name: "Data Analysis, Web Development & Digital Marketing (Challenger, Professional & Advanced Levels)", issuer: "Udacity / ITIDA", year: 2020, classification: public, evidence: ["Aug 2026 CV"] }
+
+skills:
+  data_and_bi:
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    items: ["SQL", "Power BI", "Advanced Excel", "Microsoft Office", "ERPNext", "KPI Design", "Dashboards", "Reporting & Analytics"]
+  data_engineering_and_migration:
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    items: ["Data Migration", "ETL", "Source-to-Target Mapping", "Data Cleansing & Validation", "Data Reconciliation", "PostgreSQL", "AWS (Foundations)"]
+  programming:
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    items: ["Python", "pandas", "NumPy", "scikit-learn", "SQL", "TypeScript (basic)", "JavaScript (basic)"]
+  machine_learning_and_ai:
+    classification: public
+    evidence: ["Aug 2026 CV", "public project repositories"]
+    items: ["Machine Learning", "Deep Learning", "TensorFlow", "PyTorch", "NLP", "Generative AI & LLMs", "RAG", "Agents", "Statistical & Probabilistic Modeling"]
+  web_and_deployment:
+    classification: public
+    evidence: ["Aug 2026 CV", "public project repositories"]
+    items: ["Next.js", "Web Development", "Vercel", "Supabase", "WordPress"]
+  delivery_and_business:
+    classification: public
+    evidence: ["Aug 2026 CV"]
+    items: ["Stakeholder Management", "Requirements Gathering", "Cross-functional Collaboration", "Team Leadership", "Problem Solving", "Marketing Analytics"]
+
+projects:
+  - id: presaira
+    title: "Presaira"
+    canonical_description: "A probabilistic forecasting system that forecast all 104 matches of the 2026 FIFA World Cup, with reproducible prediction runs, model evaluation and full-tournament Monte Carlo simulation."
+    classification: public
+    evidence:
+      - "GitHub: m7mdehab/WC2026-Live-Prediction-Engine"
+      - "presaira.com"
+    public_proof: ["Dixon-Coles", "Elo", "50,000-iteration Monte Carlo", "reproducibility", "backtesting", "testing", "postmortem"]
+  - id: opportunityos
+    title: "OpportunityOS"
+    canonical_description: "A governed opportunity-acquisition system built around truth management, provenance and autonomous multi-stage workflows."
+    classification: public_safe
+    evidence:
+      - "founder statement"
+      - "GitHub: m7mdehab/opportunityos-docs"
+    boundary: "Publish only allowlisted/public-safe architecture and product framing; private implementation and founder data remain private."
+  - id: ghareeb-oglu
+    title: "Ghareeb Oglu Commerce"
+    canonical_description: "An ecommerce product Mohammed planned, designed, architected and built end-to-end, including storefront, backend, payments, fulfillment/logistics integration and deployment."
+    classification: public_safe
+    evidence:
+      - "latest explicit/direct project statement in website master plan"
+      - "connected Drive project corpus exists"
+    boundary: "Publish only Mohammed-authorized ownership wording and non-confidential project evidence/assets."
+  - id: makhbazy
+    title: "Makhbazy"
+    canonical_description: "A mobile product for which Mohammed designed the UI/UX and led/supervised Android and iOS delivery from concept through implementation and approval."
+    classification: public_safe
+    evidence:
+      - "latest explicit/direct project statement in website master plan"
+      - "connected Drive project corpus exists"
+    boundary: "Do not imply sole coding ownership where the evidence supports product/design leadership and supervised delivery."
+  - id: oil-spill-detection
+    title: "Oil Spill Detection"
+    canonical_description: "A Sentinel-1 SAR semantic-segmentation system for marine oil-spill detection, with model evaluation, ONNX inference, georeferenced outputs, API serving and an interactive map UI."
+    classification: public
+    evidence: ["GitHub: m7mdehab/oil-spill-detection"]
+  - id: solar-site-selection
+    title: "Solar Site Selection"
+    canonical_description: "A geospatial photovoltaic siting engine combining public geodata, AHP multi-criteria analysis, suitability mapping, ranked sites and energy/LCOE estimates."
+    classification: public
+    evidence: ["GitHub: m7mdehab/SolarSiteSelection"]
+
+services:
+  primary:
+    - "Data migration and reconciliation"
+    - "Power BI dashboards and reporting"
+    - "Machine learning and AI product development"
+    - "Web/product development and deployment"
+  public_eligible_deprioritized:
+    - "Digital marketing analytics and reporting"
+    - "Tutoring in Python, Java, data analysis, data science and machine learning"
+  classification: public
+  evidence: ["founder statement", "Aug 2026 CV", "project/experience evidence"]
+
+publication_exclusions:
+  # These facts exist in private source material but are intentionally absent from this public registry.
+  - "phone number"
+  - "compensation thresholds"
+  - "career ranking preferences"
+  - "immigration plans"
+  - "freelance legal-capacity details"
+  - "service currencies and operational availability date"
+  - "industry red-line rules"
+  - "Network International client identities, client counts, systems and internal workflows"
+  - "OpportunityOS private founder data or private implementation details"
+
+editorial_content:
+  writing_titles:
+    classification: editorial
+    note: "Draft/article titles are editorial inventory, not factual biography. Publish only once substantive content exists."
