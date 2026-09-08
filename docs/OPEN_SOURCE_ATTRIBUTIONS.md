@@ -41,8 +41,8 @@ These are package/runtime dependencies rather than design-template reuse. Exact 
 | Tailwind CSS | https://github.com/tailwindlabs/tailwindcss | MIT | Styling infrastructure. |
 | Manrope | Google Fonts `ofl/manrope` | SIL OFL 1.1 | Current sans candidate. If font files are redistributed, preserve OFL/copyright notice. |
 | Newsreader | Google Fonts `ofl/newsreader` | SIL OFL 1.1 | Current serif candidate. If font files are redistributed, preserve OFL/copyright notice. |
-| OGL | https://github.com/oframe/ogl | **HOLD — upstream GitHub currently exposes no license metadata/file in this audit** | Dependency may remain installed but must not become a production requirement until the exact distributed package license is verified from installed/package metadata. |
-| GSAP | https://gsap.com / Webflow | Commercial website/app use currently permitted under current GSAP/Webflow terms; not treated as MIT | Add only if a concrete interaction justifies it; re-check terms before public release. |
+| OGL | https://github.com/oframe/ogl | **NOT IN CURRENT DEPENDENCIES — upstream GitHub exposed no license metadata/file in this audit** | Removed from `package.json` because it was unused. Reintroduce only after the exact distributed-package terms are verified and a concrete WebGL need exists. |
+| GSAP | https://gsap.com / Webflow | Commercial website/app use currently permitted under current GSAP/Webflow terms; not treated as MIT | Not currently installed. Add only if a concrete interaction justifies it; re-check terms before public release. |
 
 ## Third-party asset policy
 
@@ -60,7 +60,7 @@ Mohammed-owned or explicitly public-safe project evidence should be the default 
 
 Before a public repository or production release:
 - generate a dependency/transitive license inventory from the installed lockfile;
-- verify OGL's exact installed-package terms if OGL remains used;
+- verify OGL's exact installed-package terms if OGL is ever reintroduced;
 - re-check GSAP terms if GSAP enters production;
 - verify every copied/adapted source fragment has a recorded origin and required notice;
 - verify all visual assets have provenance/permission;
