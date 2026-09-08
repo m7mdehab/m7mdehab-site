@@ -24,9 +24,12 @@ The production site must not become a reskin of any source.
 - React 19
 - TypeScript
 - Tailwind CSS 4 + custom CSS design tokens
-- Motion
-- Lenis
-- OGL / Matter.js reserved for selective interactions only
+- Motion — primary animation runtime
+- Lenis — optional smooth-scroll polish with reduced-motion fallback
+- Matter.js — reserved for optional progressive-enhancement interactions only
+- GSAP — not currently installed; may be introduced only for a specific justified choreography
+
+OGL was removed from the scaffold during the reference/licensing audit because the current upstream GitHub source did not expose sufficiently clear license metadata for us to carry an unused dependency. It can be reconsidered only after exact package terms are verified.
 
 ## Current routes
 
@@ -47,5 +50,6 @@ The production site must not become a reskin of any source.
 5. SEO, entity SEO and AI extractability are architectural requirements.
 6. Accessibility, performance and mobile usability can veto an aesthetic treatment.
 7. Professional data stays centralized and extensible.
+8. Any direct third-party source adaptation must update the attribution register in the same change.
 
-See `/docs` for the governing product, design, SEO and reference system.
+See `/docs` for the governing product, design, SEO, reference and licensing system.
