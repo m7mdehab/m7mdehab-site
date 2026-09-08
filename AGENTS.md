@@ -44,6 +44,23 @@ Do not collapse either into a generic logo wall.
 ## Design rule
 The site is a custom synthesis of multiple references. Do not reskin one template. Favor exceptional typography, real project visuals, generous spacing, restrained state-change motion, semantic HTML and distinctive project treatments.
 
+## Visual evidence and asset provenance
+Use `data/project-evidence.public.yaml` as the governing registry for project proof, visual candidates, asset status and project-specific interaction direction. See `docs/PROJECT_EVIDENCE_VISUAL_AUDIT_2026-09-09.md` for the audit rationale.
+
+Rules:
+
+- Real project evidence outranks generated or decorative visuals.
+- Public repository assets and public-code-derived renders may be used only within their actual meaning and source/licensing context.
+- Public live-site captures may demonstrate a product experience. Do not extract unrelated product photography, logos or brand artwork from a screenshot into a separate reusable asset pack unless rights are independently established.
+- Connected Drive/internal project material is **not automatically publishable** merely because it is accessible. An `internal_candidate` may support verification and guide an original public-safe treatment without shipping the original bytes.
+- Never invent screenshots, dashboards, client data, product states, metrics or confidential architectures to fill a visual slot.
+- A `public_safe_derived` architecture/concept graphic must be recognizably explanatory. Never make it resemble a hidden/internal screenshot.
+- Makhbazy visuals must preserve the distinction between UI/UX/product leadership and sole coding ownership.
+- OpportunityOS visuals must remain within the allowlisted public architecture/product framing; no private founder/application data or private UI.
+- Network International work must not receive reconstructed client screenshots, data models, bank diagrams or proprietary migration visuals.
+- Every project-specific visual introduced in code should map to a registry entry or cause the registry to be updated in the same change.
+- Reduced-motion and mobile fallbacks must preserve the same truthful proof in static form rather than substitute generic decoration.
+
 ## SEO / AI visibility
 Keep visible content, structured data and machine-readable outputs consistent with the governed public truth model. Do not fabricate schema claims that do not appear visibly or lack evidence. Never leak private facts through JSON-LD, `/profile.json`, `/projects.json`, `/llms.txt`, metadata or hidden HTML.
 
@@ -55,6 +72,7 @@ Keep professional content centralized under `data/`. Adding a job, certification
 
 ## Before shipping
 - reconcile `data/source-of-truth.public.yaml` with `data/public.ts`;
+- reconcile project visuals/evidence against `data/project-evidence.public.yaml`;
 - verify third-party licenses and attribution;
 - run typecheck/lint/build when dependencies are available;
 - run accessibility/performance/SEO checks;
