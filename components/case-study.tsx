@@ -83,7 +83,7 @@ export function CaseStudyNarrative({ study, nextProject }: { study: CaseStudy; n
         </div>
       </section>
 
-      <Link className={styles.nextProject} href={`/work/${nextProject.slug}`}>
+      <Link data-case-next className={styles.nextProject} href={`/work/${nextProject.slug}`}>
         <p className={styles.eyebrow}>Next project · {nextProject.kicker}</p>
         <strong>{nextProject.title}</strong>
         <span aria-hidden="true"><ArrowUpRight size={19} /></span>
