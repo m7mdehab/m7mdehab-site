@@ -10,8 +10,9 @@ Updated: 2026-09-09
 | 1 Source/reference/licensing audit | **COMPLETE** | Deep reference audit, reuse classifications, expanded component matrix, attribution/license register, unused unresolved OGL dependency removed | — |
 | 2 Truth model & content completeness | **COMPLETE** | CV/truth-pack/GitHub/Drive reconciliation, governed public-safe source registry, classification rules, confidentiality boundaries, runtime data corrections | — |
 | 3 Project evidence & visual assets | **COMPLETE** | Six-project evidence/asset audit, provenance registry, service-proof coverage matrix, project-specific visual grammar and publication boundaries | — |
-| 4 Evidence-driven visual prototypes | **COMPLETE** | Six differentiated evidence treatments, varied selected-work rhythm, project-route integration, mobile/reduced-motion fallbacks, provenance/test report | Iteration 5 — deepen production case-study storytelling and run full checkout/browser validation in the first environment that has installed dependencies |
-| 5+ | NOT STARTED | — | Continue according to autonomous execution plan |
+| 4 Evidence-driven visual prototypes | **COMPLETE** | Six differentiated evidence treatments, varied selected-work rhythm, project-route integration, mobile/reduced-motion fallbacks, provenance/test report | — |
+| 5 Production case-study storytelling & validation | **COMPLETE** | Six substantive evidence-first case studies, shared editorial grammar, real clean-checkout type/lint/build/route-smoke baseline and repository-hygiene fixes | Iteration 6 — rendered QA, production hardening & homepage refinement |
+| 6+ | NOT STARTED | — | Continue according to autonomous execution plan |
 
 ## Program phases
 
@@ -19,16 +20,36 @@ Updated: 2026-09-09
 |---|---|---|---|
 | 1 Source of truth | **COMPLETE** | `data/source-of-truth.public.yaml` + `docs/TRUTH_MODEL_AUDIT_2026-09-09.md`; current/prior CV reconciled; public/private/confidential boundary and source precedence locked | Maintain registry whenever facts change |
 | 2 Research/reference | **COMPLETE** | Deep audit completed across React Bits, Motion Primitives, Aceternity, Kintarowwwards, MotionFolio, koloNatalie and Aitezaz. Reuse/license boundaries locked. | Maintain attribution register in every future third-party-code change |
-| 3 Information architecture | ACTIVE | Homepage modules and supporting routes established; Iteration 4 varied composition without changing strategic project priority | Deepen project routes/case-study narrative without turning the homepage into a résumé dump |
-| 4 SEO/AI architecture | ACTIVE | Architecture drafted; machine-readable surfaces/scaffold prepared | Keep project/claim metadata synchronized with governed truth and evidence registries during implementation |
+| 3 Information architecture | ACTIVE | Homepage modules, supporting routes and substantive six-project case studies are established without changing strategic project priority | Validate rendered narrative pacing before adding more supporting IA |
+| 4 SEO/AI architecture | ACTIVE | Architecture drafted; machine-readable surfaces remain synchronized and are now production-route smoke-tested | Keep project/claim metadata synchronized with governed truth and evidence registries during refinement |
 | 5 AI visibility benchmark | ACTIVE | Fixed prompt library/result schema exists | Record T0 where direct tests are available; external anonymous tests remain setup-dependent |
-| 6 Brand/visual system | ACTIVE | Evidence-first visual grammar is implemented for the six flagship projects using restrained, state-change motion | Validate rendered desktop/mobile/reduced-motion behavior in a normal checkout, then refine only from observed defects |
-| 7 Visual concepts | ACTIVE | Reference pool, adoption matrix, rejection rules and real project asset/proof map are now represented in working selected-work prototypes | Expand strongest prototype language into deeper case studies and remaining homepage modules |
-| 8 Technical architecture | ACTIVE | Next.js application scaffold; Motion primary; no new runtime dependency added for Iteration 4; project evidence interactions are CSS-first | Add dependencies only when a future interaction proves they are necessary |
-| 9 Repository design | ACTIVE | Production GitHub repository live and governed | Add CI after first install/build baseline |
-| 10 Agent documentation | ACTIVE | AGENTS governs truth, confidentiality, licensing and visual evidence/asset provenance; Iteration 4 report documents implementation/test limits | Continue testing/deployment detail as implementation evolves |
-| 11 Homepage | ACTIVE | Generic project visual component has been replaced by evidence-specific rendering; selected-work rows no longer share one visual/card treatment | Run rendered QA, then continue broader homepage refinement |
+| 6 Brand/visual system | ACTIVE | Evidence-specific project visuals plus an evidence-first editorial case-study grammar are implemented; mobile/reduced-motion code paths exist | Iteration 6: inspect real desktop/tablet/mobile/reduced-motion rendering and refine from observed defects only |
+| 7 Visual concepts | ACTIVE | Evidence is represented in both selected-work prototypes and production case-study storytelling with unequal depth by proof strength | Run rendered QA before extending the visual language into additional homepage modules |
+| 8 Technical architecture | ACTIVE | Next.js + Motion architecture retained; no new runtime dependency in Iteration 5; real Node 22 clean-checkout CI now gates typecheck, lint, build and production-route smoke tests | Add a committed lockfile, deterministic install and browser/performance/a11y validation in Iteration 6 |
+| 9 Repository design | ACTIVE | Production GitHub repository is governed and now has a first application CI baseline | Generate a lockfile and switch CI from `npm install` to deterministic `npm ci` after dependency review |
+| 10 Agent documentation | ACTIVE | AGENTS governs truth, confidentiality, licensing, visual provenance and case-study narrative authority; Iteration 5 report records real validation and explicit untested surfaces | Continue deployment/testing governance as production hardening progresses |
+| 11 Homepage | ACTIVE | Selected work is evidence-specific and project pages are now substantive case studies; broader homepage modules remain intentionally restrained | Iteration 6: rendered homepage QA and evidence-led refinement rather than abstract redesign |
 | 12+ | NOT STARTED | — | Continue autonomously after earlier dependencies are resolved |
+
+## Iteration 5 locked implementation decisions
+
+- `data/case-studies.ts` is the **curated runtime case-study projection**. It is subordinate to `data/source-of-truth.public.yaml`, `data/project-evidence.public.yaml`, current verified public project evidence and Mohammed's newest explicit instructions.
+- The production case-study grammar is: **thesis → challenge → role/scope → approach → evidence → limits/boundaries → publication/source note → next project**.
+- Case-study depth is intentionally unequal. Public technical repositories may support architecture, evaluation and documented limitations; public-safe commercial/internal projects stay narrower when publication rights or evidence are narrower.
+- No project receives invented revenue, conversion, traffic, customer, adoption or business-outcome metrics merely to make the narrative feel complete.
+- Presaira is framed around forecast integrity after the event: 104/104 evaluation coverage, 50,000-iteration tournament simulation, leakage/testing discipline, calibration/backtests/postmortem and the committed failed convergence target remain visible.
+- OpportunityOS is proved through public authority/invariant architecture rather than invented private UI: Truth Graph / EvidenceClaim, open-world matching semantics and explicit `DRY_RUN` / `ASSISTED` / `CONTROLLED_SUBMIT` action authority.
+- Ghareeb Oglu is framed around governed end-to-end commerce ownership. Internal assets remain non-public by default, historical import files do not prove the current stack, and no commercial KPI is invented.
+- Oil Spill keeps oil-specific evaluation central: committed SegFormer oil IoU `0.566`, oil recall `0.764`, mean IoU `0.696`, operational ONNX/geospatial delivery and the real Wakashio case study, alongside the repository's documented dataset/domain limitations.
+- Solar is framed as an inspectable decision system: public geodata, 12 criteria, consistency-checked AHP/MCDA, exclusions, five-class LSI, ranked candidate sites, energy/LCOE estimates and the documented validation divergence remain visible with their limitations.
+- Makhbazy proves UI/UX and product/development leadership plus supervised Android/iOS delivery without publishing raw internal screens or converting supervision into a false sole-coding claim.
+- `components/case-study.tsx` + `components/case-study.module.css` provide one semantic editorial system, not six cloned immersive microsites. The same substantive narrative remains available on mobile and under reduced motion.
+- `.github/workflows/ci.yml` and `eslint.config.mjs` establish the first real application validation baseline. CI runs on pull requests to `main` and pushes to `main`, cancels stale runs, installs on Node 22, then gates typecheck, lint, production build and HTTP smoke tests for the homepage, six case studies and machine-readable routes.
+- The first clean-checkout validation surfaced and fixed latent repository defects that syntax-only checks had missed: optional `project.href` narrowing, missing ESLint 9 flat configuration and `Reveal` creating a Motion component during render. Intentional external evidence-image handling and the PostCSS export were also made lint-clean.
+- GitHub Actions run `34317360117` on source commit `8c0a8b2d75960b14bc1ee29683c9298138f1edc1` passed dependency install, TypeScript typecheck, ESLint, Next.js production build and production-route smoke tests.
+- That CI pass is **not** rendered visual QA. Desktop/mobile screenshots, real-device review, visual regression, Playwright interactions, Lighthouse, axe and rendered reduced-motion comparison remain explicitly untested and move to Iteration 6.
+- The repository still has no committed lockfile, so the baseline uses `npm install`; deterministic `npm ci` and dependency/security/support review are Iteration 6 production-hardening work.
+- Iteration 5 introduced no new runtime dependency, copied reference-template code, third-party visual asset or newly published Ghareeb/Makhbazy internal source file. No attribution-register change was required.
 
 ## Iteration 4 locked implementation decisions
 
@@ -45,7 +66,7 @@ Updated: 2026-09-09
 - No reference-portfolio code or imagery was copied and no new animation package was added.
 - Motion is deliberately small and state-based. Touch layouts show static proof; `prefers-reduced-motion` removes choreography while retaining the same evidence.
 - Figures use semantic captions; Presaira's SVG exposes title/description and point values; real images have alt text.
-- Full build/lint/browser/Lighthouse/Playwright QA is **not marked passed** because this execution environment has GitHub API access but no usable local checkout/dependency installation path. Local TS/TSX syntax transpilation was run and passed for authored source. See `docs/ITERATION_4_EVIDENCE_VISUAL_PROTOTYPES_2026-09-09.md`.
+- Iteration 4 itself did not claim build/lint/browser/Lighthouse/Playwright passes because that execution environment lacked a usable installed checkout. Iteration 5 subsequently established a real clean-checkout type/lint/build/route-smoke CI baseline; rendered visual QA remains pending. See `docs/ITERATION_4_EVIDENCE_VISUAL_PROTOTYPES_2026-09-09.md` and `docs/ITERATION_5_CASE_STUDY_STORYTELLING_2026-09-09.md`.
 
 ## Iteration 3 locked evidence/visual decisions
 
