@@ -20,7 +20,7 @@ const serviceIds = [
 test.describe("Iteration 8 discoverability architecture", () => {
   test("indexable HTML routes self-canonicalize and project Open Graph URLs match", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/`);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", domain);
 
     for (const slug of projectSlugs) {
       await page.goto(`/work/${slug}`);
