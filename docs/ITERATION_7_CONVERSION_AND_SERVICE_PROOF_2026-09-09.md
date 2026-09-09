@@ -1,7 +1,7 @@
 # Iteration 7 — Conversion Architecture & Service Proof
 
 Date: 2026-09-09
-Status: **ACTIVE**
+Status: **ACTIVE — final confirmation gate**
 Branch: `iteration-7-conversion-and-service-proof`
 Base: Iteration 6 merged `main` at `2911733d8afb9e0750a45b928448bf9633a41084`
 
@@ -24,7 +24,7 @@ The current project evidence registry already defines service-proof asymmetry:
 
 No implementation may cosmetically fill the weaker evidence categories with fake screenshots, proprietary reconstructions or relabeled project visuals.
 
-## Iteration 7 first-slice decisions
+## Iteration 7 implementation decisions
 
 ### 1. Keep the service model inside the existing runtime projection
 
@@ -97,13 +97,31 @@ Examples:
 - `project-service-to-contact`
 - top-level contact channel intents
 
-No tracking library, cookie system or third-party analytics script is introduced by this first slice.
+No tracking library, cookie system or third-party analytics script is introduced.
 
-### 7. Do not create a thin `/services` route yet
+### 7. Do not create a thin `/services` route
 
-The master plan says a dedicated service page should exist only when substantive content justifies it. The current first slice deepens the homepage service surface and project links first. A standalone `/services` route remains a content-substance decision, not a conventional SEO checkbox.
+The master plan says a dedicated service page should exist only when substantive content justifies it. The strengthened homepage service surface plus project/service bridges are currently the more coherent information architecture. A standalone `/services` route remains a future content-substance decision, not a conventional SEO checkbox.
 
-## Test contract added
+### 8. Keep service conversion as contextual email intent for now
+
+A first-party contact form is not justified in this iteration. Contextual `mailto:` intents are fast, provider-independent, work without JavaScript and avoid introducing spam handling, form persistence, personal-data storage or backend/runtime obligations without a clear user benefit.
+
+This may be revisited after public launch if real conversion data shows that a form would materially reduce friction.
+
+### 9. Preserve recruiter/client convergence rather than adding an audience switch
+
+The site should not ask visitors to self-classify as "recruiter" or "client" before they can understand Mohammed's work. The same evidence should support both audiences naturally:
+
+- projects establish proof;
+- capabilities explain transferable competence;
+- services make commercial relevance explicit where appropriate;
+- experience remains available for employment context;
+- contact remains a common low-friction action.
+
+No audience-toggle gimmick is introduced.
+
+## Test contract
 
 `tests/iteration7.conversion.spec.ts` verifies:
 
@@ -116,19 +134,90 @@ The master plan says a dedicated service page should exist only when substantive
 - Makhbazy maps directly to Product/Web only;
 - service proof/contact semantics remain available with JavaScript disabled.
 
-The browser script now runs the complete `tests` directory so Iteration 6 rendered/a11y regression coverage and Iteration 7 conversion coverage execute together.
+`npm run test:browser` now runs the complete `tests` directory so the strict Iteration 6 regression suite and Iteration 7 conversion coverage execute together.
 
-## Validation status
+The rendered workflow is renamed from the iteration-specific `Iteration 6 Rendered QA` to **Rendered Browser QA**. Artifact names are also generalized. Lighthouse logging now includes the runner `benchmarkIndex` so performance-score variance can be interpreted against runner CPU capability instead of treated as an isolated score.
 
-Pending first PR CI/rendered-QA execution for this branch. No pass claim is made until the GitHub Actions runs complete.
+## Validation evidence
 
-## Remaining Iteration 7 work after the first slice
+### First full Iteration 7 branch run
 
-- inspect the rendered conversion/service composition at desktop and mobile sizes;
-- verify strict axe remains at zero violations with the added service content;
-- confirm the expanded service cards do not degrade homepage performance materially;
-- audit link/copy hierarchy for recruiter vs client conversion without creating audience-switch gimmicks;
-- decide whether service-specific contact messaging should remain direct email intent or use a future first-party contact form;
-- decide from real content depth whether a `/services` route is justified;
-- reconcile machine-readable service semantics if/when visible service content becomes rich enough to warrant an explicit public structured-data surface;
-- update `docs/EXECUTION_STATUS.md` as the iteration progresses.
+Validated code head: `4850e9c7154738f875aee49f0fed0019119b9074`
+
+- Application CI run `34369348657`: **PASS**.
+  - deterministic `npm ci`
+  - TypeScript
+  - ESLint
+  - Next.js 16.3.4 production build
+  - production-route smoke tests
+- Rendered QA run `34369348645`: **PASS**.
+- Browser suite: **21/21 PASS**.
+  - 17 strict Iteration 6 regression tests
+  - 4 Iteration 7 conversion/progressive-enhancement tests
+- The successful desktop route suite preserves the strict policy where **any axe violation fails**.
+- Desktop and 390px service composition were visually inspected from the uploaded artifact and remain readable, coherent and overflow-safe.
+- Production dependency/security evidence continues to be captured with each rendered run.
+
+### Lighthouse variance investigation
+
+The first Iteration 7 run returned:
+
+- homepage: **88 performance / 100 accessibility / 100 best practices / 100 SEO / 100 agentic browsing**
+- Presaira: **97 / 100 / 100 / 100 / 100**
+
+The homepage performance score was investigated against the final Iteration 6 strict artifact rather than accepted or optimized blindly.
+
+Findings:
+
+- Iteration 6 homepage performance score: **96**.
+- Iteration 6 Lighthouse CPU `benchmarkIndex`: **2351.5**.
+- Iteration 7 first-run `benchmarkIndex`: **1802.5**, about 23% lower/slower.
+- JavaScript request count is unchanged at **6**.
+- JavaScript transfer is byte-for-byte unchanged at **144,553 bytes** in both reports.
+- The same production JavaScript chunk URLs/hashes are present in both artifacts.
+- Intentional Iteration 7 transfer growth is mainly server-rendered evidence copy and CSS:
+  - document transfer: about **16.4 KB → 20.8 KB**;
+  - stylesheet transfer: about **11.2 KB → 11.7 KB**.
+- CLS is unchanged at approximately **0.011**.
+- The slower lab run spent substantially more time evaluating the same JavaScript chunks, consistent with the lower runner benchmark rather than a newly introduced client bundle.
+
+Decision: **do not remove truthful service evidence or invent a client-side optimization solely to recover a noisy lab score.** The durable response is to log benchmark capability and use Lighthouse as a comparative signal, while continuing to gate actual browser behavior, accessibility, overflow, progressive enhancement and production correctness.
+
+A second confirmation run on the generalized Browser QA workflow is the final validation gate before closure.
+
+## Closure gate
+
+Iteration 7 will be marked complete and merged when the latest branch head satisfies:
+
+1. deterministic Application CI PASS;
+2. generalized Rendered Browser QA PASS;
+3. 21/21 browser/conversion tests remain green;
+4. strict axe policy remains green;
+5. no new mobile overflow or no-JS regression is observed;
+6. final governance/status docs record the validated head and next iteration.
+
+## What Iteration 7 deliberately does not claim
+
+- No production analytics provider/property has been configured.
+- No live conversion data exists yet.
+- No client outcomes, revenue, user counts or conversion lifts are invented.
+- No publishable Power BI screenshot has appeared.
+- No confidential migration artifact has become public.
+- No dedicated `/services` page is claimed necessary.
+- No contact form/backend is added without evidence that it improves real conversion.
+- No claim is made that `m7mdehab.com` is deployed.
+
+## Next autonomous stage after closure
+
+**Iteration 8 — pre-launch discoverability & launch readiness**
+
+Priority should move from portfolio construction toward publication readiness:
+
+- synchronize visible service/case-study claims with machine-readable identity/project surfaces;
+- audit sitemap/robots/metadata/LLM surfaces against the now-final conversion architecture;
+- prepare launch/deployment contracts and environment checklist without claiming external account state;
+- run direct T0 AI/search visibility checks where execution is available;
+- prepare privacy-conscious analytics binding requirements for whichever provider/property is later authorized;
+- isolate truly external blockers: domain/DNS/runtime access, Search Console, Bing Webmaster and production analytics property access.
+
+External setup remains a boundary, not a reason to continue redesigning the site.
