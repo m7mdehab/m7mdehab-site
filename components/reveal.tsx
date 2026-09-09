@@ -5,6 +5,7 @@ type RevealProps = {
   children: ReactNode;
   delay?: number;
   className?: string;
+  id?: string;
 };
 
 /**
@@ -15,10 +16,10 @@ type RevealProps = {
  * JavaScript + intersection observation ran. Evidence and copy now remain
  * visible by default; project-specific interactions provide progressive motion.
  */
-export function Reveal({ as = "div", children, className }: RevealProps) {
+export function Reveal({ as = "div", children, className, id }: RevealProps) {
   if (as === "h1") {
-    return <h1 className={className}>{children}</h1>;
+    return <h1 className={className} id={id}>{children}</h1>;
   }
 
-  return <div className={className}>{children}</div>;
+  return <div className={className} id={id}>{children}</div>;
 }
