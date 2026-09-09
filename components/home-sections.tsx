@@ -12,7 +12,9 @@ import {
   skillGroups,
   writing,
 } from "@/data/public";
+import { projectVisuals } from "@/data/project-visuals";
 import { ProjectVisual } from "@/components/project-visual";
+import projectStyles from "@/components/project-visual.module.css";
 import { Reveal } from "@/components/reveal";
 
 function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
@@ -42,22 +44,25 @@ export function Hero() {
 export function Work() {
   return (
     <section id="work" className="section shell">
-      <SectionIntro eyebrow="01 — Selected work" title="Proof, not portfolio filler." copy="Each project demonstrates a different part of how I think, build and deliver." />
+      <SectionIntro eyebrow="01 — Selected work" title="Proof, not portfolio filler." copy="Each project demonstrates a different part of how I think, build and deliver — with the visual treatment driven by the evidence that actually exists." />
       <div className="work-list">
-        {projects.map((project, index) => (
-          <Reveal key={project.slug} delay={Math.min(index * 0.04, 0.2)}>
-            <Link className="project-row" href={`/work/${project.slug}`}>
-              <div className="project-copy">
-                <p className="project-index">0{index + 1}</p>
-                <p className="project-kicker">{project.kicker}</p>
-                <h3>{project.title}</h3>
-                <p className="project-statement">{project.statement}</p>
-                <p className="project-proof">{project.proof}</p>
-              </div>
-              <ProjectVisual tone={project.tone} label={project.title} />
-            </Link>
-          </Reveal>
-        ))}
+        {projects.map((project, index) => {
+          const visual = projectVisuals[project.slug];
+          return (
+            <Reveal key={project.slug} delay={Math.min(index * 0.04, 0.2)}>
+              <Link className={`${projectStyles.row} ${projectStyles[visual.layout]}`} href={`/work/${project.slug}`}>
+                <div className="project-copy">
+                  <p className="project-index">0{index + 1}</p>
+                  <p className="project-kicker">{project.kicker}</p>
+                  <h3>{project.title}</h3>
+                  <p className="project-statement">{project.statement}</p>
+                  <p className="project-proof">{project.proof}</p>
+                </div>
+                <ProjectVisual slug={project.slug} />
+              </Link>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );
