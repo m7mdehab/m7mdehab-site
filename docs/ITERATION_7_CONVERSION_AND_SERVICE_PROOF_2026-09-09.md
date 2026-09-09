@@ -1,7 +1,7 @@
 # Iteration 7 — Conversion Architecture & Service Proof
 
 Date: 2026-09-09
-Status: **COMPLETE**
+Status: **COMPLETE — MERGE READY**
 Branch: `iteration-7-conversion-and-service-proof`
 Base: Iteration 6 merged `main` at `2911733d8afb9e0750a45b928448bf9633a41084`
 Validated runtime head: `20a03dc762b0b0bde6c1d6176751cc021f85b653`
@@ -135,7 +135,7 @@ The more important architectural finding was the whole-site `SmoothScroll` clien
 
 ### Final validated runtime run
 
-Runtime head: `20a03dc762b0bde6c1d6176751cc021f85b653`
+Runtime head: `20a03dc762b0b0bde6c1d6176751cc021f85b653`
 
 - Application CI `34396268944`: **PASS**.
   - deterministic `npm ci`
@@ -154,6 +154,8 @@ Runtime head: `20a03dc762b0bde6c1d6176751cc021f85b653`
 - Presaira Lighthouse: **99 / 100 / 100 / 100 / 100**.
 
 This is close to the Iteration 6 homepage performance baseline while retaining all new service proof and conversion content. No evidence was removed to manufacture a score.
+
+The two commits after the validated runtime head are documentation/status closure records only and do not alter runtime code, dependency state or test configuration.
 
 ## Locked Iteration 7 decisions
 
