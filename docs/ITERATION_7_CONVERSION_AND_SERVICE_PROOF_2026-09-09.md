@@ -1,9 +1,10 @@
 # Iteration 7 — Conversion Architecture & Service Proof
 
 Date: 2026-09-09
-Status: **ACTIVE — final confirmation gate**
+Status: **COMPLETE**
 Branch: `iteration-7-conversion-and-service-proof`
 Base: Iteration 6 merged `main` at `2911733d8afb9e0750a45b928448bf9633a41084`
+Validated runtime head: `20a03dc762b0b0bde6c1d6176751cc021f85b653`
 
 ## Objective
 
@@ -11,213 +12,183 @@ Turn the website's strong project and capability evidence into a deliberate, tru
 
 `project → capability → relevant service → contact`
 
-This is not a sales-funnel rewrite and not a request to make all services look equally visual. The conversion architecture must preserve the same truth, evidence, confidentiality and publication-rights boundaries that govern the project case studies.
+The implementation preserves the same truth, evidence, confidentiality and publication-rights boundaries that govern the project case studies. It does not force every service into equal proof density or invent a sales-funnel persona switch.
 
-## Governing source basis
+## Governing evidence decisions
 
-The current project evidence registry already defines service-proof asymmetry:
+The project evidence registry defines service-proof asymmetry and Iteration 7 preserves it:
 
-- **Data migration & reconciliation** — strong experience evidence, weak public visual evidence. No publishable client migration artifact is currently available.
-- **Analytics & Power BI** — strong experience/skills evidence, limited publishable artifact evidence. Presaira and Solar can support analytical thinking but must not be represented as Power BI proof.
+- **Data migration & reconciliation** — strong experience evidence, weak public visual evidence. No client migration artifact is fabricated or reconstructed.
+- **Analytics & Power BI** — strong experience/skills evidence, limited publishable artifact evidence. Presaira and Solar may support analytical thinking but are explicitly not Power BI proof.
 - **ML & AI product development** — very strong public project evidence from Presaira, OpportunityOS, Oil Spill Detection and Solar Site Selection.
-- **Product & web development** — very strong cross-project evidence. Project-level service support also includes OpportunityOS, while ownership wording remains project-specific.
+- **Product & web development** — very strong cross-project evidence, with project-specific ownership wording preserved.
 
-No implementation may cosmetically fill the weaker evidence categories with fake screenshots, proprietary reconstructions or relabeled project visuals.
+Authority remains `data/source-of-truth.public.yaml` + `data/project-evidence.public.yaml`; `data/public.ts` remains the curated runtime projection.
 
-## Iteration 7 implementation decisions
+## Production implementation
 
-### 1. Keep the service model inside the existing runtime projection
-
-`data/public.ts` remains the curated website runtime projection. The service entries are enriched with presentation/conversion metadata rather than creating a new truth registry.
+### Evidence-backed service model
 
 Each primary service now carries:
 
 - stable service ID;
 - capability association;
 - evidence statement;
-- explicit proof-strength label;
-- contextual project links where appropriate;
-- a distinction between **related evidence projects** and **direct project-to-service support**;
-- publication-boundary/context wording;
-- provider-neutral contact intent/subject.
+- proof-strength label;
+- related project evidence where appropriate;
+- a distinction between adjacent evidence and direct project-to-service support;
+- publication-boundary/context copy;
+- provider-neutral contact intent and subject.
 
-The authority remains `data/source-of-truth.public.yaml` + `data/project-evidence.public.yaml`.
+### Stable conversion architecture
 
-### 2. Distinguish direct support from adjacent analytical proof
-
-This distinction is important for Analytics & Power BI.
-
-Presaira and Solar Site Selection may appear on the Analytics service card because they demonstrate analytical decision-making. They are explicitly labelled as **not Power BI artifacts** and do **not** cause those project case studies to claim Analytics & Power BI as a directly supported service.
-
-The project-to-service bridge uses only the registry-backed direct support relationship.
-
-### 3. Use stable semantic anchors, not client-only state
-
-The homepage service section now has stable first-party IDs such as:
+Homepage service anchors are first-party, server rendered and no-JS-safe:
 
 - `#service-data-migration-reconciliation`
 - `#service-analytics-power-bi`
 - `#service-ml-ai-product-development`
 - `#service-product-web-development`
 
-Capability rows link to their relevant service anchor. These anchors are server rendered and remain valid without JavaScript.
+Capability rows resolve into relevant service anchors. Case studies expose only services directly supported by the evidence registry.
 
-### 4. Make service proof legible
+Important conversion links expose stable provider-neutral semantics such as:
 
-The service cards now expose:
+- `data-conversion="capability-to-service"`
+- `data-conversion="service-to-project"`
+- `data-conversion="service-to-contact"`
+- `data-conversion="project-to-service"`
+- `data-conversion="project-service-to-contact"`
+- `data-service-id="..."`
 
-- the capability domain;
-- proof-strength classification;
-- a concise evidence statement;
-- relevant/adjacent project evidence where publication-safe;
-- the reason evidence is intentionally limited where appropriate;
-- a direct contact intent.
+No analytics provider, cookie framework or tracking library is embedded by this iteration.
 
-This replaces the previous four-card service section where every service had only a title and one generic outcome sentence.
+### Contact and route decisions
 
-### 5. Connect project case studies to only directly supported services
+- Contextual `mailto:` intents remain the current service-contact mechanism because they are fast, provider-independent and work without JavaScript.
+- No first-party contact form/backend is added without evidence that its spam, persistence, privacy and runtime obligations improve real conversion.
+- No thin `/services` route is created merely for convention or SEO; the strengthened homepage plus case-study bridges currently provide the more coherent IA.
+- No recruiter/client audience switch is introduced. Projects, capabilities, experience, services and contact support both audiences through one evidence hierarchy.
 
-Case-study pages now derive a relevant-service bridge from the direct project/service relationship. The bridge appears before next-project navigation and offers:
+### Client-boundary hardening discovered during performance QA
 
-- a link back to the precise service context on the homepage;
-- a direct provider-neutral email intent for that service.
+The performance investigation exposed an architectural issue unrelated to the truth/content density itself: `SmoothScroll` was a client component wrapping the entire server-rendered site tree even though it only needed to install Lenis in an effect.
 
-The bridge explicitly states that it does not widen the claims made in the case study.
+Iteration 7 changed it into a leaf client island:
 
-### 6. Keep conversion instrumentation provider-neutral
+- `SmoothScroll` renders no children and returns `null`;
+- `SiteNav` and page content remain direct server-rendered siblings in `app/layout.tsx`;
+- Lenis remains progressive enhancement and still disables itself for reduced-motion users;
+- substantive content no longer grows the payload of a client boundary merely because the homepage becomes richer.
 
-Important links carry stable `data-conversion` and `data-service-id` attributes. This creates a future analytics contract without selecting or embedding an analytics provider during Iteration 7.
+Service evidence-project links were also changed to native anchors because they do not need Next client-prefetch/navigation behavior. The six flagship selected-work links retain Next navigation.
 
-Examples:
+## Durable QA contract
 
-- `capability-to-service`
-- `service-to-project`
-- `service-to-contact`
-- `project-to-service`
-- `project-service-to-contact`
-- top-level contact channel intents
+`tests/iteration7.conversion.spec.ts` adds four conversion/progressive-enhancement checks to the existing strict rendered suite. `npm run test:browser` now runs the full `tests` directory.
 
-No tracking library, cookie system or third-party analytics script is introduced.
+The 21-test suite verifies:
 
-### 7. Do not create a thin `/services` route
+- homepage + all six case studies on desktop;
+- all seven surfaces at 390px mobile;
+- no horizontal overflow;
+- broken evidence-image checks;
+- **any** axe violation on the desktop route set;
+- reduced motion;
+- keyboard navigation;
+- JavaScript-disabled homepage visibility;
+- all four stable service anchors;
+- capability → service links;
+- service proof + provider-neutral contact intents;
+- direct project → service relationships;
+- no-JS service conversion access.
 
-The master plan says a dedicated service page should exist only when substantive content justifies it. The strengthened homepage service surface plus project/service bridges are currently the more coherent information architecture. A standalone `/services` route remains a future content-substance decision, not a conventional SEO checkbox.
+The rendered workflow is now durably named **Rendered Browser QA** rather than carrying an Iteration 6 name. Artifacts are generic, and Lighthouse logging records runner `benchmarkIndex` alongside category scores.
 
-### 8. Keep service conversion as contextual email intent for now
+## Validation history and performance investigation
 
-A first-party contact form is not justified in this iteration. Contextual `mailto:` intents are fast, provider-independent, work without JavaScript and avoid introducing spam handling, form persistence, personal-data storage or backend/runtime obligations without a clear user benefit.
+### First full Iteration 7 run
 
-This may be revisited after public launch if real conversion data shows that a form would materially reduce friction.
+Code head: `4850e9c7154738f875aee49f0fed0019119b9074`
 
-### 9. Preserve recruiter/client convergence rather than adding an audience switch
+- Application CI `34369348657`: **PASS**.
+- Rendered QA `34369348645`: **PASS**.
+- Browser suite: **21/21 PASS**.
+- Desktop + 390px service composition: inspected and overflow-safe.
+- Lighthouse: homepage 88, Presaira 97; all non-performance categories 100.
 
-The site should not ask visitors to self-classify as "recruiter" or "client" before they can understand Mohammed's work. The same evidence should support both audiences naturally:
+The homepage score movement from the Iteration 6 baseline of 96 triggered a deeper artifact comparison rather than copy removal or score chasing.
 
-- projects establish proof;
-- capabilities explain transferable competence;
-- services make commercial relevance explicit where appropriate;
-- experience remains available for employment context;
-- contact remains a common low-friction action.
+### What the artifacts showed
 
-No audience-toggle gimmick is introduced.
+Across Iteration 6 and the initial Iteration 7 runs:
 
-## Test contract
+- production JavaScript request count stayed at **6**;
+- JavaScript transfer stayed exactly **144,553 bytes**;
+- the same six production script resources were present;
+- intentional transfer growth was primarily richer server-rendered evidence copy and a small CSS increase;
+- CLS stayed at approximately **0.011**;
+- Lighthouse TBT/script-evaluation results varied substantially between runs, including runs with stronger CPU `benchmarkIndex` values.
 
-`tests/iteration7.conversion.spec.ts` verifies:
+A native-anchor-only experiment did not improve the noisy score, confirming that Next Link count alone was not the root cause.
 
-- all four stable service anchors exist;
-- the five capability rows resolve to relevant service anchors;
-- service contact links are provider-neutral `mailto:` intents with subject context;
-- Analytics exposes its Power BI evidence boundary;
-- Migration exposes its public-visual confidentiality boundary;
-- Presaira maps directly to ML/AI + Product/Web but **not** Analytics/Power BI;
-- Makhbazy maps directly to Product/Web only;
-- service proof/contact semantics remain available with JavaScript disabled.
+The more important architectural finding was the whole-site `SmoothScroll` client boundary. Removing that unnecessary ownership made the client/server boundary scale correctly with richer content.
 
-`npm run test:browser` now runs the complete `tests` directory so the strict Iteration 6 regression suite and Iteration 7 conversion coverage execute together.
+### Final validated runtime run
 
-The rendered workflow is renamed from the iteration-specific `Iteration 6 Rendered QA` to **Rendered Browser QA**. Artifact names are also generalized. Lighthouse logging now includes the runner `benchmarkIndex` so performance-score variance can be interpreted against runner CPU capability instead of treated as an isolated score.
+Runtime head: `20a03dc762b0bde6c1d6176751cc021f85b653`
 
-## Validation evidence
-
-### First full Iteration 7 branch run
-
-Validated code head: `4850e9c7154738f875aee49f0fed0019119b9074`
-
-- Application CI run `34369348657`: **PASS**.
+- Application CI `34396268944`: **PASS**.
   - deterministic `npm ci`
   - TypeScript
   - ESLint
   - Next.js 16.3.4 production build
-  - production-route smoke tests
-- Rendered QA run `34369348645`: **PASS**.
+  - route smoke tests
+- Rendered Browser QA `34396268923`: **PASS**.
 - Browser suite: **21/21 PASS**.
-  - 17 strict Iteration 6 regression tests
-  - 4 Iteration 7 conversion/progressive-enhancement tests
-- The successful desktop route suite preserves the strict policy where **any axe violation fails**.
-- Desktop and 390px service composition were visually inspected from the uploaded artifact and remain readable, coherent and overflow-safe.
-- Production dependency/security evidence continues to be captured with each rendered run.
+- Final seven desktop axe artifacts: **0 violations**.
+- Production `npm audit --omit=dev`: **0 vulnerabilities at every severity**.
+- Homepage Lighthouse: **95 performance / 100 accessibility / 100 best practices / 100 SEO / 100 agentic browsing**.
+- Homepage runner `benchmarkIndex`: **2416.5**.
+- Homepage final TBT: **124 ms**.
+- Homepage CLS: approximately **0.011**.
+- Presaira Lighthouse: **99 / 100 / 100 / 100 / 100**.
 
-### Lighthouse variance investigation
+This is close to the Iteration 6 homepage performance baseline while retaining all new service proof and conversion content. No evidence was removed to manufacture a score.
 
-The first Iteration 7 run returned:
+## Locked Iteration 7 decisions
 
-- homepage: **88 performance / 100 accessibility / 100 best practices / 100 SEO / 100 agentic browsing**
-- Presaira: **97 / 100 / 100 / 100 / 100**
+1. The governing path is `project → capability → relevant service → contact`.
+2. Service evidence remains intentionally asymmetric.
+3. Direct project/service relationships must come from the evidence registry; adjacent proof does not widen project claims.
+4. Analytics/Power BI does not acquire fake Power BI proof from Presaira or Solar.
+5. Migration confidentiality is preserved instead of visualized as fake enterprise evidence.
+6. Provider-neutral conversion attributes are a durable future analytics contract.
+7. Contextual email intent is the current primary service conversion mechanism.
+8. A contact backend or `/services` route requires substantive evidence of value, not convention.
+9. Recruiter and client journeys converge through evidence rather than an audience toggle.
+10. Smooth-scroll enhancement remains a leaf client island; substantive site content must not be owned by it.
+11. Lighthouse is a comparative lab signal. Behavioral QA, accessibility, progressive enhancement, payload evidence and real regressions outrank isolated score movement.
 
-The homepage performance score was investigated against the final Iteration 6 strict artifact rather than accepted or optimized blindly.
+## What this iteration does not claim
 
-Findings:
-
-- Iteration 6 homepage performance score: **96**.
-- Iteration 6 Lighthouse CPU `benchmarkIndex`: **2351.5**.
-- Iteration 7 first-run `benchmarkIndex`: **1802.5**, about 23% lower/slower.
-- JavaScript request count is unchanged at **6**.
-- JavaScript transfer is byte-for-byte unchanged at **144,553 bytes** in both reports.
-- The same production JavaScript chunk URLs/hashes are present in both artifacts.
-- Intentional Iteration 7 transfer growth is mainly server-rendered evidence copy and CSS:
-  - document transfer: about **16.4 KB → 20.8 KB**;
-  - stylesheet transfer: about **11.2 KB → 11.7 KB**.
-- CLS is unchanged at approximately **0.011**.
-- The slower lab run spent substantially more time evaluating the same JavaScript chunks, consistent with the lower runner benchmark rather than a newly introduced client bundle.
-
-Decision: **do not remove truthful service evidence or invent a client-side optimization solely to recover a noisy lab score.** The durable response is to log benchmark capability and use Lighthouse as a comparative signal, while continuing to gate actual browser behavior, accessibility, overflow, progressive enhancement and production correctness.
-
-A second confirmation run on the generalized Browser QA workflow is the final validation gate before closure.
-
-## Closure gate
-
-Iteration 7 will be marked complete and merged when the latest branch head satisfies:
-
-1. deterministic Application CI PASS;
-2. generalized Rendered Browser QA PASS;
-3. 21/21 browser/conversion tests remain green;
-4. strict axe policy remains green;
-5. no new mobile overflow or no-JS regression is observed;
-6. final governance/status docs record the validated head and next iteration.
-
-## What Iteration 7 deliberately does not claim
-
-- No production analytics provider/property has been configured.
+- No production analytics provider/property is configured.
 - No live conversion data exists yet.
 - No client outcomes, revenue, user counts or conversion lifts are invented.
 - No publishable Power BI screenshot has appeared.
 - No confidential migration artifact has become public.
-- No dedicated `/services` page is claimed necessary.
-- No contact form/backend is added without evidence that it improves real conversion.
-- No claim is made that `m7mdehab.com` is deployed.
+- No deployment of `m7mdehab.com` is claimed.
 
-## Next autonomous stage after closure
+## Next autonomous stage
 
-**Iteration 8 — pre-launch discoverability & launch readiness**
+**Iteration 8 — Pre-launch Discoverability & Launch Readiness**
 
-Priority should move from portfolio construction toward publication readiness:
+Move from portfolio construction toward publication readiness:
 
-- synchronize visible service/case-study claims with machine-readable identity/project surfaces;
-- audit sitemap/robots/metadata/LLM surfaces against the now-final conversion architecture;
-- prepare launch/deployment contracts and environment checklist without claiming external account state;
+- synchronize final service/case-study claims with machine-readable identity/project surfaces;
+- audit sitemap, robots, metadata and `/llms.txt` against the final public architecture;
+- prepare deployment/environment contracts and launch checklist without claiming external account state;
 - run direct T0 AI/search visibility checks where execution is available;
-- prepare privacy-conscious analytics binding requirements for whichever provider/property is later authorized;
+- prepare privacy-conscious analytics binding requirements for a later authorized provider/property;
 - isolate truly external blockers: domain/DNS/runtime access, Search Console, Bing Webmaster and production analytics property access.
 
-External setup remains a boundary, not a reason to continue redesigning the site.
+External setup is a launch boundary, not a reason to continue redesigning the site.
