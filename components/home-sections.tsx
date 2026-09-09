@@ -15,6 +15,7 @@ import {
 import { projectVisuals } from "@/data/project-visuals";
 import { ProjectVisual } from "@/components/project-visual";
 import projectStyles from "@/components/project-visual.module.css";
+import serviceStyles from "@/components/service-conversion.module.css";
 import { Reveal } from "@/components/reveal";
 
 function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
@@ -79,10 +80,10 @@ export function Expertise() {
             <Reveal key={item.title} delay={i * 0.035} className="capability-row">
               <span>0{i + 1}</span>
               <h3>{item.title}</h3>
-              <div className="capability-detail">
+              <div className={serviceStyles.capabilityDetail}>
                 <p>{item.detail}</p>
                 {relatedService ? (
-                  <a className="capability-service-link" href={`#service-${relatedService.id}`} data-conversion="capability-to-service" data-service-id={relatedService.id}>
+                  <a className={serviceStyles.capabilityLink} href={`#service-${relatedService.id}`} data-conversion="capability-to-service" data-service-id={relatedService.id}>
                     Relevant service <ArrowUpRight size={14} aria-hidden="true" />
                   </a>
                 ) : null}
@@ -173,7 +174,7 @@ export function About() {
 
 export function Services() {
   return (
-    <section id="services" className="section shell services-section">
+    <section id="services" className="section shell">
       <SectionIntro eyebrow="09 — Ways to work together" title="Useful outcomes, backed by the right kind of proof." copy="The evidence is intentionally unequal: public projects where they exist, experience and methods where confidentiality or publication rights limit screenshots." />
       <div className="services-grid">
         {services.map((service, i) => {
@@ -182,15 +183,15 @@ export function Services() {
             .filter((project): project is (typeof projects)[number] => Boolean(project));
           return (
             <Reveal key={service.id} delay={i * 0.04} className="service-card" id={`service-${service.id}`}>
-              <div className="service-card-head"><span>0{i + 1}</span><span>{service.proofLabel}</span></div>
-              <p className="service-capability">{service.capability}</p>
+              <div className={serviceStyles.cardHead}><span>0{i + 1}</span><span>{service.proofLabel}</span></div>
+              <p className={serviceStyles.capability}>{service.capability}</p>
               <h3>{service.title}</h3>
-              <p className="service-description">{service.description}</p>
-              <p className="service-evidence">{service.evidence}</p>
+              <p className={serviceStyles.description}>{service.description}</p>
+              <p className={serviceStyles.evidence}>{service.evidence}</p>
               {relatedProjects.length ? (
-                <div className="service-projects" aria-label={`${service.title} evidence projects`}>
+                <div className={serviceStyles.projects} aria-label={`${service.title} evidence projects`}>
                   <p>{service.projectContext}</p>
-                  <div>
+                  <div className={serviceStyles.projectLinks}>
                     {relatedProjects.map((project) => (
                       <Link key={project.slug} href={`/work/${project.slug}`} data-conversion="service-to-project" data-service-id={service.id}>
                         {project.title} <ArrowUpRight size={13} aria-hidden="true" />
@@ -198,9 +199,9 @@ export function Services() {
                     ))}
                   </div>
                 </div>
-              ) : <p className="service-boundary">{service.projectContext}</p>}
+              ) : <p className={serviceStyles.boundary}>{service.projectContext}</p>}
               <a
-                className="service-contact-link"
+                className={serviceStyles.contactLink}
                 href={`mailto:${profile.email}?subject=${encodeURIComponent(service.contactSubject)}`}
                 data-conversion="service-to-contact"
                 data-service-id={service.id}
