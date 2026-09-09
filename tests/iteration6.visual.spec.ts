@@ -37,11 +37,31 @@ async function settle(page: Page) {
 }
 
 async function assertNoHorizontalOverflow(page: Page) {
-  const overflow = await page.evaluate(() => ({
-    clientWidth: document.documentElement.clientWidth,
-    scrollWidth: document.documentElement.scrollWidth,
-  }));
-  expect(overflow.scrollWidth, `horizontal overflow: ${JSON.stringify(overflow)}`).toBeLessThanOrEqual(overflow.clientWidth + 1);
+  const overflow = await page.evaluate(() => {
+    const clientWidth = document.documentElement.clientWidth;
+    const scrollWidth = document.documentElement.scrollWidth;
+    const offenders = Array.from(document.querySelectorAll<HTMLElement>("body *"))
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          tag: element.tagName.toLowerCase(),
+          className: typeof element.className === "string" ? element.className : "",
+          text: (element.textContent ?? "").trim().replace(/\s+/g, " ").slice(0, 90),
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          width: Math.round(rect.width),
+        };
+      })
+      .filter((item) => item.right > clientWidth + 1 || item.left < -1)
+      .slice(0, 20);
+
+    return { clientWidth, scrollWidth, offenders };
+  });
+
+  expect(
+    overflow.scrollWidth,
+    `horizontal overflow: ${JSON.stringify(overflow, null, 2)}`,
+  ).toBeLessThanOrEqual(overflow.clientWidth + 1);
 }
 
 async function assertImagesLoaded(page: Page) {
@@ -127,4 +147,23 @@ test("keyboard navigation exposes skip link and primary anchors", async ({ page 
   await expect(nextProject).toBeVisible();
   await nextProject.click();
   await expect(page).toHaveURL(/\/work\/opportunityos$/);
+});
+
+test.describe("progressive enhancement without JavaScript", () => {
+  test.use({ javaScriptEnabled: false, viewport: { width: 1440, height: 1000 } });
+
+  test("homepage evidence and narrative remain visible", async ({ page }) => {
+    const response = await page.goto("/");
+    expect(response?.ok()).toBeTruthy();
+    await page.waitForLoadState("domcontentloaded");
+
+    for (const selector of ["#work", "#expertise", "#experience", "#about", "#contact"]) {
+      const section = page.locator(selector);
+      await expect(section).toBeAttached();
+      await expect(section).toBeVisible();
+    }
+
+    await mkdir(path.join(artifactRoot, "screenshots"), { recursive: true });
+    await page.screenshot({ path: path.join(artifactRoot, "screenshots", "no-js-home.png"), fullPage: true });
+  });
 });
