@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- These are immutable, commit-pinned public evidence assets; keep their source URLs explicit rather than proxying them through the site image pipeline. */
 import { projectVisuals, type EvidenceProjectSlug } from "@/data/project-visuals";
 import styles from "./project-visual.module.css";
 
