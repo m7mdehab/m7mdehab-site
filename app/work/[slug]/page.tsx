@@ -32,7 +32,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const nextProject = projects[(projectIndex + 1) % projects.length];
   const visual = projectVisuals[project.slug];
   const study = caseStudies[project.slug];
-  const evidenceHref = project.href ?? ("evidenceHref" in visual ? visual.evidenceHref : undefined);
+  const projectHref = "href" in project ? project.href : undefined;
+  const evidenceHref = projectHref ?? ("evidenceHref" in visual ? visual.evidenceHref : undefined);
 
   return (
     <main id="main-content" className="case-shell shell">
