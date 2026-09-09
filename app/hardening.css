@@ -1,0 +1,22 @@
+.case-hero,
+.case-hero > * {
+  min-width: 0;
+}
+
+.case-hero p,
+.case-hero h1 {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 560px) {
+  .case-hero {
+    padding-top: 64px;
+    padding-bottom: 88px;
+  }
+
+  .case-hero h1 {
+    font-size: clamp(3.15rem, 14vw, 4.6rem);
+    line-height: .88;
+    overflow-wrap: anywhere;
+  }
+}
