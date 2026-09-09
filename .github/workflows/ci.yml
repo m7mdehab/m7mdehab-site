@@ -74,6 +74,7 @@ jobs:
             "/llms.txt"
             "/profile.json"
             "/projects.json"
+            "/services.json"
           )
 
           for route in "${routes[@]}"; do
