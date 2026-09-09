@@ -13,7 +13,7 @@ Updated: 2026-09-09
 | 4 Evidence-driven visual prototypes | **COMPLETE** | Six differentiated evidence treatments, varied selected-work rhythm, project-route integration, mobile/reduced-motion fallbacks | — |
 | 5 Production case-study storytelling & validation | **COMPLETE** | Six substantive evidence-first case studies, shared editorial grammar, clean-checkout type/lint/build/route-smoke baseline | — |
 | 6 Rendered QA & production hardening | **COMPLETE** | Deterministic lockfile/`npm ci`, Next.js security upgrade, strict browser/a11y/mobile/reduced-motion/no-JS QA, Lighthouse baseline, clean production dependency audit | — |
-| 7 Conversion architecture & service proof | **COMPLETE** | Evidence-backed service propositions, governed project/capability/service/contact pathways, provider-neutral conversion semantics, durable 21-test browser gate, client-boundary hardening | **Iteration 8 — pre-launch discoverability & launch readiness** |
+| 7 Conversion architecture & service proof | **COMPLETE — MERGE READY** | Evidence-backed service propositions, governed project/capability/service/contact pathways, provider-neutral conversion semantics, durable 21-test browser gate, client-boundary hardening | Merge PR #3 and verify post-merge `main` CI |
 | 8 Pre-launch discoverability & launch readiness | **NEXT** | — | Machine-readable synchronization, launch contracts, direct visibility checks and external-boundary isolation |
 
 ## Program phases
@@ -97,15 +97,17 @@ Validated runtime head: `20a03dc762b0b0bde6c1d6176751cc021f85b653`.
 - Presaira Lighthouse: **99 / 100 / 100 / 100 / 100**.
 - Homepage final TBT: **124 ms**; CLS remains approximately **0.011**.
 
+The commits after the validated runtime head are documentation/status closure records only and do not change runtime code, dependencies or tests.
+
 ### Performance investigation conclusion
 
-The first Iteration 7 Lighthouse score moved to 88 and later isolated runs varied as low as 77 even with stronger runner benchmark values. Artifact comparison showed the production JS request count and transfer remained stable while script-evaluation/TBT varied substantially. The useful architectural correction was to remove the whole-site `SmoothScroll` client boundary; after that change, homepage performance returned to 95 while retaining all service proof.
+The first Iteration 7 Lighthouse score moved to 88 and later isolated runs varied as low as 77 even with stronger runner benchmark values. Artifact comparison showed production JS request count and transfer remained stable while script-evaluation/TBT varied substantially. The useful architectural correction was to remove the whole-site `SmoothScroll` client boundary; after that change, homepage performance returned to 95 while retaining all service proof.
 
 Do not remove truthful content or add speculative complexity merely to chase isolated Lighthouse scores. Preserve the leaf client boundary and use Lighthouse as a comparative lab signal alongside actual payload, behavioral, accessibility and deployed field evidence.
 
 ## Iteration 8 target — pre-launch discoverability & launch readiness
 
-Stop iterating on visual structure without evidence and move toward publication readiness:
+After PR #3 is merged and `main` CI is verified, stop iterating on visual structure without evidence and move toward publication readiness:
 
 - synchronize visible service/case-study claims with machine-readable identity/project surfaces;
 - audit sitemap, robots, metadata and `/llms.txt` against the final public architecture;
