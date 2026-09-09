@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/newsreader";
 import "./globals.css";
+import "./hardening.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { profile } from "@/data/public";

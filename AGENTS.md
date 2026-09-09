@@ -64,8 +64,17 @@ Rules:
 ## SEO / AI visibility
 Keep visible content, structured data and machine-readable outputs consistent with the governed public truth model. Do not fabricate schema claims that do not appear visibly or lack evidence. Never leak private facts through JSON-LD, `/profile.json`, `/projects.json`, `/llms.txt`, metadata or hidden HTML.
 
-## Performance / accessibility
-Respect reduced motion. Avoid unnecessary client components. Keep animated/WebGL effects isolated and pausable. Aesthetic treatments lose when they damage crawlability, Core Web Vitals, accessibility, clarity, conversion or mobile usability.
+## Performance / accessibility / progressive enhancement
+Respect reduced motion. Avoid unnecessary client components. Keep animated effects isolated and pausable. Aesthetic treatments lose when they damage crawlability, Core Web Vitals, accessibility, clarity, conversion or mobile usability.
+
+Core narrative and evidence must be readable in server-rendered HTML and must remain visible when JavaScript is unavailable. Never use an animation library's initial hidden state as the semantic default for substantive content. Mobile layouts must be checked for real horizontal overflow rather than masked with global `overflow-x: hidden`.
+
+## Dependency and validation discipline
+`package-lock.json` is part of the production baseline. Use Node 22 and `npm ci` for normal CI/reproducible validation. A dependency change must update `package.json` and `package-lock.json` together.
+
+Do not upgrade a framework, linter or test tool merely because a newer major exists. Resolve security advisories promptly, but verify peer/runtime compatibility in CI. The current Next.js 16 baseline intentionally uses the compatible ESLint 9 line because the tested ESLint 10 + Next React-plugin combination crashes at rule load time.
+
+The rendered browser gate lives in `tests/iteration6.visual.spec.ts` and must continue to cover the public homepage and all six project routes on desktop and 390px mobile, plus serious/critical axe findings, image loading, horizontal overflow, reduced motion, keyboard navigation and JavaScript-disabled progressive enhancement. Lighthouse is a benchmark signal, not a substitute for these behavioral checks.
 
 ## Content model
 Keep professional content centralized under `data/`. Adding a job, certification, skill, service or project should not require redesigning components. Homepage omission does not mean a fact should disappear from the governed source registry; strategic curation and truth completeness are separate concerns.
@@ -77,8 +86,10 @@ Keep professional content centralized under `data/`. Adding a job, certification
 - reconcile project visuals/evidence against `data/project-evidence.public.yaml`;
 - reconcile `data/case-studies.ts` against the public truth/evidence registries and its cited public project sources;
 - verify third-party licenses and attribution;
-- run typecheck/lint/build when dependencies are available;
-- run accessibility/performance/SEO checks;
+- install with `npm ci` from the committed lockfile;
+- run typecheck, lint and production build;
+- run rendered desktop/mobile accessibility and overflow checks;
+- verify JavaScript-disabled and reduced-motion readability;
+- run performance/SEO checks;
 - scan for confidential material, private facts and secrets;
-- verify mobile and reduced-motion paths;
 - update `docs/EXECUTION_STATUS.md`.

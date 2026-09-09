@@ -19,10 +19,10 @@ A fact being verified does not automatically make it publishable. Private/confid
 The visual/interaction system is a custom synthesis of patterns studied from:
 
 - React Bits Portfolio — production chassis, project presentation, stack interaction and performance discipline
-- Motion Primitives — restrained motion vocabulary
+- Motion Primitives — restrained motion vocabulary reference
 - Aceternity Minimal / Minimalist — typography, spacing and composition references
 - Kintarowwwards — stack and microinteraction references
-- MotionFolio — GSAP/Lenis/case-study implementation patterns
+- MotionFolio — case-study and progressive-enhancement implementation references
 - koloNatalie — visual restraint and image/text rhythm
 - Aitezaz — flow, transitions and typographic confidence
 
@@ -30,16 +30,30 @@ The production site must not become a reskin of any source.
 
 ## Current stack
 
-- Next.js 16
+- Next.js 16.3.4
 - React 19
-- TypeScript
+- TypeScript 5
 - Tailwind CSS 4 + custom CSS design tokens
-- Motion — primary animation runtime
 - Lenis — optional smooth-scroll polish with reduced-motion fallback
-- Matter.js — reserved for optional progressive-enhancement interactions only
-- GSAP — not currently installed; may be introduced only for a specific justified choreography
+- Lucide — interface icons
+- Playwright + axe-core — rendered desktop/mobile/accessibility/progressive-enhancement QA
+- Lighthouse — performance/accessibility/best-practices/SEO/agentic-browsing benchmarking
 
-OGL was removed from the scaffold during the reference/licensing audit because the current upstream GitHub source did not expose sufficiently clear license metadata for us to carry an unused dependency. It can be reconsidered only after exact package terms are verified.
+Motion, Matter.js and `next-themes` were removed during Iteration 6 after runtime inspection showed they were no longer required. GSAP and OGL are not installed; either may be reconsidered only for a concrete justified need with licensing and performance review.
+
+## Deterministic local validation
+
+Node 22 and the committed npm lockfile are the supported baseline.
+
+```bash
+npm ci
+npm run typecheck
+npm run lint
+npm run build
+npm run test:browser
+```
+
+`npm ci` is the normal install path for validation and CI. Dependency changes must update both `package.json` and `package-lock.json` in the same change.
 
 ## Current routes
 
@@ -58,9 +72,9 @@ OGL was removed from the scaffold during the reference/licensing audit because t
 3. Truth completeness and homepage inclusion are separate decisions.
 4. Capabilities and concrete skills are separate information types.
 5. Typography and imagery do more work than decoration.
-6. Motion is concentrated around state change, not ambient spectacle.
+6. Motion is enhancement, never a gate on readable/crawlable content.
 7. SEO, entity SEO and AI extractability are architectural requirements.
-8. Accessibility, performance and mobile usability can veto an aesthetic treatment.
+8. Accessibility, performance, progressive enhancement and mobile usability can veto an aesthetic treatment.
 9. Professional data stays centralized and extensible.
 10. Any direct third-party source adaptation must update the attribution register in the same change.
 

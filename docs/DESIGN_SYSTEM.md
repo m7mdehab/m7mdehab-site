@@ -48,6 +48,8 @@ Preferred motion qualities:
 
 Avoid constant ambient motion unless extremely subtle and performance-safe.
 
+Iteration 6 tightened this philosophy into a progressive-enhancement rule: **motion may enhance content that is already visible, but it may not own the initial visibility of substantive narrative or evidence**. Server-rendered content must remain readable when JavaScript is unavailable. Reduced-motion mode must remove motion ownership rather than merely shorten animation duration.
+
 ## Imagery
 Real project visuals are primary design material:
 - Presaira: forecasting/product UI, probability/analytics visuals;
@@ -110,6 +112,16 @@ Case-study visual rhythm should stay close to the Natalie + Aitezaz calibration:
 - Do not manufacture business KPIs, user counts, conversion uplift, revenue or client outcomes merely to make a case study feel complete.
 - Keep all substantive narrative as semantic server-rendered text; visuals and motion are enhancement layers.
 
+## Rendered mobile grammar
+
+Iteration 6 replaces assumption-based responsive review with rendered constraints:
+
+- 390px is a mandatory browser QA width for the homepage and all six case studies.
+- Long project names, eyebrow labels and next-project navigation must be allowed to shrink and wrap; CSS Grid/Flex children that can contain long text should use `min-width: 0` where required.
+- Do not hide layout defects with a global `overflow-x: hidden`; horizontal overflow tests should identify the responsible element.
+- Project evidence must remain legible at mobile sizes without replacing real proof with generic decoration.
+- Touch/reduced-motion fallbacks should preserve the evidence hierarchy rather than merely remove animation.
+
 ## Service-proof visual rule
 
 The four primary service propositions have intentionally unequal public visual evidence.
@@ -153,6 +165,7 @@ Aesthetic treatments lose if they materially damage:
 - scroll hijacking;
 - continuous motion everywhere;
 - animation for animation's sake;
+- animation-gated semantic content;
 - identical project cards;
 - decorative complexity that competes with Mohammed's work;
 - fabricated evidence or screenshot-like conceptual art;
