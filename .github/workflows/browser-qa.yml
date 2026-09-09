@@ -1,0 +1,112 @@
+name: Rendered Browser QA
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: browser-qa-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  rendered-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify QA tooling
+        run: npm ls --depth=0 @playwright/test @axe-core/playwright lighthouse eslint
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Start production server
+        shell: bash
+        run: |
+          npm run start -- -H 127.0.0.1 -p 3000 > /tmp/m7mdehab-next.log 2>&1 &
+          echo $! > /tmp/m7mdehab-next.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/m7mdehab-next.log
+          exit 1
+
+      - name: Playwright rendered and accessibility QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: npm run test:browser
+
+      - name: Lighthouse baseline
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/lighthouse
+          npx lighthouse http://127.0.0.1:3000/ --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/home.json || true
+          npx lighthouse http://127.0.0.1:3000/work/presaira --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/presaira.json || true
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of ['home', 'presaira']) {
+            const file = `artifacts/lighthouse/${name}.json`;
+            if (!fs.existsSync(file)) continue;
+            const report = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const categories = Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
+            const benchmarkIndex = report.environment?.benchmarkIndex ?? null;
+            console.log(`${name}:`, { benchmarkIndex, ...categories });
+          }
+          NODE
+
+      - name: Capture dependency and tooling evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/tooling
+          npm ls --depth=0 @playwright/test @axe-core/playwright lighthouse eslint > artifacts/tooling/versions.txt || true
+          npm audit --omit=dev --json > artifacts/tooling/npm-audit-production.json || true
+          npm outdated --json > artifacts/tooling/npm-outdated.json || true
+          cp package-lock.json artifacts/tooling/package-lock.json
+
+      - name: Stop production server
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/m7mdehab-next.pid ]; then
+            kill "$(cat /tmp/m7mdehab-next.pid)" 2>/dev/null || true
+          fi
+
+      - name: Upload rendered QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rendered-browser-qa-${{ github.sha }}
+          path: artifacts
+          if-no-files-found: warn
+          retention-days: 7
