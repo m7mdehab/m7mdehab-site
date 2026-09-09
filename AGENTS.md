@@ -70,9 +70,12 @@ Respect reduced motion. Avoid unnecessary client components. Keep animated/WebGL
 ## Content model
 Keep professional content centralized under `data/`. Adding a job, certification, skill, service or project should not require redesigning components. Homepage omission does not mean a fact should disappear from the governed source registry; strategic curation and truth completeness are separate concerns.
 
+`data/case-studies.ts` is the curated runtime narrative projection for project-detail routes. It may deepen a project with current public repository evidence, but it does not outrank `data/source-of-truth.public.yaml` or `data/project-evidence.public.yaml`. Case-study depth is intentionally unequal: public technical projects can expose architecture, evaluation and limitations, while public-safe projects must remain narrower when evidence or publication rights are narrower. Every production case study should make its proof and its limits legible rather than padding weak evidence into visual or narrative symmetry.
+
 ## Before shipping
 - reconcile `data/source-of-truth.public.yaml` with `data/public.ts`;
 - reconcile project visuals/evidence against `data/project-evidence.public.yaml`;
+- reconcile `data/case-studies.ts` against the public truth/evidence registries and its cited public project sources;
 - verify third-party licenses and attribution;
 - run typecheck/lint/build when dependencies are available;
 - run accessibility/performance/SEO checks;
