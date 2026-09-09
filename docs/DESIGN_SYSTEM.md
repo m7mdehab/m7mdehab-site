@@ -74,7 +74,7 @@ The projects share one brand system, but they must not share one generic evidenc
 | Oil Spill Detection | Compare / detect | SAR → segmentation/detection + oil-specific evaluation |
 | Solar Site Selection | Layer / rank | AOI/criteria → suitability map → ranked decision output |
 
-The current generic grid/orbit/sparkline `ProjectVisual` is a temporary scaffold, not a production pattern.
+The generic grid/orbit/sparkline `ProjectVisual` was an Iteration 3 scaffold and is superseded by the evidence-specific treatments introduced in Iteration 4.
 
 ### Shared rules across project treatments
 
@@ -84,6 +84,31 @@ The current generic grid/orbit/sparkline `ProjectVisual` is a temporary scaffold
 - Public-safe conceptual diagrams must look like diagrams, not hidden-product screenshots.
 - Each animated treatment needs a truthful static fallback for reduced motion and constrained mobile contexts.
 - Prefer one excellent evidence interaction per project over several decorative effects.
+
+## Evidence-first case-study grammar
+
+Project-detail pages are not expanded résumé entries and are not six long-form clones. They use one shared editorial narrative system with intentionally unequal depth according to the available public proof.
+
+Default sequence:
+1. **Thesis** — the interesting problem or judgment behind the project, expressed in one strong editorial statement.
+2. **Challenge** — why the problem is non-trivial and what can go wrong.
+3. **Role & scope** — what Mohammed actually owned or what the public project demonstrably spans; never inflate supervised delivery into sole coding.
+4. **Approach** — a short sequence of the system decisions that earn the result.
+5. **Evidence** — metrics, artifacts, public product state or governed ownership proof that can actually be checked.
+6. **Limits & boundaries** — limitations, publication constraints and claims the case study explicitly refuses to make.
+7. **Publication boundary / sources** — link outward to public evidence where it exists and state why private/internal material is absent where relevant.
+8. **Next project** — preserve narrative momentum without modal-only navigation or scroll hijacking.
+
+Case-study visual rhythm should stay close to the Natalie + Aitezaz calibration: large editorial statements, generous space, strong image/data moments and controlled asymmetry. The deeper page may feel richer than the homepage, but it must not become an immersive microsite or mini-game.
+
+### Case-study truth rules
+
+- Unequal evidence density is a feature, not a layout defect.
+- Public technical projects may expose architecture, tests, evaluation and documented limitations when their repositories support those claims.
+- Public-safe projects may be deliberately shorter and more ownership/journey oriented.
+- A limitations section is proof of rigor when it reflects the project's real documented constraints; it is not a place to invent generic caveats.
+- Do not manufacture business KPIs, user counts, conversion uplift, revenue or client outcomes merely to make a case study feel complete.
+- Keep all substantive narrative as semantic server-rendered text; visuals and motion are enhancement layers.
 
 ## Service-proof visual rule
 
