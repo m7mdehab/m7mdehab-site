@@ -77,8 +77,7 @@ async function writeAxeReport(page: Page, name: string) {
   const results = await new AxeBuilder({ page }).analyze();
   await mkdir(path.join(artifactRoot, "axe"), { recursive: true });
   await writeFile(path.join(artifactRoot, "axe", `${name}.json`), JSON.stringify(results, null, 2));
-  const severe = results.violations.filter((violation) => violation.impact === "critical" || violation.impact === "serious");
-  expect(severe, `serious/critical axe violations on ${name}: ${JSON.stringify(severe, null, 2)}`).toEqual([]);
+  expect(results.violations, `axe violations on ${name}: ${JSON.stringify(results.violations, null, 2)}`).toEqual([]);
 }
 
 test.describe("desktop rendered QA", () => {
