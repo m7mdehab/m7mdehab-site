@@ -44,7 +44,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
-        <SmoothScroll><SiteNav />{children}</SmoothScroll>
+        <SmoothScroll />
+        <SiteNav />
+        {children}
       </body>
     </html>
   );
