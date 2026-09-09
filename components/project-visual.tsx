@@ -72,7 +72,7 @@ function GhareebVisual({ context }: { context: "card" | "case" }) {
         <div className={styles.browserBar}><span /><span /><span /><strong>ghareeboglu.com</strong></div>
         <div className={styles.storefrontBody}>
           <p>Live commerce product</p>
-          <h4>Browse to fulfillment.</h4>
+          <p className={styles.storefrontHeadline}>Browse to fulfillment.</p>
           <div className={styles.commerceStages}>{data.stages.map((stage, index) => <span key={stage}><i>0{index + 1}</i>{stage}</span>)}</div>
         </div>
       </div>
