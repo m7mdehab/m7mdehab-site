@@ -5,7 +5,8 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { CaseStudyNarrative } from "@/components/case-study";
 import { ProjectVisual } from "@/components/project-visual";
 import { caseStudies } from "@/data/case-studies";
-import { projects } from "@/data/public";
+import { projectCaseStudyUrl } from "@/data/discoverability";
+import { profile, projects } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 
 export function generateStaticParams() {
@@ -17,9 +18,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = projects.find((item) => item.slug === slug);
   if (!project) return {};
 
+  const title = `${project.title} — Case Study`;
+  const canonical = projectCaseStudyUrl(project.slug);
+
   return {
-    title: `${project.title} — Case Study`,
+    title,
     description: project.statement,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description: project.statement,
+      url: canonical,
+      siteName: profile.name,
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description: project.statement,
+    },
   };
 }
 
