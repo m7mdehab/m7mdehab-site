@@ -15,6 +15,7 @@ import {
 import { projectVisuals } from "@/data/project-visuals";
 import { ProjectVisual } from "@/components/project-visual";
 import projectStyles from "@/components/project-visual.module.css";
+import serviceStyles from "@/components/service-conversion.module.css";
 import { Reveal } from "@/components/reveal";
 
 function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
@@ -73,11 +74,23 @@ export function Expertise() {
     <section id="expertise" className="section shell">
       <SectionIntro eyebrow="02 — Capabilities" title="Across the boundary between business problems and technical systems." />
       <div className="capability-list">
-        {capabilities.map((item, i) => (
-          <Reveal key={item.title} delay={i * 0.035} className="capability-row">
-            <span>0{i + 1}</span><h3>{item.title}</h3><p>{item.detail}</p>
-          </Reveal>
-        ))}
+        {capabilities.map((item, i) => {
+          const relatedService = services.find((service) => service.capability.includes(item.title));
+          return (
+            <Reveal key={item.title} delay={i * 0.035} className="capability-row">
+              <span>0{i + 1}</span>
+              <h3>{item.title}</h3>
+              <div className={serviceStyles.capabilityDetail}>
+                <p>{item.detail}</p>
+                {relatedService ? (
+                  <a className={serviceStyles.capabilityLink} href={`#service-${relatedService.id}`} data-conversion="capability-to-service" data-service-id={relatedService.id}>
+                    Relevant service <ArrowUpRight size={14} aria-hidden="true" />
+                  </a>
+                ) : null}
+              </div>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );
@@ -161,10 +174,43 @@ export function About() {
 
 export function Services() {
   return (
-    <section className="section shell">
-      <SectionIntro eyebrow="09 — Ways to work together" title="Useful outcomes, not a menu of buzzwords." />
+    <section id="services" className="section shell">
+      <SectionIntro eyebrow="09 — Ways to work together" title="Useful outcomes, backed by the right kind of proof." copy="The evidence is intentionally unequal: public projects where they exist, experience and methods where confidentiality or publication rights limit screenshots." />
       <div className="services-grid">
-        {services.map((service, i) => <Reveal key={service.title} delay={i * 0.04} className="service-card"><span>0{i + 1}</span><h3>{service.title}</h3><p>{service.description}</p></Reveal>)}
+        {services.map((service, i) => {
+          const relatedProjects = service.projectSlugs
+            .map((slug) => projects.find((project) => project.slug === slug))
+            .filter((project): project is (typeof projects)[number] => Boolean(project));
+          return (
+            <Reveal key={service.id} delay={i * 0.04} className="service-card" id={`service-${service.id}`}>
+              <div className={serviceStyles.cardHead}><span>0{i + 1}</span><span>{service.proofLabel}</span></div>
+              <p className={serviceStyles.capability}>{service.capability}</p>
+              <h3>{service.title}</h3>
+              <p className={serviceStyles.description}>{service.description}</p>
+              <p className={serviceStyles.evidence}>{service.evidence}</p>
+              {relatedProjects.length ? (
+                <div className={serviceStyles.projects} aria-label={`${service.title} evidence projects`}>
+                  <p>{service.projectContext}</p>
+                  <div className={serviceStyles.projectLinks}>
+                    {relatedProjects.map((project) => (
+                      <a key={project.slug} href={`/work/${project.slug}`} data-conversion="service-to-project" data-service-id={service.id}>
+                        {project.title} <ArrowUpRight size={13} aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : <p className={serviceStyles.boundary}>{service.projectContext}</p>}
+              <a
+                className={serviceStyles.contactLink}
+                href={`mailto:${profile.email}?subject=${encodeURIComponent(service.contactSubject)}`}
+                data-conversion="service-to-contact"
+                data-service-id={service.id}
+              >
+                Discuss this work <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );
@@ -186,9 +232,9 @@ export function Contact() {
     <section id="contact" className="contact-section shell">
       <Reveal><p className="eyebrow">11 — Opportunity</p><h2>Have a difficult problem worth solving?</h2><p className="contact-copy">Discuss a role or project opportunity.</p></Reveal>
       <Reveal delay={0.08} className="contact-actions">
-        <a href={`mailto:${profile.email}`}><Mail size={18}/> Email</a>
-        <a href={profile.linkedin} target="_blank" rel="noreferrer"><Linkedin size={18}/> LinkedIn</a>
-        <a href={profile.github} target="_blank" rel="noreferrer"><Github size={18}/> GitHub</a>
+        <a href={`mailto:${profile.email}`} data-conversion="contact-email"><Mail size={18}/> Email</a>
+        <a href={profile.linkedin} target="_blank" rel="noreferrer" data-conversion="contact-linkedin"><Linkedin size={18}/> LinkedIn</a>
+        <a href={profile.github} target="_blank" rel="noreferrer" data-conversion="contact-github"><Github size={18}/> GitHub</a>
       </Reveal>
     </section>
   );

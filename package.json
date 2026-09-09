@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:browser": "playwright test tests/iteration6.visual.spec.ts"
+    "test:browser": "playwright test tests"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.2.8",

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/data/case-studies";
+import { profile, services } from "@/data/public";
 import styles from "@/components/case-study.module.css";
+import serviceStyles from "@/components/service-conversion.module.css";
 
 type NextProject = {
   slug: string;
@@ -9,7 +11,17 @@ type NextProject = {
   kicker: string;
 };
 
-export function CaseStudyNarrative({ study, nextProject }: { study: CaseStudy; nextProject: NextProject }) {
+export function CaseStudyNarrative({
+  study,
+  nextProject,
+  projectSlug,
+}: {
+  study: CaseStudy;
+  nextProject: NextProject;
+  projectSlug: string;
+}) {
+  const relevantServices = services.filter((service) => service.directProjectSlugs.includes(projectSlug));
+
   return (
     <article className={styles.story}>
       <section className={styles.statement} aria-labelledby="case-study-thesis">
@@ -82,6 +94,42 @@ export function CaseStudyNarrative({ study, nextProject }: { study: CaseStudy; n
           ) : null}
         </div>
       </section>
+
+      {relevantServices.length ? (
+        <section className={serviceStyles.bridge} aria-labelledby="project-service-heading">
+          <p className={serviceStyles.bridgeEyebrow}>From proof to useful work</p>
+          <div className={serviceStyles.bridgeBody}>
+            <h2 id="project-service-heading">Where this project maps to real service work.</h2>
+            <p>These links come from the governed project/service evidence map. They are not generic cross-sells and do not widen the claims made above.</p>
+            <div className={serviceStyles.bridgeItems}>
+              {relevantServices.map((service) => (
+                <article key={service.id} className={serviceStyles.bridgeItem}>
+                  <small>{service.proofLabel}</small>
+                  <strong>{service.title}</strong>
+                  <div className={serviceStyles.bridgeActions}>
+                    <Link
+                      className={serviceStyles.bridgeLink}
+                      href={`/#service-${service.id}`}
+                      data-conversion="project-to-service"
+                      data-service-id={service.id}
+                    >
+                      Service context <ArrowUpRight size={14} aria-hidden="true" />
+                    </Link>
+                    <a
+                      className={serviceStyles.bridgeLink}
+                      href={`mailto:${profile.email}?subject=${encodeURIComponent(service.contactSubject)}`}
+                      data-conversion="project-service-to-contact"
+                      data-service-id={service.id}
+                    >
+                      Discuss it <ArrowUpRight size={14} aria-hidden="true" />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <Link data-case-next className={styles.nextProject} href={`/work/${nextProject.slug}`}>
         <p className={styles.eyebrow}>Next project · {nextProject.kicker}</p>

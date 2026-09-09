@@ -52,7 +52,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
         <ProjectVisual slug={project.slug} context="case" />
       </div>
-      <CaseStudyNarrative study={study} nextProject={nextProject} />
+      <CaseStudyNarrative study={study} nextProject={nextProject} projectSlug={project.slug} />
     </main>
   );
 }

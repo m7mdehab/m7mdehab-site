@@ -1,11 +1,11 @@
-name: Iteration 6 Rendered QA
+name: Rendered Browser QA
 
 on:
   pull_request:
     branches: [main]
 
 concurrency:
-  group: iteration6-qa-${{ github.workflow }}-${{ github.ref }}
+  group: browser-qa-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -79,7 +79,8 @@ jobs:
             if (!fs.existsSync(file)) continue;
             const report = JSON.parse(fs.readFileSync(file, 'utf8'));
             const categories = Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
-            console.log(`${name}:`, categories);
+            const benchmarkIndex = report.environment?.benchmarkIndex ?? null;
+            console.log(`${name}:`, { benchmarkIndex, ...categories });
           }
           NODE
 
@@ -105,7 +106,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: iteration6-rendered-qa-${{ github.sha }}
+          name: rendered-browser-qa-${{ github.sha }}
           path: artifacts
           if-no-files-found: warn
           retention-days: 7

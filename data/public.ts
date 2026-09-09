@@ -71,11 +71,57 @@ export const education = [
   { qualification: "Data Science & AI Scholarship", institution: "ExploreAI Academy / ALX / African Leadership University", period: "2023 — 2024", detail: "15-month program" },
 ] as const;
 
+// Runtime service/conversion projection. Proof strength and project relationships are reconciled
+// against data/project-evidence.public.yaml. This is presentation metadata, not a new truth authority.
 export const services = [
-  { title: "Data migration & reconciliation", description: "Make complex system moves auditable, validated and dependable." },
-  { title: "Analytics & Power BI", description: "Turn fragmented operational data into decision-ready reporting." },
-  { title: "ML & AI product development", description: "Build useful models and AI applications with evidence, testing and governance." },
-  { title: "Product & web development", description: "Take digital products from requirements and architecture through launch." },
+  {
+    id: "data-migration-reconciliation",
+    title: "Data migration & reconciliation",
+    description: "Make complex system moves auditable, validated and dependable.",
+    capability: "Data Engineering & Migration",
+    evidence: "Current enterprise migration role plus verified mapping, cleansing, validation and reconciliation skills.",
+    proofLabel: "Experience-backed · public visual evidence intentionally limited",
+    projectSlugs: [] as readonly string[],
+    directProjectSlugs: [] as readonly string[],
+    projectContext: "Confidential enterprise work is not reconstructed into fake public screenshots or client diagrams.",
+    contactSubject: "Data migration and reconciliation opportunity",
+  },
+  {
+    id: "analytics-power-bi",
+    title: "Analytics & Power BI",
+    description: "Turn fragmented operational data into decision-ready reporting.",
+    capability: "Analytics & BI",
+    evidence: "Reporting and KPI work across Al Tayseer, Guksu and Egyptian African Trade, supported by verified Power BI, dashboard and Advanced Excel skills.",
+    proofLabel: "Experience-backed · no publishable Power BI screenshot claimed",
+    projectSlugs: ["presaira", "solar-site-selection"] as readonly string[],
+    directProjectSlugs: [] as readonly string[],
+    projectContext: "Related projects show analytical decision-making, not Power BI artifacts.",
+    contactSubject: "Analytics and Power BI opportunity",
+  },
+  {
+    id: "ml-ai-product-development",
+    title: "ML & AI product development",
+    description: "Build useful models and AI applications with evidence, testing and governance.",
+    capability: "Data Science & ML · AI Engineering",
+    evidence: "Strong public proof spans probabilistic forecasting, governed agentic workflows, computer vision and geospatial decision systems.",
+    proofLabel: "Strong public project evidence",
+    projectSlugs: ["presaira", "opportunityos", "oil-spill-detection", "solar-site-selection"] as readonly string[],
+    directProjectSlugs: ["presaira", "opportunityos", "oil-spill-detection", "solar-site-selection"] as readonly string[],
+    projectContext: "Public models, evaluation artifacts, system architecture and product interfaces provide direct inspectable proof.",
+    contactSubject: "ML and AI product opportunity",
+  },
+  {
+    id: "product-web-development",
+    title: "Product & web development",
+    description: "Take digital products from requirements and architecture through launch.",
+    capability: "Product & Software",
+    evidence: "Cross-project proof covers ecommerce, mobile product leadership, forecasting products, governed AI systems, technical web interfaces and geospatial applications.",
+    proofLabel: "Strong cross-project product evidence",
+    projectSlugs: ["ghareeb-oglu", "makhbazy", "presaira", "opportunityos", "oil-spill-detection", "solar-site-selection"] as readonly string[],
+    directProjectSlugs: ["ghareeb-oglu", "makhbazy", "presaira", "opportunityos", "oil-spill-detection", "solar-site-selection"] as readonly string[],
+    projectContext: "Ownership language remains project-specific; product leadership is not inflated into sole coding where the evidence does not support it.",
+    contactSubject: "Product and web development opportunity",
+  },
 ] as const;
 
 export const writing = [
