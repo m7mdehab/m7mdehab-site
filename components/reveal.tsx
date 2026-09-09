@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -10,19 +7,18 @@ type RevealProps = {
   className?: string;
 };
 
-export function Reveal({ as = "div", children, delay = 0, className }: RevealProps) {
-  const reduce = useReducedMotion();
-  const MotionElement = as === "h1" ? motion.h1 : motion.div;
+/**
+ * Semantic wrapper retained for the homepage composition API.
+ *
+ * Earlier versions applied an `initial: opacity: 0` Motion state to every
+ * section. That made off-screen server-rendered content visually blank until
+ * JavaScript + intersection observation ran. Evidence and copy now remain
+ * visible by default; project-specific interactions provide progressive motion.
+ */
+export function Reveal({ as = "div", children, className }: RevealProps) {
+  if (as === "h1") {
+    return <h1 className={className}>{children}</h1>;
+  }
 
-  return (
-    <MotionElement
-      className={className}
-      initial={reduce ? false : { opacity: 0, y: 18, filter: "blur(7px)" }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </MotionElement>
-  );
+  return <div className={className}>{children}</div>;
 }
