@@ -193,9 +193,9 @@ export function Services() {
                   <p>{service.projectContext}</p>
                   <div className={serviceStyles.projectLinks}>
                     {relatedProjects.map((project) => (
-                      <Link key={project.slug} href={`/work/${project.slug}`} data-conversion="service-to-project" data-service-id={service.id}>
+                      <a key={project.slug} href={`/work/${project.slug}`} data-conversion="service-to-project" data-service-id={service.id}>
                         {project.title} <ArrowUpRight size={13} aria-hidden="true" />
-                      </Link>
+                      </a>
                     ))}
                   </div>
                 </div>
