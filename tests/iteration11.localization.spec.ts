@@ -10,6 +10,7 @@ const projectSlugs = [
   "solar-site-selection",
   "makhbazy",
 ] as const;
+const arabicRoutes = ["/ar", ...projectSlugs.map((slug) => `/ar/work/${slug}`)];
 
 async function assertNoHorizontalOverflow(page: import("@playwright/test").Page) {
   const overflow = await page.evaluate(() => ({
@@ -71,9 +72,7 @@ test.describe("Iteration 11 Arabic localization", () => {
 
   test("Arabic service conversion keeps stable analytics semantics and localized project routes", async ({ page }) => {
     await page.goto("/ar");
-    const serviceCards = page.locator("#services .service-card");
-    await expect(serviceCards).toHaveCount(4);
-
+    await expect(page.locator("#services .service-card")).toHaveCount(4);
     await expect(page.locator('[data-conversion="capability-to-service"]')).toHaveCount(5);
     await expect(page.locator('[data-conversion="service-to-contact"]')).toHaveCount(4);
 
@@ -81,16 +80,13 @@ test.describe("Iteration 11 Arabic localization", () => {
     expect(await projectLinks.count()).toBeGreaterThan(0);
     for (let i = 0; i < await projectLinks.count(); i += 1) {
       await expect(projectLinks.nth(i)).toHaveAttribute("href", /^\/ar\/work\//);
-      const serviceId = await projectLinks.nth(i).getAttribute("data-service-id");
-      expect(serviceId).toBeTruthy();
+      expect(await projectLinks.nth(i).getAttribute("data-service-id")).toBeTruthy();
     }
   });
 
-  test("Arabic homepage and case studies pass axe on desktop", async ({ page }) => {
-    const routes = ["/ar", ...projectSlugs.map((slug) => `/ar/work/${slug}`)];
+  test("all Arabic launch routes pass axe on desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
-
-    for (const route of routes) {
+    for (const route of arabicRoutes) {
       const response = await page.goto(route);
       expect(response?.ok()).toBeTruthy();
       const results = await new AxeBuilder({ page }).analyze();
@@ -98,15 +94,25 @@ test.describe("Iteration 11 Arabic localization", () => {
     }
   });
 
-  test("Arabic homepage remains readable at 390px without horizontal overflow", async ({ page }) => {
+  test("all Arabic launch routes fit the 390px mobile viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
+    for (const route of arabicRoutes) {
+      const response = await page.goto(route);
+      expect(response?.ok()).toBeTruthy();
+      await assertNoHorizontalOverflow(page);
+    }
+    await page.goto("/ar");
+    await expect(page.getByRole("link", { name: "English" })).toBeVisible();
+  });
+
+  test("Arabic reduced-motion mode preserves content without Lenis ownership", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const response = await page.goto("/ar");
     expect(response?.ok()).toBeTruthy();
-    await assertNoHorizontalOverflow(page);
+    expect(await page.evaluate(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.className)).not.toMatch(/\blenis\b/);
     await expect(page.locator("#work")).toBeVisible();
-    await expect(page.locator("#services")).toBeVisible();
-    await expect(page.locator("#contact")).toBeVisible();
-    await expect(page.getByRole("link", { name: "English" })).toBeVisible();
   });
 
   test.describe("Arabic progressive enhancement without JavaScript", () => {

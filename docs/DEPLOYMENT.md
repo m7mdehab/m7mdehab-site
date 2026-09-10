@@ -1,6 +1,6 @@
 # Deployment
 
-Updated: 2026-09-10
+Updated: 2026-09-11
 
 ## Production target
 
@@ -17,6 +17,20 @@ Why this path is selected for the current site:
 - it has fewer moving parts than adopting a beta Next.js compatibility layer for a site that currently needs no server runtime;
 - the source remains portable and can move back to a server deployment later without rewriting the content system;
 - Cloudflare's current vinext compatibility probe can remain a future migration signal if server-side features become justified.
+
+## Language routes
+
+English remains the primary/default language:
+
+- `/`
+- `/work/<slug>`
+
+Arabic is published as a separate RTL route family:
+
+- `/ar`
+- `/ar/work/<slug>`
+
+The production gate treats both language variants as first-class indexable HTML. Reciprocal `hreflang`/canonical behavior is part of acceptance; English remains `x-default`.
 
 ## Build modes
 
@@ -40,21 +54,23 @@ CLOUDFLARE_STATIC_EXPORT=1 npm run build
 
 `next.config.ts` enables `output: "export"` only for this explicit mode. The export is written to `out/`.
 
-The deployment-readiness workflow verifies that the export contains the homepage, six case studies, machine-readable resources, robots, sitemap and Cloudflare `_headers` policy before Wrangler packaging is accepted.
+The deployment-readiness workflow verifies that the export contains the English and Arabic homepage/case-study surfaces, machine-readable resources, robots, sitemap and Cloudflare `_headers` policy before Wrangler packaging is accepted.
 
 ## Cloudflare configuration
 
-### Preview / packaging config
+### Staging / preview config
 
 `wrangler.static.jsonc`
 
 Purpose:
 
 - CI dry-run packaging;
-- temporary no-index soft-launch deployments;
-- `workers.dev` preview infrastructure only.
+- permanent-account pre-domain staging at `https://m7mdehab-site.m7mdehab.workers.dev`;
+- temporary preview infrastructure.
 
-The preview configuration intentionally leaves `workers_dev` and preview URLs available. `public/_headers` applies `X-Robots-Tag: noindex` to matching `workers.dev` preview hosts so temporary validation endpoints are not intended to become search-result duplicates.
+The configuration intentionally leaves `workers_dev` and preview URLs available. `public/_headers` applies `X-Robots-Tag: noindex` to matching `workers.dev` hosts so staging validation endpoints are not intended to become search-result duplicates.
+
+The accepted English staging baseline and deployment behavior are documented in `docs/ITERATION_10_CLOUDFLARE_STAGING_ACCEPTANCE_2026-09-11.md` and `docs/STAGING_DEPLOYMENT.md`.
 
 ### Production config
 
@@ -93,7 +109,7 @@ Before the deployment step the workflow performs:
 3. TypeScript validation;
 4. ESLint;
 5. Cloudflare static export;
-6. required-artifact assertions;
+6. required English/Arabic artifact assertions;
 7. Wrangler production deployment.
 
 A successful GitHub build is not evidence that the custom domain is live. The deployed origin must still pass the post-deployment checks below.
@@ -128,7 +144,7 @@ Verify before launch:
 - HTTP → HTTPS redirect;
 - `www` → apex 301 behavior;
 - no mixed-content requests;
-- no certificate errors on the six case-study routes or machine-readable resources.
+- no certificate errors on English or Arabic case-study routes or machine-readable resources.
 
 Do **not** enable HSTS preload merely because HTTPS works once. HSTS/preload should be introduced only after the apex and all intended HTTPS subdomain behavior is stable and the operational consequences are understood.
 
@@ -140,20 +156,19 @@ Current static response baseline in `public/_headers`:
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - restrictive camera/microphone/geolocation/browsing-topics `Permissions-Policy`
-- `X-Robots-Tag: noindex` on matching `workers.dev` preview hosts.
+- `X-Robots-Tag: noindex` on matching `workers.dev` preview/staging hosts.
 
 A Content Security Policy is not being guessed into production. Next.js emits inline runtime scripts, so CSP should be designed from actual production resource behavior and introduced deliberately, preferably report-only first, before enforcement.
 
-## Soft-launch workflow
+## Soft-launch verification
 
-A soft launch is a real deployed artifact that is tested before the canonical domain is publicly promoted or submitted for indexing.
+The permanent-account `workers.dev` staging origin is a real deployed artifact that can be tested before the canonical domain is purchased or promoted. It remains noncanonical and `noindex`.
 
-The Iteration 9 temporary Cloudflare deployment is ephemeral and is not the production launch. Temporary Cloudflare preview accounts expire unless claimed. Never store or publish their claim token in repository documentation.
+Staging verification covers:
 
-Soft-launch verification should cover:
-
-- deployed HTTP reachability;
-- all seven indexable HTML routes;
+- deployed HTTP reachability and propagation stabilization;
+- English homepage + six English case studies;
+- Arabic homepage + six Arabic case studies;
 - `/profile.json`;
 - `/projects.json`;
 - `/services.json`;
@@ -161,10 +176,11 @@ Soft-launch verification should cover:
 - `/robots.txt`;
 - `/sitemap.xml`;
 - canonical and Open Graph URLs;
+- reciprocal English/Arabic alternates;
 - preview `noindex` behavior;
 - security headers;
 - desktop/mobile browser suite;
-- axe accessibility gate;
+- axe accessibility gate across both language route sets;
 - reduced motion and JavaScript-disabled behavior;
 - live Lighthouse baseline;
 - missing assets/404s;
@@ -178,17 +194,19 @@ Do not call the site publicly launched until all of the following are verified o
 2. TLS is valid.
 3. HTTP redirects to HTTPS.
 4. `www` redirects once to apex with path/query preservation.
-5. Homepage and all six case-study URLs return the intended 200 response.
-6. Canonicals point to the final apex URLs.
-7. `robots.txt` is reachable and advertises the canonical sitemap.
-8. `sitemap.xml` contains exactly the intended indexable HTML routes.
-9. machine-readable public resources are reachable and preserve publication boundaries.
-10. production is **not** carrying the preview-only `X-Robots-Tag: noindex` header.
-11. security headers are present.
-12. browser/accessibility/mobile/reduced-motion/no-JS regression suite passes against the public origin.
-13. deployed Lighthouse is recorded as a lab baseline.
-14. no confidential or private data is exposed by HTML, JSON, source maps, headers or build artifacts.
-15. the production deployment SHA is recorded.
+5. English homepage and all six English case-study URLs return the intended 200 response.
+6. Arabic homepage and all six Arabic case-study URLs return the intended 200 response.
+7. English uses `lang="en"`; Arabic uses `lang="ar" dir="rtl"`.
+8. Every English/Arabic pair self-canonicalizes and exposes reciprocal language alternates.
+9. `robots.txt` is reachable and advertises the canonical sitemap.
+10. `sitemap.xml` contains exactly the intended indexable HTML routes in both languages.
+11. machine-readable public resources are reachable and preserve publication boundaries.
+12. production is **not** carrying the preview-only `X-Robots-Tag: noindex` header.
+13. security headers are present.
+14. browser/accessibility/mobile/reduced-motion/no-JS regression suite passes against the public origin.
+15. deployed Lighthouse is recorded as a lab baseline for the English homepage, Presaira and Arabic homepage.
+16. no confidential or private data is exposed by HTML, JSON, source maps, headers or build artifacts.
+17. the production deployment SHA is recorded.
 
 Only after this gate should Search Console/Bing sitemap submission and public-launch promotion proceed.
 
@@ -203,7 +221,7 @@ Still external/setup-dependent until directly verified:
 - production analytics provider/property;
 - any required consent/privacy configuration for the selected analytics provider and launch jurisdictions.
 
-The site already exposes provider-neutral conversion semantics. Production analytics should bind to those semantics rather than changing the visible conversion architecture.
+The site exposes provider-neutral conversion semantics shared across English and Arabic. Production analytics should bind to those semantics rather than changing the visible conversion architecture.
 
 ## Rollback
 
@@ -211,7 +229,7 @@ If a production deployment introduces a launch-blocking defect:
 
 1. identify the last verified production git SHA / Cloudflare Worker version;
 2. roll back the Worker deployment or redeploy the last verified git state;
-3. re-run public-origin smoke checks;
+3. re-run public-origin smoke checks in both languages;
 4. keep the domain canonical and avoid exposing an alternate duplicate host;
 5. correct the defect on a branch and pass the full CI/browser/deployment-readiness gates before redeploying.
 
@@ -219,6 +237,6 @@ Do not make an unvalidated hotfix directly on the live Worker that is absent fro
 
 ## Future server-runtime path
 
-Cloudflare currently provides a vinext path for Next.js-compatible Workers. Iteration 9 probes the current application against vinext, but the current launch does not require it.
+Cloudflare currently provides a vinext path for Next.js-compatible Workers. The repository probes current compatibility, but the launch does not require it.
 
 If a future feature genuinely requires request-time server execution, first re-run compatibility against the then-current application and vinext release. Adopt the server-runtime path only when the feature benefit justifies the additional compatibility and operational surface.
