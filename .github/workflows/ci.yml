@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   validate:
+    name: Application CI + rendered QA on PRs
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -42,13 +43,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Smoke-test production routes
+      - name: Start production server
         shell: bash
         run: |
           npm run start -- -H 127.0.0.1 -p 3000 > /tmp/m7mdehab-next.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
-
+          echo $! > /tmp/m7mdehab-next.pid
           ready=0
           for attempt in {1..30}; do
             if curl --fail --silent --show-error http://127.0.0.1:3000/ > /dev/null; then
@@ -57,12 +56,14 @@ jobs:
             fi
             sleep 1
           done
-
           if [ "$ready" -ne 1 ]; then
             cat /tmp/m7mdehab-next.log
             exit 1
           fi
 
+      - name: Smoke-test production routes
+        shell: bash
+        run: |
           routes=(
             "/"
             "/work/presaira"
@@ -81,3 +82,66 @@ jobs:
             echo "Checking ${route}"
             curl --fail --silent --show-error "http://127.0.0.1:3000${route}" > /dev/null
           done
+
+      # Browser and accessibility QA remains mandatory on pull requests, but it
+      # reuses the checkout, npm install, typecheck, lint, build, and server from
+      # Application CI instead of paying for a second hosted runner to repeat them.
+      - name: Verify QA tooling
+        if: github.event_name == 'pull_request'
+        run: npm ls --depth=0 @playwright/test @axe-core/playwright lighthouse eslint
+
+      - name: Install Chromium
+        if: github.event_name == 'pull_request'
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright rendered and accessibility QA
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: npm run test:browser
+
+      - name: Lighthouse baseline
+        if: always() && github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          mkdir -p artifacts/lighthouse
+          npx lighthouse http://127.0.0.1:3000/ --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/home.json || true
+          npx lighthouse http://127.0.0.1:3000/work/presaira --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/presaira.json || true
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of ['home', 'presaira']) {
+            const file = `artifacts/lighthouse/${name}.json`;
+            if (!fs.existsSync(file)) continue;
+            const report = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const categories = Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
+            const benchmarkIndex = report.environment?.benchmarkIndex ?? null;
+            console.log(`${name}:`, { benchmarkIndex, ...categories });
+          }
+          NODE
+
+      - name: Capture dependency and tooling evidence
+        if: always() && github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          mkdir -p artifacts/tooling
+          npm ls --depth=0 @playwright/test @axe-core/playwright lighthouse eslint > artifacts/tooling/versions.txt || true
+          npm audit --omit=dev --json > artifacts/tooling/npm-audit-production.json || true
+          npm outdated --json > artifacts/tooling/npm-outdated.json || true
+          cp package-lock.json artifacts/tooling/package-lock.json
+
+      - name: Stop production server
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/m7mdehab-next.pid ]; then
+            kill "$(cat /tmp/m7mdehab-next.pid)" 2>/dev/null || true
+          fi
+
+      - name: Upload rendered QA artifacts
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: rendered-browser-qa-${{ github.sha }}
+          path: artifacts
+          if-no-files-found: warn
+          retention-days: 7
