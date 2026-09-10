@@ -20,17 +20,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const title = `${project.title} — Case Study`;
   const canonical = projectCaseStudyUrl(project.slug);
+  const arabic = `${profile.domain}/ar/work/${project.slug}`;
 
   return {
     title,
     description: project.statement,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: { en: canonical, ar: arabic, "x-default": canonical },
+    },
     openGraph: {
       title,
       description: project.statement,
       url: canonical,
       siteName: profile.name,
       type: "article",
+      locale: "en_US",
+      alternateLocale: ["ar_EG"],
     },
     twitter: {
       card: "summary",

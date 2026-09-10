@@ -72,6 +72,13 @@ jobs:
             "/work/oil-spill-detection"
             "/work/solar-site-selection"
             "/work/makhbazy"
+            "/ar"
+            "/ar/work/presaira"
+            "/ar/work/opportunityos"
+            "/ar/work/ghareeb-oglu"
+            "/ar/work/oil-spill-detection"
+            "/ar/work/solar-site-selection"
+            "/ar/work/makhbazy"
             "/llms.txt"
             "/profile.json"
             "/projects.json"
@@ -107,9 +114,10 @@ jobs:
           mkdir -p artifacts/lighthouse
           npx lighthouse http://127.0.0.1:3000/ --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/home.json || true
           npx lighthouse http://127.0.0.1:3000/work/presaira --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/presaira.json || true
+          npx lighthouse http://127.0.0.1:3000/ar --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/lighthouse/ar-home.json || true
           node - <<'NODE'
           const fs = require('fs');
-          for (const name of ['home', 'presaira']) {
+          for (const name of ['home', 'presaira', 'ar-home']) {
             const file = `artifacts/lighthouse/${name}.json`;
             if (!fs.existsSync(file)) continue;
             const report = JSON.parse(fs.readFileSync(file, 'utf8'));

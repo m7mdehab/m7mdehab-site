@@ -18,7 +18,7 @@ const serviceIds = [
 ] as const;
 
 test.describe("Iteration 8 discoverability architecture", () => {
-  test("indexable HTML routes self-canonicalize and project Open Graph URLs match", async ({ page }) => {
+  test("indexable English HTML routes self-canonicalize and project Open Graph URLs match", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", domain);
 
@@ -100,20 +100,24 @@ test.describe("Iteration 8 discoverability architecture", () => {
     expect(body).toContain("confidential client systems, mappings and outputs are not reconstructed");
   });
 
-  test("sitemap contains only canonical indexable HTML routes without artificial lastmod", async ({ request }) => {
+  test("sitemap contains the canonical English and Arabic HTML routes without artificial lastmod", async ({ request }) => {
     const response = await request.get("/sitemap.xml");
     expect(response.ok()).toBeTruthy();
     const xml = await response.text();
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
-    expect(locations).toHaveLength(7);
+    expect(locations).toHaveLength(14);
     expect(locations).toEqual([
       domain,
       ...projectSlugs.map((slug) => `${domain}/work/${slug}`),
+      `${domain}/ar`,
+      ...projectSlugs.map((slug) => `${domain}/ar/work/${slug}`),
     ]);
     expect(xml).not.toContain("<lastmod>");
     expect(xml).not.toContain(".json");
     expect(xml).not.toContain("llms.txt");
+    expect(xml).toContain('hreflang="en"');
+    expect(xml).toContain('hreflang="ar"');
   });
 
   test("robots keeps the site crawlable and advertises the canonical sitemap", async ({ request }) => {

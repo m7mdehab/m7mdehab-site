@@ -52,13 +52,34 @@ jobs:
           test -f out/robots.txt
           test -f out/sitemap.xml
           test -f out/_headers
+
           if [ -f out/work/presaira.html ]; then
-            echo "case study export: file form"
+            echo "English case study export: file form"
           elif [ -f out/work/presaira/index.html ]; then
-            echo "case study export: directory-index form"
+            echo "English case study export: directory-index form"
           else
-            echo "Missing Presaira case-study export" >&2
+            echo "Missing English Presaira case-study export" >&2
             find out -maxdepth 4 -type f | sort
+            exit 1
+          fi
+
+          if [ -f out/ar.html ]; then
+            echo "Arabic homepage export: file form"
+          elif [ -f out/ar/index.html ]; then
+            echo "Arabic homepage export: directory-index form"
+          else
+            echo "Missing Arabic homepage export" >&2
+            find out -maxdepth 4 -type f | sort
+            exit 1
+          fi
+
+          if [ -f out/ar/work/presaira.html ]; then
+            echo "Arabic case study export: file form"
+          elif [ -f out/ar/work/presaira/index.html ]; then
+            echo "Arabic case study export: directory-index form"
+          else
+            echo "Missing Arabic Presaira case-study export" >&2
+            find out -maxdepth 5 -type f | sort
             exit 1
           fi
 
@@ -74,9 +95,8 @@ jobs:
           set -euo pipefail
           npm audit --omit=dev --audit-level=low
 
-      # This was previously a second hosted job that repeated checkout, Node
-      # setup, and npm ci. Keep it advisory and non-blocking, and run it only
-      # after mandatory deployment-readiness checks have produced their verdict.
+      # Advisory future-runtime compatibility only. It deliberately reuses this
+      # runner after mandatory static-production checks have passed.
       - name: Vinext future-runtime probe
         continue-on-error: true
         timeout-minutes: 8
