@@ -66,22 +66,53 @@ jobs:
         run: |
           set -euo pipefail
 
+          # A newly deployed Worker version can take a few seconds to become
+          # globally available. Require three consecutive 200 responses so one
+          # early edge hit cannot be mistaken for a stable deployment.
           ready=0
-          for attempt in {1..30}; do
-            if curl --fail --silent --show-error "$STAGING_BASE_URL/" > /tmp/staging-home.html; then
-              ready=1
-              break
+          consecutive_200=0
+          last_status=unset
+
+          for attempt in {1..45}; do
+            status="$(
+              curl --silent --show-error --location \
+                --dump-header /tmp/staging-headers-candidate.txt \
+                --output /tmp/staging-home-candidate.html \
+                --write-out '%{http_code}' \
+                "$STAGING_BASE_URL/" || true
+            )"
+            last_status="${status:-curl-error}"
+            echo "Staging readiness attempt ${attempt}: HTTP ${last_status}"
+
+            if [ "$status" = "200" ]; then
+              consecutive_200=$((consecutive_200 + 1))
+              cp /tmp/staging-headers-candidate.txt /tmp/staging-headers.txt
+              cp /tmp/staging-home-candidate.html /tmp/staging-home.html
+
+              if [ "$consecutive_200" -ge 3 ]; then
+                ready=1
+                break
+              fi
+            else
+              consecutive_200=0
             fi
+
             sleep 2
           done
 
           if [ "$ready" -ne 1 ]; then
-            echo "Staging origin did not become reachable: $STAGING_BASE_URL" >&2
+            echo "Staging origin did not stabilize at HTTP 200: $STAGING_BASE_URL (last status: $last_status)" >&2
+            if [ -f /tmp/staging-headers-candidate.txt ]; then
+              echo "--- last response headers ---" >&2
+              tr -d '\r' < /tmp/staging-headers-candidate.txt >&2 || true
+            fi
+            if [ -f /tmp/staging-home-candidate.html ]; then
+              echo "--- last response body (first 800 bytes) ---" >&2
+              head -c 800 /tmp/staging-home-candidate.html >&2 || true
+              echo >&2
+            fi
             exit 1
           fi
-
-          curl --fail --silent --show-error --dump-header /tmp/staging-headers.txt \
-            --output /tmp/staging-home.html "$STAGING_BASE_URL/"
 
           tr -d '\r' < /tmp/staging-headers.txt > /tmp/staging-headers-normalized.txt
           grep -Eiq '^x-robots-tag:.*noindex' /tmp/staging-headers-normalized.txt
@@ -130,7 +161,6 @@ jobs:
         run: npm run test:browser
 
       - name: Lighthouse staging baseline
-        if: always()
         shell: bash
         run: |
           mkdir -p artifacts/staging-lighthouse
