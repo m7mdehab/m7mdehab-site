@@ -102,7 +102,7 @@ Keep visible content, structured data and machine-readable outputs consistent wi
 - `wrangler.production.jsonc` is the production custom-domain contract. The canonical public host is the apex `m7mdehab.com`; production disables `workers.dev` and preview URLs.
 - `www.m7mdehab.com` is redirect-only. Implement `www` → apex as a Cloudflare edge redirect with path/query preservation; never serve a second independently indexable content copy.
 - Production deployment is manually gated through `.github/workflows/deploy-cloudflare-production.yml` and requires authorized `CLOUDFLARE_API_TOKEN` plus `CLOUDFLARE_ACCOUNT_ID`. Never commit Cloudflare tokens, account credentials or temporary-account claim tokens.
-- `.github/workflows/deployment-readiness.yml` is the durable repository deployment gate. It must continue to validate static export surfaces, preview and production Wrangler configuration, and the production dependency audit.
+- `.github/workflows/deployment-readiness.yml` is the durable repository deployment gate. It must continue to validate static export surfaces, preview and production Wrangler configuration, the production dependency audit, and the advisory Vinext compatibility probe. The Vinext probe intentionally reuses the same runner and dependency install instead of allocating a second hosted job.
 - A temporary Cloudflare deployment can prove that the artifact uploads/deploys, but it does not prove the permanent custom-domain origin. Temporary-account edge challenges or preview-platform behavior must not be mistaken for application behavior.
 - Do not submit the site to Search Console/Bing or publicly promote it until the permanent apex origin passes DNS, TLS, canonical-host redirect, security-header, browser/a11y/mobile/no-JS and crawlability checks in `docs/DEPLOYMENT.md`.
 - Do not guess a Content Security Policy or enable HSTS preload merely for a checklist. Introduce CSP from measured production resource behavior (prefer report-only first) and consider HSTS/preload only after HTTPS/subdomain behavior is stable.
@@ -118,7 +118,7 @@ Core narrative and evidence must be readable in server-rendered HTML and must re
 
 Do not upgrade a framework, linter or test tool merely because a newer major exists. Resolve security advisories promptly, but verify peer/runtime compatibility in CI. The current Next.js 16 baseline intentionally uses the compatible ESLint 9 line because the tested ESLint 10 + Next React-plugin combination crashes at rule load time.
 
-The durable rendered gate is the **Rendered Browser QA** workflow. `npm run test:browser` runs the full `tests` directory and currently covers:
+The durable rendered gate is now the **pull-request rendered QA lane inside `.github/workflows/ci.yml`**. It reuses the same checkout, dependency install, typecheck, lint, production build, and running server as Application CI instead of repeating them on a second hosted runner. `npm run test:browser` still runs the full `tests` directory and currently covers:
 
 - homepage and all six project routes on desktop and 390px mobile;
 - broken evidence images and horizontal overflow;
@@ -130,6 +130,16 @@ The durable rendered gate is the **Rendered Browser QA** workflow. `npm run test
 - Iteration 8 canonical, structured-data, machine-readable, sitemap and robots semantics.
 
 Do not narrow this suite when an iteration ends. Lighthouse is a comparative lab signal, not a substitute for behavioral checks. Interpret score changes with the report's CPU `benchmarkIndex`, payload/chunk changes and actual runtime behavior before modifying useful content merely to chase a score.
+
+## GitHub Actions efficiency
+Read `docs/CI_EFFICIENCY_POLICY.md` before changing workflow triggers, runner types, job boundaries, caching, or test placement.
+
+- Cost optimization removes duplicated setup and obsolete runs; it does not remove acceptance predicates.
+- Run iterative typecheck/lint/unit/build checks locally or in Codespaces before pushing when available, then use GitHub Actions as the independent merge proof.
+- Prefer coherent checkpoint pushes instead of repeated micro-pushes that trigger the same hosted gate.
+- Keep read-only CI `cancel-in-progress: true` when superseded work has no value.
+- Do not recreate the retired standalone Browser QA runner or separate Vinext runner unless a new requirement actually depends on runner-level independence.
+- Use `ubuntu-slim` only for lightweight jobs that fit the 15-minute ceiling. Browser installation, production builds, and deployment packaging remain on full runners.
 
 ## Content model
 Keep professional content centralized under `data/`. Adding a job, certification, skill, service or project should not require redesigning components. Homepage omission does not mean a fact should disappear from the governed source registry; strategic curation and truth completeness are separate concerns.
