@@ -33,8 +33,26 @@ html[dir="rtl"] .writing-row > span {
   letter-spacing: 0;
 }
 
+html[dir="rtl"] .hero,
+html[dir="rtl"] .hero-bottom,
+html[dir="rtl"] .hero-bottom > *,
+html[dir="rtl"] .section-intro > *,
+html[dir="rtl"] .project-copy,
+html[dir="rtl"] .service-card {
+  min-width: 0;
+}
+
 html[dir="rtl"] .hero-title {
   line-height: .94;
+}
+
+html[dir="rtl"] .hero-title > [lang="en"] {
+  display: block;
+  direction: ltr;
+  text-align: left;
+  max-width: 100%;
+  min-width: 0;
+  unicode-bidi: isolate;
 }
 
 html[dir="rtl"] .hero-title em {
@@ -76,13 +94,17 @@ html[dir="rtl"] .locale-link {
 
 @media (max-width: 900px) {
   html[dir="rtl"] .hero-title {
-    font-size: clamp(3.4rem, 14vw, 6.8rem);
+    font-size: clamp(3.2rem, 13vw, 6.4rem);
   }
 }
 
 @media (max-width: 560px) {
   html[dir="rtl"] .hero-title {
-    font-size: clamp(3rem, 13vw, 5rem);
+    font-size: clamp(2.65rem, 12vw, 4.6rem);
+  }
+
+  html[dir="rtl"] .hero-title > [lang="en"] {
+    width: 100%;
   }
 
   html[dir="rtl"] .section-intro h2,
