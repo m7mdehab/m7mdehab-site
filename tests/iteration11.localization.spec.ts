@@ -13,11 +13,31 @@ const projectSlugs = [
 const arabicRoutes = ["/ar", ...projectSlugs.map((slug) => `/ar/work/${slug}`)];
 
 async function assertNoHorizontalOverflow(page: import("@playwright/test").Page) {
-  const overflow = await page.evaluate(() => ({
-    documentWidth: document.documentElement.scrollWidth,
-    viewportWidth: document.documentElement.clientWidth,
-  }));
-  expect(overflow.documentWidth).toBeLessThanOrEqual(overflow.viewportWidth + 1);
+  const overflow = await page.evaluate(() => {
+    const viewportWidth = document.documentElement.clientWidth;
+    const documentWidth = document.documentElement.scrollWidth;
+    const offenders = Array.from(document.querySelectorAll<HTMLElement>("body *"))
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          tag: element.tagName.toLowerCase(),
+          className: typeof element.className === "string" ? element.className : "",
+          text: (element.textContent ?? "").trim().replace(/\s+/g, " ").slice(0, 90),
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          width: Math.round(rect.width),
+        };
+      })
+      .filter((item) => item.right > viewportWidth + 1 || item.left < -1)
+      .slice(0, 20);
+
+    return { documentWidth, viewportWidth, offenders };
+  });
+
+  expect(
+    overflow.documentWidth,
+    `Arabic horizontal overflow: ${JSON.stringify(overflow, null, 2)}`,
+  ).toBeLessThanOrEqual(overflow.viewportWidth + 1);
 }
 
 test.describe("Iteration 11 Arabic localization", () => {
