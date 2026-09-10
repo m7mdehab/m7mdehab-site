@@ -40,7 +40,7 @@ Do not commit or print secret values.
 A staging deployment is accepted only if the workflow verifies:
 
 1. the static export includes the launch HTML and machine-readable surfaces;
-2. the staging origin becomes reachable;
+2. the staging origin becomes reachable and stabilizes at HTTP 200 across consecutive probes after deployment propagation;
 3. `X-Robots-Tag: noindex` is present;
 4. baseline security headers are present;
 5. homepage canonical remains `https://m7mdehab.com`;
@@ -49,6 +49,12 @@ A staging deployment is accepted only if the workflow verifies:
 8. a deployed-origin Lighthouse lab baseline is captured as evidence.
 
 The workflow uploads short-retention staging acceptance artifacts for auditability.
+
+### First permanent-account staging deployment observation
+
+Run `34539408669` successfully built and uploaded the static artifact and Cloudflare reported deployment of Worker version `24b4156d-513c-4fd6-a2a6-954713d023dc` at the intended `workers.dev` URL. The first live verification then observed a 404 immediately after deployment, before Chromium/Playwright acceptance could begin. This exposed a verifier timing race rather than a build/upload failure: a new Worker version can require a short propagation interval before all edge requests converge. The acceptance workflow therefore requires multiple consecutive HTTP 200 responses and reuses the stabilized response for header/canonical checks instead of accepting one probe and immediately issuing a second independent request.
+
+Lighthouse is no longer forced to execute after a failed reachability gate; a 404 cannot produce a meaningful performance baseline and should not consume hosted time merely to emit zero scores.
 
 ## CI efficiency
 
