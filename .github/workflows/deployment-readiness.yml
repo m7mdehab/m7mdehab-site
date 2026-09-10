@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: deployment-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -16,8 +20,9 @@ env:
 
 jobs:
   cloudflare-static-export:
-    name: Cloudflare static export
+    name: Cloudflare static export + Vinext probe
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -31,6 +36,13 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
+
+      # This was previously a second hosted job that repeated checkout, Node
+      # setup, and npm ci. It remains advisory and non-blocking, but now reuses
+      # the same dependency graph before the required Cloudflare checks.
+      - name: Vinext future-runtime probe
+        continue-on-error: true
+        run: npx --yes vinext@1.0.0-beta.9 check
 
       - name: Build static export
         run: CLOUDFLARE_STATIC_EXPORT=1 npm run build
@@ -68,24 +80,3 @@ jobs:
         run: |
           set -euo pipefail
           npm audit --omit=dev --audit-level=low
-
-  vinext-compatibility:
-    name: Vinext future-runtime probe
-    runs-on: ubuntu-24.04
-    continue-on-error: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Set up Node
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: package-lock.json
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Check current application against optional Cloudflare vinext path
-        run: npx --yes vinext@1.0.0-beta.9 check
