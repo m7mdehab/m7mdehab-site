@@ -78,7 +78,21 @@ Rules:
 - Reduced-motion and mobile fallbacks must preserve the same truthful proof in static form rather than substitute generic decoration.
 
 ## SEO / AI visibility
-Keep visible content, structured data and machine-readable outputs consistent with the governed public truth model. Do not fabricate schema claims that do not appear visibly or lack evidence. Never leak private facts through JSON-LD, `/profile.json`, `/projects.json`, `/llms.txt`, metadata or hidden HTML.
+Keep visible content, structured data and machine-readable outputs consistent with the governed public truth model. Do not fabricate schema claims that do not appear visibly or lack evidence. Never leak private facts through JSON-LD, `/profile.json`, `/projects.json`, `/services.json`, `/llms.txt`, metadata or hidden HTML.
+
+### Discoverability and launch contract
+
+- Every indexable HTML route must self-canonicalize. A nested page must not inherit the homepage canonical by accident.
+- `data/discoverability.ts` is a machine-readable/public-discovery projection only. It is subordinate to `data/source-of-truth.public.yaml`, `data/project-evidence.public.yaml` and `data/public.ts`; never treat it as a new truth authority.
+- `/profile.json`, `/projects.json`, `/services.json` and `/llms.txt` must remain consistent projections of governed public data and visible claims.
+- `/llms.txt` is auxiliary context, not a substitute for semantic HTML, canonical metadata, structured data, robots or sitemap architecture.
+- Sitemap entries should be canonical indexable HTML pages. Add `lastmod` only when the timestamp reliably represents when that URL's content materially changed; never use build time as fake freshness.
+- Structured `sameAs` is for identity-equivalent public URLs. Project/product URLs belong in project relationships, not Person identity equivalence.
+- Search-crawler permission and model-training crawler policy are separate decisions. In particular, OAI-SearchBot readiness must not silently decide GPTBot policy.
+- Robots permission is only the repository layer. CDN, firewall and WAF behavior must be verified against the deployed origin before claiming crawler accessibility.
+- Do not claim `m7mdehab.com` is deployed, DNS-configured, indexed, verified in Search Console/Bing, or measured by analytics until that external state has been directly verified.
+- Use `docs/LAUNCH_READINESS_CHECKLIST.md` for production launch gates and `docs/ANALYTICS_BINDING_CONTRACT.md` for future provider binding.
+- A future analytics adapter must preserve the stable `data-conversion` / `data-service-id` semantics and the site's privacy/confidentiality boundaries. Provider naming should map to the internal vocabulary, not replace it.
 
 ## Performance / accessibility / progressive enhancement
 Respect reduced motion. Avoid unnecessary client components. Keep animated effects isolated and pausable. Aesthetic treatments lose when they damage crawlability, Core Web Vitals, accessibility, clarity, conversion or mobile usability.
@@ -98,7 +112,8 @@ The durable rendered gate is the **Rendered Browser QA** workflow. `npm run test
 - reduced motion;
 - keyboard navigation;
 - JavaScript-disabled progressive enhancement;
-- Iteration 7 service-anchor, direct-support and contact-conversion semantics.
+- Iteration 7 service-anchor, direct-support and contact-conversion semantics;
+- Iteration 8 canonical, structured-data, machine-readable, sitemap and robots semantics.
 
 Do not narrow this suite when an iteration ends. Lighthouse is a comparative lab signal, not a substitute for behavioral checks. Interpret score changes with the report's CPU `benchmarkIndex`, payload/chunk changes and actual runtime behavior before modifying useful content merely to chase a score.
 
@@ -112,10 +127,13 @@ Keep professional content centralized under `data/`. Adding a job, certification
 - reconcile project visuals/evidence against `data/project-evidence.public.yaml`;
 - reconcile service proof/direct-support relationships against the same evidence registry;
 - reconcile `data/case-studies.ts` against the public truth/evidence registries and its cited public project sources;
+- reconcile machine-readable resources/structured data against the same public runtime claims;
+- verify every indexable HTML route has the intended canonical URL;
+- verify sitemap/robots and launch-readiness contracts without inventing external account state;
 - verify third-party licenses and attribution;
 - install with `npm ci` from the committed lockfile;
 - run typecheck, lint and production build;
-- run the full rendered browser/conversion suite;
+- run the full rendered browser/conversion/discoverability suite;
 - verify JavaScript-disabled and reduced-motion readability;
 - run performance/SEO checks and interpret Lighthouse with runner benchmark context;
 - scan for confidential material, private facts and secrets;

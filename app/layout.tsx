@@ -5,6 +5,7 @@ import "./globals.css";
 import "./hardening.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { projectRecords, serviceRecords } from "@/data/discoverability";
 import { profile } from "@/data/public";
 
 export const metadata: Metadata = {
@@ -13,29 +14,78 @@ export const metadata: Metadata = {
   description: profile.proposition,
   alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.domain }],
-  openGraph: { title: `${profile.name} — Data, AI & Product`, description: profile.proposition, url: profile.domain, siteName: profile.name, type: "profile" },
-  twitter: { card: "summary_large_image", title: `${profile.name} — Data, AI & Product`, description: profile.proposition },
+  openGraph: {
+    title: `${profile.name} — Data, AI & Product`,
+    description: profile.proposition,
+    url: profile.domain,
+    siteName: profile.name,
+    type: "profile",
+  },
+  twitter: {
+    card: "summary",
+    title: `${profile.name} — Data, AI & Product`,
+    description: profile.proposition,
+  },
 };
 
-const personSchema = {
+const personId = `${profile.domain}/#person`;
+const profilePageId = `${profile.domain}/#profile-page`;
+
+const siteSchema = {
   "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  url: profile.domain,
-  mainEntity: {
-    "@type": "Person",
-    name: profile.name,
-    alternateName: profile.handle,
-    url: profile.domain,
-    jobTitle: profile.role,
-    address: { "@type": "PostalAddress", addressLocality: "Cairo", addressCountry: "EG" },
-    sameAs: [profile.github, profile.linkedin, "https://presaira.com"],
-    worksFor: { "@type": "Organization", name: profile.employer },
-    alumniOf: [
-      { "@type": "EducationalOrganization", name: "Canadian International College" },
-      { "@type": "EducationalOrganization", name: "ExploreAI Academy / ALX / African Leadership University" }
-    ],
-    knowsAbout: ["Data Engineering", "Data Migration", "Analytics", "Power BI", "Machine Learning", "AI Engineering", "Product Development"]
-  }
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": profilePageId,
+      url: profile.domain,
+      name: `${profile.name} — Data, AI & Product`,
+      description: profile.proposition,
+      mainEntity: { "@id": personId },
+    },
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: profile.name,
+      alternateName: profile.handle,
+      url: profile.domain,
+      jobTitle: profile.role,
+      address: { "@type": "PostalAddress", addressLocality: "Cairo", addressCountry: "EG" },
+      sameAs: [profile.github, profile.linkedin],
+      worksFor: { "@type": "Organization", name: profile.employer },
+      alumniOf: [
+        { "@type": "EducationalOrganization", name: "Canadian International College" },
+        { "@type": "EducationalOrganization", name: "ExploreAI Academy / ALX / African Leadership University" },
+      ],
+      knowsAbout: [
+        "Data Engineering",
+        "Data Migration",
+        "Analytics",
+        "Power BI",
+        "Machine Learning",
+        "AI Engineering",
+        "Product Development",
+      ],
+      makesOffer: serviceRecords.map((service) => ({
+        "@type": "Offer",
+        url: service.url,
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.description,
+          serviceType: service.capability,
+        },
+      })),
+    },
+    ...projectRecords.map((project) => ({
+      "@type": "CreativeWork",
+      "@id": `${project.caseStudyUrl}#case-study`,
+      url: project.caseStudyUrl,
+      name: project.title,
+      description: project.statement,
+      creator: { "@id": personId },
+      keywords: project.proof.split(" · "),
+    })),
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -43,7 +93,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <SmoothScroll />
         <SiteNav />
         {children}
