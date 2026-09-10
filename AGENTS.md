@@ -94,6 +94,20 @@ Keep visible content, structured data and machine-readable outputs consistent wi
 - Use `docs/LAUNCH_READINESS_CHECKLIST.md` for production launch gates and `docs/ANALYTICS_BINDING_CONTRACT.md` for future provider binding.
 - A future analytics adapter must preserve the stable `data-conversion` / `data-service-id` semantics and the site's privacy/confidentiality boundaries. Provider naming should map to the internal vocabulary, not replace it.
 
+## Deployment architecture
+
+- The canonical application source remains a normal Next.js application. Do not make local development or ordinary CI depend on a Cloudflare-specific runtime adapter without a concrete server-side requirement.
+- The current production target is **Cloudflare Workers Static Assets** because every launch route is statically prerenderable. Use `CLOUDFLARE_STATIC_EXPORT=1 npm run build` for the explicit export lane; ordinary `npm run build` remains the normal Next.js build.
+- `wrangler.static.jsonc` is preview/dry-run infrastructure. `workers.dev` and temporary preview hosts are never canonical production surfaces and must remain non-index targets.
+- `wrangler.production.jsonc` is the production custom-domain contract. The canonical public host is the apex `m7mdehab.com`; production disables `workers.dev` and preview URLs.
+- `www.m7mdehab.com` is redirect-only. Implement `www` → apex as a Cloudflare edge redirect with path/query preservation; never serve a second independently indexable content copy.
+- Production deployment is manually gated through `.github/workflows/deploy-cloudflare-production.yml` and requires authorized `CLOUDFLARE_API_TOKEN` plus `CLOUDFLARE_ACCOUNT_ID`. Never commit Cloudflare tokens, account credentials or temporary-account claim tokens.
+- `.github/workflows/deployment-readiness.yml` is the durable repository deployment gate. It must continue to validate static export surfaces, preview and production Wrangler configuration, and the production dependency audit.
+- A temporary Cloudflare deployment can prove that the artifact uploads/deploys, but it does not prove the permanent custom-domain origin. Temporary-account edge challenges or preview-platform behavior must not be mistaken for application behavior.
+- Do not submit the site to Search Console/Bing or publicly promote it until the permanent apex origin passes DNS, TLS, canonical-host redirect, security-header, browser/a11y/mobile/no-JS and crawlability checks in `docs/DEPLOYMENT.md`.
+- Do not guess a Content Security Policy or enable HSTS preload merely for a checklist. Introduce CSP from measured production resource behavior (prefer report-only first) and consider HSTS/preload only after HTTPS/subdomain behavior is stable.
+- Cloudflare vinext is currently an optional future server-runtime migration path, not the launch dependency. Re-run compatibility against the then-current app/release before adopting it.
+
 ## Performance / accessibility / progressive enhancement
 Respect reduced motion. Avoid unnecessary client components. Keep animated effects isolated and pausable. Aesthetic treatments lose when they damage crawlability, Core Web Vitals, accessibility, clarity, conversion or mobile usability.
 
@@ -130,6 +144,7 @@ Keep professional content centralized under `data/`. Adding a job, certification
 - reconcile machine-readable resources/structured data against the same public runtime claims;
 - verify every indexable HTML route has the intended canonical URL;
 - verify sitemap/robots and launch-readiness contracts without inventing external account state;
+- verify deployment configuration with the durable Deployment Readiness workflow;
 - verify third-party licenses and attribution;
 - install with `npm ci` from the committed lockfile;
 - run typecheck, lint and production build;
