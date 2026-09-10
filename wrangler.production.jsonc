@@ -1,0 +1,17 @@
+{
+  "name": "m7mdehab-site",
+  "compatibility_date": "2026-09-10",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "m7mdehab.com",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash"
+  }
+}
