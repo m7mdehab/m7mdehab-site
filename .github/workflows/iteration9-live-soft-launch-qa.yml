@@ -1,0 +1,82 @@
+name: Iteration 9 Live Soft Launch QA
+
+on:
+  push:
+    branches:
+      - iteration-9-production-deployment-soft-launch
+    paths:
+      - .github/workflows/iteration9-live-soft-launch-qa.yml
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+  SOFT_LAUNCH_URL: https://m7mdehab-site.superb-trumpet.workers.dev
+
+jobs:
+  live-qa:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify live headers and route availability
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(curl --fail --silent --show-error --location --dump-header - --output /dev/null "$SOFT_LAUNCH_URL/")"
+          printf '%s\n' "$headers"
+          echo "$headers" | tr -d '\r' | grep -i '^x-robots-tag: noindex$'
+          echo "$headers" | tr -d '\r' | grep -i '^x-frame-options: DENY$'
+          echo "$headers" | tr -d '\r' | grep -i '^x-content-type-options: nosniff$'
+
+          for path in \
+            / \
+            /work/presaira \
+            /work/opportunityos \
+            /work/ghareeb-oglu \
+            /work/oil-spill-detection \
+            /work/solar-site-selection \
+            /work/makhbazy \
+            /profile.json \
+            /projects.json \
+            /services.json \
+            /llms.txt \
+            /robots.txt \
+            /sitemap.xml; do
+            curl --fail --silent --show-error --location "$SOFT_LAUNCH_URL$path" > /dev/null
+          done
+
+      - name: Run full browser suite against deployed preview
+        env:
+          BASE_URL: ${{ env.SOFT_LAUNCH_URL }}
+        run: npm run test:browser
+
+      - name: Capture live Lighthouse baselines
+        shell: bash
+        run: |
+          mkdir -p artifacts/live-lighthouse
+          npx lighthouse "$SOFT_LAUNCH_URL/" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/live-lighthouse/home.json
+          npx lighthouse "$SOFT_LAUNCH_URL/work/presaira" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/live-lighthouse/presaira.json
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of ['home', 'presaira']) {
+            const report = JSON.parse(fs.readFileSync(`artifacts/live-lighthouse/${name}.json`, 'utf8'));
+            const categories = Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
+            console.log(`${name}:`, { benchmarkIndex: report.environment?.benchmarkIndex ?? null, ...categories });
+          }
+          NODE
