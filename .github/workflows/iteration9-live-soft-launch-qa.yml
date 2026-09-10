@@ -31,18 +31,23 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
-
       - name: Verify live headers and route availability
         shell: bash
         run: |
           set -euo pipefail
-          headers="$(curl --fail --silent --show-error --location --dump-header - --output /dev/null "$SOFT_LAUNCH_URL/")"
-          printf '%s\n' "$headers"
-          echo "$headers" | tr -d '\r' | grep -i '^x-robots-tag: noindex$'
-          echo "$headers" | tr -d '\r' | grep -i '^x-frame-options: DENY$'
-          echo "$headers" | tr -d '\r' | grep -i '^x-content-type-options: nosniff$'
+          user_agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/153 Safari/537.36'
+          status="$(curl --silent --show-error --location --user-agent "$user_agent" --dump-header /tmp/soft-launch-headers.txt --output /tmp/soft-launch-body.txt --write-out '%{http_code}' "$SOFT_LAUNCH_URL/")"
+          cat /tmp/soft-launch-headers.txt
+          echo "HTTP status: $status"
+          if [ "$status" != "200" ]; then
+            echo "Unexpected live response body:"
+            head -c 2000 /tmp/soft-launch-body.txt || true
+            exit 1
+          fi
+
+          tr -d '\r' < /tmp/soft-launch-headers.txt | grep -i '^x-robots-tag: noindex$'
+          tr -d '\r' < /tmp/soft-launch-headers.txt | grep -i '^x-frame-options: DENY$'
+          tr -d '\r' < /tmp/soft-launch-headers.txt | grep -i '^x-content-type-options: nosniff$'
 
           for path in \
             / \
@@ -58,8 +63,11 @@ jobs:
             /llms.txt \
             /robots.txt \
             /sitemap.xml; do
-            curl --fail --silent --show-error --location "$SOFT_LAUNCH_URL$path" > /dev/null
+            curl --fail --silent --show-error --location --user-agent "$user_agent" "$SOFT_LAUNCH_URL$path" > /dev/null
           done
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Run full browser suite against deployed preview
         env:
