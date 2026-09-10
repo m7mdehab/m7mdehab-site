@@ -1,6 +1,6 @@
 # Execution Status
 
-Updated: 2026-09-09
+Updated: 2026-09-10
 
 ## Autonomous iteration status
 
@@ -13,8 +13,8 @@ Updated: 2026-09-09
 | 4 Evidence-driven visual prototypes | **COMPLETE** | Six differentiated evidence treatments, varied selected-work rhythm, project-route integration, mobile/reduced-motion fallbacks | — |
 | 5 Production case-study storytelling & validation | **COMPLETE** | Six substantive evidence-first case studies, shared editorial grammar, clean-checkout type/lint/build/route-smoke baseline | — |
 | 6 Rendered QA & production hardening | **COMPLETE** | Deterministic lockfile/`npm ci`, Next.js security upgrade, strict browser/a11y/mobile/reduced-motion/no-JS QA, Lighthouse baseline, clean production dependency audit | — |
-| 7 Conversion architecture & service proof | **COMPLETE — MERGE READY** | Evidence-backed service propositions, governed project/capability/service/contact pathways, provider-neutral conversion semantics, durable 21-test browser gate, client-boundary hardening | Merge PR #3 and verify post-merge `main` CI |
-| 8 Pre-launch discoverability & launch readiness | **NEXT** | — | Machine-readable synchronization, launch contracts, direct visibility checks and external-boundary isolation |
+| 7 Conversion architecture & service proof | **COMPLETE** | Evidence-backed service propositions, governed project/capability/service/contact pathways, provider-neutral conversion semantics, durable 21-test browser gate, client-boundary hardening | Merged to `main` at `c3a0fc667d9b8c06181c8cdb2f322c1095316905`; post-merge CI PASS |
+| 8 Pre-launch discoverability & launch readiness | **COMPLETE — REPOSITORY SCOPE** | Self-canonicals, synchronized profile/project/service machine-readable surfaces, governed JSON-LD, truthful sitemap, 27-test browser gate, launch + analytics contracts, T0 visibility baseline | Merge PR #4, verify `main`; then external deployment/search/measurement operations when access exists |
 
 ## Program phases
 
@@ -22,26 +22,26 @@ Updated: 2026-09-09
 |---|---|---|---|
 | 1 Source of truth | **COMPLETE** | `data/source-of-truth.public.yaml` + truth audit; public/private/confidential boundaries and source precedence locked | Maintain when facts change |
 | 2 Research/reference | **COMPLETE** | Reference, licensing and reuse boundaries established | Maintain attribution in future third-party-code changes |
-| 3 Information architecture | **ACTIVE / MATURE** | Rich homepage + six substantive project routes + governed service conversion path | Iteration 8 launch/discoverability synchronization |
-| 4 SEO/AI architecture | **ACTIVE** | Semantic routes, machine-readable profile/project surfaces, robots/sitemap/LLM guidance and progressive enhancement implemented | Reconcile final service architecture into pre-launch machine-readable audit |
-| 5 AI visibility benchmark | **ACTIVE / SETUP-DEPENDENT IN PART** | Prompt library/result model exists | Run direct T0 checks where execution is available; isolate external anonymous-provider gaps |
+| 3 Information architecture | **ACTIVE / MATURE** | Rich homepage + six substantive project routes + governed service conversion path | Change only from stronger evidence or observed user need |
+| 4 SEO/AI architecture | **COMPLETE FOR REPOSITORY LAUNCH SCOPE** | Self-canonicals, robots/sitemap, ProfilePage/Person/Service/CreativeWork graph, synchronized profile/projects/services JSON and `/llms.txt` | Verify against actual deployed origin after launch |
+| 5 AI visibility benchmark | **BASELINED / SETUP-DEPENDENT** | T0 search checks on 2026-09-10 did not surface the personal site; public footprint is currently project/profile-led | Re-run after production deployment/indexing becomes verifiable |
 | 6 Brand/visual system | **COMPLETE FOR CURRENT PRODUCTION DIRECTION** | Evidence-specific visuals and editorial case studies survived rendered desktop/mobile QA | Evolve only when stronger evidence or real conversion data justifies change |
 | 7 Visual concepts | **COMPLETE FOR CURRENT PRODUCTION DIRECTION** | Evidence-driven direction validated without reverting to generic repeated cards | No new concept phase unless evidence changes materially |
-| 8 Technical architecture | **ACTIVE / PRODUCTION-READY PRE-DEPLOYMENT** | Next.js 16.3.4, lockfile, deterministic Node 22 CI, leaf client enhancement boundaries, browser validation, progressive enhancement | Deployment/platform operations remain setup-dependent |
-| 9 Repository design | **ACTIVE / HARDENED** | Governed repository, deterministic CI, durable Rendered Browser QA, iteration reports | Maintain exact-head validation |
-| 10 Agent documentation | **ACTIVE / CURRENT** | `AGENTS.md` governs truth, evidence, case studies, service proof, conversion semantics and browser QA | Update only when contracts change |
+| 8 Technical architecture | **ACTIVE / PRODUCTION-READY PRE-DEPLOYMENT** | Next.js 16.3.4, lockfile, deterministic Node 22 CI, leaf client enhancement boundaries, static discovery routes, browser validation | Hosting/DNS/edge operations remain setup-dependent |
+| 9 Repository design | **ACTIVE / HARDENED** | Governed repository, deterministic CI, durable Rendered Browser QA, iteration reports, launch contracts | Maintain exact-head validation |
+| 10 Agent documentation | **ACTIVE / CURRENT** | `AGENTS.md` governs truth, evidence, case studies, service proof, conversion, discoverability, crawler and launch semantics | Update only when contracts change |
 | 11 Homepage | **ACTIVE / CONVERSION-HARDENED** | Selected work, capabilities, experience, evidence-backed services and contact are connected semantically | Preserve clarity; do not add audience-switch gimmicks |
 | 12 Project evidence | **COMPLETE FOR CURRENT SIX FLAGSHIPS** | Six flagship proof/publication boundaries governed and reflected in case studies | Maintain as public proof changes |
-| 13 Services | **COMPLETE FOR CURRENT LAUNCH SCOPE** | Four propositions expose proof strength, boundaries, contextual evidence and contact intent | Revisit only from stronger proof or real conversion data; no thin `/services` route currently justified |
-| 14 Performance | **ACTIVE / BASELINED** | Iteration 6 strict homepage 96 / Presaira 99. Iteration 7 closure homepage 95 / Presaira 99 after isolating SmoothScroll as a leaf client island | Preserve structural boundary; measure deployed field behavior later rather than chase lab noise |
-| 15 Accessibility | **ACTIVE / STRICT GATE** | Any axe violation fails desktop route QA; final Iteration 7 seven desktop axe artifacts contain 0 violations | Preserve zero-violation gate |
-| 16 Analytics & conversion measurement | **ACTIVE PRE-ACCOUNT** | Stable provider-neutral `data-conversion`/`data-service-id` semantics exist; no provider embedded | Bind only after an authorized production analytics property is selected |
-| 17 Search engine operations | **SETUP-DEPENDENT** | On-site architecture is ready | Search Console/Bing ownership/access required for external verification |
+| 13 Services | **COMPLETE FOR CURRENT LAUNCH SCOPE** | Four propositions expose proof strength, boundaries, contextual evidence and contact intent; `/services.json` mirrors public service semantics | Revisit only from stronger proof or real conversion data; no thin `/services` route currently justified |
+| 14 Performance | **ACTIVE / BASELINED** | Iteration 7 closure homepage 95 / Presaira 99. Iteration 8 validated runner: 87 / 97 with materially different benchmark indices; behavior/a11y/SEO all green | Measure deployed field behavior; do not chase isolated lab scores |
+| 15 Accessibility | **ACTIVE / STRICT GATE** | Any axe violation fails desktop route QA; Iteration 8 seven desktop axe artifacts contain 0 violations | Preserve zero-violation gate |
+| 16 Analytics & conversion measurement | **READY FOR AUTHORIZED PROVIDER BINDING** | Stable provider-neutral `data-conversion`/`data-service-id` semantics + `docs/ANALYTICS_BINDING_CONTRACT.md`; no provider embedded | Bind only after a production analytics property/provider is explicitly authorized |
+| 17 Search engine operations | **SETUP-DEPENDENT** | On-site architecture and launch checklist are ready | Search Console/Bing ownership + live deployed origin required |
 | 18 External authority | **MIXED** | Public GitHub/LinkedIn associations exist | External platform write access governs outbound authority operations |
 | 19 Content strategy | **ACTIVE** | Writing titles remain editorial inventory, not fake published authority | Publish only substantive verified bodies |
-| 20 Case studies | **COMPLETE FOR CURRENT FLAGSHIPS** | Six evidence-first case studies exist and pass browser QA | Maintain/deepen only from new public evidence |
-| 21 Arabic localization | **NOT STARTED** | English launch remains primary | Future intentional Arabic version; not a launch blocker |
-| 23 Domain / 24 edge security / 26 soft launch / 27 public launch | **SETUP-DEPENDENT** | Repository can be prepared autonomously | Domain/runtime/webmaster/analytics account state remains the external boundary |
+| 20 Case studies | **COMPLETE FOR CURRENT FLAGSHIPS** | Six evidence-first case studies exist and pass browser/discoverability QA | Maintain/deepen only from new public evidence |
+| 21 Arabic localization | **NOT STARTED** | English launch remains primary | Future intentional Arabic version; not a repository launch blocker |
+| 23 Domain / 24 edge security / 26 soft launch / 27 public launch | **SETUP-DEPENDENT** | Repository launch contract is documented | Production runtime, DNS, edge, webmaster and analytics account state must be verified externally |
 
 ## Iteration 6 locked implementation decisions
 
@@ -81,40 +81,81 @@ Locked decisions:
 - no recruiter/client audience switch is introduced; both audiences converge through the same evidence hierarchy;
 - service evidence-project links use semantic native navigation rather than unnecessary client prefetch behavior;
 - `SmoothScroll` is a leaf client island and does not own the server-rendered content tree;
-- `npm run test:browser` runs the full tests directory: 17 strict rendered regression checks + 4 Iteration 7 conversion/progressive-enhancement checks;
+- `npm run test:browser` runs the full tests directory and retained the strict rendered regression/conversion checks;
 - the durable workflow is **Rendered Browser QA** and Lighthouse logs runner `benchmarkIndex` alongside category scores.
 
-### Iteration 7 final validation
+### Iteration 7 merge and validation
 
 Validated runtime head: `20a03dc762b0b0bde6c1d6176751cc021f85b653`.
 
-- Application CI `34396268944`: **PASS**.
-- Rendered Browser QA `34396268923`: **PASS**.
 - Browser suite: **21/21 PASS**.
 - Final seven desktop axe artifacts: **0 violations**.
 - Final production `npm audit --omit=dev`: **0 vulnerabilities at every severity**.
 - Homepage Lighthouse: **95 performance / 100 accessibility / 100 best practices / 100 SEO / 100 agentic browsing**.
 - Presaira Lighthouse: **99 / 100 / 100 / 100 / 100**.
-- Homepage final TBT: **124 ms**; CLS remains approximately **0.011**.
 
-The commits after the validated runtime head are documentation/status closure records only and do not change runtime code, dependencies or tests.
+PR #3 was squash merged to `main` at **`c3a0fc667d9b8c06181c8cdb2f322c1095316905`**. Push-triggered Application CI run **`34418232760`** passed install, typecheck, lint, production build and route smoke tests on that exact merge commit.
 
-### Performance investigation conclusion
+## Iteration 8 locked implementation decisions
 
-The first Iteration 7 Lighthouse score moved to 88 and later isolated runs varied as low as 77 even with stronger runner benchmark values. Artifact comparison showed production JS request count and transfer remained stable while script-evaluation/TBT varied substantially. The useful architectural correction was to remove the whole-site `SmoothScroll` client boundary; after that change, homepage performance returned to 95 while retaining all service proof.
+Detailed closure report: `docs/ITERATION_8_PRELAUNCH_DISCOVERABILITY_2026-09-10.md`.
 
-Do not remove truthful content or add speculative complexity merely to chase isolated Lighthouse scores. Preserve the leaf client boundary and use Lighthouse as a comparative lab signal alongside actual payload, behavioral, accessibility and deployed field evidence.
+### Discoverability architecture
 
-## Iteration 8 target — pre-launch discoverability & launch readiness
+- Every indexable HTML route self-canonicalizes. The homepage canonical is `https://m7mdehab.com`; each project route publishes its own absolute `/work/<slug>` canonical and matching `og:url`.
+- `data/discoverability.ts` is a public discovery projection, subordinate to the source-of-truth/evidence/runtime registries. It is not a fourth truth authority.
+- `/profile.json`, `/projects.json`, `/services.json` and `/llms.txt` are synchronized public projections.
+- `/services.json` exposes four service records with proof strength, boundaries, direct/adjacent project relationships and provider-neutral contact intent.
+- Person `sameAs` includes identity-equivalent GitHub + LinkedIn only. Presaira/product evidence is represented through project/CreativeWork relationships instead.
+- Root structured data uses ProfilePage + Person + service Offer/Service nodes + six CreativeWork case-study nodes.
+- Twitter uses `summary` until an intentional, tested social-card image exists; the site does not claim a large image it does not ship.
+- Sitemap contains only homepage + six canonical project HTML pages. Machine-readable support routes are not sitemap entries.
+- Sitemap build-time fake freshness was removed; `lastmod` stays absent until a trustworthy content-change timestamp exists.
+- Robots remains crawlable and advertises the canonical sitemap. Search crawler access is separate from model-training crawler policy; no GPTBot policy was silently chosen.
+- `docs/LAUNCH_READINESS_CHECKLIST.md` separates repository-controlled gates from deployment/DNS/webmaster/analytics state.
+- `docs/ANALYTICS_BINDING_CONTRACT.md` preserves the stable provider-neutral conversion vocabulary and privacy/confidentiality boundaries.
 
-After PR #3 is merged and `main` CI is verified, stop iterating on visual structure without evidence and move toward publication readiness:
+### T0 external visibility baseline
 
-- synchronize visible service/case-study claims with machine-readable identity/project surfaces;
-- audit sitemap, robots, metadata and `/llms.txt` against the final public architecture;
-- prepare deployment/environment contracts and a launch checklist without claiming external account state;
-- run direct T0 AI/search visibility checks where execution is available;
-- prepare privacy-conscious analytics binding requirements for a later authorized provider/property;
-- isolate truly external blockers: domain/DNS/runtime access, Search Console, Bing Webmaster and production analytics property access.
+On 2026-09-10:
+
+- web searches scoped to `m7mdehab.com` did not return the personal site;
+- exact domain/name searches did not surface it;
+- public visibility is currently dominated by existing project/profile traces;
+- direct live-origin resolution could not be verified from the execution environment.
+
+This is a pre-launch baseline, not a repository failure. No claim is made that production DNS, deployment, Search Console, Bing Webmaster or analytics account state exists.
+
+### Iteration 8 validation
+
+Validated runtime head: **`990a686eff0bd278d6f20b64fcb8688d839c5840`**.
+
+- Application CI **`34419171636`**: PASS.
+- Rendered Browser QA **`34419171748`**: PASS.
+- Browser suite: **27/27 PASS**.
+- Seven desktop axe reports: **0 violations**.
+- Production `npm audit --omit=dev`: **0 vulnerabilities**.
+- Lighthouse:
+  - homepage: **87 / 100 / 100 / 100 / 100**, benchmarkIndex 1886.5, TBT 326 ms, CLS 0.01098;
+  - Presaira: **97 / 100 / 100 / 100 / 100**, benchmarkIndex 2657.5, TBT 45 ms, CLS 0.00718.
+
+The first branch run was 26/27 because the test expected a homepage trailing slash that production intentionally does not emit. The production canonical was correct; only the assertion changed. No useful content or runtime behavior was altered to satisfy the test.
+
+The commits after runtime head `990a686...` are documentation/status closure records only. Repository-side Iteration 8 is complete; public launch operations remain explicitly setup-dependent.
+
+## External launch handoff
+
+Use `docs/LAUNCH_READINESS_CHECKLIST.md` before calling the site launched. Remaining external state includes:
+
+- production hosting/runtime reachability;
+- DNS/TLS/canonical-host redirects;
+- preview/staging indexing policy;
+- CDN/WAF crawler behavior;
+- Google Search Console verification + sitemap submission;
+- Bing Webmaster verification + sitemap submission;
+- production analytics property/provider authorization and any required consent/privacy configuration.
+
+Do not invent any of these states from repository readiness.
 
 ## Durable truth/evidence decisions carried forward
 
@@ -141,6 +182,9 @@ After PR #3 is merged and `main` CI is verified, stop iterating on visual struct
 - `docs/ITERATION_5_CASE_STUDY_STORYTELLING_2026-09-09.md`
 - `docs/ITERATION_6_RENDERED_QA_AND_PRODUCTION_HARDENING_2026-09-09.md`
 - `docs/ITERATION_7_CONVERSION_AND_SERVICE_PROOF_2026-09-09.md`
+- `docs/ITERATION_8_PRELAUNCH_DISCOVERABILITY_2026-09-10.md`
+- `docs/LAUNCH_READINESS_CHECKLIST.md`
+- `docs/ANALYTICS_BINDING_CONTRACT.md`
 - `docs/DESIGN_SYSTEM.md`
 - `docs/OPEN_SOURCE_ATTRIBUTIONS.md`
 - `AGENTS.md`
