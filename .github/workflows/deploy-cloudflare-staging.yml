@@ -1,0 +1,163 @@
+name: Deploy Cloudflare Staging
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NEXT_TELEMETRY_DISABLED: 1
+  STAGING_BASE_URL: https://m7mdehab-site.m7mdehab.workers.dev
+
+jobs:
+  deploy-staging:
+    name: Deploy and verify workers.dev staging
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build staging static artifact
+        run: CLOUDFLARE_STATIC_EXPORT=1 npm run build
+
+      - name: Verify staging artifact and noindex contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f out/index.html
+          test -f out/robots.txt
+          test -f out/sitemap.xml
+          test -f out/profile.json
+          test -f out/projects.json
+          test -f out/services.json
+          test -f out/llms.txt
+          test -f out/_headers
+          grep -F 'https://:version.:subdomain.workers.dev/*' out/_headers
+          grep -F 'X-Robots-Tag: noindex' out/_headers
+
+      - name: Deploy to Cloudflare staging
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4.130.0 deploy --config wrangler.static.jsonc
+
+      - name: Verify live staging routes, headers, and canonical isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ready=0
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error "$STAGING_BASE_URL/" > /tmp/staging-home.html; then
+              ready=1
+              break
+            fi
+            sleep 2
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            echo "Staging origin did not become reachable: $STAGING_BASE_URL" >&2
+            exit 1
+          fi
+
+          curl --fail --silent --show-error --dump-header /tmp/staging-headers.txt \
+            --output /tmp/staging-home.html "$STAGING_BASE_URL/"
+
+          tr -d '\r' < /tmp/staging-headers.txt > /tmp/staging-headers-normalized.txt
+          grep -Eiq '^x-robots-tag:.*noindex' /tmp/staging-headers-normalized.txt
+          grep -Eiq '^x-frame-options:[[:space:]]*DENY' /tmp/staging-headers-normalized.txt
+          grep -Eiq '^x-content-type-options:[[:space:]]*nosniff' /tmp/staging-headers-normalized.txt
+          grep -Eiq '^referrer-policy:[[:space:]]*strict-origin-when-cross-origin' /tmp/staging-headers-normalized.txt
+
+          node - <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync('/tmp/staging-home.html', 'utf8');
+          if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) {
+            throw new Error('Homepage canonical is not the production apex URL');
+          }
+          if (html.includes('<link rel="canonical" href="https://m7mdehab-site.m7mdehab.workers.dev"')) {
+            throw new Error('Staging workers.dev URL must never become canonical');
+          }
+          NODE
+
+          routes=(
+            "/"
+            "/work/presaira"
+            "/work/opportunityos"
+            "/work/ghareeb-oglu"
+            "/work/oil-spill-detection"
+            "/work/solar-site-selection"
+            "/work/makhbazy"
+            "/profile.json"
+            "/projects.json"
+            "/services.json"
+            "/llms.txt"
+            "/robots.txt"
+            "/sitemap.xml"
+          )
+
+          for route in "${routes[@]}"; do
+            echo "Checking staged ${route}"
+            curl --fail --silent --show-error "$STAGING_BASE_URL${route}" > /dev/null
+          done
+
+      - name: Install Chromium for deployed-origin acceptance
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright rendered and accessibility QA against staging
+        env:
+          BASE_URL: ${{ env.STAGING_BASE_URL }}
+        run: npm run test:browser
+
+      - name: Lighthouse staging baseline
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/staging-lighthouse
+          npx lighthouse "$STAGING_BASE_URL/" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/home.json || true
+          npx lighthouse "$STAGING_BASE_URL/work/presaira" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/presaira.json || true
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of ['home', 'presaira']) {
+            const file = `artifacts/staging-lighthouse/${name}.json`;
+            if (!fs.existsSync(file)) continue;
+            const report = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const categories = Object.fromEntries(
+              Object.entries(report.categories).map(([key, value]) => [
+                key,
+                Math.round((value.score ?? 0) * 100),
+              ]),
+            );
+            const benchmarkIndex = report.environment?.benchmarkIndex ?? null;
+            console.log(`${name}:`, { benchmarkIndex, ...categories });
+          }
+          NODE
+
+      - name: Upload staging acceptance artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cloudflare-staging-acceptance-${{ github.sha }}
+          path: artifacts
+          if-no-files-found: warn
+          retention-days: 7
