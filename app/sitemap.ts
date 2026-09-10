@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { profile, projects } from "@/data/public";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: profile.domain, changeFrequency: "monthly", priority: 1 },

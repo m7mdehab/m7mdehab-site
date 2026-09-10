@@ -31,13 +31,14 @@ The production site must not become a reskin of any source.
 ## Current stack
 
 - Next.js 16.3.4
-- React 19
+- React 19.2.7
 - TypeScript 5
 - Tailwind CSS 4 + custom CSS design tokens
 - Lenis — optional smooth-scroll polish with reduced-motion fallback
 - Lucide — interface icons
 - Playwright + axe-core — rendered desktop/mobile/accessibility/progressive-enhancement QA
 - Lighthouse — performance/accessibility/best-practices/SEO/agentic-browsing benchmarking
+- Cloudflare Workers Static Assets — selected production deployment target for the current fully prerenderable site
 
 Motion, Matter.js and `next-themes` were removed during Iteration 6 after runtime inspection showed they were no longer required. GSAP and OGL are not installed; either may be reconsidered only for a concrete justified need with licensing and performance review.
 
@@ -55,13 +56,28 @@ npm run test:browser
 
 `npm ci` is the normal install path for validation and CI. Dependency changes must update both `package.json` and `package-lock.json` in the same change.
 
+## Cloudflare deployment lane
+
+The source remains a normal Next.js application. Cloudflare deployment is an explicit static-export mode:
+
+```bash
+CLOUDFLARE_STATIC_EXPORT=1 npm run build
+```
+
+That produces `out/`, which is validated and packaged by `.github/workflows/deployment-readiness.yml` before production deployment is allowed.
+
+Production deployment is intentionally manual through `.github/workflows/deploy-cloudflare-production.yml` and targets the apex canonical host `m7mdehab.com`. It requires authorized Cloudflare account credentials and a real zone/domain; repository readiness is never treated as evidence that the domain is live.
+
+See `docs/DEPLOYMENT.md` for the custom-domain, `www` redirect, TLS, preview/noindex, rollback and post-deployment verification contract.
+
 ## Current routes
 
 - `/` — rich primary homepage
 - `/work/[slug]` — evidence-first project case studies
 - `/profile.json` — machine-readable public profile
 - `/projects.json` — machine-readable project data
-- `/llms.txt` — compact first-party entity/project guide
+- `/services.json` — machine-readable governed service data
+- `/llms.txt` — compact first-party entity/project/service guide
 - `/robots.txt`
 - `/sitemap.xml`
 
@@ -78,4 +94,4 @@ npm run test:browser
 9. Professional data stays centralized and extensible.
 10. Any direct third-party source adaptation must update the attribution register in the same change.
 
-See `/docs` for the governing product, design, truth, SEO, reference and licensing system.
+See `/docs` for the governing product, design, truth, SEO, reference, deployment and licensing system.
