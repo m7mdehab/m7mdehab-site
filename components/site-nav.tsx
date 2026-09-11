@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const links = [["Work", "/#work"], ["Expertise", "/#expertise"], ["Experience", "/#experience"], ["About", "/#about"], ["Contact", "/#contact"]] as const;
+const links = [["Work", "/#work"], ["Expertise", "/#expertise"], ["Experience", "/#experience"], ["Writing", "/writing"], ["About", "/#about"], ["Contact", "/#contact"]] as const;
 
 export function SiteNav() {
   return (

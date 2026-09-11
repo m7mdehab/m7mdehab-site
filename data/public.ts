@@ -124,7 +124,9 @@ export const services = [
   },
 ] as const;
 
+// Editorial inventory only. Substantive article bodies and evidence links live in data/writing.ts.
 export const writing = [
-  { title: "When should you trust a probabilistic forecast?", topic: "Forecasting · calibration · evaluation", status: "Planned" },
-  { title: "Why accuracy alone is not enough for oil-spill detection", topic: "Computer vision · metrics · validation", status: "Planned" },
+  { slug: "when-to-trust-a-probabilistic-forecast", title: "When should you trust a probabilistic forecast?", topic: "Forecasting · calibration · evaluation", status: "Essay" },
+  { slug: "why-accuracy-is-not-enough-for-oil-spill-detection", title: "Why accuracy alone is not enough for oil-spill detection", topic: "Computer vision · metrics · validation", status: "Essay" },
+  { slug: "what-an-ai-agent-should-do-when-evidence-is-missing", title: "What should an AI agent do when the evidence is missing?", topic: "AI agents · provenance · governance", status: "Essay" },
 ] as const;

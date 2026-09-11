@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
 import { profile, projects } from "@/data/public";
+import { writingArticles } from "@/data/writing";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const englishHome = profile.domain;
   const arabicHome = `${profile.domain}/ar`;
+  const englishWriting = `${profile.domain}/writing`;
+  const arabicWriting = `${profile.domain}/ar/writing`;
 
   const englishRoutes: MetadataRoute.Sitemap = [
     {
@@ -21,6 +24,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: english,
         changeFrequency: "monthly" as const,
         priority: 0.8,
+        alternates: { languages: { en: english, ar: arabic } },
+      };
+    }),
+    {
+      url: englishWriting,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: { languages: { en: englishWriting, ar: arabicWriting } },
+    },
+    ...writingArticles.map((article) => {
+      const english = `${profile.domain}/writing/${article.slug}`;
+      const arabic = `${profile.domain}/ar/writing/${article.slug}`;
+      return {
+        url: english,
+        changeFrequency: "monthly" as const,
+        priority: 0.75,
         alternates: { languages: { en: english, ar: arabic } },
       };
     }),
@@ -40,6 +59,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: arabic,
         changeFrequency: "monthly" as const,
         priority: 0.7,
+        alternates: { languages: { en: english, ar: arabic } },
+      };
+    }),
+    {
+      url: arabicWriting,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: { languages: { en: englishWriting, ar: arabicWriting } },
+    },
+    ...writingArticles.map((article) => {
+      const english = `${profile.domain}/writing/${article.slug}`;
+      const arabic = `${profile.domain}/ar/writing/${article.slug}`;
+      return {
+        url: arabic,
+        changeFrequency: "monthly" as const,
+        priority: 0.65,
         alternates: { languages: { en: english, ar: arabic } },
       };
     }),
