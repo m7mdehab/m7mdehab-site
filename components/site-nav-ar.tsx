@@ -15,6 +15,7 @@ export function SiteNavAr() {
       links={links}
       localeHref="/"
       localeLabel="EN"
+      localeAriaLabel="English"
       localeLang="en"
       localeDir="ltr"
       ariaLabel="التنقل الرئيسي"
