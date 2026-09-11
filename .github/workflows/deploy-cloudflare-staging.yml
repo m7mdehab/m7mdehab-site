@@ -50,18 +50,32 @@ jobs:
           test -f out/profile.json
           test -f out/projects.json
           test -f out/services.json
+          test -f out/writing.json
           test -f out/llms.txt
           test -f out/_headers
           grep -F 'https://:version.:subdomain.workers.dev/*' out/_headers
           grep -F 'X-Robots-Tag: noindex' out/_headers
-          if [ -f out/ar.html ]; then
-            echo "Arabic homepage export: file form"
-          elif [ -f out/ar/index.html ]; then
-            echo "Arabic homepage export: directory-index form"
-          else
-            echo "Missing Arabic homepage export" >&2
-            exit 1
-          fi
+
+          assert_export() {
+            local file="$1"
+            local directory_index="$2"
+            local label="$3"
+            if [ -f "$file" ]; then
+              echo "$label: file form"
+            elif [ -f "$directory_index" ]; then
+              echo "$label: directory-index form"
+            else
+              echo "Missing $label export" >&2
+              find out -maxdepth 6 -type f | sort
+              exit 1
+            fi
+          }
+
+          assert_export out/ar.html out/ar/index.html "Arabic homepage"
+          assert_export out/writing.html out/writing/index.html "English writing hub"
+          assert_export out/writing/when-to-trust-a-probabilistic-forecast.html out/writing/when-to-trust-a-probabilistic-forecast/index.html "English authority essay"
+          assert_export out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
+          assert_export out/ar/writing/when-to-trust-a-probabilistic-forecast.html out/ar/writing/when-to-trust-a-probabilistic-forecast/index.html "Arabic authority essay"
 
       - name: Deploy to Cloudflare staging
         env:
@@ -74,9 +88,6 @@ jobs:
         run: |
           set -euo pipefail
 
-          # A newly deployed Worker version can take a few seconds to become
-          # globally available. Require three consecutive 200 responses so one
-          # early edge hit cannot be mistaken for a stable deployment.
           ready=0
           consecutive_200=0
           last_status=unset
@@ -147,6 +158,10 @@ jobs:
             "/work/oil-spill-detection"
             "/work/solar-site-selection"
             "/work/makhbazy"
+            "/writing"
+            "/writing/when-to-trust-a-probabilistic-forecast"
+            "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
+            "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
             "/ar"
             "/ar/work/presaira"
             "/ar/work/opportunityos"
@@ -154,9 +169,14 @@ jobs:
             "/ar/work/oil-spill-detection"
             "/ar/work/solar-site-selection"
             "/ar/work/makhbazy"
+            "/ar/writing"
+            "/ar/writing/when-to-trust-a-probabilistic-forecast"
+            "/ar/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
+            "/ar/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
             "/profile.json"
             "/projects.json"
             "/services.json"
+            "/writing.json"
             "/llms.txt"
             "/robots.txt"
             "/sitemap.xml"
