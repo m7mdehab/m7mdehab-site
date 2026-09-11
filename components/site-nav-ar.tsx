@@ -4,6 +4,7 @@ const links = [
   ["الأعمال", "/ar#work"],
   ["التخصصات", "/ar#expertise"],
   ["الخبرة", "/ar#experience"],
+  ["الكتابة", "/ar/writing"],
   ["عني", "/ar#about"],
   ["تواصل", "/ar#contact"],
 ] as const;
