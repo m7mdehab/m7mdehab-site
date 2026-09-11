@@ -9,6 +9,11 @@ const projectSlugs = [
   "solar-site-selection",
   "makhbazy",
 ] as const;
+const writingSlugs = [
+  "when-to-trust-a-probabilistic-forecast",
+  "why-accuracy-is-not-enough-for-oil-spill-detection",
+  "what-an-ai-agent-should-do-when-evidence-is-missing",
+] as const;
 
 const serviceIds = [
   "data-migration-reconciliation",
@@ -55,12 +60,14 @@ test.describe("Iteration 8 discoverability architecture", () => {
     );
   });
 
-  test("profile, project and service JSON stay synchronized with the public conversion model", async ({ request }) => {
+  test("profile, project, service and writing JSON stay synchronized with the public model", async ({ request }) => {
     const profileResponse = await request.get("/profile.json");
     expect(profileResponse.ok()).toBeTruthy();
     const profile = await profileResponse.json();
     expect(profile.services).toHaveLength(4);
+    expect(profile.writing).toHaveLength(3);
     expect(profile.machineReadable.services).toBe(`${domain}/services.json`);
+    expect(profile.machineReadable.writing).toBe(`${domain}/writing.json`);
 
     const projectResponse = await request.get("/projects.json");
     expect(projectResponse.ok()).toBeTruthy();
@@ -87,31 +94,44 @@ test.describe("Iteration 8 discoverability architecture", () => {
 
     const migration = services.find((service: { id: string }) => service.id === "data-migration-reconciliation");
     expect(migration.evidenceBoundary).toContain("not reconstructed into fake public screenshots");
+
+    const writingResponse = await request.get("/writing.json");
+    expect(writingResponse.ok()).toBeTruthy();
+    const writing = await writingResponse.json();
+    expect(writing.map((article: { slug: string }) => article.slug)).toEqual(writingSlugs);
+    expect(writing.every((article: { url: string }) => article.url.startsWith(`${domain}/writing/`))).toBeTruthy();
   });
 
-  test("LLM discovery surface carries service proof and interpretation boundaries", async ({ request }) => {
+  test("LLM discovery surface carries service proof, writing and interpretation boundaries", async ({ request }) => {
     const response = await request.get("/llms.txt");
     expect(response.ok()).toBeTruthy();
     const body = await response.text();
     expect(body).toContain("## Services");
+    expect(body).toContain("## Writing");
     expect(body).toContain("## Interpretation notes");
     expect(body).toContain(`${domain}/services.json`);
+    expect(body).toContain(`${domain}/writing.json`);
     expect(body).toContain("not represented as Power BI artifacts");
     expect(body).toContain("confidential client systems, mappings and outputs are not reconstructed");
+    expect(body).toContain("does not widen the underlying project's publication or ownership claims");
   });
 
-  test("sitemap contains the canonical English and Arabic HTML routes without artificial lastmod", async ({ request }) => {
+  test("sitemap contains canonical English and Arabic HTML routes without artificial lastmod", async ({ request }) => {
     const response = await request.get("/sitemap.xml");
     expect(response.ok()).toBeTruthy();
     const xml = await response.text();
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
-    expect(locations).toHaveLength(14);
+    expect(locations).toHaveLength(22);
     expect(locations).toEqual([
       domain,
       ...projectSlugs.map((slug) => `${domain}/work/${slug}`),
+      `${domain}/writing`,
+      ...writingSlugs.map((slug) => `${domain}/writing/${slug}`),
       `${domain}/ar`,
       ...projectSlugs.map((slug) => `${domain}/ar/work/${slug}`),
+      `${domain}/ar/writing`,
+      ...writingSlugs.map((slug) => `${domain}/ar/writing/${slug}`),
     ]);
     expect(xml).not.toContain("<lastmod>");
     expect(xml).not.toContain(".json");
