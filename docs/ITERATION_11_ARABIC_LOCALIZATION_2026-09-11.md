@@ -1,7 +1,7 @@
 # Iteration 11 — Arabic Localization
 
 Date: 2026-09-11
-Status: **IMPLEMENTED — validation required before closure**
+Status: **COMPLETE — merged and accepted on permanent Cloudflare staging**
 
 ## Goal
 
@@ -89,7 +89,7 @@ Arabic navigation targets Arabic project/service context, but `data-service-id` 
 
 Arabic uses a dedicated RTL typography layer rather than forcing the English display serif onto Arabic glyphs. English technical tokens are isolated with appropriate language/direction markup where useful.
 
-Validation must preserve:
+Validation preserves:
 
 - zero axe violations across `/ar` and all six Arabic case studies;
 - no horizontal overflow at 390px on all seven Arabic launch routes;
@@ -98,19 +98,72 @@ Validation must preserve:
 - language-switch accessibility;
 - existing English behavior unchanged.
 
+The first consolidated rendered checkpoint exposed one real RTL defect: the mixed-direction English identity line on the Arabic homepage widened the 390px document to 411px. The defect was fixed at the source with constrained wrapping/break behavior; global overflow concealment was not used. The Arabic overflow assertion was also upgraded to report exact offending elements if the condition regresses.
+
 ## Deployment integration
 
-The existing Application CI, Deployment Readiness, staging deploy and production deploy workflows are expanded in place. No standalone localization QA runner is added.
+The existing Application CI, Deployment Readiness, staging deploy and production deploy workflows were expanded in place. No standalone localization QA runner was added.
 
-The next real Cloudflare staging deployment after merge must verify the Arabic static export and all Arabic launch routes on the same accepted `workers.dev` origin before this iteration is considered fully staged.
+The permanent pre-domain staging origin remains:
+
+`https://m7mdehab-site.m7mdehab.workers.dev`
+
+It remains explicitly noncanonical and `noindex`.
+
+## Final validation record
+
+### Pull-request validation
+
+PR #9: `Iteration 11: Arabic localization and bilingual launch contract`
+
+Final source head: `5671f9e61000e50b08e79ff56a7cad9ac6160417`
+
+- Deployment Readiness run `34544290314`: **PASS**.
+- Application CI run `34544290334`: **PASS**.
+- Consolidated browser suite: **35/35 PASS**.
+- Arabic homepage, all six Arabic case studies, reciprocal canonical/hreflang, Arabic structured identity, stable service/conversion semantics, desktop axe, 390px mobile overflow, reduced motion and JavaScript-disabled progressive enhancement all passed.
+- Local Lighthouse baseline on final PR runner:
+  - homepage: **90 performance / 100 accessibility / 100 best practices / 100 SEO / 100 agentic browsing**;
+  - Presaira: **97 / 100 / 100 / 100 / 100**;
+  - Arabic homepage: **96 / 100 / 100 / 100 / 100**.
+- Rendered QA artifact ID `10178527121`; SHA-256 `187dd2282a065b543a9123d4cfd91b3ca46988b31c7181f68103a065fa9726ed`.
+
+PR #9 was squash-merged to `main` at:
+
+`1488287d38f78e0005be68415d26cf0a3ea3c7c3`
+
+Post-merge Application CI run `34544612077`: **PASS**.
+
+### Permanent Cloudflare staging acceptance
+
+Manual staging run `34546300690`: **SUCCESS**.
+
+- Source SHA: `1488287d38f78e0005be68415d26cf0a3ea3c7c3`.
+- Cloudflare Worker version: `68bd21b7-bc2e-4a9f-9352-e7bb2b5ec540`.
+- Static export produced the Arabic homepage and all localized case-study assets.
+- Wrangler uploaded **66 new or modified assets** and deployed the Worker successfully.
+- Readiness gate observed three consecutive HTTP 200 responses.
+- English homepage + six English case studies passed live route checks.
+- Arabic homepage + six Arabic case studies passed live route checks.
+- `/profile.json`, `/projects.json`, `/services.json`, `/llms.txt`, `/robots.txt` and `/sitemap.xml` passed live route checks.
+- Staging `X-Robots-Tag: noindex`, security headers and production-canonical isolation passed.
+- Deployed-origin Playwright/axe suite: **35/35 PASS**.
+- Staging Lighthouse:
+  - homepage: **93 performance / 100 accessibility / 100 best practices / 69 SEO / 100 agentic browsing**;
+  - Presaira: **93 / 100 / 100 / 66 / 100**;
+  - Arabic homepage: **99 / 100 / 100 / 69 / 100**.
+- Lower staging SEO scores are expected because the `workers.dev` staging origin is deliberately `noindex`; this is a staging-protection success, not a production SEO regression.
+- Staging acceptance artifact ID `10179218001`; SHA-256 `30ce16c236f4b5b1d30c09e1876cb3979784c5a80637487eedc03d283a06aea5`.
 
 ## Closure criteria
 
-Iteration 11 closes only after:
+Iteration 11 is closed because:
 
 1. typecheck, lint and normal Next production build pass;
 2. static Cloudflare export includes Arabic homepage and case-study artifacts;
-3. the full consolidated browser suite passes, including the new Arabic axe/mobile/no-JS/reduced-motion assertions;
+3. the full consolidated browser suite passes, including Arabic axe/mobile/no-JS/reduced-motion assertions;
 4. reciprocal canonical/hreflang/sitemap behavior passes;
-5. a post-merge staging deployment verifies the Arabic routes on the real Cloudflare origin;
-6. no public-truth or confidentiality boundary is widened by translation.
+5. the post-merge staging deployment verifies the Arabic routes on the real permanent-account Cloudflare staging origin;
+6. no public-truth or confidentiality boundary was widened by translation.
+
+No domain purchase, Search Console/Bing activation, production analytics provider or canonical production deployment was performed in this iteration.
