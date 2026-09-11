@@ -54,6 +54,14 @@ jobs:
           test -f out/_headers
           grep -F 'https://:version.:subdomain.workers.dev/*' out/_headers
           grep -F 'X-Robots-Tag: noindex' out/_headers
+          if [ -f out/ar.html ]; then
+            echo "Arabic homepage export: file form"
+          elif [ -f out/ar/index.html ]; then
+            echo "Arabic homepage export: directory-index form"
+          else
+            echo "Missing Arabic homepage export" >&2
+            exit 1
+          fi
 
       - name: Deploy to Cloudflare staging
         env:
@@ -139,6 +147,13 @@ jobs:
             "/work/oil-spill-detection"
             "/work/solar-site-selection"
             "/work/makhbazy"
+            "/ar"
+            "/ar/work/presaira"
+            "/ar/work/opportunityos"
+            "/ar/work/ghareeb-oglu"
+            "/ar/work/oil-spill-detection"
+            "/ar/work/solar-site-selection"
+            "/ar/work/makhbazy"
             "/profile.json"
             "/projects.json"
             "/services.json"
@@ -166,9 +181,10 @@ jobs:
           mkdir -p artifacts/staging-lighthouse
           npx lighthouse "$STAGING_BASE_URL/" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/home.json || true
           npx lighthouse "$STAGING_BASE_URL/work/presaira" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/presaira.json || true
+          npx lighthouse "$STAGING_BASE_URL/ar" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/ar-home.json || true
           node - <<'NODE'
           const fs = require('fs');
-          for (const name of ['home', 'presaira']) {
+          for (const name of ['home', 'presaira', 'ar-home']) {
             const file = `artifacts/staging-lighthouse/${name}.json`;
             if (!fs.existsSync(file)) continue;
             const report = JSON.parse(fs.readFileSync(file, 'utf8'));

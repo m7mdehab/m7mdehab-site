@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/newsreader";
-import "./globals.css";
-import "./hardening.css";
+import "../globals.css";
+import "../hardening.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
@@ -12,7 +12,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
   title: { default: `${profile.name} — Data, AI & Product`, template: `%s — ${profile.name}` },
   description: profile.proposition,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { en: "/", ar: "/ar", "x-default": "/" },
+  },
   authors: [{ name: profile.name, url: profile.domain }],
   openGraph: {
     title: `${profile.name} — Data, AI & Product`,
@@ -20,6 +23,8 @@ export const metadata: Metadata = {
     url: profile.domain,
     siteName: profile.name,
     type: "profile",
+    locale: "en_US",
+    alternateLocale: ["ar_EG"],
   },
   twitter: {
     card: "summary",
@@ -40,6 +45,7 @@ const siteSchema = {
       url: profile.domain,
       name: `${profile.name} — Data, AI & Product`,
       description: profile.proposition,
+      inLanguage: "en",
       mainEntity: { "@id": personId },
     },
     {
@@ -82,13 +88,14 @@ const siteSchema = {
       url: project.caseStudyUrl,
       name: project.title,
       description: project.statement,
+      inLanguage: "en",
       creator: { "@id": personId },
       keywords: project.proof.split(" · "),
     })),
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function EnglishRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>

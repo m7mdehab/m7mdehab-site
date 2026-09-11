@@ -94,15 +94,31 @@ Keep visible content, structured data and machine-readable outputs consistent wi
 - Use `docs/LAUNCH_READINESS_CHECKLIST.md` for production launch gates and `docs/ANALYTICS_BINDING_CONTRACT.md` for future provider binding.
 - A future analytics adapter must preserve the stable `data-conversion` / `data-service-id` semantics and the site's privacy/confidentiality boundaries. Provider naming should map to the internal vocabulary, not replace it.
 
+## Localization
+
+Read `docs/LOCALIZATION_POLICY.md` before changing language routes or localized content.
+
+- English remains the primary/default language at `/` and `/work/<slug>`; Arabic lives at `/ar` and `/ar/work/<slug>`.
+- Arabic pages must use a genuine document root with `lang="ar" dir="rtl"`; do not fake RTL under an English root.
+- Every English/Arabic page pair must self-canonicalize and expose reciprocal `hreflang`; English remains `x-default`.
+- `data/public-ar.ts` and `data/case-studies-ar.ts` are presentation projections only. They never outrank the public truth/evidence registries or authorize stronger claims.
+- Do not invent an Arabic legal/public spelling of Mohammed's name. Keep **Mohammed Ehab ElNomany** until he explicitly supplies or approves an Arabic rendering.
+- Translating content never widens publication rights, service-proof strength, project ownership or confidentiality boundaries.
+- Keep stable `data-conversion` and `data-service-id` semantics across languages; localized routes/labels may change, identifiers may not.
+- Arabic launch routes must preserve strict axe, mobile-overflow, reduced-motion and no-JavaScript behavior.
+- Localize explanatory evidence captions and accessibility descriptions where useful, but preserve technical model/API names and metric notation when translation would reduce precision.
+
 ## Deployment architecture
 
 - The canonical application source remains a normal Next.js application. Do not make local development or ordinary CI depend on a Cloudflare-specific runtime adapter without a concrete server-side requirement.
 - The current production target is **Cloudflare Workers Static Assets** because every launch route is statically prerenderable. Use `CLOUDFLARE_STATIC_EXPORT=1 npm run build` for the explicit export lane; ordinary `npm run build` remains the normal Next.js build.
 - `wrangler.static.jsonc` is preview/dry-run infrastructure. `workers.dev` and temporary preview hosts are never canonical production surfaces and must remain non-index targets.
+- The permanent pre-domain staging origin is `https://m7mdehab-site.m7mdehab.workers.dev`; it is manually deployed and must remain `noindex`.
 - `wrangler.production.jsonc` is the production custom-domain contract. The canonical public host is the apex `m7mdehab.com`; production disables `workers.dev` and preview URLs.
 - `www.m7mdehab.com` is redirect-only. Implement `www` → apex as a Cloudflare edge redirect with path/query preservation; never serve a second independently indexable content copy.
 - Production deployment is manually gated through `.github/workflows/deploy-cloudflare-production.yml` and requires authorized `CLOUDFLARE_API_TOKEN` plus `CLOUDFLARE_ACCOUNT_ID`. Never commit Cloudflare tokens, account credentials or temporary-account claim tokens.
 - `.github/workflows/deployment-readiness.yml` is the durable repository deployment gate. It must continue to validate static export surfaces, preview and production Wrangler configuration, the production dependency audit, and the advisory Vinext compatibility probe. The Vinext probe intentionally reuses the same runner and dependency install instead of allocating a second hosted job.
+- `.github/workflows/deploy-cloudflare-staging.yml` is a stateful manual staging gate. Preserve post-deploy propagation stabilization and real-origin header/route/browser checks; do not merge it into read-only CI merely to save minutes.
 - A temporary Cloudflare deployment can prove that the artifact uploads/deploys, but it does not prove the permanent custom-domain origin. Temporary-account edge challenges or preview-platform behavior must not be mistaken for application behavior.
 - Do not submit the site to Search Console/Bing or publicly promote it until the permanent apex origin passes DNS, TLS, canonical-host redirect, security-header, browser/a11y/mobile/no-JS and crawlability checks in `docs/DEPLOYMENT.md`.
 - Do not guess a Content Security Policy or enable HSTS preload merely for a checklist. Introduce CSP from measured production resource behavior (prefer report-only first) and consider HSTS/preload only after HTTPS/subdomain behavior is stable.
@@ -118,16 +134,18 @@ Core narrative and evidence must be readable in server-rendered HTML and must re
 
 Do not upgrade a framework, linter or test tool merely because a newer major exists. Resolve security advisories promptly, but verify peer/runtime compatibility in CI. The current Next.js 16 baseline intentionally uses the compatible ESLint 9 line because the tested ESLint 10 + Next React-plugin combination crashes at rule load time.
 
-The durable rendered gate is now the **pull-request rendered QA lane inside `.github/workflows/ci.yml`**. It reuses the same checkout, dependency install, typecheck, lint, production build, and running server as Application CI instead of repeating them on a second hosted runner. `npm run test:browser` still runs the full `tests` directory and currently covers:
+The durable rendered gate is the **pull-request rendered QA lane inside `.github/workflows/ci.yml`**. It reuses the same checkout, dependency install, typecheck, lint, production build, and running server as Application CI instead of repeating them on a second hosted runner. `npm run test:browser` runs the full `tests` directory and covers:
 
-- homepage and all six project routes on desktop and 390px mobile;
-- broken evidence images and horizontal overflow;
-- **any** axe violation on the desktop route set;
+- English homepage and all six English project routes on desktop and 390px mobile;
+- Arabic homepage and all six Arabic project routes through the localization gate;
+- broken evidence images and real horizontal overflow;
+- **any** axe violation on both language route sets;
 - reduced motion;
 - keyboard navigation;
 - JavaScript-disabled progressive enhancement;
 - Iteration 7 service-anchor, direct-support and contact-conversion semantics;
-- Iteration 8 canonical, structured-data, machine-readable, sitemap and robots semantics.
+- Iteration 8 canonical, structured-data, machine-readable, sitemap and robots semantics;
+- reciprocal locale canonicals/hreflang, RTL document semantics and stable cross-language conversion identifiers.
 
 Do not narrow this suite when an iteration ends. Lighthouse is a comparative lab signal, not a substitute for behavioral checks. Interpret score changes with the report's CPU `benchmarkIndex`, payload/chunk changes and actual runtime behavior before modifying useful content merely to chase a score.
 
@@ -139,26 +157,29 @@ Read `docs/CI_EFFICIENCY_POLICY.md` before changing workflow triggers, runner ty
 - Prefer coherent checkpoint pushes instead of repeated micro-pushes that trigger the same hosted gate.
 - Keep read-only CI `cancel-in-progress: true` when superseded work has no value.
 - Do not recreate the retired standalone Browser QA runner or separate Vinext runner unless a new requirement actually depends on runner-level independence.
-- Use `ubuntu-slim` only for lightweight jobs that fit the 15-minute ceiling. Browser installation, production builds, and deployment packaging remain on full runners.
+- Use `ubuntu-slim` only for lightweight jobs that fit the 15-minute ceiling. Browser installation, production builds, deployment packaging and stateful real-origin acceptance remain on full runners.
 
 ## Content model
 Keep professional content centralized under `data/`. Adding a job, certification, skill, service or project should not require redesigning components. Homepage omission does not mean a fact should disappear from the governed source registry; strategic curation and truth completeness are separate concerns.
 
 `data/case-studies.ts` is the curated runtime narrative projection for project-detail routes. It may deepen a project with current public repository evidence, but it does not outrank `data/source-of-truth.public.yaml` or `data/project-evidence.public.yaml`. Case-study depth is intentionally unequal: public technical projects can expose architecture, evaluation and limitations, while public-safe projects must remain narrower when evidence or publication rights are narrower. Every production case study should make its proof and its limits legible rather than padding weak evidence into visual or narrative symmetry.
 
+Localized data and case studies are subordinate presentation layers. Update English/public truth first when a fact changes, then reconcile each published locale; never let a translation become a hidden source of new facts.
+
 ## Before shipping
 - reconcile `data/source-of-truth.public.yaml` with `data/public.ts`;
+- reconcile localized runtime projections against the same governed English/public truth;
 - reconcile project visuals/evidence against `data/project-evidence.public.yaml`;
 - reconcile service proof/direct-support relationships against the same evidence registry;
-- reconcile `data/case-studies.ts` against the public truth/evidence registries and its cited public project sources;
+- reconcile `data/case-studies.ts` and localized narratives against the public truth/evidence registries and cited public project sources;
 - reconcile machine-readable resources/structured data against the same public runtime claims;
-- verify every indexable HTML route has the intended canonical URL;
+- verify every indexable HTML route has the intended canonical URL and reciprocal locale alternates where applicable;
 - verify sitemap/robots and launch-readiness contracts without inventing external account state;
 - verify deployment configuration with the durable Deployment Readiness workflow;
 - verify third-party licenses and attribution;
 - install with `npm ci` from the committed lockfile;
 - run typecheck, lint and production build;
-- run the full rendered browser/conversion/discoverability suite;
+- run the full rendered browser/conversion/discoverability/localization suite;
 - verify JavaScript-disabled and reduced-motion readability;
 - run performance/SEO checks and interpret Lighthouse with runner benchmark context;
 - scan for confidential material, private facts and secrets;

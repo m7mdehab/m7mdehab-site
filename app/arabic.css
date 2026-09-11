@@ -1,0 +1,114 @@
+html[dir="rtl"] body.arabic-site {
+  font-family: Tahoma, Arial, "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+html[dir="rtl"] .skip-link {
+  left: auto;
+  right: 1rem;
+}
+
+html[dir="rtl"] .hero-title,
+html[dir="rtl"] .section-intro h2,
+html[dir="rtl"] .project-copy h3,
+html[dir="rtl"] .about-display > p:last-child,
+html[dir="rtl"] .writing-row h3,
+html[dir="rtl"] .contact-section h2,
+html[dir="rtl"] .case-hero h1,
+html[dir="rtl"] .case-note h2 {
+  font-family: Tahoma, Arial, "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .eyebrow,
+html[dir="rtl"] .hero-kicker,
+html[dir="rtl"] .project-index,
+html[dir="rtl"] .project-kicker,
+html[dir="rtl"] .project-proof,
+html[dir="rtl"] .skill-group-title,
+html[dir="rtl"] .compact-card p,
+html[dir="rtl"] .writing-row p,
+html[dir="rtl"] .writing-row > span {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .hero,
+html[dir="rtl"] .hero-bottom,
+html[dir="rtl"] .hero-bottom > *,
+html[dir="rtl"] .section-intro > *,
+html[dir="rtl"] .project-copy,
+html[dir="rtl"] .service-card {
+  min-width: 0;
+}
+
+html[dir="rtl"] .hero-title {
+  line-height: .94;
+}
+
+html[dir="rtl"] .hero-title > [lang="en"] {
+  display: block;
+  direction: ltr;
+  text-align: left;
+  max-width: 100%;
+  min-width: 0;
+  unicode-bidi: isolate;
+}
+
+html[dir="rtl"] .hero-title em {
+  font-family: inherit;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .hero-bottom > p,
+html[dir="rtl"] .section-copy,
+html[dir="rtl"] .project-statement,
+html[dir="rtl"] .capability-row p,
+html[dir="rtl"] .timeline-row p,
+html[dir="rtl"] .about-body p,
+html[dir="rtl"] .service-card p,
+html[dir="rtl"] .case-lede {
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .project-copy {
+  align-items: flex-start;
+}
+
+html[dir="rtl"] .round-link,
+html[dir="rtl"] .contact-actions a,
+html[dir="rtl"] .back-link {
+  flex-direction: row;
+}
+
+html[dir="rtl"] bdi,
+html[dir="rtl"] [lang="en"] {
+  unicode-bidi: isolate;
+}
+
+html[dir="rtl"] .locale-link {
+  direction: ltr;
+}
+
+@media (max-width: 900px) {
+  html[dir="rtl"] .hero-title {
+    font-size: clamp(3.2rem, 13vw, 6.4rem);
+  }
+}
+
+@media (max-width: 560px) {
+  html[dir="rtl"] .hero-title {
+    font-size: clamp(2.65rem, 12vw, 4.6rem);
+  }
+
+  html[dir="rtl"] .hero-title > [lang="en"] {
+    width: 100%;
+  }
+
+  html[dir="rtl"] .section-intro h2,
+  html[dir="rtl"] .contact-section h2 {
+    line-height: 1.08;
+  }
+}
