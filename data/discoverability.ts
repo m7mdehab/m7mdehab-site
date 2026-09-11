@@ -7,6 +7,7 @@ import {
   services,
   skillGroups,
 } from "@/data/public";
+import { writingArticles } from "@/data/writing";
 
 export function projectCaseStudyUrl(slug: string) {
   return `${profile.domain}/work/${slug}`;
@@ -14,6 +15,10 @@ export function projectCaseStudyUrl(slug: string) {
 
 export function serviceContextUrl(serviceId: string) {
   return `${profile.domain}/#service-${serviceId}`;
+}
+
+export function writingArticleUrl(slug: string) {
+  return `${profile.domain}/writing/${slug}`;
 }
 
 export const serviceRecords = services.map((service) => ({
@@ -64,6 +69,23 @@ export const projectRecords = projects.map((project) => {
   };
 });
 
+export const writingRecords = writingArticles.map((article) => ({
+  slug: article.slug,
+  title: article.title,
+  description: article.description,
+  topic: article.topic,
+  createdAt: article.createdAt,
+  readingMinutes: article.readingMinutes,
+  url: writingArticleUrl(article.slug),
+  alternateLanguageUrl: `${profile.domain}/ar/writing/${article.slug}`,
+  derivedFromProject: {
+    slug: article.projectSlug,
+    title: article.projectTitle,
+    caseStudyUrl: projectCaseStudyUrl(article.projectSlug),
+  },
+  evidenceAnchors: article.evidence,
+}));
+
 export const profileRecord = {
   name: profile.name,
   handle: profile.handle,
@@ -84,10 +106,12 @@ export const profileRecord = {
   experience,
   education,
   services: serviceRecords.map(({ contact, ...service }) => service),
+  writing: writingRecords.map(({ evidenceAnchors, ...article }) => article),
   machineReadable: {
     profile: `${profile.domain}/profile.json`,
     projects: `${profile.domain}/projects.json`,
     services: `${profile.domain}/services.json`,
+    writing: `${profile.domain}/writing.json`,
     llms: `${profile.domain}/llms.txt`,
   },
 };
