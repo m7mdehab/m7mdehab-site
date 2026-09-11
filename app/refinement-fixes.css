@@ -1,0 +1,82 @@
+/* Small follow-up constraints for the Iteration 13 refinement layer. */
+
+.display-script,
+.display-strong {
+  display: inline-block;
+}
+
+/* Long project names need their own ceiling instead of inheriting the same
+   theatrical scale as short titles. */
+a[href="/work/opportunityos"] .project-copy h3,
+a[href="/ar/work/opportunityos"] .project-copy h3 {
+  font-size: clamp(2.65rem, 3.75vw, 4.35rem);
+}
+
+a[href="/work/ghareeb-oglu"] .project-copy h3,
+a[href="/ar/work/ghareeb-oglu"] .project-copy h3 {
+  font-size: clamp(2.7rem, 3.85vw, 4.45rem);
+}
+
+a[href="/work/oil-spill-detection"] .project-copy h3,
+a[href="/ar/work/oil-spill-detection"] .project-copy h3,
+a[href="/work/solar-site-selection"] .project-copy h3,
+a[href="/ar/work/solar-site-selection"] .project-copy h3 {
+  font-size: clamp(2.7rem, 3.95vw, 4.55rem);
+}
+
+/* The skills chapter gets a subtle separator, not another giant card. */
+.skills-section {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Preserve the writing-row hover interaction; scroll-driven motion is already
+   present elsewhere and should not compete for the same transform property. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    #writing [class*="previewRow"] {
+      animation: none !important;
+    }
+
+    .display-script,
+    .display-strong {
+      animation-name: emphasis-settle;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+@keyframes emphasis-settle {
+  from { transform: translateY(.12em); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav-wrap.nav-hidden {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .display-script,
+  .display-strong {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 700px) {
+  a[href="/work/opportunityos"] .project-copy h3,
+  a[href="/ar/work/opportunityos"] .project-copy h3,
+  a[href="/work/ghareeb-oglu"] .project-copy h3,
+  a[href="/ar/work/ghareeb-oglu"] .project-copy h3,
+  a[href="/work/oil-spill-detection"] .project-copy h3,
+  a[href="/ar/work/oil-spill-detection"] .project-copy h3,
+  a[href="/work/solar-site-selection"] .project-copy h3,
+  a[href="/ar/work/solar-site-selection"] .project-copy h3 {
+    font-size: clamp(2.45rem, 12vw, 3.9rem);
+  }
+}

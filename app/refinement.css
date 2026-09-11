@@ -1,0 +1,605 @@
+/* Iteration 13 — layout, typography and restrained motion refinement.
+   This layer intentionally overrides the mature production system without
+   replacing its truth, evidence, accessibility or responsive contracts. */
+
+:root {
+  --section-space: clamp(68px, 7vw, 108px);
+  --section-space-tight: clamp(52px, 5.5vw, 82px);
+  --display-max: 4.75rem;
+}
+
+section[id] {
+  scroll-margin-top: 108px;
+}
+
+/* Floating navigation: still present, but smaller and less intrusive. */
+.site-nav-wrap {
+  top: 14px;
+  transition: transform .34s cubic-bezier(.22,1,.36,1), opacity .24s ease;
+  will-change: transform;
+}
+
+.site-nav-wrap.nav-hidden {
+  transform: translateY(calc(-100% - 24px));
+  opacity: .12;
+  pointer-events: none;
+}
+
+.site-nav {
+  width: min(628px, calc(100% - 32px));
+  padding: 6px 8px;
+  gap: .75rem;
+  background: rgba(243,241,234,.9);
+  box-shadow: 0 10px 34px rgba(17,17,15,.055);
+}
+
+.nav-mark {
+  width: 38px;
+  height: 38px;
+  font-size: 13px;
+}
+
+.nav-links a {
+  padding: 8px 11px;
+  font-size: 12px;
+}
+
+.nav-links a[aria-current="location"] {
+  background: rgba(17,17,15,.075);
+}
+
+/* Display emphasis language. Existing Newsreader italic supplies the sparse,
+   editorial cursive gesture without introducing another decorative font. */
+.display-script {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.045em;
+  font-variation-settings: "opsz" 72;
+}
+
+.display-strong {
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 720;
+  letter-spacing: -.055em;
+}
+
+html[dir="rtl"] .display-script,
+html[dir="rtl"] .display-strong {
+  font-family: inherit;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+/* Hero: preserve drama, remove the empty half-screen feeling. */
+.hero {
+  min-height: min(88svh, 860px);
+  padding: 132px 0 44px;
+}
+
+.hero-kicker {
+  margin-bottom: 1.8rem;
+  font-size: 12px;
+}
+
+.hero-title {
+  max-width: 1180px;
+  font-size: clamp(4rem, 8.7vw, 9rem);
+  line-height: .86;
+  letter-spacing: -.068em;
+}
+
+.hero-bottom {
+  width: min(100%, 1120px);
+  grid-template-columns: minmax(0, 760px) auto;
+  gap: 2rem;
+  margin-top: 2.7rem;
+}
+
+.hero-bottom > p {
+  font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+  line-height: 1.3;
+}
+
+.hero-rule {
+  margin-top: 3rem;
+}
+
+/* Shared vertical rhythm. */
+.section {
+  padding: var(--section-space) 0;
+}
+
+.section-intro {
+  grid-template-columns: 150px minmax(0, 1fr) minmax(220px, 340px);
+  gap: clamp(1.4rem, 2.5vw, 2rem);
+  margin-bottom: clamp(42px, 4.5vw, 58px);
+}
+
+.section-intro h2 {
+  max-width: 840px;
+  font-size: clamp(2.65rem, 4.55vw, var(--display-max));
+  line-height: .96;
+}
+
+.section-copy {
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.eyebrow,
+.project-index,
+.project-kicker,
+.project-proof,
+.skill-group-title {
+  font-size: 12px;
+}
+
+/* Work: content-driven cards instead of six oversized slides. */
+.work-list {
+  gap: 18px;
+}
+
+.work-list > div > a {
+  min-height: clamp(455px, 33vw, 525px) !important;
+  border-radius: 24px !important;
+}
+
+.project-copy {
+  padding: clamp(26px, 3.2vw, 48px);
+}
+
+.project-kicker {
+  margin-top: clamp(44px, 5.5vw, 72px);
+  margin-bottom: 11px;
+}
+
+.project-copy h3 {
+  max-width: 620px;
+  font-size: clamp(2.9rem, 4.3vw, 5rem);
+  line-height: .9;
+}
+
+.project-statement {
+  margin: 21px 0 21px;
+  font-size: clamp(1rem, 1.25vw, 1.22rem);
+  line-height: 1.42;
+}
+
+.project-proof {
+  line-height: 1.45;
+}
+
+.work-list figure figcaption span,
+.work-list figure figcaption strong {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* Capabilities: retain editorial grid, reduce repeated vertical travel. */
+.capability-row {
+  grid-template-columns: 72px minmax(250px, .82fr) 1fr;
+  padding: 22px 0;
+  gap: 1.6rem;
+}
+
+.capability-row h3 {
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+}
+
+.capability-row p {
+  line-height: 1.5;
+}
+
+/* Skills: informational tags must not look like clickable buttons. */
+.skills-section {
+  padding-top: var(--section-space-tight);
+  padding-bottom: var(--section-space-tight);
+}
+
+.skills-groups {
+  gap: 12px;
+}
+
+.skill-group,
+.skill-group:first-child {
+  min-height: 0;
+  padding: 22px;
+}
+
+.skill-group-title {
+  margin-bottom: 26px;
+}
+
+.skill-cloud {
+  gap: 8px;
+}
+
+.skill-chip,
+.skill-chip:hover {
+  transform: none !important;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.34);
+  color: var(--ink);
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* Experience and credentials. */
+.timeline-row {
+  grid-template-columns: 160px minmax(250px,.78fr) 1fr;
+  padding: 25px 0;
+  gap: 1.6rem;
+}
+
+.timeline-row > p:last-child {
+  color: color-mix(in srgb, var(--ink) 63%, transparent);
+}
+
+.credential-grid {
+  gap: clamp(42px, 5vw, 74px);
+}
+
+.credential-grid .section-intro {
+  margin-bottom: 36px;
+}
+
+.credential-grid .section-intro h2 {
+  font-size: clamp(2.45rem, 3.65vw, 4.15rem);
+}
+
+.credential-item {
+  padding: 18px 0;
+}
+
+/* Additional experience should read as a concise supporting chapter. */
+.compact-section {
+  padding-top: var(--section-space-tight);
+  padding-bottom: var(--section-space-tight);
+}
+
+.compact-grid {
+  gap: 12px;
+}
+
+.compact-card {
+  min-height: 0;
+  padding: 22px;
+}
+
+.compact-card h3 {
+  margin: 40px 0 12px;
+}
+
+/* About: manifesto, not monument. */
+.about-section {
+  grid-template-columns: minmax(0, 1.28fr) minmax(300px, .72fr);
+  gap: clamp(48px, 7vw, 96px);
+  padding-top: var(--section-space-tight);
+  padding-bottom: var(--section-space-tight);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-display > p:last-child {
+  margin-top: 28px;
+  max-width: 860px;
+  font-size: clamp(2.75rem, 4.55vw, 4.8rem);
+  line-height: .99;
+}
+
+.about-body {
+  padding-top: 28px;
+}
+
+.about-body p {
+  font-size: clamp(1.03rem, 1.18vw, 1.17rem);
+  line-height: 1.58;
+}
+
+/* Services: evidence hierarchy stays, spacer-card behavior goes. */
+.services-grid {
+  gap: 12px;
+}
+
+.service-card {
+  min-height: 0;
+  padding: 23px;
+}
+
+.service-card h3 {
+  margin: 34px 0 13px;
+  font-size: clamp(1.65rem, 2.25vw, 2.45rem);
+}
+
+.service-card > p,
+.service-card a {
+  font-size: 13px;
+}
+
+/* Writing: make the whole row carry the interaction; keep the action nearby. */
+#writing [class*="previewRow"] {
+  grid-template-columns: minmax(0, 940px) auto;
+  padding: 24px 0;
+  gap: 1.4rem;
+}
+
+#writing [class*="previewRow"] h3 {
+  font-size: clamp(1.75rem, 2.65vw, 3rem);
+  line-height: 1.02;
+}
+
+#writing [class*="previewAction"] {
+  align-self: center;
+}
+
+/* Writing hub/article pages inherit the same tightened typography. */
+[class*="indexShell"],
+[class*="articleShell"] {
+  padding-top: 126px !important;
+  padding-bottom: 92px !important;
+}
+
+[class*="indexHero"] h1,
+[class*="articleHero"] h1 {
+  font-size: clamp(3.35rem, 6.6vw, 7rem) !important;
+  line-height: .91 !important;
+}
+
+[class*="indexCard"] {
+  min-height: 370px !important;
+}
+
+/* Contact/footer: decisive finish without an unnecessary extra viewport. */
+.contact-section {
+  padding-top: clamp(84px, 8vw, 122px);
+  padding-bottom: clamp(54px, 6vw, 84px);
+}
+
+.contact-section h2 {
+  max-width: 980px;
+  font-size: clamp(4rem, 7.6vw, 8.2rem);
+  line-height: .88;
+}
+
+.footer {
+  padding-bottom: 34px;
+  font-size: 12px;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* Motion: visible by default. Scroll/view animations only add short-distance
+   state change; they never own semantic visibility. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-title {
+    animation: hero-settle .78s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .hero-kicker,
+  .hero-bottom {
+    animation: hero-detail-settle .7s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .hero-bottom { animation-delay: .08s; }
+
+  @supports (animation-timeline: view()) {
+    .section-intro,
+    .capability-row,
+    .skill-group,
+    .timeline-row,
+    .credential-item,
+    .compact-card,
+    .service-card,
+    #writing [class*="previewRow"] {
+      animation-name: editorial-rise;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 0% cover 24%;
+    }
+
+    .project-copy {
+      animation-name: editorial-rise;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+
+    .project-copy + * {
+      animation-name: evidence-settle;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 0% cover 32%;
+    }
+
+    .project-index,
+    .capability-row > span:first-child,
+    .timeline-period {
+      animation-name: number-focus;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 5% cover 26%;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+@keyframes hero-settle {
+  from { transform: translateY(14px); letter-spacing: -.058em; }
+  to { transform: translateY(0); letter-spacing: -.068em; }
+}
+
+@keyframes hero-detail-settle {
+  from { transform: translateY(9px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes editorial-rise {
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes evidence-settle {
+  from { transform: translateY(10px) scale(.992); }
+  to { transform: translateY(0) scale(1); }
+}
+
+@keyframes number-focus {
+  from { transform: translateY(6px); color: var(--muted); }
+  to { transform: translateY(0); color: var(--ink); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav-wrap,
+  .site-nav-wrap.nav-hidden,
+  .hero-title,
+  .hero-kicker,
+  .hero-bottom,
+  .section-intro,
+  .project-copy,
+  .project-copy + *,
+  .capability-row,
+  .skill-group,
+  .timeline-row,
+  .credential-item,
+  .compact-card,
+  .service-card,
+  #writing [class*="previewRow"] {
+    animation: none !important;
+    transition-duration: 0s !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .site-nav { width: min(610px, calc(100% - 28px)); }
+  .section-intro { grid-template-columns: 120px minmax(0,1fr) minmax(200px,290px); }
+  .hero-title { font-size: clamp(4rem, 9vw, 7.6rem); }
+  .work-list > div > a { min-height: 450px !important; }
+  .project-copy h3 { font-size: clamp(2.8rem, 4.7vw, 4.5rem); }
+}
+
+@media (max-width: 900px) {
+  :root { --section-space: clamp(58px, 9vw, 82px); --section-space-tight: clamp(48px, 7vw, 68px); }
+
+  section[id] { scroll-margin-top: 88px; }
+
+  .hero {
+    min-height: auto;
+    padding-top: 126px;
+    padding-bottom: 38px;
+  }
+
+  .hero-bottom {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .section-intro {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .section-intro h2 { max-width: 760px; }
+  .section-copy { max-width: 650px; }
+
+  .capability-row {
+    grid-template-columns: 48px minmax(0, .85fr) 1fr;
+    gap: 1rem;
+  }
+
+  .timeline-row {
+    grid-template-columns: 130px minmax(220px,.8fr) 1fr;
+    gap: 1rem;
+  }
+
+  .about-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about-body {
+    padding-top: 0;
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-nav-wrap {
+    top: 10px;
+  }
+
+  .site-nav {
+    width: calc(100% - 20px);
+    padding: 5px 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-nav::-webkit-scrollbar { display: none; }
+  .nav-links { gap: 1px; }
+  .nav-links a { padding: 8px 9px; font-size: 11px; white-space: nowrap; }
+  .nav-mark { flex: 0 0 36px; width: 36px; height: 36px; }
+
+  .hero-title {
+    font-size: clamp(3.45rem, 15vw, 5.8rem);
+    line-height: .9;
+  }
+
+  .hero-kicker {
+    margin-bottom: 1.4rem;
+  }
+
+  .work-list > div > a {
+    min-height: 0 !important;
+    border-radius: 20px !important;
+  }
+
+  .project-kicker { margin-top: 34px; }
+
+  .capability-row,
+  .timeline-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .capability-row > span,
+  .timeline-period {
+    margin-bottom: 4px;
+  }
+
+  .skills-groups,
+  .credential-grid,
+  .compact-grid,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-group:first-child { grid-column: auto; }
+  .compact-card h3 { margin-top: 26px; }
+
+  #writing [class*="previewRow"] {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  #writing [class*="previewAction"] {
+    justify-self: start;
+  }
+
+  .contact-section h2 {
+    font-size: clamp(3.4rem, 15vw, 5.7rem);
+  }
+}

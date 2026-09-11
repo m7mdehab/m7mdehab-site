@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import {
@@ -18,7 +19,7 @@ import projectStyles from "@/components/project-visual.module.css";
 import serviceStyles from "@/components/service-conversion.module.css";
 import { Reveal } from "@/components/reveal";
 
-function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
+function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: ReactNode; copy?: string }) {
   return (
     <Reveal className="section-intro">
       <p className="eyebrow">{eyebrow}</p>
@@ -45,7 +46,7 @@ export function Hero() {
 export function Work() {
   return (
     <section id="work" className="section shell">
-      <SectionIntro eyebrow="01 — Selected work" title="Proof, not portfolio filler." copy="Each project demonstrates a different part of how I think, build and deliver — with the visual treatment driven by the evidence that actually exists." />
+      <SectionIntro eyebrow="01 — Selected work" title={<><em className="display-script">Proof</em>, not portfolio filler.</>} copy="Each project demonstrates a different part of how I think, build and deliver — with the visual treatment driven by the evidence that actually exists." />
       <div className="work-list">
         {projects.map((project, index) => {
           const visual = projectVisuals[project.slug];
@@ -72,7 +73,7 @@ export function Work() {
 export function Expertise() {
   return (
     <section id="expertise" className="section shell">
-      <SectionIntro eyebrow="02 — Capabilities" title="Across the boundary between business problems and technical systems." />
+      <SectionIntro eyebrow="02 — Capabilities" title={<>Across the boundary between <strong className="display-strong">business problems</strong> and <em className="display-script">technical systems</em>.</>} />
       <div className="capability-list">
         {capabilities.map((item, i) => {
           const relatedService = services.find((service) => service.capability.includes(item.title));
@@ -99,14 +100,14 @@ export function Expertise() {
 export function Skills() {
   return (
     <section className="section shell skills-section">
-      <SectionIntro eyebrow="03 — Skills & stack" title="Tools are useful when they disappear into the work." copy="A working stack grouped by the problems it helps me solve — not a logo wall." />
+      <SectionIntro eyebrow="03 — Skills & stack" title={<>Tools are useful when they <em className="display-script">disappear</em> into the work.</>} copy="A working stack grouped by the problems it helps me solve — not a logo wall." />
       <div className="skills-groups">
         {skillGroups.map((group, groupIndex) => (
           <Reveal key={group.title} delay={groupIndex * 0.04} className="skill-group">
             <p className="skill-group-title">{group.title}</p>
             <div className="skill-cloud">
-              {group.skills.map((skill, index) => (
-                <span key={skill} className="skill-chip" style={{ transform: `rotate(${((index % 5) - 2) * 0.35}deg)` }}>{skill}</span>
+              {group.skills.map((skill) => (
+                <span key={skill} className="skill-chip">{skill}</span>
               ))}
             </div>
           </Reveal>
@@ -119,7 +120,7 @@ export function Skills() {
 export function Experience() {
   return (
     <section id="experience" className="section shell">
-      <SectionIntro eyebrow="04 — Experience" title="Enterprise credibility, product ownership and analytical depth." />
+      <SectionIntro eyebrow="04 — Experience" title={<>Enterprise credibility, <em className="display-script">product ownership</em> and <strong className="display-strong">analytical depth</strong>.</>} />
       <div className="timeline">
         {experience.map((item, i) => (
           <Reveal key={`${item.company}-${item.role}`} delay={i * 0.04} className="timeline-row">
@@ -137,13 +138,13 @@ export function Credentials() {
   return (
     <section className="section shell credential-grid">
       <div>
-        <SectionIntro eyebrow="05 — Certifications" title="Continuous learning with receipts." />
+        <SectionIntro eyebrow="05 — Certifications" title={<>Continuous learning with <em className="display-script">receipts</em>.</>} />
         <div className="credential-list">
           {certifications.map((item) => <Reveal key={item.name} className="credential-item"><h3>{item.name}</h3><p>{item.issuer}</p></Reveal>)}
         </div>
       </div>
       <div>
-        <SectionIntro eyebrow="06 — Education" title="The technical foundation." />
+        <SectionIntro eyebrow="06 — Education" title={<>The <em className="display-script">technical</em> foundation.</>} />
         <div className="credential-list">
           {education.map((item) => <Reveal key={item.qualification} className="credential-item"><h3>{item.qualification}</h3><p>{item.institution} · {item.period}</p></Reveal>)}
         </div>
@@ -155,7 +156,7 @@ export function Credentials() {
 export function AdditionalExperience() {
   return (
     <section className="section shell compact-section">
-      <SectionIntro eyebrow="07 — Additional experience" title="Teaching, consulting and applied technical work." />
+      <SectionIntro eyebrow="07 — Additional experience" title={<>Teaching, consulting and <em className="display-script">applied</em> technical work.</>} />
       <div className="compact-grid">
         {additionalExperience.map((item) => <Reveal key={`${item.company}-${item.role}`} className="compact-card"><p>{item.company}</p><h3>{item.role}</h3><span>{item.note}</span></Reveal>)}
       </div>
@@ -166,7 +167,7 @@ export function AdditionalExperience() {
 export function About() {
   return (
     <section id="about" className="section shell about-section">
-      <Reveal className="about-display"><p className="eyebrow">08 — About / how I work</p><p>I like problems with messy edges: unclear requirements, fragmented data, competing constraints, and a real person waiting for the answer.</p></Reveal>
+      <Reveal className="about-display"><p className="eyebrow">08 — About / how I work</p><p>I like problems with <em className="display-script">messy edges</em>: unclear requirements, fragmented data, competing constraints, and a <strong className="display-strong">real person</strong> waiting for the answer.</p></Reveal>
       <Reveal className="about-body"><p>{profile.shortBio}</p><p>I tend to work from first principles, make the truth visible, reduce ambiguity, then build the smallest reliable system that can carry the job. The medium can be a migration pipeline, a forecasting model, a dashboard, an AI workflow, or a customer-facing product.</p></Reveal>
     </section>
   );
@@ -175,7 +176,7 @@ export function About() {
 export function Services() {
   return (
     <section id="services" className="section shell">
-      <SectionIntro eyebrow="09 — Ways to work together" title="Useful outcomes, backed by the right kind of proof." copy="The evidence is intentionally unequal: public projects where they exist, experience and methods where confidentiality or publication rights limit screenshots." />
+      <SectionIntro eyebrow="09 — Ways to work together" title={<>Useful outcomes, backed by the <em className="display-script">right kind of proof</em>.</>} copy="The evidence is intentionally unequal: public projects where they exist, experience and methods where confidentiality or publication rights limit screenshots." />
       <div className="services-grid">
         {services.map((service, i) => {
           const relatedProjects = service.projectSlugs
@@ -219,7 +220,7 @@ export function Services() {
 export function Writing() {
   return (
     <section className="section shell">
-      <SectionIntro eyebrow="10 — Writing" title="Notes from the work behind the work." />
+      <SectionIntro eyebrow="10 — Writing" title={<>Notes from the <em className="display-script">work behind the work</em>.</>} />
       <div className="writing-list">
         {writing.map((article) => <Reveal key={article.title} className="writing-row"><div><p>{article.topic}</p><h3>{article.title}</h3></div><span>{article.status}</span></Reveal>)}
       </div>
@@ -230,7 +231,7 @@ export function Writing() {
 export function Contact() {
   return (
     <section id="contact" className="contact-section shell">
-      <Reveal><p className="eyebrow">11 — Opportunity</p><h2>Have a difficult problem worth solving?</h2><p className="contact-copy">Discuss a role or project opportunity.</p></Reveal>
+      <Reveal><p className="eyebrow">11 — Opportunity</p><h2>Have a <em className="display-script">difficult problem</em> worth solving?</h2><p className="contact-copy">Discuss a role or project opportunity.</p></Reveal>
       <Reveal delay={0.08} className="contact-actions">
         <a href={`mailto:${profile.email}`} data-conversion="contact-email"><Mail size={18}/> Email</a>
         <a href={profile.linkedin} target="_blank" rel="noreferrer" data-conversion="contact-linkedin"><Linkedin size={18}/> LinkedIn</a>

@@ -36,7 +36,7 @@ export function WritingPreview({ articles, locale }: { articles: readonly Writin
     <section id="writing" className="section shell">
       <div className="section-intro">
         <div><p className="eyebrow">10 — {isArabic ? "الكتابة" : "Writing"}</p></div>
-        <h2>{isArabic ? "مقالات من داخل العمل نفسه." : "Field notes with evidence behind them."}</h2>
+        <h2>{isArabic ? "مقالات من داخل العمل نفسه." : <>Field notes with <em className="display-script">evidence</em> behind them.</>}</h2>
         <p className="section-copy">
           {isArabic
             ? "كتابة تقنية مبنية على مشروعات يمكن فحص أدلتها، لا محتوى عام أُنشئ فقط لجذب الزيارات."
@@ -69,7 +69,7 @@ export function WritingIndex({ articles, locale }: { articles: readonly WritingA
     <main id="main-content" className={`shell ${styles.indexShell}`}>
       <header className={styles.indexHero}>
         <p className="eyebrow">{isArabic ? "كتابة · أدلة · قرارات" : "Writing · evidence · decisions"}</p>
-        <h1>{isArabic ? "ما تعلّمته من بناء الأنظمة، لا من تلخيص الإنترنت." : "What the work taught me, not what the internet already summarized."}</h1>
+        <h1>{isArabic ? "ما تعلّمته من بناء الأنظمة، لا من تلخيص الإنترنت." : <>What the <em className="display-script">work</em> taught me, not what the internet already summarized.</>}</h1>
         <p className={styles.indexLede}>
           {isArabic
             ? "كل مقال يبدأ من مشروع حقيقي ومن أثر يمكن مراجعته. المراجع الخارجية تضيف سياقاً، لكن الادعاءات الخاصة بالعمل تبقى مرتبطة بمصادر المشروع العامة وحدود النشر نفسها التي تحكم دراسات الحالة."
