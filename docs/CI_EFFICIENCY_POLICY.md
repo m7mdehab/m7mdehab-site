@@ -15,8 +15,8 @@ Effective 2026-09-11. This is durable repository policy for keeping validation q
 
 ## Current repository shape
 
-- `.github/workflows/ci.yml` is the single pull-request validation lane for install, typecheck, lint, production build, production-route smoke tests, Playwright rendered/accessibility checks, Lighthouse evidence, and QA artifacts. Browser QA runs only on pull requests but reuses the same install, build, and production server. English and Arabic route assertions share this lane.
-- `.github/workflows/deployment-readiness.yml` performs the advisory Vinext compatibility probe and the mandatory Cloudflare static-export/readiness checks in one runner, reusing the same install and verifying both English and Arabic static launch surfaces.
+- `.github/workflows/ci.yml` is the single pull-request validation lane for install, typecheck, lint, production build, production-route smoke tests, Playwright rendered/accessibility checks, Lighthouse evidence, and QA artifacts. Browser QA runs only on pull requests but reuses the same install, build, and production server. English, Arabic, project, conversion, discoverability, localization and authority-writing assertions share this lane.
+- `.github/workflows/deployment-readiness.yml` performs the advisory Vinext compatibility probe and the mandatory Cloudflare static-export/readiness checks in one runner, reusing the same install and verifying English, Arabic, project, machine-readable and authority-writing launch surfaces.
 - `.github/workflows/deploy-cloudflare-staging.yml` is a manual stateful deployment/real-origin acceptance lane. It remains separate because Cloudflare mutation, propagation stabilization and deployed-origin validation are acceptance requirements; within that job, setup/build/browser work is reused rather than split across duplicate runners.
 - `.github/workflows/deploy-cloudflare-production.yml` remains manually gated production deployment and is not merged into CI merely to save minutes.
 
@@ -28,6 +28,8 @@ The first genuine development cycles after consolidation proved that Application
 
 The first permanent-account staging deployment also showed a cost-sensitive failure mode: running Lighthouse after an already-failed reachability gate only produced meaningless zero scores. The staging workflow now performs Lighthouse only after live/browser acceptance reaches that step normally.
 
+Iteration 12 extends content and route assertions inside these existing lanes rather than creating a separate content, SEO or writing runner. Browser checks remain the appropriate full-runner workload because the new authority pages must preserve the same axe/mobile/no-JavaScript contract as project pages.
+
 ## Agent execution rule
 
-Before pushing a change, run the narrowest relevant local or Codespaces checks first. Batch coherent edits into checkpoint pushes. Do not use hosted CI as a keystroke-by-keystroke debugging loop. Before modifying workflow boundaries, verify that every existing route, browser, accessibility, discovery, deployment, localization and security predicate still executes on the same protected event or a stronger one.
+Before pushing a change, run the narrowest relevant local or Codespaces checks first. Batch coherent edits into checkpoint pushes. Do not use hosted CI as a keystroke-by-keystroke debugging loop. Before modifying workflow boundaries, verify that every existing route, browser, accessibility, discovery, deployment, localization, authority-writing and security predicate still executes on the same protected event or a stronger one.
