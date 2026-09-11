@@ -8,6 +8,7 @@ export function SiteNav() {
       links={links}
       localeHref="/ar"
       localeLabel="AR"
+      localeAriaLabel="العربية"
       localeLang="ar"
       localeDir="rtl"
       ariaLabel="Primary navigation"
