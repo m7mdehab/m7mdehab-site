@@ -10,6 +10,7 @@ type FloatingNavProps = {
   links: readonly NavItem[];
   localeHref: string;
   localeLabel: string;
+  localeAriaLabel: string;
   localeLang: "en" | "ar";
   localeDir: "ltr" | "rtl";
   ariaLabel: string;
@@ -21,6 +22,7 @@ export function FloatingNav({
   links,
   localeHref,
   localeLabel,
+  localeAriaLabel,
   localeLang,
   localeDir,
   ariaLabel,
@@ -91,7 +93,7 @@ export function FloatingNav({
             const active = writingActive || Boolean(section && activeSection === section);
             return <Link key={href} href={href} aria-current={active ? "location" : undefined}>{label}</Link>;
           })}
-          <Link className="locale-link" href={localeHref} hrefLang={localeLang} lang={localeLang} dir={localeDir}>{localeLabel}</Link>
+          <Link className="locale-link" href={localeHref} hrefLang={localeLang} lang={localeLang} dir={localeDir} aria-label={localeAriaLabel}>{localeLabel}</Link>
         </div>
       </nav>
     </header>
