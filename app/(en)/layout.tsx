@@ -4,6 +4,7 @@ import "@fontsource-variable/newsreader";
 import "../globals.css";
 import "../hardening.css";
 import "../refinement.css";
+import "../refinement-fixes.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
