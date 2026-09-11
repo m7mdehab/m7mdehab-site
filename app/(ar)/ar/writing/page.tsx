@@ -8,7 +8,7 @@ const english = `${profile.domain}/writing`;
 
 export const metadata: Metadata = {
   title: "الكتابة — ملاحظات تقنية من العمل",
-  description: "مقالات تقنية مبنية على مشروعات فعلية لمحمد إيهاب النعماني حول التنبؤ الاحتمالي وتقييم تعلم الآلة وحوكمة وكلاء الذكاء الاصطناعي.",
+  description: `مقالات تقنية مبنية على مشروعات فعلية لـ${profile.name} حول التنبؤ الاحتمالي وتقييم تعلم الآلة وحوكمة وكلاء الذكاء الاصطناعي.`,
   alternates: {
     canonical,
     languages: { en: english, ar: canonical, "x-default": english },
