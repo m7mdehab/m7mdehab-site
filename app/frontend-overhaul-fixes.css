@@ -1,0 +1,8 @@
+/* Phase D rendered-QA corrections. Kept separate so visual review fixes stay auditable. */
+.credibility-rail-label {
+  color: #969ba0;
+}
+
+.credibility-item small {
+  color: #8f9499;
+}
