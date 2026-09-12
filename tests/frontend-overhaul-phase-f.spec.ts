@@ -15,8 +15,13 @@ async function expectNoHorizontalOverflow(page: import("@playwright/test").Page)
   expect(overflow).toBeLessThanOrEqual(1);
 }
 
-async function hideFloatingNav(page: import("@playwright/test").Page) {
-  await page.locator(".site-nav-wrap").evaluate((element) => { (element as HTMLElement).style.visibility = "hidden"; });
+async function hideAcceptanceCaptureChrome(page: import("@playwright/test").Page) {
+  for (const selector of [".site-nav-wrap", ".skip-link"]) {
+    const locator = page.locator(selector);
+    if (await locator.count()) {
+      await locator.evaluate((element) => { (element as HTMLElement).style.visibility = "hidden"; });
+    }
+  }
 }
 
 test.describe("Phase F solve-think bridge", () => {
@@ -42,7 +47,7 @@ test.describe("Phase F solve-think bridge", () => {
     await expect(page.locator(".about-section")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 
-    await hideFloatingNav(page);
+    await hideAcceptanceCaptureChrome(page);
     await section.screenshot({ path: path.join(screenshotRoot, "phase-f-solve-think-1440.png") });
   });
 
@@ -62,7 +67,7 @@ test.describe("Phase F solve-think bridge", () => {
     const section = page.locator("[data-solve-think]");
     await expect(section).toBeVisible();
     await expectNoHorizontalOverflow(page);
-    await hideFloatingNav(page);
+    await hideAcceptanceCaptureChrome(page);
     await section.screenshot({ path: path.join(screenshotRoot, "phase-f-solve-think-390.png") });
   });
 
