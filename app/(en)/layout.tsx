@@ -10,6 +10,7 @@ import "../frontend-overhaul-fixes.css";
 import "../frontend-overhaul-phase-e.css";
 import "../frontend-overhaul-phase-e-fixes.css";
 import "../frontend-overhaul-phase-f.css";
+import "../frontend-overhaul-phase-f-fixes.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
