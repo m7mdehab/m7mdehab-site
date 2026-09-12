@@ -26,6 +26,7 @@ export function GET() {
     profile.proposition,
     "",
     `- [Canonical website](${profile.domain})`,
+    `- [Work directory](${profile.domain}/work)`,
     `- [GitHub](${profile.github})`,
     `- [LinkedIn](${profile.linkedin})`,
     "",
