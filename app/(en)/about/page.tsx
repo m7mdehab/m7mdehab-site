@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: "/about",
-    languages: { en: "/about", "x-default": "/about" },
+    languages: { en: "/about", ar: "/ar/about", "x-default": "/about" },
   },
   openGraph: {
     title: `About — ${profile.name}`,
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     url: `${profile.domain}/about`,
     type: "profile",
     locale: "en_US",
+    alternateLocale: ["ar_EG"],
   },
 };
 
