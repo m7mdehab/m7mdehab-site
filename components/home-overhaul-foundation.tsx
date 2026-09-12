@@ -64,6 +64,9 @@ function EvidenceAtlas() {
         <img
           src={projectVisuals["oil-spill-detection"].image}
           alt={projectVisuals["oil-spill-detection"].imageAlt}
+          width={1024}
+          height={640}
+          fetchPriority="low"
         />
         <figcaption>
           <span>Oil Spill Detection</span>
@@ -104,7 +107,7 @@ export function SystemHero() {
 
         <div className="overhaul-hero-copy">
           <p className="overhaul-hero-index" aria-hidden="true">M7 / 01</p>
-          <h1 className="overhaul-hero-title">Mohammed Ehab <em className="display-script">ElNomany</em></h1>
+          <h1 className="overhaul-hero-title"><span>Mohammed Ehab</span> <em className="display-script">ElNomany</em></h1>
           <p className="overhaul-hero-proposition">{profile.proposition}</p>
           <div className="overhaul-hero-actions">
             <a className="overhaul-action overhaul-action-primary" href="#work">
