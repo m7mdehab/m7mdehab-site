@@ -56,6 +56,7 @@ test.describe("Phase H About architecture", () => {
     await expect(page.getByRole("heading", { name: "Make the truth visible." })).toBeVisible();
 
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://m7mdehab.com/about");
+    await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "About" })).toHaveAttribute("aria-current", "location");
     await expect(page.getByRole("link", { name: /Download CV/i })).toHaveCount(0);
 
     await mkdir(artifactRoot, { recursive: true });
@@ -109,11 +110,15 @@ test.describe("Phase H About architecture", () => {
     await context.close();
   });
 
-  test("sitemap exposes the canonical English About route only", async ({ page }) => {
-    const response = await page.request.get("/sitemap.xml");
-    expect(response.ok()).toBeTruthy();
-    const body = await response.text();
-    expect(body).toContain("https://m7mdehab.com/about");
-    expect(body).not.toContain("https://m7mdehab.com/ar/about");
+  test("discovery surfaces expose canonical About without inventing Arabic About", async ({ page }) => {
+    const sitemapResponse = await page.request.get("/sitemap.xml");
+    expect(sitemapResponse.ok()).toBeTruthy();
+    const sitemap = await sitemapResponse.text();
+    expect(sitemap).toContain("https://m7mdehab.com/about");
+    expect(sitemap).not.toContain("https://m7mdehab.com/ar/about");
+
+    const llmsResponse = await page.request.get("/llms.txt");
+    expect(llmsResponse.ok()).toBeTruthy();
+    expect(await llmsResponse.text()).toContain("[Professional history / About](https://m7mdehab.com/about)");
   });
 });
