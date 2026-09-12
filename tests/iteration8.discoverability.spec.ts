@@ -31,6 +31,10 @@ test.describe("Iteration 8 discoverability architecture", () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/work`);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${domain}/work`);
 
+    await page.goto("/about");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/about`);
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${domain}/about`);
+
     await page.goto("/services");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/services`);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${domain}/services`);
@@ -134,10 +138,11 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const xml = await response.text();
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
-    expect(locations).toHaveLength(26);
+    expect(locations).toHaveLength(27);
     expect(locations).toEqual([
       domain,
       `${domain}/work`,
+      `${domain}/about`,
       ...projectSlugs.map((slug) => `${domain}/work/${slug}`),
       `${domain}/services`,
       `${domain}/writing`,
