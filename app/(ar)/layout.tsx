@@ -6,6 +6,7 @@ import "../hardening.css";
 import "../arabic.css";
 import "../refinement.css";
 import "../refinement-fixes.css";
+import "../frontend-overhaul-phase-e.css";
 import { SiteNavAr } from "@/components/site-nav-ar";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { profile } from "@/data/public";
