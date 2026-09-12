@@ -139,7 +139,7 @@ Final code-bearing branch head: `5ac38d96d9a111e3d798d344b7a010414f3c4e6c`.
 - rendered/accessibility QA — PASS;
 - existing mobile overflow, reduced-motion and no-JavaScript suites — PASS.
 
-Lighthouse on the final run:
+Lighthouse on the final code-bearing run:
 
 - English Home: **87 / 100 / 100 / 100 / 100**;
 - Presaira: **96 / 100 / 100 / 100 / 100**;
@@ -151,6 +151,12 @@ Rendered QA artifact:
 
 - artifact ID: `10302757601`;
 - SHA-256: `fa938bea0ae5dca388d7c0b0840b2c388c4f68c03a4de2253955187b5abab4eb`.
+
+The final documentation/master-plan synchronization rerun also passed in full:
+
+- Deployment Readiness `34709865899` — **PASS**;
+- Application CI `34709865902` — **PASS**;
+- Playwright — **79/79 PASS**.
 
 ## 8. Acceptance decision
 
