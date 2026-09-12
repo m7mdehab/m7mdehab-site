@@ -10,6 +10,8 @@ Create the dedicated human-readable destination for the professional history del
 
 Phase A already established `/about` as the primary detailed professional-history route. A separate HTML `/resume` route is intentionally not created because it would duplicate employment, education and credential content. A downloadable CV can be added later only when a canonical public asset is approved.
 
+**Truth baseline:** the September 2026 CV is the current governing career/profile source. It supersedes older June/August CV wording where they conflict. Mohammed's explicit 2026-09-12 correction also removes WordPress from the public skill/implementation model: the relevant websites/products were built in code.
+
 ## 2. What moves off Home in this phase
 
 The English homepage must stop rendering the standalone:
@@ -65,18 +67,20 @@ A structured professional-history page that explains the through-line, then reve
 No invented personal anecdotes and no inflated prestige language.
 
 ### 02 — Career map
-Primary chronological roles:
-- Network International — Data Migration Engineer;
-- Al Tayseer International — Marketing Team Lead;
-- Guksu — Supply Chain Specialist & Data Analyst;
+Primary chronological roles, aligned to the September 2026 CV:
+- Network International — Data Engineer;
+- Al Tayseer International — Business Analyst Team Lead;
+- Guksu — Data Analyst & Supply Chain Analyst;
 - Egyptian African Trade — Technical Team Lead / Data Analyst.
 
 Each entry carries only public-safe responsibility context. The current Network International role is intentionally abstracted away from client-identifying detail.
 
 ### 03 — Parallel tracks
-Ongoing work that should not be visually collapsed into the primary employment lane:
-- Orcas Online — Private Tutor (Computer Science & Data);
+Work that should not be visually collapsed into the primary employment lane:
+- Orcas Online — Private Tutor;
 - Self-employed — Freelance Web Developer / Consultant.
+
+The freelance web-development wording describes coded implementation. WordPress is not part of the public implementation model.
 
 ### 04 — Foundation
 Early technical placements are compressed into a short foundation strip:
@@ -89,22 +93,23 @@ Education:
 - BSc Computer Science (Data Science Major), Canadian International College, 2021–2024, CGPA 3.55;
 - Data Science & AI Scholarship, ExploreAI Academy / ALX / African Leadership University, 2023–2024, 15 months.
 
-Credentials:
+Current CV credentials:
+- Databricks Certified Data Engineer Associate — Databricks, 2026;
 - AI / LLM Engineering — Udemy (Ed Donner), 2025;
 - McKinsey Forward Foundation & Advanced — McKinsey Academy, 2024;
-- Database Management with SQL — Canadian International College, 2022;
 - Problem Solving with C++ — Coach Academy, 2023;
-- Data Analysis, Web Development & Digital Marketing — Udacity / ITIDA, 2020.
+- Database Management with SQL — Canadian International College, 2022.
 
 High school is not promoted in this professional route because it does not materially help current evaluation; it remains in the source-of-truth model.
 
 ### 06 — Operating stack
-Skills remain readable text grouped by problem domain rather than badges, progress bars, logos or percentages:
+Skills remain readable text grouped by the current CV/problem domains rather than badges, progress bars, logos or percentages:
 - Data engineering;
-- Analytics;
+- Cloud & platforms;
+- Programming;
+- Analytics & BI;
 - ML & AI;
-- Product & web;
-- Delivery.
+- Business & delivery.
 
 ### 07 — Working principles / next routes
 Three principles already established by the site narrative:
@@ -148,8 +153,10 @@ Phase H is not complete merely because the route builds. Acceptance requires:
 
 1. Home no longer renders the three CV-derived chapters;
 2. `/about` exposes the relocated professional history clearly;
-3. no horizontal overflow at 390 px;
-4. Axe passes on desktop;
-5. reduced-motion and no-JavaScript readability pass;
-6. sitemap/navigation/footer route correctly;
-7. desktop and mobile rendered captures are inspected before merge.
+3. current career/profile facts match the September 2026 CV and explicit corrections;
+4. no WordPress claim remains in current runtime/About data;
+5. no horizontal overflow at 390 px;
+6. Axe passes on desktop;
+7. reduced-motion and no-JavaScript readability pass;
+8. sitemap/navigation/footer route correctly;
+9. desktop and mobile rendered captures are inspected before merge.
