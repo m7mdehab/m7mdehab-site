@@ -1,21 +1,19 @@
 # Phase I — English Desktop Visual Acceptance
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
-**Status:** ACTIVE  
+**Status:** COMPLETE / ACCEPTED  
 **Date:** 2026-09-12  
 **Baseline:** Phase H merged at `daec5ac797279f5004e7b796dbbea402461cbaa0`
 
 ## 1. Purpose
 
-Phase I is a whole-page visual acceptance pass. It does not add another homepage chapter and it does not reopen already accepted information architecture by default.
+Phase I is the whole-page English desktop acceptance pass. It adds no new homepage chapter. Its job is to judge the complete Home as one continuous production-rendered experience after Phases D–H established the final information architecture.
 
-The task is to inspect the **complete English Home as one continuous desktop experience** after Phases D–H removed the CV-derived bulk and established the final chapter system.
-
-Automated checks support the review but cannot close it. The full rendered page must be inspected at a large desktop viewport and defects corrected before acceptance.
+The acceptance viewport is **1920 × 1080**. Automated instrumentation supports the decision, but the final full-page render is also inspected visually before acceptance.
 
 ## 2. Governing baseline
 
-The current Home sequence is:
+Home remains:
 
 1. Systems/evidence hero;
 2. semantic credibility rail;
@@ -23,116 +21,139 @@ The current Home sequence is:
 4. `SEE → REDUCE → BUILD` solve/think chapter;
 5. two evidence-led writing previews;
 6. two-path opportunity close;
-7. intentional route directory footer.
+7. intentional route-directory footer.
 
-Professional-history depth now lives on `/about`; service depth lives on `/services`; all projects remain available on `/work`.
+Professional-history depth lives on `/about`, service depth on `/services`, and all project discovery on `/work`.
 
-Career/profile facts are governed by Mohammed's latest explicit instruction and the September 2026 CV. Phase I must not reintroduce superseded titles, WordPress or obsolete credential signals while making visual corrections.
+Career/profile facts remain governed by Mohammed's September 2026 CV plus explicit corrections: current role `Data Engineer`, Databricks credential/skill coverage, corrected Al Tayseer/Guksu titles, and no WordPress implementation/skill claim.
 
-## 3. Review viewport
+## 3. Acceptance instrumentation
 
-Primary acceptance viewport:
+`tests/frontend-overhaul-phase-i.spec.ts` records:
 
-- **1920 × 1080** desktop;
-- full-page screenshot;
-- browser-rendered production build;
-- fonts and images settled before capture.
+- full 1920 × 1080 Home capture;
+- total page height in viewport equivalents;
+- major chapter geometry;
+- visible `main h2` line counts;
+- desktop horizontal-overflow state;
+- absence of CV-derived Home chapters and WordPress regression;
+- individual captures for Hero, credibility, Work, Method, Writing, Opportunity and Footer;
+- navigation captures at top, middle and closing states.
 
-The target homepage attention budget remains approximately **5–7 viewport heights**, preferably close to 6. This is a review target, not a CSS minimum-height requirement.
+The page-height contract remains **4.5–7 viewport heights**, with the design target preferably near six. Ordinary H2 display headings may not exceed two lines at the acceptance viewport.
 
-## 4. Acceptance questions
+## 4. First acceptance run — REJECTED / CORRECTED
 
-### 4.1 Whole-page rhythm
+The first Phase I rendered gate did its job and caught a real visual-hierarchy regression rather than a functional defect.
 
-- Does the page feel like one authored system rather than stacked presentation slides?
-- Do dark/light transitions create chaptering without fragmentation?
-- Is there enough breathing room without restoring giant dead zones?
-- Does the complete page remain inside the intended attention budget?
+Deployment Readiness passed, but Application CI failed with **78/79 Playwright tests passing** because two ordinary H2 headings wrapped to three lines at 1920px:
 
-### 4.2 Identity and evidence
+- `Three entrances into the work. Different evidence, same standard.`
+- `Choose the conversation that fits.`
 
-- Does the hero communicate identity + technical range before heavy reading?
-- Is the evidence atlas the memory point rather than giant typography alone?
-- Does the credibility rail remain shallow and secondary?
-- Are real project motifs carrying visual weight throughout the page?
+The acceptance rule was **not weakened**. The copy was tightened instead:
 
-### 4.3 Selected Work
+- Selected Work → **`Three ways into the work. One standard.`**
+- Opportunity → **`Choose the right conversation.`**
 
-- Are Presaira, OpportunityOS and Ghareeb Oglu visually differentiated?
-- Does Presaira retain the strongest weight without consuming an entire screen by itself?
-- Does Ghareeb Oglu read as a coded product/ecommerce system rather than a generic project card?
-- Is the complete `/work` route discoverable without returning six large projects to Home?
+This directly addresses the frontend-overhaul rejection criterion that ordinary section headings must not return to oversized three-to-five-line display blocks.
 
-### 4.4 Solve / Think
+## 5. Final measured desktop result
 
-- Does `I like the messy part.` retain human personality without becoming another manifesto screen?
-- Is `SEE → REDUCE → BUILD` understandable visually before the explanatory prose is read?
-- Is the transformation graphic evidence-bearing rather than decorative?
+Final 1920 × 1080 geometry:
 
-### 4.5 Writing and opportunity
+| Surface | Top | Height |
+|---|---:|---:|
+| Hero | 0 | 880 px |
+| Credibility rail | 880 | 123 px |
+| Selected Work | 1003 | 1407 px |
+| Method | 2410 | 923 px |
+| Writing | 3333 | 1124 px |
+| Opportunity | 4457 | 1019 px |
+| Footer | 5476 | 226 px |
 
-- Do the two essays feel subject-derived rather than generic blog cards?
-- Is the transition into the opportunity close deliberate?
-- Are the hiring/role and project/system paths immediately distinguishable?
-- Does the footer feel like a designed discovery layer rather than utility residue?
+Whole Home:
 
-### 4.6 Typography
+- viewport width: **1920 px**;
+- scroll width: **1920 px**;
+- scroll height: **5702 px**;
+- desktop length: **5.28 viewport heights**;
+- horizontal overflow: **none**.
 
-- Hero display type may be exceptional; ordinary chapter headings should normally remain one or two desktop lines.
-- No uncontrolled 3–5-line display headings.
-- Metadata must remain readable instead of collapsing into decorative microtype.
-- Serif/sans/script emphasis must remain selective rather than omnipresent.
+Final ordinary H2 line counts:
 
-### 4.7 Navigation
+- `Three ways into the work. One standard.` — **2 lines**;
+- `I like the messy part.` — **1 line**;
+- `What the work taught me.` — **2 lines**;
+- `Choose the right conversation.` — **2 lines**.
 
-Inspect the floating nav at:
+The page therefore lands inside the 5–7 viewport attention budget and removes the exact uncontrolled-heading issue found by the first run.
 
-- top/hero;
-- middle of the page;
-- closing section.
+## 6. Human rendered review
 
-It must not obscure important evidence or headings and must preserve clear access to Work, About, Writing, Contact and AR.
+The final `phase-i-home-1920.png` production render was inspected after the corrective rerun.
 
-## 5. Automated acceptance instrumentation
+### Whole-page rhythm
 
-`tests/frontend-overhaul-phase-i.spec.ts` captures and records:
+Accepted. The page now reads as one authored visual system rather than a stack of résumé chapters. The tonal sequence is coherent:
 
-- full 1920 × 1080 Home screenshot;
-- page-height / viewport-height ratio;
-- major chapter bounding boxes;
-- ordinary H2 line-count estimates;
-- horizontal-overflow state;
-- absence of CV-derived Home chapters;
-- presence of the final major chapter sequence;
-- desktop captures of each major chapter;
-- top/middle/closing navigation state screenshots.
+**dark systems hero → shallow credibility signal → warm Selected Work → dark method → warm writing → dark opportunity/footer**.
 
-The automated height contract is deliberately broad enough to avoid optimizing for a number at the expense of composition: the page must not regress beyond the seven-viewport budget, while review records the actual ratio for human judgment.
+The page is materially shorter than the rejected ~15-screen version without feeling under-explained.
 
-## 6. Rejection triggers
+### Hero and credibility
 
-Phase I must be rejected/corrected if any of these appear in the rendered page:
+Accepted. The project-evidence atlas remains the primary memory point rather than empty space or typography alone. The credibility rail stays shallow and secondary instead of expanding back into Experience/Education/Certification sections.
 
-- Home again reads like a résumé/CV;
-- page length drifts materially back toward the rejected ~15-screen experience;
-- ordinary headings wrap into uncontrolled multi-line display blocks;
-- project cards become repetitive or equally weighted;
-- credibility rail becomes a prestige/logo wall;
-- hero returns to typography + empty space;
-- writing becomes generic cards without evidence identity;
-- opportunity paths are visually ambiguous;
-- nav repeatedly collides with content;
-- large dead zones reappear;
-- chapter transitions feel like disconnected slides;
-- horizontal overflow exists at the desktop review viewport.
+### Selected Work
 
-## 7. Phase boundary
+Accepted after the heading correction. Presaira retains dominant weight, OpportunityOS and Ghareeb Oglu use different evidence grammars, and the complete work directory remains discoverable without restoring six giant project cards.
 
-Phase I closes only after:
+### Method
 
-1. CI/rendered QA is green;
-2. the 1920 × 1080 full-page artifact is downloaded and inspected;
-3. any desktop defects are corrected and rerendered;
-4. the resulting English desktop experience is explicitly accepted.
+Accepted. `I like the messy part.` remains concise and human; `SEE → REDUCE → BUILD` carries the chapter visually without a skill-chip wall or manifesto-length prose.
 
-Phase J then owns responsive/mobile recomposition. Phase K owns the full Arabic RTL visual/editorial pass. Phase L owns final staging and production-readiness acceptance.
+### Writing
+
+Accepted. The two previews use subject-derived forecasting/calibration and SAR/segmentation evidence rather than generic blog-card styling.
+
+### Opportunity and footer
+
+Accepted after the heading correction. Hiring/role and project/system paths remain clearly distinct, and the compact footer functions as the discovery directory for detail intentionally removed from Home.
+
+### Navigation
+
+Accepted at top, middle and closing states. No blocking collision or legibility defect was found in the rendered captures.
+
+## 7. Final validation
+
+Final branch head: `17242755469f7363f79a7cbe06c4bc0b2bcd9045`.
+
+- Deployment Readiness `34708286502` — **PASS**;
+- Application CI `34708286573` — **PASS**;
+- Playwright — **79/79 PASS**;
+- typecheck — PASS;
+- lint — PASS;
+- build — PASS;
+- production route smoke — PASS;
+- rendered/accessibility QA — PASS;
+- existing mobile overflow, reduced-motion and no-JavaScript suites — PASS.
+
+Lighthouse:
+
+- English Home: **92 / 100 / 100 / 100 / 100**;
+- Presaira: **98 / 100 / 100 / 100 / 100**;
+- Arabic Home: **95 / 100 / 100 / 100 / 100**.
+
+Rendered QA artifact:
+
+- artifact ID: `10302891370`;
+- SHA-256: `c3a956b869fcd619386a945f7e42f43b542747ec574020c9531f292c0ae46748`.
+
+## 8. Acceptance decision
+
+**Phase I is COMPLETE / ACCEPTED.**
+
+No blocking English-desktop visual defect remains in the final acceptance render. The page meets the intended attention budget, keeps ordinary headings controlled, preserves evidence-led differentiation, avoids the rejected CV-dump structure and maintains the September 2026 truth baseline.
+
+Phase J now owns intentional responsive/mobile art direction and recomposition. Phase K owns the full Arabic RTL design/editorial pass. Phase L owns final staging and production-readiness acceptance.
