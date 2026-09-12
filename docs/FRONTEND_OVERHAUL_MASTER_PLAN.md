@@ -2,7 +2,7 @@
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** ACTIVE  
-**Current phase:** Phase E — Selected Work Rebuild  
+**Current phase:** Phase F — What I Solve / How I Think  
 **Created:** 2026-09-12  
 **Authority:** Mohammed Ehab ElNomany
 
@@ -188,11 +188,11 @@ Accepted Phase D validation:
 
 Decision/system record: `docs/frontend-overhaul/PHASE_D_VISUAL_SYSTEM.md`.
 
-## Phase E — Selected Work Rebuild — ACTIVE
+## Phase E — Selected Work Rebuild — COMPLETE / ACCEPTED
 
-Current implementation objective: replace the legacy six-card homepage project wall with the accepted Spatial Evidence composition.
+The legacy six-card homepage project wall is replaced with the accepted Spatial Evidence composition.
 
-Current implementation set:
+Production homepage set:
 
 - Presaira;
 - OpportunityOS;
@@ -200,13 +200,45 @@ Current implementation set:
 
 The third slot deliberately broadens story coverage into ecommerce/product delivery while Oil Spill Detection remains present in the hero atlas and complete `/work` directory.
 
-Phase E also introduces bilingual `/work` and `/ar/work` directory routes so the remaining projects are compactly browsable without returning six giant cards to Home.
+Phase E also introduced bilingual `/work` and `/ar/work` directory routes so the remaining projects are compactly browsable without returning six giant cards to Home.
 
-Rendered desktop/mobile acceptance remains required before merge. Decision record: `docs/frontend-overhaul/PHASE_E_SELECTED_WORK.md`.
+Accepted Phase E validation:
 
-## Phase F — What I Solve / How I Think
+- user inspected and explicitly accepted the corrected desktop/mobile rendering;
+- PR #14 merged to `main` at `988e3f38fbb703bff8aff7d7e72a8a51db3ebe64`;
+- Deployment Readiness `34665844427` — PASS;
+- Application CI `34665844420` — PASS;
+- Playwright `58/58` — PASS;
+- English Home Lighthouse `84 / 100 / 100 / 100 / 100`;
+- Presaira Lighthouse `97 / 100 / 100 / 100 / 100`;
+- Arabic Home Lighthouse `95 / 100 / 100 / 100 / 100`;
+- rendered QA artifact `10289036440`;
+- artifact SHA-256 `d0d803ce641d86d1f8539853a25c3fd22fff0785882fffb7f992f62ee5e82bbc`.
 
-No skill-chip wall. Merge Capabilities + Skills + About philosophy into one graphical transformation chapter. Candidate working philosophy: `Make the truth visible → Reduce ambiguity → Build the smallest reliable system that carries the job.`
+Decision record: `docs/frontend-overhaul/PHASE_E_SELECTED_WORK.md`.
+
+## Phase F — What I Solve / How I Think — ACTIVE / AWAITING VISUAL ACCEPTANCE
+
+The Phase C solve/think prototypes were re-compared as the focused exploration set. The production choice is:
+
+> **Spatial transformation skeleton × Cinematic explanatory clarity × Kinetic density discipline.**
+
+Implemented on branch `frontend-overhaul-phase-f`:
+
+- removed the legacy Capabilities chapter from English Home;
+- removed the legacy Skills & Stack chapter from English Home;
+- removed the oversized legacy About chapter from English Home;
+- added one graphical `SolveThinkBridge` directly after Selected Work;
+- preserved the strongest human idea as the compact statement **“I like the messy part.”**;
+- expresses the operating method as `SEE → REDUCE → BUILD`;
+- maps that method to truthful output classes: validated migration, decision-ready analytics, evaluated models, governed AI workflows and usable products;
+- added desktop/mobile/axe/reduced-motion regression coverage.
+
+The first Phase F CI run correctly exposed three historical test contracts that still required homepage structures explicitly removed by the new accepted IA. Those tests are being migrated to the new homepage contract rather than preserving superseded UI for the sake of old assertions.
+
+Phase F is not accepted until the corrected full CI run passes and the rendered desktop/mobile output is visually inspected and accepted.
+
+Decision record: `docs/frontend-overhaul/PHASE_F_SOLVE_THINK.md`.
 
 ## Phase G — Writing + Opportunity + Footer
 
@@ -256,8 +288,8 @@ The redesign fails if:
 | B — reference exploration | COMPLETE |
 | C — direction prototypes | **COMPLETE / ACCEPTED** |
 | D — visual foundation / hero / nav / rail | **COMPLETE / ACCEPTED** |
-| E — selected work | **ACTIVE** |
-| F — solve/think bridge | Not started |
+| E — selected work | **COMPLETE / ACCEPTED** |
+| F — solve/think bridge | **ACTIVE / AWAITING VISUAL ACCEPTANCE** |
 | G — writing / opportunity / footer | Not started |
 | H — about route | Not started |
 | I — desktop acceptance | Not started |
