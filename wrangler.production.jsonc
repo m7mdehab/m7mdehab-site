@@ -6,6 +6,7 @@
   "routes": [
     {
       "pattern": "m7mdehab.com",
+      "zone_name": "m7mdehab.com",
       "custom_domain": true
     }
   ],
