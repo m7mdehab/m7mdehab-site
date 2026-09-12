@@ -22,6 +22,7 @@ async function expectNoHorizontalOverflow(page: Page) {
 
 test.describe("Phase H About architecture", () => {
   test("Home removes CV-derived chapters and routes depth to About", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/");
     await settle(page);
 
@@ -37,10 +38,11 @@ test.describe("Phase H About architecture", () => {
     await expect(page.getByRole("navigation", { name: "Footer directory" }).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
 
     await mkdir(artifactRoot, { recursive: true });
-    await page.screenshot({ path: path.join(artifactRoot, "phase-h-home-desktop.png"), fullPage: true });
+    await page.screenshot({ path: path.join(artifactRoot, "phase-h-home-1440.png"), fullPage: true });
   });
 
   test("About carries the relocated professional history without inventing a resume route", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
     const response = await page.goto("/about");
     expect(response?.ok()).toBeTruthy();
     await settle(page);
@@ -60,7 +62,7 @@ test.describe("Phase H About architecture", () => {
     await expect(page.getByRole("link", { name: /Download CV/i })).toHaveCount(0);
 
     await mkdir(artifactRoot, { recursive: true });
-    await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-desktop.png"), fullPage: true });
+    await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-1440.png"), fullPage: true });
   });
 
   test("About passes axe on desktop", async ({ page }) => {
@@ -80,7 +82,7 @@ test.describe("Phase H About architecture", () => {
     await expect(page.getByText("Data Migration Engineer", { exact: true }).first()).toBeVisible();
 
     await mkdir(artifactRoot, { recursive: true });
-    await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-mobile.png"), fullPage: true });
+    await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-390.png"), fullPage: true });
   });
 
   test("reduced motion preserves About content and disables smooth-scroll ownership", async ({ page }) => {
