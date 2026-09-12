@@ -1,0 +1,159 @@
+name: Production Origin Diagnostic
+
+on:
+  push:
+    branches:
+      - production-origin-diagnostic
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PROD_BASE_URL: https://m7mdehab.com
+
+jobs:
+  diagnose:
+    name: Diagnose m7mdehab.com
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout diagnostic branch
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Inspect DNS and TLS reachability
+        shell: bash
+        run: |
+          mkdir -p artifacts/production-diagnostic
+          {
+            echo '=== date ==='
+            date -u
+            echo '=== dig apex A ==='
+            dig +short A m7mdehab.com || true
+            echo '=== dig apex AAAA ==='
+            dig +short AAAA m7mdehab.com || true
+            echo '=== dig www ==='
+            dig +short A www.m7mdehab.com || true
+            dig +short CNAME www.m7mdehab.com || true
+            echo '=== getent ==='
+            getent ahosts m7mdehab.com || true
+            echo '=== TLS ==='
+            timeout 15 openssl s_client -connect m7mdehab.com:443 -servername m7mdehab.com </dev/null 2>/dev/null | openssl x509 -noout -subject -issuer -dates 2>/dev/null || true
+          } | tee artifacts/production-diagnostic/network.txt
+
+      - name: Probe production routes and capture bodies
+        shell: bash
+        run: |
+          set +e
+          mkdir -p artifacts/production-diagnostic/routes
+          routes=(
+            "/"
+            "/about"
+            "/work"
+            "/work/presaira"
+            "/work/opportunityos"
+            "/work/ghareeb-oglu"
+            "/work/oil-spill-detection"
+            "/work/solar-site-selection"
+            "/work/makhbazy"
+            "/services"
+            "/writing"
+            "/writing/when-to-trust-a-probabilistic-forecast"
+            "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
+            "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
+            "/ar"
+            "/ar/services"
+            "/ar/work"
+            "/ar/work/presaira"
+            "/ar/work/opportunityos"
+            "/ar/work/ghareeb-oglu"
+            "/ar/work/oil-spill-detection"
+            "/ar/work/solar-site-selection"
+            "/ar/work/makhbazy"
+            "/ar/writing"
+            "/ar/writing/when-to-trust-a-probabilistic-forecast"
+            "/profile.json"
+            "/projects.json"
+            "/services.json"
+            "/writing.json"
+            "/llms.txt"
+            "/robots.txt"
+            "/sitemap.xml"
+          )
+          : > artifacts/production-diagnostic/status.tsv
+          for route in "${routes[@]}"; do
+            slug="$(printf '%s' "$route" | sed 's#^/##; s#[/?&=]#_#g')"
+            [ -n "$slug" ] || slug="home"
+            code="$(curl --silent --show-error --location --max-time 20 \
+              --dump-header "artifacts/production-diagnostic/routes/${slug}.headers.txt" \
+              --output "artifacts/production-diagnostic/routes/${slug}.body" \
+              --write-out '%{http_code}' \
+              "$PROD_BASE_URL$route")"
+            exit_code=$?
+            printf '%s\t%s\t%s\n' "$route" "${code:-curl-error}" "$exit_code" | tee -a artifacts/production-diagnostic/status.tsv
+          done
+          curl --silent --show-error --location --max-time 20 --dump-header artifacts/production-diagnostic/http-apex.headers.txt --output /dev/null http://m7mdehab.com/ || true
+          curl --silent --show-error --location --max-time 20 --dump-header artifacts/production-diagnostic/www.headers.txt --output /dev/null https://www.m7mdehab.com/ || true
+
+      - name: Inspect production identity, canonicals and asset generation
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'artifacts/production-diagnostic/routes/home.body';
+          const out = 'artifacts/production-diagnostic/home-analysis.txt';
+          if (!fs.existsSync(path)) {
+            fs.writeFileSync(out, 'Homepage body unavailable.\n');
+            process.exit(0);
+          }
+          const html = fs.readFileSync(path, 'utf8');
+          const checks = [
+            ['accepted work heading', 'Three ways into the work. One standard.'],
+            ['accepted method phrase', 'I like the messy part.'],
+            ['accepted opportunity heading', 'Choose the right conversation.'],
+            ['current role', 'Data Engineer'],
+            ['old WordPress regression', 'WordPress'],
+          ];
+          const canonical = [...html.matchAll(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/gi)].map(m => m[1]);
+          const css = [...html.matchAll(/href=["']([^"']*\/_next\/static\/[^"']+\.css[^"']*)/gi)].map(m => m[1]);
+          const js = [...html.matchAll(/src=["']([^"']*\/_next\/static\/[^"']+\.js[^"']*)/gi)].map(m => m[1]);
+          let text = `bytes=${Buffer.byteLength(html)}\n`;
+          for (const [label, needle] of checks) text += `${label}: ${html.includes(needle)}\n`;
+          text += `canonical: ${JSON.stringify(canonical)}\n`;
+          text += `css: ${JSON.stringify(css)}\n`;
+          text += `js-count: ${js.length}\n`;
+          fs.writeFileSync(out, text);
+          console.log(text);
+          NODE
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture real production screenshots
+        shell: bash
+        run: |
+          set +e
+          mkdir -p artifacts/production-diagnostic/screenshots
+          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/" artifacts/production-diagnostic/screenshots/home-1920.png
+          echo "desktop_screenshot_exit=$?" | tee artifacts/production-diagnostic/screenshots/status.txt
+          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/" artifacts/production-diagnostic/screenshots/home-390.png
+          echo "mobile_screenshot_exit=$?" | tee -a artifacts/production-diagnostic/screenshots/status.txt
+
+      - name: Upload production diagnostic artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-origin-diagnostic-${{ github.sha }}
+          path: artifacts/production-diagnostic
+          if-no-files-found: warn
+          retention-days: 7
