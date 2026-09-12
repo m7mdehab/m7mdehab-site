@@ -83,7 +83,7 @@ const siteSchemaAr = {
       ],
       makesOffer: servicesAr.map((service) => ({
         "@type": "Offer",
-        url: `${arabicHome}#service-${service.id}`,
+        url: `${arabicHome}/services#service-${service.id}`,
         itemOffered: {
           "@type": "Service",
           name: service.title,
