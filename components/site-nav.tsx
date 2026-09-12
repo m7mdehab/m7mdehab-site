@@ -1,6 +1,6 @@
 import { FloatingNav } from "@/components/floating-nav";
 
-const links = [["Work", "/#work"], ["Expertise", "/#expertise"], ["Experience", "/#experience"], ["Writing", "/writing"], ["About", "/#about"], ["Contact", "/#contact"]] as const;
+const links = [["Work", "/#work"], ["About", "/#about"], ["Writing", "/writing"], ["Contact", "/#contact"]] as const;
 
 export function SiteNav() {
   return (
