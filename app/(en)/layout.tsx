@@ -8,6 +8,7 @@ import "../refinement-fixes.css";
 import "../frontend-overhaul.css";
 import "../frontend-overhaul-fixes.css";
 import "../frontend-overhaul-phase-e.css";
+import "../frontend-overhaul-phase-e-fixes.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
