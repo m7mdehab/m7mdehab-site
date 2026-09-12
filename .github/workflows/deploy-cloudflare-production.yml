@@ -88,6 +88,7 @@ jobs:
           }
 
           assert_export out/about.html out/about/index.html "English About"
+          assert_export out/ar/about.html out/ar/about/index.html "Arabic About"
           assert_export out/work.html out/work/index.html "English work directory"
           assert_export out/services.html out/services/index.html "English services"
           assert_export out/writing.html out/writing/index.html "English writing hub"
@@ -201,6 +202,7 @@ jobs:
             "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
             "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
             "/ar"
+            "/ar/about"
             "/ar/work"
             "/ar/work/presaira"
             "/ar/work/opportunityos"
@@ -246,6 +248,8 @@ jobs:
           mkdir -p artifacts/production-verification/screenshots
           npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-1920.png
           npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-390.png
+          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/ar" artifacts/production-verification/screenshots/ar-home-1920.png
+          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/ar" artifacts/production-verification/screenshots/ar-home-390.png
 
       - name: Lighthouse production baseline
         shell: bash
