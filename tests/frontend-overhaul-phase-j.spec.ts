@@ -19,6 +19,17 @@ async function settle(page: Page) {
   await page.waitForTimeout(300);
 }
 
+async function hideAcceptanceCaptureChrome(page: Page) {
+  for (const selector of [".site-nav-wrap", ".skip-link"]) {
+    const locator = page.locator(selector);
+    if (await locator.count()) {
+      await locator.evaluate((element) => {
+        (element as HTMLElement).style.visibility = "hidden";
+      });
+    }
+  }
+}
+
 async function mobileMetrics(page: Page) {
   return page.evaluate(() => {
     const lineCount = (selector: string) => {
@@ -109,6 +120,8 @@ test.describe("Phase J English mobile art direction", () => {
 
     await writeFile(path.join(artifactRoot, "mobile-390-metrics.json"), JSON.stringify(metrics, null, 2));
     await page.screenshot({ path: path.join(screenshotRoot, "phase-j-home-390.png"), fullPage: true });
+
+    await hideAcceptanceCaptureChrome(page);
     await page.locator(".overhaul-hero").screenshot({ path: path.join(screenshotRoot, "phase-j-hero-390.png") });
     await page.locator("#work").screenshot({ path: path.join(screenshotRoot, "phase-j-work-390.png") });
     await page.locator("#method").screenshot({ path: path.join(screenshotRoot, "phase-j-method-390.png") });
