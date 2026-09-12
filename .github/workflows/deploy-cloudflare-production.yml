@@ -2,17 +2,29 @@ name: Deploy Cloudflare Production
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
 
 permissions:
   contents: read
 
+concurrency:
+  group: cloudflare-production
+  cancel-in-progress: true
+
 env:
   NEXT_TELEMETRY_DISABLED: 1
+  PROD_BASE_URL: https://m7mdehab.com
 
 jobs:
   deploy:
-    name: Deploy m7mdehab.com
+    name: Deploy and verify m7mdehab.com
     runs-on: ubuntu-24.04
+    timeout-minutes: 35
     environment: production
     steps:
       - name: Checkout main
@@ -53,6 +65,11 @@ jobs:
           test -f out/llms.txt
           test -f out/_headers
 
+          if grep -Fq 'X-Robots-Tag: noindex' out/_headers; then
+            echo "Production artifact must not carry the staging noindex header" >&2
+            exit 1
+          fi
+
           assert_export() {
             local file="$1"
             local directory_index="$2"
@@ -63,19 +80,185 @@ jobs:
               echo "$label: directory-index form"
             else
               echo "Missing $label export" >&2
+              find out -maxdepth 6 -type f | sort
               exit 1
             fi
           }
 
-          assert_export out/ar.html out/ar/index.html "Arabic homepage"
-          assert_export out/ar/work/presaira.html out/ar/work/presaira/index.html "Arabic Presaira case study"
+          assert_export out/about.html out/about/index.html "English About"
+          assert_export out/work.html out/work/index.html "English work directory"
+          assert_export out/services.html out/services/index.html "English services"
           assert_export out/writing.html out/writing/index.html "English writing hub"
-          assert_export out/writing/when-to-trust-a-probabilistic-forecast.html out/writing/when-to-trust-a-probabilistic-forecast/index.html "English authority essay"
+          assert_export out/ar.html out/ar/index.html "Arabic homepage"
+          assert_export out/ar/work.html out/ar/work/index.html "Arabic work directory"
+          assert_export out/ar/services.html out/ar/services/index.html "Arabic services"
           assert_export out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
-          assert_export out/ar/writing/when-to-trust-a-probabilistic-forecast.html out/ar/writing/when-to-trust-a-probabilistic-forecast/index.html "Arabic authority essay"
 
-      - name: Deploy to Cloudflare
+      - name: Deploy to Cloudflare production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.production.jsonc
+
+      - name: Verify live production routes, indexing, security, and canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/production-verification
+
+          ready=0
+          consecutive_200=0
+          last_status=unset
+
+          for attempt in {1..90}; do
+            status="$(
+              curl --silent --show-error --location \
+                --dump-header /tmp/prod-headers-candidate.txt \
+                --output /tmp/prod-home-candidate.html \
+                --write-out '%{http_code}' \
+                "$PROD_BASE_URL/" || true
+            )"
+            last_status="${status:-curl-error}"
+            echo "Production readiness attempt ${attempt}: HTTP ${last_status}"
+
+            if [ "$status" = "200" ]; then
+              consecutive_200=$((consecutive_200 + 1))
+              cp /tmp/prod-headers-candidate.txt /tmp/prod-headers.txt
+              cp /tmp/prod-home-candidate.html /tmp/prod-home.html
+              if [ "$consecutive_200" -ge 3 ]; then
+                ready=1
+                break
+              fi
+            else
+              consecutive_200=0
+            fi
+
+            sleep 4
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            echo "Production origin did not stabilize at HTTP 200: $PROD_BASE_URL (last status: $last_status)" >&2
+            exit 1
+          fi
+
+          tr -d '\r' < /tmp/prod-headers.txt > artifacts/production-verification/home-headers.txt
+          cp /tmp/prod-home.html artifacts/production-verification/home.html
+
+          if grep -Eiq '^x-robots-tag:.*noindex' artifacts/production-verification/home-headers.txt; then
+            echo "Production must not emit X-Robots-Tag: noindex" >&2
+            exit 1
+          fi
+          grep -Eiq '^x-frame-options:[[:space:]]*DENY' artifacts/production-verification/home-headers.txt
+          grep -Eiq '^x-content-type-options:[[:space:]]*nosniff' artifacts/production-verification/home-headers.txt
+          grep -Eiq '^referrer-policy:[[:space:]]*strict-origin-when-cross-origin' artifacts/production-verification/home-headers.txt
+
+          node - <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync('/tmp/prod-home.html', 'utf8');
+          const required = [
+            '<link rel="canonical" href="https://m7mdehab.com"',
+            'Three ways into the work. One standard.',
+            'I like the messy part.',
+            'Choose the right conversation.',
+            'Data Engineer',
+          ];
+          for (const needle of required) {
+            if (!html.includes(needle)) throw new Error(`Production homepage missing accepted marker: ${needle}`);
+          }
+          if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
+
+          const css = [...html.matchAll(/href=["']([^"']*\/_next\/static\/[^"']+\.css[^"']*)/gi)].map((m) => m[1]);
+          const js = [...html.matchAll(/src=["']([^"']*\/_next\/static\/[^"']+\.js[^"']*)/gi)].map((m) => m[1]);
+          fs.writeFileSync('artifacts/production-verification/assets.json', JSON.stringify({ css, js }, null, 2));
+          NODE
+
+          routes=(
+            "/"
+            "/about"
+            "/work"
+            "/work/presaira"
+            "/work/opportunityos"
+            "/work/ghareeb-oglu"
+            "/work/oil-spill-detection"
+            "/work/solar-site-selection"
+            "/work/makhbazy"
+            "/services"
+            "/writing"
+            "/writing/when-to-trust-a-probabilistic-forecast"
+            "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
+            "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
+            "/ar"
+            "/ar/work"
+            "/ar/work/presaira"
+            "/ar/work/opportunityos"
+            "/ar/work/ghareeb-oglu"
+            "/ar/work/oil-spill-detection"
+            "/ar/work/solar-site-selection"
+            "/ar/work/makhbazy"
+            "/ar/services"
+            "/ar/writing"
+            "/ar/writing/when-to-trust-a-probabilistic-forecast"
+            "/profile.json"
+            "/projects.json"
+            "/services.json"
+            "/writing.json"
+            "/llms.txt"
+            "/robots.txt"
+            "/sitemap.xml"
+          )
+
+          : > artifacts/production-verification/routes.tsv
+          for route in "${routes[@]}"; do
+            status="$(curl --fail --silent --show-error --location --output /dev/null --write-out '%{http_code}' "$PROD_BASE_URL${route}")"
+            printf '%s\t%s\n' "$route" "$status" | tee -a artifacts/production-verification/routes.tsv
+          done
+
+          curl --fail --silent --show-error "$PROD_BASE_URL/robots.txt" > artifacts/production-verification/robots.txt
+          if grep -Eq '^Disallow:[[:space:]]*/[[:space:]]*$' artifacts/production-verification/robots.txt; then
+            echo "robots.txt blocks the production site" >&2
+            exit 1
+          fi
+
+      - name: Install Chromium for production acceptance
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright rendered and accessibility QA against production
+        env:
+          BASE_URL: ${{ env.PROD_BASE_URL }}
+        run: npm run test:browser
+
+      - name: Capture real production screenshots
+        shell: bash
+        run: |
+          mkdir -p artifacts/production-verification/screenshots
+          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-1920.png
+          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-390.png
+
+      - name: Lighthouse production baseline
+        shell: bash
+        run: |
+          mkdir -p artifacts/production-lighthouse
+          npx lighthouse "$PROD_BASE_URL/" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/production-lighthouse/home.json || true
+          npx lighthouse "$PROD_BASE_URL/work/presaira" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/production-lighthouse/presaira.json || true
+          npx lighthouse "$PROD_BASE_URL/ar" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/production-lighthouse/ar-home.json || true
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of ['home', 'presaira', 'ar-home']) {
+            const file = `artifacts/production-lighthouse/${name}.json`;
+            if (!fs.existsSync(file)) continue;
+            const report = JSON.parse(fs.readFileSync(file, 'utf8'));
+            const categories = Object.fromEntries(
+              Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]),
+            );
+            console.log(`${name}:`, categories);
+          }
+          NODE
+
+      - name: Upload production acceptance artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cloudflare-production-acceptance-${{ github.sha }}
+          path: artifacts
+          if-no-files-found: warn
+          retention-days: 14
