@@ -8,22 +8,17 @@ const services = [
 ] as const;
 
 test.describe("Iteration 7 conversion architecture", () => {
-  test("capabilities resolve into stable service anchors", async ({ page }) => {
+  test("method bridge replaces homepage capability anchors without breaking service surfaces", async ({ page }) => {
     await page.goto("/");
+
+    await expect(page.locator("[data-solve-think]")).toBeVisible();
+    await expect(page.locator('[data-conversion="capability-to-service"]')).toHaveCount(0);
+    await expect(page.locator('[data-conversion="method-to-work"]')).toHaveAttribute("href", "/work");
 
     await expect(page.locator("#services")).toBeVisible();
     for (const service of services) {
       await expect(page.locator(`#service-${service}`)).toBeAttached();
     }
-
-    const links = page.locator('[data-conversion="capability-to-service"]');
-    await expect(links).toHaveCount(5);
-
-    const first = links.first();
-    const href = await first.getAttribute("href");
-    expect(href).toMatch(/^#service-/);
-    await first.click();
-    await expect(page.locator(href!)).toBeInViewport();
   });
 
   test("service cards expose governed evidence and provider-neutral contact intents", async ({ page }) => {
