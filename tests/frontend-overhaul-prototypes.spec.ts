@@ -13,6 +13,11 @@ async function settle(page: import("@playwright/test").Page) {
   await page.waitForTimeout(120);
 }
 
+async function expectCanonicalIdentity(page: import("@playwright/test").Page) {
+  const bodyText = (await page.locator("body").innerText()).replace(/\s+/g, " ");
+  expect(bodyText).toContain("Mohammed Ehab ElNomany");
+}
+
 for (const direction of directions) {
   test.describe(`frontend overhaul prototype: ${direction}`, () => {
     test(`${direction} renders at desktop and laptop without horizontal overflow`, async ({ page }, testInfo) => {
@@ -21,7 +26,7 @@ for (const direction of directions) {
       expect(response?.ok()).toBeTruthy();
       await settle(page);
 
-      expect(await page.locator("body").innerText()).toContain("Mohammed Ehab ElNomany");
+      await expectCanonicalIdentity(page);
       await expect(page.locator(".proto-rail")).toBeVisible();
       await expect(page.locator("#work")).toBeVisible();
       await expect(page.locator("#think")).toBeVisible();
@@ -50,7 +55,7 @@ for (const direction of directions) {
       expect(response?.ok()).toBeTruthy();
       await settle(page);
 
-      expect(await page.locator("body").innerText()).toContain("Mohammed Ehab ElNomany");
+      await expectCanonicalIdentity(page);
       const dimensions = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
       expect(dimensions.width).toBeLessThanOrEqual(dimensions.client + 2);
 
