@@ -13,8 +13,8 @@ const experienceSignals = [
 ] as const;
 
 const learningSignals = [
+  { name: "Databricks", relationship: "Credential" },
   { name: "McKinsey Forward", relationship: "Credential" },
-  { name: "Udacity / ITIDA", relationship: "Credential" },
   { name: "Canadian International College", relationship: "Education" },
   { name: "ExploreAI / ALX", relationship: "Scholarship" },
 ] as const;
