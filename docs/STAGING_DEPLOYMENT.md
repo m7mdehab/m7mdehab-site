@@ -1,6 +1,6 @@
 # Cloudflare Staging Deployment
 
-Updated: 2026-09-11
+Updated: 2026-09-12
 
 ## Purpose
 
@@ -12,11 +12,13 @@ It exists to validate the real Cloudflare-hosted artifact before `m7mdehab.com` 
 
 ## Deployment workflow
 
-Use the manual workflow:
+Workflow:
 
 `.github/workflows/deploy-cloudflare-staging.yml`
 
-It intentionally remains stateful and separate from read-only CI. It checks out `main`, performs one deterministic install, typecheck, lint and static export, deploys through `wrangler.static.jsonc`, waits for three consecutive healthy origin responses, then reuses that same runner for live-origin acceptance.
+The workflow supports both manual dispatch and automatic deployment after code/configuration changes are merged to `main`. Documentation-only pushes are ignored. This keeps the visible workers.dev staging surface synchronized with accepted `main` without turning read-only CI into a deployment job.
+
+It checks out `main`, performs one deterministic install, typecheck, lint and static export, deploys through `wrangler.static.jsonc`, waits for three consecutive healthy origin responses, then reuses that same runner for live-origin acceptance. A staging concurrency group cancels an older in-progress staging run if a newer `main` deployment supersedes it.
 
 Required repository/Actions secrets:
 
@@ -51,21 +53,21 @@ A staging deployment is accepted only if the workflow verifies:
 
 The workflow uploads short-retention staging acceptance artifacts for auditability.
 
-## Accepted English staging baseline
+## Accepted staging history
 
-Run `34540399932` accepted source SHA `2a3b0b6622b689788427663cf73fdfb4942e9e73` on Cloudflare Worker version `25bc7cfa-cbc7-44a0-ac55-0089dd21e3fb`.
+The last pre-overhaul staging run before this synchronization change was run `34659894124`, which deployed source SHA `6588607698140c82435b4fe5197ff54957ba9f44` (Iteration 13). That explains why the publicly visible workers.dev site could lag behind the later frontend-overhaul merges even though those merges had already passed CI.
 
-That run passed three consecutive HTTP 200 readiness checks, all intended English/support routes, security/noindex/canonical checks, **27/27** browser tests and the deployed Lighthouse baseline. See `docs/ITERATION_10_CLOUDFLARE_STAGING_ACCEPTANCE_2026-09-11.md`.
+After this operational change is merged, code/configuration pushes to `main` automatically run the same stateful staging deployment and deployed-origin acceptance gate. The staging URL therefore becomes the current visible review surface for completed work while production-domain activation remains separately gated.
 
 ## CI efficiency
 
-This workflow is manual only. Do not dispatch it merely to benchmark runner changes or debug speculative edits. Reproduce ordinary application defects locally/Codespaces first when possible, then use this workflow for a coherent staging checkpoint that genuinely needs real Cloudflare deployment and deployed-origin verification.
+Automatic staging is intentionally limited to non-documentation pushes to `main`; it is not part of pull-request CI and is not used for speculative branch work. Ordinary application defects should still be caught by Application CI and Deployment Readiness before merge.
 
 Do not merge this stateful deployment into read-only Application CI or Deployment Readiness merely to save hosted minutes.
 
 ## Final-domain transition
 
-After bilingual staging is accepted and the remaining pre-domain project work is complete:
+After responsive/mobile, Arabic art direction, and final staging acceptance are complete:
 
 1. purchase/activate `m7mdehab.com` in Cloudflare;
 2. use the separately gated production deployment workflow and `wrangler.production.jsonc`;
