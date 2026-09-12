@@ -13,8 +13,8 @@ const experienceSignals = [
 ] as const;
 
 const learningSignals = [
+  { name: "Databricks", relationship: "Credential" },
   { name: "McKinsey Forward", relationship: "Credential" },
-  { name: "Udacity / ITIDA", relationship: "Credential" },
   { name: "Canadian International College", relationship: "Education" },
   { name: "ExploreAI / ALX", relationship: "Scholarship" },
 ] as const;
@@ -161,7 +161,7 @@ export function CredibilityRail() {
     <section className="credibility-rail" aria-label="Selected experience, education and credentials">
       <div className="credibility-rail-label shell">
         <p>Credibility, compressed.</p>
-        <Link href="/#about">Full background <ArrowUpRight size={13} aria-hidden="true" /></Link>
+        <Link href="/about">Full background <ArrowUpRight size={13} aria-hidden="true" /></Link>
       </div>
       <div className="credibility-viewport" tabIndex={0} aria-label="Selected professional and learning relationships">
         <div className="credibility-track">

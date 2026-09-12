@@ -134,7 +134,7 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
           </div>
 
           <nav className="closing-directory-nav" aria-label="Footer directory">
-            <div><p>Explore</p><Link href="/#work">Work</Link><Link href="/#method">How I work</Link><Link href="/services">Services</Link><Link href="/writing">Writing</Link></div>
+            <div><p>Explore</p><Link href="/#work">Work</Link><Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/writing">Writing</Link></div>
             <div><p>Connect</p><a href={`mailto:${profile.email}`} data-conversion="footer-email">Email</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={profile.github} target="_blank" rel="noreferrer">GitHub</a></div>
           </nav>
 

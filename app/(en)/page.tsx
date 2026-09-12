@@ -1,4 +1,3 @@
-import { AdditionalExperience, Credentials, Experience } from "@/components/home-sections";
 import { HomeClosing } from "@/components/home-closing";
 import { CredibilityRail, SystemHero } from "@/components/home-overhaul-foundation";
 import { SelectedWorkGallery } from "@/components/home-selected-work";
@@ -12,9 +11,6 @@ export default function Home() {
       <CredibilityRail />
       <SelectedWorkGallery />
       <SolveThinkBridge />
-      <Experience />
-      <Credentials />
-      <AdditionalExperience />
       <HomeClosing articles={writingArticles} />
     </main>
   );

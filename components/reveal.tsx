@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 type RevealProps = {
-  as?: "div" | "h1";
+  as?: "div" | "h1" | "article";
   children: ReactNode;
   delay?: number;
   className?: string;
@@ -19,6 +19,10 @@ type RevealProps = {
 export function Reveal({ as = "div", children, className, id }: RevealProps) {
   if (as === "h1") {
     return <h1 className={className} id={id}>{children}</h1>;
+  }
+
+  if (as === "article") {
+    return <article className={className} id={id}>{children}</article>;
   }
 
   return <div className={className} id={id}>{children}</div>;

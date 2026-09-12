@@ -89,8 +89,8 @@ export function FloatingNav({
         <div className="nav-links">
           {links.map(([label, href]) => {
             const section = href.includes("#") ? href.split("#")[1] : null;
-            const writingActive = href.includes("writing") && pathname.includes("writing");
-            const active = writingActive || Boolean(section && activeSection === section);
+            const routeActive = !section && (pathname === href || pathname.startsWith(`${href}/`));
+            const active = routeActive || Boolean(section && activeSection === section);
             return <Link key={href} href={href} aria-current={active ? "location" : undefined}>{label}</Link>;
           })}
           <Link className="locale-link" href={localeHref} hrefLang={localeLang} lang={localeLang} dir={localeDir} aria-label={localeAriaLabel}>{localeLabel}</Link>

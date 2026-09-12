@@ -1,5 +1,5 @@
 # Project evidence and visual-asset registry for m7mdehab.com
-# Updated: 2026-09-09
+# Updated: 2026-09-12
 #
 # This file governs what may be used as project proof and how it may be visualized.
 # It complements data/source-of-truth.public.yaml; it does not replace factual truth governance.
@@ -8,7 +8,7 @@
 
 meta:
   canonical_name: "Mohammed Ehab ElNomany"
-  updated: "2026-09-09"
+  updated: "2026-09-12"
   purpose: "Evidence provenance, visual selection, publication safety and service-proof coverage."
   statuses:
     public_repo_asset: "Already published in Mohammed's public repository; eligible for use subject to source/asset licence context."
@@ -24,8 +24,8 @@ service_proof:
     label: "Data migration & reconciliation"
     strength: "strong experience evidence; weak public visual evidence"
     primary_evidence:
-      - "Current Data Migration Engineer role at Network International - public-safe organization/title/dates only."
-      - "Verified skills: data migration, ETL, source-to-target mapping, cleansing/validation and reconciliation."
+      - "Current Data Engineer role at Network International - public-safe organization/title/dates and broad data-engineering scope only."
+      - "Verified skills: ETL/data pipelines, data migration, source-to-target mapping, transformation, profiling, cleansing/validation and reconciliation."
     supporting_projects: []
     visual_policy: "Use a clearly labelled generic capability/process visualization if needed; never fabricate a client migration screenshot, dataset, dashboard, bank diagram or proprietary workflow."
     open_gap: "No publishable client/project migration artifact is currently available."
@@ -145,14 +145,14 @@ projects:
 
   - id: ghareeb-oglu
     title: "Ghareeb Oglu Commerce"
-    proof_theme: "End-to-end digital product execution grounded in a real consumer brand."
+    proof_theme: "End-to-end coded digital product execution grounded in a real consumer brand."
     service_support: ["product-web-development"]
     source_classification: public_safe
     sources:
       - "https://ghareeboglu.com"
       - "connected internal Ghareeb Oglu project corpus"
     verified_proof:
-      - "Mohammed-authorized ownership wording: planned, designed, architected and built the commerce product end-to-end."
+      - "Mohammed-authorized ownership wording: planned, designed, architected and built the commerce product end-to-end in code."
       - "A live public Ghareeb Oglu ecommerce site exists."
       - "Internal website/product corpus contains product/category/website materials and historical commerce-import evidence."
     visual_candidates:
@@ -179,11 +179,11 @@ projects:
         status: evidence_only
         source: "internal Website folder commerce-import files"
         priority: supporting
-        use: "Historical implementation evidence only; do not infer the current production stack from legacy import files."
+        use: "Historical content/data-exchange evidence only. Import files do not identify or prove the implementation platform and must not be used to infer WordPress/WooCommerce."
     interaction_direction: "Use one real storefront/device capture with refined product/image transitions; a small commerce-flow cue may connect browse -> product -> cart -> fulfillment without turning the page into an ecommerce demo."
     avoid:
       - "presenting internal/AI-assisted marketing mockups as shipped UI"
-      - "inferring current architecture from legacy WooCommerce import files"
+      - "inferring the implementation stack or platform from legacy commerce import files"
       - "using isolated brand assets before rights are confirmed"
 
   - id: makhbazy
