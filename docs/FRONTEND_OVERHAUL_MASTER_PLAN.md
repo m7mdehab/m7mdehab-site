@@ -2,17 +2,33 @@
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** ACTIVE  
-**Current phase:** Phase F — What I Solve / How I Think  
+**Current phase:** Phase H — accepted design, September truth refresh validation before merge  
+**Next phase:** Phase I — English Desktop Visual Acceptance  
 **Created:** 2026-09-12  
 **Authority:** Mohammed Ehab ElNomany
 
 ## Governing decision
 
-Iteration 13 is technically complete but is rejected as final visual acceptance. The current homepage still reads too much like a CV rendered as a long editorial page. The frontend may be replaced radically wherever the existing system is not working.
+Iteration 13 is technically complete but rejected as final visual acceptance. The homepage must not become a CV rendered as a long editorial page. Frontend structure may be replaced radically wherever it is not working.
 
-The homepage is a maximal filter for noise and nonsense. It should contain only what earns prime attention; detailed professional history belongs on dedicated routes, the footer, machine-readable surfaces, or the CV.
+The homepage is a **maximal filter for noise and nonsense**. Only information that earns prime attention belongs there; deeper professional history belongs on dedicated routes, the footer, machine-readable surfaces or the CV.
 
-Whenever many paragraphs can truthfully become one graphic, interaction, image, diagram, logo rail, or meaningful number, prefer the stronger visual communication.
+Whenever several paragraphs can truthfully become one graphic, interaction, image, diagram, credibility rail or meaningful number, prefer the stronger visual communication.
+
+## Current truth baseline
+
+Career/profile facts are governed by Mohammed's newest explicit instruction and the **September 2026 CV**. That source supersedes the older June/August CV wording when they conflict.
+
+Important 2026-09-12 corrections now locked into the runtime/source model:
+
+- current role: **Data Engineer — Network International**;
+- Al Tayseer International: **Business Analyst Team Lead**;
+- Guksu: **Data Analyst & Supply Chain Analyst**;
+- credential: **Databricks Certified Data Engineer Associate — 2026**;
+- current skill framing is data-engineering-first and includes Databricks;
+- **WordPress is not part of the current public implementation/skill model**; Mohammed explicitly confirmed the relevant websites/products were built using code;
+- Ghareeb Oglu is treated as an end-to-end coded commerce product;
+- English, Arabic factual projection, visible About, credibility rail and machine-readable data must remain synchronized with this baseline.
 
 ## Success definition
 
@@ -21,7 +37,7 @@ The rebuild succeeds only when Home:
 - no longer reads like a CV/resume;
 - feels visual, creative, authored and recognizably personal;
 - communicates Mohammed through real project systems/evidence, not typography alone;
-- is materially shorter than the current ~15-screen experience;
+- is materially shorter than the rejected ~15-screen experience;
 - creates curiosity that drives visitors into project/supporting routes;
 - keeps only essential content on Home;
 - remains performant, accessible, crawlable, AI-readable, bilingual and mobile-usable;
@@ -29,50 +45,50 @@ The rebuild succeeds only when Home:
 
 Target large-desktop homepage length: approximately **5–7 viewport heights**, preferably about **6**. This is an attention budget, never a CSS `min-height` rule.
 
-## Preserve as infrastructure
+## Locked production art direction
 
-Preserve the truth/provenance model, structured data, machine-readable exports, SEO/AI architecture, project evidence, case-study routes, writing routes, bilingual architecture, accessibility/reduced-motion requirements, CI/testing, staging and deployment infrastructure.
+> **Cinematic Systems × Spatial Evidence × Kinetic Density**
 
-## Open to replacement
+- **Cinematic Systems** owns identity, atmosphere, hero memory point and systems vocabulary.
+- **Spatial Evidence** owns heterogeneous project composition and evidence weighting.
+- **Kinetic Density** owns compression, navigation, secondary information, writing, conversion and mobile discipline.
 
-Homepage IA, section order/count, hero, navigation, typography scale/pairing, palette distribution, backgrounds, card system, project browsing, capabilities presentation, homepage experience/education/certification treatment, services treatment, writing treatment, motion grammar, graphical language, mobile composition and Arabic visual composition.
+## Target architecture
 
-No frontend component is protected merely because it already exists.
+1. **Identity / Hero** — compact identity + real evidence atlas.
+2. **Credibility rail** — shallow relationship-labelled signal loop.
+3. **Selected Work** — three flagship projects only.
+4. **What I Solve / How I Think** — graphical working-method chapter.
+5. **Signal / Thinking** — compact evidence-led writing preview.
+6. **Opportunity / Footer** — two conversion paths + intentional route directory.
 
-## New homepage target architecture
+Supporting routes:
 
-1. **Identity / Hero** — compact identity + one strong visual system built from real project evidence.
-2. **Credibility rail** — shallow right-to-left animated logo loop compressing employment/experience and education/credentials.
-3. **Selected Work** — three flagship projects only; remaining work moves to `/work`.
-4. **What I Solve / How I Think** — graphical replacement for Capabilities + Skills + oversized About.
-5. **Signal / Thinking** — compact current-role/writing signal.
-6. **Opportunity / Footer** — strong conversion + route/entity directory.
+- `/work` — all six projects;
+- `/work/[slug]` — evidence-heavy case studies;
+- `/about` — professional history, education, credentials, skills and working principles;
+- `/services` — detailed service propositions/evidence;
+- `/writing` — writing archive.
 
-Detailed professional history moves to `/about`; detailed service propositions move to `/services`; all six projects are browsable at `/work`; writing remains at `/writing`.
+Do not create a duplicate HTML `/resume` route by default.
 
-## Credibility logo rail — hard requirement
+## Credibility rail — hard requirement
 
-The previously requested logo loop is restored as a non-negotiable requirement and must not be replaced by stacked resume sections again.
+The credibility rail must never regress into stacked résumé sections.
 
-Prototype either:
+Requirements:
 
-- one mixed rail with explicit `EXPERIENCE` / `LEARNING` separators; or
-- two shallow rails: `Experience` and `Education & credentials`.
-
-Behavior:
-
-- right-to-left seamless loop;
-- slow readable pace;
-- pause/slow on hover/focus;
-- subtle edge masks;
-- static or touch-scrollable reduced-motion fallback;
-- correct alt/accessible relationship labels.
-
-Never label the rail “Trusted by.” Employment, internships, teaching, education, scholarships, credentials and clients remain distinct relationship types. Logo assets must be official/publicly legitimate where possible; use typographic fallback when uncertain.
+- one shallow right-to-left loop with explicit semantic groups;
+- employment, teaching, internship, credential, education and scholarship relationships remain distinct;
+- no `Trusted by` framing;
+- slow readable movement, seamless reset, hover/focus pause, edge masks;
+- reduced-motion becomes static/touch-scrollable;
+- typographic fallback is preferred when logo reuse rights are unclear;
+- current learning signals must reflect the governing career source, including Databricks.
 
 ## Hard homepage removals
 
-The following must not return as large standalone homepage chapters:
+The following must not return as large standalone Home chapters:
 
 - full Skills & Stack taxonomy;
 - full Experience timeline;
@@ -90,193 +106,130 @@ Every visually consequential phase follows:
 
 Automated tests are necessary but are not visual acceptance.
 
+---
+
 ## Phase A — Homepage IA Demolition & Content Triage — COMPLETE
 
-Completed:
-
-- inventoried current 11-section homepage;
-- classified every module as keep/rebuild, compress, move or remove from Home;
-- removed Skills, full Experience, Credentials/Education and Additional Experience from planned Home;
-- moved service detail to `/services`;
-- selected `/about` as the primary detailed professional-history route;
-- reduced Home work to three flagship slots in principle;
-- established ~5–7 viewport height budget;
-- restored credibility rail requirement;
-- verified that machine-readable profile/discoverability data is independent from visible Home layout;
-- identified that `serviceContextUrl()` must migrate from `/#service-*` to `/services#service-*`;
-- identified required new `/work`, `/about`, `/services` routes and sitemap additions;
-- defined typed credibility relationships so employer/credential semantics cannot be flattened.
+Established the new selective IA, moved detail to dedicated routes, set the 5–7 viewport budget, restored the credibility rail as a hard requirement and verified machine-readable discoverability can remain complete while Home becomes aggressively shorter.
 
 ## Phase B — Reference Exploration & Pattern Extraction — COMPLETE
 
-Re-audited the existing pool: React Bits Portfolio, Motion Primitives, Aceternity, Kintarowwwards, MotionFolio, koloNatalie and the historical Aitezaz reference.
-
-Key conclusions:
-
-- React Bits: hero/interaction donor, **not** IA donor.
-- Motion Primitives: primary micro-motion vocabulary.
-- MotionFolio: GSAP/ScrollTrigger/Lenis implementation donor for short project transitions.
-- koloNatalie: motion restraint/performance reference.
-- Kintarowwwards: kinetic confidence, not roadmap/stack volume.
-- Aceternity: selected composition ideas only; avoid SaaS hierarchy/trusted-by semantics.
-- Magic UI marquee added as an implementation reference for the credibility rail; likely implement a small project-native version with reduced-motion safeguards rather than depend blindly on a drop-in component.
-- Codrops spatial/Flip gallery mechanics added for project exploration; artificial scroll hijacking explicitly rejected.
-
-Three prototype directions were defined:
-
-1. **Cinematic Systems Portfolio** — layered project-evidence atlas, strongest memorability, highest complexity.
-2. **Spatial Evidence Gallery** — curated technical exhibition, asymmetrical evidence-led browsing.
-3. **Kinetic Editorial / Product** — fastest/recruiter-friendly, compact, performance-simple but must retain enough personality.
+Re-audited React Bits, Motion Primitives, Aceternity, Kintarowwwards, MotionFolio, koloNatalie and supporting implementation references. Extracted interaction principles without inheriting their IA/template weaknesses.
 
 ## Phase C — Real-Content Direction Prototypes — COMPLETE / ACCEPTED
 
-Implemented and rendered:
-
-- `/prototypes/cinematic`;
-- `/prototypes/spatial`;
-- `/prototypes/kinetic`;
-- `/prototypes` comparison index.
-
-Each route uses real public-safe Mohammed content and includes the same comparison slice: hero, navigation, credibility rail, work treatment, solve/think treatment and opportunity CTA.
-
-Accepted production direction:
+Built `/prototypes/cinematic`, `/prototypes/spatial` and `/prototypes/kinetic` using real content/evidence. Selected the production hybrid:
 
 > **Cinematic Systems × Spatial Evidence × Kinetic Density**
 
-Responsibilities are explicit:
-
-- Cinematic Systems owns identity, atmosphere, hero memory point and systems vocabulary;
-- Spatial Evidence owns heterogeneous Selected Work composition and project weighting;
-- Kinetic Density owns compression discipline for navigation, secondary information, writing, CTA and mobile.
-
-This is not permission to ship the Cinematic prototype unchanged. The production system must avoid an uninterrupted all-dark page, avoid spending a whole screen on one project, and keep giant typography subordinate to evidence.
-
-Accepted Phase C validation:
-
-- Deployment Readiness `34663301936` — PASS;
-- Application CI `34663301934` — PASS;
-- Playwright `50/50` — PASS;
-- rendered QA artifact `10287424549`;
-- artifact SHA-256 `faf238c62b414ec1b97ea52f05718c36c4d4567e7222cf5c3a690503baf177bf`.
-
-Decision record: `docs/frontend-overhaul/PHASE_C_DIRECTION_COMPARISON.md`.
+Validation: Deployment Readiness `34663301936` PASS; Application CI `34663301934` PASS; Playwright `50/50` PASS.
 
 ## Phase D — Visual Foundation + Hero + Nav + Credibility Rail — COMPLETE / ACCEPTED
 
-Production foundation now implements the accepted hybrid direction without replacing governed truth or discoverability infrastructure.
+Delivered the evidence atlas hero, reduced navigation and semantically truthful credibility rail. User visually accepted the corrected desktop/mobile result. PR #13 merged.
 
-Completed:
+## Phase E — Selected Work — COMPLETE / ACCEPTED
 
-- dark systems/evidence hero built from real Presaira calibration, Oil Spill Detection SAR evidence and OpportunityOS system vocabulary;
-- reduced primary navigation: `Work · About · Writing · Contact · AR`;
-- shallow relationship-labelled credibility rail with accurate Employment / Teaching / Internship / Credential / Education / Scholarship semantics;
-- typographic organization marks where logo reuse is not verified rather than fabricated logo/client treatment;
-- dedicated Phase D visual tokens, spacing, density, focus/hover and motion layer;
-- desktop and 390px rendered regression coverage;
-- explicit reduced-motion behavior;
-- accessibility correction after CI caught low-contrast rail metadata.
+Replaced the six-card wall with three differentiated flagships: Presaira, OpportunityOS and Ghareeb Oglu Commerce. Added complete `/work` directories for the remaining project discovery. User visually accepted; PR #14 merged.
 
-Accepted Phase D validation:
+## Phase F — What I Solve / How I Think — COMPLETE / ACCEPTED
 
-- user inspected and accepted the corrected desktop/mobile rendering;
-- PR #13 merged to `main` at `43989204925eb82e1d335c713d85cc4705e283ed`;
-- Deployment Readiness `34664830875` — PASS;
-- Application CI `34664830860` — PASS;
-- Playwright `53/53` — PASS;
-- rendered QA artifact `10288409572`;
-- artifact SHA-256 `aeef78fa82c2fb2fbda8f2304537fcf064b5d8328bae05ea2a771f43a7ddc1e2`.
+Replaced Capabilities + Skills + oversized About on Home with one graphical `SEE → REDUCE → BUILD` chapter and the compact human statement **“I like the messy part.”**
 
-Decision/system record: `docs/frontend-overhaul/PHASE_D_VISUAL_SYSTEM.md`.
+Validation:
 
-## Phase E — Selected Work Rebuild — COMPLETE / ACCEPTED
+- Application CI `34667951677` PASS;
+- Deployment Readiness `34667951673` PASS;
+- Playwright `62/62` PASS;
+- English Home Lighthouse `83 / 100 / 100 / 100 / 100`;
+- Presaira `99 / 100 / 100 / 100 / 100`;
+- Arabic Home `95 / 100 / 100 / 100 / 100`.
 
-The legacy six-card homepage project wall is replaced with the accepted Spatial Evidence composition.
+User visually accepted. PR #15 merged at `0f91ad846c7fa1fac9521daf0683b23ff55e9fef`.
 
-Production homepage set:
+## Phase G — Writing + Opportunity + Footer — COMPLETE / ACCEPTED
 
-- Presaira;
-- OpportunityOS;
-- Ghareeb Oglu Commerce.
+Replaced the old Services + Writing + Contact + utility-footer stack with:
 
-The third slot deliberately broadens story coverage into ecommerce/product delivery while Oil Spill Detection remains present in the hero atlas and complete `/work` directory.
+- two evidence-led essays;
+- two explicit opportunity paths;
+- an intentional dark route directory footer;
+- detailed service proof on `/services` and `/ar/services`.
 
-Phase E also introduced bilingual `/work` and `/ar/work` directory routes so the remaining projects are compactly browsable without returning six giant cards to Home.
+Final Phase G browser suite: `66/66` PASS. User visually accepted. PR #16 merged at `5450fe00b8c1f98e1f7ce46d44142fa0e61aeb9b`.
 
-Accepted Phase E validation:
+## Phase H — About / Professional History — DESIGN ACCEPTED / FINAL TRUTH VALIDATION
 
-- user inspected and explicitly accepted the corrected desktop/mobile rendering;
-- PR #14 merged to `main` at `988e3f38fbb703bff8aff7d7e72a8a51db3ebe64`;
-- Deployment Readiness `34665844427` — PASS;
-- Application CI `34665844420` — PASS;
-- Playwright `58/58` — PASS;
-- English Home Lighthouse `84 / 100 / 100 / 100 / 100`;
-- Presaira Lighthouse `97 / 100 / 100 / 100 / 100`;
-- Arabic Home Lighthouse `95 / 100 / 100 / 100 / 100`;
-- rendered QA artifact `10289036440`;
-- artifact SHA-256 `d0d803ce641d86d1f8539853a25c3fd22fff0785882fffb7f992f62ee5e82bbc`.
+The English Home no longer renders Experience, Certifications/Education or Additional Experience chapters. `/about` is the dedicated professional-history route and uses multiple visual grammars rather than résumé cards.
 
-Decision record: `docs/frontend-overhaul/PHASE_E_SELECTED_WORK.md`.
+Implemented:
 
-## Phase F — What I Solve / How I Think — ACTIVE / AWAITING VISUAL ACCEPTANCE
+- through-line/current-role anchor;
+- career map;
+- parallel tutoring/freelance tracks;
+- early technical placements;
+- education/credential ledger;
+- operating stack;
+- working principles and next routes;
+- navigation/credibility/footer routing to About;
+- sitemap, static export and regression coverage.
 
-The Phase C solve/think prototypes were re-compared as the focused exploration set. The production choice is:
+Mohammed visually accepted the Phase H design.
 
-> **Spatial transformation skeleton × Cinematic explanatory clarity × Kinetic density discipline.**
+After acceptance, Phase H was refreshed against the September 2026 CV and explicit implementation correction. The branch now updates the governed truth model, runtime data, About, credibility rail, Arabic factual projection, project evidence registry and regression tests so older titles and WordPress cannot silently return.
 
-Implemented on branch `frontend-overhaul-phase-f`:
+Phase H closes when the **latest post-refresh** Application CI + Deployment Readiness runs pass and the corrected render shows no wrapping/regression caused by the factual changes. Then PR #17 may merge.
 
-- removed the legacy Capabilities chapter from English Home;
-- removed the legacy Skills & Stack chapter from English Home;
-- removed the oversized legacy About chapter from English Home;
-- added one graphical `SolveThinkBridge` directly after Selected Work;
-- preserved the strongest human idea as the compact statement **“I like the messy part.”**;
-- expresses the operating method as `SEE → REDUCE → BUILD`;
-- maps that method to truthful output classes: validated migration, decision-ready analytics, evaluated models, governed AI workflows and usable products;
-- added desktop/mobile/axe/reduced-motion regression coverage.
+Decision record: `docs/frontend-overhaul/PHASE_H_ABOUT_ARCHITECTURE.md`.
 
-The first Phase F CI run correctly exposed three historical test contracts that still required homepage structures explicitly removed by the new accepted IA. Those tests are being migrated to the new homepage contract rather than preserving superseded UI for the sake of old assertions.
+## Phase I — English Desktop Visual Acceptance — NEXT
 
-Phase F is not accepted until the corrected full CI run passes and the rendered desktop/mobile output is visually inspected and accepted.
+This is a whole-page acceptance pass, not another content-building phase.
 
-Decision record: `docs/frontend-overhaul/PHASE_F_SOLVE_THINK.md`.
+Required execution:
 
-## Phase G — Writing + Opportunity + Footer
+1. capture the complete English Home at a large desktop review viewport (target `1920 × 1080`);
+2. measure total page height as viewport equivalents;
+3. inspect Hero, credibility rail, Selected Work, Solve/Think, Writing, Opportunity and Footer as one continuous experience;
+4. verify no CV-dump structure has returned;
+5. verify typography wraps deliberately and no ordinary heading falls into uncontrolled 3–5 line display treatment;
+6. verify graphics/evidence and text carry balanced visual weight;
+7. verify chapter transitions create variety without fragmentation;
+8. inspect navigation at top, middle and closing states;
+9. verify opportunity/conversion paths remain immediately understandable;
+10. correct defects, rerender and only then accept/reject the desktop system.
 
-Preview only 2–3 strongest writings with subject-derived visuals. Keep Home service conversion to compact role/project paths, not detailed cards. Make the footer the intentional directory for omitted detail.
-
-## Phase H — About Route Rebuild
-
-Move complete experience, education, certifications, additional experience, internships, tutoring and skill taxonomy to `/about`. Do not create a separate HTML `/resume` by default; expose a downloadable CV from About when appropriate.
-
-## Phase I — English Desktop Visual Acceptance
-
-Capture and inspect the complete desktop experience. Reject any return of CV-dump structure, uncontrolled headline wrapping, repetitive giant cards, or excessive page length.
+Target: **5–7 desktop viewport heights, preferably ~6**. CI alone cannot close Phase I.
 
 ## Phase J — Responsive / Mobile Art Direction
 
-Mobile is not a shrunken desktop. Recompose hero, work interaction, rail and navigation. Validate touch, overflow, performance and reduced motion.
+Mobile is not a shrunken desktop. Recompose hero, project browsing, credibility rail, method chapter, writing, opportunity and navigation. Validate touch, overflow, performance and reduced motion.
 
 ## Phase K — Arabic Art Direction + Editorial Rewrite
 
-Adapt structure intentionally for RTL, then perform the deferred Arabic linguistic/editorial rewrite. Equivalent quality and meaning are required; identical geometry is not.
+Factual Arabic data already inherits the September truth refresh. Phase K remains the intentional RTL **design/editorial** pass: restructure where needed for Arabic rhythm, then rewrite/polish Arabic copy without mechanically mirroring English geometry.
 
 ## Phase L — Final Staging Acceptance & Production Readiness
 
-Run typecheck/lint/build/browser/accessibility/reduced-motion/schema/canonical/Lighthouse gates; deploy real Cloudflare staging; verify noindex/security/canonical isolation; capture final EN/AR/responsive screenshots. Only after final visual acceptance may domain purchase/production activation proceed.
+Run full typecheck/lint/build/browser/accessibility/reduced-motion/schema/canonical/Lighthouse gates, deploy real Cloudflare staging, verify `noindex`/security/canonical isolation and capture final EN/AR/responsive screenshots.
+
+Only after final visual acceptance may domain purchase/production activation proceed.
 
 ## Hard regression tests
 
 The redesign fails if:
 
-- Home again includes full Experience + Certifications + Education stacks;
+- Home again contains full Experience + Certifications + Education stacks;
 - Skills return as a large chip/logo wall;
 - six giant project cards return;
-- logos imply “trusted by” or client relationships inaccurately;
+- logos imply inaccurate client/endorsement relationships;
 - graphics are decorative rather than evidence-bearing;
-- all chapters share the same giant-heading/paragraph/card grammar;
-- desktop length remains near the current 15-screen experience;
-- giant typography is still the primary source of personality;
+- every chapter shares the same giant-heading/paragraph/card grammar;
+- desktop length returns toward the rejected ~15-screen experience;
+- giant typography again becomes the main source of personality;
 - Arabic becomes a mechanical mirror;
+- September 2026 career facts drift back to older titles/credentials;
+- WordPress returns as a skill or implementation claim;
 - accessibility/crawlability are sacrificed for spectacle;
 - CI is treated as proof of visual quality.
 
@@ -286,15 +239,15 @@ The redesign fails if:
 |---|---|
 | A — IA demolition | COMPLETE |
 | B — reference exploration | COMPLETE |
-| C — direction prototypes | **COMPLETE / ACCEPTED** |
-| D — visual foundation / hero / nav / rail | **COMPLETE / ACCEPTED** |
-| E — selected work | **COMPLETE / ACCEPTED** |
-| F — solve/think bridge | **ACTIVE / AWAITING VISUAL ACCEPTANCE** |
-| G — writing / opportunity / footer | Not started |
-| H — about route | Not started |
-| I — desktop acceptance | Not started |
+| C — direction prototypes | COMPLETE / ACCEPTED |
+| D — visual foundation / hero / nav / rail | COMPLETE / ACCEPTED |
+| E — selected work | COMPLETE / ACCEPTED |
+| F — solve/think bridge | COMPLETE / ACCEPTED |
+| G — writing / opportunity / footer | COMPLETE / ACCEPTED |
+| H — about route | **DESIGN ACCEPTED / FINAL TRUTH VALIDATION** |
+| I — English desktop acceptance | NEXT |
 | J — responsive/mobile | Not started |
-| K — Arabic | Not started |
+| K — Arabic design/editorial | Not started |
 | L — final staging / production readiness | Not started |
 
 Domain purchase remains deferred until the final visual acceptance gate.
