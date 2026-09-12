@@ -137,7 +137,7 @@ test("keyboard navigation exposes skip link and primary anchors", async ({ page 
   await expect(skipLink).toBeFocused();
   await expect(skipLink).toBeVisible();
 
-  await page.getByRole("link", { name: "Work", exact: true }).click();
+  await page.locator(".site-nav-wrap").getByRole("link", { name: "Work", exact: true }).click();
   await expect(page.locator("#work")).toBeInViewport();
 
   await page.goto("/work/presaira");

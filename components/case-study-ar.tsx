@@ -110,7 +110,7 @@ export function CaseStudyNarrativeAr({
                   <div className={serviceStyles.bridgeActions}>
                     <Link
                       className={serviceStyles.bridgeLink}
-                      href={`/ar#service-${service.id}`}
+                      href={`/ar/services#service-${service.id}`}
                       data-conversion="project-to-service"
                       data-service-id={service.id}
                     >

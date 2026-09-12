@@ -109,7 +109,7 @@ export function CaseStudyNarrative({
                   <div className={serviceStyles.bridgeActions}>
                     <Link
                       className={serviceStyles.bridgeLink}
-                      href={`/#service-${service.id}`}
+                      href={`/services#service-${service.id}`}
                       data-conversion="project-to-service"
                       data-service-id={service.id}
                     >

@@ -14,7 +14,7 @@ export function projectCaseStudyUrl(slug: string) {
 }
 
 export function serviceContextUrl(serviceId: string) {
-  return `${profile.domain}/#service-${serviceId}`;
+  return `${profile.domain}/services#service-${serviceId}`;
 }
 
 export function writingArticleUrl(slug: string) {

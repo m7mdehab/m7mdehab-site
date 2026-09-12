@@ -83,12 +83,12 @@ test.describe("Iteration 12 evidence-backed authority writing", () => {
 
   test("homepages promote real essays and primary navigation exposes the writing hub", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("link", { name: "Writing", exact: true })).toHaveAttribute("href", "/writing");
-    await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(3);
+    await expect(page.locator(".site-nav-wrap").getByRole("link", { name: "Writing", exact: true })).toHaveAttribute("href", "/writing");
+    await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(2);
     await expect(page.locator('#writing a[href="/writing/when-to-trust-a-probabilistic-forecast"]')).toBeVisible();
 
     await page.goto("/ar");
-    await expect(page.getByRole("link", { name: "الكتابة", exact: true })).toHaveAttribute("href", "/ar/writing");
+    await expect(page.locator(".site-nav-wrap").getByRole("link", { name: "الكتابة", exact: true })).toHaveAttribute("href", "/ar/writing");
     await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(3);
     await expect(page.locator('#writing a[href="/ar/writing/what-an-ai-agent-should-do-when-evidence-is-missing"]')).toBeVisible();
   });

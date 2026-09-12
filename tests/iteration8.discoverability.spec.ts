@@ -31,6 +31,10 @@ test.describe("Iteration 8 discoverability architecture", () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/work`);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${domain}/work`);
 
+    await page.goto("/services");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/services`);
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${domain}/services`);
+
     for (const slug of projectSlugs) {
       await page.goto(`/work/${slug}`);
       const canonical = `${domain}/work/${slug}`;
@@ -58,6 +62,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     ]);
     expect(JSON.stringify(person)).not.toContain("presaira.com");
     expect(person?.makesOffer).toHaveLength(4);
+    expect(JSON.stringify(person?.makesOffer)).toContain(`${domain}/services#service-`);
     expect(creativeWorks).toHaveLength(6);
     expect(creativeWorks.map((item) => item.url).sort()).toEqual(
       projectSlugs.map((slug) => `${domain}/work/${slug}`).sort(),
@@ -86,11 +91,13 @@ test.describe("Iteration 8 discoverability architecture", () => {
       "ml-ai-product-development",
       "product-web-development",
     ]);
+    expect(presaira.directServices.every((service: { url: string }) => service.url.startsWith(`${domain}/services#service-`))).toBeTruthy();
 
     const serviceResponse = await request.get("/services.json");
     expect(serviceResponse.ok()).toBeTruthy();
     const services = await serviceResponse.json();
     expect(services.map((service: { id: string }) => service.id)).toEqual(serviceIds);
+    expect(services.every((service: { url: string }) => service.url.startsWith(`${domain}/services#service-`))).toBeTruthy();
 
     const analytics = services.find((service: { id: string }) => service.id === "analytics-power-bi");
     expect(analytics.evidenceBoundary).toContain("not Power BI artifacts");
@@ -127,16 +134,18 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const xml = await response.text();
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
-    expect(locations).toHaveLength(24);
+    expect(locations).toHaveLength(26);
     expect(locations).toEqual([
       domain,
       `${domain}/work`,
       ...projectSlugs.map((slug) => `${domain}/work/${slug}`),
+      `${domain}/services`,
       `${domain}/writing`,
       ...writingSlugs.map((slug) => `${domain}/writing/${slug}`),
       `${domain}/ar`,
       `${domain}/ar/work`,
       ...projectSlugs.map((slug) => `${domain}/ar/work/${slug}`),
+      `${domain}/ar/services`,
       `${domain}/ar/writing`,
       ...writingSlugs.map((slug) => `${domain}/ar/writing/${slug}`),
     ]);

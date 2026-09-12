@@ -1,9 +1,8 @@
-import { AdditionalExperience, Contact, Credentials, Experience, Services } from "@/components/home-sections";
+import { AdditionalExperience, Credentials, Experience } from "@/components/home-sections";
+import { HomeClosing } from "@/components/home-closing";
 import { CredibilityRail, SystemHero } from "@/components/home-overhaul-foundation";
 import { SelectedWorkGallery } from "@/components/home-selected-work";
 import { SolveThinkBridge } from "@/components/home-solve-think";
-import { WritingPreview } from "@/components/writing-authority";
-import { profile } from "@/data/public";
 import { writingArticles } from "@/data/writing";
 
 export default function Home() {
@@ -13,8 +12,10 @@ export default function Home() {
       <CredibilityRail />
       <SelectedWorkGallery />
       <SolveThinkBridge />
-      <Experience /><Credentials /><AdditionalExperience /><Services /><WritingPreview articles={writingArticles} locale="en" /><Contact />
-      <footer className="footer shell"><p>© {new Date().getFullYear()} {profile.name}</p><p>Built as a living professional web identity.</p></footer>
+      <Experience />
+      <Credentials />
+      <AdditionalExperience />
+      <HomeClosing articles={writingArticles} />
     </main>
   );
 }
