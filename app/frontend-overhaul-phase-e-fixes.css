@@ -1,0 +1,24 @@
+/* Phase E rendered-QA corrections. Kept separate so acceptance fixes remain auditable. */
+:root {
+  --ov-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+.selected-work-eyebrow,
+.selected-work-footer {
+  color: #5b5c55;
+}
+
+.selected-work-commerce .selected-work-card-meta {
+  color: #d3dfd5;
+  opacity: 1;
+}
+
+.selected-work-commerce .selected-work-boundary {
+  color: #b7cabd;
+  opacity: 1;
+}
+
+.selected-work-browser-body i {
+  color: #3f5e54;
+  opacity: 1;
+}
