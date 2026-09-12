@@ -95,7 +95,7 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
         <div className="shell closing-opportunity-shell">
           <header className="closing-opportunity-head">
             <p className="closing-eyebrow">Opportunity · 04</p>
-            <h2>Choose the conversation that fits.</h2>
+            <h2>Choose the right conversation.</h2>
             <p>Role, project or system problem — the fastest route is the one with the right context attached.</p>
           </header>
 

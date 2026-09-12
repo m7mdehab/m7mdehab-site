@@ -2,8 +2,8 @@
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** ACTIVE  
-**Current phase:** Phase H — accepted design, September truth refresh validation before merge  
-**Next phase:** Phase I — English Desktop Visual Acceptance  
+**Current phase:** Phase J — Responsive / Mobile Art Direction  
+**Previous phase:** Phase I — COMPLETE / ACCEPTED  
 **Created:** 2026-09-12  
 **Authority:** Mohammed Ehab ElNomany
 
@@ -17,9 +17,9 @@ Whenever several paragraphs can truthfully become one graphic, interaction, imag
 
 ## Current truth baseline
 
-Career/profile facts are governed by Mohammed's newest explicit instruction and the **September 2026 CV**. That source supersedes the older June/August CV wording when they conflict.
+Career/profile facts are governed by Mohammed's newest explicit instruction and the **September 2026 CV**. That source supersedes older June/August CV wording where they conflict.
 
-Important 2026-09-12 corrections now locked into the runtime/source model:
+Locked corrections:
 
 - current role: **Data Engineer — Network International**;
 - Al Tayseer International: **Business Analyst Team Lead**;
@@ -28,7 +28,7 @@ Important 2026-09-12 corrections now locked into the runtime/source model:
 - current skill framing is data-engineering-first and includes Databricks;
 - **WordPress is not part of the current public implementation/skill model**; Mohammed explicitly confirmed the relevant websites/products were built using code;
 - Ghareeb Oglu is treated as an end-to-end coded commerce product;
-- English, Arabic factual projection, visible About, credibility rail and machine-readable data must remain synchronized with this baseline.
+- English, Arabic factual projection, About, credibility rail and machine-readable data must remain synchronized with this baseline.
 
 ## Success definition
 
@@ -118,7 +118,7 @@ Re-audited React Bits, Motion Primitives, Aceternity, Kintarowwwards, MotionFoli
 
 ## Phase C — Real-Content Direction Prototypes — COMPLETE / ACCEPTED
 
-Built `/prototypes/cinematic`, `/prototypes/spatial` and `/prototypes/kinetic` using real content/evidence. Selected the production hybrid:
+Built `/prototypes/cinematic`, `/prototypes/spatial` and `/prototypes/kinetic` using real content/evidence. Selected:
 
 > **Cinematic Systems × Spatial Evidence × Kinetic Density**
 
@@ -130,7 +130,7 @@ Delivered the evidence atlas hero, reduced navigation and semantically truthful 
 
 ## Phase E — Selected Work — COMPLETE / ACCEPTED
 
-Replaced the six-card wall with three differentiated flagships: Presaira, OpportunityOS and Ghareeb Oglu Commerce. Added complete `/work` directories for the remaining project discovery. User visually accepted; PR #14 merged.
+Replaced the six-card wall with Presaira, OpportunityOS and Ghareeb Oglu Commerce. Added complete `/work` directories for the remaining project discovery. User visually accepted; PR #14 merged.
 
 ## Phase F — What I Solve / How I Think — COMPLETE / ACCEPTED
 
@@ -149,18 +149,13 @@ User visually accepted. PR #15 merged at `0f91ad846c7fa1fac9521daf0683b23ff55e9f
 
 ## Phase G — Writing + Opportunity + Footer — COMPLETE / ACCEPTED
 
-Replaced the old Services + Writing + Contact + utility-footer stack with:
-
-- two evidence-led essays;
-- two explicit opportunity paths;
-- an intentional dark route directory footer;
-- detailed service proof on `/services` and `/ar/services`.
+Replaced the old Services + Writing + Contact + utility-footer stack with two evidence-led essays, two explicit opportunity paths, an intentional dark directory footer, and dedicated service routes.
 
 Final Phase G browser suite: `66/66` PASS. User visually accepted. PR #16 merged at `5450fe00b8c1f98e1f7ce46d44142fa0e61aeb9b`.
 
-## Phase H — About / Professional History — DESIGN ACCEPTED / FINAL TRUTH VALIDATION
+## Phase H — About / Professional History — COMPLETE / ACCEPTED
 
-The English Home no longer renders Experience, Certifications/Education or Additional Experience chapters. `/about` is the dedicated professional-history route and uses multiple visual grammars rather than résumé cards.
+English Home no longer renders Experience, Certifications/Education or Additional Experience chapters. `/about` is the dedicated professional-history route and uses multiple visual grammars rather than résumé cards.
 
 Implemented:
 
@@ -174,36 +169,70 @@ Implemented:
 - navigation/credibility/footer routing to About;
 - sitemap, static export and regression coverage.
 
-Mohammed visually accepted the Phase H design.
+After the initial visual acceptance, Phase H was refreshed against the September 2026 CV and Mohammed's explicit implementation correction. Runtime truth, About, credibility rail, Arabic factual projection and project-evidence governance were synchronized; stale WordPress assumptions were removed.
 
-After acceptance, Phase H was refreshed against the September 2026 CV and explicit implementation correction. The branch now updates the governed truth model, runtime data, About, credibility rail, Arabic factual projection, project evidence registry and regression tests so older titles and WordPress cannot silently return.
+Final validation:
 
-Phase H closes when the **latest post-refresh** Application CI + Deployment Readiness runs pass and the corrected render shows no wrapping/regression caused by the factual changes. Then PR #17 may merge.
+- Deployment Readiness `34707436770` PASS;
+- Application CI `34707436799` PASS;
+- Playwright `76/76` PASS;
+- English Home Lighthouse `85 / 100 / 100 / 100 / 100`;
+- rendered artifact `10302731419`.
+
+PR #17 merged at `daec5ac797279f5004e7b796dbbea402461cbaa0`.
 
 Decision record: `docs/frontend-overhaul/PHASE_H_ABOUT_ARCHITECTURE.md`.
 
-## Phase I — English Desktop Visual Acceptance — NEXT
+## Phase I — English Desktop Visual Acceptance — COMPLETE / ACCEPTED
 
-This is a whole-page acceptance pass, not another content-building phase.
+Phase I judged the complete English Home as one continuous 1920 × 1080 production render rather than as individually accepted sections.
 
-Required execution:
+The first acceptance run was intentionally rejected by the hierarchy gate because two ordinary H2 headings wrapped to three lines. The gate was not weakened. Copy was tightened to:
 
-1. capture the complete English Home at a large desktop review viewport (target `1920 × 1080`);
-2. measure total page height as viewport equivalents;
-3. inspect Hero, credibility rail, Selected Work, Solve/Think, Writing, Opportunity and Footer as one continuous experience;
-4. verify no CV-dump structure has returned;
-5. verify typography wraps deliberately and no ordinary heading falls into uncontrolled 3–5 line display treatment;
-6. verify graphics/evidence and text carry balanced visual weight;
-7. verify chapter transitions create variety without fragmentation;
-8. inspect navigation at top, middle and closing states;
-9. verify opportunity/conversion paths remain immediately understandable;
-10. correct defects, rerender and only then accept/reject the desktop system.
+- **`Three ways into the work. One standard.`**
+- **`Choose the right conversation.`**
 
-Target: **5–7 desktop viewport heights, preferably ~6**. CI alone cannot close Phase I.
+A final desktop hierarchy refinement reduced the selected-work display scale and widened the opportunity composition rather than returning to oversized editorial typography.
 
-## Phase J — Responsive / Mobile Art Direction
+The final code-bearing production render measures:
 
-Mobile is not a shrunken desktop. Recompose hero, project browsing, credibility rail, method chapter, writing, opportunity and navigation. Validate touch, overflow, performance and reduced motion.
+- **5585 px** total height;
+- **5.17 viewport heights** at 1920 × 1080;
+- **0 px horizontal overflow**;
+- all ordinary H2 headings at **1–2 lines**;
+- final opportunity heading at **1 line**.
+
+Human inspection accepted the complete rhythm: dark evidence hero → shallow credibility rail → warm work → dark method → warm writing → dark opportunity/footer. No CV-dump structure, blocking navigation collision, giant dead zone or uncontrolled display-heading regression remains.
+
+Final code-bearing validation:
+
+- Deployment Readiness `34709324487` PASS;
+- Application CI `34709324523` PASS;
+- Playwright `79/79` PASS;
+- English Home Lighthouse **87 / 100 / 100 / 100 / 100**;
+- Presaira **96 / 100 / 100 / 100 / 100**;
+- Arabic Home **97 / 100 / 100 / 100 / 100**;
+- rendered artifact `10302757601`;
+- artifact SHA-256 `fa938bea0ae5dca388d7c0b0840b2c388c4f68c03a4de2253955187b5abab4eb`.
+
+A final documentation-only verification rerun also passed Deployment Readiness `34709645925`, Application CI `34709646098`, and all `79/79` browser tests. Its Lighthouse performance variance is runner-dependent; accessibility, best-practices, SEO and agentic-browsing remained 100.
+
+Decision record: `docs/frontend-overhaul/PHASE_I_ENGLISH_DESKTOP_ACCEPTANCE.md`.
+
+## Phase J — Responsive / Mobile Art Direction — ACTIVE / NEXT
+
+Mobile is not a shrunken desktop. Phase J must intentionally recompose hero, project browsing, credibility rail, method chapter, writing, opportunity and navigation.
+
+Required gates include:
+
+- 390px and representative larger-phone renders;
+- touch-target and interaction review;
+- no horizontal overflow;
+- deliberate reweighting of project evidence rather than desktop stacking;
+- readable credibility rail with touch/reduced-motion fallback;
+- motion/performance review on constrained viewport;
+- no desktop-only layout assumptions;
+- rendered visual acceptance before Phase K.
 
 ## Phase K — Arabic Art Direction + Editorial Rewrite
 
@@ -244,9 +273,9 @@ The redesign fails if:
 | E — selected work | COMPLETE / ACCEPTED |
 | F — solve/think bridge | COMPLETE / ACCEPTED |
 | G — writing / opportunity / footer | COMPLETE / ACCEPTED |
-| H — about route | **DESIGN ACCEPTED / FINAL TRUTH VALIDATION** |
-| I — English desktop acceptance | NEXT |
-| J — responsive/mobile | Not started |
+| H — about route | COMPLETE / ACCEPTED |
+| I — English desktop acceptance | **COMPLETE / ACCEPTED** |
+| J — responsive/mobile | **ACTIVE / NEXT** |
 | K — Arabic design/editorial | Not started |
 | L — final staging / production readiness | Not started |
 

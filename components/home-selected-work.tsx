@@ -19,7 +19,7 @@ export function SelectedWorkGallery() {
         <header className="selected-work-intro">
           <div>
             <p className="selected-work-eyebrow">Selected work · 01</p>
-            <h2>Three entrances into the work. <em>Different evidence, same standard.</em></h2>
+            <h2>Three ways into the work. <em>One standard.</em></h2>
           </div>
           <div className="selected-work-intro-copy">
             <p>
