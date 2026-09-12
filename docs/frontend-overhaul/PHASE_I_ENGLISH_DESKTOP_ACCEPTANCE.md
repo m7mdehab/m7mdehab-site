@@ -56,7 +56,7 @@ The acceptance rule was **not weakened**. The copy was tightened instead:
 - Selected Work → **`Three ways into the work. One standard.`**
 - Opportunity → **`Choose the right conversation.`**
 
-This directly addresses the frontend-overhaul rejection criterion that ordinary section headings must not return to oversized three-to-five-line display blocks.
+A final desktop-only hierarchy refinement then reduced the selected-work display scale and widened its text field, while giving the opportunity heading a wider composition. The responsive/mobile redesign remains intentionally deferred to Phase J.
 
 ## 5. Final measured desktop result
 
@@ -66,18 +66,18 @@ Final 1920 × 1080 geometry:
 |---|---:|---:|
 | Hero | 0 | 880 px |
 | Credibility rail | 880 | 123 px |
-| Selected Work | 1003 | 1407 px |
-| Method | 2410 | 923 px |
-| Writing | 3333 | 1124 px |
-| Opportunity | 4457 | 1019 px |
-| Footer | 5476 | 226 px |
+| Selected Work | 1003 | 1387 px |
+| Method | 2390 | 923 px |
+| Writing | 3313 | 1124 px |
+| Opportunity | 4437 | 922 px |
+| Footer | 5359 | 226 px |
 
 Whole Home:
 
 - viewport width: **1920 px**;
 - scroll width: **1920 px**;
-- scroll height: **5702 px**;
-- desktop length: **5.28 viewport heights**;
+- scroll height: **5585 px**;
+- desktop length: **5.17 viewport heights**;
 - horizontal overflow: **none**.
 
 Final ordinary H2 line counts:
@@ -85,13 +85,13 @@ Final ordinary H2 line counts:
 - `Three ways into the work. One standard.` — **2 lines**;
 - `I like the messy part.` — **1 line**;
 - `What the work taught me.` — **2 lines**;
-- `Choose the right conversation.` — **2 lines**.
+- `Choose the right conversation.` — **1 line**.
 
-The page therefore lands inside the 5–7 viewport attention budget and removes the exact uncontrolled-heading issue found by the first run.
+The page therefore sits cleanly inside the 5–7 viewport attention budget and removes the exact uncontrolled-heading issue found by the first run.
 
 ## 6. Human rendered review
 
-The final `phase-i-home-1920.png` production render was inspected after the corrective rerun.
+The final `phase-i-home-1920.png` production render from the last code-bearing acceptance run was inspected after the desktop hierarchy correction.
 
 ### Whole-page rhythm
 
@@ -127,10 +127,10 @@ Accepted at top, middle and closing states. No blocking collision or legibility 
 
 ## 7. Final validation
 
-Final branch head: `17242755469f7363f79a7cbe06c4bc0b2bcd9045`.
+Final code-bearing branch head: `5ac38d96d9a111e3d798d344b7a010414f3c4e6c`.
 
-- Deployment Readiness `34708286502` — **PASS**;
-- Application CI `34708286573` — **PASS**;
+- Deployment Readiness `34709324487` — **PASS**;
+- Application CI `34709324523` — **PASS**;
 - Playwright — **79/79 PASS**;
 - typecheck — PASS;
 - lint — PASS;
@@ -139,16 +139,18 @@ Final branch head: `17242755469f7363f79a7cbe06c4bc0b2bcd9045`.
 - rendered/accessibility QA — PASS;
 - existing mobile overflow, reduced-motion and no-JavaScript suites — PASS.
 
-Lighthouse:
+Lighthouse on the final run:
 
-- English Home: **92 / 100 / 100 / 100 / 100**;
-- Presaira: **98 / 100 / 100 / 100 / 100**;
-- Arabic Home: **95 / 100 / 100 / 100 / 100**.
+- English Home: **87 / 100 / 100 / 100 / 100**;
+- Presaira: **96 / 100 / 100 / 100 / 100**;
+- Arabic Home: **97 / 100 / 100 / 100 / 100**.
+
+The performance score varies with the shared CI runner benchmark; accessibility, best-practices, SEO and agentic-browsing remained at 100 across all three measured surfaces.
 
 Rendered QA artifact:
 
-- artifact ID: `10302891370`;
-- SHA-256: `c3a956b869fcd619386a945f7e42f43b542747ec574020c9531f292c0ae46748`.
+- artifact ID: `10302757601`;
+- SHA-256: `fa938bea0ae5dca388d7c0b0840b2c388c4f68c03a4de2253955187b5abab4eb`.
 
 ## 8. Acceptance decision
 
