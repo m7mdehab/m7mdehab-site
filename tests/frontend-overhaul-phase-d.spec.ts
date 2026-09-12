@@ -40,7 +40,9 @@ test.describe("Phase D production visual foundation", () => {
     await expect(rail).toContainText("Experience across");
     await expect(rail).toContainText("Learning & credentials");
     await expect(rail.locator('[aria-label="Employment: Network International"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label="Credential: Databricks"]').first()).toBeVisible();
     await expect(rail.locator('[aria-label="Credential: McKinsey Forward"]').first()).toBeVisible();
+    await expect(rail).not.toContainText("Udacity / ITIDA");
     expect((await rail.innerText()).toLowerCase()).not.toContain("trusted by");
 
     await page.screenshot({ path: testInfo.outputPath("phase-d-home-1440.png"), fullPage: true });
