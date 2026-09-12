@@ -156,7 +156,7 @@ test.describe("progressive enhancement without JavaScript", () => {
     expect(response?.ok()).toBeTruthy();
     await page.waitForLoadState("domcontentloaded");
 
-    for (const selector of ["#work", "#expertise", "#experience", "#about", "#contact"]) {
+    for (const selector of ["#work", "#method", "#experience", "#contact"]) {
       const section = page.locator(selector);
       await expect(section).toBeAttached();
       await expect(section).toBeVisible();

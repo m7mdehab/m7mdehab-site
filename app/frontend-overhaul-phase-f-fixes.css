@@ -1,0 +1,7 @@
+/* Phase F audit fixes. Keep edge behavior explicit instead of depending on an undefined shell token. */
+@media (max-width: 720px) {
+  .solve-think-board {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
