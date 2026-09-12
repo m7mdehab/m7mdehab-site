@@ -21,7 +21,7 @@ for (const direction of directions) {
       expect(response?.ok()).toBeTruthy();
       await settle(page);
 
-      await expect(page.locator("h1")).toContainText("Mohammed", { ignoreCase: true });
+      expect(await page.locator("body").innerText()).toContain("Mohammed Ehab ElNomany");
       await expect(page.locator(".proto-rail")).toBeVisible();
       await expect(page.locator("#work")).toBeVisible();
       await expect(page.locator("#think")).toBeVisible();
@@ -50,6 +50,7 @@ for (const direction of directions) {
       expect(response?.ok()).toBeTruthy();
       await settle(page);
 
+      expect(await page.locator("body").innerText()).toContain("Mohammed Ehab ElNomany");
       const dimensions = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
       expect(dimensions.width).toBeLessThanOrEqual(dimensions.client + 2);
 
