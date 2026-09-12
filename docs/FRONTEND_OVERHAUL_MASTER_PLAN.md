@@ -2,7 +2,7 @@
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** ACTIVE  
-**Current phase:** Phase C — Real-Content Direction Prototypes  
+**Current phase:** Phase D — Visual Foundation + Hero + Navigation + Credibility Rail  
 **Created:** 2026-09-12  
 **Authority:** Mohammed Ehab ElNomany
 
@@ -122,30 +122,52 @@ Key conclusions:
 - Magic UI marquee added as an implementation reference for the credibility rail; likely implement a small project-native version with reduced-motion safeguards rather than depend blindly on a drop-in component.
 - Codrops spatial/Flip gallery mechanics added for project exploration; artificial scroll hijacking explicitly rejected.
 
-Three prototype directions are now defined:
+Three prototype directions were defined:
 
 1. **Cinematic Systems Portfolio** — layered project-evidence atlas, strongest memorability, highest complexity.
 2. **Spatial Evidence Gallery** — curated technical exhibition, asymmetrical evidence-led browsing.
 3. **Kinetic Editorial / Product** — fastest/recruiter-friendly, compact, performance-simple but must retain enough personality.
 
-## Phase C — Real-Content Direction Prototypes — ACTIVE
+## Phase C — Real-Content Direction Prototypes — COMPLETE / ACCEPTED
 
-Each prototype slice must contain:
+Implemented and rendered:
 
-- hero;
-- navigation;
-- credibility rail;
-- one flagship project state/transition;
-- one capability/personality treatment;
-- opportunity CTA fragment.
+- `/prototypes/cinematic`;
+- `/prototypes/spatial`;
+- `/prototypes/kinetic`;
+- `/prototypes` comparison index.
 
-Use real Mohammed content and real public-safe project evidence. No lorem ipsum, invented metrics, fake logos or generic placeholder identity.
+Each route uses real public-safe Mohammed content and includes the same comparison slice: hero, navigation, credibility rail, work treatment, solve/think treatment and opportunity CTA.
 
-Render each at large desktop, laptop and mobile. Compare memorability, comprehension speed, evidence fit, motion quality, performance, accessibility and Arabic adaptability. Select the winner only after rendered comparison.
+Accepted production direction:
 
-## Phase D — Visual Foundation + Hero + Nav + Credibility Rail
+> **Cinematic Systems × Spatial Evidence × Kinetic Density**
 
-Define typography, palette, grid, spacing, border/radius rules, imagery/background treatment, focus/hover states and one coherent motion grammar. Rebuild hero from scratch. Implement reduced primary nav (`Work · About · Writing · Contact · AR` as current candidate). Acquire/verify logo assets and implement the rail.
+Responsibilities are explicit:
+
+- Cinematic Systems owns identity, atmosphere, hero memory point and systems vocabulary;
+- Spatial Evidence owns heterogeneous Selected Work composition and project weighting;
+- Kinetic Density owns compression discipline for navigation, secondary information, writing, CTA and mobile.
+
+This is not permission to ship the Cinematic prototype unchanged. The production system must avoid an uninterrupted all-dark page, avoid spending a whole screen on one project, and keep giant typography subordinate to evidence.
+
+Accepted Phase C validation:
+
+- Deployment Readiness `34663301936` — PASS;
+- Application CI `34663301934` — PASS;
+- Playwright `50/50` — PASS;
+- rendered QA artifact `10287424549`;
+- artifact SHA-256 `faf238c62b414ec1b97ea52f05718c36c4d4567e7222cf5c3a690503baf177bf`.
+
+Decision record: `docs/frontend-overhaul/PHASE_C_DIRECTION_COMPARISON.md`.
+
+## Phase D — Visual Foundation + Hero + Nav + Credibility Rail — ACTIVE
+
+Immediate production objective: convert the accepted hybrid direction into the real homepage foundation without yet rebuilding the full Selected Work chapter.
+
+Define typography, palette, grid, spacing, border/radius rules, imagery/background treatment, focus/hover states and one coherent motion grammar. Rebuild hero from scratch. Implement reduced primary nav (`Work · About · Writing · Contact · AR` as current candidate). Acquire/verify logo assets and implement the credibility rail.
+
+Phase D acceptance requires rendered desktop and mobile review before proceeding to Phase E.
 
 ## Phase E — Selected Work Rebuild
 
@@ -201,8 +223,8 @@ The redesign fails if:
 |---|---|
 | A — IA demolition | COMPLETE |
 | B — reference exploration | COMPLETE |
-| C — direction prototypes | **ACTIVE** |
-| D — visual foundation / hero / nav / rail | Not started |
+| C — direction prototypes | **COMPLETE / ACCEPTED** |
+| D — visual foundation / hero / nav / rail | **ACTIVE** |
 | E — selected work | Not started |
 | F — solve/think bridge | Not started |
 | G — writing / opportunity / footer | Not started |
