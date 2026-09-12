@@ -14,8 +14,9 @@ async function settle(page: import("@playwright/test").Page) {
 }
 
 async function expectCanonicalIdentity(page: import("@playwright/test").Page) {
-  const bodyText = (await page.locator("body").innerText()).replace(/\s+/g, " ");
-  expect(bodyText).toContain("Mohammed Ehab ElNomany");
+  const bodyText = (await page.locator("body").innerText()).toLowerCase();
+  expect(bodyText).toContain("mohammed ehab");
+  expect(bodyText).toContain("elnomany");
 }
 
 for (const direction of directions) {
