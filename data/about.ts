@@ -1,7 +1,7 @@
 import { skillGroups } from "@/data/public";
 
 export const aboutIntro = {
-  headline: "The useful part of my background is the through-line.",
+  headline: "The through-line matters more than titles.",
   body: "I have worked across data migration, analytics, machine learning, AI, software and commercial operations. The through-line is translating messy constraints into systems, analysis and products people can actually trust and use.",
   currentRole: "Data Migration Engineer",
   currentEmployer: "Network International",
