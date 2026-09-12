@@ -2,9 +2,19 @@ name: Deploy Cloudflare Staging
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
 
 permissions:
   contents: read
+
+concurrency:
+  group: cloudflare-staging
+  cancel-in-progress: true
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
