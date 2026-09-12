@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const englishWork = `${profile.domain}/work`;
   const arabicWork = `${profile.domain}/ar/work`;
   const englishAbout = `${profile.domain}/about`;
+  const arabicAbout = `${profile.domain}/ar/about`;
   const englishWriting = `${profile.domain}/writing`;
   const arabicWriting = `${profile.domain}/ar/writing`;
   const englishServices = `${profile.domain}/services`;
@@ -32,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: englishAbout,
       changeFrequency: "monthly",
       priority: 0.82,
-      alternates: { languages: { en: englishAbout } },
+      alternates: { languages: { en: englishAbout, ar: arabicAbout } },
     },
     ...projects.map((project) => {
       const english = `${profile.domain}/work/${project.slug}`;
@@ -80,6 +81,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.75,
       alternates: { languages: { en: englishWork, ar: arabicWork } },
+    },
+    {
+      url: arabicAbout,
+      changeFrequency: "monthly",
+      priority: 0.72,
+      alternates: { languages: { en: englishAbout, ar: arabicAbout } },
     },
     ...projects.map((project) => {
       const english = `${profile.domain}/work/${project.slug}`;
