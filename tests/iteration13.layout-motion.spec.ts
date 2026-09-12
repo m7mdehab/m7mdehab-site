@@ -10,27 +10,22 @@ async function settle(page: import("@playwright/test").Page) {
 test.describe("Iteration 13 layout refinement", () => {
   test.use({ viewport: { width: 1440, height: 1000 } });
 
-  test("homepage uses a denser hero and non-button skill treatment", async ({ page }) => {
+  test("homepage preserves the denser hero without restoring button-like skill UI", async ({ page }) => {
     const response = await page.goto("/");
     expect(response?.ok()).toBeTruthy();
     await settle(page);
 
-    const heroHeight = await page.locator(".hero").evaluate((element) => element.getBoundingClientRect().height);
+    const hero = page.locator(".overhaul-hero");
+    await expect(hero).toBeVisible();
+    const heroHeight = await hero.evaluate((element) => element.getBoundingClientRect().height);
     expect(heroHeight).toBeLessThanOrEqual(920);
 
-    const firstSkill = page.locator(".skill-chip").first();
-    await expect(firstSkill).toBeVisible();
-    expect(await firstSkill.evaluate((element) => element.tagName)).toBe("SPAN");
-    const skillStyle = await firstSkill.evaluate((element) => {
-      const style = getComputedStyle(element);
-      return { color: style.color, background: style.backgroundColor, boxShadow: style.boxShadow, borderStyle: style.borderStyle };
-    });
-    expect(skillStyle.boxShadow).toBe("none");
-    expect(skillStyle.borderStyle).toBe("solid");
+    await expect(page.locator("[data-solve-think]")).toBeVisible();
+    await expect(page.locator(".skill-chip")).toHaveCount(0);
 
-    await expect(page.locator(".display-script").first()).toBeVisible();
-    expect(await page.locator(".display-script").first().evaluate((element) => getComputedStyle(element).fontStyle)).toBe("italic");
-    await expect(page.locator(".display-strong").first()).toBeVisible();
+    const emphasis = page.locator(".display-script").first();
+    await expect(emphasis).toBeVisible();
+    expect(await emphasis.evaluate((element) => getComputedStyle(element).fontStyle)).toBe("italic");
   });
 
   test("floating navigation yields to downward scrolling and returns on upward intent", async ({ page }) => {
