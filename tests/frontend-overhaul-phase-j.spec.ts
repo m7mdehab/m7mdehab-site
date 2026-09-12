@@ -30,7 +30,7 @@ async function mobileMetrics(page: Page) {
       return Number.isFinite(lineHeight) && lineHeight > 0 ? Math.max(1, Math.round(height / lineHeight)) : null;
     };
 
-    const allNavTargets = Array.from(document.querySelectorAll<HTMLElement>(".site-nav a"));
+    const allNavTargets = Array.from(document.querySelectorAll<HTMLAnchorElement>(".site-nav a"));
     const navTargets = allNavTargets.flatMap((target) => {
       const rect = target.getBoundingClientRect();
       const style = getComputedStyle(target);
@@ -43,7 +43,12 @@ async function mobileMetrics(page: Page) {
         && (!Number.isFinite(opacity) || opacity > 0);
 
       if (!visibleAndTappable) return [];
-      return [{ text: (target.textContent ?? "").trim(), width: Math.round(rect.width), height: Math.round(rect.height) }];
+      return [{
+        text: (target.textContent ?? "").trim(),
+        href: target.getAttribute("href"),
+        width: Math.round(rect.width),
+        height: Math.round(rect.height),
+      }];
     });
 
     const track = document.querySelector<HTMLElement>(".credibility-track");
@@ -71,6 +76,16 @@ async function mobileMetrics(page: Page) {
   });
 }
 
+function expectMobileNavTargets(metrics: Awaited<ReturnType<typeof mobileMetrics>>) {
+  expect(metrics.navTargetCount).toBe(6);
+  expect(metrics.visibleNavTargetCount).toBe(3);
+  expect(metrics.navTargets.map((target) => target.href)).toEqual(["/#top", "/#work", "/ar"]);
+
+  for (const target of metrics.navTargets) {
+    expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
+  }
+}
+
 test.describe("Phase J English mobile art direction", () => {
   test("390px Home recomposes into a compact touch-first composition", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -90,12 +105,7 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.credibilityAnimation).toBe("none");
     expect(["auto", "scroll"]).toContain(metrics.credibilityOverflowX);
     expect(metrics.duplicateDisplay).toBe("none");
-    expect(metrics.navTargetCount).toBeGreaterThan(0);
-    expect(metrics.visibleNavTargetCount).toBeGreaterThanOrEqual(4);
-
-    for (const target of metrics.navTargets) {
-      expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
-    }
+    expectMobileNavTargets(metrics);
 
     await writeFile(path.join(artifactRoot, "mobile-390-metrics.json"), JSON.stringify(metrics, null, 2));
     await page.screenshot({ path: path.join(screenshotRoot, "phase-j-home-390.png"), fullPage: true });
@@ -118,12 +128,7 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.viewportCount).toBeLessThanOrEqual(8.75);
     expect(metrics.heroLines).toBeLessThanOrEqual(2);
     expect(metrics.credibilityAnimation).toBe("none");
-    expect(metrics.navTargetCount).toBeGreaterThan(0);
-    expect(metrics.visibleNavTargetCount).toBeGreaterThanOrEqual(4);
-
-    for (const target of metrics.navTargets) {
-      expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
-    }
+    expectMobileNavTargets(metrics);
 
     await writeFile(path.join(artifactRoot, "mobile-430-metrics.json"), JSON.stringify(metrics, null, 2));
     await page.screenshot({ path: path.join(screenshotRoot, "phase-j-home-430.png"), fullPage: true });
