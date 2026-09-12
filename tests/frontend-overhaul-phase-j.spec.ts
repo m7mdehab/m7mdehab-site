@@ -30,9 +30,20 @@ async function mobileMetrics(page: Page) {
       return Number.isFinite(lineHeight) && lineHeight > 0 ? Math.max(1, Math.round(height / lineHeight)) : null;
     };
 
-    const navTargets = Array.from(document.querySelectorAll<HTMLElement>(".site-nav a")).map((target) => {
+    const allNavTargets = Array.from(document.querySelectorAll<HTMLElement>(".site-nav a"));
+    const navTargets = allNavTargets.flatMap((target) => {
       const rect = target.getBoundingClientRect();
-      return { text: (target.textContent ?? "").trim(), width: Math.round(rect.width), height: Math.round(rect.height) };
+      const style = getComputedStyle(target);
+      const opacity = Number.parseFloat(style.opacity);
+      const visibleAndTappable = rect.width > 0
+        && rect.height > 0
+        && style.display !== "none"
+        && style.visibility !== "hidden"
+        && style.pointerEvents !== "none"
+        && (!Number.isFinite(opacity) || opacity > 0);
+
+      if (!visibleAndTappable) return [];
+      return [{ text: (target.textContent ?? "").trim(), width: Math.round(rect.width), height: Math.round(rect.height) }];
     });
 
     const track = document.querySelector<HTMLElement>(".credibility-track");
@@ -53,6 +64,8 @@ async function mobileMetrics(page: Page) {
       credibilityAnimation: track ? getComputedStyle(track).animationName : null,
       credibilityOverflowX: viewport ? getComputedStyle(viewport).overflowX : null,
       duplicateDisplay: duplicate ? getComputedStyle(duplicate).display : null,
+      navTargetCount: allNavTargets.length,
+      visibleNavTargetCount: navTargets.length,
       navTargets,
     };
   });
@@ -77,9 +90,11 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.credibilityAnimation).toBe("none");
     expect(["auto", "scroll"]).toContain(metrics.credibilityOverflowX);
     expect(metrics.duplicateDisplay).toBe("none");
+    expect(metrics.navTargetCount).toBeGreaterThan(0);
+    expect(metrics.visibleNavTargetCount).toBeGreaterThanOrEqual(4);
 
     for (const target of metrics.navTargets) {
-      expect(target.height, `nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
+      expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
     }
 
     await writeFile(path.join(artifactRoot, "mobile-390-metrics.json"), JSON.stringify(metrics, null, 2));
@@ -103,6 +118,12 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.viewportCount).toBeLessThanOrEqual(8.75);
     expect(metrics.heroLines).toBeLessThanOrEqual(2);
     expect(metrics.credibilityAnimation).toBe("none");
+    expect(metrics.navTargetCount).toBeGreaterThan(0);
+    expect(metrics.visibleNavTargetCount).toBeGreaterThanOrEqual(4);
+
+    for (const target of metrics.navTargets) {
+      expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
+    }
 
     await writeFile(path.join(artifactRoot, "mobile-430-metrics.json"), JSON.stringify(metrics, null, 2));
     await page.screenshot({ path: path.join(screenshotRoot, "phase-j-home-430.png"), fullPage: true });
