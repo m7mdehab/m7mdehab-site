@@ -61,7 +61,7 @@ export default async function ArabicProjectPage({ params }: { params: Promise<{ 
 
   return (
     <main id="main-content" className="case-shell shell">
-      <Link className="back-link" href="/ar#work">الأعمال المختارة <ArrowRight size={17} aria-hidden="true" /></Link>
+      <Link className="back-link" href="/ar/work">كل الأعمال <ArrowRight size={17} aria-hidden="true" /></Link>
       <div className="case-hero">
         <div>
           <p className="eyebrow">{project.kicker}</p>
