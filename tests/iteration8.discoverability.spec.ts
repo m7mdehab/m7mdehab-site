@@ -27,6 +27,10 @@ test.describe("Iteration 8 discoverability architecture", () => {
     await page.goto("/");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", domain);
 
+    await page.goto("/work");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/work`);
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `${domain}/work`);
+
     for (const slug of projectSlugs) {
       await page.goto(`/work/${slug}`);
       const canonical = `${domain}/work/${slug}`;
@@ -109,6 +113,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     expect(body).toContain("## Services");
     expect(body).toContain("## Writing");
     expect(body).toContain("## Interpretation notes");
+    expect(body).toContain(`${domain}/work`);
     expect(body).toContain(`${domain}/services.json`);
     expect(body).toContain(`${domain}/writing.json`);
     expect(body).toContain("not represented as Power BI artifacts");
@@ -122,13 +127,15 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const xml = await response.text();
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
-    expect(locations).toHaveLength(22);
+    expect(locations).toHaveLength(24);
     expect(locations).toEqual([
       domain,
+      `${domain}/work`,
       ...projectSlugs.map((slug) => `${domain}/work/${slug}`),
       `${domain}/writing`,
       ...writingSlugs.map((slug) => `${domain}/writing/${slug}`),
       `${domain}/ar`,
+      `${domain}/ar/work`,
       ...projectSlugs.map((slug) => `${domain}/ar/work/${slug}`),
       `${domain}/ar/writing`,
       ...writingSlugs.map((slug) => `${domain}/ar/writing/${slug}`),
