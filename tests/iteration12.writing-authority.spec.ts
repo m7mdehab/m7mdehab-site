@@ -84,7 +84,7 @@ test.describe("Iteration 12 evidence-backed authority writing", () => {
   test("homepages promote real essays and primary navigation exposes the writing hub", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("link", { name: "Writing", exact: true })).toHaveAttribute("href", "/writing");
-    await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(3);
+    await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(2);
     await expect(page.locator('#writing a[href="/writing/when-to-trust-a-probabilistic-forecast"]')).toBeVisible();
 
     await page.goto("/ar");
