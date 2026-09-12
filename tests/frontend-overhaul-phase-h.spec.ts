@@ -49,13 +49,16 @@ test.describe("Phase H About architecture", () => {
 
     await expect(page.getByRole("heading", { level: 1, name: "The through-line matters more than titles." })).toBeVisible();
     await expect(page.getByText("Network International", { exact: true }).first()).toBeVisible();
-    await expect(page.getByText("Al Tayseer International for Mills & Food Industries", { exact: true })).toBeVisible();
+    await expect(page.getByText("Business Analyst Team Lead", { exact: true })).toBeVisible();
+    await expect(page.getByText("Data Analyst & Supply Chain Analyst", { exact: true })).toBeVisible();
     await expect(page.getByText("Orcas Online", { exact: true })).toBeVisible();
     await expect(page.getByText("Pharaonic Petroleum Company (PhPC)", { exact: true })).toBeVisible();
     await expect(page.getByText("Canadian International College", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("Databricks", { exact: true }).first()).toBeVisible();
     await expect(page.getByText("McKinsey Academy", { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Tools grouped by the problems they help solve." })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Make the truth visible." })).toBeVisible();
+    await expect(page.getByText("WordPress", { exact: true })).toHaveCount(0);
 
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://m7mdehab.com/about");
     await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "About" })).toHaveAttribute("aria-current", "location");
@@ -79,7 +82,7 @@ test.describe("Phase H About architecture", () => {
     await settle(page);
     await expectNoHorizontalOverflow(page);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByText("Data Migration Engineer", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("Data Engineer", { exact: true }).first()).toBeVisible();
 
     await mkdir(artifactRoot, { recursive: true });
     await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-390.png"), fullPage: true });
