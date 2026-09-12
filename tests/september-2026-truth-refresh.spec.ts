@@ -14,7 +14,7 @@ test.describe("September 2026 career truth refresh", () => {
     expect(JSON.stringify(profile)).not.toContain("Supply Chain Specialist & Data Analyst");
   });
 
-  test("visible career surfaces match the September CV corrections", async ({ page }) => {
+  test("visible English career surfaces match the September CV corrections", async ({ page }) => {
     await page.goto("/about");
     await expect(page.getByText("Data Engineer", { exact: true }).first()).toBeVisible();
     await expect(page.getByText("Business Analyst Team Lead", { exact: true })).toBeVisible();
@@ -26,5 +26,13 @@ test.describe("September 2026 career truth refresh", () => {
     const rail = page.locator(".credibility-rail");
     await expect(rail.locator('[aria-label="Credential: Databricks"]').first()).toBeVisible();
     await expect(rail).not.toContainText("Udacity / ITIDA");
+  });
+
+  test("Arabic factual projection inherits the same refreshed career truth", async ({ page }) => {
+    await page.goto("/ar");
+    await expect(page.getByText("مهندس بيانات", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText("قائد فريق تحليل الأعمال", { exact: true })).toBeVisible();
+    await expect(page.getByText("محلل بيانات ومحلل سلاسل إمداد", { exact: true })).toBeVisible();
+    await expect(page.getByText("WordPress", { exact: true })).toHaveCount(0);
   });
 });
