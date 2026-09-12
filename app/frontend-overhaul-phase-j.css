@@ -1,0 +1,546 @@
+/* Phase J — English mobile art direction.
+   This is a recomposition layer, not a desktop scale-down. Desktop Phase I stays untouched. */
+
+@media (max-width: 700px) {
+  /* Keep the floating navigation genuinely tappable without turning it into a second hero. */
+  .site-nav-wrap {
+    top: 9px;
+  }
+
+  .site-nav {
+    width: calc(100% - 16px);
+    gap: 5px;
+    padding: 5px 6px;
+    border-radius: 24px;
+  }
+
+  .nav-mark {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    font-size: 11px;
+  }
+
+  .nav-links {
+    min-width: 0;
+    flex: 1;
+    justify-content: flex-end;
+    gap: 0;
+  }
+
+  .nav-links a {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 10.5px;
+    line-height: 1;
+  }
+
+  /* The atlas remains the mobile memory point, but identity now lands in two controlled lines. */
+  .overhaul-hero {
+    padding: 72px 0 26px;
+  }
+
+  .overhaul-hero-meta {
+    margin-bottom: 15px;
+    padding-bottom: 9px;
+  }
+
+  .hero-evidence-atlas {
+    min-height: 306px;
+    margin-bottom: 18px;
+  }
+
+  .overhaul-hero-title {
+    max-width: 100%;
+    font-size: clamp(2.55rem, 11.7vw, 3.05rem);
+    line-height: .88;
+    letter-spacing: -.062em;
+  }
+
+  .overhaul-hero-title > span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .overhaul-hero-title em {
+    margin-top: .06em;
+  }
+
+  .overhaul-hero-proposition {
+    max-width: 34ch;
+    margin-top: 17px;
+    font-size: 14px;
+    line-height: 1.46;
+  }
+
+  .overhaul-hero-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 18px;
+  }
+
+  .overhaul-action {
+    min-height: 46px;
+    padding: 9px 10px;
+    border-radius: 16px;
+    font-size: 10.5px;
+    line-height: 1.18;
+  }
+
+  .overhaul-action svg {
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+  }
+
+  .overhaul-hero-route {
+    display: none;
+  }
+
+  /* On touch, the credibility rail becomes deliberate horizontal browsing instead of ambient motion. */
+  .credibility-rail {
+    padding: 14px 0 16px;
+  }
+
+  .credibility-rail-label {
+    margin-bottom: 8px;
+  }
+
+  .credibility-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  }
+
+  .credibility-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .credibility-track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .credibility-sequence[aria-hidden="true"] {
+    display: none;
+  }
+
+  .credibility-group,
+  .credibility-item {
+    scroll-snap-align: start;
+  }
+
+  /* Selected work keeps three different evidence grammars, but no single card monopolizes the phone. */
+  .selected-work {
+    padding: 54px 0 60px;
+  }
+
+  .selected-work-shell {
+    gap: 20px;
+  }
+
+  .selected-work-intro {
+    gap: 17px;
+  }
+
+  .selected-work-eyebrow {
+    margin-bottom: 11px;
+  }
+
+  .selected-work-intro h2 {
+    max-width: 340px;
+    font-size: clamp(2.2rem, 10.2vw, 2.55rem);
+    line-height: .95;
+    letter-spacing: -.052em;
+    text-wrap: balance;
+  }
+
+  .selected-work-intro-copy {
+    gap: 12px;
+  }
+
+  .selected-work-intro-copy p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .selected-work-feature-visual {
+    min-height: 336px;
+  }
+
+  .selected-work-feature-visual > * {
+    padding: 15px !important;
+  }
+
+  .selected-work-card-copy {
+    padding: 17px 18px 19px;
+  }
+
+  .selected-work-card-copy h3 {
+    margin: 7px 0 8px;
+    font-size: 2.25rem;
+  }
+
+  .selected-work-card-copy > p {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .selected-work-proof {
+    margin-top: 12px;
+    padding-top: 10px;
+    gap: 10px;
+    font-size: 8px;
+  }
+
+  .selected-work-system,
+  .selected-work-commerce {
+    min-height: 278px;
+    padding: 16px;
+  }
+
+  .selected-work-system-map {
+    margin: 14px 0 13px;
+  }
+
+  .selected-work-system-map span {
+    padding-top: 7px;
+    font-size: 8px;
+  }
+
+  .selected-work-card-copy-compact h3 {
+    font-size: 2rem;
+  }
+
+  .selected-work-browser {
+    margin: 13px 0;
+  }
+
+  .selected-work-browser-bar {
+    height: 28px;
+  }
+
+  .selected-work-browser-body {
+    padding: 11px;
+  }
+
+  .selected-work-browser-body > p {
+    margin-bottom: 10px;
+    font-size: 1.45rem;
+  }
+
+  /* SEE → REDUCE → BUILD is re-authored as a compact phone-native system, not a long vertical dashboard. */
+  .solve-think {
+    padding: 56px 0 62px;
+  }
+
+  .solve-think-shell {
+    gap: 21px;
+  }
+
+  .solve-think-intro {
+    gap: 16px;
+  }
+
+  .solve-think-intro h2 {
+    max-width: 340px;
+    font-size: clamp(2.25rem, 10.4vw, 2.65rem);
+    line-height: .94;
+    text-wrap: balance;
+  }
+
+  .solve-think-intro-copy {
+    gap: 8px;
+  }
+
+  .solve-think-intro-copy p {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .solve-think-raw,
+  .solve-think-output {
+    padding: 14px;
+  }
+
+  .solve-think-raw-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 13px;
+  }
+
+  .solve-think-raw-line,
+  .solve-think-raw-line[data-offset="1"],
+  .solve-think-raw-line[data-offset="2"] {
+    display: grid;
+    gap: 5px;
+    min-height: 61px;
+    padding: 8px;
+    transform: none;
+  }
+
+  .solve-think-step {
+    grid-template-columns: 44px 72px minmax(0, 1fr);
+    gap: 6px 10px;
+    min-height: 132px;
+    padding: 14px 12px;
+  }
+
+  .solve-think-step-head {
+    padding-right: 8px;
+  }
+
+  .solve-think-glyph {
+    max-height: 58px;
+  }
+
+  .solve-think-step h3 {
+    font-size: 1.27rem;
+  }
+
+  .solve-think-step p {
+    font-size: 9.5px;
+    line-height: 1.38;
+  }
+
+  .solve-think-output-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 12px;
+    margin-top: 14px;
+  }
+
+  .solve-think-output-stack > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    min-width: 0;
+    padding: 9px 0;
+  }
+
+  .solve-think-output-stack > div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .solve-think-footer {
+    gap: 11px;
+  }
+
+  /* Writing remains visual, but evidence should not cost an extra screen per note. */
+  .closing-thinking {
+    padding: 54px 0 60px;
+  }
+
+  .closing-heading {
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .closing-heading h2,
+  .closing-opportunity-head h2 {
+    max-width: 340px;
+    font-size: clamp(2.2rem, 10.4vw, 2.65rem);
+    line-height: .96;
+    text-wrap: balance;
+  }
+
+  .closing-heading-side {
+    gap: 11px;
+  }
+
+  .closing-heading-side p,
+  .closing-opportunity-head > p:last-child {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .closing-note {
+    grid-template-rows: auto 184px;
+  }
+
+  .closing-note-copy {
+    padding: 18px;
+  }
+
+  .closing-note h3 {
+    margin: 19px 0 10px;
+    font-size: clamp(1.72rem, 7.8vw, 2.1rem);
+  }
+
+  .closing-note-copy > p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .closing-note-action {
+    padding-top: 18px;
+  }
+
+  .closing-note-visual {
+    min-height: 184px;
+  }
+
+  .closing-note-visual-head,
+  .closing-note-proof {
+    left: 13px;
+    right: 13px;
+    font-size: 8px;
+  }
+
+  .closing-note-proof span {
+    padding: 5px 6px;
+  }
+
+  /* Opportunity keeps both routes distinct while compressing redundant chrome. */
+  .closing-opportunity {
+    padding: 56px 0 48px;
+  }
+
+  .closing-opportunity-head {
+    gap: 13px;
+    margin-bottom: 24px;
+  }
+
+  .closing-path,
+  .closing-path + .closing-path {
+    padding: 23px 0 27px;
+  }
+
+  .closing-path-kicker {
+    margin-top: 20px;
+  }
+
+  .closing-path h3 {
+    margin: 9px 0 12px;
+    font-size: clamp(1.65rem, 7.9vw, 2.15rem);
+    line-height: 1;
+  }
+
+  .closing-path > p:not(.closing-path-kicker) {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .closing-path-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 20px;
+  }
+
+  .closing-path-actions a {
+    min-height: 44px;
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 14px;
+    font-size: 10px;
+  }
+
+  .closing-path:first-child .closing-path-actions a:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .closing-directory {
+    padding: 30px 0 24px;
+  }
+
+  .closing-directory-grid {
+    gap: 26px;
+  }
+
+  .closing-directory-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding-top: 0;
+  }
+
+  .closing-directory-end {
+    gap: 13px;
+    padding-top: 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .overhaul-hero-meta {
+    font-size: 8.5px;
+  }
+
+  .atlas-forecast {
+    width: 66%;
+    height: 50%;
+  }
+
+  .atlas-sar {
+    width: 50%;
+    height: 39%;
+  }
+
+  .atlas-system {
+    width: 57%;
+    min-height: 31%;
+  }
+
+  .credibility-item {
+    min-width: 146px;
+  }
+
+  .credibility-group {
+    width: 116px;
+  }
+
+  .selected-work-feature-visual {
+    min-height: 318px;
+  }
+
+  .selected-work-system,
+  .selected-work-commerce {
+    min-height: 266px;
+  }
+
+  .solve-think-board {
+    margin-left: 0;
+    margin-right: 0;
+    border-left: 1px solid rgba(255, 255, 255, .13);
+    border-right: 1px solid rgba(255, 255, 255, .13);
+  }
+
+  .solve-think-step {
+    grid-template-columns: 42px 66px minmax(0, 1fr);
+    gap: 6px 8px;
+    min-height: 126px;
+    padding: 13px 10px;
+  }
+
+  .closing-note-meta {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-links a {
+    padding-inline: 6px;
+    font-size: 10px;
+  }
+
+  .overhaul-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .overhaul-hero-actions,
+  .closing-path-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .closing-path:first-child .closing-path-actions a:first-child {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 700px) {
+  .credibility-viewport {
+    scroll-behavior: auto;
+    mask-image: none;
+  }
+}
