@@ -60,7 +60,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main id="main-content" className="case-shell shell">
-      <Link className="back-link" href="/#work"><ArrowLeft size={17} aria-hidden="true" /> Selected work</Link>
+      <Link className="back-link" href="/work"><ArrowLeft size={17} aria-hidden="true" /> All work</Link>
       <div className="case-hero">
         <div>
           <p className="eyebrow">{project.kicker}</p>
