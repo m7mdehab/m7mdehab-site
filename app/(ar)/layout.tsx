@@ -19,6 +19,7 @@ import "../frontend-overhaul-phase-i-fixes.css";
 import "../frontend-overhaul-phase-j.css";
 import "../arabic.css";
 import "../frontend-overhaul-phase-k.css";
+import "../frontend-overhaul-phase-k-fixes.css";
 import { SiteNavAr } from "@/components/site-nav-ar";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { profile } from "@/data/public";
