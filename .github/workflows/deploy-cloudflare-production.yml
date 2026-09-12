@@ -65,10 +65,12 @@ jobs:
           test -f out/llms.txt
           test -f out/_headers
 
-          if grep -Fq 'X-Robots-Tag: noindex' out/_headers; then
-            echo "Production artifact must not carry the staging noindex header" >&2
-            exit 1
-          fi
+          # The shared static artifact deliberately contains a host-scoped noindex
+          # rule for workers.dev staging. Production acceptance is performed against
+          # the live apex below; do not reject the artifact merely because that
+          # staging-only rule exists.
+          grep -F 'https://:version.:subdomain.workers.dev/*' out/_headers
+          grep -F 'X-Robots-Tag: noindex' out/_headers
 
           assert_export() {
             local file="$1"
