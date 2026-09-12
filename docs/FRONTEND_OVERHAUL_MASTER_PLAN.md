@@ -2,7 +2,7 @@
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** ACTIVE  
-**Current phase:** Phase D — Visual Foundation + Hero + Navigation + Credibility Rail  
+**Current phase:** Phase E — Selected Work Rebuild  
 **Created:** 2026-09-12  
 **Authority:** Mohammed Ehab ElNomany
 
@@ -161,17 +161,48 @@ Accepted Phase C validation:
 
 Decision record: `docs/frontend-overhaul/PHASE_C_DIRECTION_COMPARISON.md`.
 
-## Phase D — Visual Foundation + Hero + Nav + Credibility Rail — ACTIVE
+## Phase D — Visual Foundation + Hero + Nav + Credibility Rail — COMPLETE / ACCEPTED
 
-Immediate production objective: convert the accepted hybrid direction into the real homepage foundation without yet rebuilding the full Selected Work chapter.
+Production foundation now implements the accepted hybrid direction without replacing governed truth or discoverability infrastructure.
 
-Define typography, palette, grid, spacing, border/radius rules, imagery/background treatment, focus/hover states and one coherent motion grammar. Rebuild hero from scratch. Implement reduced primary nav (`Work · About · Writing · Contact · AR` as current candidate). Acquire/verify logo assets and implement the credibility rail.
+Completed:
 
-Phase D acceptance requires rendered desktop and mobile review before proceeding to Phase E.
+- dark systems/evidence hero built from real Presaira calibration, Oil Spill Detection SAR evidence and OpportunityOS system vocabulary;
+- reduced primary navigation: `Work · About · Writing · Contact · AR`;
+- shallow relationship-labelled credibility rail with accurate Employment / Teaching / Internship / Credential / Education / Scholarship semantics;
+- typographic organization marks where logo reuse is not verified rather than fabricated logo/client treatment;
+- dedicated Phase D visual tokens, spacing, density, focus/hover and motion layer;
+- desktop and 390px rendered regression coverage;
+- explicit reduced-motion behavior;
+- accessibility correction after CI caught low-contrast rail metadata.
 
-## Phase E — Selected Work Rebuild
+Accepted Phase D validation:
 
-Select three Home flagships. Explore short sticky stage, spatial/asymmetric gallery, controlled carousel/project switcher or dominant-on-hover grid. Keep copy minimal and evidence dominant. Remaining projects move to `/work`.
+- user inspected and accepted the corrected desktop/mobile rendering;
+- PR #13 merged to `main` at `43989204925eb82e1d335c713d85cc4705e283ed`;
+- Deployment Readiness `34664830875` — PASS;
+- Application CI `34664830860` — PASS;
+- Playwright `53/53` — PASS;
+- rendered QA artifact `10288409572`;
+- artifact SHA-256 `aeef78fa82c2fb2fbda8f2304537fcf064b5d8328bae05ea2a771f43a7ddc1e2`.
+
+Decision/system record: `docs/frontend-overhaul/PHASE_D_VISUAL_SYSTEM.md`.
+
+## Phase E — Selected Work Rebuild — ACTIVE
+
+Current implementation objective: replace the legacy six-card homepage project wall with the accepted Spatial Evidence composition.
+
+Current implementation set:
+
+- Presaira;
+- OpportunityOS;
+- Ghareeb Oglu Commerce.
+
+The third slot deliberately broadens story coverage into ecommerce/product delivery while Oil Spill Detection remains present in the hero atlas and complete `/work` directory.
+
+Phase E also introduces bilingual `/work` and `/ar/work` directory routes so the remaining projects are compactly browsable without returning six giant cards to Home.
+
+Rendered desktop/mobile acceptance remains required before merge. Decision record: `docs/frontend-overhaul/PHASE_E_SELECTED_WORK.md`.
 
 ## Phase F — What I Solve / How I Think
 
@@ -224,8 +255,8 @@ The redesign fails if:
 | A — IA demolition | COMPLETE |
 | B — reference exploration | COMPLETE |
 | C — direction prototypes | **COMPLETE / ACCEPTED** |
-| D — visual foundation / hero / nav / rail | **ACTIVE** |
-| E — selected work | Not started |
+| D — visual foundation / hero / nav / rail | **COMPLETE / ACCEPTED** |
+| E — selected work | **ACTIVE** |
 | F — solve/think bridge | Not started |
 | G — writing / opportunity / footer | Not started |
 | H — about route | Not started |
