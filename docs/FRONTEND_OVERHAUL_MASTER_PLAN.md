@@ -187,30 +187,35 @@ Decision record: `docs/frontend-overhaul/PHASE_H_ABOUT_ARCHITECTURE.md`.
 
 Phase I judged the complete English Home as one continuous 1920 × 1080 production render rather than as individually accepted sections.
 
-The first acceptance run was intentionally rejected by the new hierarchy gate because two ordinary H2 headings wrapped to three lines. The gate was not weakened. Copy was tightened to:
+The first acceptance run was intentionally rejected by the hierarchy gate because two ordinary H2 headings wrapped to three lines. The gate was not weakened. Copy was tightened to:
 
 - **`Three ways into the work. One standard.`**
 - **`Choose the right conversation.`**
 
-The final render measures:
+A final desktop hierarchy refinement reduced the selected-work display scale and widened the opportunity composition rather than returning to oversized editorial typography.
 
-- **5702 px** total height;
-- **5.28 viewport heights** at 1920 × 1080;
+The final code-bearing production render measures:
+
+- **5585 px** total height;
+- **5.17 viewport heights** at 1920 × 1080;
 - **0 px horizontal overflow**;
-- all ordinary H2 headings at **1–2 lines**.
+- all ordinary H2 headings at **1–2 lines**;
+- final opportunity heading at **1 line**.
 
 Human inspection accepted the complete rhythm: dark evidence hero → shallow credibility rail → warm work → dark method → warm writing → dark opportunity/footer. No CV-dump structure, blocking navigation collision, giant dead zone or uncontrolled display-heading regression remains.
 
-Final validation:
+Final code-bearing validation:
 
-- Deployment Readiness `34708286502` PASS;
-- Application CI `34708286573` PASS;
+- Deployment Readiness `34709324487` PASS;
+- Application CI `34709324523` PASS;
 - Playwright `79/79` PASS;
-- English Home Lighthouse **92 / 100 / 100 / 100 / 100**;
-- Presaira **98 / 100 / 100 / 100 / 100**;
-- Arabic Home **95 / 100 / 100 / 100 / 100**;
-- rendered artifact `10302891370`;
-- artifact SHA-256 `c3a956b869fcd619386a945f7e42f43b542747ec574020c9531f292c0ae46748`.
+- English Home Lighthouse **87 / 100 / 100 / 100 / 100**;
+- Presaira **96 / 100 / 100 / 100 / 100**;
+- Arabic Home **97 / 100 / 100 / 100 / 100**;
+- rendered artifact `10302757601`;
+- artifact SHA-256 `fa938bea0ae5dca388d7c0b0840b2c388c4f68c03a4de2253955187b5abab4eb`.
+
+A final documentation-only verification rerun also passed Deployment Readiness `34709645925`, Application CI `34709646098`, and all `79/79` browser tests. Its Lighthouse performance variance is runner-dependent; accessibility, best-practices, SEO and agentic-browsing remained 100.
 
 Decision record: `docs/frontend-overhaul/PHASE_I_ENGLISH_DESKTOP_ACCEPTANCE.md`.
 
