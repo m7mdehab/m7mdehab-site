@@ -38,24 +38,18 @@ test.describe("Phase E selected work rebuild", () => {
     await section.screenshot({ path: path.join(screenshotRoot, "phase-e-selected-work-1440.png") });
   });
 
-  test("bilingual work directories expose all six projects with reciprocal canonicals", async ({ page }) => {
+  test("English work directory exposes all six projects without an Arabic alternate", async ({ page }) => {
     await page.goto("/work");
     await settle(page);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/work`);
-    await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveAttribute("href", `${domain}/ar/work`);
-    const englishSlugs = await page.locator("[data-work-directory] [data-project-slug]").evaluateAll((nodes) => nodes.map((node) => node.getAttribute("data-project-slug")));
-    expect(englishSlugs).toEqual(allSlugs);
-
-    await page.goto("/ar/work");
-    await settle(page);
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/ar/work`);
-    await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", `${domain}/work`);
-    const arabicSlugs = await page.locator("[data-work-directory] [data-project-slug]").evaluateAll((nodes) => nodes.map((node) => node.getAttribute("data-project-slug")));
-    expect(arabicSlugs).toEqual(allSlugs);
+    await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveCount(0);
+    const slugs = await page.locator("[data-work-directory] [data-project-slug]").evaluateAll((nodes) => nodes.map((node) => node.getAttribute("data-project-slug")));
+    expect(slugs).toEqual(allSlugs);
+    expect((await page.goto("/ar/work"))?.status()).toBe(404);
   });
 
-  test("new work surfaces pass axe on desktop", async ({ page }) => {
-    for (const route of ["/", "/work", "/ar/work"]) {
+  test("new English work surfaces pass axe on desktop", async ({ page }) => {
+    for (const route of ["/", "/work"]) {
       await page.goto(route);
       await settle(page);
       const results = await new AxeBuilder({ page }).analyze();
@@ -63,7 +57,7 @@ test.describe("Phase E selected work rebuild", () => {
     }
   });
 
-  test("selected work and work directories fit a 390px viewport", async ({ page }) => {
+  test("selected work and English work directory fit a 390px viewport", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
     await page.setViewportSize({ width: 390, height: 844 });
 
@@ -72,12 +66,10 @@ test.describe("Phase E selected work rebuild", () => {
     await expectNoHorizontalOverflow(page);
     await page.locator("[data-selected-work]").screenshot({ path: path.join(screenshotRoot, "phase-e-selected-work-390.png") });
 
-    for (const route of ["/work", "/ar/work"]) {
-      await page.goto(route);
-      await settle(page);
-      await expectNoHorizontalOverflow(page);
-      await expect(page.locator("[data-work-directory] [data-project-slug]")).toHaveCount(6);
-    }
+    await page.goto("/work");
+    await settle(page);
+    await expectNoHorizontalOverflow(page);
+    await expect(page.locator("[data-work-directory] [data-project-slug]")).toHaveCount(6);
   });
 
   test("reduced motion keeps all project routes visible without transform-owned state", async ({ page }) => {
