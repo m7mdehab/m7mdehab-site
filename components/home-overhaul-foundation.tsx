@@ -4,7 +4,9 @@ import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { HeroAmbientField } from "@/components/hero-ambient-field";
 import { profile } from "@/data/public";
 
-const experienceSignals: ReadonlyArray<{ name: string; relationship: string; brand: BrandKey }> = [
+type BrandSignalData = { name: string; relationship: string; brand: BrandKey; secondaryBrand?: BrandKey };
+
+const experienceSignals: ReadonlyArray<BrandSignalData> = [
   { name: "Network International", relationship: "Employment", brand: "network" },
   { name: "Al Tayseer", relationship: "Employment", brand: "altayseer" },
   { name: "Orcas", relationship: "Teaching", brand: "orcas" },
@@ -12,11 +14,11 @@ const experienceSignals: ReadonlyArray<{ name: string; relationship: string; bra
   { name: "Zewail City", relationship: "Internship", brand: "zewail" },
 ];
 
-const learningSignals: ReadonlyArray<{ name: string; relationship: string; brand: BrandKey }> = [
+const learningSignals: ReadonlyArray<BrandSignalData> = [
   { name: "Databricks", relationship: "Credential", brand: "databricks" },
   { name: "McKinsey Forward", relationship: "Credential", brand: "mckinsey" },
   { name: "Canadian International College", relationship: "Education", brand: "cic" },
-  { name: "ExploreAI / ALX", relationship: "Scholarship", brand: "exploreai" },
+  { name: "ExploreAI / ALX", relationship: "Scholarship", brand: "exploreai", secondaryBrand: "alx" },
 ];
 
 const heroRoles = ["Data Engineer", "AI Engineer", "Business Analyst", "Data Analyst"] as const;
@@ -54,10 +56,13 @@ export function SystemHero() {
   );
 }
 
-function BrandSignal({ signal }: { signal: { name: string; relationship: string; brand: BrandKey } }) {
+function BrandSignal({ signal }: { signal: BrandSignalData }) {
   return (
     <span className="credibility-item credibility-brand-item" aria-label={`${signal.relationship}: ${signal.name}`}>
-      <BrandLogo brand={signal.brand} />
+      <span className="credibility-brand-marks">
+        <BrandLogo brand={signal.brand} />
+        {signal.secondaryBrand ? <BrandLogo brand={signal.secondaryBrand} /> : null}
+      </span>
       <span className="credibility-brand-copy">
         <small>{signal.relationship}</small>
         <strong>{signal.name}</strong>
