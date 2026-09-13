@@ -12,7 +12,7 @@ import {
   primaryExperience,
   workingPrinciples,
 } from "@/data/about";
-import { profile } from "@/data/public";
+import { emailComposeHref } from "@/data/contact-links";
 
 function AboutSectionHead({ index, eyebrow, title, copy }: { index: string; eyebrow: string; title: string; copy?: string }) {
   return (
@@ -242,7 +242,7 @@ export function AboutPage() {
             <Link href="/work">Selected work <ArrowRight size={15} aria-hidden="true" /></Link>
             <Link href="/services">Service context <ArrowRight size={15} aria-hidden="true" /></Link>
             <Link href="/writing">Writing <ArrowRight size={15} aria-hidden="true" /></Link>
-            <a href={`mailto:${profile.email}`} data-conversion="about-contact">Discuss an opportunity <Mail size={15} aria-hidden="true" /></a>
+            <a href={emailComposeHref("Role or project opportunity")} target="_blank" rel="noreferrer" data-conversion="about-contact">Discuss an opportunity <Mail size={15} aria-hidden="true" /></a>
           </Reveal>
         </div>
       </section>
