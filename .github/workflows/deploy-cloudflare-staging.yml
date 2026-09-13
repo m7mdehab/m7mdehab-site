@@ -93,12 +93,12 @@ jobs:
           assert_export out/services.html out/services/index.html "English services"
           assert_export out/writing.html out/writing/index.html "English writing hub"
           assert_export out/writing/when-to-trust-a-probabilistic-forecast.html out/writing/when-to-trust-a-probabilistic-forecast/index.html "English authority essay"
-          assert_export out/ar.html out/ar/index.html "Arabic homepage"
-          assert_export out/ar/about.html out/ar/about/index.html "Arabic About"
-          assert_export out/ar/work.html out/ar/work/index.html "Arabic work directory"
-          assert_export out/ar/services.html out/ar/services/index.html "Arabic services"
-          assert_export out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
-          assert_export out/ar/writing/when-to-trust-a-probabilistic-forecast.html out/ar/writing/when-to-trust-a-probabilistic-forecast/index.html "Arabic authority essay"
+          test ! -f out/ar.html
+          test ! -f out/ar/index.html
+          if grep -Fq '/ar' out/sitemap.xml; then
+            echo "Staging sitemap still exposes Arabic routes" >&2
+            exit 1
+          fi
 
       - name: Deploy to Cloudflare staging
         env:
@@ -106,7 +106,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.static.jsonc
 
-      - name: Verify live staging routes, headers, and canonical isolation
+      - name: Verify live staging routes, headers, canonical isolation, and Arabic absence
         shell: bash
         run: |
           set -euo pipefail
@@ -116,43 +116,22 @@ jobs:
           last_status=unset
 
           for attempt in {1..45}; do
-            status="$(
-              curl --silent --show-error --location \
-                --dump-header /tmp/staging-headers-candidate.txt \
-                --output /tmp/staging-home-candidate.html \
-                --write-out '%{http_code}' \
-                "$STAGING_BASE_URL/" || true
-            )"
+            status="$(curl --silent --show-error --location --dump-header /tmp/staging-headers-candidate.txt --output /tmp/staging-home-candidate.html --write-out '%{http_code}' "$STAGING_BASE_URL/" || true)"
             last_status="${status:-curl-error}"
             echo "Staging readiness attempt ${attempt}: HTTP ${last_status}"
-
             if [ "$status" = "200" ]; then
               consecutive_200=$((consecutive_200 + 1))
               cp /tmp/staging-headers-candidate.txt /tmp/staging-headers.txt
               cp /tmp/staging-home-candidate.html /tmp/staging-home.html
-
-              if [ "$consecutive_200" -ge 3 ]; then
-                ready=1
-                break
-              fi
+              if [ "$consecutive_200" -ge 3 ]; then ready=1; break; fi
             else
               consecutive_200=0
             fi
-
             sleep 2
           done
 
           if [ "$ready" -ne 1 ]; then
             echo "Staging origin did not stabilize at HTTP 200: $STAGING_BASE_URL (last status: $last_status)" >&2
-            if [ -f /tmp/staging-headers-candidate.txt ]; then
-              echo "--- last response headers ---" >&2
-              tr -d '\r' < /tmp/staging-headers-candidate.txt >&2 || true
-            fi
-            if [ -f /tmp/staging-home-candidate.html ]; then
-              echo "--- last response body (first 800 bytes) ---" >&2
-              head -c 800 /tmp/staging-home-candidate.html >&2 || true
-              echo >&2
-            fi
             exit 1
           fi
 
@@ -165,55 +144,33 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/staging-home.html', 'utf8');
-          if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) {
-            throw new Error('Homepage canonical is not the production apex URL');
-          }
-          if (html.includes('<link rel="canonical" href="https://m7mdehab-site.m7mdehab.workers.dev"')) {
-            throw new Error('Staging workers.dev URL must never become canonical');
-          }
+          if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Homepage canonical is not the production apex URL');
+          if (html.includes('<link rel="canonical" href="https://m7mdehab-site.m7mdehab.workers.dev"')) throw new Error('Staging workers.dev URL must never become canonical');
+          if (/hreflang=["']ar["']/i.test(html)) throw new Error('English homepage still advertises Arabic hreflang');
+          if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('English homepage still links to Arabic');
           NODE
 
           routes=(
-            "/"
-            "/about"
-            "/work"
-            "/work/presaira"
-            "/work/opportunityos"
-            "/work/ghareeb-oglu"
-            "/work/oil-spill-detection"
-            "/work/solar-site-selection"
-            "/work/makhbazy"
-            "/services"
-            "/writing"
+            "/" "/about" "/work"
+            "/work/presaira" "/work/opportunityos" "/work/ghareeb-oglu"
+            "/work/oil-spill-detection" "/work/solar-site-selection" "/work/makhbazy"
+            "/services" "/writing"
             "/writing/when-to-trust-a-probabilistic-forecast"
             "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
             "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
-            "/ar"
-            "/ar/about"
-            "/ar/work"
-            "/ar/work/presaira"
-            "/ar/work/opportunityos"
-            "/ar/work/ghareeb-oglu"
-            "/ar/work/oil-spill-detection"
-            "/ar/work/solar-site-selection"
-            "/ar/work/makhbazy"
-            "/ar/services"
-            "/ar/writing"
-            "/ar/writing/when-to-trust-a-probabilistic-forecast"
-            "/ar/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
-            "/ar/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
-            "/profile.json"
-            "/projects.json"
-            "/services.json"
-            "/writing.json"
-            "/llms.txt"
-            "/robots.txt"
-            "/sitemap.xml"
+            "/profile.json" "/projects.json" "/services.json" "/writing.json"
+            "/llms.txt" "/robots.txt" "/sitemap.xml"
           )
-
           for route in "${routes[@]}"; do
             echo "Checking staged ${route}"
             curl --fail --silent --show-error "$STAGING_BASE_URL${route}" > /dev/null
+          done
+
+          retired_routes=("/ar" "/ar/about" "/ar/work" "/ar/work/presaira" "/ar/services" "/ar/writing" "/ar/writing/when-to-trust-a-probabilistic-forecast")
+          for route in "${retired_routes[@]}"; do
+            status="$(curl --silent --output /dev/null --write-out '%{http_code}' "$STAGING_BASE_URL${route}")"
+            echo "Checking retired staged ${route}: HTTP ${status}"
+            test "$status" = "404"
           done
 
       - name: Install Chromium for deployed-origin acceptance
@@ -230,8 +187,8 @@ jobs:
           mkdir -p artifacts/staging-screenshots
           npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$STAGING_BASE_URL/" artifacts/staging-screenshots/home-1920.png
           npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$STAGING_BASE_URL/" artifacts/staging-screenshots/home-390.png
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$STAGING_BASE_URL/ar" artifacts/staging-screenshots/ar-home-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$STAGING_BASE_URL/ar" artifacts/staging-screenshots/ar-home-390.png
+          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$STAGING_BASE_URL/about" artifacts/staging-screenshots/about-1920.png
+          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$STAGING_BASE_URL/about" artifacts/staging-screenshots/about-390.png
 
       - name: Lighthouse staging baseline
         shell: bash
@@ -239,19 +196,13 @@ jobs:
           mkdir -p artifacts/staging-lighthouse
           npx lighthouse "$STAGING_BASE_URL/" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/home.json || true
           npx lighthouse "$STAGING_BASE_URL/work/presaira" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/presaira.json || true
-          npx lighthouse "$STAGING_BASE_URL/ar" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/staging-lighthouse/ar-home.json || true
           node - <<'NODE'
           const fs = require('fs');
-          for (const name of ['home', 'presaira', 'ar-home']) {
+          for (const name of ['home', 'presaira']) {
             const file = `artifacts/staging-lighthouse/${name}.json`;
             if (!fs.existsSync(file)) continue;
             const report = JSON.parse(fs.readFileSync(file, 'utf8'));
-            const categories = Object.fromEntries(
-              Object.entries(report.categories).map(([key, value]) => [
-                key,
-                Math.round((value.score ?? 0) * 100),
-              ]),
-            );
+            const categories = Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
             const benchmarkIndex = report.environment?.benchmarkIndex ?? null;
             console.log(`${name}:`, { benchmarkIndex, ...categories });
           }
