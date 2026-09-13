@@ -7,15 +7,12 @@ import { profile } from "@/data/public";
 
 type BrandSignalData = { name: string; detail: string; brand: BrandKey; secondaryBrand?: BrandKey };
 
-const experienceSignals: ReadonlyArray<BrandSignalData> = [
+const credibilitySignals: ReadonlyArray<BrandSignalData> = [
   { name: "Network International", detail: "Data engineering & migration", brand: "network" },
   { name: "Al Tayseer", detail: "Business analysis & reporting", brand: "altayseer" },
   { name: "Orcas", detail: "Computer science & data tutoring", brand: "orcas" },
   { name: "NARSS", detail: "Data & machine learning", brand: "narss" },
   { name: "Zewail City", detail: "Machine learning", brand: "zewail" },
-];
-
-const learningSignals: ReadonlyArray<BrandSignalData> = [
   { name: "Databricks", detail: "Data Engineer Associate", brand: "databricks" },
   { name: "McKinsey Forward", detail: "Foundation & Advanced", brand: "mckinsey" },
   { name: "Canadian International College", detail: "BSc Computer Science · Data Science", brand: "cic" },
@@ -65,8 +62,12 @@ export function SystemHero() {
 
 function BrandSignal({ signal }: { signal: BrandSignalData }) {
   return (
-    <span className="credibility-item credibility-brand-item" aria-label={`${signal.name}: ${signal.detail}`}>
-      <span className="credibility-brand-marks">
+    <span
+      className="credibility-item credibility-brand-item"
+      aria-label={`${signal.name}: ${signal.detail}`}
+      data-brand-card={signal.brand}
+    >
+      <span className="credibility-brand-marks" aria-hidden="true">
         <BrandLogo brand={signal.brand} mode="native" />
         {signal.secondaryBrand ? <BrandLogo brand={signal.secondaryBrand} mode="native" /> : null}
       </span>
@@ -81,14 +82,7 @@ function BrandSignal({ signal }: { signal: BrandSignalData }) {
 function CredibilitySequence({ duplicate = false }: { duplicate?: boolean }) {
   return (
     <div className="credibility-sequence credibility-logo-sequence" aria-hidden={duplicate ? "true" : undefined}>
-      <div className="credibility-logo-group">
-        <span className="credibility-group">Experience across</span>
-        {experienceSignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
-      </div>
-      <div className="credibility-logo-group credibility-logo-group-learning">
-        <span className="credibility-group">Learning &amp; credentials</span>
-        {learningSignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
-      </div>
+      {credibilitySignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
     </div>
   );
 }
