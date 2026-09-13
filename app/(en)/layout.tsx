@@ -27,10 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
   title: { default: `${profile.name} — Data, AI & Product`, template: `%s — ${profile.name}` },
   description: profile.proposition,
-  alternates: {
-    canonical: "/",
-    languages: { en: "/", ar: "/ar", "x-default": "/" },
-  },
+  alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.domain }],
   openGraph: {
     title: `${profile.name} — Data, AI & Product`,
@@ -39,7 +36,6 @@ export const metadata: Metadata = {
     siteName: profile.name,
     type: "profile",
     locale: "en_US",
-    alternateLocale: ["ar_EG"],
   },
   twitter: {
     card: "summary",
