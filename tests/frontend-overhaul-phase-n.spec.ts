@@ -53,7 +53,7 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
 
     const network = sequences.first().locator('.credibility-brand-item[aria-label^="Network International:"]');
     await expect(network).toContainText("Network International");
-    await expect(network).toContainText("Data Engineer");
+    await expect(network).toContainText("Data engineering & migration");
     expect(await network.evaluate((element) => getComputedStyle(element).flexDirection)).toBe("column");
 
     const nativeLogos = sequences.first().locator(".brand-logo-native");
