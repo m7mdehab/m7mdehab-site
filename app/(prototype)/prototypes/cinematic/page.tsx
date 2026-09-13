@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ProjectVisual } from "@/components/project-visual";
+import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 
@@ -74,7 +75,7 @@ export default function CinematicPrototype() {
             <div className="cinema-kicker proto-eyebrow"><span>Data · AI · Product</span><span>Cairo, Egypt</span></div>
             <h1 className="cinema-title">Mohammed Ehab <em>ElNomany</em></h1>
             <p className="cinema-lead">{profile.proposition}</p>
-            <div className="proto-actions"><a className="proto-button" href="#work">Explore selected work ↘</a><a className="proto-button" href={`mailto:${profile.email}`}>Discuss an opportunity ↗</a></div>
+            <div className="proto-actions"><a className="proto-button" href="#work">Explore selected work ↘</a><a className="proto-button" href={emailComposeHref("Role or project opportunity")} target="_blank" rel="noreferrer">Discuss an opportunity ↗</a></div>
           </div>
         </div>
       </section>
@@ -102,7 +103,7 @@ export default function CinematicPrototype() {
       </section>
       <section className="cinema-cta proto-shell" id="contact">
         <p className="proto-eyebrow">Opportunity · 03</p><h2>Have a difficult problem worth <span className="proto-serif">solving?</span></h2>
-        <div className="proto-actions"><a className="proto-button" href={`mailto:${profile.email}`}>Email Mohammed ↗</a><a className="proto-button" href={profile.linkedin}>LinkedIn ↗</a></div>
+        <div className="proto-actions"><a className="proto-button" href={emailComposeHref("Role or project opportunity")} target="_blank" rel="noreferrer">Email Mohammed ↗</a><a className="proto-button" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
       </section>
     </main>
   );
