@@ -7,17 +7,13 @@ const description = "Professional history, education, credentials, technical sta
 export const metadata: Metadata = {
   title: "About",
   description,
-  alternates: {
-    canonical: "/about",
-    languages: { en: "/about", ar: "/ar/about", "x-default": "/about" },
-  },
+  alternates: { canonical: "/about" },
   openGraph: {
     title: `About — ${profile.name}`,
     description,
     url: `${profile.domain}/about`,
     type: "profile",
     locale: "en_US",
-    alternateLocale: ["ar_EG"],
   },
 };
 
