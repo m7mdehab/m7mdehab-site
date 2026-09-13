@@ -1,0 +1,10 @@
+/* Phase O follow-up: force one explicit card column so every logo stage has identical geometry. */
+.credibility-brand-item {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.credibility-brand-marks {
+  width: auto;
+  min-width: 0;
+  justify-self: stretch;
+}
