@@ -121,7 +121,7 @@ jobs:
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('Production homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('Production homepage still links to Arabic');
           const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          for (const needle of ['Three ways into the work. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
+          for (const needle of ['Six ways into the work. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
             if (!visibleText.includes(needle)) throw new Error(`Production homepage missing accepted visible marker: ${needle}`);
           }
           if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
