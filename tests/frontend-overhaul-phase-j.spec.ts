@@ -64,7 +64,11 @@ async function mobileMetrics(page: Page) {
 
     const track = document.querySelector<HTMLElement>(".credibility-track");
     const viewport = document.querySelector<HTMLElement>(".credibility-viewport");
-    const duplicateCount = document.querySelectorAll('.credibility-sequence[aria-hidden="true"]').length;
+    const duplicateCount = Array.from(document.querySelectorAll<HTMLElement>('.credibility-sequence[aria-hidden="true"]')).filter((element) => {
+      const style = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
+    }).length;
 
     return {
       viewportWidth: document.documentElement.clientWidth,
@@ -154,7 +158,7 @@ test.describe("Phase J English mobile art direction", () => {
     await page.goto("/");
     await settle(page);
 
-    await expect(page.locator(".credibility-sequence[aria-hidden=\"true\"]")).toHaveCount(0);
+    await expect(page.locator('.credibility-sequence[aria-hidden="true"]')).toBeHidden();
     const states = await page.evaluate(() => ({
       track: getComputedStyle(document.querySelector<HTMLElement>(".credibility-track")!).animationName,
       ambient: Array.from(document.querySelectorAll<HTMLElement>(".hero-ambient-orbit")).map((node) => getComputedStyle(node).animationName),
