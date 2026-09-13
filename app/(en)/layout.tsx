@@ -21,6 +21,7 @@ import "../frontend-overhaul-phase-j.css";
 import "../frontend-overhaul-phase-l.css";
 import "../frontend-overhaul-phase-m.css";
 import "../frontend-overhaul-phase-m-fixes.css";
+import "../frontend-overhaul-phase-n.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
@@ -118,8 +119,8 @@ const siteSchema = {
 
 export default function EnglishRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={signatureFont.variable}>
+    <html lang="en" className={signatureFont.variable}>
+      <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <SmoothScroll />
