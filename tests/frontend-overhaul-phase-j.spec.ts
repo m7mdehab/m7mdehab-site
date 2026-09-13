@@ -88,9 +88,9 @@ async function mobileMetrics(page: Page) {
 }
 
 function expectMobileNavTargets(metrics: Awaited<ReturnType<typeof mobileMetrics>>) {
-  expect(metrics.navTargetCount).toBe(6);
-  expect(metrics.visibleNavTargetCount).toBe(3);
-  expect(metrics.navTargets.map((target) => target.href)).toEqual(["/#top", "/#work", "/ar"]);
+  expect(metrics.navTargetCount).toBe(5);
+  expect(metrics.visibleNavTargetCount).toBe(2);
+  expect(metrics.navTargets.map((target) => target.href)).toEqual(["/#top", "/#work"]);
 
   for (const target of metrics.navTargets) {
     expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
