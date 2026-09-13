@@ -20,8 +20,15 @@ test.describe("Phase D production visual foundation", () => {
     await expect(hero.locator("h1")).toHaveText("Mohammed Ehab ElNomany");
     await expect(page.locator(".hero-ambient-field")).toBeVisible();
     await expect(page.locator(".hero-evidence-atlas")).toHaveCount(0);
-    await expect(page.locator(".overhaul-hero-roles")).toContainText("Data Engineer");
-    await expect(page.locator(".overhaul-hero-roles")).toContainText("Business Analyst Team Lead");
+    const ambientCount = await page.locator("[data-ambient-item]").count();
+    expect(ambientCount).toBeGreaterThanOrEqual(32);
+
+    const roles = page.locator(".overhaul-hero-roles");
+    await expect(roles).toContainText("Data Engineer");
+    await expect(roles).toContainText("AI Engineer");
+    await expect(roles).toContainText("Business Analyst");
+    await expect(roles).toContainText("Data Analyst");
+    await expect(roles).not.toContainText("Team Lead");
 
     const heroHeight = await hero.evaluate((element) => element.getBoundingClientRect().height);
     expect(heroHeight).toBeLessThanOrEqual(920);
@@ -42,9 +49,10 @@ test.describe("Phase D production visual foundation", () => {
     await expect(rail).toBeVisible();
     await expect(rail).toContainText("Experience across");
     await expect(rail).toContainText("Learning & credentials");
-    await expect(rail.locator('[aria-label="Employment: Network International"]').first()).toBeVisible();
-    await expect(rail.locator('[aria-label="Credential: Databricks"]').first()).toBeVisible();
-    await expect(rail.locator('[aria-label="Credential: McKinsey Forward"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label="Employment: Network International"]')).toBeVisible();
+    await expect(rail.locator('[aria-label="Credential: Databricks"]')).toBeVisible();
+    await expect(rail.locator('[aria-label="Credential: McKinsey Forward"]')).toBeVisible();
+    expect(await rail.locator("[data-brand-logo]").count()).toBeGreaterThanOrEqual(9);
     await expect(rail).not.toContainText("Udacity / ITIDA");
     expect((await rail.innerText()).toLowerCase()).not.toContain("trusted by");
 
@@ -69,7 +77,7 @@ test.describe("Phase D production visual foundation", () => {
     await page.screenshot({ path: testInfo.outputPath("phase-d-home-390.png"), fullPage: true });
   });
 
-  test("reduced motion stops ambient motion and the credibility loop", async ({ page }) => {
+  test("reduced motion stops ambient motion and keeps the brand rail manually available", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     const response = await page.goto("/");
@@ -79,7 +87,7 @@ test.describe("Phase D production visual foundation", () => {
     const railAnimation = await page.locator(".credibility-track").evaluate((element) => getComputedStyle(element).animationName);
     expect(railAnimation).toBe("none");
 
-    const ambientAnimations = await page.locator(".hero-ambient-float").evaluateAll((elements) =>
+    const ambientAnimations = await page.locator(".hero-ambient-orbit").evaluateAll((elements) =>
       elements.map((element) => getComputedStyle(element).animationName),
     );
     expect(ambientAnimations.every((name) => name === "none")).toBeTruthy();
