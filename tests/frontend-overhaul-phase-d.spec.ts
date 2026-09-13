@@ -9,7 +9,7 @@ async function settle(page: import("@playwright/test").Page) {
 }
 
 test.describe("Phase D production visual foundation", () => {
-  test("English home exposes the system hero, reduced nav and truthful credibility rail", async ({ page }, testInfo) => {
+  test("English home exposes the identity hero, reduced nav and truthful credibility rail", async ({ page }, testInfo) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     const response = await page.goto("/");
     expect(response?.ok()).toBeTruthy();
@@ -17,9 +17,11 @@ test.describe("Phase D production visual foundation", () => {
 
     const hero = page.locator(".overhaul-hero");
     await expect(hero).toBeVisible();
-    await expect(hero.locator("h1")).toContainText("Mohammed Ehab");
-    await expect(hero.locator("h1")).toContainText("ElNomany");
-    await expect(page.locator(".hero-evidence-atlas")).toBeVisible();
+    await expect(hero.locator("h1")).toHaveText("Mohammed Ehab ElNomany");
+    await expect(page.locator(".hero-ambient-field")).toBeVisible();
+    await expect(page.locator(".hero-evidence-atlas")).toHaveCount(0);
+    await expect(page.locator(".overhaul-hero-roles")).toContainText("Data Engineer");
+    await expect(page.locator(".overhaul-hero-roles")).toContainText("Business Analyst Team Lead");
 
     const heroHeight = await hero.evaluate((element) => element.getBoundingClientRect().height);
     expect(heroHeight).toBeLessThanOrEqual(920);
@@ -62,12 +64,12 @@ test.describe("Phase D production visual foundation", () => {
     expect(dimensions.width).toBeLessThanOrEqual(dimensions.client + 2);
 
     await expect(page.locator(".overhaul-hero-title")).toBeVisible();
-    await expect(page.locator(".hero-evidence-atlas")).toBeVisible();
+    await expect(page.locator(".hero-ambient-field")).toBeVisible();
     await expect(page.locator(".credibility-rail")).toBeVisible();
     await page.screenshot({ path: testInfo.outputPath("phase-d-home-390.png"), fullPage: true });
   });
 
-  test("reduced motion stops the evidence entrance and credibility loop", async ({ page }) => {
+  test("reduced motion stops ambient motion and the credibility loop", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     const response = await page.goto("/");
@@ -77,10 +79,10 @@ test.describe("Phase D production visual foundation", () => {
     const railAnimation = await page.locator(".credibility-track").evaluate((element) => getComputedStyle(element).animationName);
     expect(railAnimation).toBe("none");
 
-    const atlasAnimations = await page.locator(".atlas-panel").evaluateAll((elements) =>
+    const ambientAnimations = await page.locator(".hero-ambient-float").evaluateAll((elements) =>
       elements.map((element) => getComputedStyle(element).animationName),
     );
-    expect(atlasAnimations.every((name) => name === "none")).toBeTruthy();
+    expect(ambientAnimations.every((name) => name === "none")).toBeTruthy();
 
     const railOverflow = await page.locator(".credibility-viewport").evaluate((element) => getComputedStyle(element).overflowX);
     expect(["auto", "scroll"]).toContain(railOverflow);
