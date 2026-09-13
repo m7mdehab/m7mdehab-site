@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Italianno } from "next/font/google";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/newsreader";
 import "../globals.css";
@@ -18,10 +19,18 @@ import "../frontend-overhaul-phase-h-fixes.css";
 import "../frontend-overhaul-phase-i-fixes.css";
 import "../frontend-overhaul-phase-j.css";
 import "../frontend-overhaul-phase-l.css";
+import "../frontend-overhaul-phase-m.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
 import { profile } from "@/data/public";
+
+const signatureFont = Italianno({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--signature-font",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
@@ -109,7 +118,7 @@ const siteSchema = {
 export default function EnglishRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={signatureFont.variable}>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
         <SmoothScroll />
