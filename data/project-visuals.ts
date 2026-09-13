@@ -21,7 +21,7 @@ export const projectVisuals = {
   presaira: {
     layout: "feature",
     verb: "Plot / evolve",
-    provenance: "public_code_renderable",
+    provenance: "Public code · reproducible",
     evidenceHref: "https://presaira.com",
     label: "Committed 2026 calibration evidence",
     caption: "Forecast confidence compared with observed outcomes after the completed 104-match tournament.",
@@ -37,7 +37,7 @@ export const projectVisuals = {
   opportunityos: {
     layout: "system",
     verb: "Trace / authorize",
-    provenance: "public_safe_derived",
+    provenance: "Public-safe architecture",
     evidenceHref: "https://github.com/m7mdehab/opportunityos-docs",
     label: "Public architecture diagram — not product UI",
     caption: "Truth and provenance constrain matching, generation and outbound action authority.",
@@ -47,7 +47,7 @@ export const projectVisuals = {
   "ghareeb-oglu": {
     layout: "reverse",
     verb: "Reveal / browse",
-    provenance: "public_safe_derived",
+    provenance: "Public-safe product model",
     evidenceHref: "https://ghareeboglu.com",
     label: "Public-safe live-commerce flow — not a screenshot",
     caption: "A restrained representation of the public storefront journey without redistributing uncleared brand/product imagery.",
@@ -56,7 +56,7 @@ export const projectVisuals = {
   "oil-spill-detection": {
     layout: "technical",
     verb: "Compare / detect",
-    provenance: "public_repo_asset",
+    provenance: "Public repository evidence",
     evidenceHref: "https://github.com/m7mdehab/oil-spill-detection",
     label: "MV Wakashio case-study output",
     caption: "Real Sentinel-1 SAR case-study evidence with oil-class evaluation from the committed test run.",
@@ -72,7 +72,7 @@ export const projectVisuals = {
   "solar-site-selection": {
     layout: "map",
     verb: "Layer / rank",
-    provenance: "public_repo_asset",
+    provenance: "Public repository evidence",
     evidenceHref: "https://github.com/m7mdehab/SolarSiteSelection",
     label: "Public application + validation evidence",
     caption: "Actual AOI/criteria screens and the committed five-class Land Suitability Index map.",
@@ -97,7 +97,7 @@ export const projectVisuals = {
   makhbazy: {
     layout: "journey",
     verb: "Sequence / progress",
-    provenance: "public_safe_derived",
+    provenance: "Public-safe product model",
     label: "Public-safe product-journey abstraction",
     caption: "The original internal journey remains unpublished; this treatment communicates UI/UX and product-delivery leadership without reproducing protected screens.",
     stages: ["Discover", "Order", "Track", "Receive"],
