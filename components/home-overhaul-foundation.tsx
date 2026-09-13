@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { profile } from "@/data/public";
-import { projectVisuals } from "@/data/project-visuals";
+import { HeroAmbientField } from "@/components/hero-ambient-field";
+import { experience, profile } from "@/data/public";
 
 const experienceSignals = [
   { name: "Network International", relationship: "Employment" },
@@ -19,95 +18,27 @@ const learningSignals = [
   { name: "ExploreAI / ALX", relationship: "Scholarship" },
 ] as const;
 
-const calibration = projectVisuals.presaira.reliability;
-const chartPoints = calibration
-  .map(({ predicted, observed }) => {
-    const x = 18 + predicted * 284;
-    const y = 160 - observed * 132;
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  })
-  .join(" ");
-
-function EvidenceAtlas() {
-  return (
-    <div className="hero-evidence-atlas" aria-label="Evidence atlas from Mohammed's public project work">
-      <div className="atlas-grid" aria-hidden="true" />
-
-      <figure className="atlas-panel atlas-forecast">
-        <figcaption>
-          <span>Presaira</span>
-          <strong>Calibration</strong>
-        </figcaption>
-        <svg viewBox="0 0 320 180" role="img" aria-label="Presaira post-event probability calibration evidence">
-          <line className="atlas-axis" x1="18" x2="302" y1="160" y2="28" />
-          {[52, 88, 124, 160].map((y) => (
-            <line className="atlas-guide" key={y} x1="18" x2="302" y1={y} y2={y} />
-          ))}
-          <polyline className="atlas-curve" points={chartPoints} />
-          {calibration.map(({ predicted, observed }, index) => (
-            <circle
-              className="atlas-point"
-              key={`${predicted}-${observed}`}
-              cx={18 + predicted * 284}
-              cy={160 - observed * 132}
-              r={index === calibration.length - 1 ? 5 : 4}
-            />
-          ))}
-        </svg>
-        <div className="atlas-proof" aria-label="Presaira evidence summary">
-          <span>104 matches</span>
-          <span>50k Monte Carlo</span>
-        </div>
-      </figure>
-
-      <figure className="atlas-panel atlas-sar">
-        <img
-          src={projectVisuals["oil-spill-detection"].image}
-          alt={projectVisuals["oil-spill-detection"].imageAlt}
-          width={1024}
-          height={640}
-          fetchPriority="low"
-        />
-        <figcaption>
-          <span>Oil Spill Detection</span>
-          <strong>Sentinel-1 · SAR</strong>
-        </figcaption>
-      </figure>
-
-      <div className="atlas-panel atlas-system" aria-label="OpportunityOS governed workflow evidence">
-        <div className="atlas-system-head">
-          <span>OpportunityOS</span>
-          <strong>Truth constrains action</strong>
-        </div>
-        <div className="atlas-stages">
-          {projectVisuals.opportunityos.stages
-            .filter((stage) => ["Discover", "Truth-lock", "Prepare", "Monitor", "Learn"].includes(stage))
-            .map((stage, index) => (
-              <span key={stage}><i aria-hidden="true">0{index + 1}</i>{stage}</span>
-            ))}
-        </div>
-      </div>
-
-      <div className="atlas-coordinate atlas-coordinate-a" aria-hidden="true">PROBABILITY / EVIDENCE</div>
-      <div className="atlas-coordinate atlas-coordinate-b" aria-hidden="true">SYSTEM / DECISION</div>
-    </div>
-  );
-}
+const heroRoles = experience.slice(0, 3).map((item) => item.role);
 
 export function SystemHero() {
   return (
     <section id="top" className="hero overhaul-hero">
       <div className="overhaul-hero-shell shell">
+        <HeroAmbientField />
+
         <div className="overhaul-hero-meta">
           <span>Data · AI · Product</span>
           <span>Cairo, Egypt</span>
         </div>
 
-        <EvidenceAtlas />
-
         <div className="overhaul-hero-copy">
           <p className="overhaul-hero-index" aria-hidden="true">M7 / 01</p>
-          <h1 className="overhaul-hero-title"><span>Mohammed Ehab</span> <em className="display-script">ElNomany</em></h1>
+          <h1 className="overhaul-hero-title">
+            <span className="overhaul-hero-signature">{profile.name}</span>
+          </h1>
+          <p className="overhaul-hero-roles" aria-label="Current and previous roles">
+            {heroRoles.map((role) => <span key={role}>{role}</span>)}
+          </p>
           <p className="overhaul-hero-proposition">{profile.proposition}</p>
           <div className="overhaul-hero-actions">
             <a className="overhaul-action overhaul-action-primary" href="#work">
@@ -117,10 +48,6 @@ export function SystemHero() {
               Discuss an opportunity <ArrowUpRight size={17} aria-hidden="true" />
             </a>
           </div>
-        </div>
-
-        <div className="overhaul-hero-route" aria-hidden="true">
-          <span>Forecast</span><span>Govern</span><span>Detect</span><span>Decide</span>
         </div>
       </div>
     </section>
