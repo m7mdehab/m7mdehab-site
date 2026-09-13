@@ -55,16 +55,12 @@ test.describe("Phase G closing system", () => {
     expect(serviceResults.violations, JSON.stringify(serviceResults.violations, null, 2)).toEqual([]);
   });
 
-  test("services are bilingual, self-canonical and expose all governed anchors", async ({ page }) => {
+  test("services are English-only, self-canonical and expose all governed anchors", async ({ page }) => {
     await page.goto("/services");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://m7mdehab.com/services");
     await expect(page.locator("#services .service-card")).toHaveCount(4);
-    await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveAttribute("href", "https://m7mdehab.com/ar/services");
-
-    await page.goto("/ar/services");
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://m7mdehab.com/ar/services");
-    await expect(page.locator("#services .service-card")).toHaveCount(4);
-    await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", "https://m7mdehab.com/services");
+    await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveCount(0);
+    expect((await page.goto("/ar/services"))?.status()).toBe(404);
   });
 
   test("mobile close recomposes without overflow and reduced motion stops decorative animation", async ({ page }) => {
