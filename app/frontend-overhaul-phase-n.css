@@ -24,7 +24,7 @@
 
 .brand-logo-native img {
   filter: none;
-  opacity: .96;
+  opacity: 1;
 }
 
 /* Hero: full-width computational field with independent circular motion. */
@@ -138,9 +138,9 @@
   margin-right: 17px;
 }
 
-/* Credibility: fixed semantic groups + brand evidence, horizontally scrollable only when needed. */
+/* Credibility: native-color logos, stacked context and a seamless desktop loop. */
 .credibility-viewport {
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   scrollbar-width: none;
   mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
@@ -155,9 +155,20 @@
   align-items: stretch;
   width: max-content;
   min-width: 100%;
-  animation: none;
-  transform: none;
-  will-change: auto;
+  animation: credibility-loop 40s linear infinite;
+  will-change: transform;
+  padding: 0;
+}
+
+.credibility-viewport:hover .credibility-logo-track,
+.credibility-viewport:focus-within .credibility-logo-track {
+  animation-play-state: paused;
+}
+
+.credibility-logo-sequence {
+  display: flex;
+  align-items: stretch;
+  flex: none;
   padding-inline: clamp(28px, 3vw, 52px);
 }
 
@@ -178,46 +189,67 @@
 }
 
 .credibility-brand-item {
-  min-width: 174px;
-  padding: 0 18px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 13px;
+  min-width: 164px;
+  padding: 8px 16px 9px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
 }
 
 .credibility-brand-marks {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 3px;
-  width: 57px;
-  flex: 0 0 57px;
+  gap: 6px;
+  width: 100%;
+  height: 35px;
+  flex: 0 0 35px;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 7px;
+  background: rgba(248, 248, 245, .94);
+  box-sizing: border-box;
 }
 
 .credibility-brand-item .brand-logo {
-  width: 57px;
-  height: 30px;
+  width: 74px;
+  height: 26px;
+  justify-items: start;
 }
 
 .credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
-  width: 27px;
-  height: 27px;
+  width: 34px;
+  height: 25px;
 }
 
 .credibility-brand-copy {
   display: grid;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
+  width: 100%;
 }
 
 .credibility-brand-copy small,
 .credibility-brand-copy strong {
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .credibility-brand-copy strong {
-  font-size: 11px;
+  color: rgba(248, 248, 245, .93);
+  font-size: 10.5px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.credibility-brand-copy small {
+  color: rgba(248, 248, 245, .56);
+  font-size: 7.5px;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  white-space: nowrap;
 }
 
 /* Carousel: slightly lift editorial copy and make autoplay affordance unmistakable but quiet. */
@@ -311,28 +343,23 @@
   margin-top: 26px;
 }
 
-/* About: logos are corroborating evidence, not the visual subject. */
-.about-page .brand-logo-mono img {
-  filter: grayscale(1) brightness(.58) contrast(.9);
-  opacity: .62;
-}
-
+/* About: original brand colors remain visible on a quiet neutral plate. */
 .about-brand-logo {
   width: 64px;
   height: 28px;
   margin-top: 9px;
+  padding: 4px 7px;
   justify-items: start;
+  border: 1px solid rgba(11, 13, 16, .08);
+  border-radius: 7px;
+  background: rgba(248, 248, 245, .94);
+  box-sizing: content-box;
 }
 
 .about-through-map .about-brand-logo {
   width: 78px;
   height: 34px;
   margin-top: 12px;
-}
-
-.about-through-map .brand-logo-mono img {
-  filter: grayscale(1) brightness(2.05) contrast(.85);
-  opacity: .72;
 }
 
 .about-parallel-card .about-brand-logo,
@@ -367,8 +394,8 @@
 
 @media (max-width: 1180px) {
   .credibility-brand-item {
-    min-width: 158px;
-    padding-inline: 14px;
+    min-width: 150px;
+    padding-inline: 13px;
   }
 
   .credibility-logo-group .credibility-group {
@@ -424,26 +451,42 @@
 
   .credibility-track.credibility-logo-track {
     min-width: max-content;
+    animation: none;
+    transform: none;
+    will-change: auto;
+    padding: 0;
+  }
+
+  .credibility-logo-sequence {
     padding-inline: 16px;
   }
 
   .credibility-brand-item {
-    min-width: 145px;
+    min-width: 142px;
+    padding-inline: 12px;
   }
 
   .credibility-brand-item .brand-logo {
-    width: 49px;
-    height: 26px;
+    width: 64px;
+    height: 24px;
   }
 
   .credibility-brand-marks {
-    width: 49px;
-    flex-basis: 49px;
+    height: 33px;
+    flex-basis: 33px;
   }
 
   .credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
-    width: 23px;
+    width: 30px;
     height: 23px;
+  }
+
+  .credibility-brand-copy strong {
+    font-size: 10px;
+  }
+
+  .credibility-brand-copy small {
+    font-size: 7px;
   }
 
   .selected-work-carousel-copy {
@@ -497,5 +540,10 @@
   .hero-ambient-surface {
     transform: none !important;
     transition: none !important;
+  }
+
+  .credibility-track.credibility-logo-track {
+    animation: none !important;
+    transform: none !important;
   }
 }
