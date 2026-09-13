@@ -187,7 +187,7 @@ export function ServicesAr() {
             <Reveal key={service.id} delay={i * 0.04} className="service-card" id={`service-${service.id}`}>
               <div className={serviceStyles.cardHead}><span>0{i + 1}</span><span>{service.proofLabel}</span></div>
               <p className={serviceStyles.capability}>{service.capability}</p>
-              <h3>{service.title}</h3>
+              <h2>{service.title}</h2>
               <p className={serviceStyles.description}>{service.description}</p>
               <p className={serviceStyles.evidence}>{service.evidence}</p>
               {relatedProjects.length ? (
