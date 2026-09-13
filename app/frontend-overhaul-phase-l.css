@@ -1,0 +1,25 @@
+/* Phase L — semantic hardening only.
+   Preserve the accepted English Services visual hierarchy while correcting
+   standalone page heading levels from h2/h3 to h1/h2. */
+
+.section-intro h1 {
+  margin: 0;
+  max-width: 840px;
+  font-family: var(--serif);
+  font-weight: 430;
+  font-size: clamp(2.65rem, 4.55vw, var(--display-max));
+  line-height: .96;
+  letter-spacing: -.04em;
+}
+
+.service-card h2 {
+  margin: 34px 0 13px;
+  font-size: clamp(1.65rem, 2.25vw, 2.45rem);
+  letter-spacing: -.045em;
+}
+
+@media (max-width: 900px) {
+  .section-intro h1 {
+    max-width: 760px;
+  }
+}
