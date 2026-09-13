@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { CaseStudy } from "@/data/case-studies";
-import { profile, services } from "@/data/public";
+import { emailComposeHref } from "@/data/contact-links";
+import { services } from "@/data/public";
 import styles from "@/components/case-study.module.css";
 import serviceStyles from "@/components/service-conversion.module.css";
 
@@ -117,7 +118,9 @@ export function CaseStudyNarrative({
                     </Link>
                     <a
                       className={serviceStyles.bridgeLink}
-                      href={`mailto:${profile.email}?subject=${encodeURIComponent(service.contactSubject)}`}
+                      href={emailComposeHref(service.contactSubject)}
+                      target="_blank"
+                      rel="noreferrer"
                       data-conversion="project-service-to-contact"
                       data-service-id={service.id}
                     >
