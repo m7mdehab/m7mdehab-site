@@ -19,11 +19,12 @@ import projectStyles from "@/components/project-visual.module.css";
 import serviceStyles from "@/components/service-conversion.module.css";
 import { Reveal } from "@/components/reveal";
 
-function SectionIntroAr({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
+function SectionIntroAr({ eyebrow, title, copy, level = 2 }: { eyebrow: string; title: string; copy?: string; level?: 1 | 2 }) {
+  const Heading = level === 1 ? "h1" : "h2";
   return (
     <Reveal className="section-intro">
       <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
+      <Heading>{title}</Heading>
       {copy ? <p className="section-copy">{copy}</p> : null}
     </Reveal>
   );
@@ -176,7 +177,7 @@ export function AboutAr() {
 export function ServicesAr() {
   return (
     <section id="services" className="section shell">
-      <SectionIntroAr eyebrow="09 — طرق العمل معاً" title="نتائج مفيدة، مدعومة بالنوع الصحيح من الأدلة." copy="الأدلة غير متساوية عمداً: مشروعات عامة حيث يوجد دليل قابل للنشر، وخبرة ومنهجيات عندما تحد السرية أو حقوق النشر من اللقطات العامة." />
+      <SectionIntroAr level={1} eyebrow="09 — طرق العمل معاً" title="نتائج مفيدة، مدعومة بالنوع الصحيح من الأدلة." copy="الأدلة غير متساوية عمداً: مشروعات عامة حيث يوجد دليل قابل للنشر، وخبرة ومنهجيات عندما تحد السرية أو حقوق النشر من اللقطات العامة." />
       <div className="services-grid">
         {servicesAr.map((service, i) => {
           const relatedProjects = service.projectSlugs
