@@ -186,9 +186,23 @@
   gap: 13px;
 }
 
+.credibility-brand-marks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
+  width: 57px;
+  flex: 0 0 57px;
+}
+
 .credibility-brand-item .brand-logo {
   width: 57px;
   height: 30px;
+}
+
+.credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
+  width: 27px;
+  height: 27px;
 }
 
 .credibility-brand-copy {
@@ -420,6 +434,16 @@
   .credibility-brand-item .brand-logo {
     width: 49px;
     height: 26px;
+  }
+
+  .credibility-brand-marks {
+    width: 49px;
+    flex-basis: 49px;
+  }
+
+  .credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
+    width: 23px;
+    height: 23px;
   }
 
   .selected-work-carousel-copy {
