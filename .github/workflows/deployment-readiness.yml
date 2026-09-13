@@ -40,7 +40,7 @@ jobs:
       - name: Build static export
         run: CLOUDFLARE_STATIC_EXPORT=1 npm run build
 
-      - name: Verify exported launch surfaces
+      - name: Verify complete bilingual exported launch surface
         shell: bash
         run: |
           set -euo pipefail
@@ -69,17 +69,39 @@ jobs:
             fi
           }
 
-          assert_export out/about.html out/about/index.html "English About directory"
-          assert_export out/ar/about.html out/ar/about/index.html "Arabic About directory"
-          assert_export out/work/presaira.html out/work/presaira/index.html "English Presaira case study"
-          assert_export out/services.html out/services/index.html "English services directory"
-          assert_export out/ar.html out/ar/index.html "Arabic homepage"
-          assert_export out/ar/work/presaira.html out/ar/work/presaira/index.html "Arabic Presaira case study"
-          assert_export out/ar/services.html out/ar/services/index.html "Arabic services directory"
+          assert_export out/about.html out/about/index.html "English About"
+          assert_export out/work.html out/work/index.html "English work directory"
+          assert_export out/services.html out/services/index.html "English services"
           assert_export out/writing.html out/writing/index.html "English writing hub"
-          assert_export out/writing/when-to-trust-a-probabilistic-forecast.html out/writing/when-to-trust-a-probabilistic-forecast/index.html "English authority essay"
+
+          assert_export out/ar.html out/ar/index.html "Arabic homepage"
+          assert_export out/ar/about.html out/ar/about/index.html "Arabic About"
+          assert_export out/ar/work.html out/ar/work/index.html "Arabic work directory"
+          assert_export out/ar/services.html out/ar/services/index.html "Arabic services"
           assert_export out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
-          assert_export out/ar/writing/when-to-trust-a-probabilistic-forecast.html out/ar/writing/when-to-trust-a-probabilistic-forecast/index.html "Arabic authority essay"
+
+          project_slugs=(
+            presaira
+            opportunityos
+            ghareeb-oglu
+            oil-spill-detection
+            solar-site-selection
+            makhbazy
+          )
+          for slug in "${project_slugs[@]}"; do
+            assert_export "out/work/${slug}.html" "out/work/${slug}/index.html" "English project ${slug}"
+            assert_export "out/ar/work/${slug}.html" "out/ar/work/${slug}/index.html" "Arabic project ${slug}"
+          done
+
+          article_slugs=(
+            when-to-trust-a-probabilistic-forecast
+            why-accuracy-is-not-enough-for-oil-spill-detection
+            what-an-ai-agent-should-do-when-evidence-is-missing
+          )
+          for slug in "${article_slugs[@]}"; do
+            assert_export "out/writing/${slug}.html" "out/writing/${slug}/index.html" "English article ${slug}"
+            assert_export "out/ar/writing/${slug}.html" "out/ar/writing/${slug}/index.html" "Arabic article ${slug}"
+          done
 
       - name: Verify preview Wrangler packaging without deploying
         run: npx --yes wrangler@4.130.0 deploy --dry-run --config wrangler.static.jsonc
