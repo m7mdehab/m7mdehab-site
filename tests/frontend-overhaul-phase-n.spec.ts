@@ -38,9 +38,11 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     await page.goto("/");
     await settle(page);
     const rail = page.locator(".credibility-rail");
-    expect(await rail.locator("[data-brand-logo]").count()).toBe(9);
+    expect(await rail.locator("[data-brand-logo]").count()).toBe(10);
     await expect(rail).toContainText("Network International");
     await expect(rail).toContainText("Canadian International College");
+    await expect(rail.locator('[data-brand-logo="exploreai"]')).toBeVisible();
+    await expect(rail.locator('[data-brand-logo="alx"]')).toBeVisible();
 
     await page.goto("/about");
     await settle(page);
