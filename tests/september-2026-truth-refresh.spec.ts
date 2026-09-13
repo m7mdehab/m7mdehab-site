@@ -24,7 +24,8 @@ test.describe("September 2026 career truth refresh", () => {
 
     await page.goto("/");
     const rail = page.locator(".credibility-rail");
-    await expect(rail.locator('[aria-label="Credential: Databricks"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label^="Databricks:"]').first()).toBeVisible();
+    await expect(rail).toContainText("Data Engineer Associate");
     await expect(rail).not.toContainText("Udacity / ITIDA");
   });
 
