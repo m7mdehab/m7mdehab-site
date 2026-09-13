@@ -81,7 +81,7 @@ test.describe("Iteration 12 evidence-backed authority writing", () => {
     }
   });
 
-  test("homepages promote real essays and primary navigation exposes the writing hub", async ({ page }) => {
+  test("homepages promote a compact evidence-backed writing signal and primary navigation exposes the hub", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator(".site-nav-wrap").getByRole("link", { name: "Writing", exact: true })).toHaveAttribute("href", "/writing");
     await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(2);
@@ -89,8 +89,11 @@ test.describe("Iteration 12 evidence-backed authority writing", () => {
 
     await page.goto("/ar");
     await expect(page.locator(".site-nav-wrap").getByRole("link", { name: "الكتابة", exact: true })).toHaveAttribute("href", "/ar/writing");
-    await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(3);
-    await expect(page.locator('#writing a[href="/ar/writing/what-an-ai-agent-should-do-when-evidence-is-missing"]')).toBeVisible();
+    await expect(page.locator('#writing [data-authority-link="article-ar"]')).toHaveCount(2);
+    await expect(page.locator('#writing a[href="/ar/writing/when-to-trust-a-probabilistic-forecast"]')).toBeVisible();
+    await expect(page.locator('#writing a[href="/ar/writing/why-accuracy-is-not-enough-for-oil-spill-detection"]')).toBeVisible();
+    await expect(page.locator('#writing a[href="/ar/writing/what-an-ai-agent-should-do-when-evidence-is-missing"]')).toHaveCount(0);
+    await expect(page.locator('#writing a[href="/ar/writing"]')).toBeVisible();
   });
 
   test("all English and Arabic writing surfaces pass axe on desktop", async ({ page }) => {
