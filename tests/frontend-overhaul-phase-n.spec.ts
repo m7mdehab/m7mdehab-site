@@ -16,9 +16,11 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     const letterSpacing = await signature.evaluate((element) => Number.parseFloat(getComputedStyle(element).letterSpacing));
     expect(letterSpacing).toBeGreaterThan(0);
 
-    const roles = (await page.locator(".overhaul-hero-roles").innerText()).replace(/\s+/g, " ");
-    for (const role of ["Data Engineer", "AI Engineer", "Business Analyst", "Data Analyst"]) expect(roles).toContain(role);
-    expect(roles).not.toContain("Team Lead");
+    const roleLabels = await page.locator(".overhaul-hero-roles > span").evaluateAll((elements) =>
+      elements.map((element) => (element.textContent ?? "").trim()),
+    );
+    expect(roleLabels).toEqual(["Data Engineer", "AI Engineer", "Business Analyst", "Data Analyst"]);
+    expect(roleLabels.join(" ")).not.toContain("Team Lead");
 
     const items = page.locator("[data-ambient-item]");
     expect(await items.count()).toBeGreaterThanOrEqual(32);
