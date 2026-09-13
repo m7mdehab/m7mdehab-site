@@ -1,105 +1,131 @@
+"use client";
+
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
 import { ProjectVisual } from "@/components/project-visual";
 import { projects } from "@/data/public";
-import { projectVisuals } from "@/data/project-visuals";
 
-const presaira = projects.find((project) => project.slug === "presaira")!;
-const opportunity = projects.find((project) => project.slug === "opportunityos")!;
-const ghareeb = projects.find((project) => project.slug === "ghareeb-oglu")!;
-
-const opportunityStages = projectVisuals.opportunityos.stages.filter((stage) =>
-  ["Discover", "Truth-lock", "Prepare", "Monitor", "Learn"].includes(stage),
-);
+const AUTO_SCROLL_MS = 7000;
 
 export function SelectedWorkGallery() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [cycle, setCycle] = useState(0);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReducedMotion(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (paused || reducedMotion) return;
+    const timer = window.setInterval(() => {
+      setActive((index) => (index + 1) % projects.length);
+    }, AUTO_SCROLL_MS);
+    return () => window.clearInterval(timer);
+  }, [paused, reducedMotion, cycle]);
+
+  const move = (direction: -1 | 1) => {
+    setActive((index) => (index + direction + projects.length) % projects.length);
+    setCycle((value) => value + 1);
+  };
+
+  const activeProject = projects[active];
+
   return (
     <section id="work" className="selected-work" data-selected-work>
       <div className="shell selected-work-shell">
         <header className="selected-work-intro">
           <div>
             <p className="selected-work-eyebrow">Selected work · 01</p>
-            <h2>Three ways into the work. <em>One standard.</em></h2>
+            <h2>Six ways into the work. <em>One standard.</em></h2>
           </div>
           <div className="selected-work-intro-copy">
             <p>
-              The homepage keeps only three flagship systems in view. Each one carries a different kind of proof and opens into a full case study when more detail is useful.
+              Six public projects, viewed one at a time. Each card carries one project, one evidence language and one route into the full case study.
             </p>
-            <Link href="/work">Browse all six projects <ArrowUpRight size={15} aria-hidden="true" /></Link>
+            <Link href="/work">Open the work index <ArrowUpRight size={15} aria-hidden="true" /></Link>
           </div>
         </header>
 
-        <div className="selected-work-gallery">
-          <Link
-            className="selected-work-card selected-work-feature"
-            href={`/work/${presaira.slug}`}
-            data-project-slug={presaira.slug}
-            data-conversion="selected-work-to-case-study"
-          >
-            <div className="selected-work-feature-visual">
-              <ProjectVisual slug="presaira" />
+        <div
+          className={`selected-work-carousel${paused ? " is-paused" : ""}`}
+          data-active-project={activeProject.slug}
+          data-active-tone={activeProject.tone}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
+          <div className="selected-work-carousel-status" aria-live="polite">
+            <span>{String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
+            <div className="selected-work-carousel-progress" aria-hidden="true">
+              <span
+                key={`${active}-${cycle}`}
+                className="selected-work-carousel-progress-fill"
+                style={{ animationDuration: `${AUTO_SCROLL_MS}ms` }}
+              />
             </div>
-            <div className="selected-work-card-copy">
-              <div className="selected-work-card-meta"><span>01</span><span>{presaira.kicker}</span></div>
-              <h3>{presaira.title}</h3>
-              <p>{presaira.statement}</p>
-              <div className="selected-work-proof"><span>{presaira.proof}</span><ArrowUpRight size={18} aria-hidden="true" /></div>
-            </div>
-          </Link>
+            <span>{paused ? "Paused" : reducedMotion ? "Manual" : "Next project"}</span>
+          </div>
 
-          <Link
-            className="selected-work-card selected-work-system"
-            href={`/work/${opportunity.slug}`}
-            data-project-slug={opportunity.slug}
-            data-conversion="selected-work-to-case-study"
-          >
-            <div className="selected-work-system-top">
-              <div className="selected-work-card-meta"><span>02</span><span>{opportunity.kicker}</span></div>
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </div>
-            <div className="selected-work-system-map" aria-label="OpportunityOS public-safe governed workflow">
-              {opportunityStages.map((stage, index) => (
-                <span key={stage}><i aria-hidden="true">0{index + 1}</i>{stage}</span>
+          <div className="selected-work-carousel-window">
+            <div
+              className="selected-work-carousel-track"
+              data-carousel-track
+              style={{ transform: `translate3d(-${active * 100}%, 0, 0)` }}
+            >
+              {projects.map((project, index) => (
+                <article
+                  className="selected-work-carousel-slide"
+                  data-project-slug={project.slug}
+                  data-tone={project.tone}
+                  aria-hidden={index !== active}
+                  key={project.slug}
+                >
+                  <Link
+                    className="selected-work-carousel-card"
+                    href={`/work/${project.slug}`}
+                    data-conversion="selected-work-to-case-study"
+                    tabIndex={index === active ? 0 : -1}
+                    aria-label={`Open ${project.title} case study`}
+                  >
+                    <div className="selected-work-carousel-visual">
+                      <ProjectVisual slug={project.slug} />
+                    </div>
+                    <div className="selected-work-carousel-copy">
+                      <div className="selected-work-carousel-meta">
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <span>{project.kicker}</span>
+                      </div>
+                      <h3>{project.title}</h3>
+                      <p>{project.statement}</p>
+                      <div className="selected-work-carousel-proof">
+                        <span>{project.proof}</span>
+                        <ArrowUpRight size={18} aria-hidden="true" />
+                      </div>
+                    </div>
+                  </Link>
+                </article>
               ))}
             </div>
-            <div className="selected-work-card-copy selected-work-card-copy-compact">
-              <h3>{opportunity.title}</h3>
-              <p>{opportunity.statement}</p>
-              <span className="selected-work-boundary">Public-safe architecture · truth and provenance constrain action</span>
-            </div>
-          </Link>
+          </div>
 
-          <Link
-            className="selected-work-card selected-work-commerce"
-            href={`/work/${ghareeb.slug}`}
-            data-project-slug={ghareeb.slug}
-            data-conversion="selected-work-to-case-study"
-          >
-            <div className="selected-work-commerce-head">
-              <div className="selected-work-card-meta"><span>03</span><span>{ghareeb.kicker}</span></div>
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </div>
-            <div className="selected-work-browser" aria-label="Ghareeb Oglu public-safe commerce journey">
-              <div className="selected-work-browser-bar"><span /><span /><span /><strong>ghareeboglu.com</strong></div>
-              <div className="selected-work-browser-body">
-                <p>Browse to fulfillment.</p>
-                <div>
-                  {projectVisuals["ghareeb-oglu"].stages.map((stage, index) => (
-                    <span key={stage}><i aria-hidden="true">0{index + 1}</i>{stage}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="selected-work-card-copy selected-work-card-copy-compact">
-              <h3>{ghareeb.title}</h3>
-              <p>{ghareeb.statement}</p>
-              <span className="selected-work-boundary">Public-safe commerce flow · protected brand imagery remains unpublished</span>
-            </div>
-          </Link>
+          <button className="selected-work-carousel-control selected-work-carousel-prev" type="button" onClick={() => move(-1)} aria-label="Previous project">
+            <ChevronLeft aria-hidden="true" />
+          </button>
+          <button className="selected-work-carousel-control selected-work-carousel-next" type="button" onClick={() => move(1)} aria-label="Next project">
+            <ChevronRight aria-hidden="true" />
+          </button>
         </div>
 
         <div className="selected-work-footer">
-          <span>3 shown · 6 public case studies</span>
+          <span>6 projects · 6 public case studies</span>
           <Link href="/work">All work <ArrowUpRight size={15} aria-hidden="true" /></Link>
         </div>
       </div>
