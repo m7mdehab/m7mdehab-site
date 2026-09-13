@@ -138,7 +138,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const xml = await response.text();
     const locations = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
-    expect(locations).toHaveLength(27);
+    expect(locations).toHaveLength(28);
     expect(locations).toEqual([
       domain,
       `${domain}/work`,
@@ -149,6 +149,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
       ...writingSlugs.map((slug) => `${domain}/writing/${slug}`),
       `${domain}/ar`,
       `${domain}/ar/work`,
+      `${domain}/ar/about`,
       ...projectSlugs.map((slug) => `${domain}/ar/work/${slug}`),
       `${domain}/ar/services`,
       `${domain}/ar/writing`,
