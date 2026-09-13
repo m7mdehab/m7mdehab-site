@@ -19,11 +19,12 @@ import projectStyles from "@/components/project-visual.module.css";
 import serviceStyles from "@/components/service-conversion.module.css";
 import { Reveal } from "@/components/reveal";
 
-function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: ReactNode; copy?: string }) {
+function SectionIntro({ eyebrow, title, copy, level = 2 }: { eyebrow: string; title: ReactNode; copy?: string; level?: 1 | 2 }) {
+  const Heading = level === 1 ? "h1" : "h2";
   return (
     <Reveal className="section-intro">
       <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
+      <Heading>{title}</Heading>
       {copy ? <p className="section-copy">{copy}</p> : null}
     </Reveal>
   );
@@ -176,7 +177,7 @@ export function About() {
 export function Services() {
   return (
     <section id="services" className="section shell">
-      <SectionIntro eyebrow="09 — Ways to work together" title={<>Useful outcomes, backed by the <em className="display-script">right kind of proof</em>.</>} copy="The evidence is intentionally unequal: public projects where they exist, experience and methods where confidentiality or publication rights limit screenshots." />
+      <SectionIntro level={1} eyebrow="09 — Ways to work together" title={<>Useful outcomes, backed by the <em className="display-script">right kind of proof</em>.</>} copy="The evidence is intentionally unequal: public projects where they exist, experience and methods where confidentiality or publication rights limit screenshots." />
       <div className="services-grid">
         {services.map((service, i) => {
           const relatedProjects = service.projectSlugs
@@ -186,7 +187,7 @@ export function Services() {
             <Reveal key={service.id} delay={i * 0.04} className="service-card" id={`service-${service.id}`}>
               <div className={serviceStyles.cardHead}><span>0{i + 1}</span><span>{service.proofLabel}</span></div>
               <p className={serviceStyles.capability}>{service.capability}</p>
-              <h3>{service.title}</h3>
+              <h2>{service.title}</h2>
               <p className={serviceStyles.description}>{service.description}</p>
               <p className={serviceStyles.evidence}>{service.evidence}</p>
               {relatedProjects.length ? (
