@@ -54,10 +54,18 @@ test.describe("Phase K dormant Arabic capability", () => {
     await page.goto("/");
     const navLinks = page.locator(".site-nav a");
     expect(await navLinks.count()).toBe(5);
-    for (let i = 0; i < await navLinks.count(); i += 1) {
-      const box = await navLinks.nth(i).boundingBox();
-      expect(box?.height ?? 0).toBeGreaterThanOrEqual(36);
-    }
+
+    const visibleTargets = await navLinks.evaluateAll((links) => links.flatMap((link) => {
+      const element = link as HTMLAnchorElement;
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      if (rect.width <= 0 || rect.height <= 0 || style.display === "none" || style.visibility === "hidden") return [];
+      return [{ href: element.getAttribute("href"), height: rect.height }];
+    }));
+
+    expect(visibleTargets.map((target) => target.href)).toEqual(["/#top", "/#work"]);
+    for (const target of visibleTargets) expect(target.height).toBeGreaterThanOrEqual(36);
+
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
   });
