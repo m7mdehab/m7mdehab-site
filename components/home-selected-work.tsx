@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ProjectVisual } from "@/components/project-visual";
@@ -10,9 +10,11 @@ const AUTO_SCROLL_MS = 7000;
 
 export function SelectedWorkGallery() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [interactionPaused, setInteractionPaused] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [cycle, setCycle] = useState(0);
+  const paused = interactionPaused || userPaused;
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -57,12 +59,12 @@ export function SelectedWorkGallery() {
           className={`selected-work-carousel${paused ? " is-paused" : ""}`}
           data-active-project={activeProject.slug}
           data-active-tone={activeProject.tone}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
-          onBlurCapture={() => setPaused(false)}
+          onMouseEnter={() => setInteractionPaused(true)}
+          onMouseLeave={() => setInteractionPaused(false)}
+          onFocusCapture={() => setInteractionPaused(true)}
+          onBlurCapture={() => setInteractionPaused(false)}
         >
-          <div className="selected-work-carousel-status" aria-live="polite">
+          <div className="selected-work-carousel-status" aria-live={paused || reducedMotion ? "polite" : "off"}>
             <span>{String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
             <div className="selected-work-carousel-progress" aria-hidden="true">
               <span
@@ -71,7 +73,20 @@ export function SelectedWorkGallery() {
                 style={{ animationDuration: `${AUTO_SCROLL_MS}ms` }}
               />
             </div>
-            <span>{paused ? "Paused" : reducedMotion ? "Manual" : "Next project"}</span>
+            {reducedMotion ? (
+              <span className="selected-work-carousel-mode">Manual</span>
+            ) : (
+              <button
+                className="selected-work-carousel-pause"
+                type="button"
+                aria-pressed={userPaused}
+                aria-label={userPaused ? "Resume project autoplay" : "Pause project autoplay"}
+                onClick={() => setUserPaused((value) => !value)}
+              >
+                {userPaused ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
+                <span>{userPaused ? "Resume" : "Pause"}</span>
+              </button>
+            )}
           </div>
 
           <div className="selected-work-carousel-window">
