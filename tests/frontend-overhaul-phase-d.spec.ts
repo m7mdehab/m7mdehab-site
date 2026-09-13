@@ -49,9 +49,9 @@ test.describe("Phase D production visual foundation", () => {
     await expect(rail).toBeVisible();
     await expect(rail).toContainText("Experience across");
     await expect(rail).toContainText("Learning & credentials");
-    await expect(rail.locator('[aria-label="Employment: Network International"]')).toBeVisible();
-    await expect(rail.locator('[aria-label="Credential: Databricks"]')).toBeVisible();
-    await expect(rail.locator('[aria-label="Credential: McKinsey Forward"]')).toBeVisible();
+    await expect(rail.locator('[aria-label^="Network International:"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label^="Databricks:"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label^="McKinsey Forward:"]').first()).toBeVisible();
     expect(await rail.locator("[data-brand-logo]").count()).toBeGreaterThanOrEqual(9);
     await expect(rail).not.toContainText("Udacity / ITIDA");
     expect((await rail.innerText()).toLowerCase()).not.toContain("trusted by");
