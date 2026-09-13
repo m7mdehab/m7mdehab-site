@@ -115,12 +115,14 @@ test.describe("Phase H About architecture", () => {
     await context.close();
   });
 
-  test("discovery surfaces expose canonical About without inventing Arabic About", async ({ page }) => {
+  test("discovery surfaces expose reciprocal English and Arabic About routes", async ({ page }) => {
     const sitemapResponse = await page.request.get("/sitemap.xml");
     expect(sitemapResponse.ok()).toBeTruthy();
     const sitemap = await sitemapResponse.text();
     expect(sitemap).toContain("https://m7mdehab.com/about");
-    expect(sitemap).not.toContain("https://m7mdehab.com/ar/about");
+    expect(sitemap).toContain("https://m7mdehab.com/ar/about");
+    expect(sitemap).toContain('hreflang="en" href="https://m7mdehab.com/about"');
+    expect(sitemap).toContain('hreflang="ar" href="https://m7mdehab.com/ar/about"');
 
     const llmsResponse = await page.request.get("/llms.txt");
     expect(llmsResponse.ok()).toBeTruthy();
