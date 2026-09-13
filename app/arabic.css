@@ -9,6 +9,7 @@ html[dir="rtl"] .skip-link {
 }
 
 html[dir="rtl"] .hero-title,
+html[dir="rtl"] .section-intro h1,
 html[dir="rtl"] .section-intro h2,
 html[dir="rtl"] .project-copy h3,
 html[dir="rtl"] .about-display > p:last-child,
@@ -17,6 +18,20 @@ html[dir="rtl"] .contact-section h2,
 html[dir="rtl"] .case-hero h1,
 html[dir="rtl"] .case-note h2 {
   font-family: Tahoma, Arial, "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .section-intro h1 {
+  margin: 0;
+  max-width: 840px;
+  font-weight: 430;
+  font-size: clamp(2.65rem, 4.55vw, var(--display-max));
+  line-height: 1.08;
+}
+
+html[dir="rtl"] .service-card h2 {
+  margin: 34px 0 13px;
+  font-size: clamp(1.65rem, 2.25vw, 2.45rem);
   letter-spacing: 0;
 }
 
@@ -107,6 +122,7 @@ html[dir="rtl"] .locale-link {
     width: 100%;
   }
 
+  html[dir="rtl"] .section-intro h1,
   html[dir="rtl"] .section-intro h2,
   html[dir="rtl"] .contact-section h2 {
     line-height: 1.08;

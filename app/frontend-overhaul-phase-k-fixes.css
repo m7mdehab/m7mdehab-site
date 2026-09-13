@@ -1,0 +1,31 @@
+/* Phase K rendered-review follow-up constraints. */
+
+/* The canonical name remains Latin-script even inside the RTL interface, so it
+   deliberately keeps the accepted English display pairing rather than inheriting
+   the Arabic body fallback. */
+html[dir="rtl"] .overhaul-hero-title {
+  font-family: var(--sans);
+  letter-spacing: -.062em;
+}
+
+html[dir="rtl"] .overhaul-hero-title .display-script {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 430;
+  letter-spacing: -.045em;
+}
+
+/* Arabic emphasis is typographic weight, not a borrowed Latin italic gesture. */
+html[dir="rtl"] .selected-work-intro h2 em,
+html[dir="rtl"] .solve-think-intro h2 em {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 720;
+  letter-spacing: 0;
+}
+
+@media (max-width: 700px) {
+  html[dir="rtl"] .overhaul-hero-title {
+    letter-spacing: -.055em;
+  }
+}

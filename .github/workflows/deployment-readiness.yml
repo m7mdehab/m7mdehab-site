@@ -70,6 +70,7 @@ jobs:
           }
 
           assert_export out/about.html out/about/index.html "English About directory"
+          assert_export out/ar/about.html out/ar/about/index.html "Arabic About directory"
           assert_export out/work/presaira.html out/work/presaira/index.html "English Presaira case study"
           assert_export out/services.html out/services/index.html "English services directory"
           assert_export out/ar.html out/ar/index.html "Arabic homepage"

@@ -2,10 +2,8 @@ import { FloatingNav } from "@/components/floating-nav";
 
 const links = [
   ["الأعمال", "/ar#work"],
-  ["التخصصات", "/ar#expertise"],
-  ["الخبرة", "/ar#experience"],
+  ["عني", "/ar/about"],
   ["الكتابة", "/ar/writing"],
-  ["عني", "/ar#about"],
   ["تواصل", "/ar#contact"],
 ] as const;
 

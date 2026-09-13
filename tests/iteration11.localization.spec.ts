@@ -10,7 +10,13 @@ const projectSlugs = [
   "solar-site-selection",
   "makhbazy",
 ] as const;
-const arabicRoutes = ["/ar", ...projectSlugs.map((slug) => `/ar/work/${slug}`)];
+const arabicRoutes = [
+  "/ar",
+  "/ar/about",
+  "/ar/work",
+  "/ar/services",
+  ...projectSlugs.map((slug) => `/ar/work/${slug}`),
+];
 
 async function assertNoHorizontalOverflow(page: import("@playwright/test").Page) {
   const overflow = await page.evaluate(() => {
@@ -90,10 +96,13 @@ test.describe("Iteration 11 Arabic localization", () => {
     expect(JSON.stringify(graph)).not.toContain("client count");
   });
 
-  test("Arabic service conversion keeps stable analytics semantics and localized project routes", async ({ page }) => {
+  test("Arabic service conversion keeps stable analytics semantics on the dedicated services route", async ({ page }) => {
     await page.goto("/ar");
+    await expect(page.locator('[data-conversion="home-to-services-ar"]')).toBeVisible();
+    await expect(page.locator('[data-conversion="home-to-services-ar"]')).toHaveAttribute("href", "/ar/services");
+
+    await page.goto("/ar/services");
     await expect(page.locator("#services .service-card")).toHaveCount(4);
-    await expect(page.locator('[data-conversion="capability-to-service"]')).toHaveCount(5);
     await expect(page.locator('[data-conversion="service-to-contact"]')).toHaveCount(4);
 
     const projectLinks = page.locator('[data-conversion="service-to-project"]');
@@ -144,10 +153,12 @@ test.describe("Iteration 11 Arabic localization", () => {
       await page.waitForLoadState("domcontentloaded");
       await assertNoHorizontalOverflow(page);
 
-      for (const selector of ["#work", "#expertise", "#experience", "#about", "#services", "#contact"]) {
+      for (const selector of ["#work", "#method", "#writing", "#contact"]) {
         await expect(page.locator(selector)).toBeVisible();
       }
-      await expect(page.locator('[data-conversion="contact-email"]')).toBeVisible();
+      await expect(page.getByRole("link", { name: "عني", exact: true })).toHaveAttribute("href", "/ar/about");
+      await expect(page.locator('[data-conversion="home-to-services-ar"]')).toHaveAttribute("href", "/ar/services");
+      await expect(page.locator('[data-conversion="contact-role-email-ar"]')).toBeVisible();
     });
   });
 });
