@@ -31,9 +31,10 @@ test.describe("Phase D production visual foundation", () => {
     expect(navText).toContain("About");
     expect(navText).toContain("Writing");
     expect(navText).toContain("Contact");
-    expect(navText).toContain("AR");
+    expect(navText).not.toContain("AR");
     expect(navText).not.toContain("Expertise");
     expect(navText).not.toContain("Experience");
+    await expect(nav.locator('a[href="/ar"]')).toHaveCount(0);
 
     const rail = page.locator(".credibility-rail");
     await expect(rail).toBeVisible();
