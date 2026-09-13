@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- These are immutable, commit-pinned public evidence assets; keep their source URLs explicit rather than proxying them through the site image pipeline. */
+import { BrandLogo } from "@/components/brand-logo";
 import { projectVisuals, type EvidenceProjectSlug } from "@/data/project-visuals";
 import styles from "./project-visual.module.css";
 
@@ -79,7 +80,10 @@ function GhareebVisual({ context, locale }: { context: "card" | "case"; locale: 
       <div className={styles.storefrontFrame}>
         <div className={styles.browserBar}><span /><span /><span /><strong dir="ltr">ghareeboglu.com</strong></div>
         <div className={styles.storefrontBody}>
-          <p>{ar ? "منتج تجارة إلكترونية حي" : "Live commerce product"}</p>
+          <div className="ghareeb-storefront-brand">
+            <BrandLogo brand="ghareeb" mode="native" />
+            <span>{ar ? "منتج تجارة إلكترونية حي" : "Live commerce product"}</span>
+          </div>
           <p className={styles.storefrontHeadline}>{ar ? "من التصفح إلى التنفيذ." : "Browse to fulfillment."}</p>
           <div className={styles.commerceStages}>{stages.map((stage, index) => <span key={stage}><i>0{index + 1}</i>{stage}</span>)}</div>
         </div>
