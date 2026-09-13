@@ -8,11 +8,11 @@ import { profile } from "@/data/public";
 type BrandSignalData = { name: string; detail: string; brand: BrandKey; secondaryBrand?: BrandKey };
 
 const experienceSignals: ReadonlyArray<BrandSignalData> = [
-  { name: "Network International", detail: "Data Engineer", brand: "network" },
-  { name: "Al Tayseer", detail: "Business Analyst", brand: "altayseer" },
-  { name: "Orcas", detail: "Computer Science & Data Tutor", brand: "orcas" },
-  { name: "NARSS", detail: "Data / ML Intern", brand: "narss" },
-  { name: "Zewail City", detail: "ML Intern", brand: "zewail" },
+  { name: "Network International", detail: "Data engineering & migration", brand: "network" },
+  { name: "Al Tayseer", detail: "Business analysis & reporting", brand: "altayseer" },
+  { name: "Orcas", detail: "Computer science & data tutoring", brand: "orcas" },
+  { name: "NARSS", detail: "Data & machine learning", brand: "narss" },
+  { name: "Zewail City", detail: "Machine learning", brand: "zewail" },
 ];
 
 const learningSignals: ReadonlyArray<BrandSignalData> = [
