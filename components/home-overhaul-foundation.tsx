@@ -1,113 +1,46 @@
-/* eslint-disable @next/next/no-img-element */
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { BrandLogo, type BrandKey } from "@/components/brand-logo";
+import { HeroAmbientField } from "@/components/hero-ambient-field";
 import { profile } from "@/data/public";
-import { projectVisuals } from "@/data/project-visuals";
 
-const experienceSignals = [
-  { name: "Network International", relationship: "Employment" },
-  { name: "Al Tayseer", relationship: "Employment" },
-  { name: "Orcas", relationship: "Teaching" },
-  { name: "NARSS", relationship: "Internship" },
-  { name: "Zewail City", relationship: "Internship" },
-] as const;
+type BrandSignalData = { name: string; relationship: string; brand: BrandKey; secondaryBrand?: BrandKey };
 
-const learningSignals = [
-  { name: "Databricks", relationship: "Credential" },
-  { name: "McKinsey Forward", relationship: "Credential" },
-  { name: "Canadian International College", relationship: "Education" },
-  { name: "ExploreAI / ALX", relationship: "Scholarship" },
-] as const;
+const experienceSignals: ReadonlyArray<BrandSignalData> = [
+  { name: "Network International", relationship: "Employment", brand: "network" },
+  { name: "Al Tayseer", relationship: "Employment", brand: "altayseer" },
+  { name: "Orcas", relationship: "Teaching", brand: "orcas" },
+  { name: "NARSS", relationship: "Internship", brand: "narss" },
+  { name: "Zewail City", relationship: "Internship", brand: "zewail" },
+];
 
-const calibration = projectVisuals.presaira.reliability;
-const chartPoints = calibration
-  .map(({ predicted, observed }) => {
-    const x = 18 + predicted * 284;
-    const y = 160 - observed * 132;
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  })
-  .join(" ");
+const learningSignals: ReadonlyArray<BrandSignalData> = [
+  { name: "Databricks", relationship: "Credential", brand: "databricks" },
+  { name: "McKinsey Forward", relationship: "Credential", brand: "mckinsey" },
+  { name: "Canadian International College", relationship: "Education", brand: "cic" },
+  { name: "ExploreAI / ALX", relationship: "Scholarship", brand: "exploreai", secondaryBrand: "alx" },
+];
 
-function EvidenceAtlas() {
-  return (
-    <div className="hero-evidence-atlas" aria-label="Evidence atlas from Mohammed's public project work">
-      <div className="atlas-grid" aria-hidden="true" />
-
-      <figure className="atlas-panel atlas-forecast">
-        <figcaption>
-          <span>Presaira</span>
-          <strong>Calibration</strong>
-        </figcaption>
-        <svg viewBox="0 0 320 180" role="img" aria-label="Presaira post-event probability calibration evidence">
-          <line className="atlas-axis" x1="18" x2="302" y1="160" y2="28" />
-          {[52, 88, 124, 160].map((y) => (
-            <line className="atlas-guide" key={y} x1="18" x2="302" y1={y} y2={y} />
-          ))}
-          <polyline className="atlas-curve" points={chartPoints} />
-          {calibration.map(({ predicted, observed }, index) => (
-            <circle
-              className="atlas-point"
-              key={`${predicted}-${observed}`}
-              cx={18 + predicted * 284}
-              cy={160 - observed * 132}
-              r={index === calibration.length - 1 ? 5 : 4}
-            />
-          ))}
-        </svg>
-        <div className="atlas-proof" aria-label="Presaira evidence summary">
-          <span>104 matches</span>
-          <span>50k Monte Carlo</span>
-        </div>
-      </figure>
-
-      <figure className="atlas-panel atlas-sar">
-        <img
-          src={projectVisuals["oil-spill-detection"].image}
-          alt={projectVisuals["oil-spill-detection"].imageAlt}
-          width={1024}
-          height={640}
-          fetchPriority="low"
-        />
-        <figcaption>
-          <span>Oil Spill Detection</span>
-          <strong>Sentinel-1 · SAR</strong>
-        </figcaption>
-      </figure>
-
-      <div className="atlas-panel atlas-system" aria-label="OpportunityOS governed workflow evidence">
-        <div className="atlas-system-head">
-          <span>OpportunityOS</span>
-          <strong>Truth constrains action</strong>
-        </div>
-        <div className="atlas-stages">
-          {projectVisuals.opportunityos.stages
-            .filter((stage) => ["Discover", "Truth-lock", "Prepare", "Monitor", "Learn"].includes(stage))
-            .map((stage, index) => (
-              <span key={stage}><i aria-hidden="true">0{index + 1}</i>{stage}</span>
-            ))}
-        </div>
-      </div>
-
-      <div className="atlas-coordinate atlas-coordinate-a" aria-hidden="true">PROBABILITY / EVIDENCE</div>
-      <div className="atlas-coordinate atlas-coordinate-b" aria-hidden="true">SYSTEM / DECISION</div>
-    </div>
-  );
-}
+const heroRoles = ["Data Engineer", "AI Engineer", "Business Analyst", "Data Analyst"] as const;
 
 export function SystemHero() {
   return (
     <section id="top" className="hero overhaul-hero">
+      <HeroAmbientField />
       <div className="overhaul-hero-shell shell">
         <div className="overhaul-hero-meta">
           <span>Data · AI · Product</span>
           <span>Cairo, Egypt</span>
         </div>
 
-        <EvidenceAtlas />
-
         <div className="overhaul-hero-copy">
           <p className="overhaul-hero-index" aria-hidden="true">M7 / 01</p>
-          <h1 className="overhaul-hero-title"><span>Mohammed Ehab</span> <em className="display-script">ElNomany</em></h1>
+          <h1 className="overhaul-hero-title">
+            <span className="overhaul-hero-signature">{profile.name}</span>
+          </h1>
+          <p className="overhaul-hero-roles" aria-label="Professional disciplines">
+            {heroRoles.map((role) => <span key={role}>{role}</span>)}
+          </p>
           <p className="overhaul-hero-proposition">{profile.proposition}</p>
           <div className="overhaul-hero-actions">
             <a className="overhaul-action overhaul-action-primary" href="#work">
@@ -118,41 +51,23 @@ export function SystemHero() {
             </a>
           </div>
         </div>
-
-        <div className="overhaul-hero-route" aria-hidden="true">
-          <span>Forecast</span><span>Govern</span><span>Detect</span><span>Decide</span>
-        </div>
       </div>
     </section>
   );
 }
 
-function RailSequence({ duplicate = false }: { duplicate?: boolean }) {
+function BrandSignal({ signal }: { signal: BrandSignalData }) {
   return (
-    <div className="credibility-sequence" aria-hidden={duplicate ? "true" : undefined}>
-      <span className="credibility-group">Experience across</span>
-      {experienceSignals.map((signal) => (
-        <span
-          className="credibility-item"
-          aria-label={`${signal.relationship}: ${signal.name}`}
-          key={`experience-${signal.name}`}
-        >
-          <small>{signal.relationship}</small>
-          <strong>{signal.name}</strong>
-        </span>
-      ))}
-      <span className="credibility-group">Learning &amp; credentials</span>
-      {learningSignals.map((signal) => (
-        <span
-          className="credibility-item"
-          aria-label={`${signal.relationship}: ${signal.name}`}
-          key={`learning-${signal.name}`}
-        >
-          <small>{signal.relationship}</small>
-          <strong>{signal.name}</strong>
-        </span>
-      ))}
-    </div>
+    <span className="credibility-item credibility-brand-item" aria-label={`${signal.relationship}: ${signal.name}`}>
+      <span className="credibility-brand-marks">
+        <BrandLogo brand={signal.brand} />
+        {signal.secondaryBrand ? <BrandLogo brand={signal.secondaryBrand} /> : null}
+      </span>
+      <span className="credibility-brand-copy">
+        <small>{signal.relationship}</small>
+        <strong>{signal.name}</strong>
+      </span>
+    </span>
   );
 }
 
@@ -164,9 +79,15 @@ export function CredibilityRail() {
         <Link href="/about">Full background <ArrowUpRight size={13} aria-hidden="true" /></Link>
       </div>
       <div className="credibility-viewport" tabIndex={0} aria-label="Selected professional and learning relationships">
-        <div className="credibility-track">
-          <RailSequence />
-          <RailSequence duplicate />
+        <div className="credibility-track credibility-logo-track">
+          <div className="credibility-logo-group">
+            <span className="credibility-group">Experience across</span>
+            {experienceSignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
+          </div>
+          <div className="credibility-logo-group credibility-logo-group-learning">
+            <span className="credibility-group">Learning &amp; credentials</span>
+            {learningSignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
+          </div>
         </div>
       </div>
     </section>

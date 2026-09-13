@@ -14,15 +14,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return {};
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
-  const arabic = `${profile.domain}/ar/writing/${article.slug}`;
 
   return {
     title: article.title,
     description: article.description,
-    alternates: {
-      canonical,
-      languages: { en: canonical, ar: arabic, "x-default": canonical },
-    },
+    alternates: { canonical },
     openGraph: {
       title: article.title,
       description: article.description,
@@ -30,7 +26,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: profile.name,
       type: "article",
       locale: "en_US",
-      alternateLocale: ["ar_EG"],
     },
     twitter: {
       card: "summary",

@@ -1,0 +1,66 @@
+/* Phase M targeted interaction fixes. */
+
+.selected-work-carousel-pause,
+.selected-work-carousel-mode {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #62645e;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.selected-work-carousel-pause {
+  cursor: pointer;
+}
+
+.selected-work-carousel-pause:hover,
+.selected-work-carousel-pause:focus-visible {
+  color: #171a18;
+  outline: none;
+}
+
+.selected-work-carousel-pause:focus-visible {
+  box-shadow: 0 2px 0 var(--carousel-accent);
+}
+
+.selected-work-carousel-pause svg {
+  width: 11px;
+  height: 11px;
+}
+
+@media (max-width: 980px) {
+  .selected-work-carousel-card {
+    grid-template-rows: auto auto;
+  }
+
+  .selected-work-carousel-visual > * {
+    height: auto;
+  }
+
+  .selected-work-carousel-copy {
+    min-height: 0;
+    justify-content: flex-start;
+  }
+
+  .selected-work-carousel-copy h3 {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .selected-work-carousel-pause,
+  .selected-work-carousel-mode {
+    min-height: 32px;
+  }
+
+  .selected-work-carousel-copy h3 {
+    margin-top: 18px;
+  }
+}

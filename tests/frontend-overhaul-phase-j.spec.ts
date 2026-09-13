@@ -64,7 +64,7 @@ async function mobileMetrics(page: Page) {
 
     const track = document.querySelector<HTMLElement>(".credibility-track");
     const viewport = document.querySelector<HTMLElement>(".credibility-viewport");
-    const duplicate = document.querySelector<HTMLElement>('.credibility-sequence[aria-hidden="true"]');
+    const duplicateCount = document.querySelectorAll('.credibility-sequence[aria-hidden="true"]').length;
 
     return {
       viewportWidth: document.documentElement.clientWidth,
@@ -79,7 +79,7 @@ async function mobileMetrics(page: Page) {
       opportunityHeadingLines: lineCount(".closing-opportunity-head h2"),
       credibilityAnimation: track ? getComputedStyle(track).animationName : null,
       credibilityOverflowX: viewport ? getComputedStyle(viewport).overflowX : null,
-      duplicateDisplay: duplicate ? getComputedStyle(duplicate).display : null,
+      duplicateCount,
       navTargetCount: allNavTargets.length,
       visibleNavTargetCount: navTargets.length,
       navTargets,
@@ -88,9 +88,9 @@ async function mobileMetrics(page: Page) {
 }
 
 function expectMobileNavTargets(metrics: Awaited<ReturnType<typeof mobileMetrics>>) {
-  expect(metrics.navTargetCount).toBe(6);
-  expect(metrics.visibleNavTargetCount).toBe(3);
-  expect(metrics.navTargets.map((target) => target.href)).toEqual(["/#top", "/#work", "/ar"]);
+  expect(metrics.navTargetCount).toBe(5);
+  expect(metrics.visibleNavTargetCount).toBe(2);
+  expect(metrics.navTargets.map((target) => target.href)).toEqual(["/#top", "/#work"]);
 
   for (const target of metrics.navTargets) {
     expect(target.height, `visible nav target ${target.text || "mark"} is too short`).toBeGreaterThanOrEqual(36);
@@ -115,7 +115,7 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.opportunityHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.credibilityAnimation).toBe("none");
     expect(["auto", "scroll"]).toContain(metrics.credibilityOverflowX);
-    expect(metrics.duplicateDisplay).toBe("none");
+    expect(metrics.duplicateCount).toBe(0);
     expectMobileNavTargets(metrics);
 
     await writeFile(path.join(artifactRoot, "mobile-390-metrics.json"), JSON.stringify(metrics, null, 2));
@@ -141,6 +141,7 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.viewportCount).toBeLessThanOrEqual(8.75);
     expect(metrics.heroLines).toBeLessThanOrEqual(2);
     expect(metrics.credibilityAnimation).toBe("none");
+    expect(metrics.duplicateCount).toBe(0);
     expectMobileNavTargets(metrics);
 
     await writeFile(path.join(artifactRoot, "mobile-430-metrics.json"), JSON.stringify(metrics, null, 2));
@@ -153,14 +154,14 @@ test.describe("Phase J English mobile art direction", () => {
     await page.goto("/");
     await settle(page);
 
-    await expect(page.locator(".credibility-sequence[aria-hidden=\"true\"]")).toBeHidden();
+    await expect(page.locator(".credibility-sequence[aria-hidden=\"true\"]")).toHaveCount(0);
     const states = await page.evaluate(() => ({
       track: getComputedStyle(document.querySelector<HTMLElement>(".credibility-track")!).animationName,
-      atlas: Array.from(document.querySelectorAll<HTMLElement>(".atlas-panel")).map((panel) => getComputedStyle(panel).animationName),
+      ambient: Array.from(document.querySelectorAll<HTMLElement>(".hero-ambient-orbit")).map((node) => getComputedStyle(node).animationName),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     }));
     expect(states.track).toBe("none");
-    expect(states.atlas.every((name) => name === "none")).toBeTruthy();
+    expect(states.ambient.every((name) => name === "none")).toBeTruthy();
     expect(states.overflow).toBeLessThanOrEqual(1);
 
     await context.close();

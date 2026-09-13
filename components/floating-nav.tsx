@@ -8,11 +8,11 @@ type NavItem = readonly [label: string, href: string];
 
 type FloatingNavProps = {
   links: readonly NavItem[];
-  localeHref: string;
-  localeLabel: string;
-  localeAriaLabel: string;
-  localeLang: "en" | "ar";
-  localeDir: "ltr" | "rtl";
+  localeHref?: string;
+  localeLabel?: string;
+  localeAriaLabel?: string;
+  localeLang?: "en" | "ar";
+  localeDir?: "ltr" | "rtl";
   ariaLabel: string;
   markHref: string;
   markAriaLabel: string;
@@ -93,7 +93,18 @@ export function FloatingNav({
             const active = routeActive || Boolean(section && activeSection === section);
             return <Link key={href} href={href} aria-current={active ? "location" : undefined}>{label}</Link>;
           })}
-          <Link className="locale-link" href={localeHref} hrefLang={localeLang} lang={localeLang} dir={localeDir} aria-label={localeAriaLabel}>{localeLabel}</Link>
+          {localeHref && localeLabel ? (
+            <Link
+              className="locale-link"
+              href={localeHref}
+              hrefLang={localeLang}
+              lang={localeLang}
+              dir={localeDir}
+              aria-label={localeAriaLabel}
+            >
+              {localeLabel}
+            </Link>
+          ) : null}
         </div>
       </nav>
     </header>

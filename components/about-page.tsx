@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Mail } from "lucide-react";
+import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { Reveal } from "@/components/reveal";
 import {
   aboutCertifications,
@@ -26,6 +27,26 @@ function AboutSectionHead({ index, eyebrow, title, copy }: { index: string; eyeb
   );
 }
 
+function brandForOrganization(name: string): BrandKey | null {
+  const value = name.toLowerCase();
+  if (value.includes("network international")) return "network";
+  if (value.includes("al tayseer")) return "altayseer";
+  if (value.includes("orcas")) return "orcas";
+  if (value.includes("narss") || value.includes("remote sensing")) return "narss";
+  if (value.includes("zewail")) return "zewail";
+  if (value.includes("databricks")) return "databricks";
+  if (value.includes("mckinsey")) return "mckinsey";
+  if (value.includes("canadian international college")) return "cic";
+  if (value.includes("exploreai") || value.includes("explore ai")) return "exploreai";
+  return null;
+}
+
+function OrganizationMark({ name }: { name: string }) {
+  const brand = brandForOrganization(name);
+  if (!brand) return null;
+  return <BrandLogo brand={brand} className="about-brand-logo" />;
+}
+
 function ThroughLineMap() {
   const nodes = ["Migration", "Analytics", "ML / AI", "Product"];
   return (
@@ -34,6 +55,7 @@ function ThroughLineMap() {
         <span>Current position</span>
         <strong>{aboutIntro.currentRole}</strong>
         <small>{aboutIntro.currentEmployer}</small>
+        <OrganizationMark name={aboutIntro.currentEmployer} />
       </div>
       <div className="about-through-map-rail" aria-hidden="true"><i /><i /><i /></div>
       <div className="about-through-map-nodes">
@@ -82,6 +104,7 @@ export function AboutPage() {
                   <p>{item.mode}</p>
                   <h3>{item.role}</h3>
                   <strong>{item.company}</strong>
+                  <OrganizationMark name={item.company === "Guksu" || item.company === "Egyptian African Trade" ? "Al Tayseer Group" : item.company} />
                 </div>
                 <div className="about-timeline-context">
                   <p>{item.summary}</p>
@@ -106,6 +129,7 @@ export function AboutPage() {
               <Reveal as="article" key={item.company} delay={index * 0.06} className="about-parallel-card">
                 <div className="about-parallel-top"><span>{item.period}</span><span>0{index + 1}</span></div>
                 <p>{item.company}</p>
+                <OrganizationMark name={item.company} />
                 <h3>{item.role}</h3>
                 <div className="about-parallel-rule" aria-hidden="true" />
                 <span>{item.summary}</span>
@@ -129,6 +153,7 @@ export function AboutPage() {
                 <p>{item.period}</p>
                 <h3>{item.role}</h3>
                 <strong>{item.company}</strong>
+                <OrganizationMark name={item.company} />
                 <span>{item.summary}</span>
               </Reveal>
             ))}
@@ -150,7 +175,7 @@ export function AboutPage() {
               {aboutEducation.map((item) => (
                 <Reveal as="article" key={item.qualification} className="about-ledger-row">
                   <span>{item.period}</span>
-                  <div><h3>{item.qualification}</h3><p>{item.institution}</p></div>
+                  <div><h3>{item.qualification}</h3><p>{item.institution}</p><OrganizationMark name={item.institution} /></div>
                   <strong>{item.detail}</strong>
                 </Reveal>
               ))}
@@ -160,7 +185,7 @@ export function AboutPage() {
               {aboutCertifications.map((item) => (
                 <Reveal as="article" key={item.name} className="about-ledger-row about-cert-row">
                   <span>{item.year}</span>
-                  <div><h3>{item.name}</h3><p>{item.issuer}</p></div>
+                  <div><h3>{item.name}</h3><p>{item.issuer}</p><OrganizationMark name={item.issuer} /></div>
                 </Reveal>
               ))}
             </div>

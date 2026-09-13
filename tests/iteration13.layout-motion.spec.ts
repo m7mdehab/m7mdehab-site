@@ -10,7 +10,7 @@ async function settle(page: import("@playwright/test").Page) {
 test.describe("Iteration 13 layout refinement", () => {
   test.use({ viewport: { width: 1440, height: 1000 } });
 
-  test("homepage preserves the denser hero without restoring button-like skill UI", async ({ page }) => {
+  test("homepage preserves the identity-led hero without restoring button-like skill UI", async ({ page }) => {
     const response = await page.goto("/");
     expect(response?.ok()).toBeTruthy();
     await settle(page);
@@ -23,9 +23,15 @@ test.describe("Iteration 13 layout refinement", () => {
     await expect(page.locator("[data-solve-think]")).toBeVisible();
     await expect(page.locator(".skill-chip")).toHaveCount(0);
 
-    const emphasis = page.locator(".display-script").first();
-    await expect(emphasis).toBeVisible();
-    expect(await emphasis.evaluate((element) => getComputedStyle(element).fontStyle)).toBe("italic");
+    const signature = page.locator(".overhaul-hero-signature");
+    await expect(signature).toBeVisible();
+    await expect(signature).toHaveText("Mohammed Ehab ElNomany");
+    const signatureStyle = await signature.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return { family: style.fontFamily, whiteSpace: style.whiteSpace };
+    });
+    expect(signatureStyle.family.toLowerCase()).toContain("italianno");
+    expect(signatureStyle.whiteSpace).toBe("nowrap");
   });
 
   test("floating navigation yields to downward scrolling and returns on upward intent", async ({ page }) => {
@@ -45,7 +51,7 @@ test.describe("Iteration 13 layout refinement", () => {
     await expect(navWrap).toHaveAttribute("data-nav-hidden", "false");
   });
 
-  test("reduced motion keeps the navigation present and emphasis readable", async ({ page }) => {
+  test("reduced motion keeps the navigation present and signature readable", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     const response = await page.goto("/");
     expect(response?.ok()).toBeTruthy();
@@ -62,8 +68,8 @@ test.describe("Iteration 13 layout refinement", () => {
     expect(navState.pointerEvents).toBe("auto");
     expect(navState.transform).toBe("none");
 
-    const emphasis = page.locator(".display-script").first();
-    await expect(emphasis).toBeVisible();
-    expect(await emphasis.evaluate((element) => getComputedStyle(element).transform)).toBe("none");
+    const signature = page.locator(".overhaul-hero-signature");
+    await expect(signature).toBeVisible();
+    expect(await signature.evaluate((element) => getComputedStyle(element).transform)).toBe("none");
   });
 });

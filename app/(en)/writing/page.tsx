@@ -4,15 +4,11 @@ import { profile } from "@/data/public";
 import { writingArticles } from "@/data/writing";
 
 const canonical = `${profile.domain}/writing`;
-const arabic = `${profile.domain}/ar/writing`;
 
 export const metadata: Metadata = {
   title: "Writing — Data, AI & Product field notes",
   description: "First-hand technical essays from Mohammed Ehab ElNomany on probabilistic forecasting, production ML evaluation and governed AI agents.",
-  alternates: {
-    canonical,
-    languages: { en: canonical, ar: arabic, "x-default": canonical },
-  },
+  alternates: { canonical },
   openGraph: {
     title: `Writing — ${profile.name}`,
     description: "First-hand technical essays derived from inspectable project evidence.",
@@ -20,7 +16,6 @@ export const metadata: Metadata = {
     siteName: profile.name,
     type: "website",
     locale: "en_US",
-    alternateLocale: ["ar_EG"],
   },
   twitter: {
     card: "summary",

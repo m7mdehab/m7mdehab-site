@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Italianno } from "next/font/google";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/newsreader";
 import "../globals.css";
@@ -18,19 +19,26 @@ import "../frontend-overhaul-phase-h-fixes.css";
 import "../frontend-overhaul-phase-i-fixes.css";
 import "../frontend-overhaul-phase-j.css";
 import "../frontend-overhaul-phase-l.css";
+import "../frontend-overhaul-phase-m.css";
+import "../frontend-overhaul-phase-m-fixes.css";
+import "../frontend-overhaul-phase-n.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
 import { profile } from "@/data/public";
 
+const signatureFont = Italianno({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--signature-font",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
   title: { default: `${profile.name} — Data, AI & Product`, template: `%s — ${profile.name}` },
   description: profile.proposition,
-  alternates: {
-    canonical: "/",
-    languages: { en: "/", ar: "/ar", "x-default": "/" },
-  },
+  alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.domain }],
   openGraph: {
     title: `${profile.name} — Data, AI & Product`,
@@ -39,7 +47,6 @@ export const metadata: Metadata = {
     siteName: profile.name,
     type: "profile",
     locale: "en_US",
-    alternateLocale: ["ar_EG"],
   },
   twitter: {
     card: "summary",
@@ -112,7 +119,7 @@ const siteSchema = {
 
 export default function EnglishRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={signatureFont.variable}>
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />

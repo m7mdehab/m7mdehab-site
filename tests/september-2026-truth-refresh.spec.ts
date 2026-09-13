@@ -28,17 +28,8 @@ test.describe("September 2026 career truth refresh", () => {
     await expect(rail).not.toContainText("Udacity / ITIDA");
   });
 
-  test("Arabic factual projection inherits the same refreshed career truth on its dedicated history route", async ({ page }) => {
-    await page.goto("/ar/about");
-    await expect(page.getByText("مهندس بيانات", { exact: true }).first()).toBeVisible();
-    await expect(page.getByText("قائد فريق تحليل الأعمال", { exact: true })).toBeVisible();
-    await expect(page.getByText("محلل بيانات ومحلل سلاسل إمداد", { exact: true })).toBeVisible();
-    await expect(page.getByText("Databricks Certified Data Engineer Associate", { exact: true })).toBeVisible();
-    await expect(page.getByText("WordPress", { exact: true })).toHaveCount(0);
-
-    await page.goto("/ar");
-    const rail = page.locator(".credibility-rail");
-    await expect(rail.locator('[aria-label="شهادة: Databricks"]').first()).toBeVisible();
-    await expect(page.getByRole("link", { name: "السيرة المهنية كاملة" })).toHaveAttribute("href", "/ar/about");
+  test("the former Arabic projection is no longer public", async ({ page }) => {
+    expect((await page.goto("/ar"))?.status()).toBe(404);
+    expect((await page.goto("/ar/about"))?.status()).toBe(404);
   });
 });

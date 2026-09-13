@@ -40,7 +40,7 @@ jobs:
       - name: Build static export
         run: CLOUDFLARE_STATIC_EXPORT=1 npm run build
 
-      - name: Verify complete bilingual exported launch surface
+      - name: Verify English-only exported launch surface
         shell: bash
         run: |
           set -euo pipefail
@@ -69,28 +69,24 @@ jobs:
             fi
           }
 
+          assert_absent() {
+            local file="$1"
+            local directory_index="$2"
+            local label="$3"
+            if [ -f "$file" ] || [ -f "$directory_index" ]; then
+              echo "Unexpected retired $label export" >&2
+              exit 1
+            fi
+          }
+
           assert_export out/about.html out/about/index.html "English About"
           assert_export out/work.html out/work/index.html "English work directory"
           assert_export out/services.html out/services/index.html "English services"
           assert_export out/writing.html out/writing/index.html "English writing hub"
 
-          assert_export out/ar.html out/ar/index.html "Arabic homepage"
-          assert_export out/ar/about.html out/ar/about/index.html "Arabic About"
-          assert_export out/ar/work.html out/ar/work/index.html "Arabic work directory"
-          assert_export out/ar/services.html out/ar/services/index.html "Arabic services"
-          assert_export out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
-
-          project_slugs=(
-            presaira
-            opportunityos
-            ghareeb-oglu
-            oil-spill-detection
-            solar-site-selection
-            makhbazy
-          )
+          project_slugs=(presaira opportunityos ghareeb-oglu oil-spill-detection solar-site-selection makhbazy)
           for slug in "${project_slugs[@]}"; do
             assert_export "out/work/${slug}.html" "out/work/${slug}/index.html" "English project ${slug}"
-            assert_export "out/ar/work/${slug}.html" "out/ar/work/${slug}/index.html" "Arabic project ${slug}"
           done
 
           article_slugs=(
@@ -100,8 +96,19 @@ jobs:
           )
           for slug in "${article_slugs[@]}"; do
             assert_export "out/writing/${slug}.html" "out/writing/${slug}/index.html" "English article ${slug}"
-            assert_export "out/ar/writing/${slug}.html" "out/ar/writing/${slug}/index.html" "Arabic article ${slug}"
           done
+
+          assert_absent out/ar.html out/ar/index.html "Arabic homepage"
+          assert_absent out/ar/about.html out/ar/about/index.html "Arabic About"
+          assert_absent out/ar/work.html out/ar/work/index.html "Arabic work directory"
+          assert_absent out/ar/services.html out/ar/services/index.html "Arabic services"
+          assert_absent out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
+
+          if grep -Fq '/ar' out/sitemap.xml; then
+            echo "Sitemap still exposes Arabic routes" >&2
+            exit 1
+          fi
+          test "$(grep -o '<url>' out/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
       - name: Verify preview Wrangler packaging without deploying
         run: npx --yes wrangler@4.130.0 deploy --dry-run --config wrangler.static.jsonc
@@ -115,8 +122,6 @@ jobs:
           set -euo pipefail
           npm audit --omit=dev --audit-level=low
 
-      # Advisory future-runtime compatibility only. It deliberately reuses this
-      # runner after mandatory static-production checks have passed.
       - name: Vinext future-runtime probe
         continue-on-error: true
         timeout-minutes: 8
