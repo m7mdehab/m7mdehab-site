@@ -2,9 +2,10 @@
 
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** ACTIVE  
-**Current phase:** Phase J — Responsive / Mobile Art Direction  
-**Previous phase:** Phase I — COMPLETE / ACCEPTED  
+**Current phase:** Phase L — Final EN/AR/Responsive Production Hardening & Acceptance  
+**Previous phase:** Phase K — COMPLETE / ACCEPTED  
 **Created:** 2026-09-12  
+**Updated:** 2026-09-13  
 **Authority:** Mohammed Ehab ElNomany
 
 ## Governing decision
@@ -68,7 +69,8 @@ Supporting routes:
 - `/work/[slug]` — evidence-heavy case studies;
 - `/about` — professional history, education, credentials, skills and working principles;
 - `/services` — detailed service propositions/evidence;
-- `/writing` — writing archive.
+- `/writing` — writing archive;
+- `/ar` and reciprocal Arabic supporting routes — authored RTL counterparts with meaning/quality parity rather than mechanical geometry parity.
 
 Do not create a duplicate HTML `/resume` route by default.
 
@@ -219,30 +221,93 @@ A final documentation-only verification rerun also passed Deployment Readiness `
 
 Decision record: `docs/frontend-overhaul/PHASE_I_ENGLISH_DESKTOP_ACCEPTANCE.md`.
 
-## Phase J — Responsive / Mobile Art Direction — ACTIVE / NEXT
+## Phase J — Responsive / Mobile Art Direction — COMPLETE / ACCEPTED
 
-Mobile is not a shrunken desktop. Phase J must intentionally recompose hero, project browsing, credibility rail, method chapter, writing, opportunity and navigation.
+Phase J intentionally recomposed mobile rather than shrinking desktop. It hardened the 390px and 430px Home compositions, visible navigation tap-target instrumentation, credibility-rail touch/reduced-motion behavior, project evidence weighting, method, writing, opportunity and overall mobile density.
 
-Required gates include:
+Final accepted candidate:
 
-- 390px and representative larger-phone renders;
-- touch-target and interaction review;
-- no horizontal overflow;
-- deliberate reweighting of project evidence rather than desktop stacking;
-- readable credibility rail with touch/reduced-motion fallback;
-- motion/performance review on constrained viewport;
-- no desktop-only layout assumptions;
-- rendered visual acceptance before Phase K.
+- PR #20;
+- final head `77b12ce5297f303cdde635a4da213fa5f959a317`;
+- merged to `main` at **`d7de991cd53895b5d6c883a7f2f0d1e6fff60893`**;
+- final Application CI + Deployment Readiness PASS;
+- final Home Lighthouse **88 / 100 / 100 / 100 / 100**;
+- 390px Home: **6440 px / 7.63 viewport heights / zero overflow**;
+- 430px Home: **6409 px / 6.88 viewport heights / zero overflow**;
+- visible mobile nav targets **≥36px**.
 
-## Phase K — Arabic Art Direction + Editorial Rewrite
+Production deployment after the Phase J merge completed successfully, including live-route verification, production Playwright/accessibility, real production screenshots and Lighthouse.
 
-Factual Arabic data already inherits the September truth refresh. Phase K remains the intentional RTL **design/editorial** pass: restructure where needed for Arabic rhythm, then rewrite/polish Arabic copy without mechanically mirroring English geometry.
+## Phase K — Arabic Art Direction + Editorial Rewrite — COMPLETE / ACCEPTED
 
-## Phase L — Final Staging Acceptance & Production Readiness
+Phase K replaced the stale Arabic CV-style Home with an authored RTL version of the accepted selective architecture. It is not a translated mirror of English.
 
-Run full typecheck/lint/build/browser/accessibility/reduced-motion/schema/canonical/Lighthouse gates, deploy real Cloudflare staging, verify `noindex`/security/canonical isolation and capture final EN/AR/responsive screenshots.
+Implemented and accepted:
 
-Only after final visual acceptance may domain purchase/production activation proceed.
+- selective Arabic Home: Hero → credibility rail → three flagship work systems → method → writing → opportunity/footer;
+- new `/ar/about` for detailed professional history, education, credentials, operating stack and working principles;
+- Arabic navigation reduced to Work / About / Writing / Contact;
+- authored RTL geometry, evidence-atlas positioning, typography and responsive rhythm;
+- reciprocal `/about` ↔ `/ar/about` metadata/sitemap behavior;
+- complete Arabic mobile acceptance at 390px and 430px;
+- Arabic services semantic heading chain corrected without changing visual hierarchy;
+- reduced-motion, no-JS, overflow and accessibility coverage.
+
+Final accepted candidate:
+
+- PR #21;
+- head `bfc352e14861f6cc54b1a5a22a964a9f63cfb142`;
+- Deployment Readiness `34727957835` PASS;
+- Application CI `34727957841` PASS;
+- browser suite **88/88 PASS**;
+- Arabic Home Lighthouse **93 / 100 / 100 / 100 / 100**;
+- artifact `10308581669`;
+- artifact SHA-256 `05f1bcd5490f576243f956e0c118bfc37e0f4f0fe18f7f82729856b7a608104c`;
+- merged to `main` at **`6848e6ade3e025adaa369a1eaf1d7eab1e3f0a06`** after explicit visual acceptance.
+
+The automatic post-merge GitHub Actions runs for Application CI, staging and production then failed before runner acquisition (`steps: []` / `runner_id: 0`). This is an external hosted-execution gate, not evidence of a code/test regression. Phase K therefore must not be described as newly deployed to production until hosted deployment succeeds.
+
+## Phase L — Final EN/AR/Responsive Production Hardening & Acceptance — ACTIVE
+
+Phase L is the final cross-language production hardening phase. The old description as “staging/production readiness before domain activation” is obsolete because **`m7mdehab.com` is already purchased, configured and live**.
+
+Required acceptance contract:
+
+- typecheck;
+- lint;
+- build/static export;
+- complete public-route smoke coverage;
+- full browser regression suite;
+- top-level full-page accessibility;
+- English desktop regression;
+- English 390px/430px mobile regression;
+- Arabic desktop regression;
+- Arabic 390px/430px mobile regression;
+- reciprocal routing/canonical/hreflang/x-default verification;
+- structured-data presence/consistency;
+- reduced-motion fallback;
+- no-JS semantic fallback;
+- real Cloudflare staging noindex/security/canonical isolation;
+- real production route/security/canonical QA;
+- hosted Playwright against staging and production;
+- Lighthouse performance review;
+- final EN/AR Home + About screenshot matrix;
+- machine-readable final release evidence.
+
+Phase L must not redesign already accepted surfaces unless hardening exposes a genuine regression. It must not use CI alone as proof of visual quality.
+
+Current Phase L branch/PR:
+
+- branch `frontend-overhaul-phase-l`;
+- draft PR #22;
+- base `6848e6ade3e025adaa369a1eaf1d7eab1e3f0a06`.
+
+Current external execution issue:
+
+- Application CI, Deployment Readiness, staging and production workflows are currently failing before any hosted runner starts;
+- the same condition appears across `ubuntu-latest` and `ubuntu-24.04`;
+- do not weaken validation or mutate runner labels merely to hide the platform-level condition;
+- once hosted execution resumes, Phase L must run the complete contract and produce final hosted artifacts before merge/final closure.
 
 ## Hard regression tests
 
@@ -274,9 +339,9 @@ The redesign fails if:
 | F — solve/think bridge | COMPLETE / ACCEPTED |
 | G — writing / opportunity / footer | COMPLETE / ACCEPTED |
 | H — about route | COMPLETE / ACCEPTED |
-| I — English desktop acceptance | **COMPLETE / ACCEPTED** |
-| J — responsive/mobile | **ACTIVE / NEXT** |
-| K — Arabic design/editorial | Not started |
-| L — final staging / production readiness | Not started |
+| I — English desktop acceptance | COMPLETE / ACCEPTED |
+| J — responsive/mobile | **COMPLETE / ACCEPTED** |
+| K — Arabic design/editorial | **COMPLETE / ACCEPTED** |
+| L — final EN/AR/responsive production hardening | **ACTIVE** |
 
-Domain purchase remains deferred until the final visual acceptance gate.
+Production already exists at **`https://m7mdehab.com`**. No domain purchase or activation step remains in the frontend-overhaul acceptance sequence.
