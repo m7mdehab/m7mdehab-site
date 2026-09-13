@@ -13,6 +13,7 @@ import {
   skillGroups,
   writing,
 } from "@/data/public";
+import { emailComposeHref } from "@/data/contact-links";
 import { projectVisuals } from "@/data/project-visuals";
 import { ProjectVisual } from "@/components/project-visual";
 import projectStyles from "@/components/project-visual.module.css";
@@ -204,7 +205,9 @@ export function Services() {
               ) : <p className={serviceStyles.boundary}>{service.projectContext}</p>}
               <a
                 className={serviceStyles.contactLink}
-                href={`mailto:${profile.email}?subject=${encodeURIComponent(service.contactSubject)}`}
+                href={emailComposeHref(service.contactSubject)}
+                target="_blank"
+                rel="noreferrer"
                 data-conversion="service-to-contact"
                 data-service-id={service.id}
               >
@@ -234,7 +237,7 @@ export function Contact() {
     <section id="contact" className="contact-section shell">
       <Reveal><p className="eyebrow">11 — Opportunity</p><h2>Have a <em className="display-script">difficult problem</em> worth solving?</h2><p className="contact-copy">Discuss a role or project opportunity.</p></Reveal>
       <Reveal delay={0.08} className="contact-actions">
-        <a href={`mailto:${profile.email}`} data-conversion="contact-email"><Mail size={18}/> Email</a>
+        <a href={emailComposeHref("Role or project opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-email"><Mail size={18}/> Email</a>
         <a href={profile.linkedin} target="_blank" rel="noreferrer" data-conversion="contact-linkedin"><Linkedin size={18}/> LinkedIn</a>
         <a href={profile.github} target="_blank" rel="noreferrer" data-conversion="contact-github"><Github size={18}/> GitHub</a>
       </Reveal>

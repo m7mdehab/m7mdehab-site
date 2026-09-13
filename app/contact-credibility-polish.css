@@ -1,0 +1,43 @@
+/* Contact + credibility follow-up: preserve the desktop marquee while keeping static/manual modes fully usable. */
+
+.closing-directory-icons a {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(241, 239, 232, .12);
+  border-radius: 50%;
+  color: rgba(241, 239, 232, .42);
+  transition: color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.closing-directory-icons a:hover,
+.closing-directory-icons a:focus-visible {
+  color: #fff;
+  border-color: rgba(241, 239, 232, .5);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .credibility-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    mask-image: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credibility-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    mask-image: none;
+  }
+
+  .credibility-sequence[aria-hidden="true"] {
+    display: none;
+  }
+}

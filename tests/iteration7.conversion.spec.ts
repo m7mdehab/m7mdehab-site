@@ -24,7 +24,7 @@ test.describe("Iteration 7 conversion architecture", () => {
     }
   });
 
-  test("service cards expose governed evidence and provider-neutral contact intents", async ({ page }) => {
+  test("service cards expose governed evidence and browser-reliable contact intents", async ({ page }) => {
     await page.goto("/services");
 
     const serviceCards = page.locator("#services .service-card");
@@ -34,8 +34,16 @@ test.describe("Iteration 7 conversion architecture", () => {
     await expect(contactLinks).toHaveCount(4);
     for (const link of await contactLinks.all()) {
       const href = await link.getAttribute("href");
-      expect(href).toMatch(/^mailto:/);
-      expect(href).toContain("subject=");
+      expect(href).toBeTruthy();
+      const url = new URL(href!);
+      expect(url.origin).toBe("https://mail.google.com");
+      expect(url.pathname).toBe("/mail/");
+      expect(url.searchParams.get("view")).toBe("cm");
+      expect(url.searchParams.get("fs")).toBe("1");
+      expect(url.searchParams.get("to")).toBe("M7mdehab999@gmail.com");
+      expect(url.searchParams.get("su")).toBeTruthy();
+      await expect(link).toHaveAttribute("target", "_blank");
+      await expect(link).toHaveAttribute("rel", /noreferrer/);
     }
 
     const analytics = page.locator("#service-analytics-power-bi");

@@ -1,0 +1,212 @@
+/* Phase O — coherent credibility rail system.
+   Every organization uses the same card geometry: logo stage, organization name, activity/context. */
+
+.credibility-viewport {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 3px 0 8px;
+  mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+}
+
+.credibility-track.credibility-logo-track {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: max-content;
+  min-width: 100%;
+  padding: 0;
+  animation: credibility-loop 46s linear infinite;
+  will-change: transform;
+}
+
+.credibility-logo-sequence {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  flex: none;
+  padding: 0 5px;
+}
+
+.credibility-brand-item {
+  display: grid;
+  grid-template-rows: 42px 42px;
+  flex: 0 0 190px;
+  width: 190px;
+  min-width: 190px;
+  height: 104px;
+  min-height: 104px;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-right: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .018);
+  box-sizing: border-box;
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.credibility-brand-marks {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 42px;
+  min-height: 42px;
+  padding: 6px 12px;
+  overflow: hidden;
+  border: 1px solid rgba(10, 14, 17, .10);
+  border-radius: 6px;
+  background: #f3f2ee;
+  box-sizing: border-box;
+}
+
+.credibility-brand-item .brand-logo {
+  display: grid;
+  place-items: center;
+  width: 112px;
+  max-width: 112px;
+  height: 28px;
+  max-height: 28px;
+}
+
+.credibility-brand-item .brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+  opacity: 1;
+}
+
+/* Optical normalization for marks whose source artwork has very different proportions. */
+.credibility-brand-item[data-brand-card="network"] .brand-logo { width: 104px; height: 25px; }
+.credibility-brand-item[data-brand-card="altayseer"] .brand-logo { width: 86px; height: 28px; }
+.credibility-brand-item[data-brand-card="orcas"] .brand-logo { width: 96px; height: 27px; }
+.credibility-brand-item[data-brand-card="narss"] .brand-logo,
+.credibility-brand-item[data-brand-card="zewail"] .brand-logo { width: 42px; height: 30px; }
+.credibility-brand-item[data-brand-card="databricks"] .brand-logo { width: 38px; height: 30px; }
+.credibility-brand-item[data-brand-card="mckinsey"] .brand-logo { width: 44px; height: 30px; }
+.credibility-brand-item[data-brand-card="cic"] .brand-logo { width: 112px; height: 27px; }
+.credibility-brand-item[data-brand-card="exploreai"] .brand-logo { width: 52px; height: 25px; }
+
+.credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
+  width: 52px;
+  height: 25px;
+  max-width: 52px;
+  max-height: 25px;
+}
+
+.credibility-brand-copy {
+  display: grid;
+  grid-template-rows: 22px 18px;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+  align-content: start;
+  text-align: left;
+}
+
+.credibility-brand-copy strong,
+.credibility-brand-copy small {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+}
+
+.credibility-brand-copy strong {
+  align-self: start;
+  color: rgba(248, 248, 245, .94);
+  font-size: 10.5px;
+  font-weight: 680;
+  line-height: 1.08;
+  letter-spacing: -.012em;
+  -webkit-line-clamp: 2;
+}
+
+.credibility-brand-copy small {
+  align-self: start;
+  color: rgba(248, 248, 245, .55);
+  font-size: 7.4px;
+  font-weight: 690;
+  line-height: 1.2;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+  -webkit-line-clamp: 2;
+}
+
+.credibility-viewport:hover .credibility-logo-track,
+.credibility-viewport:focus-within .credibility-logo-track,
+.credibility-viewport:focus .credibility-logo-track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1180px) {
+  .credibility-brand-item {
+    flex-basis: 178px;
+    width: 178px;
+    min-width: 178px;
+  }
+}
+
+@media (max-width: 700px) {
+  .credibility-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  }
+
+  .credibility-track.credibility-logo-track {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .credibility-logo-sequence {
+    gap: 8px;
+    padding-inline: 14px;
+  }
+
+  .credibility-logo-sequence[aria-hidden="true"] {
+    display: none;
+  }
+
+  .credibility-brand-item {
+    flex: 0 0 170px;
+    width: 170px;
+    min-width: 170px;
+    height: 100px;
+    min-height: 100px;
+    scroll-snap-align: start;
+  }
+
+  .credibility-brand-copy strong {
+    font-size: 10px;
+  }
+
+  .credibility-brand-copy small {
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credibility-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .credibility-track.credibility-logo-track {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .credibility-logo-sequence[aria-hidden="true"] {
+    display: none;
+  }
+}

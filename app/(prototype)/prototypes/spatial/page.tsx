@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ProjectVisual } from "@/components/project-visual";
+import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 
@@ -28,7 +29,7 @@ export default function SpatialPrototype() {
             <p className="proto-eyebrow">Mohammed Ehab ElNomany · Cairo</p>
             <h1>Business problems, <em>technical evidence.</em></h1>
             <p>{profile.proposition} The work below is treated like evidence in an exhibition: inspectable, distinct and deliberately incomplete until you choose to enter it.</p>
-            <div className="proto-actions"><a className="proto-button" href="#work">Enter the work ↘</a><a className="proto-button" href={`mailto:${profile.email}`}>Discuss an opportunity ↗</a></div>
+            <div className="proto-actions"><a className="proto-button" href="#work">Enter the work ↘</a><a className="proto-button" href={emailComposeHref("Role or project opportunity")} target="_blank" rel="noreferrer">Discuss an opportunity ↗</a></div>
           </div>
           <span className="spatial-caption">Selected evidence / 2026</span>
           <div className="spatial-canvas" aria-label="Spatial composition of real project evidence">
@@ -54,7 +55,7 @@ export default function SpatialPrototype() {
         <div className="spatial-think-copy"><p className="proto-eyebrow">Working method · 02</p><h2>From messy edges to a system people can <span className="proto-serif">trust.</span></h2><p>Capabilities are not a chip list here. They are the repeated transformation underneath very different work: expose the evidence, reduce ambiguity, then ship the smallest reliable system that carries the decision.</p></div>
         <div className="spatial-map" aria-label="Problem-to-system transformation diagram"><span className="step one">01 · Make truth visible</span><span className="wire w1" aria-hidden="true" /><span className="step two">02 · Reduce ambiguity</span><span className="wire w2" aria-hidden="true" /><span className="step three">03 · Build what carries the job</span></div>
       </section>
-      <section className="spatial-cta proto-shell" id="contact"><div><p className="proto-eyebrow">Opportunity · 03</p><h2>Worth solving? <span className="proto-serif">Let&apos;s inspect it together.</span></h2></div><div className="proto-actions"><a className="proto-button" href={`mailto:${profile.email}`}>Email ↗</a><a className="proto-button" href={profile.linkedin}>LinkedIn ↗</a></div></section>
+      <section className="spatial-cta proto-shell" id="contact"><div><p className="proto-eyebrow">Opportunity · 03</p><h2>Worth solving? <span className="proto-serif">Let&apos;s inspect it together.</span></h2></div><div className="proto-actions"><a className="proto-button" href={emailComposeHref("Role or project opportunity")} target="_blank" rel="noreferrer">Email ↗</a><a className="proto-button" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div></section>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 import type { WritingArticle } from "@/data/writing";
@@ -106,7 +107,7 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
               <h3>Hiring for a technical, data or product role?</h3>
               <p>Start with the work, then reach me directly with the role and the problem space.</p>
               <div className="closing-path-actions">
-                <a href={`mailto:${profile.email}?subject=${encodeURIComponent("Technical role opportunity")}`} data-conversion="contact-role-email">Email about a role <Mail size={15} aria-hidden="true" /></a>
+                <a href={emailComposeHref("Technical role opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-role-email">Email about a role <Mail size={15} aria-hidden="true" /></a>
                 <a href={profile.linkedin} target="_blank" rel="noreferrer" data-conversion="contact-role-linkedin">LinkedIn <Linkedin size={15} aria-hidden="true" /></a>
                 <Link href="/work">Inspect work <ArrowUpRight size={15} aria-hidden="true" /></Link>
               </div>
@@ -119,7 +120,7 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
               <p>Migration, analytics, ML/AI or product delivery — use the service context to see what is supported by public proof and what stays experience-backed.</p>
               <div className="closing-path-actions">
                 <Link href="/services" data-conversion="home-to-services">Service context <ArrowRight size={15} aria-hidden="true" /></Link>
-                <a href={`mailto:${profile.email}?subject=${encodeURIComponent("Project or system opportunity")}`} data-conversion="contact-project-email">Discuss the problem <Mail size={15} aria-hidden="true" /></a>
+                <a href={emailComposeHref("Project or system opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-project-email">Discuss the problem <Mail size={15} aria-hidden="true" /></a>
               </div>
             </article>
           </div>
@@ -135,13 +136,17 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
 
           <nav className="closing-directory-nav" aria-label="Footer directory">
             <div><p>Explore</p><Link href="/#work">Work</Link><Link href="/about">About</Link><Link href="/services">Services</Link><Link href="/writing">Writing</Link></div>
-            <div><p>Connect</p><a href={`mailto:${profile.email}`} data-conversion="footer-email">Email</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={profile.github} target="_blank" rel="noreferrer">GitHub</a></div>
+            <div><p>Connect</p><a href={emailComposeHref()} target="_blank" rel="noreferrer" data-conversion="footer-email">Email</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={profile.github} target="_blank" rel="noreferrer">GitHub</a></div>
           </nav>
 
           <div className="closing-directory-end">
-            <a className="closing-directory-email" href={`mailto:${profile.email}`}>{profile.email} <ArrowUpRight size={14} aria-hidden="true" /></a>
+            <a className="closing-directory-email" href={emailComposeHref()} target="_blank" rel="noreferrer">{profile.email} <ArrowUpRight size={14} aria-hidden="true" /></a>
             <p>© {new Date().getFullYear()} {profile.name}. Built as a living professional web identity.</p>
-            <div className="closing-directory-icons" aria-hidden="true"><Mail size={14} /><Linkedin size={14} /><Github size={14} /></div>
+            <div className="closing-directory-icons" aria-label="Contact links">
+              <a href={emailComposeHref()} target="_blank" rel="noreferrer" aria-label={`Email ${profile.name}`}><Mail size={14} aria-hidden="true" /></a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label={`${profile.name} on LinkedIn`}><Linkedin size={14} aria-hidden="true" /></a>
+              <a href={profile.github} target="_blank" rel="noreferrer" aria-label={`${profile.name} on GitHub`}><Github size={14} aria-hidden="true" /></a>
+            </div>
           </div>
         </div>
       </footer>

@@ -36,32 +36,80 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     expect(targetProximity).toBeGreaterThan(farProximity);
   });
 
-  test("brand evidence appears in the rail, About and Ghareeb project without becoming text replacement", async ({ page }) => {
+  test("brand evidence uses one uniform card system and loops in native colour", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     await settle(page);
+
     const rail = page.locator(".credibility-rail");
-    expect(await rail.locator("[data-brand-logo]").count()).toBe(10);
-    await expect(rail).toContainText("Network International");
+    const sequences = rail.locator(".credibility-logo-sequence");
+    await expect(sequences).toHaveCount(2);
+    await expect(sequences.nth(1)).toHaveAttribute("aria-hidden", "true");
+    await expect(sequences.first().locator(".credibility-brand-item")).toHaveCount(9);
+    expect(await sequences.first().locator("[data-brand-logo]").count()).toBe(10);
+    expect(await rail.locator("[data-brand-logo]").count()).toBe(20);
+    await expect(rail.locator(".credibility-group")).toHaveCount(0);
+
+    const track = rail.locator(".credibility-logo-track");
+    expect(await track.evaluate((element) => getComputedStyle(element).animationName)).toContain("credibility-loop");
+
+    const cards = sequences.first().locator(".credibility-brand-item");
+    const cardGeometry = await cards.evaluateAll((elements) => elements.map((element) => {
+      const rect = element.getBoundingClientRect();
+      const logoStage = element.querySelector<HTMLElement>(".credibility-brand-marks");
+      const logoRect = logoStage?.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      return {
+        width: Math.round(rect.width),
+        height: Math.round(rect.height),
+        display: style.display,
+        logoWidth: logoRect ? Math.round(logoRect.width) : 0,
+        logoHeight: logoRect ? Math.round(logoRect.height) : 0,
+      };
+    }));
+    expect(new Set(cardGeometry.map((item) => item.width)).size).toBe(1);
+    expect(new Set(cardGeometry.map((item) => item.height)).size).toBe(1);
+    expect(new Set(cardGeometry.map((item) => item.logoWidth)).size).toBe(1);
+    expect(new Set(cardGeometry.map((item) => item.logoHeight)).size).toBe(1);
+    expect(cardGeometry.every((item) => item.display === "grid")).toBeTruthy();
+
+    const network = sequences.first().locator('.credibility-brand-item[aria-label^="Network International:"]');
+    await expect(network).toContainText("Network International");
+    await expect(network).toContainText("Data engineering & migration");
+
+    const nativeLogos = sequences.first().locator(".brand-logo-native");
+    expect(await nativeLogos.count()).toBe(10);
+    const firstImage = nativeLogos.first().locator("img");
+    expect(await firstImage.evaluate((element) => getComputedStyle(element).filter)).toBe("none");
+
     await expect(rail).toContainText("Canadian International College");
-    await expect(rail.locator('[data-brand-logo="exploreai"]')).toBeVisible();
-    await expect(rail.locator('[data-brand-logo="alx"]')).toBeVisible();
+    await expect(rail).toContainText("BSc Computer Science · Data Science");
+    await expect(rail.locator('[data-brand-logo="exploreai"]').first()).toBeVisible();
+    await expect(rail.locator('[data-brand-logo="alx"]').first()).toBeVisible();
 
     await page.goto("/about");
     await settle(page);
-    expect(await page.locator("[data-brand-logo]").count()).toBeGreaterThanOrEqual(8);
+    const aboutLogos = page.locator("[data-brand-logo]");
+    expect(await aboutLogos.count()).toBeGreaterThanOrEqual(8);
+    expect(await page.locator(".brand-logo-native").count()).toBeGreaterThanOrEqual(8);
 
     await page.goto("/work/ghareeb-oglu");
     await settle(page);
-    await expect(page.locator('[data-brand-logo="ghareeb"]')).toBeVisible();
+    await expect(page.locator('[data-brand-logo="ghareeb"].brand-logo-native')).toBeVisible();
   });
 
-  test("mobile keeps the one-line signature and avoids horizontal overflow", async ({ page }) => {
+  test("mobile keeps the one-line signature, one manual rail sequence and no horizontal overflow", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
     const title = page.locator(".overhaul-hero-title");
     await expect(title).toBeVisible();
     expect(await title.evaluate((element) => getComputedStyle(element).whiteSpace)).toBe("nowrap");
+
+    const railTrack = page.locator(".credibility-logo-track");
+    expect(await railTrack.evaluate((element) => getComputedStyle(element).animationName)).toBe("none");
+    await expect(page.locator('.credibility-logo-sequence[aria-hidden="true"]')).toBeHidden();
+
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(2);
   });
 });

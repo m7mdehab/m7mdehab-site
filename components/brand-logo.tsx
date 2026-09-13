@@ -11,7 +11,7 @@ export function BrandLogo({
   brand,
   alt = "",
   className = "",
-  mode = "mono",
+  mode = "native",
 }: {
   brand: BrandKey;
   alt?: string;

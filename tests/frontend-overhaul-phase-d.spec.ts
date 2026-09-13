@@ -47,12 +47,12 @@ test.describe("Phase D production visual foundation", () => {
 
     const rail = page.locator(".credibility-rail");
     await expect(rail).toBeVisible();
-    await expect(rail).toContainText("Experience across");
-    await expect(rail).toContainText("Learning & credentials");
-    await expect(rail.locator('[aria-label="Employment: Network International"]')).toBeVisible();
-    await expect(rail.locator('[aria-label="Credential: Databricks"]')).toBeVisible();
-    await expect(rail.locator('[aria-label="Credential: McKinsey Forward"]')).toBeVisible();
-    expect(await rail.locator("[data-brand-logo]").count()).toBeGreaterThanOrEqual(9);
+    await expect(rail.locator(".credibility-logo-sequence").first().locator(".credibility-brand-item")).toHaveCount(9);
+    await expect(rail.locator(".credibility-group")).toHaveCount(0);
+    await expect(rail.locator('[aria-label^="Network International:"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label^="Databricks:"]').first()).toBeVisible();
+    await expect(rail.locator('[aria-label^="McKinsey Forward:"]').first()).toBeVisible();
+    expect(await rail.locator("[data-brand-logo]").count()).toBeGreaterThanOrEqual(18);
     await expect(rail).not.toContainText("Udacity / ITIDA");
     expect((await rail.innerText()).toLowerCase()).not.toContain("trusted by");
 
@@ -94,5 +94,6 @@ test.describe("Phase D production visual foundation", () => {
 
     const railOverflow = await page.locator(".credibility-viewport").evaluate((element) => getComputedStyle(element).overflowX);
     expect(["auto", "scroll"]).toContain(railOverflow);
+    await expect(page.locator('.credibility-logo-sequence[aria-hidden="true"]')).toBeHidden();
   });
 });
