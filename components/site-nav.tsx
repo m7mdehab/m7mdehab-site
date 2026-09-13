@@ -6,11 +6,6 @@ export function SiteNav() {
   return (
     <FloatingNav
       links={links}
-      localeHref="/ar"
-      localeLabel="AR"
-      localeAriaLabel="العربية"
-      localeLang="ar"
-      localeDir="rtl"
       ariaLabel="Primary navigation"
       markHref="/#top"
       markAriaLabel="M7 — back to top"
