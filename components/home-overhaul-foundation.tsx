@@ -1,31 +1,31 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { HeroAmbientField } from "@/components/hero-ambient-field";
-import { experience, profile } from "@/data/public";
+import { profile } from "@/data/public";
 
-const experienceSignals = [
-  { name: "Network International", relationship: "Employment" },
-  { name: "Al Tayseer", relationship: "Employment" },
-  { name: "Orcas", relationship: "Teaching" },
-  { name: "NARSS", relationship: "Internship" },
-  { name: "Zewail City", relationship: "Internship" },
-] as const;
+const experienceSignals: ReadonlyArray<{ name: string; relationship: string; brand: BrandKey }> = [
+  { name: "Network International", relationship: "Employment", brand: "network" },
+  { name: "Al Tayseer", relationship: "Employment", brand: "altayseer" },
+  { name: "Orcas", relationship: "Teaching", brand: "orcas" },
+  { name: "NARSS", relationship: "Internship", brand: "narss" },
+  { name: "Zewail City", relationship: "Internship", brand: "zewail" },
+];
 
-const learningSignals = [
-  { name: "Databricks", relationship: "Credential" },
-  { name: "McKinsey Forward", relationship: "Credential" },
-  { name: "Canadian International College", relationship: "Education" },
-  { name: "ExploreAI / ALX", relationship: "Scholarship" },
-] as const;
+const learningSignals: ReadonlyArray<{ name: string; relationship: string; brand: BrandKey }> = [
+  { name: "Databricks", relationship: "Credential", brand: "databricks" },
+  { name: "McKinsey Forward", relationship: "Credential", brand: "mckinsey" },
+  { name: "Canadian International College", relationship: "Education", brand: "cic" },
+  { name: "ExploreAI / ALX", relationship: "Scholarship", brand: "exploreai" },
+];
 
-const heroRoles = experience.slice(0, 3).map((item) => item.role);
+const heroRoles = ["Data Engineer", "AI Engineer", "Business Analyst", "Data Analyst"] as const;
 
 export function SystemHero() {
   return (
     <section id="top" className="hero overhaul-hero">
+      <HeroAmbientField />
       <div className="overhaul-hero-shell shell">
-        <HeroAmbientField />
-
         <div className="overhaul-hero-meta">
           <span>Data · AI · Product</span>
           <span>Cairo, Egypt</span>
@@ -36,7 +36,7 @@ export function SystemHero() {
           <h1 className="overhaul-hero-title">
             <span className="overhaul-hero-signature">{profile.name}</span>
           </h1>
-          <p className="overhaul-hero-roles" aria-label="Current and previous roles">
+          <p className="overhaul-hero-roles" aria-label="Professional disciplines">
             {heroRoles.map((role) => <span key={role}>{role}</span>)}
           </p>
           <p className="overhaul-hero-proposition">{profile.proposition}</p>
@@ -54,32 +54,15 @@ export function SystemHero() {
   );
 }
 
-function RailSequence({ duplicate = false }: { duplicate?: boolean }) {
+function BrandSignal({ signal }: { signal: { name: string; relationship: string; brand: BrandKey } }) {
   return (
-    <div className="credibility-sequence" aria-hidden={duplicate ? "true" : undefined}>
-      <span className="credibility-group">Experience across</span>
-      {experienceSignals.map((signal) => (
-        <span
-          className="credibility-item"
-          aria-label={`${signal.relationship}: ${signal.name}`}
-          key={`experience-${signal.name}`}
-        >
-          <small>{signal.relationship}</small>
-          <strong>{signal.name}</strong>
-        </span>
-      ))}
-      <span className="credibility-group">Learning &amp; credentials</span>
-      {learningSignals.map((signal) => (
-        <span
-          className="credibility-item"
-          aria-label={`${signal.relationship}: ${signal.name}`}
-          key={`learning-${signal.name}`}
-        >
-          <small>{signal.relationship}</small>
-          <strong>{signal.name}</strong>
-        </span>
-      ))}
-    </div>
+    <span className="credibility-item credibility-brand-item" aria-label={`${signal.relationship}: ${signal.name}`}>
+      <BrandLogo brand={signal.brand} />
+      <span className="credibility-brand-copy">
+        <small>{signal.relationship}</small>
+        <strong>{signal.name}</strong>
+      </span>
+    </span>
   );
 }
 
@@ -91,9 +74,15 @@ export function CredibilityRail() {
         <Link href="/about">Full background <ArrowUpRight size={13} aria-hidden="true" /></Link>
       </div>
       <div className="credibility-viewport" tabIndex={0} aria-label="Selected professional and learning relationships">
-        <div className="credibility-track">
-          <RailSequence />
-          <RailSequence duplicate />
+        <div className="credibility-track credibility-logo-track">
+          <div className="credibility-logo-group">
+            <span className="credibility-group">Experience across</span>
+            {experienceSignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
+          </div>
+          <div className="credibility-logo-group credibility-logo-group-learning">
+            <span className="credibility-group">Learning &amp; credentials</span>
+            {learningSignals.map((signal) => <BrandSignal key={signal.name} signal={signal} />)}
+          </div>
         </div>
       </div>
     </section>
