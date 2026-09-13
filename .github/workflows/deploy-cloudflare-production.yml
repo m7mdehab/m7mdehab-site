@@ -64,11 +64,6 @@ jobs:
           test -f out/writing.json
           test -f out/llms.txt
           test -f out/_headers
-
-          # The shared static artifact deliberately contains a host-scoped noindex
-          # rule for workers.dev staging. Production acceptance is performed against
-          # the live apex below; do not reject the artifact merely because that
-          # staging-only rule exists.
           grep -F 'https://:version.:subdomain.workers.dev/*' out/_headers
           grep -F 'X-Robots-Tag: noindex' out/_headers
 
@@ -88,14 +83,16 @@ jobs:
           }
 
           assert_export out/about.html out/about/index.html "English About"
-          assert_export out/ar/about.html out/ar/about/index.html "Arabic About"
           assert_export out/work.html out/work/index.html "English work directory"
           assert_export out/services.html out/services/index.html "English services"
           assert_export out/writing.html out/writing/index.html "English writing hub"
-          assert_export out/ar.html out/ar/index.html "Arabic homepage"
-          assert_export out/ar/work.html out/ar/work/index.html "Arabic work directory"
-          assert_export out/ar/services.html out/ar/services/index.html "Arabic services"
-          assert_export out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
+          test ! -f out/ar.html
+          test ! -f out/ar/index.html
+          if grep -Fq '/ar' out/sitemap.xml; then
+            echo "Production sitemap artifact still exposes Arabic routes" >&2
+            exit 1
+          fi
+          test "$(grep -o '<url>' out/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
       - name: Deploy to Cloudflare production
         env:
@@ -103,7 +100,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.production.jsonc
 
-      - name: Verify live production routes, indexing, security, and canonical
+      - name: Verify live production routes, indexing, security, canonical, and Arabic absence
         shell: bash
         run: |
           set -euo pipefail
@@ -112,33 +109,20 @@ jobs:
           ready=0
           consecutive_200=0
           last_status=unset
-
           for attempt in {1..90}; do
-            status="$(
-              curl --silent --show-error --location \
-                --dump-header /tmp/prod-headers-candidate.txt \
-                --output /tmp/prod-home-candidate.html \
-                --write-out '%{http_code}' \
-                "$PROD_BASE_URL/" || true
-            )"
+            status="$(curl --silent --show-error --location --dump-header /tmp/prod-headers-candidate.txt --output /tmp/prod-home-candidate.html --write-out '%{http_code}' "$PROD_BASE_URL/" || true)"
             last_status="${status:-curl-error}"
             echo "Production readiness attempt ${attempt}: HTTP ${last_status}"
-
             if [ "$status" = "200" ]; then
               consecutive_200=$((consecutive_200 + 1))
               cp /tmp/prod-headers-candidate.txt /tmp/prod-headers.txt
               cp /tmp/prod-home-candidate.html /tmp/prod-home.html
-              if [ "$consecutive_200" -ge 3 ]; then
-                ready=1
-                break
-              fi
+              if [ "$consecutive_200" -ge 3 ]; then ready=1; break; fi
             else
               consecutive_200=0
             fi
-
             sleep 4
           done
-
           if [ "$ready" -ne 1 ]; then
             echo "Production origin did not stabilize at HTTP 200: $PROD_BASE_URL (last status: $last_status)" >&2
             exit 1
@@ -158,24 +142,12 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/prod-home.html', 'utf8');
+          if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Production homepage canonical is not the production apex URL');
+          if (/hreflang=["']ar["']/i.test(html)) throw new Error('Production homepage still advertises Arabic hreflang');
+          if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('Production homepage still links to Arabic');
 
-          if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) {
-            throw new Error('Production homepage canonical is not the production apex URL');
-          }
-
-          const visibleText = html
-            .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-            .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-            .replace(/<[^>]+>/g, ' ')
-            .replace(/\s+/g, ' ')
-            .trim();
-
-          const requiredVisibleText = [
-            'Three ways into the work. One standard.',
-            'I like the messy part.',
-            'Choose the right conversation.',
-          ];
-          for (const needle of requiredVisibleText) {
+          const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          for (const needle of ['Three ways into the work. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
             if (!visibleText.includes(needle)) throw new Error(`Production homepage missing accepted visible marker: ${needle}`);
           }
           if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
@@ -187,41 +159,15 @@ jobs:
           NODE
 
           routes=(
-            "/"
-            "/about"
-            "/work"
-            "/work/presaira"
-            "/work/opportunityos"
-            "/work/ghareeb-oglu"
-            "/work/oil-spill-detection"
-            "/work/solar-site-selection"
-            "/work/makhbazy"
-            "/services"
-            "/writing"
+            "/" "/about" "/work"
+            "/work/presaira" "/work/opportunityos" "/work/ghareeb-oglu"
+            "/work/oil-spill-detection" "/work/solar-site-selection" "/work/makhbazy"
+            "/services" "/writing"
             "/writing/when-to-trust-a-probabilistic-forecast"
             "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
             "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
-            "/ar"
-            "/ar/about"
-            "/ar/work"
-            "/ar/work/presaira"
-            "/ar/work/opportunityos"
-            "/ar/work/ghareeb-oglu"
-            "/ar/work/oil-spill-detection"
-            "/ar/work/solar-site-selection"
-            "/ar/work/makhbazy"
-            "/ar/services"
-            "/ar/writing"
-            "/ar/writing/when-to-trust-a-probabilistic-forecast"
-            "/ar/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
-            "/ar/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
-            "/profile.json"
-            "/projects.json"
-            "/services.json"
-            "/writing.json"
-            "/llms.txt"
-            "/robots.txt"
-            "/sitemap.xml"
+            "/profile.json" "/projects.json" "/services.json" "/writing.json"
+            "/llms.txt" "/robots.txt" "/sitemap.xml"
           )
 
           : > artifacts/production-verification/routes.tsv
@@ -230,11 +176,25 @@ jobs:
             printf '%s\t%s\n' "$route" "$status" | tee -a artifacts/production-verification/routes.tsv
           done
 
+          retired_routes=("/ar" "/ar/about" "/ar/work" "/ar/work/presaira" "/ar/services" "/ar/writing" "/ar/writing/when-to-trust-a-probabilistic-forecast")
+          : > artifacts/production-verification/retired-routes.tsv
+          for route in "${retired_routes[@]}"; do
+            status="$(curl --silent --output /dev/null --write-out '%{http_code}' "$PROD_BASE_URL${route}")"
+            printf '%s\t%s\n' "$route" "$status" | tee -a artifacts/production-verification/retired-routes.tsv
+            test "$status" = "404"
+          done
+
           curl --fail --silent --show-error "$PROD_BASE_URL/robots.txt" > artifacts/production-verification/robots.txt
           if grep -Eq '^Disallow:[[:space:]]*/[[:space:]]*$' artifacts/production-verification/robots.txt; then
             echo "robots.txt blocks the production site" >&2
             exit 1
           fi
+          curl --fail --silent --show-error "$PROD_BASE_URL/sitemap.xml" > artifacts/production-verification/sitemap.xml
+          if grep -Fq '/ar' artifacts/production-verification/sitemap.xml; then
+            echo "Live sitemap still exposes Arabic routes" >&2
+            exit 1
+          fi
+          test "$(grep -o '<url>' artifacts/production-verification/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
       - name: Install Chromium for production acceptance
         run: npx playwright install --with-deps chromium
@@ -251,13 +211,8 @@ jobs:
           npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-1920.png
           npx playwright screenshot --browser=chromium --viewport-size="430,932" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-430.png
           npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-390.png
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/ar" artifacts/production-verification/screenshots/ar-home-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="430,932" --full-page "$PROD_BASE_URL/ar" artifacts/production-verification/screenshots/ar-home-430.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/ar" artifacts/production-verification/screenshots/ar-home-390.png
           npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/about" artifacts/production-verification/screenshots/about-1920.png
           npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/about" artifacts/production-verification/screenshots/about-390.png
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/ar/about" artifacts/production-verification/screenshots/ar-about-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/ar/about" artifacts/production-verification/screenshots/ar-about-390.png
 
       - name: Lighthouse production baseline
         shell: bash
@@ -265,16 +220,13 @@ jobs:
           mkdir -p artifacts/production-lighthouse
           npx lighthouse "$PROD_BASE_URL/" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/production-lighthouse/home.json || true
           npx lighthouse "$PROD_BASE_URL/work/presaira" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/production-lighthouse/presaira.json || true
-          npx lighthouse "$PROD_BASE_URL/ar" --quiet --chrome-flags="--headless --no-sandbox" --output=json --output-path=artifacts/production-lighthouse/ar-home.json || true
           node - <<'NODE'
           const fs = require('fs');
-          for (const name of ['home', 'presaira', 'ar-home']) {
+          for (const name of ['home', 'presaira']) {
             const file = `artifacts/production-lighthouse/${name}.json`;
             if (!fs.existsSync(file)) continue;
             const report = JSON.parse(fs.readFileSync(file, 'utf8'));
-            const categories = Object.fromEntries(
-              Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]),
-            );
+            const categories = Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
             console.log(`${name}:`, categories);
           }
           NODE
@@ -288,36 +240,35 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
-          const readJson = (file) => {
-            try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; }
-          };
+          const readJson = (file) => { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; } };
           const lighthouseScore = (name) => {
             const report = readJson(`artifacts/production-lighthouse/${name}.json`);
             if (!report) return null;
             return Object.fromEntries(Object.entries(report.categories).map(([key, value]) => [key, Math.round((value.score ?? 0) * 100)]));
           };
-          const screenshotsDir = 'artifacts/production-verification/screenshots';
-          const screenshots = fs.existsSync(screenshotsDir) ? fs.readdirSync(screenshotsDir).sort() : [];
-          const routes = fs.existsSync('artifacts/production-verification/routes.tsv')
-            ? fs.readFileSync('artifacts/production-verification/routes.tsv', 'utf8').trim().split('\n').filter(Boolean).map((line) => {
+          const parseRoutes = (file) => fs.existsSync(file)
+            ? fs.readFileSync(file, 'utf8').trim().split('\n').filter(Boolean).map((line) => {
                 const [route, status] = line.split('\t');
                 return { route, status: Number(status) };
               })
             : [];
+          const screenshotsDir = 'artifacts/production-verification/screenshots';
+          const screenshots = fs.existsSync(screenshotsDir) ? fs.readdirSync(screenshotsDir).sort() : [];
+          const routes = parseRoutes('artifacts/production-verification/routes.tsv');
+          const retiredRoutes = parseRoutes('artifacts/production-verification/retired-routes.tsv');
 
           const manifest = {
-            phase: 'L',
-            contract: 'Final EN/AR/responsive production hardening and acceptance',
+            contract: 'English-only public surface with dormant Arabic source retained',
             sha: process.env.GITHUB_SHA,
             runId: process.env.GITHUB_RUN_ID,
             baseUrl: process.env.PROD_BASE_URL,
             routeCount: routes.length,
             routes,
+            retiredRoutes,
             screenshots,
             lighthouse: {
               home: lighthouseScore('home'),
               presaira: lighthouseScore('presaira'),
-              arabicHome: lighthouseScore('ar-home'),
             },
           };
           fs.writeFileSync(path.join('artifacts', 'production-verification', 'release-evidence.json'), JSON.stringify(manifest, null, 2));
