@@ -36,32 +36,59 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     expect(targetProximity).toBeGreaterThan(farProximity);
   });
 
-  test("brand evidence appears in the rail, About and Ghareeb project without becoming text replacement", async ({ page }) => {
+  test("brand evidence loops in native colour with logo-over-name-over-context stacking", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     await settle(page);
+
     const rail = page.locator(".credibility-rail");
-    expect(await rail.locator("[data-brand-logo]").count()).toBe(10);
-    await expect(rail).toContainText("Network International");
+    const sequences = rail.locator(".credibility-logo-sequence");
+    await expect(sequences).toHaveCount(2);
+    await expect(sequences.nth(1)).toHaveAttribute("aria-hidden", "true");
+    expect(await sequences.first().locator("[data-brand-logo]").count()).toBe(10);
+    expect(await rail.locator("[data-brand-logo]").count()).toBe(20);
+
+    const track = rail.locator(".credibility-logo-track");
+    expect(await track.evaluate((element) => getComputedStyle(element).animationName)).toContain("credibility-loop");
+
+    const network = sequences.first().locator('.credibility-brand-item[aria-label^="Network International:"]');
+    await expect(network).toContainText("Network International");
+    await expect(network).toContainText("Data Engineer");
+    expect(await network.evaluate((element) => getComputedStyle(element).flexDirection)).toBe("column");
+
+    const nativeLogos = sequences.first().locator(".brand-logo-native");
+    expect(await nativeLogos.count()).toBe(10);
+    const firstImage = nativeLogos.first().locator("img");
+    expect(await firstImage.evaluate((element) => getComputedStyle(element).filter)).toBe("none");
+
     await expect(rail).toContainText("Canadian International College");
-    await expect(rail.locator('[data-brand-logo="exploreai"]')).toBeVisible();
-    await expect(rail.locator('[data-brand-logo="alx"]')).toBeVisible();
+    await expect(rail).toContainText("BSc Computer Science · Data Science");
+    await expect(rail.locator('[data-brand-logo="exploreai"]').first()).toBeVisible();
+    await expect(rail.locator('[data-brand-logo="alx"]').first()).toBeVisible();
 
     await page.goto("/about");
     await settle(page);
-    expect(await page.locator("[data-brand-logo]").count()).toBeGreaterThanOrEqual(8);
+    const aboutLogos = page.locator("[data-brand-logo]");
+    expect(await aboutLogos.count()).toBeGreaterThanOrEqual(8);
+    expect(await page.locator(".brand-logo-native").count()).toBeGreaterThanOrEqual(8);
 
     await page.goto("/work/ghareeb-oglu");
     await settle(page);
-    await expect(page.locator('[data-brand-logo="ghareeb"]')).toBeVisible();
+    await expect(page.locator('[data-brand-logo="ghareeb"].brand-logo-native')).toBeVisible();
   });
 
-  test("mobile keeps the one-line signature and avoids horizontal overflow", async ({ page }) => {
+  test("mobile keeps the one-line signature, one manual rail sequence and no horizontal overflow", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
     const title = page.locator(".overhaul-hero-title");
     await expect(title).toBeVisible();
     expect(await title.evaluate((element) => getComputedStyle(element).whiteSpace)).toBe("nowrap");
+
+    const railTrack = page.locator(".credibility-logo-track");
+    expect(await railTrack.evaluate((element) => getComputedStyle(element).animationName)).toBe("none");
+    await expect(page.locator('.credibility-logo-sequence[aria-hidden="true"]')).toBeHidden();
+
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(2);
   });
 });
