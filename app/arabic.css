@@ -29,6 +29,12 @@ html[dir="rtl"] .section-intro h1 {
   line-height: 1.08;
 }
 
+html[dir="rtl"] .service-card h2 {
+  margin: 34px 0 13px;
+  font-size: clamp(1.65rem, 2.25vw, 2.45rem);
+  letter-spacing: 0;
+}
+
 html[dir="rtl"] .eyebrow,
 html[dir="rtl"] .hero-kicker,
 html[dir="rtl"] .project-index,
