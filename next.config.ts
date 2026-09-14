@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       }
     : {}),
   experimental: {
+    globalNotFound: true,
     optimizePackageImports: ["lucide-react"],
   },
 };

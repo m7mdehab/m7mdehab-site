@@ -1,0 +1,111 @@
+.not-found-modern {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 130px;
+  padding-bottom: 100px;
+  overflow: clip;
+}
+
+.not-found-modern h1 {
+  max-width: 900px;
+  margin: 18px 0 0;
+  font-family: var(--serif);
+  font-size: clamp(3.6rem, 7vw, 7.2rem);
+  font-weight: 430;
+  line-height: .9;
+  letter-spacing: -.05em;
+  text-wrap: balance;
+}
+
+.not-found-modern > p:not(.eyebrow) {
+  max-width: 650px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.not-found-actions a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 680;
+  transition: transform .22s cubic-bezier(.22,1,.36,1), background .22s ease;
+}
+
+.not-found-actions a:first-child {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.not-found-actions a:hover,
+.not-found-actions a:focus-visible {
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.not-found-orbit {
+  position: absolute;
+  right: 7vw;
+  top: 24vh;
+  width: min(34vw, 430px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: #5a8d76;
+  opacity: .55;
+  animation: notFoundOrbit 12s ease-in-out infinite;
+}
+
+.not-found-orbit::before,
+.not-found-orbit::after {
+  content: "";
+  position: absolute;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+
+.not-found-orbit::before { inset: 16%; }
+.not-found-orbit::after { inset: 34%; }
+
+@keyframes notFoundOrbit {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(-8px, 10px, 0) rotate(4deg); }
+}
+
+@media (max-width: 760px) {
+  .not-found-orbit {
+    width: 250px;
+    right: -110px;
+    top: 16vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found-orbit,
+  .not-found-actions a {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+}

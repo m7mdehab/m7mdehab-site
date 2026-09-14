@@ -9,6 +9,10 @@ import { projectCaseStudyUrl } from "@/data/discoverability";
 import { profile, projects } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 
+function cleanText(value: string) {
+  return value.replaceAll(" — ", " · ").replaceAll("—", "·");
+}
+
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
@@ -18,16 +22,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = projects.find((item) => item.slug === slug);
   if (!project) return {};
 
-  const title = `${project.title} — Case Study`;
+  const title = `${cleanText(project.title)} | Case Study`;
   const canonical = projectCaseStudyUrl(project.slug);
 
   return {
     title,
-    description: project.statement,
+    description: cleanText(project.statement),
     alternates: { canonical },
     openGraph: {
       title,
-      description: project.statement,
+      description: cleanText(project.statement),
       url: canonical,
       siteName: profile.name,
       type: "article",
@@ -36,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     twitter: {
       card: "summary",
       title,
-      description: project.statement,
+      description: cleanText(project.statement),
     },
   };
 }
@@ -58,10 +62,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <Link className="back-link" href="/work"><ArrowLeft size={17} aria-hidden="true" /> All work</Link>
       <div className="case-hero">
         <div>
-          <p className="eyebrow">{project.kicker}</p>
-          <h1>{project.title}</h1>
-          <p className="case-lede">{project.statement}</p>
-          <p className="project-proof">{project.proof}</p>
+          <p className="eyebrow">{cleanText(project.kicker)}</p>
+          <h1>{cleanText(project.title)}</h1>
+          <p className="case-lede">{cleanText(project.statement)}</p>
+          <p className="project-proof">{cleanText(project.proof)}</p>
           {evidenceHref ? (
             <a className="round-link" href={evidenceHref} target="_blank" rel="noreferrer">
               Open public evidence <ArrowUpRight size={18} aria-hidden="true" />

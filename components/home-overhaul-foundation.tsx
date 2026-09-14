@@ -4,6 +4,7 @@ import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { HeroAmbientField } from "@/components/hero-ambient-field";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
+import { cleanPublicText } from "@/data/public-surface";
 
 type BrandSignalData = { name: string; detail: string; brand: BrandKey; secondaryBrand?: BrandKey };
 
@@ -26,20 +27,14 @@ export function SystemHero() {
     <section id="top" className="hero overhaul-hero">
       <HeroAmbientField />
       <div className="overhaul-hero-shell shell">
-        <div className="overhaul-hero-meta">
-          <span>Data · AI · Product</span>
-          <span>Cairo, Egypt</span>
-        </div>
-
         <div className="overhaul-hero-copy">
-          <p className="overhaul-hero-index" aria-hidden="true">M7 / 01</p>
           <h1 className="overhaul-hero-title">
-            <span className="overhaul-hero-signature">{profile.name}</span>
+            <span className="overhaul-hero-signature">{cleanPublicText(profile.name)}</span>
           </h1>
           <p className="overhaul-hero-roles" aria-label="Professional disciplines">
             {heroRoles.map((role) => <span key={role}>{role}</span>)}
           </p>
-          <p className="overhaul-hero-proposition">{profile.proposition}</p>
+          <p className="overhaul-hero-proposition">{cleanPublicText(profile.proposition)}</p>
           <div className="overhaul-hero-actions">
             <a className="overhaul-action overhaul-action-primary" href="#work">
               Explore selected work <ArrowDownRight size={17} aria-hidden="true" />
@@ -91,8 +86,8 @@ export function CredibilityRail() {
   return (
     <section className="credibility-rail" aria-label="Selected experience, education and credentials">
       <div className="credibility-rail-label shell">
-        <p>Credibility, compressed.</p>
-        <Link href="/about">Full background <ArrowUpRight size={13} aria-hidden="true" /></Link>
+        <p>Experience & credentials</p>
+        <Link href="/about">View background <ArrowUpRight size={13} aria-hidden="true" /></Link>
       </div>
       <div className="credibility-viewport" tabIndex={0} aria-label="Selected professional and learning relationships">
         <div className="credibility-track credibility-logo-track">

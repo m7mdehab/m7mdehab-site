@@ -61,7 +61,7 @@ jobs:
             exit 1
           fi
 
-      - name: Smoke-test English public route surface and Arabic absence
+      - name: Smoke-test English public route surface and retired routes
         shell: bash
         run: |
           set -euo pipefail
@@ -102,6 +102,10 @@ jobs:
             "/ar/services"
             "/ar/writing"
             "/ar/writing/when-to-trust-a-probabilistic-forecast"
+            "/prototypes"
+            "/prototypes/cinematic"
+            "/prototypes/spatial"
+            "/prototypes/kinetic"
           )
           for route in "${retired_routes[@]}"; do
             status="$(curl --silent --output /dev/null --write-out '%{http_code}' "http://127.0.0.1:3000${route}")"
@@ -109,9 +113,37 @@ jobs:
             test "$status" = "404"
           done
 
+          html_routes=(
+            "/" "/about" "/work"
+            "/work/presaira" "/work/opportunityos" "/work/ghareeb-oglu"
+            "/work/oil-spill-detection" "/work/solar-site-selection" "/work/makhbazy"
+            "/services" "/writing"
+            "/writing/when-to-trust-a-probabilistic-forecast"
+            "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
+            "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
+          )
+          for route in "${html_routes[@]}"; do
+            curl --fail --silent --show-error "http://127.0.0.1:3000${route}" > /tmp/public-route.html
+            node - "$route" <<'NODE'
+          const fs = require('fs');
+          const route = process.argv[2];
+          const html = fs.readFileSync('/tmp/public-route.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
+          if (publicMarkup.includes('—')) {
+            throw new Error(`Public rendered markup contains a prohibited em dash: ${route}`);
+          }
+          NODE
+          done
+
           curl --fail --silent --show-error http://127.0.0.1:3000/sitemap.xml > /tmp/sitemap.xml
           if grep -Fq '/ar' /tmp/sitemap.xml; then
             echo "English-only sitemap still exposes Arabic routes" >&2
+            exit 1
+          fi
+          if grep -Fq '/prototypes' /tmp/sitemap.xml; then
+            echo "Sitemap exposes retired prototype routes" >&2
             exit 1
           fi
           test "$(grep -o '<url>' /tmp/sitemap.xml | wc -l | tr -d ' ')" = "14"

@@ -67,13 +67,12 @@ test.describe("public contact link integrity", () => {
     await expectComposeLink(projectContact);
   });
 
-  test("public prototypes do not depend on an operating-system mail handler", async ({ page }) => {
-    for (const route of ["/prototypes/cinematic", "/prototypes/spatial", "/prototypes/kinetic"]) {
-      await page.goto(route);
-      const mailtoLinks = page.locator('a[href^="mailto:"]');
-      await expect(mailtoLinks).toHaveCount(0);
-      const composeLinks = page.locator('a[href^="https://mail.google.com/mail/"]');
-      expect(await composeLinks.count()).toBeGreaterThanOrEqual(2);
+  test("retired prototype URLs expose no live contact surface", async ({ page }) => {
+    for (const route of ["/prototypes", "/prototypes/cinematic", "/prototypes/spatial", "/prototypes/kinetic"]) {
+      const response = await page.goto(route);
+      expect(response?.status()).toBe(404);
+      await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);
+      await expect(page.locator('[data-conversion]')).toHaveCount(0);
     }
   });
 });

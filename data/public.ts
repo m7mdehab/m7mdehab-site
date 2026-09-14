@@ -12,7 +12,7 @@ export const profile = {
   employer: "Network International",
   proposition: "I turn complex data and business problems into reliable systems, models, analytics and products.",
   shortBio:
-    "I work across data engineering, analytics, machine learning, AI and product delivery — translating ambiguous business problems into systems people can trust and use.",
+    "I work across data engineering, analytics, machine learning, AI and product delivery, translating ambiguous business problems into systems people can trust and use.",
   email: "M7mdehab999@gmail.com",
   github: "https://github.com/m7mdehab",
   linkedin: "https://www.linkedin.com/in/mohammed-ehab",
@@ -39,21 +39,21 @@ export const skillGroups = [
 export const projects = [
   { slug: "presaira", title: "Presaira", kicker: "Probabilistic forecasting product", statement: "A full-tournament forecasting system that forecast all 104 matches of the 2026 World Cup, with reproducible runs, model evaluation and 50,000-iteration Monte Carlo simulation.", proof: "Data science · forecasting · calibration & evaluation · Monte Carlo · reproducibility", tone: "blue" as ProjectTone, href: "https://presaira.com" },
   { slug: "opportunityos", title: "OpportunityOS", kicker: "Governed AI system", statement: "A truth-locked opportunity workflow built around governed autonomous agents, provenance and controlled generation.", proof: "AI engineering · multi-agent architecture · governance · product systems", tone: "graphite" as ProjectTone, href: "https://github.com/m7mdehab/opportunityos-docs" },
-  { slug: "ghareeb-oglu", title: "Ghareeb Oglu Commerce", kicker: "End-to-end ecommerce product", statement: "A commerce platform planned, architected and built from scratch in code — spanning storefront, backend, payments, fulfillment and deployment.", proof: "Product ownership · software architecture · ecommerce · coded execution", tone: "emerald" as ProjectTone },
+  { slug: "ghareeb-oglu", title: "Ghareeb Oglu Commerce", kicker: "End-to-end ecommerce product", statement: "A commerce platform planned, architected and built from scratch in code, spanning storefront, backend, payments, fulfillment and deployment.", proof: "Product ownership · software architecture · ecommerce · coded execution", tone: "emerald" as ProjectTone },
   { slug: "oil-spill-detection", title: "Oil Spill Detection", kicker: "SAR computer vision", statement: "A Sentinel-1 SAR semantic-segmentation pipeline for detecting marine oil spills, with model evaluation, georeferenced outputs, API serving and an interactive map UI.", proof: "Deep learning · computer vision · remote sensing · validation", tone: "teal" as ProjectTone, href: "https://github.com/m7mdehab/oil-spill-detection" },
   { slug: "solar-site-selection", title: "Solar Site Selection", kicker: "Geospatial decision system", statement: "A photovoltaic siting engine combining public geodata, AHP multi-criteria analysis, suitability mapping, ranked candidate sites and energy/LCOE estimates.", proof: "Geospatial analytics · optimization · data integration · decision systems", tone: "amber" as ProjectTone, href: "https://github.com/m7mdehab/SolarSiteSelection" },
   { slug: "makhbazy", title: "Makhbazy", kicker: "Mobile product leadership", statement: "Designed the UI/UX and led Android and iOS product delivery from concept through implementation, supervision and release approval.", proof: "Product leadership · UI/UX · technical supervision · mobile delivery", tone: "coral" as ProjectTone },
 ] as const;
 
 export const experience = [
-  { company: "Network International", role: "Data Engineer", period: "2026 — Present", note: "Enterprise data engineering, integration and migration; project and client details intentionally limited for confidentiality." },
-  { company: "Al Tayseer International", role: "Business Analyst Team Lead", period: "2025 — 2026", note: "Unified multi-brand reporting, KPI alignment and commercial decision support." },
+  { company: "Network International", role: "Data Engineer", period: "2026 to Present", note: "Enterprise data engineering, integration and migration; project and client details intentionally limited for confidentiality." },
+  { company: "Al Tayseer International", role: "Business Analyst Team Lead", period: "2025 to 2026", note: "Unified multi-brand reporting, KPI alignment and commercial decision support." },
   { company: "Guksu", role: "Data Analyst & Supply Chain Analyst", period: "2025", note: "Sales, inventory, production and warehouse reporting with manufacturing and sales planning." },
-  { company: "Egyptian African Trade", role: "Technical Team Lead / Data Analyst", period: "2024 — 2025", note: "ERP data, KPI design, performance reporting and commercial analysis." },
+  { company: "Egyptian African Trade", role: "Technical Team Lead / Data Analyst", period: "2024 to 2025", note: "ERP data, KPI design, performance reporting and commercial analysis." },
 ] as const;
 
 export const additionalExperience = [
-  { company: "Orcas Online", role: "Private Tutor — Computer Science & Data", note: "Python, Java, data analysis, data science and machine learning." },
+  { company: "Orcas Online", role: "Private Tutor, Computer Science & Data", note: "Python, Java, data analysis, data science and machine learning." },
   { company: "Self-employed", role: "Freelance Web Developer / Consultant", note: "Business websites delivered from requirements through coded implementation, launch, hosting, domains and analytics." },
   { company: "NARSS", role: "Data / ML Intern", note: "Remote-sensing machine-learning and deep-learning systems." },
   { company: "Zewail City", role: "ML Intern", note: "Machine learning, deep learning and reinforcement-learning projects." },
@@ -68,8 +68,8 @@ export const certifications = [
 ] as const;
 
 export const education = [
-  { qualification: "BSc Computer Science — Data Science Major", institution: "Canadian International College", period: "2021 — 2024", detail: "CGPA 3.55" },
-  { qualification: "Data Science & AI Scholarship", institution: "ExploreAI Academy / ALX / African Leadership University", period: "2023 — 2024", detail: "15-month program" },
+  { qualification: "BSc Computer Science, Data Science Major", institution: "Canadian International College", period: "2021 to 2024", detail: "CGPA 3.55" },
+  { qualification: "Data Science & AI Scholarship", institution: "ExploreAI Academy / ALX / African Leadership University", period: "2023 to 2024", detail: "15-month program" },
 ] as const;
 
 // Runtime service/conversion projection. Proof strength and project relationships are reconciled

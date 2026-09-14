@@ -25,6 +25,9 @@ import "../frontend-overhaul-phase-n.css";
 import "../contact-credibility-polish.css";
 import "../frontend-overhaul-phase-o.css";
 import "../frontend-overhaul-phase-o-fixes.css";
+import "../sitewide-refinement.css";
+import "../sitewide-refinement-fixes.css";
+import "../not-found-refinement.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
@@ -39,12 +42,12 @@ const signatureFont = Italianno({
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
-  title: { default: `${profile.name} — Data, AI & Product`, template: `%s — ${profile.name}` },
+  title: { default: `${profile.name} | Data, AI & Product`, template: `%s | ${profile.name}` },
   description: profile.proposition,
   alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.domain }],
   openGraph: {
-    title: `${profile.name} — Data, AI & Product`,
+    title: `${profile.name} | Data, AI & Product`,
     description: profile.proposition,
     url: profile.domain,
     siteName: profile.name,
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: `${profile.name} — Data, AI & Product`,
+    title: `${profile.name} | Data, AI & Product`,
     description: profile.proposition,
   },
 };
@@ -68,7 +71,7 @@ const siteSchema = {
       "@type": "ProfilePage",
       "@id": profilePageId,
       url: profile.domain,
-      name: `${profile.name} — Data, AI & Product`,
+      name: `${profile.name} | Data, AI & Product`,
       description: profile.proposition,
       inLanguage: "en",
       mainEntity: { "@id": personId },

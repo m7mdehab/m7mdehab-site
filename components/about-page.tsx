@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Mail } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Award, BriefcaseBusiness, Compass, GraduationCap, Layers3, Mail, Wrench } from "lucide-react";
 import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { Reveal } from "@/components/reveal";
 import {
@@ -14,10 +14,24 @@ import {
 } from "@/data/about";
 import { emailComposeHref } from "@/data/contact-links";
 
-function AboutSectionHead({ index, eyebrow, title, copy }: { index: string; eyebrow: string; title: string; copy?: string }) {
+function cleanText(value: string) {
+  return value.replaceAll(" — ", " · ").replaceAll("—", "·");
+}
+
+const sectionIcons = {
+  "01": BriefcaseBusiness,
+  "02": Layers3,
+  "03": Compass,
+  "04": GraduationCap,
+  "05": Wrench,
+  "06": Award,
+} as const;
+
+function AboutSectionHead({ index, eyebrow, title, copy }: { index: keyof typeof sectionIcons; eyebrow: string; title: string; copy?: string }) {
+  const Icon = sectionIcons[index];
   return (
     <Reveal className="about-section-head">
-      <div className="about-section-index"><span>{index}</span><i aria-hidden="true" /></div>
+      <div className="about-section-mark" aria-hidden="true"><Icon size={18} /></div>
       <div>
         <p className="about-eyebrow">{eyebrow}</p>
         <h2>{title}</h2>
@@ -53,15 +67,15 @@ function ThroughLineMap() {
     <div className="about-through-map" aria-label="Professional through-line across migration, analytics, machine learning, AI and product delivery">
       <div className="about-through-map-head">
         <span>Current position</span>
-        <strong>{aboutIntro.currentRole}</strong>
-        <small>{aboutIntro.currentEmployer}</small>
+        <strong>{cleanText(aboutIntro.currentRole)}</strong>
+        <small>{cleanText(aboutIntro.currentEmployer)}</small>
         <OrganizationMark name={aboutIntro.currentEmployer} />
       </div>
       <div className="about-through-map-rail" aria-hidden="true"><i /><i /><i /></div>
       <div className="about-through-map-nodes">
         {nodes.map((node, index) => <span key={node}><small>0{index + 1}</small>{node}</span>)}
       </div>
-      <div className="about-through-map-meta"><span>{aboutIntro.location}</span><span>{aboutIntro.languages}</span></div>
+      <div className="about-through-map-meta"><span>{cleanText(aboutIntro.location)}</span><span>{cleanText(aboutIntro.languages)}</span></div>
     </div>
   );
 }
@@ -71,12 +85,12 @@ export function AboutPage() {
     <main id="main-content" className="about-page">
       <section className="about-hero">
         <div className="shell about-hero-shell">
-          <Reveal className="about-hero-meta"><span>About · Professional history</span><Link href="/">Back home <ArrowUpRight size={14} aria-hidden="true" /></Link></Reveal>
+          <Reveal className="about-hero-meta"><span>About · Experience & approach</span><Link href="/">Back home <ArrowUpRight size={14} aria-hidden="true" /></Link></Reveal>
           <div className="about-hero-grid">
             <Reveal className="about-hero-copy">
               <p className="about-eyebrow">THE THROUGH-LINE</p>
-              <h1>{aboutIntro.headline}</h1>
-              <p>{aboutIntro.body}</p>
+              <h1>{cleanText(aboutIntro.headline)}</h1>
+              <p>{cleanText(aboutIntro.body)}</p>
               <div className="about-hero-actions">
                 <a href="#career">Follow the career map <ArrowDownRight size={16} aria-hidden="true" /></a>
                 <Link href="/work">Inspect the work <ArrowUpRight size={16} aria-hidden="true" /></Link>
@@ -93,22 +107,22 @@ export function AboutPage() {
             index="01"
             eyebrow="Career map"
             title="Different roles. One direction of travel."
-            copy="The chronology matters, but the transitions matter more: technical depth moved closer to business decisions, then back into enterprise systems with stronger delivery discipline."
+            copy="The chronology matters, but the transitions matter more. Technical depth moved closer to business decisions, then back into enterprise systems with stronger delivery discipline."
           />
 
           <div className="about-timeline">
             {primaryExperience.map((item, index) => (
               <Reveal as="article" key={`${item.company}-${item.role}`} delay={index * 0.04} className="about-timeline-row">
-                <div className="about-timeline-period"><span>{item.period}</span><i aria-hidden="true" /></div>
+                <div className="about-timeline-period"><span>{cleanText(item.period)}</span><i aria-hidden="true" /></div>
                 <div className="about-timeline-role">
-                  <p>{item.mode}</p>
-                  <h3>{item.role}</h3>
-                  <strong>{item.company}</strong>
+                  <p>{cleanText(item.mode)}</p>
+                  <h3>{cleanText(item.role)}</h3>
+                  <strong>{cleanText(item.company)}</strong>
                   <OrganizationMark name={item.company === "Guksu" || item.company === "Egyptian African Trade" ? "Al Tayseer Group" : item.company} />
                 </div>
                 <div className="about-timeline-context">
-                  <p>{item.summary}</p>
-                  {"boundary" in item && item.boundary ? <small>{item.boundary}</small> : null}
+                  <p>{cleanText(item.summary)}</p>
+                  {"boundary" in item && item.boundary ? <small>{cleanText(item.boundary)}</small> : null}
                 </div>
               </Reveal>
             ))}
@@ -127,12 +141,12 @@ export function AboutPage() {
           <div className="about-parallel-grid">
             {parallelExperience.map((item, index) => (
               <Reveal as="article" key={item.company} delay={index * 0.06} className="about-parallel-card">
-                <div className="about-parallel-top"><span>{item.period}</span><span>0{index + 1}</span></div>
-                <p>{item.company}</p>
+                <div className="about-parallel-top"><span>{cleanText(item.period)}</span><span>0{index + 1}</span></div>
+                <p>{cleanText(item.company)}</p>
                 <OrganizationMark name={item.company} />
-                <h3>{item.role}</h3>
+                <h3>{cleanText(item.role)}</h3>
                 <div className="about-parallel-rule" aria-hidden="true" />
-                <span>{item.summary}</span>
+                <span>{cleanText(item.summary)}</span>
               </Reveal>
             ))}
           </div>
@@ -150,11 +164,11 @@ export function AboutPage() {
             {earlyExperience.map((item, index) => (
               <Reveal as="article" key={item.company} delay={index * 0.05} className="about-foundation-item">
                 <span className="about-foundation-index">0{index + 1}</span>
-                <p>{item.period}</p>
-                <h3>{item.role}</h3>
-                <strong>{item.company}</strong>
+                <p>{cleanText(item.period)}</p>
+                <h3>{cleanText(item.role)}</h3>
+                <strong>{cleanText(item.company)}</strong>
                 <OrganizationMark name={item.company} />
-                <span>{item.summary}</span>
+                <span>{cleanText(item.summary)}</span>
               </Reveal>
             ))}
           </div>
@@ -167,16 +181,16 @@ export function AboutPage() {
             index="04"
             eyebrow="Learning ledger"
             title="Formal foundation, then targeted expansion."
-            copy="Education and credentials stay visible here because they help explain the range. They do not need their own homepage screens."
+            copy="Education and credentials stay visible because they help explain the range. They do not need their own homepage screens."
           />
           <div className="about-learning-grid">
             <div className="about-education-block">
               <p className="about-ledger-label">Education</p>
               {aboutEducation.map((item) => (
                 <Reveal as="article" key={item.qualification} className="about-ledger-row">
-                  <span>{item.period}</span>
-                  <div><h3>{item.qualification}</h3><p>{item.institution}</p><OrganizationMark name={item.institution} /></div>
-                  <strong>{item.detail}</strong>
+                  <span>{cleanText(item.period)}</span>
+                  <div><h3>{cleanText(item.qualification)}</h3><p>{cleanText(item.institution)}</p><OrganizationMark name={item.institution} /></div>
+                  <strong>{cleanText(item.detail)}</strong>
                 </Reveal>
               ))}
             </div>
@@ -184,8 +198,8 @@ export function AboutPage() {
               <p className="about-ledger-label">Credentials</p>
               {aboutCertifications.map((item) => (
                 <Reveal as="article" key={item.name} className="about-ledger-row about-cert-row">
-                  <span>{item.year}</span>
-                  <div><h3>{item.name}</h3><p>{item.issuer}</p><OrganizationMark name={item.issuer} /></div>
+                  <span>{cleanText(String(item.year))}</span>
+                  <div><h3>{cleanText(item.name)}</h3><p>{cleanText(item.issuer)}</p><OrganizationMark name={item.issuer} /></div>
                 </Reveal>
               ))}
             </div>
@@ -204,8 +218,8 @@ export function AboutPage() {
           <div className="about-stack-grid">
             {aboutSkillGroups.map((group, index) => (
               <Reveal as="article" key={group.title} delay={index * 0.035} className="about-stack-group">
-                <div className="about-stack-group-head"><span>0{index + 1}</span><h3>{group.title}</h3></div>
-                <ul>{group.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
+                <div className="about-stack-group-head"><span>0{index + 1}</span><h3>{cleanText(group.title)}</h3></div>
+                <ul>{group.skills.map((skill) => <li key={skill}>{cleanText(skill)}</li>)}</ul>
               </Reveal>
             ))}
           </div>
@@ -223,8 +237,8 @@ export function AboutPage() {
             {workingPrinciples.map((principle, index) => (
               <Reveal as="article" key={principle.title} delay={index * 0.05} className="about-principle">
                 <span>{principle.index}</span>
-                <h3>{principle.title}</h3>
-                <p>{principle.copy}</p>
+                <h3>{cleanText(principle.title)}</h3>
+                <p>{cleanText(principle.copy)}</p>
               </Reveal>
             ))}
           </div>

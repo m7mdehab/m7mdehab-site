@@ -31,7 +31,7 @@ jobs:
     name: Deploy and verify workers.dev staging
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - name: Checkout accepted candidate
         uses: actions/checkout@v7
@@ -57,7 +57,7 @@ jobs:
       - name: Build staging static artifact
         run: CLOUDFLARE_STATIC_EXPORT=1 npm run build
 
-      - name: Verify staging artifact and noindex contract
+      - name: Verify staging artifact and retired-route contract
         shell: bash
         run: |
           set -euo pipefail
@@ -78,7 +78,13 @@ jobs:
           assert_export out/writing/when-to-trust-a-probabilistic-forecast.html out/writing/when-to-trust-a-probabilistic-forecast/index.html "English authority essay"
           test ! -f out/ar.html
           test ! -f out/ar/index.html
+          test ! -f out/prototypes.html
+          test ! -f out/prototypes/index.html
+          test ! -f out/prototypes/cinematic.html
+          test ! -f out/prototypes/cinematic/index.html
           if grep -Fq '/ar' out/sitemap.xml; then echo "Staging sitemap still exposes Arabic routes" >&2; exit 1; fi
+          if grep -Fq '/prototypes' out/sitemap.xml; then echo "Staging sitemap exposes retired prototypes" >&2; exit 1; fi
+          test "$(grep -o '<url>' out/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
       - name: Deploy to Cloudflare staging
         env:
@@ -86,7 +92,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.static.jsonc
 
-      - name: Verify live staging routes, headers, canonical isolation, and Arabic absence
+      - name: Verify live staging routes, headers, canonical isolation, and retired surfaces
         shell: bash
         run: |
           set -euo pipefail
@@ -109,9 +115,6 @@ jobs:
             return 1
           }
 
-          # Wait for the root to converge, then capture the headers/body used by
-          # the canonical/security assertions. Individual assets can propagate a
-          # few seconds apart, so every route below has its own stability gate.
           assert_stable_status "/" "200" "Staging root"
           curl --fail --silent --show-error --location --dump-header /tmp/staging-headers.txt --output /tmp/staging-home.html "$STAGING_BASE_URL/"
           tr -d '\r' < /tmp/staging-headers.txt > /tmp/staging-headers-normalized.txt
@@ -123,10 +126,14 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/staging-home.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
           if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Homepage canonical is not the production apex URL');
           if (html.includes('<link rel="canonical" href="https://m7mdehab-site.m7mdehab.workers.dev"')) throw new Error('Staging workers.dev URL must never become canonical');
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('English homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('English homepage still links to Arabic');
+          if (publicMarkup.includes('—')) throw new Error('English homepage contains a prohibited em dash in rendered markup');
           NODE
 
           routes=(
@@ -142,7 +149,10 @@ jobs:
           )
           for route in "${routes[@]}"; do assert_stable_status "$route" "200" "Published route"; done
 
-          retired_routes=("/ar" "/ar/about" "/ar/work" "/ar/work/presaira" "/ar/services" "/ar/writing" "/ar/writing/when-to-trust-a-probabilistic-forecast")
+          retired_routes=(
+            "/ar" "/ar/about" "/ar/work" "/ar/work/presaira" "/ar/services" "/ar/writing" "/ar/writing/when-to-trust-a-probabilistic-forecast"
+            "/prototypes" "/prototypes/cinematic" "/prototypes/spatial" "/prototypes/kinetic"
+          )
           for route in "${retired_routes[@]}"; do assert_stable_status "$route" "404" "Retired route"; done
 
       - name: Install Chromium for deployed-origin acceptance
@@ -157,10 +167,24 @@ jobs:
         shell: bash
         run: |
           mkdir -p artifacts/staging-screenshots
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$STAGING_BASE_URL/" artifacts/staging-screenshots/home-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$STAGING_BASE_URL/" artifacts/staging-screenshots/home-390.png
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$STAGING_BASE_URL/about" artifacts/staging-screenshots/about-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$STAGING_BASE_URL/about" artifacts/staging-screenshots/about-390.png
+          capture() {
+            local path="$1" name="$2" width="$3" height="$4"
+            npx playwright screenshot --browser=chromium --viewport-size="${width},${height}" --full-page "$STAGING_BASE_URL${path}" "artifacts/staging-screenshots/${name}-${width}.png"
+          }
+          capture "/" home 1920 1080
+          capture "/" home 390 844
+          capture "/about" about 1920 1080
+          capture "/about" about 390 844
+          capture "/work" work 1920 1080
+          capture "/work" work 390 844
+          capture "/services" services 1920 1080
+          capture "/services" services 390 844
+          capture "/writing" writing 1920 1080
+          capture "/writing" writing 390 844
+          capture "/work/opportunityos" opportunityos 1920 1080
+          capture "/work/opportunityos" opportunityos 390 844
+          capture "/writing/when-to-trust-a-probabilistic-forecast" article 1920 1080
+          capture "/writing/when-to-trust-a-probabilistic-forecast" article 390 844
 
       - name: Lighthouse staging baseline
         shell: bash

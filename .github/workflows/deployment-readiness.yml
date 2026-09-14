@@ -14,7 +14,6 @@ concurrency:
 
 permissions:
   contents: read
-
 env:
   NEXT_TELEMETRY_DISABLED: 1
 
@@ -103,9 +102,17 @@ jobs:
           assert_absent out/ar/work.html out/ar/work/index.html "Arabic work directory"
           assert_absent out/ar/services.html out/ar/services/index.html "Arabic services"
           assert_absent out/ar/writing.html out/ar/writing/index.html "Arabic writing hub"
+          assert_absent out/prototypes.html out/prototypes/index.html "prototype index"
+          assert_absent out/prototypes/cinematic.html out/prototypes/cinematic/index.html "cinematic prototype"
+          assert_absent out/prototypes/spatial.html out/prototypes/spatial/index.html "spatial prototype"
+          assert_absent out/prototypes/kinetic.html out/prototypes/kinetic/index.html "kinetic prototype"
 
           if grep -Fq '/ar' out/sitemap.xml; then
             echo "Sitemap still exposes Arabic routes" >&2
+            exit 1
+          fi
+          if grep -Fq '/prototypes' out/sitemap.xml; then
+            echo "Sitemap exposes retired prototype routes" >&2
             exit 1
           fi
           test "$(grep -o '<url>' out/sitemap.xml | wc -l | tr -d ' ')" = "14"

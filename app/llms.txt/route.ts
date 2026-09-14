@@ -1,5 +1,6 @@
 import { profile } from "@/data/public";
 import { projectRecords, serviceRecords, writingRecords } from "@/data/discoverability";
+import { cleanPublicText } from "@/data/public-surface";
 
 export const dynamic = "force-static";
 
@@ -9,18 +10,18 @@ export function GET() {
     const services = project.directServices.length
       ? ` · Direct services: ${project.directServices.map((service) => service.title).join(", ")}`
       : "";
-    return `- **${project.title}** — ${project.statement} · [Case study](${project.caseStudyUrl})${evidence}${services}`;
+    return `- **${project.title}**: ${project.statement} · [Case study](${project.caseStudyUrl})${evidence}${services}`;
   });
 
   const serviceLines = serviceRecords.map((service) =>
-    `- **${service.title}** — ${service.description} Proof: ${service.proofLabel}. [Service context](${service.url})`,
+    `- **${service.title}**: ${service.description} Proof: ${service.proofLabel}. [Service context](${service.url})`,
   );
 
   const writingLines = writingRecords.map((article) =>
-    `- **${article.title}** — ${article.description} · Derived from: ${article.derivedFromProject.title} · [Essay](${article.url})`,
+    `- **${article.title}**: ${article.description} · Derived from: ${article.derivedFromProject.title} · [Essay](${article.url})`,
   );
 
-  const body = [
+  const body = cleanPublicText([
     `# ${profile.name}`,
     "",
     profile.proposition,
@@ -52,7 +53,7 @@ export function GET() {
     `- [Projects JSON](${profile.domain}/projects.json)`,
     `- [Services JSON](${profile.domain}/services.json)`,
     `- [Writing JSON](${profile.domain}/writing.json)`,
-  ].join("\n");
+  ].join("\n"));
 
   return new Response(body, { headers: { "content-type": "text/plain; charset=utf-8" } });
 }

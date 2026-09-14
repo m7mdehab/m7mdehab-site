@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ProjectVisual } from "@/components/project-visual";
 import { projects } from "@/data/public";
+import { cleanPublicText } from "@/data/public-surface";
 
 const AUTO_SCROLL_MS = 7000;
 
@@ -44,12 +45,12 @@ export function SelectedWorkGallery() {
       <div className="shell selected-work-shell">
         <header className="selected-work-intro">
           <div>
-            <p className="selected-work-eyebrow">Selected work · 01</p>
-            <h2>Six ways into the work. <em>One standard.</em></h2>
+            <p className="selected-work-eyebrow">Selected work</p>
+            <h2>Different problems. <em>One standard.</em></h2>
           </div>
           <div className="selected-work-intro-copy">
             <p>
-              Six public projects, viewed one at a time. Each card carries one project, one evidence language and one route into the full case study.
+              Forecasting, governed AI, commerce, computer vision, geospatial systems and product delivery, each shown through the evidence that best explains the work.
             </p>
             <Link href="/work">Open the work index <ArrowUpRight size={15} aria-hidden="true" /></Link>
           </div>
@@ -83,7 +84,7 @@ export function SelectedWorkGallery() {
                 aria-label={userPaused ? "Resume project autoplay" : "Pause project autoplay"}
                 onClick={() => setUserPaused((value) => !value)}
               >
-                {userPaused ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
+                {userPaused ? <Play size={13} aria-hidden="true" /> : <Pause size={13} aria-hidden="true" />}
                 <span>{userPaused ? "Resume" : "Pause"}</span>
               </button>
             )}
@@ -108,7 +109,7 @@ export function SelectedWorkGallery() {
                     href={`/work/${project.slug}`}
                     data-conversion="selected-work-to-case-study"
                     tabIndex={index === active ? 0 : -1}
-                    aria-label={`Open ${project.title} case study`}
+                    aria-label={`Open ${cleanPublicText(project.title)} case study`}
                   >
                     <div className="selected-work-carousel-visual">
                       <ProjectVisual slug={project.slug} />
@@ -116,12 +117,12 @@ export function SelectedWorkGallery() {
                     <div className="selected-work-carousel-copy">
                       <div className="selected-work-carousel-meta">
                         <span>{String(index + 1).padStart(2, "0")}</span>
-                        <span>{project.kicker}</span>
+                        <span>{cleanPublicText(project.kicker)}</span>
                       </div>
-                      <h3>{project.title}</h3>
-                      <p>{project.statement}</p>
+                      <h3>{cleanPublicText(project.title)}</h3>
+                      <p>{cleanPublicText(project.statement)}</p>
                       <div className="selected-work-carousel-proof">
-                        <span>{project.proof}</span>
+                        <span>{cleanPublicText(project.proof)}</span>
                         <ArrowUpRight size={18} aria-hidden="true" />
                       </div>
                     </div>
@@ -137,11 +138,6 @@ export function SelectedWorkGallery() {
           <button className="selected-work-carousel-control selected-work-carousel-next" type="button" onClick={() => move(1)} aria-label="Next project">
             <ChevronRight aria-hidden="true" />
           </button>
-        </div>
-
-        <div className="selected-work-footer">
-          <span>6 projects · 6 public case studies</span>
-          <Link href="/work">All work <ArrowUpRight size={15} aria-hidden="true" /></Link>
         </div>
       </div>
     </section>

@@ -24,7 +24,7 @@ jobs:
   deploy:
     name: Deploy and verify m7mdehab.com
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 40
     environment: production
     steps:
       - name: Checkout main
@@ -71,7 +71,12 @@ jobs:
           assert_export out/writing.html out/writing/index.html "English writing hub"
           test ! -f out/ar.html
           test ! -f out/ar/index.html
+          test ! -f out/prototypes.html
+          test ! -f out/prototypes/index.html
+          test ! -f out/prototypes/cinematic.html
+          test ! -f out/prototypes/cinematic/index.html
           if grep -Fq '/ar' out/sitemap.xml; then echo "Production sitemap artifact still exposes Arabic routes" >&2; exit 1; fi
+          if grep -Fq '/prototypes' out/sitemap.xml; then echo "Production sitemap exposes retired prototypes" >&2; exit 1; fi
           test "$(grep -o '<url>' out/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
       - name: Deploy to Cloudflare production
@@ -80,7 +85,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.production.jsonc
 
-      - name: Verify live production routes, indexing, security, canonical, and Arabic absence
+      - name: Verify live production routes, indexing, security, canonical, and retired surfaces
         shell: bash
         run: |
           set -euo pipefail
@@ -117,14 +122,18 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/prod-home.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
           if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Production homepage canonical is not the production apex URL');
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('Production homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('Production homepage still links to Arabic');
-          const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          for (const needle of ['Six ways into the work. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
+          const visibleText = publicMarkup.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          for (const needle of ['Different problems. One standard.', 'I like the messy part.', 'Ideas, lessons and field notes.', 'Choose the right conversation.']) {
             if (!visibleText.includes(needle)) throw new Error(`Production homepage missing accepted visible marker: ${needle}`);
           }
-          if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
+          if (publicMarkup.includes('—')) throw new Error('Production homepage contains a prohibited em dash in rendered markup');
+          if (publicMarkup.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
           const css = [...html.matchAll(/href=["']([^"']*\/_next\/static\/[^"']+\.css[^"']*)/gi)].map((m) => m[1]);
           const js = [...html.matchAll(/src=["']([^"']*\/_next\/static\/[^"']+\.js[^"']*)/gi)].map((m) => m[1]);
           if (!css.length) throw new Error('Production homepage exposes no content-addressed CSS assets');
@@ -148,7 +157,34 @@ jobs:
             printf '%s\t200\n' "$route" >> artifacts/production-verification/routes.tsv
           done
 
-          retired_routes=("/ar" "/ar/about" "/ar/work" "/ar/work/presaira" "/ar/services" "/ar/writing" "/ar/writing/when-to-trust-a-probabilistic-forecast")
+          html_routes=(
+            "/" "/about" "/work"
+            "/work/presaira" "/work/opportunityos" "/work/ghareeb-oglu"
+            "/work/oil-spill-detection" "/work/solar-site-selection" "/work/makhbazy"
+            "/services" "/writing"
+            "/writing/when-to-trust-a-probabilistic-forecast"
+            "/writing/why-accuracy-is-not-enough-for-oil-spill-detection"
+            "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
+          )
+          for route in "${html_routes[@]}"; do
+            curl --fail --silent --show-error "$PROD_BASE_URL${route}" > /tmp/public-route.html
+            node - "$route" <<'NODE'
+          const fs = require('fs');
+          const route = process.argv[2];
+          const html = fs.readFileSync('/tmp/public-route.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
+          if (publicMarkup.includes('—')) {
+            throw new Error(`Public production rendered markup contains a prohibited em dash: ${route}`);
+          }
+          NODE
+          done
+
+          retired_routes=(
+            "/ar" "/ar/about" "/ar/work" "/ar/work/presaira" "/ar/services" "/ar/writing" "/ar/writing/when-to-trust-a-probabilistic-forecast"
+            "/prototypes" "/prototypes/cinematic" "/prototypes/spatial" "/prototypes/kinetic"
+          )
           : > artifacts/production-verification/retired-routes.tsv
           for route in "${retired_routes[@]}"; do
             assert_stable_status "$route" "404" "Retired route"
@@ -159,6 +195,7 @@ jobs:
           if grep -Eq '^Disallow:[[:space:]]*/[[:space:]]*$' artifacts/production-verification/robots.txt; then echo "robots.txt blocks the production site" >&2; exit 1; fi
           curl --fail --silent --show-error "$PROD_BASE_URL/sitemap.xml" > artifacts/production-verification/sitemap.xml
           if grep -Fq '/ar' artifacts/production-verification/sitemap.xml; then echo "Live sitemap still exposes Arabic routes" >&2; exit 1; fi
+          if grep -Fq '/prototypes' artifacts/production-verification/sitemap.xml; then echo "Live sitemap exposes retired prototypes" >&2; exit 1; fi
           test "$(grep -o '<url>' artifacts/production-verification/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
       - name: Install Chromium for production acceptance
@@ -173,11 +210,25 @@ jobs:
         shell: bash
         run: |
           mkdir -p artifacts/production-verification/screenshots
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="430,932" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-430.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/" artifacts/production-verification/screenshots/home-390.png
-          npx playwright screenshot --browser=chromium --viewport-size="1920,1080" --full-page "$PROD_BASE_URL/about" artifacts/production-verification/screenshots/about-1920.png
-          npx playwright screenshot --browser=chromium --viewport-size="390,844" --full-page "$PROD_BASE_URL/about" artifacts/production-verification/screenshots/about-390.png
+          capture() {
+            local path="$1" name="$2" width="$3" height="$4"
+            npx playwright screenshot --browser=chromium --viewport-size="${width},${height}" --full-page "$PROD_BASE_URL${path}" "artifacts/production-verification/screenshots/${name}-${width}.png"
+          }
+          capture "/" home 1920 1080
+          capture "/" home 430 932
+          capture "/" home 390 844
+          capture "/about" about 1920 1080
+          capture "/about" about 390 844
+          capture "/work" work 1920 1080
+          capture "/work" work 390 844
+          capture "/services" services 1920 1080
+          capture "/services" services 390 844
+          capture "/writing" writing 1920 1080
+          capture "/writing" writing 390 844
+          capture "/work/opportunityos" opportunityos 1920 1080
+          capture "/work/opportunityos" opportunityos 390 844
+          capture "/writing/when-to-trust-a-probabilistic-forecast" article 1920 1080
+          capture "/writing/when-to-trust-a-probabilistic-forecast" article 390 844
 
       - name: Lighthouse production baseline
         shell: bash
@@ -218,7 +269,7 @@ jobs:
             : [];
           const screenshotsDir = 'artifacts/production-verification/screenshots';
           const manifest = {
-            contract: 'English-only public surface with dormant Arabic source retained',
+            contract: 'English public surface refined sitewide; Arabic and prototype routes retired',
             sha: process.env.GITHUB_SHA,
             runId: process.env.GITHUB_RUN_ID,
             baseUrl: process.env.PROD_BASE_URL,

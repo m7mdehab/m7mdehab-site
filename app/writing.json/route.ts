@@ -1,4 +1,5 @@
 import { profile } from "@/data/public";
+import { cleanPublicValue } from "@/data/public-surface";
 import { writingArticles } from "@/data/writing";
 
 export const dynamic = "force-static";
@@ -12,7 +13,6 @@ export function GET() {
     createdAt: article.createdAt,
     readingMinutes: article.readingMinutes,
     url: `${profile.domain}/writing/${article.slug}`,
-    alternateLanguageUrl: `${profile.domain}/ar/writing/${article.slug}`,
     project: {
       slug: article.projectSlug,
       title: article.projectTitle,
@@ -26,5 +26,5 @@ export function GET() {
     })),
   }));
 
-  return Response.json(records);
+  return Response.json(cleanPublicValue(records));
 }

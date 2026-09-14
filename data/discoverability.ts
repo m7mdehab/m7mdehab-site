@@ -77,7 +77,6 @@ export const writingRecords = writingArticles.map((article) => ({
   createdAt: article.createdAt,
   readingMinutes: article.readingMinutes,
   url: writingArticleUrl(article.slug),
-  alternateLanguageUrl: `${profile.domain}/ar/writing/${article.slug}`,
   derivedFromProject: {
     slug: article.projectSlug,
     title: article.projectTitle,

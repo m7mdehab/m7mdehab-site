@@ -4,6 +4,10 @@ import { WritingArticleView } from "@/components/writing-authority";
 import { profile } from "@/data/public";
 import { getWritingArticle, writingArticles } from "@/data/writing";
 
+function cleanText(value: string) {
+  return value.replaceAll(" — ", " · ").replaceAll("—", "·");
+}
+
 export function generateStaticParams() {
   return writingArticles.map((article) => ({ slug: article.slug }));
 }
@@ -14,14 +18,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return {};
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
+  const title = cleanText(article.title);
+  const description = cleanText(article.description);
 
   return {
-    title: article.title,
-    description: article.description,
+    title,
+    description,
     alternates: { canonical },
     openGraph: {
-      title: article.title,
-      description: article.description,
+      title,
+      description,
       url: canonical,
       siteName: profile.name,
       type: "article",
@@ -29,8 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: "summary",
-      title: article.title,
-      description: article.description,
+      title,
+      description,
     },
   };
 }
@@ -46,8 +52,8 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
     "@type": "TechArticle",
     "@id": `${canonical}#article`,
     url: canonical,
-    headline: article.title,
-    description: article.description,
+    headline: cleanText(article.title),
+    description: cleanText(article.description),
     dateCreated: article.createdAt,
     inLanguage: "en",
     author: {
@@ -59,7 +65,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
     mainEntityOfPage: canonical,
     about: {
       "@type": "CreativeWork",
-      name: article.projectTitle,
+      name: cleanText(article.projectTitle),
       url: `${profile.domain}/work/${article.projectSlug}`,
     },
     citation: article.sources.map((source) => source.href),

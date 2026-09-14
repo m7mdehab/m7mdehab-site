@@ -47,7 +47,10 @@ test.describe("Iteration 8 discoverability architecture", () => {
   test("profile, project, service and writing JSON stay synchronized with the public model", async ({ request }) => {
     const profileResponse = await request.get("/profile.json");
     expect(profileResponse.ok()).toBeTruthy();
-    const profile = await profileResponse.json();
+    const profileText = await profileResponse.text();
+    expect(profileText).not.toContain("—");
+    expect(profileText).not.toContain(`${domain}/ar`);
+    const profile = JSON.parse(profileText);
     expect(profile.services).toHaveLength(4);
     expect(profile.writing).toHaveLength(3);
     expect(profile.machineReadable.services).toBe(`${domain}/services.json`);
@@ -55,7 +58,9 @@ test.describe("Iteration 8 discoverability architecture", () => {
 
     const projectResponse = await request.get("/projects.json");
     expect(projectResponse.ok()).toBeTruthy();
-    const projects = await projectResponse.json();
+    const projectText = await projectResponse.text();
+    expect(projectText).not.toContain("—");
+    const projects = JSON.parse(projectText);
     expect(projects).toHaveLength(6);
     for (const project of projects) expect(project.caseStudyUrl).toBe(`${domain}/work/${project.slug}`);
 
@@ -65,7 +70,9 @@ test.describe("Iteration 8 discoverability architecture", () => {
 
     const serviceResponse = await request.get("/services.json");
     expect(serviceResponse.ok()).toBeTruthy();
-    const services = await serviceResponse.json();
+    const serviceText = await serviceResponse.text();
+    expect(serviceText).not.toContain("—");
+    const services = JSON.parse(serviceText);
     expect(services.map((service: { id: string }) => service.id)).toEqual(serviceIds);
     expect(services.every((service: { url: string }) => service.url.startsWith(`${domain}/services#service-`))).toBeTruthy();
 
@@ -77,7 +84,10 @@ test.describe("Iteration 8 discoverability architecture", () => {
 
     const writingResponse = await request.get("/writing.json");
     expect(writingResponse.ok()).toBeTruthy();
-    const writing = await writingResponse.json();
+    const writingText = await writingResponse.text();
+    expect(writingText).not.toContain("—");
+    expect(writingText).not.toContain(`${domain}/ar`);
+    const writing = JSON.parse(writingText);
     expect(writing.map((article: { slug: string }) => article.slug)).toEqual(writingSlugs);
     expect(writing.every((article: { url: string }) => article.url.startsWith(`${domain}/writing/`))).toBeTruthy();
   });
@@ -93,6 +103,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     expect(body).toContain(`${domain}/services.json`);
     expect(body).toContain(`${domain}/writing.json`);
     expect(body).not.toContain(`${domain}/ar`);
+    expect(body).not.toContain("—");
   });
 
   test("sitemap contains only the 14 canonical English HTML routes", async ({ request }) => {
@@ -114,6 +125,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     expect(xml).not.toContain(".json");
     expect(xml).not.toContain("llms.txt");
     expect(xml).not.toContain("/ar");
+    expect(xml).not.toContain("/prototypes");
     expect(xml).not.toContain('hreflang="ar"');
   });
 

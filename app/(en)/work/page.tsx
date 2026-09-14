@@ -3,14 +3,15 @@ import { WorkIndex } from "@/components/work-index";
 import { profile } from "@/data/public";
 
 const canonical = `${profile.domain}/work`;
+const description = "Public project case studies across forecasting, governed AI, ecommerce, computer vision, geospatial decision systems and mobile product delivery.";
 
 export const metadata: Metadata = {
-  title: "Work — Project Directory",
-  description: "Six public projects across forecasting, governed AI, ecommerce, computer vision, geospatial decision systems and mobile product delivery.",
+  title: "Work | Project Index",
+  description,
   alternates: { canonical },
   openGraph: {
-    title: `Work — ${profile.name}`,
-    description: "Six public projects with project-specific evidence and case studies.",
+    title: `Work | ${profile.name}`,
+    description,
     url: canonical,
     siteName: profile.name,
     type: "website",
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: `Work — ${profile.name}`,
-    description: "Six public projects with project-specific evidence and case studies.",
+    title: `Work | ${profile.name}`,
+    description,
   },
 };
 

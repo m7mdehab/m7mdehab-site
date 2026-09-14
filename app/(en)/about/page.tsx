@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/about" },
   openGraph: {
-    title: `About — ${profile.name}`,
+    title: `About | ${profile.name}`,
     description,
     url: `${profile.domain}/about`,
     type: "profile",

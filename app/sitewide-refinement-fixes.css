@@ -1,0 +1,33 @@
+/* Targeted fixes found by the sitewide rendered QA pass. */
+
+/* Decorative work-index geometry must never enlarge the document canvas. */
+.work-index-page {
+  overflow: clip;
+}
+
+.work-index-list,
+.work-index-row,
+.work-index-title,
+.work-index-statement,
+.work-index-proof {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.work-index-title h2,
+.work-index-statement,
+.work-index-proof span {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .work-index-header,
+  .work-index-list {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .work-index-row {
+    width: 100%;
+  }
+}

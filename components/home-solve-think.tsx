@@ -88,7 +88,7 @@ export function SolveThinkBridge() {
           </div>
           <div className="solve-think-intro-copy">
             <p>
-              The part before the dashboard, model or product — when the question is fuzzy, the data is fragmented and everyone is using a different definition.
+              The part before the dashboard, model or product, when the question is fuzzy, the data is fragmented and everyone is using a different definition.
             </p>
             <p>
               I do not start with tools. I make the problem legible, reduce ambiguity, then build the smallest reliable system that can carry the job.
