@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Blocks3, ExternalLink, Gauge, ShieldCheck, Target } from "lucide-react";
+import { ArrowUpRight, Blocks, ExternalLink, Gauge, ShieldCheck, Target } from "lucide-react";
 import type { CaseStudy } from "@/data/case-studies";
 import { emailComposeHref } from "@/data/contact-links";
 import { services } from "@/data/public";
@@ -47,7 +47,7 @@ export function CaseStudyNarrative({
 
       <section className={styles.section} aria-labelledby="case-study-approach">
         <div className={styles.sectionHead}>
-          <SectionMarker icon={<Blocks3 size={17} />} label="Approach" />
+          <SectionMarker icon={<Blocks size={17} />} label="Approach" />
           <h2 id="case-study-approach">How the system earns the result.</h2>
         </div>
         <div className={styles.steps}>
