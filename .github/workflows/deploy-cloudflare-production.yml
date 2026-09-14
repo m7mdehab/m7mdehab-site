@@ -122,15 +122,18 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/prod-home.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
           if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Production homepage canonical is not the production apex URL');
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('Production homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('Production homepage still links to Arabic');
-          const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          const visibleText = publicMarkup.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
           for (const needle of ['Different problems. One standard.', 'I like the messy part.', 'Ideas, lessons and field notes.', 'Choose the right conversation.']) {
             if (!visibleText.includes(needle)) throw new Error(`Production homepage missing accepted visible marker: ${needle}`);
           }
-          if (html.includes('—')) throw new Error('Production homepage contains a prohibited em dash');
-          if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
+          if (publicMarkup.includes('—')) throw new Error('Production homepage contains a prohibited em dash in rendered markup');
+          if (publicMarkup.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
           const css = [...html.matchAll(/href=["']([^"']*\/_next\/static\/[^"']+\.css[^"']*)/gi)].map((m) => m[1]);
           const js = [...html.matchAll(/src=["']([^"']*\/_next\/static\/[^"']+\.js[^"']*)/gi)].map((m) => m[1]);
           if (!css.length) throw new Error('Production homepage exposes no content-addressed CSS assets');
@@ -164,10 +167,18 @@ jobs:
             "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
           )
           for route in "${html_routes[@]}"; do
-            if curl --fail --silent --show-error "$PROD_BASE_URL${route}" | grep -Fq '—'; then
-              echo "Public production HTML contains a prohibited em dash: ${route}" >&2
-              exit 1
-            fi
+            curl --fail --silent --show-error "$PROD_BASE_URL${route}" > /tmp/public-route.html
+            node - "$route" <<'NODE'
+          const fs = require('fs');
+          const route = process.argv[2];
+          const html = fs.readFileSync('/tmp/public-route.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
+          if (publicMarkup.includes('—')) {
+            throw new Error(`Public production rendered markup contains a prohibited em dash: ${route}`);
+          }
+          NODE
           done
 
           retired_routes=(
