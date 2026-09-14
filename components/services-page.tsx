@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, BarChart3, Blocks3, BrainCircuit, DatabaseZap, Mail, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, BarChart3, Blocks, BrainCircuit, DatabaseZap, Mail, ShieldCheck } from "lucide-react";
 import { emailComposeHref } from "@/data/contact-links";
 import { projects, services } from "@/data/public";
 import { Reveal } from "@/components/reveal";
@@ -8,7 +8,7 @@ function cleanText(value: string) {
   return value.replaceAll(" — ", " · ").replaceAll("—", "·");
 }
 
-const serviceIcons = [DatabaseZap, BarChart3, BrainCircuit, Blocks3] as const;
+const serviceIcons = [DatabaseZap, BarChart3, BrainCircuit, Blocks] as const;
 
 export function ServicesPageView() {
   return (
