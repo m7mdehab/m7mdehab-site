@@ -15,17 +15,17 @@ export function WorkIndex({ locale }: { locale: WorkLocale }) {
     <main id="main-content" className="work-index-page shell">
       <header className="work-index-header">
         <div>
-          <p className="work-index-kicker">{isArabic ? "الأعمال · دليل المشاريع" : "Work · Project directory"}</p>
-          <h1>{isArabic ? <>ستة مشاريع، <em>ستة أنواع من الدليل.</em></> : <>Six projects, <em>six kinds of evidence.</em></>}</h1>
+          <p className="work-index-kicker">{isArabic ? "الأعمال · دليل المشاريع" : "Work · Project index"}</p>
+          <h1>{isArabic ? <>ستة مشاريع، <em>ستة أنواع من الدليل.</em></> : <>Projects, evidence <em>and decisions.</em></>}</h1>
         </div>
         <div className="work-index-header-copy">
           <p>
             {isArabic
               ? "تجمع هذه الصفحة المشاريع العامة ودراسات الحالة في مكان واحد. تختلف الأدلة المتاحة لكل مشروع حسب المصدر وحقوق النشر وحدود السرية."
-              : "This directory keeps every public project and case study in one place. Evidence differs by project because source availability, publication rights and confidentiality differ."}
+              : "A compact index of systems, models and products I have built. Each case study uses the evidence that best explains the problem, the decisions and the boundaries of the result."}
           </p>
           <Link className="work-index-back" href={isArabic ? "/ar#work" : "/#work"}>
-            <BackIcon size={15} aria-hidden="true" /> {isArabic ? "العودة إلى الأعمال المختارة" : "Back to selected work"}
+            <BackIcon size={15} aria-hidden="true" /> {isArabic ? "العودة إلى الأعمال المختارة" : "Back to homepage work"}
           </Link>
         </div>
       </header>
@@ -46,7 +46,7 @@ export function WorkIndex({ locale }: { locale: WorkLocale }) {
             </div>
             <p className="work-index-statement">{project.statement}</p>
             <div className="work-index-proof">
-              <span><small>{isArabic ? "مجال الدليل" : "Evidence domain"}</small>{project.proof}</span>
+              <span><small>{isArabic ? "مجال الدليل" : "Evidence"}</small>{project.proof}</span>
               <OpenIcon size={18} aria-hidden="true" />
             </div>
           </Link>
