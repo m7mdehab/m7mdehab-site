@@ -198,7 +198,7 @@ export function AboutPage() {
               <p className="about-ledger-label">Credentials</p>
               {aboutCertifications.map((item) => (
                 <Reveal as="article" key={item.name} className="about-ledger-row about-cert-row">
-                  <span>{cleanText(item.year)}</span>
+                  <span>{cleanText(String(item.year))}</span>
                   <div><h3>{cleanText(item.name)}</h3><p>{cleanText(item.issuer)}</p><OrganizationMark name={item.issuer} /></div>
                 </Reveal>
               ))}
