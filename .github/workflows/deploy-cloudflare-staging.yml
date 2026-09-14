@@ -126,11 +126,14 @@ jobs:
           node - <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/staging-home.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
           if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Homepage canonical is not the production apex URL');
           if (html.includes('<link rel="canonical" href="https://m7mdehab-site.m7mdehab.workers.dev"')) throw new Error('Staging workers.dev URL must never become canonical');
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('English homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('English homepage still links to Arabic');
-          if (html.includes('—')) throw new Error('English homepage contains a prohibited em dash');
+          if (publicMarkup.includes('—')) throw new Error('English homepage contains a prohibited em dash in rendered markup');
           NODE
 
           routes=(
