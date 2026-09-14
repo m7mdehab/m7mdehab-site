@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
+import { cleanPublicText } from "@/data/public-surface";
 import { projectVisuals } from "@/data/project-visuals";
 import type { WritingArticle } from "@/data/writing";
 
@@ -36,7 +37,7 @@ function OilNoteVisual() {
   const visual = projectVisuals["oil-spill-detection"];
   return (
     <div className="closing-note-visual closing-note-oil" aria-label="Oil Spill Detection SAR evidence">
-      <img src={visual.image} alt={visual.imageAlt} width={1024} height={640} loading="lazy" />
+      <img src={visual.image} alt={cleanPublicText(visual.imageAlt)} width={1024} height={640} loading="lazy" />
       <div className="closing-note-oil-overlay" aria-hidden="true" />
       <div className="closing-note-visual-head"><span>SAR / SEGMENTATION</span><strong>Oil IoU 0.566</strong></div>
       <div className="closing-note-proof"><span>Recall 0.764</span><span>5 classes</span><span>Sentinel-1</span></div>
@@ -80,9 +81,9 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
                 data-authority-link="article"
               >
                 <div className="closing-note-copy">
-                  <div className="closing-note-meta"><span>0{index + 1}</span><span>{article.topic}</span><span>{article.readingMinutes} min</span></div>
-                  <h3>{article.title}</h3>
-                  <p>{article.description}</p>
+                  <div className="closing-note-meta"><span>0{index + 1}</span><span>{cleanPublicText(article.topic)}</span><span>{article.readingMinutes} min</span></div>
+                  <h3>{cleanPublicText(article.title)}</h3>
+                  <p>{cleanPublicText(article.description)}</p>
                   <span className="closing-note-action">Read the field note <ArrowUpRight size={15} aria-hidden="true" /></span>
                 </div>
                 {noteVisual(article)}
@@ -128,7 +129,7 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
         <div className="shell closing-directory-grid">
           <div className="closing-directory-brand">
             <Link className="closing-directory-mark" href="/#top" aria-label="M7, back to top">M7</Link>
-            <div><strong>{profile.name}</strong><span>Data · AI · Product</span></div>
+            <div><strong>{cleanPublicText(profile.name)}</strong><span>Data · AI · Product</span></div>
           </div>
 
           <nav className="closing-directory-nav" aria-label="Footer directory">
@@ -138,11 +139,11 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
 
           <div className="closing-directory-end">
             <a className="closing-directory-email" href={emailComposeHref()} target="_blank" rel="noreferrer">{profile.email} <ArrowUpRight size={14} aria-hidden="true" /></a>
-            <p>© {new Date().getFullYear()} {profile.name}. Built as a living professional web identity.</p>
+            <p>© {new Date().getFullYear()} {cleanPublicText(profile.name)}. Built as a living professional web identity.</p>
             <div className="closing-directory-icons" aria-label="Contact links">
-              <a href={emailComposeHref()} target="_blank" rel="noreferrer" aria-label={`Email ${profile.name}`}><Mail size={15} aria-hidden="true" /></a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label={`${profile.name} on LinkedIn`}><Linkedin size={15} aria-hidden="true" /></a>
-              <a href={profile.github} target="_blank" rel="noreferrer" aria-label={`${profile.name} on GitHub`}><Github size={15} aria-hidden="true" /></a>
+              <a href={emailComposeHref()} target="_blank" rel="noreferrer" aria-label={`Email ${cleanPublicText(profile.name)}`}><Mail size={15} aria-hidden="true" /></a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label={`${cleanPublicText(profile.name)} on LinkedIn`}><Linkedin size={15} aria-hidden="true" /></a>
+              <a href={profile.github} target="_blank" rel="noreferrer" aria-label={`${cleanPublicText(profile.name)} on GitHub`}><Github size={15} aria-hidden="true" /></a>
             </div>
           </div>
         </div>
