@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Blocks3, ExternalLink, Gauge, ShieldCheck, Target } from "lucide-react";
 import type { CaseStudy } from "@/data/case-studies";
@@ -16,7 +17,7 @@ function cleanText(value: string) {
   return value.replaceAll(" — ", " · ").replaceAll("—", "·");
 }
 
-function SectionMarker({ icon, label }: { icon: React.ReactNode; label: string }) {
+function SectionMarker({ icon, label }: { icon: ReactNode; label: string }) {
   return <div className={styles.sectionMarker}><span aria-hidden="true">{icon}</span><p className={styles.eyebrow}>{label}</p></div>;
 }
 
