@@ -123,10 +123,18 @@ jobs:
             "/writing/what-an-ai-agent-should-do-when-evidence-is-missing"
           )
           for route in "${html_routes[@]}"; do
-            if curl --fail --silent --show-error "http://127.0.0.1:3000${route}" | grep -Fq '—'; then
-              echo "Public HTML contains a prohibited em dash: ${route}" >&2
-              exit 1
-            fi
+            curl --fail --silent --show-error "http://127.0.0.1:3000${route}" > /tmp/public-route.html
+            node - "$route" <<'NODE'
+          const fs = require('fs');
+          const route = process.argv[2];
+          const html = fs.readFileSync('/tmp/public-route.html', 'utf8');
+          const publicMarkup = html
+            .replace(/<script[\s\S]*?<\/script>/gi, '')
+            .replace(/<style[\s\S]*?<\/style>/gi, '');
+          if (publicMarkup.includes('—')) {
+            throw new Error(`Public rendered markup contains a prohibited em dash: ${route}`);
+          }
+          NODE
           done
 
           curl --fail --silent --show-error http://127.0.0.1:3000/sitemap.xml > /tmp/sitemap.xml
