@@ -4,6 +4,7 @@ import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { HeroAmbientField } from "@/components/hero-ambient-field";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
+import { cleanPublicText } from "@/data/public-surface";
 
 type BrandSignalData = { name: string; detail: string; brand: BrandKey; secondaryBrand?: BrandKey };
 
@@ -28,12 +29,12 @@ export function SystemHero() {
       <div className="overhaul-hero-shell shell">
         <div className="overhaul-hero-copy">
           <h1 className="overhaul-hero-title">
-            <span className="overhaul-hero-signature">{profile.name}</span>
+            <span className="overhaul-hero-signature">{cleanPublicText(profile.name)}</span>
           </h1>
           <p className="overhaul-hero-roles" aria-label="Professional disciplines">
             {heroRoles.map((role) => <span key={role}>{role}</span>)}
           </p>
-          <p className="overhaul-hero-proposition">{profile.proposition}</p>
+          <p className="overhaul-hero-proposition">{cleanPublicText(profile.proposition)}</p>
           <div className="overhaul-hero-actions">
             <a className="overhaul-action overhaul-action-primary" href="#work">
               Explore selected work <ArrowDownRight size={17} aria-hidden="true" />
