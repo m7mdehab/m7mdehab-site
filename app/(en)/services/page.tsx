@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Services } from "@/components/home-sections";
+import { ServicesPageView } from "@/components/services-page";
 import { profile } from "@/data/public";
 
 export const metadata: Metadata = {
@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <main id="main-content" className="services-page-modern"><Services /></main>;
+  return <main id="main-content" className="services-page-modern"><ServicesPageView /></main>;
 }
