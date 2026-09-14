@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ProjectVisual } from "@/components/project-visual";
 import { projects } from "@/data/public";
+import { cleanPublicText } from "@/data/public-surface";
 
 const AUTO_SCROLL_MS = 7000;
 
@@ -108,7 +109,7 @@ export function SelectedWorkGallery() {
                     href={`/work/${project.slug}`}
                     data-conversion="selected-work-to-case-study"
                     tabIndex={index === active ? 0 : -1}
-                    aria-label={`Open ${project.title} case study`}
+                    aria-label={`Open ${cleanPublicText(project.title)} case study`}
                   >
                     <div className="selected-work-carousel-visual">
                       <ProjectVisual slug={project.slug} />
@@ -116,12 +117,12 @@ export function SelectedWorkGallery() {
                     <div className="selected-work-carousel-copy">
                       <div className="selected-work-carousel-meta">
                         <span>{String(index + 1).padStart(2, "0")}</span>
-                        <span>{project.kicker}</span>
+                        <span>{cleanPublicText(project.kicker)}</span>
                       </div>
-                      <h3>{project.title}</h3>
-                      <p>{project.statement}</p>
+                      <h3>{cleanPublicText(project.title)}</h3>
+                      <p>{cleanPublicText(project.statement)}</p>
                       <div className="selected-work-carousel-proof">
-                        <span>{project.proof}</span>
+                        <span>{cleanPublicText(project.proof)}</span>
                         <ArrowUpRight size={18} aria-hidden="true" />
                       </div>
                     </div>
