@@ -8,7 +8,7 @@ export function SiteNav() {
       links={links}
       ariaLabel="Primary navigation"
       markHref="/#top"
-      markAriaLabel="M7 — back to top"
+      markAriaLabel="M7, back to top"
     />
   );
 }
