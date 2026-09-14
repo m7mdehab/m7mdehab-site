@@ -4,14 +4,15 @@ import { profile } from "@/data/public";
 import { writingArticles } from "@/data/writing";
 
 const canonical = `${profile.domain}/writing`;
+const description = "Technical essays, project lessons, experiments and field notes from Mohammed Ehab ElNomany on data, AI, systems and product decisions.";
 
 export const metadata: Metadata = {
-  title: "Writing — Data, AI & Product field notes",
-  description: "First-hand technical essays from Mohammed Ehab ElNomany on probabilistic forecasting, production ML evaluation and governed AI agents.",
+  title: "Writing | Data, AI & Product field notes",
+  description,
   alternates: { canonical },
   openGraph: {
-    title: `Writing — ${profile.name}`,
-    description: "First-hand technical essays derived from inspectable project evidence.",
+    title: `Writing | ${profile.name}`,
+    description,
     url: canonical,
     siteName: profile.name,
     type: "website",
@@ -19,8 +20,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: `Writing — ${profile.name}`,
-    description: "First-hand technical essays derived from inspectable project evidence.",
+    title: `Writing | ${profile.name}`,
+    description,
   },
 };
 
@@ -29,15 +30,15 @@ const schema = {
   "@type": "CollectionPage",
   "@id": `${canonical}#collection`,
   url: canonical,
-  name: `Writing — ${profile.name}`,
-  description: "First-hand technical essays derived from inspectable project evidence.",
+  name: `Writing | ${profile.name}`,
+  description,
   inLanguage: "en",
   author: { "@id": `${profile.domain}/#person`, "@type": "Person", name: profile.name, url: profile.domain },
   hasPart: writingArticles.map((article) => ({
     "@type": "TechArticle",
     "@id": `${profile.domain}/writing/${article.slug}#article`,
     url: `${profile.domain}/writing/${article.slug}`,
-    headline: article.title,
+    headline: article.title.replaceAll("—", "·"),
   })),
 };
 
