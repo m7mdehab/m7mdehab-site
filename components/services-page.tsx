@@ -26,7 +26,7 @@ export function ServicesPageView() {
         </Reveal>
       </section>
 
-      <section className="services-modern-grid shell" aria-label="Service areas">
+      <section id="services" className="services-modern-grid shell" aria-label="Service areas">
         {services.map((service, index) => {
           const Icon = serviceIcons[index % serviceIcons.length];
           const relatedProjects = service.projectSlugs
@@ -34,7 +34,7 @@ export function ServicesPageView() {
             .filter((project): project is (typeof projects)[number] => Boolean(project));
 
           return (
-            <Reveal as="article" key={service.id} delay={index * 0.05} className="services-modern-card" id={`service-${service.id}`}>
+            <Reveal as="article" key={service.id} delay={index * 0.05} className="services-modern-card service-card" id={`service-${service.id}`}>
               <div className="services-modern-card-top">
                 <span className="services-modern-icon" aria-hidden="true"><Icon size={21} /></span>
                 <span className="services-modern-proof">{cleanText(service.proofLabel)}</span>
