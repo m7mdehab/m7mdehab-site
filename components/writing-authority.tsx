@@ -70,7 +70,7 @@ export function WritingIndex({ articles, locale }: { articles: readonly WritingA
   const Arrow = isArabic ? ArrowUpLeft : ArrowUpRight;
 
   return (
-    <main id="main-content" className={`shell ${styles.indexShell}`}>
+    <main id="main-content" className={`shell writing-index-modern ${styles.indexShell}`}>
       <header className={styles.indexHero}>
         <p className="eyebrow">{isArabic ? "كتابة · أدلة · قرارات" : "Writing · notes · ideas"}</p>
         <div className={styles.indexHeroIcon} aria-hidden="true"><BookOpen size={22} /></div>
@@ -107,7 +107,7 @@ export function WritingArticleView({ article, locale }: { article: WritingArticl
   const OutArrow = isArabic ? ArrowUpLeft : ArrowUpRight;
 
   return (
-    <main id="main-content" className={`shell ${styles.articleShell}`}>
+    <main id="main-content" className={`shell writing-article-modern ${styles.articleShell}`}>
       <header className={styles.articleHero}>
         <div className={styles.articleTopline}>
           <Link className={styles.backLink} href={writingHref(locale)}><BackArrow size={16} aria-hidden="true" /> {isArabic ? "كل المقالات" : "All writing"}</Link>
