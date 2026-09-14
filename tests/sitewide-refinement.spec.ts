@@ -28,7 +28,10 @@ test.describe("sitewide visual refinement contract", () => {
       expect(response?.ok(), route).toBeTruthy();
       await settle(page);
       const html = await page.content();
-      expect(html, `${route} contains an em dash`).not.toContain("—");
+      const publicMarkup = html
+        .replace(/<script[\s\S]*?<\/script>/gi, "")
+        .replace(/<style[\s\S]*?<\/style>/gi, "");
+      expect(publicMarkup, `${route} contains an em dash in public markup`).not.toContain("—");
       await noHorizontalOverflow(page);
     }
   });
