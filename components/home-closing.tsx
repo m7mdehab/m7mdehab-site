@@ -62,11 +62,11 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
         <div className="shell closing-thinking-shell">
           <header className="closing-heading">
             <div>
-              <p className="closing-eyebrow">Thinking · 03</p>
-              <h2>What the work taught me.</h2>
+              <p className="closing-eyebrow">Writing</p>
+              <h2>Ideas, lessons and field notes.</h2>
             </div>
             <div className="closing-heading-side">
-              <p>Two evidence-backed notes. The full trail stays in the essays and underlying case studies.</p>
+              <p>Notes on data, AI, systems, product decisions and whatever else proves worth exploring.</p>
               <Link href="/writing">All writing <ArrowUpRight size={15} aria-hidden="true" /></Link>
             </div>
           </header>
@@ -95,32 +95,29 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
       <section id="contact" className="closing-opportunity">
         <div className="shell closing-opportunity-shell">
           <header className="closing-opportunity-head">
-            <p className="closing-eyebrow">Opportunity · 04</p>
+            <p className="closing-eyebrow">Opportunity</p>
             <h2>Choose the right conversation.</h2>
-            <p>Role, project or system problem — the fastest route is the one with the right context attached.</p>
+            <p>Role, project or system problem. The fastest route is the one with the right context attached.</p>
           </header>
 
           <div className="closing-paths">
             <article className="closing-path">
-              <div className="closing-path-index"><span>01</span><i aria-hidden="true" /></div>
               <p className="closing-path-kicker">HIRING / ROLE</p>
               <h3>Hiring for a technical, data or product role?</h3>
-              <p>Start with the work, then reach me directly with the role and the problem space.</p>
+              <p>Review the work for fit, then reach me directly with the role, team and problem space.</p>
               <div className="closing-path-actions">
-                <a href={emailComposeHref("Technical role opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-role-email">Email about a role <Mail size={15} aria-hidden="true" /></a>
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" data-conversion="contact-role-linkedin">LinkedIn <Linkedin size={15} aria-hidden="true" /></a>
-                <Link href="/work">Inspect work <ArrowUpRight size={15} aria-hidden="true" /></Link>
+                <Link href="/work">View relevant work <ArrowUpRight size={16} aria-hidden="true" /></Link>
+                <a href={emailComposeHref("Technical role opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-role-email">Email about a role <Mail size={16} aria-hidden="true" /></a>
               </div>
             </article>
 
             <article className="closing-path closing-path-project">
-              <div className="closing-path-index"><span>02</span><i aria-hidden="true" /></div>
               <p className="closing-path-kicker">PROJECT / SYSTEM</p>
               <h3>Have a system or product problem worth solving?</h3>
-              <p>Migration, analytics, ML/AI or product delivery — use the service context to see what is supported by public proof and what stays experience-backed.</p>
+              <p>Review the service context for fit, then reach me directly with the system, constraints and outcome you need.</p>
               <div className="closing-path-actions">
-                <Link href="/services" data-conversion="home-to-services">Service context <ArrowRight size={15} aria-hidden="true" /></Link>
-                <a href={emailComposeHref("Project or system opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-project-email">Discuss the problem <Mail size={15} aria-hidden="true" /></a>
+                <Link href="/services" data-conversion="home-to-services">View service context <ArrowRight size={16} aria-hidden="true" /></Link>
+                <a href={emailComposeHref("Project or system opportunity")} target="_blank" rel="noreferrer" data-conversion="contact-project-email">Discuss the problem <Mail size={16} aria-hidden="true" /></a>
               </div>
             </article>
           </div>
@@ -130,7 +127,7 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
       <footer className="closing-directory">
         <div className="shell closing-directory-grid">
           <div className="closing-directory-brand">
-            <Link className="closing-directory-mark" href="/#top" aria-label="M7 — back to top">M7</Link>
+            <Link className="closing-directory-mark" href="/#top" aria-label="M7, back to top">M7</Link>
             <div><strong>{profile.name}</strong><span>Data · AI · Product</span></div>
           </div>
 
@@ -143,9 +140,9 @@ export function HomeClosing({ articles }: { articles: readonly WritingArticle[] 
             <a className="closing-directory-email" href={emailComposeHref()} target="_blank" rel="noreferrer">{profile.email} <ArrowUpRight size={14} aria-hidden="true" /></a>
             <p>© {new Date().getFullYear()} {profile.name}. Built as a living professional web identity.</p>
             <div className="closing-directory-icons" aria-label="Contact links">
-              <a href={emailComposeHref()} target="_blank" rel="noreferrer" aria-label={`Email ${profile.name}`}><Mail size={14} aria-hidden="true" /></a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label={`${profile.name} on LinkedIn`}><Linkedin size={14} aria-hidden="true" /></a>
-              <a href={profile.github} target="_blank" rel="noreferrer" aria-label={`${profile.name} on GitHub`}><Github size={14} aria-hidden="true" /></a>
+              <a href={emailComposeHref()} target="_blank" rel="noreferrer" aria-label={`Email ${profile.name}`}><Mail size={15} aria-hidden="true" /></a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label={`${profile.name} on LinkedIn`}><Linkedin size={15} aria-hidden="true" /></a>
+              <a href={profile.github} target="_blank" rel="noreferrer" aria-label={`${profile.name} on GitHub`}><Github size={15} aria-hidden="true" /></a>
             </div>
           </div>
         </div>
