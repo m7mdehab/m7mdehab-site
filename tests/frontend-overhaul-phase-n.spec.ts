@@ -98,13 +98,15 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     await expect(page.locator('[data-brand-logo="ghareeb"].brand-logo-native')).toBeVisible();
   });
 
-  test("mobile keeps the one-line signature, one manual rail sequence and no horizontal overflow", async ({ page }) => {
+  test("mobile keeps the full wrapped signature, one manual rail sequence and no document overflow", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
     const title = page.locator(".overhaul-hero-title");
     await expect(title).toBeVisible();
-    expect(await title.evaluate((element) => getComputedStyle(element).whiteSpace)).toBe("nowrap");
+    await expect(title).toContainText("Mohammed Ehab");
+    await expect(title).toContainText("ElNomany");
+    expect(await title.evaluate((element) => getComputedStyle(element).whiteSpace)).not.toBe("nowrap");
 
     const railTrack = page.locator(".credibility-logo-track");
     expect(await railTrack.evaluate((element) => getComputedStyle(element).animationName)).toBe("none");

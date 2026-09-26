@@ -1,11 +1,15 @@
 # Execution Status
 
-Updated: 2026-09-11
+Updated: 2026-09-27
+
+## Mobile composition pass
+
+The English homepage phone composition is implemented on `feat/mobile-composition-pass` and awaits overseer review. It adds responsive identity/navigation, snap-browsed work and writing, a three-step method selector, two-path opportunity tabs and compact evidence/footer treatments. Viewport, keyboard, reduced-motion, overflow and axe coverage is in `docs/frontend-overhaul/MOBILE_COMPOSITION_PASS_2026-09-27.md`; production deployment remains under the existing manual gate.
 
 ## Autonomous iteration status
 
 | Iteration | Status | Output | Next |
-|---|---|---|---|
+| -------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0 Foundation | **COMPLETE** | Production repository, application scaffold, initial IA/design/SEO docs | — |
 | 1 Source/reference/licensing audit | **COMPLETE** | Deep reference audit, reuse classifications, implementation matrix, attribution/license register, dependency cleanup | — |
 | 2 Truth model & content completeness | **COMPLETE** | CV/truth-pack/GitHub/Drive reconciliation, governed public-safe source registry, confidentiality/classification rules, runtime data corrections | — |
@@ -36,7 +40,7 @@ Current sequence:
 ## Original master-plan phase status
 
 | Phase | Status | Evidence / notes | Next executable task |
-|---|---|---|---|
+| ------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | 1 Source of truth | **COMPLETE** | `data/source-of-truth.public.yaml` + truth audit; public/private/confidential boundaries and source precedence locked | Maintain when facts change |
 | 2 Research/reference | **COMPLETE** | Reference, licensing and reuse boundaries established | Maintain attribution for future third-party-code changes |
 | 3 Information architecture | **MATURE / LAUNCH COMPLETE** | Rich bilingual homepage + six substantive project routes per language + governed service conversion path + bilingual writing hubs | Change only from evidence/user need |
