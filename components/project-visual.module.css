@@ -160,3 +160,141 @@
   .presairaLine { stroke-dashoffset:0; }
   .scanLine { left:58%; box-shadow:none; }
 }
+@media (max-width: 700px) {
+  .visual:not(.caseVisual) {
+    gap: 8px;
+    padding: 12px;
+  }
+  .visual:not(.caseVisual) .visualHeader {
+    gap: 4px;
+    font-size: 8px;
+  }
+  .visual:not(.caseVisual) figcaption {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 6px;
+    padding-top: 6px;
+  }
+  .visual:not(.caseVisual) figcaption strong {
+    font-size: 8px;
+  }
+  .visual:not(.caseVisual) figcaption span {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+
+  .presaira:not(.caseVisual) .chartFrame {
+    min-height: 0;
+    padding: 0;
+  }
+  .presaira:not(.caseVisual) .chartFrame svg {
+    height: 100%;
+    min-height: 0;
+    object-fit: contain;
+  }
+  .presaira:not(.caseVisual) .proofStrip {
+    gap: 4px;
+  }
+  .presaira:not(.caseVisual) .proofStrip span {
+    padding: 4px 6px;
+    font-size: 8px;
+  }
+
+  .opportunity:not(.caseVisual) .opportunityFlow {
+    grid-template-columns: minmax(0, 1fr) minmax(76px, 0.42fr);
+    gap: 6px;
+  }
+  .opportunity:not(.caseVisual) .opportunityStages span {
+    min-height: 28px;
+    gap: 4px;
+    padding: 4px;
+    font-size: 8px;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine {
+    padding: 7px;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine small {
+    margin-bottom: 5px;
+    font-size: 7px;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine strong {
+    font-size: 1.2rem;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine > div:first-child > span {
+    margin-top: 4px;
+    font-size: 8px;
+  }
+  .opportunity:not(.caseVisual) .modeStack {
+    gap: 3px;
+    margin-top: 5px;
+  }
+  .opportunity:not(.caseVisual) .modeStack span {
+    padding: 4px;
+    font-size: 7px;
+  }
+
+  .ghareeb:not(.caseVisual) .storefrontFrame {
+    margin: 2px 0;
+    border-radius: 12px;
+  }
+  .ghareeb:not(.caseVisual) .browserBar {
+    height: 28px;
+    padding-inline: 9px;
+  }
+  .ghareeb:not(.caseVisual) .storefrontBody {
+    min-height: 0;
+    height: calc(100% - 28px);
+    padding: 9px;
+  }
+  .ghareeb:not(.caseVisual) .storefrontHeadline {
+    max-width: none;
+    margin: 7px 0;
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+  .ghareeb:not(.caseVisual) .commerceStages span {
+    gap: 4px;
+    padding: 6px 3px 0 0;
+    font-size: 8px;
+  }
+  .ghareeb:not(.caseVisual) .commerceStages i {
+    font-size: 7px;
+  }
+
+  .oil:not(.caseVisual) .oilImageWrap {
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+  .oil:not(.caseVisual) .metricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .oil:not(.caseVisual) .metricGrid span {
+    padding: 4px 6px;
+  }
+  .oil:not(.caseVisual) .metricGrid strong {
+    font-size: 23px;
+    line-height: 1;
+  }
+  .oil:not(.caseVisual) .metricGrid small {
+    font-size: 8px;
+  }
+
+  .solar:not(.caseVisual) .solarStack {
+    min-height: 0;
+  }
+  .makhbazy:not(.caseVisual) .phoneJourney {
+    min-height: 0;
+    gap: 3px;
+  }
+  .makhbazy:not(.caseVisual) .phoneStep {
+    gap: 3px;
+  }
+  .makhbazy:not(.caseVisual) .phoneShell {
+    width: 52px;
+    border-radius: 10px;
+    padding: 11px 5px 8px;
+  }
+  .makhbazy:not(.caseVisual) .phoneNotch {
+    margin-bottom: 12px;
+  }
+}
