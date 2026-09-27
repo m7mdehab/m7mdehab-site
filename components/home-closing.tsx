@@ -1,6 +1,10 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useTimedCarousel } from "@/components/use-timed-carousel";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
@@ -115,6 +119,73 @@ export function HomeClosing({
         article.slug === "why-accuracy-is-not-enough-for-oil-spill-detection",
     ),
   ].filter((article): article is WritingArticle => Boolean(article));
+  const {
+    active,
+    setActive,
+    paused,
+    rootRef,
+    onMouseEnter,
+    onMouseLeave,
+    onFocusCapture,
+    onBlurCapture,
+    onPointerDown,
+    onPointerUp,
+    onPointerCancel,
+  } = useTimedCarousel(featured.length);
+  const notesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = notesRef.current;
+    if (!root) return;
+    let settleTimer = 0;
+    const syncActive = () => {
+      const bounds = root.getBoundingClientRect();
+      const cards = Array.from(
+        root.querySelectorAll<HTMLElement>(".closing-note"),
+      );
+      const mostVisible = cards
+        .map((card) => {
+          const rect = card.getBoundingClientRect();
+          const visible = Math.max(
+            0,
+            Math.min(rect.right, bounds.right) -
+              Math.max(rect.left, bounds.left),
+          );
+          return { card, ratio: visible / Math.max(rect.width, 1) };
+        })
+        .sort((a, b) => b.ratio - a.ratio)[0]?.card;
+      const index = cards.indexOf(mostVisible as HTMLElement);
+      if (index >= 0) setActive(index);
+    };
+    const onScroll = () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(syncActive, 120);
+    };
+    root.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      root.removeEventListener("scroll", onScroll);
+      window.clearTimeout(settleTimer);
+    };
+  }, [setActive]);
+
+  useEffect(() => {
+    const card =
+      notesRef.current?.querySelectorAll<HTMLElement>(".closing-note")[active];
+    if (!card) return;
+    const root = notesRef.current;
+    const left =
+      root && card
+        ? card.getBoundingClientRect().left -
+          root.getBoundingClientRect().left +
+          root.scrollLeft
+        : 0;
+    root?.scrollTo({
+      left,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  }, [active]);
 
   return (
     <>
@@ -122,14 +193,10 @@ export function HomeClosing({
         <div className="shell closing-thinking-shell">
           <header className="closing-heading">
             <div>
-              <p className="closing-eyebrow">Thinking · 03</p>
               <h2>What the work taught me.</h2>
             </div>
             <div className="closing-heading-side">
-              <p>
-                Two evidence-backed notes. The full trail stays in the essays
-                and underlying case studies.
-              </p>
+              <p>Evidence-backed notes from the work.</p>
               <Link href="/writing">
                 All writing <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
@@ -138,9 +205,21 @@ export function HomeClosing({
 
           <div
             className="closing-notes"
+            ref={(element) => {
+              notesRef.current = element;
+              rootRef.current = element;
+            }}
             role="region"
-            aria-label="Featured writing. Scroll horizontally to browse."
+            aria-label="Featured writing"
             tabIndex={0}
+            data-carousel-paused={paused ? "true" : undefined}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            onFocusCapture={onFocusCapture}
+            onBlurCapture={onBlurCapture}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerCancel}
           >
             {featured.map((article, index) => (
               <Link
@@ -148,10 +227,13 @@ export function HomeClosing({
                 className="closing-note"
                 href={`/writing/${article.slug}`}
                 data-authority-link="article"
+                aria-hidden={index !== active}
+                tabIndex={index === active ? 0 : -1}
+                data-note-slide={index}
               >
+                {noteVisual(article)}
                 <div className="closing-note-copy">
                   <div className="closing-note-meta">
-                    <span>0{index + 1}</span>
                     <span>{article.topic}</span>
                     <span>{article.readingMinutes} min</span>
                   </div>
@@ -162,8 +244,25 @@ export function HomeClosing({
                     <ArrowUpRight size={15} aria-hidden="true" />
                   </span>
                 </div>
-                {noteVisual(article)}
               </Link>
+            ))}
+          </div>
+          <div
+            className="carousel-dots"
+            role="group"
+            aria-label="Writing slides"
+          >
+            {featured.map((article, index) => (
+              <button
+                key={article.slug}
+                type="button"
+                className={`carousel-dot${index === active ? " is-active" : ""}`}
+                aria-label={`Go to article ${index + 1} of ${featured.length}`}
+                aria-current={index === active ? "true" : undefined}
+                onClick={() => setActive(index)}
+              >
+                <span aria-hidden="true" />
+              </button>
             ))}
           </div>
         </div>
@@ -172,12 +271,7 @@ export function HomeClosing({
       <section id="contact" className="closing-opportunity">
         <div className="shell closing-opportunity-shell">
           <header className="closing-opportunity-head">
-            <p className="closing-eyebrow">Opportunity · 04</p>
             <h2>Choose the right conversation.</h2>
-            <p>
-              Role, project or system problem — the fastest route is the one
-              with the right context attached.
-            </p>
           </header>
 
           <OpportunityPaths />
@@ -201,43 +295,15 @@ export function HomeClosing({
           </div>
 
           <nav className="closing-directory-nav" aria-label="Footer directory">
-            <div>
-              <p>Explore</p>
-              <Link href="/#work">Work</Link>
-              <Link href="/about">About</Link>
-              <Link href="/services">Services</Link>
-              <Link href="/writing">Writing</Link>
-            </div>
-            <div>
-              <p>Connect</p>
-              <a
-                href={emailComposeHref()}
-                target="_blank"
-                rel="noreferrer"
-                data-conversion="footer-email"
-              >
-                Email
-              </a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer">
-                LinkedIn
-              </a>
-              <a href={profile.github} target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-            </div>
+            <Link href="/#work">Work</Link>
+            <Link href="/about">About</Link>
+            <Link href="/services">Services</Link>
+            <Link href="/writing">Writing</Link>
           </nav>
 
           <div className="closing-directory-end">
-            <a
-              className="closing-directory-email"
-              href={emailComposeHref()}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {profile.email} <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
             <p>
-              © {new Date().getFullYear()} {profile.name}. Built as a living
+              © {new Date().getFullYear()} {profile.name} · Built as a living
               professional web identity.
             </p>
             <div className="closing-directory-icons" aria-label="Contact links">
@@ -246,6 +312,7 @@ export function HomeClosing({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Email ${profile.name}`}
+                data-conversion="footer-email"
               >
                 <Mail size={14} aria-hidden="true" />
               </a>

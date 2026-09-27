@@ -52,20 +52,20 @@ function OpportunityVisual({ context, locale }: { context: "card" | "case"; loca
   const ar = locale === "ar";
   const stages = ar ? ["اكتشاف", "إدخال", "تأهيل", "تقييم", "قفل الحقيقة", "تحضير", "مراقبة", "تعلم"] : data.stages;
   return (
-    <figure dir={ar ? "rtl" : "ltr"} className={cx(styles.visual, styles.opportunity, context === "case" && styles.caseVisual)}>
-      <div className={styles.visualHeader}><span>{ar ? "تتبّع / صرّح" : data.verb}</span><span>{ar ? "مشتق عام آمن" : data.provenance}</span></div>
-      <div className={styles.opportunityFlow} aria-label={ar ? "تدفق الهندسة العامة لنظام OpportunityOS" : "OpportunityOS public architecture flow"}>
-        <div className={styles.opportunityStages}>
-          {stages.map((stage, index) => <span key={stage}><i>{String(index + 1).padStart(2, "0")}</i>{stage}</span>)}
+    <figure dir={ar ? "rtl" : "ltr"} className={cx(styles.visual, styles.opportunity, context === "case" && styles.caseVisual, context === "card" ? "opportunity-card-visual" : "opportunity-case-visual")}>
+      <div className={`${styles.visualHeader} ${context === "card" ? "opportunity-card-header" : ""}`}><span>{ar ? "تتبّع / صرّح" : data.verb}</span><span>{ar ? "مشتق عام آمن" : data.provenance}</span></div>
+      <div className={`${styles.opportunityFlow} ${context === "card" ? "opportunity-card-flow" : ""}`} aria-label={ar ? "تدفق الهندسة العامة لنظام OpportunityOS" : "OpportunityOS public architecture flow"}>
+        <div className={`${styles.opportunityStages} ${context === "card" ? "opportunity-card-stages" : ""}`}>
+          {stages.map((stage, index) => <span key={stage} data-opportunity-stage={stage} className={context === "card" ? "opportunity-card-stage" : undefined}><i>{String(index + 1).padStart(2, "0")}</i>{stage}</span>)}
         </div>
-        <div className={styles.authoritySpine}>
+        <div className={`${styles.authoritySpine} ${context === "card" ? "opportunity-card-authority" : ""}`}>
           <div><small>{ar ? "سلطة الحقائق" : "Factual authority"}</small><strong>{data.authority[0]}</strong><span>{data.authority[1]}</span></div>
-          <div className={styles.modeStack}>
-            {data.authority.slice(2).map((mode) => <span key={mode} lang="en" dir="ltr">{mode}</span>)}
+          <div className={`${styles.modeStack} ${context === "card" ? "opportunity-card-modes" : ""}`}>
+            {data.authority.slice(2).map((mode) => <span key={mode} className={context === "card" ? "opportunity-card-mode" : undefined} lang="en" dir="ltr">{mode}</span>)}
           </div>
         </div>
       </div>
-      <figcaption><strong>{ar ? "مخطط هندسة عام — وليس واجهة المنتج" : data.label}</strong><span>{ar ? "الحقيقة والمصدر يقيّدان المطابقة والتوليد وصلاحية الإجراءات الخارجية." : data.caption}</span></figcaption>
+      <figcaption className={context === "card" ? "opportunity-card-caption" : undefined}><strong>{ar ? "مخطط هندسة عام — وليس واجهة المنتج" : data.label}</strong><span>{ar ? "الحقيقة والمصدر يقيّدان المطابقة والتوليد وصلاحية الإجراءات الخارجية." : data.caption}</span></figcaption>
     </figure>
   );
 }

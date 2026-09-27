@@ -4,7 +4,7 @@ Updated: 2026-09-27
 
 ## Mobile composition pass
 
-The English homepage phone composition is implemented on `feat/mobile-composition-pass` and awaits overseer review. It adds responsive identity/navigation, snap-browsed work and writing, a three-step method selector, two-path opportunity tabs and compact evidence/footer treatments. Viewport, keyboard, reduced-motion, overflow and axe coverage is in `docs/frontend-overhaul/MOBILE_COMPOSITION_PASS_2026-09-27.md`; production deployment remains under the existing manual gate.
+Pass 2 mobile refinement is implemented on `feat/mobile-composition-pass`. Local build, typecheck, lint, rendered viewport review and all 109 browser tests pass. Draft PR #26 has passing application/rendered-QA, Cloudflare readiness and workers.dev staging workflows. The scope, logo asset audit and rendered measurements are documented in `docs/frontend-overhaul/MOBILE_COMPOSITION_PASS_2026-09-27.md`. Production deployment remains manual and has not been performed.
 
 ## Autonomous iteration status
 

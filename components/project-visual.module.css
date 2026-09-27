@@ -75,7 +75,7 @@
 .storefrontBody p { margin:0; text-transform:uppercase; letter-spacing:.12em; font-size:9px; }
 .storefrontBody .storefrontHeadline { margin:28px 0; font-family:var(--serif); font-size:clamp(2.7rem,5vw,5rem); font-weight:430; line-height:.86; letter-spacing:-.04em; max-width:8ch; text-transform:none; }
 .commerceStages { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(20,59,50,.18); }
-.commerceStages span { display:grid; gap:12px; padding:14px 10px 0 0; font-size:11px; }
+.commerceStages span { display:grid; gap:12px; padding:14px 10px 0 0; border:1px solid rgba(20,59,50,.16); border-radius:4px; background:#f2eadb; color:#143b32; font-size:11px; }
 .commerceStages i { font-style:normal; opacity:.75; font-size:9px; }
 
 .oil { background:#102528; color:#eef7f3; }

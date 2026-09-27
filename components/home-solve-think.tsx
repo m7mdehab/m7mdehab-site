@@ -5,41 +5,36 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 const rawSignals = [
-  ["SOURCE_01", "fragmented data"],
-  ["SOURCE_02", "conflicting definitions"],
-  ["QUESTION", "what actually matters?"],
-  ["BOUNDARY", "evidence is incomplete"],
+  ["", "Fragmented data"],
+  ["", "Conflicting definitions"],
+  ["", "What matters?"],
+  ["", "Incomplete evidence"],
 ] as const;
 
 const outputs = [
-  ["MOVE", "validated migration"],
-  ["EXPLAIN", "decision-ready analytics"],
-  ["PREDICT", "evaluated model"],
-  ["GOVERN", "AI workflow with boundaries"],
-  ["SHIP", "usable product"],
+  ["", "Validated migration"],
+  ["", "Decision-ready analytics"],
+  ["", "Evaluated model"],
+  ["", "Bounded AI workflow"],
+  ["", "Usable product"],
 ] as const;
 
 const steps = [
   {
-    index: "01",
     verb: "SEE",
     title: "Make the truth visible.",
-    detail:
-      "Expose the data, evidence, constraints and unknowns before optimizing around them.",
+    detail: "Expose the evidence, constraints and unknowns.",
   },
   {
-    index: "02",
     verb: "REDUCE",
     title: "Reduce ambiguity.",
     detail:
-      "Turn fuzzy business questions into explicit mappings, models, decisions and interfaces.",
+      "Turn fuzzy questions into explicit mappings, models and decisions.",
   },
   {
-    index: "03",
     verb: "BUILD",
     title: "Carry the job.",
-    detail:
-      "Build the smallest reliable system that can survive real use and real decisions.",
+    detail: "Build the smallest reliable system that can survive real use.",
   },
 ] as const;
 
@@ -136,21 +131,14 @@ export function SolveThinkBridge() {
       <div className="shell solve-think-shell">
         <header className="solve-think-intro">
           <div>
-            <p className="solve-think-eyebrow">How I work · 02</p>
-            <h2>
-              I like the <em>messy part.</em>
-            </h2>
+            <h2>I like the messy part.</h2>
           </div>
           <div className="solve-think-intro-copy">
             <p>
               The part before the dashboard, model or product — when the
-              question is fuzzy, the data is fragmented and everyone is using a
-              different definition.
-            </p>
-            <p>
-              I do not start with tools. I make the problem legible, reduce
-              ambiguity, then build the smallest reliable system that can carry
-              the job.
+              question is fuzzy, data is fragmented and definitions conflict. I
+              make the problem legible, reduce ambiguity, then build the
+              smallest reliable system that can carry the job.
             </p>
           </div>
         </header>
@@ -165,13 +153,12 @@ export function SolveThinkBridge() {
               <strong>messy reality</strong>
             </div>
             <div className="solve-think-raw-stack">
-              {rawSignals.map(([key, value], index) => (
+              {rawSignals.map(([, value], index) => (
                 <div
                   className="solve-think-raw-line"
-                  key={key}
+                  key={value}
                   data-offset={index % 3}
                 >
-                  <span>{key}</span>
                   <strong>{value}</strong>
                 </div>
               ))}
@@ -223,7 +210,6 @@ export function SolveThinkBridge() {
                     }
                   }}
                 >
-                  <span>{step.index}</span>
                   {step.verb}
                 </button>
               ))}
@@ -239,12 +225,8 @@ export function SolveThinkBridge() {
                     : undefined
                 }
                 aria-hidden={mobileEnhanced && activeStep !== index}
-                key={step.index}
+                key={step.verb}
               >
-                <div className="solve-think-step-head">
-                  <span>{step.index}</span>
-                  <strong>{step.verb}</strong>
-                </div>
                 {glyphs[index]}
                 <h3>{step.title}</h3>
                 <p>{step.detail}</p>
@@ -261,9 +243,8 @@ export function SolveThinkBridge() {
               <strong>reliable system</strong>
             </div>
             <div className="solve-think-output-stack">
-              {outputs.map(([verb, label]) => (
-                <div key={verb}>
-                  <span>{verb}</span>
+              {outputs.map(([, label]) => (
+                <div key={label}>
                   <strong>{label}</strong>
                 </div>
               ))}
@@ -281,11 +262,7 @@ export function SolveThinkBridge() {
         </div>
 
         <footer className="solve-think-footer">
-          <p>
-            <strong>The medium changes.</strong> Migration pipeline, forecast,
-            dashboard, AI workflow or customer-facing product. The operating
-            discipline stays the same.
-          </p>
+          <p>Different medium. Same operating discipline.</p>
           <Link href="/work" data-conversion="method-to-work">
             Inspect the evidence <ArrowUpRight size={15} aria-hidden="true" />
           </Link>

@@ -9,17 +9,17 @@ import { profile } from "@/data/public";
 const paths = [
   {
     key: "role",
-    label: "ROLE / HIRING",
-    title: "Hiring for a technical, data or product role?",
+    label: "ROLE",
+    title: "Hiring for data, AI or product?",
     description:
-      "Start with the work, then reach me directly with the role and the problem space.",
+      "Start with the work, then reach me with the role and problem space.",
   },
   {
     key: "project",
-    label: "PROJECT / SYSTEM",
-    title: "Have a system or product problem worth solving?",
+    label: "PROJECT",
+    title: "Have a system or product problem?",
     description:
-      "Migration, analytics, ML/AI or product delivery — use the service context to see what is supported by public proof and what stays experience-backed.",
+      "Start with the service context, then reach me with the system and outcome.",
   },
 ] as const;
 
@@ -104,11 +104,6 @@ export function OpportunityPaths() {
           aria-hidden={mobileEnhanced && active !== index}
           key={path.key}
         >
-          <div className="closing-path-index">
-            <span>0{index + 1}</span>
-            <i aria-hidden="true" />
-          </div>
-          <p className="closing-path-kicker">{path.label}</p>
           <h3>{path.title}</h3>
           <p>{path.description}</p>
           {path.key === "role" ? (
@@ -119,7 +114,7 @@ export function OpportunityPaths() {
                 rel="noreferrer"
                 data-conversion="contact-role-email"
               >
-                Email about a role <Mail size={15} aria-hidden="true" />
+                Email <Mail size={15} aria-hidden="true" />
               </a>
               <a
                 href={profile.linkedin}
@@ -135,17 +130,25 @@ export function OpportunityPaths() {
             </div>
           ) : (
             <div className="closing-path-actions">
-              <Link href="/services" data-conversion="home-to-services">
-                Service context <ArrowRight size={15} aria-hidden="true" />
-              </Link>
               <a
                 href={emailComposeHref("Project or system opportunity")}
                 target="_blank"
                 rel="noreferrer"
                 data-conversion="contact-project-email"
               >
-                Discuss the problem <Mail size={15} aria-hidden="true" />
+                Email <Mail size={15} aria-hidden="true" />
               </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                data-conversion="contact-project-linkedin"
+              >
+                LinkedIn <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+              <Link href="/services" data-conversion="home-to-services">
+                Services <ArrowRight size={15} aria-hidden="true" />
+              </Link>
             </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { BrandLogo, type BrandKey } from "@/components/brand-logo";
+import type { BrandKey } from "@/components/brand-logo";
 import { HeroAmbientField } from "@/components/hero-ambient-field";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
@@ -52,6 +52,7 @@ const credibilitySignals: ReadonlyArray<BrandSignalData> = [
 const heroRoles = [
   "Data Engineer",
   "AI Engineer",
+  "Data Scientist",
   "Business Analyst",
   "Data Analyst",
 ] as const;
@@ -63,24 +64,17 @@ export function SystemHero() {
       <HeroAmbientField />
       <div className="overhaul-hero-shell shell">
         <div className="overhaul-hero-meta">
-          <span>Data · AI · Product</span>
-          <span>Cairo, Egypt</span>
+          <span>CAIRO, EGYPT · REMOTE WORLDWIDE</span>
         </div>
 
         <div className="overhaul-hero-copy">
-          <p className="overhaul-hero-index" aria-hidden="true">
-            M7 / 01
-          </p>
           <h1 className="overhaul-hero-title">
             <span className="overhaul-hero-signature">
               <span>{identityParts.slice(0, -1).join(" ")}</span>{" "}
               <span>{identityParts[identityParts.length - 1]}</span>
             </span>
           </h1>
-          <p
-            className="overhaul-hero-roles"
-            aria-label="Professional disciplines"
-          >
+          <p className="overhaul-hero-roles" aria-label={heroRoles.join(" · ")}>
             {heroRoles.map((role) => (
               <span key={role}>{role}</span>
             ))}
@@ -116,9 +110,29 @@ function BrandSignal({ signal }: { signal: BrandSignalData }) {
       data-brand-card={signal.brand}
     >
       <span className="credibility-brand-marks" aria-hidden="true">
-        <BrandLogo brand={signal.brand} mode="native" />
+        <span className="credibility-wordmark">
+          {signal.brand === "network"
+            ? "NETWORK"
+            : signal.brand === "altayseer"
+              ? "AL TAYSEER"
+              : signal.brand === "orcas"
+                ? "ORCAS"
+                : signal.brand === "narss"
+                  ? "NARSS"
+                  : signal.brand === "zewail"
+                    ? "ZEWAIL CITY"
+                    : signal.brand === "databricks"
+                      ? "DATABRICKS"
+                      : signal.brand === "mckinsey"
+                        ? "McKINSEY"
+                        : signal.brand === "cic"
+                          ? "CIC"
+                          : "ExploreAI"}
+        </span>
         {signal.secondaryBrand ? (
-          <BrandLogo brand={signal.secondaryBrand} mode="native" />
+          <span className="credibility-wordmark">
+            {signal.secondaryBrand.toUpperCase()}
+          </span>
         ) : null}
       </span>
       <span className="credibility-brand-copy">
@@ -148,12 +162,6 @@ export function CredibilityRail() {
       className="credibility-rail"
       aria-label="Selected experience, education and credentials"
     >
-      <div className="credibility-rail-label shell">
-        <p>Credibility, compressed.</p>
-        <Link href="/about">
-          Full background <ArrowUpRight size={13} aria-hidden="true" />
-        </Link>
-      </div>
       <div
         className="credibility-viewport"
         tabIndex={0}
@@ -164,6 +172,9 @@ export function CredibilityRail() {
           <CredibilitySequence duplicate />
         </div>
       </div>
+      <p className="credibility-rail-caption">
+        Credibility, compressed. · <Link href="/about">Full background ↗</Link>
+      </p>
     </section>
   );
 }

@@ -1,15 +1,28 @@
 "use client";
 
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ProjectVisual } from "@/components/project-visual";
+import { useTimedCarousel } from "@/components/use-timed-carousel";
 import { projects } from "@/data/public";
 
 export function SelectedWorkGallery() {
-  const [active, setActive] = useState(0);
   const [mobileLayout, setMobileLayout] = useState(false);
   const windowRef = useRef<HTMLDivElement>(null);
+  const {
+    active,
+    setActive,
+    paused,
+    rootRef,
+    onMouseEnter,
+    onMouseLeave,
+    onFocusCapture,
+    onBlurCapture,
+    onPointerDown,
+    onPointerUp,
+    onPointerCancel,
+  } = useTimedCarousel(projects.length);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 700px)");
@@ -18,69 +31,96 @@ export function SelectedWorkGallery() {
     media.addEventListener("change", syncLayout);
     const root = windowRef.current;
     if (!root) return () => media.removeEventListener("change", syncLayout);
-    const slides = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-project-slug]"),
-    );
-    const observer = new IntersectionObserver(
-      () => {
-        const mostVisible = slides
-          .map((slide) => {
-            const rect = slide.getBoundingClientRect();
-            const visible = Math.max(
-              0,
-              Math.min(rect.right, root.getBoundingClientRect().right) -
-                Math.max(rect.left, root.getBoundingClientRect().left),
-            );
-            return { slide, ratio: visible / Math.max(rect.width, 1) };
-          })
-          .sort((a, b) => b.ratio - a.ratio)[0]?.slide;
-        const slug = mostVisible?.getAttribute("data-project-slug");
-        const index = projects.findIndex((project) => project.slug === slug);
-        if (index >= 0) setActive(index);
-      },
-      { root, threshold: [0.5, 0.65, 0.8] },
-    );
-    slides.forEach((slide) => observer.observe(slide));
+    const syncActive = () => {
+      const bounds = root.getBoundingClientRect();
+      const slides = Array.from(
+        root.querySelectorAll<HTMLElement>("[data-project-slug]"),
+      );
+      const mostVisible = slides
+        .map((slide) => {
+          const rect = slide.getBoundingClientRect();
+          const visible = Math.max(
+            0,
+            Math.min(rect.right, bounds.right) -
+              Math.max(rect.left, bounds.left),
+          );
+          return { slide, ratio: visible / Math.max(rect.width, 1) };
+        })
+        .sort((a, b) => b.ratio - a.ratio)[0]?.slide;
+      const index = projects.findIndex(
+        (project) => project.slug === mostVisible?.dataset.projectSlug,
+      );
+      if (index >= 0) setActive(index);
+    };
+    let settleTimer = 0;
+    const onScroll = () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(syncActive, 120);
+    };
+    root.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      observer.disconnect();
+      root.removeEventListener("scroll", onScroll);
+      window.clearTimeout(settleTimer);
       media.removeEventListener("change", syncLayout);
     };
-  }, []);
+  }, [setActive]);
 
-  const move = (direction: -1 | 1) => {
-    const next = Math.max(0, Math.min(projects.length - 1, active + direction));
-    if (next === active) return;
-    const target = windowRef.current?.querySelector<HTMLElement>(
-      `[data-project-slug="${projects[next].slug}"]`,
+  useEffect(() => {
+    if (!mobileLayout) return;
+    const root = windowRef.current;
+    const target = root?.querySelector<HTMLElement>(
+      `[data-project-slug="${projects[active].slug}"]`,
     );
+    if (!root || !target) return;
+    const left =
+      target.getBoundingClientRect().left -
+      root.getBoundingClientRect().left +
+      root.scrollLeft;
+    root.scrollTo({
+      left,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  }, [active, mobileLayout]);
+
+  const activeProject = projects[active];
+  const goTo = (index: number) => {
+    setActive(index);
     if (window.matchMedia("(max-width: 700px)").matches) {
-      windowRef.current?.scrollTo({
-        left: target?.offsetLeft ?? 0,
+      const target = windowRef.current?.querySelector<HTMLElement>(
+        `[data-project-slug="${projects[index].slug}"]`,
+      );
+      const root = windowRef.current;
+      const left =
+        root && target
+          ? target.getBoundingClientRect().left -
+            root.getBoundingClientRect().left +
+            root.scrollLeft
+          : 0;
+      root?.scrollTo({
+        left,
         behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
           ? "instant"
           : "smooth",
       });
     }
-    setActive(next);
   };
-
-  const activeProject = projects[active];
 
   return (
     <section id="work" className="selected-work" data-selected-work>
       <div className="shell selected-work-shell">
         <header className="selected-work-intro">
           <div>
-            <p className="selected-work-eyebrow">Selected work · 01</p>
             <h2>
-              Six ways into the work. <em>One standard.</em>
+              Six ways into the work.
+              <br />
+              One standard.
             </h2>
           </div>
           <div className="selected-work-intro-copy">
             <p>
-              Six public projects, viewed one at a time. Each card carries one
-              project, one evidence language and one route into the full case
-              study.
+              Six public projects. One evidence-led route into each case study.
             </p>
             <Link href="/work">
               Open the work index <ArrowUpRight size={15} aria-hidden="true" />
@@ -90,30 +130,23 @@ export function SelectedWorkGallery() {
 
         <div
           className="selected-work-carousel"
+          ref={rootRef}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onFocusCapture={onFocusCapture}
+          onBlurCapture={onBlurCapture}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerCancel}
           data-active-project={activeProject.slug}
           data-active-tone={activeProject.tone}
+          data-carousel-paused={paused ? "true" : undefined}
         >
-          <div className="selected-work-carousel-status" aria-live="polite">
-            <span>
-              {String(active + 1).padStart(2, "0")} /{" "}
-              {String(projects.length).padStart(2, "0")}
-            </span>
-            <div className="selected-work-carousel-progress" aria-hidden="true">
-              <span
-                className="selected-work-carousel-progress-fill"
-                style={{
-                  transform: `scaleX(${(active + 1) / projects.length})`,
-                }}
-              />
-            </div>
-            <span className="selected-work-carousel-mode">Swipe to browse</span>
-          </div>
-
           <div
             className="selected-work-carousel-window"
             ref={windowRef}
             tabIndex={0}
-            aria-label="Selected projects. Use the previous and next project buttons to browse."
+            aria-label="Selected projects"
           >
             <div
               className="selected-work-carousel-track"
@@ -140,7 +173,6 @@ export function SelectedWorkGallery() {
                     </div>
                     <div className="selected-work-carousel-copy">
                       <div className="selected-work-carousel-meta">
-                        <span>{String(index + 1).padStart(2, "0")}</span>
                         <span>{project.kicker}</span>
                       </div>
                       <h3>{project.title}</h3>
@@ -155,37 +187,24 @@ export function SelectedWorkGallery() {
               ))}
             </div>
           </div>
-
           <div
-            className="selected-work-carousel-controls"
-            aria-label="Project navigation"
+            className="carousel-dots"
+            role="group"
+            aria-label="Project slides"
           >
-            <button
-              className="selected-work-carousel-control"
-              type="button"
-              onClick={() => move(-1)}
-              aria-label="Previous project"
-              disabled={mobileLayout && active === 0}
-            >
-            <ChevronLeft aria-hidden="true" />
-          </button>
-            <button
-              className="selected-work-carousel-control"
-              type="button"
-              onClick={() => move(1)}
-              aria-label="Next project"
-              disabled={mobileLayout && active === projects.length - 1}
-            >
-            <ChevronRight aria-hidden="true" />
-          </button>
-        </div>
-        </div>
-
-        <div className="selected-work-footer">
-          <span>6 projects · 6 public case studies</span>
-          <Link href="/work">
-            All work <ArrowUpRight size={15} aria-hidden="true" />
-          </Link>
+            {projects.map((project, index) => (
+              <button
+                key={project.slug}
+                type="button"
+                className={`carousel-dot${index === active ? " is-active" : ""}`}
+                aria-label={`Go to project ${index + 1} of ${projects.length}`}
+                aria-current={index === active ? "true" : undefined}
+                onClick={() => goTo(index)}
+              >
+                <span aria-hidden="true" />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
