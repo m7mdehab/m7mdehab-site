@@ -184,7 +184,7 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
       await railTrack.evaluate(
         (element) => getComputedStyle(element).animationName,
       ),
-    ).toBe("credibility-loop");
+    ).toBe("credibility-loop-measured");
     const duplicateRail = page.locator(
       '.credibility-logo-sequence[aria-hidden="true"]',
     );

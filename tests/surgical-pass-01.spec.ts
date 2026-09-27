@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 const mobileWidths = [320, 360, 375, 390, 412, 430, 480] as const;
 
 test.describe("Surgical pass 01 homepage identity and navigation", () => {
-  test("mobile name, five-role line, hero height and dock fit each target width", async ({
+  test("mobile name, five-role line and dock fit each target width", async ({
     page,
   }) => {
     for (const width of mobileWidths) {
@@ -18,6 +18,7 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
           return {
             width: rect.width,
             height: rect.height,
+            top: rect.top,
             fontSize: Number.parseFloat(getComputedStyle(node).fontSize),
             lineHeight: Number.parseFloat(getComputedStyle(node).lineHeight),
             bottom: rect.bottom,
@@ -39,12 +40,8 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
       });
 
       expect(metrics.documentWidth, `${width}px page overflow`).toBe(width);
-      expect(
-        metrics.hero.height,
-        `${width}px hero height`,
-      ).toBeGreaterThanOrEqual(844 * 0.8);
-      expect(metrics.hero.height, `${width}px hero height`).toBeLessThanOrEqual(
-        844 * 0.91,
+      expect(metrics.hero.height, `${width}px content-led hero`).toBeLessThan(
+        844 * 0.8,
       );
       expect(
         metrics.name.width / metrics.hero.width,
@@ -78,9 +75,10 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
         `${width}px mobile ambient icons`,
       ).toBeLessThanOrEqual(10);
       expect(
-        metrics.rail.bottom,
-        `${width}px rail clears dock`,
-      ).toBeGreaterThan(metrics.dock.bottom);
+        metrics.rail.bottom <= metrics.dock.top ||
+          metrics.rail.top >= metrics.dock.bottom,
+        `${width}px rail does not overlap dock`,
+      ).toBeTruthy();
       await expect(page.locator(".overhaul-hero-title")).toContainText(
         "Mohammed Ehab ElNomany",
       );
@@ -183,7 +181,7 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
     await expect(firstSequence).not.toContainText("Credibility, compressed");
     await expect(
       page.getByRole("link", { name: "View full background ↗" }),
-    ).toHaveAttribute("href", "/about");
+    ).toHaveCount(0);
     const track = page.locator(".credibility-track");
     await expect(track).not.toHaveCSS("animation-name", "none");
     await track.evaluate((node) => {

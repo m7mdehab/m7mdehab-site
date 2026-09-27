@@ -161,8 +161,8 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.methodHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.writingHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.opportunityHeadingLines).toBeLessThanOrEqual(3);
-    expect(metrics.credibilityAnimation).toBe("credibility-loop");
-    expect(metrics.credibilityOverflowX).toBe("auto");
+    expect(metrics.credibilityAnimation).toBe("credibility-loop-measured");
+    expect(metrics.credibilityOverflowX).toBe("hidden");
     expect(metrics.duplicateCount).toBe(1);
     expectMobileNavTargets(metrics);
 
@@ -206,7 +206,7 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.viewportWidth + 1);
     expect(metrics.viewportCount).toBeLessThanOrEqual(8.75);
     expect(metrics.heroLines).toBeLessThanOrEqual(2);
-    expect(metrics.credibilityAnimation).toBe("credibility-loop");
+    expect(metrics.credibilityAnimation).toBe("credibility-loop-measured");
     expect(metrics.duplicateCount).toBe(1);
     expectMobileNavTargets(metrics);
 
