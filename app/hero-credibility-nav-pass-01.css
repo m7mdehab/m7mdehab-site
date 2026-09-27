@@ -204,15 +204,26 @@
   .overhaul-hero-title {
     width: 100%;
     max-width: 100%;
-    font-size: clamp(42px, 13.3vw, 94px);
+    font-size: clamp(37px, 11.2vw, 78px);
     line-height: 1.05;
-    letter-spacing: -0.065em;
+    letter-spacing: -0.015em;
+    word-spacing: 0.06em;
   }
 
   .overhaul-hero-signature {
     width: max-content;
     max-width: 100%;
     padding-inline: 0;
+  }
+
+  .overhaul-hero-signature > span + span {
+    margin-inline-start: 0.06em;
+  }
+
+  @media (max-width: 340px) {
+    .overhaul-hero-title {
+      font-size: clamp(35px, 11.2vw, 37px);
+    }
   }
 
   .overhaul-hero-roles {

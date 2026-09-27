@@ -70,7 +70,10 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
         expect(caption.height).toBeLessThanOrEqual(caption.lineHeight + 1);
         expect(caption.textHeight).toBeLessThanOrEqual(caption.lineHeight + 1);
         expect(caption.logoBottom).toBeLessThanOrEqual(caption.stageBottom + 1);
-        expect(caption.top - caption.stageBottom).toBeGreaterThanOrEqual(10);
+        expect(caption.top - caption.stageBottom).toBeCloseTo(
+          width <= 700 ? 8 : 12,
+          0,
+        );
       }
     }
   });
@@ -126,7 +129,7 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
       expect(initial.firstWidth).toBeCloseTo(initial.secondWidth, 1);
       expect(initial.loopWidth).toBeCloseTo(initial.firstWidth, 1);
       expect(initial.sourceCount).toBe(9);
-      expect(initial.speed).toBe(30);
+      expect(initial.speed).toBe(width <= 700 ? 52 : 30);
       expect(initial.first).toEqual(initial.second);
 
       const coverage = await track.evaluate((node) => {
@@ -232,7 +235,7 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
       expect(
         metrics.rail.height,
         `${width}px rail height`,
-      ).toBeGreaterThanOrEqual(100);
+      ).toBeGreaterThanOrEqual(90);
       expect(metrics.rail.height, `${width}px rail height`).toBeLessThanOrEqual(
         135,
       );

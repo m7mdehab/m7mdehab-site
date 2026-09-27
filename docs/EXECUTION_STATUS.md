@@ -1,6 +1,6 @@
 # Execution Status
 
-Updated: 2026-09-27
+Updated: 2026-09-28
 
 ## Mobile composition pass
 
@@ -17,6 +17,10 @@ Implemented on `feat/mobile-composition-pass` from Pass 01 SHA `9d03bc76b0d689cc
 ## Surgical pass 03: first-chapter closeout
 
 Implemented on `feat/mobile-composition-pass` from reviewed base `d656fb32aa3d1d2584ff829da35dba0309159204`. Credibility captions now use verified job, internship, tutoring, degree and certificate titles; the Network International wordmark uses a transparent blue/red asset; desktop hover and keyboard focus use one body-level fixed tooltip; and 53 desktop / 26 mobile ambient details continue from hero through the logo rail. Mobile micro-spacing measures 32/22/25/28px and 1440px desktop measures 212/11/28/30px for metadata→name, name→roles, roles→proposition, proposition→CTA. The measured rail remains 30px/s; two live 1920px cycles completed at 84.6 seconds each. Typecheck, lint, build and the full browser suite (**122/122 PASS**) pass. Seven viewport captures plus name-reveal and two-cycle captures are under `outputs/hero-credibility-pass-03/`. Detailed title, geometry and interaction evidence: `docs/frontend-overhaul/SURGICAL_PASS_03_2026-09-27.md`. PR #26 remains open and draft; no merge or production deployment was performed.
+
+## Surgical pass 04: final micro-polish
+
+Implemented on `feat/mobile-composition-pass` from Pass 03 HEAD `2e45968608c6724a52b264468f4976ad2fcf161a`. Network International now uses the sharper native-color `logoAssets.network` WebP through `BrandLogo`; the supplied 140×32 mark renders at 70×16 (2× source-to-CSS density) with matching 4.375:1 aspect ratio. No vector or larger source exists in the repository or its history. Mobile credibility geometry is 160px standard items, 180px for Orcas/CIC, 9px gaps, 40px logo stage, 8px captions and 52px/s measured-loop speed; desktop item geometry and 30px/s speed are preserved. Mobile signature spacing is −0.015em letter spacing and 0.06em word spacing; 320–480px remains one line, with 390px text at 341px inside a 366px content width. `npm run typecheck`, `npm run lint`, `npm run build`, and `npm run test:browser` pass (**126/126**). Captures and DPR 2 Network crop are under `outputs/hero-credibility-pass-04/`. PR #26 remains open and draft; no merge or production deployment was performed.
 
 ## Autonomous iteration status
 

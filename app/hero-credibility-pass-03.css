@@ -79,10 +79,9 @@
   z-index: 1;
 }
 
-.credibility-brand-item {
-  flex-basis: clamp(220px, 15vw, 250px);
-  width: clamp(220px, 15vw, 250px);
-  min-width: clamp(220px, 15vw, 250px);
+.credibility-brand-item[data-brand-card="network"] .brand-logo {
+  width: 70px;
+  max-width: 70px;
 }
 
 .overhaul-hero-shell {
@@ -188,11 +187,6 @@
     display: none;
   }
 
-  .credibility-brand-item {
-    flex-basis: 220px;
-    width: 220px;
-    min-width: 220px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

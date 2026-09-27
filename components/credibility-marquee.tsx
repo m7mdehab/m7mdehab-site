@@ -58,7 +58,8 @@ const credibilitySignals: ReadonlyArray<BrandSignal> = [
   },
 ];
 
-const MARQUEE_SPEED = 30;
+const DESKTOP_MARQUEE_SPEED = 30;
+const MOBILE_MARQUEE_SPEED = 52;
 const GROUP_SAFETY_RATIO = 1.25;
 
 function BrandSignalItem({
@@ -114,11 +115,6 @@ function BrandSignalItem({
         <BrandLogo
           brand={signal.brand}
           mode="native"
-          src={
-            signal.brand === "network"
-              ? "/logos/network-international.png"
-              : undefined
-          }
         />
         {signal.secondaryBrand ? (
           <BrandLogo brand={signal.secondaryBrand} mode="native" />
@@ -203,6 +199,7 @@ export function CredibilityMarquee() {
   const groupRef = useRef<HTMLDivElement>(null);
   const [sourceRepeats, setSourceRepeats] = useState(1);
   const [loopWidth, setLoopWidth] = useState(0);
+  const [marqueeViewportWidth, setMarqueeViewportWidth] = useState(0);
   const [tooltipLabel, setTooltipLabel] = useState<string | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const tooltipCoordinatesRef = useRef({ x: 0, y: 0 });
@@ -248,6 +245,10 @@ export function CredibilityMarquee() {
       const viewportWidth = viewport.getBoundingClientRect().width;
       const groupWidth = group.getBoundingClientRect().width;
       if (!viewportWidth || !groupWidth) return;
+      const windowWidth = window.innerWidth;
+      setMarqueeViewportWidth((current) =>
+        current === windowWidth ? current : windowWidth,
+      );
 
       if (motionPreference.matches) {
         setSourceRepeats((current) => (current === 1 ? current : 1));
@@ -288,9 +289,13 @@ export function CredibilityMarquee() {
     };
   }, []);
 
+  const marqueeSpeed =
+    marqueeViewportWidth > 0 && marqueeViewportWidth <= 700
+      ? MOBILE_MARQUEE_SPEED
+      : DESKTOP_MARQUEE_SPEED;
   const marqueeStyle = {
     "--credibility-loop-distance": `${-loopWidth}px`,
-    "--credibility-loop-duration": `${loopWidth / MARQUEE_SPEED}s`,
+    "--credibility-loop-duration": `${loopWidth / marqueeSpeed}s`,
   } as CSSProperties;
 
   return (
@@ -300,7 +305,7 @@ export function CredibilityMarquee() {
       tabIndex={0}
       aria-label="Selected professional and learning relationships"
       data-loop-width={loopWidth}
-      data-loop-speed={MARQUEE_SPEED}
+      data-loop-speed={marqueeSpeed}
       data-source-item-count={credibilitySignals.length}
     >
       <div

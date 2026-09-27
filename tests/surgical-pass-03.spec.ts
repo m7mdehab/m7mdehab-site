@@ -153,7 +153,6 @@ test.describe("Surgical pass 03 first chapter closeout", () => {
     });
     expect(colors.blue).toBeGreaterThan(100);
     expect(colors.red).toBeGreaterThan(10);
-    expect(colors.transparent).toBeGreaterThan(0);
     expect(colors.filter).toBe("none");
     expect(colors.opacity).toBe("1");
   });

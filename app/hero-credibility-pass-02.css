@@ -56,9 +56,9 @@
   grid-template-rows: 56px 12px;
   align-items: start;
   justify-items: center;
-  flex: 0 0 clamp(190px, 13vw, 240px);
-  width: clamp(190px, 13vw, 240px);
-  min-width: clamp(190px, 13vw, 240px);
+  flex: 0 0 clamp(220px, 15vw, 250px);
+  width: clamp(220px, 15vw, 250px);
+  min-width: clamp(220px, 15vw, 250px);
   height: 80px;
   min-height: 80px;
   gap: 12px;
@@ -139,7 +139,7 @@
   }
 
   .credibility-viewport {
-    --credibility-item-gap: 16px;
+    --credibility-item-gap: 9px;
     overflow-x: hidden;
     overflow-y: hidden;
     scroll-snap-type: none;
@@ -147,27 +147,40 @@
   }
 
   .credibility-brand-item {
-    grid-template-rows: 46px 11px;
-    flex-basis: clamp(165px, 44vw, 195px);
-    width: clamp(165px, 44vw, 195px);
-    min-width: clamp(165px, 44vw, 195px);
-    height: 69px;
-    min-height: 69px;
-    gap: 10px;
+    grid-template-rows: 40px 11px;
+    flex-basis: 160px;
+    width: 160px;
+    min-width: 160px;
+    height: 59px;
+    min-height: 59px;
+    gap: 8px;
+  }
+
+  .credibility-brand-item[data-brand-card="orcas"],
+  .credibility-brand-item[data-brand-card="cic"] {
+    flex-basis: 180px;
+    width: 180px;
+    min-width: 180px;
   }
 
   .credibility-brand-marks.credibility-logo-stage {
-    height: 46px;
-    min-height: 46px;
+    height: 40px;
+    min-height: 40px;
   }
 
   .credibility-logo-stage .brand-logo {
-    max-width: 145px;
-    max-height: 40px;
+    max-width: 114px;
+    max-height: 29px;
   }
 
   .credibility-logo-stage .brand-logo img {
-    max-height: 36px !important;
+    max-width: 100% !important;
+    max-height: 29px !important;
+  }
+
+  .credibility-brand-item[data-brand-card="network"] .brand-logo {
+    width: 70px;
+    max-width: 70px;
   }
 
   .credibility-brand-copy.relationship-caption {
@@ -175,7 +188,7 @@
   }
 
   .relationship-caption strong {
-    font-size: 9px;
+    font-size: 8px;
     line-height: 11px;
   }
 }
