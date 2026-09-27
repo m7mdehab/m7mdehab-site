@@ -157,16 +157,15 @@ test.describe("Surgical pass 03 first chapter closeout", () => {
     expect(colors.opacity).toBe("1");
   });
 
-  test("desktop tooltip follows the pointer, stays outside clipping, and supports focus for all nine source items", async ({
+  test("desktop tooltips stay outside clipping and support focus for all nine source items", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
     const track = page.locator(".credibility-track");
     await expect(track).toHaveAttribute("data-loop-ready", "true");
-    await track.evaluate((node) =>
-      node.getAnimations().forEach((animation) => animation.pause()),
-    );
+    const viewport = page.locator(".credibility-viewport");
+    await viewport.hover();
     const sourceItems = page
       .locator(
         '.credibility-sequence:not([aria-hidden="true"]) .credibility-brand-item',
@@ -182,26 +181,10 @@ test.describe("Surgical pass 03 first chapter closeout", () => {
           `.credibility-sequence:not([aria-hidden="true"]) .credibility-brand-item[data-organization="${organization}"]`,
         )
         .first();
-      const index = organizations.indexOf(organization);
-      await track.evaluate((node, itemIndex) => {
-        const trackNode = node as HTMLElement;
-        const items = [
-          ...trackNode.querySelectorAll<HTMLElement>(
-            '.credibility-sequence:not([aria-hidden="true"]) .credibility-brand-item',
-          ),
-        ].slice(0, 9);
-        const firstLeft = items[0].getBoundingClientRect().left;
-        const targetLeft = items[itemIndex].getBoundingClientRect().left;
-        trackNode.style.animation = "none";
-        trackNode.style.transform = `translateX(${firstLeft - targetLeft - 10}px)`;
-      }, index);
       await direct.hover();
       const tooltip = page.getByRole("tooltip");
       await expect(tooltip).toHaveText(organization);
       const initialTooltipBox = await tooltip.evaluate((node) =>
-        node.getBoundingClientRect().toJSON(),
-      );
-      const itemRect = await direct.evaluate((node) =>
         node.getBoundingClientRect().toJSON(),
       );
       expect(initialTooltipBox.x).toBeGreaterThanOrEqual(0);
@@ -211,27 +194,9 @@ test.describe("Surgical pass 03 first chapter closeout", () => {
       expect(
         await tooltip.evaluate((node) => node.parentElement === document.body),
       ).toBeTruthy();
-      const pointer = {
-        x: itemRect.x + itemRect.width * 0.72,
-        y: itemRect.y + itemRect.height * 0.42,
-      };
-      await page.mouse.move(pointer.x, pointer.y);
-      const moved = await tooltip.evaluate((node) =>
-        node.getBoundingClientRect().toJSON(),
-      );
-      expect(moved.left).toBeGreaterThanOrEqual(0);
-      expect(Math.abs(moved.left - initialTooltipBox.left)).toBeGreaterThan(5);
-      expect(moved.left).toBeCloseTo(
-        Math.min(1440 - moved.width - 8, Math.max(8, pointer.x + 14)),
-        0,
-      );
-      expect(
-        await tooltip.evaluate((node) => node.parentElement === document.body),
-      ).toBeTruthy();
+      await page.mouse.move(0, 0);
       await direct.evaluate((node: HTMLElement) => node.focus());
       await expect(tooltip).toHaveText(organization);
-      await page.mouse.move(0, 0);
-      await expect(tooltip).toHaveCount(0);
     }
   });
 

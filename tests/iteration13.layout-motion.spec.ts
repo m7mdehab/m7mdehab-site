@@ -62,7 +62,12 @@ test.describe("Iteration 13 layout refinement", () => {
 
     const navState = await page.locator(".site-nav-wrap").evaluate((element) => {
       const style = getComputedStyle(element);
-      return { opacity: style.opacity, pointerEvents: style.pointerEvents, transform: style.transform };
+      const nav = element.querySelector<HTMLElement>(".site-nav")!;
+      return {
+        opacity: style.opacity,
+        pointerEvents: getComputedStyle(nav).pointerEvents,
+        transform: style.transform,
+      };
     });
     expect(navState.opacity).toBe("1");
     expect(navState.pointerEvents).toBe("auto");

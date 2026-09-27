@@ -2,13 +2,13 @@
 
 .overhaul-hero-signature {
   display: inline-block;
-  clip-path: inset(0 100% 0 0);
+  clip-path: inset(-0.25em 100% -0.35em -0.1em);
   animation: hero-name-reveal 1.55s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
 }
 
 @keyframes hero-name-reveal {
   to {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(-0.25em -0.3em -0.35em -0.1em);
   }
 }
 
@@ -206,8 +206,8 @@
     max-width: 100%;
     font-size: clamp(37px, 11.2vw, 78px);
     line-height: 1.05;
-    letter-spacing: -0.015em;
-    word-spacing: 0.06em;
+    letter-spacing: -0.005em;
+    word-spacing: 0.08em;
   }
 
   .overhaul-hero-signature {
@@ -217,7 +217,7 @@
   }
 
   .overhaul-hero-signature > span + span {
-    margin-inline-start: 0.06em;
+    margin-inline-start: 0.08em;
   }
 
   @media (max-width: 340px) {

@@ -68,7 +68,7 @@ test.describe("Phase D production visual foundation", () => {
       rail.locator('[aria-label^="McKinsey Forward:"]').first(),
     ).toBeVisible();
     expect(await rail.locator(".credibility-wordmark").count()).toBe(0);
-    expect(await rail.locator(".brand-logo img").count()).toBe(20);
+    expect(await rail.locator(".brand-logo img").count()).toBe(30);
     await expect(rail).not.toContainText("Udacity / ITIDA");
     expect((await rail.innerText()).toLowerCase()).not.toContain("trusted by");
 
@@ -128,6 +128,6 @@ test.describe("Phase D production visual foundation", () => {
     expect(["auto", "scroll"]).toContain(railOverflow);
     await expect(
       page.locator('.credibility-logo-sequence[aria-hidden="true"]'),
-    ).toBeHidden();
+    ).toHaveCount(2);
   });
 });

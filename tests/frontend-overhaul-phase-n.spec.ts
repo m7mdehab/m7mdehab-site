@@ -64,7 +64,7 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     expect(targetProximity).toBeGreaterThan(farProximity);
   });
 
-  test("brand evidence uses transparent image marks and relationship titles in a moving rail", async ({
+  test("brand evidence uses transparent image marks and relationship titles in a scrollable rail", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -73,10 +73,12 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
 
     const rail = page.locator(".credibility-rail");
     const sequences = rail.locator(".credibility-logo-sequence");
-    await expect(sequences).toHaveCount(2);
-    await expect(sequences.nth(1)).toHaveAttribute("aria-hidden", "true");
+    await expect(sequences).toHaveCount(3);
+    await expect(sequences.nth(0)).toHaveAttribute("aria-hidden", "true");
+    await expect(sequences.nth(1)).not.toHaveAttribute("aria-hidden", "true");
+    await expect(sequences.nth(2)).toHaveAttribute("aria-hidden", "true");
     await expect(
-      sequences.first().locator(".credibility-brand-item"),
+      sequences.nth(1).locator(".credibility-brand-item"),
     ).toHaveCount(9);
     expect(
       await sequences.first().locator(".credibility-wordmark").count(),
@@ -89,9 +91,9 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
       await track.evaluate(
         (element) => getComputedStyle(element).animationName,
       ),
-    ).toContain("credibility-loop");
+    ).toBe("none");
 
-    const relationships = sequences.first().locator(".credibility-brand-item");
+    const relationships = sequences.nth(1).locator(".credibility-brand-item");
     const relationshipGeometry = await relationships.evaluateAll((elements) =>
       elements.map((element) => {
         const rect = element.getBoundingClientRect();
@@ -126,15 +128,15 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     ).toBeTruthy();
 
     const network = sequences
-      .first()
+      .nth(1)
       .locator('.credibility-brand-item[aria-label^="Network International:"]');
     await expect(network).toContainText("Data Engineer");
     await network.focus();
     await expect(page.getByRole("tooltip")).toHaveText("Network International");
 
-    expect(await sequences.first().locator(".brand-logo img").count()).toBe(10);
+    expect(await sequences.nth(1).locator(".brand-logo img").count()).toBe(10);
     const unloaded = await sequences
-      .first()
+      .nth(1)
       .locator(".brand-logo img")
       .evaluateAll(
         (images) =>
@@ -145,10 +147,10 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
 
     await expect(rail).toContainText("BSc Computer Science · Data Science Major");
     await expect(
-      sequences.first().locator('[data-brand-logo="exploreai"]'),
+      sequences.nth(1).locator('[data-brand-logo="exploreai"]'),
     ).toBeVisible();
     await expect(
-      sequences.first().locator('[data-brand-logo="alx"]'),
+      sequences.nth(1).locator('[data-brand-logo="alx"]'),
     ).toBeVisible();
 
     await page.goto("/about");
@@ -185,10 +187,10 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
       await railTrack.evaluate(
         (element) => getComputedStyle(element).animationName,
       ),
-    ).toBe("credibility-loop-measured");
+    ).toBe("none");
     const duplicateRail = page.locator(
       '.credibility-logo-sequence[aria-hidden="true"]',
-    );
+    ).first();
     expect(
       await duplicateRail.evaluate((element) => {
         const style = getComputedStyle(element);

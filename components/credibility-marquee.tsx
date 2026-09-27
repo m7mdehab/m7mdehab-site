@@ -4,7 +4,7 @@ import {
   useEffect,
   useRef,
   useState,
-  type CSSProperties,
+  type FocusEvent,
   type PointerEvent,
 } from "react";
 import { createPortal } from "react-dom";
@@ -88,25 +88,26 @@ function BrandSignalItem({
       tabIndex={duplicate ? -1 : 0}
       data-brand-card={signal.brand}
       data-organization={signal.name}
-      onPointerEnter={
+      onPointerEnter={(event) =>
+        onShowTooltip(
+          signal.name,
+          event.currentTarget,
+          event.clientX,
+          event.clientY,
+        )
+      }
+      onPointerMove={onMoveTooltip}
+      onPointerLeave={(event) => {
+        if (document.activeElement !== event.currentTarget) onHideTooltip();
+      }}
+      onFocus={duplicate ? undefined : (event) => onShowTooltip(signal.name, event.currentTarget)}
+      onBlur={
         duplicate
           ? undefined
-          : (event) =>
-              onShowTooltip(
-                signal.name,
-                event.currentTarget,
-                event.clientX,
-                event.clientY,
-              )
+          : (event) => {
+              if (!event.currentTarget.matches(":hover")) onHideTooltip();
+            }
       }
-      onPointerMove={duplicate ? undefined : onMoveTooltip}
-      onPointerLeave={duplicate ? undefined : onHideTooltip}
-      onFocus={
-        duplicate
-          ? undefined
-          : (event) => onShowTooltip(signal.name, event.currentTarget)
-      }
-      onBlur={duplicate ? undefined : onHideTooltip}
     >
       <span
         className="credibility-brand-marks credibility-logo-stage"
@@ -146,6 +147,7 @@ function CredibilitySequence({
       className="credibility-sequence credibility-logo-sequence"
       aria-hidden={duplicate ? "true" : undefined}
       data-source-repeats={sourceRepeats}
+      data-logical-group={duplicate ? undefined : "canonical"}
       ref={groupRef}
     >
       {Array.from(
@@ -203,6 +205,19 @@ export function CredibilityMarquee() {
   const [tooltipLabel, setTooltipLabel] = useState<string | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const tooltipCoordinatesRef = useRef({ x: 0, y: 0 });
+  const loopWidthRef = useRef(0);
+  const speedRef = useRef(DESKTOP_MARQUEE_SPEED);
+  const viewportVisibleRef = useRef(true);
+  const hoveredRef = useRef(false);
+  const focusedRef = useRef(false);
+  const draggingRef = useRef(false);
+  const touchPointerDownRef = useRef(false);
+  const touchScrollActiveRef = useRef(false);
+  const interactionUntilRef = useRef(0);
+  const lastFrameTimestampRef = useRef(0);
+  const fractionalScrollRef = useRef(0);
+  const dragLastXRef = useRef(0);
+  const animationFrameRef = useRef(0);
 
   const moveTooltip = (x: number, y: number) => {
     if (window.matchMedia("(hover: none)").matches) return;
@@ -227,6 +242,121 @@ export function CredibilityMarquee() {
 
   const hideTooltip = () => setTooltipLabel(null);
 
+  const normalizeScrollPosition = () => {
+    const viewport = viewportRef.current;
+    const width = loopWidthRef.current;
+    if (!viewport || width <= 0) return;
+
+    if (viewport.scrollLeft < width) {
+      viewport.scrollLeft += width;
+    } else if (viewport.scrollLeft >= width * 2) {
+      viewport.scrollLeft -= width;
+    }
+  };
+
+  const noteInteraction = (duration = 750) => {
+    fractionalScrollRef.current = 0;
+    interactionUntilRef.current = performance.now() + duration;
+    lastFrameTimestampRef.current = 0;
+  };
+
+  const handleScroll = () => {
+    if (touchPointerDownRef.current || touchScrollActiveRef.current) {
+      fractionalScrollRef.current = 0;
+      touchScrollActiveRef.current = true;
+      interactionUntilRef.current = performance.now() + 750;
+      lastFrameTimestampRef.current = 0;
+    }
+    normalizeScrollPosition();
+  };
+
+  const handlePointerEnter = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse") {
+      hoveredRef.current = true;
+      lastFrameTimestampRef.current = 0;
+    }
+  };
+
+  const handlePointerLeave = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse") {
+      hoveredRef.current = false;
+      lastFrameTimestampRef.current = 0;
+    }
+  };
+
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch") {
+      fractionalScrollRef.current = 0;
+      touchPointerDownRef.current = true;
+      touchScrollActiveRef.current = true;
+      interactionUntilRef.current = Number.POSITIVE_INFINITY;
+      lastFrameTimestampRef.current = 0;
+      return;
+    }
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
+
+    draggingRef.current = true;
+    fractionalScrollRef.current = 0;
+    dragLastXRef.current = event.clientX;
+    event.currentTarget.dataset.dragging = "true";
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    lastFrameTimestampRef.current = 0;
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch" && touchPointerDownRef.current) {
+      interactionUntilRef.current = performance.now() + 750;
+      return;
+    }
+    if (!draggingRef.current || event.pointerType !== "mouse") return;
+
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    viewport.scrollLeft -= event.clientX - dragLastXRef.current;
+    dragLastXRef.current = event.clientX;
+    normalizeScrollPosition();
+  };
+
+  const finishPointerInteraction = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch") {
+      touchPointerDownRef.current = false;
+      touchScrollActiveRef.current = true;
+      noteInteraction(750);
+      return;
+    }
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+    delete event.currentTarget.dataset.dragging;
+    if (event.currentTarget.hasPointerCapture(event.pointerId))
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    lastFrameTimestampRef.current = 0;
+  };
+
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    if (Math.abs(event.deltaX) > 0 || event.shiftKey) noteInteraction(750);
+  };
+
+  const handleFocus = () => {
+    focusedRef.current = true;
+    lastFrameTimestampRef.current = 0;
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (
+      event.relatedTarget instanceof Node &&
+      event.currentTarget.contains(event.relatedTarget)
+    )
+      return;
+    window.setTimeout(() => {
+      const viewport = viewportRef.current;
+      focusedRef.current = Boolean(
+        viewport && viewport.contains(document.activeElement),
+      );
+      lastFrameTimestampRef.current = 0;
+    }, 0);
+  };
+
   useEffect(() => {
     if (!tooltipLabel || !tooltipRef.current) return;
     const { x, y } = tooltipCoordinatesRef.current;
@@ -246,26 +376,45 @@ export function CredibilityMarquee() {
       const groupWidth = group.getBoundingClientRect().width;
       if (!viewportWidth || !groupWidth) return;
       const windowWidth = window.innerWidth;
+      const speed =
+        windowWidth <= 700 ? MOBILE_MARQUEE_SPEED : DESKTOP_MARQUEE_SPEED;
+      speedRef.current = speed;
+      viewport.dataset.loopSpeed = String(speed);
       setMarqueeViewportWidth((current) =>
         current === windowWidth ? current : windowWidth,
       );
 
       if (motionPreference.matches) {
-        setSourceRepeats((current) => (current === 1 ? current : 1));
-        setLoopWidth(0);
-        return;
+        if (Number(group.dataset.sourceRepeats) !== 1) {
+          setSourceRepeats(1);
+          return;
+        }
+      } else {
+        const currentRepeats = Number(group.dataset.sourceRepeats) || 1;
+        const widthPerSourceSet = groupWidth / currentRepeats;
+        const nextRepeats = Math.max(
+          1,
+          Math.ceil((viewportWidth * GROUP_SAFETY_RATIO) / widthPerSourceSet),
+        );
+        if (nextRepeats !== currentRepeats) {
+          setSourceRepeats(nextRepeats);
+          return;
+        }
       }
 
-      const currentRepeats = Number(group.dataset.sourceRepeats) || 1;
-      const widthPerSourceSet = groupWidth / currentRepeats;
-      const nextRepeats = Math.max(
-        1,
-        Math.ceil((viewportWidth * GROUP_SAFETY_RATIO) / widthPerSourceSet),
+      const priorWidth = loopWidthRef.current;
+      if (priorWidth <= 0) {
+        fractionalScrollRef.current = 0;
+        viewport.scrollLeft = groupWidth;
+      } else if (Math.abs(priorWidth - groupWidth) > 0.5) {
+        const progress = ((viewport.scrollLeft % priorWidth) + priorWidth) % priorWidth / priorWidth;
+        fractionalScrollRef.current = 0;
+        viewport.scrollLeft = groupWidth + progress * groupWidth;
+      }
+      loopWidthRef.current = groupWidth;
+      setLoopWidth((current) =>
+        Math.abs(current - groupWidth) <= 0.5 ? current : groupWidth,
       );
-      setSourceRepeats((current) =>
-        current === nextRepeats ? current : nextRepeats,
-      );
-      setLoopWidth(groupWidth);
     };
 
     const observer = new ResizeObserver(measure);
@@ -273,18 +422,73 @@ export function CredibilityMarquee() {
     observer.observe(group);
     measure();
 
-    const onMotionPreferenceChange = () => {
-      if (motionPreference.matches) {
-        setSourceRepeats(1);
-        setLoopWidth(0);
-      } else {
-        measure();
-      }
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        viewportVisibleRef.current = entry.isIntersecting && entry.intersectionRatio >= 0.15;
+        lastFrameTimestampRef.current = 0;
+      },
+      { threshold: [0, 0.15] },
+    );
+    intersectionObserver.observe(viewport);
+
+    const onVisibilityChange = () => {
+      lastFrameTimestampRef.current = 0;
     };
+    const onScrollEnd = () => {
+      if (touchScrollActiveRef.current) noteInteraction(750);
+    };
+
+    const animate = (timestamp: number) => {
+      const now = performance.now();
+      if (touchScrollActiveRef.current && now >= interactionUntilRef.current) {
+        touchScrollActiveRef.current = false;
+        interactionUntilRef.current = 0;
+      }
+
+      const paused =
+        motionPreference.matches ||
+        document.hidden ||
+        !viewportVisibleRef.current ||
+        hoveredRef.current ||
+        focusedRef.current ||
+        draggingRef.current ||
+        touchPointerDownRef.current ||
+        now < interactionUntilRef.current;
+      if (!paused && loopWidthRef.current > 0) {
+        if (lastFrameTimestampRef.current > 0) {
+          const elapsed = Math.min(
+            (timestamp - lastFrameTimestampRef.current) / 1000,
+            0.1,
+          );
+          const movement =
+            fractionalScrollRef.current + speedRef.current * elapsed;
+          const wholePixels = Math.floor(movement);
+          fractionalScrollRef.current = movement - wholePixels;
+          if (wholePixels > 0) viewport.scrollLeft += wholePixels;
+          normalizeScrollPosition();
+        }
+        lastFrameTimestampRef.current = timestamp;
+      } else {
+        lastFrameTimestampRef.current = 0;
+      }
+      animationFrameRef.current = window.requestAnimationFrame(animate);
+    };
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+
+    const onMotionPreferenceChange = () => {
+      lastFrameTimestampRef.current = 0;
+      measure();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    viewport.addEventListener("scrollend", onScrollEnd);
     motionPreference.addEventListener("change", onMotionPreferenceChange);
 
     return () => {
       observer.disconnect();
+      intersectionObserver.disconnect();
+      window.cancelAnimationFrame(animationFrameRef.current);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      viewport.removeEventListener("scrollend", onScrollEnd);
       motionPreference.removeEventListener("change", onMotionPreferenceChange);
     };
   }, []);
@@ -293,26 +497,48 @@ export function CredibilityMarquee() {
     marqueeViewportWidth > 0 && marqueeViewportWidth <= 700
       ? MOBILE_MARQUEE_SPEED
       : DESKTOP_MARQUEE_SPEED;
-  const marqueeStyle = {
-    "--credibility-loop-distance": `${-loopWidth}px`,
-    "--credibility-loop-duration": `${loopWidth / marqueeSpeed}s`,
-  } as CSSProperties;
-
   return (
     <div
       className="credibility-viewport"
       ref={viewportRef}
       tabIndex={0}
+      role="region"
       aria-label="Selected professional and learning relationships"
       data-loop-width={loopWidth}
       data-loop-speed={marqueeSpeed}
+      data-loop-groups="3"
+      data-marquee-engine="scroll-raf"
       data-source-item-count={credibilitySignals.length}
+      onScroll={handleScroll}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={finishPointerInteraction}
+      onPointerCancel={finishPointerInteraction}
+      onLostPointerCapture={(event) => {
+        if (draggingRef.current) {
+          draggingRef.current = false;
+          delete event.currentTarget.dataset.dragging;
+        }
+      }}
+      onWheel={handleWheel}
+      onFocusCapture={handleFocus}
+      onBlurCapture={handleBlur}
     >
       <div
         className="credibility-track credibility-logo-track"
-        style={marqueeStyle}
         data-loop-ready={loopWidth > 0 ? "true" : "false"}
       >
+        <CredibilitySequence
+          duplicate
+          sourceRepeats={sourceRepeats}
+          tooltipHandlers={{
+            onShowTooltip: showTooltip,
+            onMoveTooltip: (event) => moveTooltip(event.clientX, event.clientY),
+            onHideTooltip: hideTooltip,
+          }}
+        />
         <CredibilitySequence
           duplicate={false}
           sourceRepeats={sourceRepeats}

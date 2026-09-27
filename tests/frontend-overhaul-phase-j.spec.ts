@@ -161,9 +161,9 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.methodHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.writingHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.opportunityHeadingLines).toBeLessThanOrEqual(3);
-    expect(metrics.credibilityAnimation).toBe("credibility-loop-measured");
-    expect(metrics.credibilityOverflowX).toBe("hidden");
-    expect(metrics.duplicateCount).toBe(1);
+    expect(metrics.credibilityAnimation).toBe("none");
+    expect(metrics.credibilityOverflowX).toBe("auto");
+    expect(metrics.duplicateCount).toBe(2);
     expectMobileNavTargets(metrics);
 
     await writeFile(
@@ -206,8 +206,8 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.viewportWidth + 1);
     expect(metrics.viewportCount).toBeLessThanOrEqual(8.75);
     expect(metrics.heroLines).toBeLessThanOrEqual(2);
-    expect(metrics.credibilityAnimation).toBe("credibility-loop-measured");
-    expect(metrics.duplicateCount).toBe(1);
+    expect(metrics.credibilityAnimation).toBe("none");
+    expect(metrics.duplicateCount).toBe(2);
     expectMobileNavTargets(metrics);
 
     await writeFile(
@@ -233,7 +233,7 @@ test.describe("Phase J English mobile art direction", () => {
 
     await expect(
       page.locator('.credibility-sequence[aria-hidden="true"]'),
-    ).toBeHidden();
+    ).toHaveCount(2);
     const states = await page.evaluate(() => ({
       track: getComputedStyle(
         document.querySelector<HTMLElement>(".credibility-track")!,

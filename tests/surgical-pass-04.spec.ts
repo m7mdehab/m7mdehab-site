@@ -89,11 +89,6 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
           ),
         );
         const loopWidth = Number(viewport.dataset.loopWidth);
-        const duration = parseFloat(
-          getComputedStyle(
-            document.querySelector<HTMLElement>(".credibility-track")!,
-          ).getPropertyValue("--credibility-loop-duration"),
-        );
         const group = document.querySelector<HTMLElement>(
           ".credibility-logo-sequence:not([aria-hidden='true'])",
         )!;
@@ -123,7 +118,6 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
           gap,
           speed: Number(viewport.dataset.loopSpeed),
           loopWidth,
-          duration,
           logoMaxWidth: parseFloat(logoSizeStyle.maxWidth),
           logoMaxHeight: parseFloat(logoSizeStyle.maxHeight),
           logoRenderedWidth: firstImage.getBoundingClientRect().width,
@@ -144,7 +138,6 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
       expect(metrics.gap).toBe(9);
       expect(metrics.speed).toBe(52);
       expect(metrics.loopWidth).toBeGreaterThan(0);
-      expect(metrics.duration).toBeCloseTo(metrics.loopWidth / 52, 2);
       expect(metrics.logoMaxWidth).toBeLessThanOrEqual(114);
       expect(metrics.logoMaxHeight).toBeLessThanOrEqual(29);
       expect(metrics.logoRenderedWidth).toBeLessThanOrEqual(70.5);
@@ -162,35 +155,36 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
     }
   });
 
-  test("uses responsive measured speed and advances at the configured mobile rate", async ({
+  test("uses responsive scrollLeft autoplay at the accepted desktop and mobile speeds", async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/");
-    const track = page.locator(".credibility-track");
-    await expect(track).toHaveAttribute("data-loop-ready", "true");
-    const movement = await track.evaluate(async (node) => {
-      const element = node as HTMLElement;
-      const animation = element.getAnimations()[0];
-      if (!animation) throw new Error("Measured marquee animation is missing");
-      animation.pause();
-      const translationAt = async (time: number) => {
-        animation.currentTime = time;
-        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-        return new DOMMatrixReadOnly(getComputedStyle(element).transform).m41;
-      };
-      return {
-        t0: await translationAt(0),
-        t5: await translationAt(5000),
-        t10: await translationAt(10000),
-      };
-    });
-    expect(movement.t0).toBeCloseTo(0, 0);
-    expect(movement.t5 - movement.t0).toBeCloseTo(-260, 0);
-    expect(movement.t10 - movement.t0).toBeCloseTo(-520, 0);
-    expect(Math.abs(movement.t10 - movement.t0) / 173).toBeGreaterThanOrEqual(
-      2.8,
-    );
+    for (const [width, speed] of [[390, 52], [1440, 30]] as const) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/");
+      const viewport = page.locator(".credibility-viewport");
+      const track = page.locator(".credibility-track");
+      await expect(track).toHaveAttribute("data-loop-ready", "true");
+      await viewport.scrollIntoViewIfNeeded();
+      await page.mouse.move(0, 0);
+      const initial = await viewport.evaluate((node) => {
+        const groupWidth = Number(node.dataset.loopWidth);
+        node.scrollLeft = groupWidth + 100;
+        return { scrollLeft: node.scrollLeft, timestamp: performance.now() };
+      });
+      await page.waitForTimeout(5000);
+      const final = await viewport.evaluate((node) => ({
+        scrollLeft: node.scrollLeft,
+        timestamp: performance.now(),
+      }));
+      const elapsedSeconds = (final.timestamp - initial.timestamp) / 1000;
+      const measuredSpeed =
+        (final.scrollLeft - initial.scrollLeft) / elapsedSeconds;
+      expect(measuredSpeed).toBeGreaterThan(speed - 2);
+      expect(measuredSpeed).toBeLessThan(speed + 2);
+      await expect(viewport).toHaveAttribute("data-loop-speed", String(speed));
+      await expect(track).toHaveCSS("animation-name", "none");
+      await expect(track).toHaveCSS("transform", "none");
+    }
 
     for (const width of [700, 701, 390, 1440, 1920]) {
       await page.setViewportSize({ width, height: 900 });
@@ -204,7 +198,7 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
         "data-loop-ready",
         "true",
       );
-      const geometry = await page.locator(".credibility-track").evaluate(async (node) => {
+      const geometry = await page.locator(".credibility-track").evaluate((node) => {
         const track = node as HTMLElement;
         const style = getComputedStyle(track);
         const viewport = document.querySelector<HTMLElement>(
@@ -222,42 +216,37 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
             "--credibility-item-gap",
           ),
         );
-        const animation = track.getAnimations()[0];
-        if (!animation) throw new Error("Measured marquee animation is missing");
-        animation.pause();
-        animation.currentTime = 0;
-        const durationMs =
-          parseFloat(style.getPropertyValue("--credibility-loop-duration")) *
-          1000;
-        const translationAt = async (fraction: number) => {
-          animation.currentTime = durationMs * fraction;
-          await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-          return new DOMMatrixReadOnly(getComputedStyle(track).transform).m41;
-        };
         return {
           loopWidth: width,
-          duration: durationMs / 1000,
           trackWidth: track.getBoundingClientRect().width,
           viewportWidth: viewport.getBoundingClientRect().width,
           gap,
-          seamGap:
-            sequenceItems[1][0].getBoundingClientRect().left -
-            sequenceItems[0][sequenceItems[0].length - 1].getBoundingClientRect()
-              .right,
-          phase40: await translationAt(0.4),
-          phase99: await translationAt(0.99),
-          phase140: await translationAt(1.4),
+          groupWidths: sequences.map((sequence) =>
+            sequence.getBoundingClientRect().width,
+          ),
+          seamGaps: [0, 1].map((index) => {
+            const priorItems = sequenceItems[index];
+            const nextItems = sequenceItems[index + 1];
+            return (
+              nextItems[0].getBoundingClientRect().left -
+              priorItems[priorItems.length - 1].getBoundingClientRect().right
+            );
+          }),
+          animation: style.animationName,
+          transform: style.transform,
         };
       });
-      const speed = Number(expectedSpeed);
-      expect(geometry.duration).toBeCloseTo(geometry.loopWidth / speed, 2);
-      expect(geometry.trackWidth - geometry.loopWidth).toBeGreaterThanOrEqual(
-        geometry.viewportWidth,
+      expect(geometry.groupWidths).toHaveLength(3);
+      expect(geometry.groupWidths[0]).toBeGreaterThanOrEqual(
+        geometry.viewportWidth * 1.2,
       );
-      expect(geometry.seamGap).toBeCloseTo(geometry.gap, 1);
-      expect(geometry.phase40).toBeCloseTo(-geometry.loopWidth * 0.4, 0);
-      expect(geometry.phase99).toBeCloseTo(-geometry.loopWidth * 0.99, 0);
-      expect(geometry.phase140).toBeCloseTo(geometry.phase40, 0);
+      expect(geometry.groupWidths[1]).toBeCloseTo(geometry.groupWidths[0], 1);
+      expect(geometry.groupWidths[2]).toBeCloseTo(geometry.groupWidths[0], 1);
+      expect(geometry.trackWidth).toBeCloseTo(geometry.groupWidths[0] * 3, 0);
+      expect(geometry.seamGaps[0]).toBeCloseTo(geometry.gap, 1);
+      expect(geometry.seamGaps[1]).toBeCloseTo(geometry.gap, 1);
+      expect(geometry.animation).toBe("none");
+      expect(geometry.transform).toBe("none");
     }
   });
 
@@ -293,9 +282,9 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
       expect(result.lineCount).toBe(1);
       expect(result.renderedWidth).toBeLessThanOrEqual(result.containerWidth);
       expect(result.scrollWidth).toBeLessThanOrEqual(result.containerWidth);
-      expect(result.letterSpacing).toBeCloseTo(-result.fontSize * 0.015, 2);
-      expect(result.wordSpacing).toBeCloseTo(result.fontSize * 0.06, 2);
-      expect(result.signatureClipPath).toBe("inset(0px 0% 0px 0px)");
+      expect(result.letterSpacing).toBeCloseTo(-result.fontSize * 0.005, 2);
+      expect(result.wordSpacing).toBeCloseTo(result.fontSize * 0.08, 2);
+      expect(result.signatureClipPath).toContain("inset(-");
       expect(result.secondSpanGap).toBeGreaterThan(0);
       measurements.push({ width, ...result });
     }

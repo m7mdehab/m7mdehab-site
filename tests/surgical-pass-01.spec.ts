@@ -183,10 +183,11 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
       page.getByRole("link", { name: "View full background ↗" }),
     ).toHaveCount(0);
     const track = page.locator(".credibility-track");
-    await expect(track).not.toHaveCSS("animation-name", "none");
-    await track.evaluate((node) => {
-      (node as HTMLElement).style.animationPlayState = "paused";
-    });
+    await expect(track).toHaveCSS("animation-name", "none");
+    await expect(track).toHaveCSS("transform", "none");
+    // Pause the live scroll before targeting a moving child so Playwright can
+    // resolve a stable hover position on slower hosted browsers.
+    await page.locator(".credibility-viewport").hover();
     const item = firstSequence.locator(".credibility-brand-item").first();
     await item.hover();
     await expect(page.getByRole("tooltip")).toHaveText("Network International");

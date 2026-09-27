@@ -13,9 +13,24 @@
   --credibility-item-gap: 32px;
   width: 100%;
   padding: 0;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
   mask-image: none;
   overscroll-behavior-x: contain;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: auto;
+  cursor: grab;
+}
+
+.credibility-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.credibility-viewport[data-dragging="true"] {
+  cursor: grabbing;
 }
 
 .credibility-track.credibility-logo-track {
@@ -26,19 +41,8 @@
   min-width: 0;
   padding: 0;
   animation: none;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-.credibility-track.credibility-logo-track[data-loop-ready="true"] {
-  animation: credibility-loop-measured var(--credibility-loop-duration) linear
-    infinite;
-}
-
-@keyframes credibility-loop-measured {
-  to {
-    transform: translate3d(var(--credibility-loop-distance), 0, 0);
-  }
+  transform: none;
+  will-change: auto;
 }
 
 .credibility-logo-sequence {
@@ -140,10 +144,11 @@
 
   .credibility-viewport {
     --credibility-item-gap: 9px;
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: none;
     mask-image: none;
+    cursor: auto;
   }
 
   .credibility-brand-item {
@@ -211,6 +216,6 @@
   }
 
   .credibility-logo-sequence[aria-hidden="true"] {
-    display: none;
+    display: flex;
   }
 }

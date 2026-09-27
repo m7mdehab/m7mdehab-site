@@ -364,7 +364,7 @@ test.describe("Phone composition", () => {
     await settle(page);
     await expect(
       page.locator('.credibility-sequence[aria-hidden="true"]'),
-    ).toBeHidden();
+    ).toHaveCount(2);
     expect(
       await page
         .locator(".credibility-track")

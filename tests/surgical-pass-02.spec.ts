@@ -78,7 +78,7 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
     }
   });
 
-  test("measured duplicated groups fill 390, 1440 and 1920px at five animation positions", async ({
+  test("three measured scroll groups fill 390, 1440 and 1920px across the loop", async ({
     page,
   }) => {
     for (const width of [390, 1440, 1920]) {
@@ -95,6 +95,9 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
         ];
         const secondItems = [
           ...groups[1].querySelectorAll<HTMLElement>(".credibility-brand-item"),
+        ];
+        const thirdItems = [
+          ...groups[2].querySelectorAll<HTMLElement>(".credibility-brand-item"),
         ];
         const identity = (item: HTMLElement) => ({
           organization: item.dataset.organization,
@@ -115,8 +118,10 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
           sourceCount: Number(viewport.dataset.sourceItemCount),
           firstWidth: groups[0].getBoundingClientRect().width,
           secondWidth: groups[1].getBoundingClientRect().width,
+          thirdWidth: groups[2].getBoundingClientRect().width,
           first: firstItems.map(identity),
           second: secondItems.map(identity),
+          third: thirdItems.map(identity),
           gap: Number.parseFloat(
             style.getPropertyValue("--credibility-item-gap"),
           ),
@@ -127,19 +132,19 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
         `${width}px measured logical group`,
       ).toBeGreaterThanOrEqual(width * 1.2);
       expect(initial.firstWidth).toBeCloseTo(initial.secondWidth, 1);
+      expect(initial.firstWidth).toBeCloseTo(initial.thirdWidth, 1);
       expect(initial.loopWidth).toBeCloseTo(initial.firstWidth, 1);
       expect(initial.sourceCount).toBe(9);
       expect(initial.speed).toBe(width <= 700 ? 52 : 30);
       expect(initial.first).toEqual(initial.second);
+      expect(initial.first).toEqual(initial.third);
 
       const coverage = await track.evaluate((node) => {
         const viewport = node.closest<HTMLElement>(".credibility-viewport")!;
-        const animation = node.getAnimations()[0];
-        animation.pause();
-        const duration = Number(animation.effect?.getComputedTiming().duration);
+        const groupWidth = Number(viewport.dataset.loopWidth);
         const samples = [0, 0.25, 0.5, 0.75, 0.99];
         return samples.map((progress) => {
-          animation.currentTime = duration * progress;
+          viewport.scrollLeft = groupWidth * (1 + progress);
           const viewportRect = viewport.getBoundingClientRect();
           const intervals = [
             ...node.querySelectorAll<HTMLElement>(".credibility-brand-item"),
@@ -265,7 +270,7 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
     );
     await expect(
       page.locator('.credibility-sequence[aria-hidden="true"]'),
-    ).toBeHidden();
+    ).toHaveCount(2);
     await expect(
       page
         .locator(".credibility-sequence")
@@ -273,6 +278,15 @@ test.describe("Surgical pass 02 credibility geometry and mobile composition", ()
         .locator(".credibility-brand-item"),
     ).toHaveCount(9);
     await expect(viewport).toHaveCSS("overflow-x", "auto");
+    await expect(viewport).toHaveAttribute("data-loop-groups", "3");
+    const before = await viewport.evaluate((node) => node.scrollLeft);
+    await viewport.evaluate((node) => {
+      node.scrollLeft += 100;
+      node.dispatchEvent(new Event("scroll"));
+    });
+    await expect
+      .poll(() => viewport.evaluate((node) => node.scrollLeft))
+      .not.toBe(before);
     await expect(page.locator(".relationship-caption").first()).toBeVisible();
   });
 
