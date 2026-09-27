@@ -26,6 +26,7 @@ import "../contact-credibility-polish.css";
 import "../frontend-overhaul-phase-o.css";
 import "../frontend-overhaul-phase-o-fixes.css";
 import "../mobile-composition.css";
+import "../hero-credibility-nav-pass-01.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";

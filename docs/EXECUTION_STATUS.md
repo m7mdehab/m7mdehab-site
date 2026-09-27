@@ -6,6 +6,10 @@ Updated: 2026-09-27
 
 Pass 2 mobile refinement is implemented on `feat/mobile-composition-pass`. Local build, typecheck, lint, rendered viewport review and all 109 browser tests pass. Draft PR #26 has passing application/rendered-QA, Cloudflare readiness and workers.dev staging workflows. The scope, logo asset audit and rendered measurements are documented in `docs/frontend-overhaul/MOBILE_COMPOSITION_PASS_2026-09-27.md`. Production deployment remains manual and has not been performed.
 
+## Surgical pass 01: hero, credibility rail, and mobile navigation
+
+Implemented on `feat/mobile-composition-pass`. The hero name now reveals as intact script text; the credibility rail uses the existing image assets with relationship titles and a transparent Network International derivative; mobile uses a fixed five-destination dock. Viewport captures cover 320–480px phones and 1440/1920px desktop. Typecheck, lint, production build and the full browser suite (**113/113 PASS**) are clean. Scope, logo audit and measurements: `docs/frontend-overhaul/SURGICAL_PASS_01_2026-09-27.md`. Final local source SHA is recorded in Git after commit. Production deployment remains manual.
+
 ## Autonomous iteration status
 
 | Iteration | Status | Output | Next |

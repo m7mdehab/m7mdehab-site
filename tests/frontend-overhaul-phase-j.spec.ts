@@ -126,17 +126,20 @@ function expectMobileNavTargets(
   metrics: Awaited<ReturnType<typeof mobileMetrics>>,
 ) {
   expect(metrics.navTargetCount).toBe(5);
-  expect(metrics.visibleNavTargetCount).toBe(2);
+  expect(metrics.visibleNavTargetCount).toBe(5);
   expect(metrics.navTargets.map((target) => target.href)).toEqual([
     "/#top",
     "/#work",
+    "/about",
+    "/writing",
+    "/#contact",
   ]);
 
   for (const target of metrics.navTargets) {
     expect(
       target.height,
       `visible nav target ${target.text || "mark"} is too short`,
-    ).toBeGreaterThanOrEqual(36);
+    ).toBeGreaterThanOrEqual(44);
   }
 }
 
@@ -159,7 +162,7 @@ test.describe("Phase J English mobile art direction", () => {
     expect(metrics.writingHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.opportunityHeadingLines).toBeLessThanOrEqual(3);
     expect(metrics.credibilityAnimation).toBe("credibility-loop");
-    expect(metrics.credibilityOverflowX).toBe("hidden");
+    expect(metrics.credibilityOverflowX).toBe("auto");
     expect(metrics.duplicateCount).toBe(1);
     expectMobileNavTargets(metrics);
 

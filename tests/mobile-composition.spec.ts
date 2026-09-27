@@ -167,7 +167,7 @@ test.describe("Phone composition", () => {
       const title = page.getByRole("heading", { level: 1 });
       await expect(title).toContainText("Mohammed Ehab");
       await expect(title).toContainText("ElNomany");
-      await expect(page.locator(".nav-identity")).toBeVisible();
+      await expect(page.locator(".nav-identity")).toBeHidden();
       await expect(page.locator('.site-nav a[href="/#work"]')).toBeVisible();
       await expect(
         page
@@ -200,7 +200,7 @@ test.describe("Phone composition", () => {
     );
   });
 
-  test("section anchors leave content below the floating navigation", async ({
+  test("section anchors keep their headings above the fixed mobile dock", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -219,13 +219,18 @@ test.describe("Phone composition", () => {
         const n = nav.getBoundingClientRect();
         return {
           headingTop: h.top,
-          navBottom: n.bottom,
-          navHidden: nav.classList.contains("nav-hidden"),
+          headingBottom: h.bottom,
+          dockTop: n.top,
         };
       }, heading);
-      expect(boxes.headingTop, `#${anchor} heading position`).toBeGreaterThan(
-        boxes.navHidden ? -20 : boxes.navBottom,
-      );
+      expect(
+        boxes.headingTop,
+        `#${anchor} heading starts in view`,
+      ).toBeGreaterThanOrEqual(-20);
+      expect(
+        boxes.headingBottom,
+        `#${anchor} heading clears dock`,
+      ).toBeLessThan(boxes.dockTop);
     }
   });
 
@@ -420,9 +425,11 @@ test.describe("Phone composition", () => {
       "Prepare",
     ]);
     const fits = await stages.evaluateAll((elements) => {
-      const visual = document.querySelector(
-        '.selected-work-carousel-slide[data-project-slug="opportunityos"] .opportunity-card-visual',
-      )!.getBoundingClientRect();
+      const visual = document
+        .querySelector(
+          '.selected-work-carousel-slide[data-project-slug="opportunityos"] .opportunity-card-visual',
+        )!
+        .getBoundingClientRect();
       return elements.every((element) => {
         const rect = element.getBoundingClientRect();
         return rect.left >= visual.left && rect.right <= visual.right;

@@ -67,9 +67,8 @@ test.describe("Phase D production visual foundation", () => {
     await expect(
       rail.locator('[aria-label^="McKinsey Forward:"]').first(),
     ).toBeVisible();
-    expect(
-      await rail.locator(".credibility-wordmark").count(),
-    ).toBeGreaterThanOrEqual(18);
+    expect(await rail.locator(".credibility-wordmark").count()).toBe(0);
+    expect(await rail.locator(".brand-logo img").count()).toBe(20);
     await expect(rail).not.toContainText("Udacity / ITIDA");
     expect((await rail.innerText()).toLowerCase()).not.toContain("trusted by");
 

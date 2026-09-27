@@ -1,0 +1,419 @@
+/* Surgical pass 01: homepage identity, logo rail and touch navigation. */
+
+.overhaul-hero-signature {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: hero-name-reveal 1.55s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+@keyframes hero-name-reveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.credibility-brand-item {
+  position: relative;
+  grid-template-rows: 40px auto;
+  flex: 0 0 176px;
+  width: 176px;
+  min-width: 176px;
+  height: 88px;
+  min-height: 88px;
+  padding: 4px 12px 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  justify-items: center;
+}
+
+.credibility-brand-marks {
+  justify-content: center;
+  gap: 10px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  overflow: visible;
+}
+
+.credibility-brand-item .brand-logo {
+  width: 104px;
+  height: 34px;
+  max-width: 104px;
+  max-height: 34px;
+}
+
+.credibility-brand-item[data-brand-card="narss"] .brand-logo,
+.credibility-brand-item[data-brand-card="zewail"] .brand-logo,
+.credibility-brand-item[data-brand-card="databricks"] .brand-logo,
+.credibility-brand-item[data-brand-card="mckinsey"] .brand-logo {
+  width: 50px;
+  max-width: 50px;
+}
+
+.credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
+  width: 60px;
+  max-width: 60px;
+}
+
+.credibility-brand-copy {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.credibility-brand-copy strong {
+  display: -webkit-box;
+  overflow: hidden;
+  color: rgba(248, 248, 245, 0.84);
+  font-size: 10px;
+  font-weight: 560;
+  line-height: 1.25;
+  letter-spacing: 0.015em;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.credibility-brand-item[data-brand-card="network"] .brand-logo img {
+  filter: brightness(0) invert(1);
+  opacity: 0.84;
+}
+
+.credibility-brand-item::after {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: calc(100% - 3px);
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(18, 21, 21, 0.94);
+  color: #f3f1ea;
+  content: attr(data-organization);
+  font-size: 11px;
+  font-weight: 550;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .credibility-brand-item:hover::after,
+  .credibility-brand-item:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.credibility-rail-caption {
+  margin-top: 6px;
+  color: rgba(248, 248, 245, 0.62);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+.credibility-rail-caption a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  html {
+    scroll-padding-top: 20px;
+    scroll-padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+
+  body {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+
+  #top,
+  #work,
+  #method,
+  #writing,
+  #contact {
+    scroll-margin-top: 20px;
+    scroll-margin-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+
+  .site-nav-wrap,
+  .site-nav-wrap.nav-hidden {
+    top: auto;
+    bottom: max(8px, env(safe-area-inset-bottom));
+    padding-inline: 0;
+    opacity: 1;
+    pointer-events: none;
+    transform: none;
+  }
+
+  .site-nav {
+    width: min(96vw, 540px);
+    min-height: 60px;
+    gap: 4px;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(22, 24, 24, 0.86);
+    color: #f3f1ea;
+    box-shadow: 0 8px 34px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(18px) saturate(135%);
+    -webkit-backdrop-filter: blur(18px) saturate(135%);
+  }
+
+  .nav-identity {
+    display: none !important;
+  }
+
+  .nav-mark {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 44px;
+    border-radius: 13px;
+    background: rgba(243, 241, 234, 0.14);
+    color: #fff;
+  }
+
+  .nav-links {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: space-around;
+    gap: 0;
+  }
+
+  .nav-links a,
+  .nav-links a:nth-child(n) {
+    display: grid;
+    flex: 1 1 0;
+    min-width: 42px;
+    min-height: 44px;
+    padding: 0 2px;
+    place-items: center;
+    border-radius: 12px;
+    color: rgba(243, 241, 234, 0.76);
+    font-size: clamp(8px, 2.8vw, 11px);
+    font-weight: 630;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+  }
+
+  .nav-links a[aria-current="location"] {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  .overhaul-hero {
+    min-height: 90svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: max(58px, calc(env(safe-area-inset-top) + 32px)) 0
+      calc(82px + env(safe-area-inset-bottom));
+  }
+
+  .overhaul-hero-shell {
+    width: calc(100% - 24px);
+    gap: 17px;
+  }
+
+  .overhaul-hero-meta {
+    padding: 0;
+    font-size: clamp(8px, 2.45vw, 10px);
+    letter-spacing: 0.065em;
+  }
+
+  .overhaul-hero-copy {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .overhaul-hero-title {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(42px, 13.3vw, 94px);
+    line-height: 1.05;
+    letter-spacing: -0.065em;
+  }
+
+  .overhaul-hero-signature {
+    width: max-content;
+    max-width: 100%;
+    padding-inline: 0;
+  }
+
+  .overhaul-hero-roles {
+    margin-top: 16px;
+    font-size: clamp(6px, 1.8vw, 8.5px);
+    line-height: 1.4;
+    letter-spacing: 0.005em;
+  }
+
+  .overhaul-hero-roles span + span::before {
+    margin-inline: 4px;
+  }
+
+  .overhaul-hero-proposition {
+    max-width: 31ch;
+    margin-top: 19px;
+    font-size: clamp(15px, 4.3vw, 18px);
+    line-height: 1.4;
+  }
+
+  .overhaul-hero-actions {
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .overhaul-action {
+    min-height: 48px;
+    padding-inline: 8px;
+    font-size: clamp(9px, 2.8vw, 12px);
+  }
+
+  .hero-ambient-field {
+    inset: 0;
+  }
+
+  .hero-ambient-item:nth-child(n + 9) {
+    display: none;
+  }
+
+  .hero-ambient-item:nth-child(-n + 8) {
+    display: grid;
+    opacity: 0.16;
+    color: rgba(190, 216, 211, 0.6);
+    animation: none;
+    transition: none;
+  }
+
+  .hero-ambient-item:nth-child(1) {
+    left: 8% !important;
+    top: 19% !important;
+  }
+  .hero-ambient-item:nth-child(2) {
+    left: 92% !important;
+    top: 27% !important;
+  }
+  .hero-ambient-item:nth-child(3) {
+    left: 9% !important;
+    top: 49% !important;
+  }
+  .hero-ambient-item:nth-child(4) {
+    left: 91% !important;
+    top: 57% !important;
+  }
+  .hero-ambient-item:nth-child(5) {
+    left: 13% !important;
+    top: 77% !important;
+  }
+  .hero-ambient-item:nth-child(6) {
+    left: 87% !important;
+    top: 83% !important;
+  }
+  .hero-ambient-item:nth-child(7) {
+    left: 51% !important;
+    top: 11% !important;
+  }
+  .hero-ambient-item:nth-child(8) {
+    left: 49% !important;
+    top: 91% !important;
+  }
+
+  .hero-ambient-icon .hero-ambient-surface {
+    border-color: rgba(185, 216, 209, 0.12) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .credibility-rail {
+    margin-top: 84px;
+    padding: 12px 0 10px;
+  }
+
+  .credibility-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    mask-image: none;
+    scrollbar-width: none;
+  }
+
+  .credibility-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .credibility-track.credibility-logo-track {
+    animation: credibility-loop 42s linear infinite;
+    will-change: transform;
+  }
+
+  .credibility-logo-sequence[aria-hidden="true"] {
+    display: flex;
+  }
+
+  .credibility-brand-item {
+    grid-template-rows: 38px auto;
+    flex-basis: 148px;
+    width: 148px;
+    min-width: 148px;
+    height: 82px;
+    min-height: 82px;
+    padding: 2px 6px 4px;
+  }
+
+  .credibility-brand-marks {
+    height: 38px;
+    min-height: 38px;
+  }
+
+  .credibility-brand-item .brand-logo {
+    width: 96px;
+    height: 32px;
+  }
+
+  .credibility-brand-item[data-brand-card="narss"] .brand-logo,
+  .credibility-brand-item[data-brand-card="zewail"] .brand-logo,
+  .credibility-brand-item[data-brand-card="databricks"] .brand-logo,
+  .credibility-brand-item[data-brand-card="mckinsey"] .brand-logo {
+    width: 46px;
+  }
+
+  .credibility-brand-marks:has(.brand-logo + .brand-logo) .brand-logo {
+    width: 53px;
+  }
+
+  .credibility-brand-copy strong {
+    font-size: 9px;
+  }
+
+  .credibility-rail-caption {
+    width: calc(100% - 32px);
+    margin-top: 2px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overhaul-hero-signature {
+    clip-path: none;
+    animation: none;
+  }
+
+  .hero-ambient-item:nth-child(-n + 8) {
+    animation: none !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .credibility-logo-sequence[aria-hidden="true"] {
+    display: none;
+  }
+}

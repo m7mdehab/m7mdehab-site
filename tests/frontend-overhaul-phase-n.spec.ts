@@ -64,7 +64,7 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     expect(targetProximity).toBeGreaterThan(farProximity);
   });
 
-  test("brand evidence uses one uniform card system and loops in native colour", async ({
+  test("brand evidence uses transparent image marks and relationship titles in a moving rail", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -80,8 +80,8 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     ).toHaveCount(9);
     expect(
       await sequences.first().locator(".credibility-wordmark").count(),
-    ).toBe(10);
-    expect(await rail.locator(".credibility-wordmark").count()).toBe(20);
+    ).toBe(0);
+    expect(await rail.locator(".credibility-wordmark").count()).toBe(0);
     await expect(rail.locator(".credibility-group")).toHaveCount(0);
 
     const track = rail.locator(".credibility-logo-track");
@@ -91,8 +91,8 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
       ),
     ).toContain("credibility-loop");
 
-    const cards = sequences.first().locator(".credibility-brand-item");
-    const cardGeometry = await cards.evaluateAll((elements) =>
+    const relationships = sequences.first().locator(".credibility-brand-item");
+    const relationshipGeometry = await relationships.evaluateAll((elements) =>
       elements.map((element) => {
         const rect = element.getBoundingClientRect();
         const logoStage = element.querySelector<HTMLElement>(
@@ -109,30 +109,45 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
         };
       }),
     );
-    expect(new Set(cardGeometry.map((item) => item.width)).size).toBe(1);
-    expect(new Set(cardGeometry.map((item) => item.height)).size).toBe(1);
-    expect(new Set(cardGeometry.map((item) => item.logoWidth)).size).toBe(1);
-    expect(new Set(cardGeometry.map((item) => item.logoHeight)).size).toBe(1);
-    expect(cardGeometry.every((item) => item.display === "grid")).toBeTruthy();
+    expect(new Set(relationshipGeometry.map((item) => item.width)).size).toBe(
+      1,
+    );
+    expect(new Set(relationshipGeometry.map((item) => item.height)).size).toBe(
+      1,
+    );
+    expect(
+      new Set(relationshipGeometry.map((item) => item.logoWidth)).size,
+    ).toBe(1);
+    expect(
+      new Set(relationshipGeometry.map((item) => item.logoHeight)).size,
+    ).toBe(1);
+    expect(
+      relationshipGeometry.every((item) => item.display === "grid"),
+    ).toBeTruthy();
 
     const network = sequences
       .first()
       .locator('.credibility-brand-item[aria-label^="Network International:"]');
-    await expect(network).toContainText("Network International");
     await expect(network).toContainText("Data engineering & migration");
+    await expect(network).toHaveAttribute("title", "Network International");
 
-    expect(await sequences.first().locator("img").count()).toBe(0);
+    expect(await sequences.first().locator(".brand-logo img").count()).toBe(10);
+    const unloaded = await sequences
+      .first()
+      .locator(".brand-logo img")
+      .evaluateAll(
+        (images) =>
+          images.filter((image) => !(image as HTMLImageElement).naturalWidth)
+            .length,
+      );
+    expect(unloaded).toBe(0);
 
-    await expect(rail).toContainText("Canadian International College");
     await expect(rail).toContainText("BSc Computer Science · Data Science");
     await expect(
-      rail
-        .locator(".credibility-wordmark")
-        .filter({ hasText: "ExploreAI" })
-        .first(),
+      sequences.first().locator('[data-brand-logo="exploreai"]'),
     ).toBeVisible();
     await expect(
-      rail.locator(".credibility-wordmark").filter({ hasText: "ALX" }).first(),
+      sequences.first().locator('[data-brand-logo="alx"]'),
     ).toBeVisible();
 
     await page.goto("/about");

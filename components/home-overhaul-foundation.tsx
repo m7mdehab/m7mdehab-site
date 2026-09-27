@@ -1,6 +1,6 @@
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import type { BrandKey } from "@/components/brand-logo";
+import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 import { HeroAmbientField } from "@/components/hero-ambient-field";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
@@ -102,42 +102,39 @@ export function SystemHero() {
   );
 }
 
-function BrandSignal({ signal }: { signal: BrandSignalData }) {
+function BrandSignal({
+  signal,
+  duplicate = false,
+}: {
+  signal: BrandSignalData;
+  duplicate?: boolean;
+}) {
   return (
     <span
       className="credibility-item credibility-brand-item"
       aria-label={`${signal.name}: ${signal.detail}`}
+      role="img"
+      tabIndex={duplicate ? -1 : 0}
       data-brand-card={signal.brand}
+      data-organization={signal.name}
+      title={signal.name}
     >
       <span className="credibility-brand-marks" aria-hidden="true">
-        <span className="credibility-wordmark">
-          {signal.brand === "network"
-            ? "NETWORK"
-            : signal.brand === "altayseer"
-              ? "AL TAYSEER"
-              : signal.brand === "orcas"
-                ? "ORCAS"
-                : signal.brand === "narss"
-                  ? "NARSS"
-                  : signal.brand === "zewail"
-                    ? "ZEWAIL CITY"
-                    : signal.brand === "databricks"
-                      ? "DATABRICKS"
-                      : signal.brand === "mckinsey"
-                        ? "McKINSEY"
-                        : signal.brand === "cic"
-                          ? "CIC"
-                          : "ExploreAI"}
-        </span>
+        <BrandLogo
+          brand={signal.brand}
+          mode="native"
+          src={
+            signal.brand === "network"
+              ? "/logos/network-international.png"
+              : undefined
+          }
+        />
         {signal.secondaryBrand ? (
-          <span className="credibility-wordmark">
-            {signal.secondaryBrand.toUpperCase()}
-          </span>
+          <BrandLogo brand={signal.secondaryBrand} mode="native" />
         ) : null}
       </span>
       <span className="credibility-brand-copy">
-        <strong>{signal.name}</strong>
-        <small>{signal.detail}</small>
+        <strong>{signal.detail}</strong>
       </span>
     </span>
   );
@@ -150,7 +147,7 @@ function CredibilitySequence({ duplicate = false }: { duplicate?: boolean }) {
       aria-hidden={duplicate ? "true" : undefined}
     >
       {credibilitySignals.map((signal) => (
-        <BrandSignal key={signal.name} signal={signal} />
+        <BrandSignal key={signal.name} signal={signal} duplicate={duplicate} />
       ))}
     </div>
   );
@@ -173,7 +170,7 @@ export function CredibilityRail() {
         </div>
       </div>
       <p className="credibility-rail-caption">
-        Credibility, compressed. · <Link href="/about">Full background ↗</Link>
+        <Link href="/about">View full background ↗</Link>
       </p>
     </section>
   );
