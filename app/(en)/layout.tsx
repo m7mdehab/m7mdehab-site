@@ -28,6 +28,7 @@ import "../frontend-overhaul-phase-o-fixes.css";
 import "../mobile-composition.css";
 import "../hero-credibility-nav-pass-01.css";
 import "../hero-credibility-pass-02.css";
+import "../hero-credibility-pass-03.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";

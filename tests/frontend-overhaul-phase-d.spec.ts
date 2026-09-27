@@ -20,7 +20,7 @@ test.describe("Phase D production visual foundation", () => {
     const hero = page.locator(".overhaul-hero");
     await expect(hero).toBeVisible();
     await expect(hero.locator("h1")).toHaveText("Mohammed Ehab ElNomany");
-    await expect(page.locator(".hero-ambient-field")).toBeVisible();
+    await expect(page.locator(".overhaul-hero > .hero-ambient-field")).toBeVisible();
     await expect(page.locator(".hero-evidence-atlas")).toHaveCount(0);
     const ambientCount = await page.locator("[data-ambient-item]").count();
     expect(ambientCount).toBeGreaterThanOrEqual(32);
@@ -93,7 +93,7 @@ test.describe("Phase D production visual foundation", () => {
     expect(dimensions.width).toBeLessThanOrEqual(dimensions.client + 2);
 
     await expect(page.locator(".overhaul-hero-title")).toBeVisible();
-    await expect(page.locator(".hero-ambient-field")).toBeVisible();
+    await expect(page.locator(".overhaul-hero > .hero-ambient-field")).toBeVisible();
     await expect(page.locator(".credibility-rail")).toBeVisible();
     await page.screenshot({
       path: testInfo.outputPath("phase-d-home-390.png"),

@@ -63,6 +63,7 @@ export function CredibilityRail() {
       className="credibility-rail"
       aria-label="Selected experience, education and credentials"
     >
+      <HeroAmbientField variant="rail" />
       <CredibilityMarquee />
     </section>
   );

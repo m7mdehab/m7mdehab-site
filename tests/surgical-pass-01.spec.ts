@@ -69,11 +69,11 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
       expect(
         metrics.visibleIcons,
         `${width}px mobile ambient icons`,
-      ).toBeGreaterThanOrEqual(6);
+        ).toBeGreaterThanOrEqual(18);
       expect(
         metrics.visibleIcons,
         `${width}px mobile ambient icons`,
-      ).toBeLessThanOrEqual(10);
+        ).toBeLessThanOrEqual(26);
       expect(
         metrics.rail.bottom <= metrics.dock.top ||
           metrics.rail.top >= metrics.dock.bottom,
@@ -149,14 +149,14 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
     await expect(
       firstSequence.locator(".credibility-brand-copy strong"),
     ).toContainText([
-      "Data engineering & migration",
-      "Business analysis & reporting",
-      "Computer science & data tutoring",
-      "Data & machine learning",
-      "Machine learning",
-      "Data Engineer Associate",
+      "Data Engineer",
+      "Business Analyst Team Lead",
+      "Private Tutor · Computer Science & Data",
+      "Data / ML Intern",
+      "ML Intern",
+      "Certified Data Engineer Associate",
       "Foundation & Advanced",
-      "BSc Computer Science · Data Science",
+      "BSc Computer Science · Data Science Major",
       "Data Science & AI Scholarship",
     ]);
     const relationshipCopy = await firstSequence
@@ -188,13 +188,8 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
       (node as HTMLElement).style.animationPlayState = "paused";
     });
     const item = firstSequence.locator(".credibility-brand-item").first();
-    await expect(item).toHaveAttribute("title", "Network International");
     await item.hover();
-    await expect
-      .poll(() =>
-        item.evaluate((node) => getComputedStyle(node, "::after").opacity),
-      )
-      .toBe("1");
+    await expect(page.getByRole("tooltip")).toHaveText("Network International");
     const networkAlphaRange = await item
       .locator(".brand-logo img")
       .evaluate(async (node) => {

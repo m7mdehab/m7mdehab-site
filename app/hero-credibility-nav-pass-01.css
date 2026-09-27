@@ -79,42 +79,6 @@
   -webkit-line-clamp: 2;
 }
 
-.credibility-brand-item[data-brand-card="network"] .brand-logo img {
-  filter: brightness(0) invert(1);
-  opacity: 0.84;
-}
-
-.credibility-brand-item::after {
-  position: absolute;
-  z-index: 5;
-  left: 50%;
-  bottom: calc(100% - 3px);
-  padding: 7px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 6px;
-  background: rgba(18, 21, 21, 0.94);
-  color: #f3f1ea;
-  content: attr(data-organization);
-  font-size: 11px;
-  font-weight: 550;
-  line-height: 1.2;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 4px);
-  transition:
-    opacity 120ms ease,
-    transform 120ms ease;
-  white-space: nowrap;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .credibility-brand-item:hover::after,
-  .credibility-brand-item:focus-visible::after {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
 .credibility-rail-caption {
   margin-top: 6px;
   color: rgba(248, 248, 245, 0.62);
@@ -284,51 +248,6 @@
     inset: 0;
   }
 
-  .hero-ambient-item:nth-child(n + 9) {
-    display: none;
-  }
-
-  .hero-ambient-item:nth-child(-n + 8) {
-    display: grid;
-    opacity: 0.16;
-    color: rgba(190, 216, 211, 0.6);
-    animation: none;
-    transition: none;
-  }
-
-  .hero-ambient-item:nth-child(1) {
-    left: 8% !important;
-    top: 19% !important;
-  }
-  .hero-ambient-item:nth-child(2) {
-    left: 92% !important;
-    top: 27% !important;
-  }
-  .hero-ambient-item:nth-child(3) {
-    left: 9% !important;
-    top: 49% !important;
-  }
-  .hero-ambient-item:nth-child(4) {
-    left: 91% !important;
-    top: 57% !important;
-  }
-  .hero-ambient-item:nth-child(5) {
-    left: 13% !important;
-    top: 77% !important;
-  }
-  .hero-ambient-item:nth-child(6) {
-    left: 87% !important;
-    top: 83% !important;
-  }
-  .hero-ambient-item:nth-child(7) {
-    left: 51% !important;
-    top: 11% !important;
-  }
-  .hero-ambient-item:nth-child(8) {
-    left: 49% !important;
-    top: 91% !important;
-  }
-
   .hero-ambient-icon .hero-ambient-surface {
     border-color: rgba(185, 216, 209, 0.12) !important;
     background: transparent !important;
@@ -406,11 +325,6 @@
   .overhaul-hero-signature {
     clip-path: none;
     animation: none;
-  }
-
-  .hero-ambient-item:nth-child(-n + 8) {
-    animation: none !important;
-    transform: translate(-50%, -50%) !important;
   }
 
   .credibility-logo-sequence[aria-hidden="true"] {

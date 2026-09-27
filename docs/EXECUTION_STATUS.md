@@ -14,6 +14,10 @@ Implemented on `feat/mobile-composition-pass`. The hero name now reveals as inta
 
 Implemented on `feat/mobile-composition-pass` from Pass 01 SHA `9d03bc76b0d689cca19047200de9c3e850a0a761`. Mobile hero content starts at 13svh, the CTA-to-rail gap is 52px, and the 103px credibility band meets the light Work section with no intervening gap. Desktop hero and mobile navigation remain unchanged. The nine-item rail uses fixed 56px desktop / 46px mobile logo stages, 12px / 10px caption spacing, and a measured 30px/s duplicated loop. The visual loop completed two cycles at 390px and 1920px. Typecheck, lint, production build, and the full browser suite (**118/118 PASS**) pass. Detailed geometry and local screenshots are recorded in `docs/frontend-overhaul/SURGICAL_PASS_02_2026-09-27.md`. Production deployment remains manual.
 
+## Surgical pass 03: first-chapter closeout
+
+Implemented on `feat/mobile-composition-pass` from reviewed base `d656fb32aa3d1d2584ff829da35dba0309159204`. Credibility captions now use verified job, internship, tutoring, degree and certificate titles; the Network International wordmark uses a transparent blue/red asset; desktop hover and keyboard focus use one body-level fixed tooltip; and 53 desktop / 26 mobile ambient details continue from hero through the logo rail. Mobile micro-spacing measures 32/22/25/28px and 1440px desktop measures 212/11/28/30px for metadata→name, name→roles, roles→proposition, proposition→CTA. The measured rail remains 30px/s; two live 1920px cycles completed at 84.6 seconds each. Typecheck, lint, build and the full browser suite (**122/122 PASS**) pass. Seven viewport captures plus name-reveal and two-cycle captures are under `outputs/hero-credibility-pass-03/`. Detailed title, geometry and interaction evidence: `docs/frontend-overhaul/SURGICAL_PASS_03_2026-09-27.md`. PR #26 remains open and draft; no merge or production deployment was performed.
+
 ## Autonomous iteration status
 
 | Iteration | Status | Output | Next |

@@ -211,14 +211,6 @@
     opacity: 0.25;
   }
 
-  .hero-ambient-item:nth-child(n + 9) {
-    display: none;
-  }
-
-  .hero-ambient-item:first-child {
-    display: none;
-  }
-
   .hero-ambient-item,
   .hero-ambient-orbit,
   .hero-ambient-surface {

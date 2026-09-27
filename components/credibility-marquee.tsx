@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+} from "react";
+import { createPortal } from "react-dom";
 import { BrandLogo, type BrandKey } from "@/components/brand-logo";
 
 type BrandSignal = {
@@ -13,20 +20,24 @@ type BrandSignal = {
 const credibilitySignals: ReadonlyArray<BrandSignal> = [
   {
     name: "Network International",
-    detail: "Data engineering & migration",
+    detail: "Data Engineer",
     brand: "network",
   },
   {
-    name: "Al Tayseer",
-    detail: "Business analysis & reporting",
+    name: "Al Tayseer International",
+    detail: "Business Analyst Team Lead",
     brand: "altayseer",
   },
-  { name: "Orcas", detail: "Computer science & data tutoring", brand: "orcas" },
-  { name: "NARSS", detail: "Data & machine learning", brand: "narss" },
-  { name: "Zewail City", detail: "Machine learning", brand: "zewail" },
+  {
+    name: "Orcas",
+    detail: "Private Tutor · Computer Science & Data",
+    brand: "orcas",
+  },
+  { name: "NARSS", detail: "Data / ML Intern", brand: "narss" },
+  { name: "Zewail City", detail: "ML Intern", brand: "zewail" },
   {
     name: "Databricks",
-    detail: "Data Engineer Associate",
+    detail: "Certified Data Engineer Associate",
     brand: "databricks",
   },
   {
@@ -36,7 +47,7 @@ const credibilitySignals: ReadonlyArray<BrandSignal> = [
   },
   {
     name: "Canadian International College",
-    detail: "BSc Computer Science · Data Science",
+    detail: "BSc Computer Science · Data Science Major",
     brand: "cic",
   },
   {
@@ -53,9 +64,20 @@ const GROUP_SAFETY_RATIO = 1.25;
 function BrandSignalItem({
   signal,
   duplicate,
+  onShowTooltip,
+  onMoveTooltip,
+  onHideTooltip,
 }: {
   signal: BrandSignal;
   duplicate: boolean;
+  onShowTooltip: (
+    label: string,
+    item: HTMLElement,
+    x?: number,
+    y?: number,
+  ) => void;
+  onMoveTooltip: (event: PointerEvent<HTMLSpanElement>) => void;
+  onHideTooltip: () => void;
 }) {
   return (
     <span
@@ -65,7 +87,25 @@ function BrandSignalItem({
       tabIndex={duplicate ? -1 : 0}
       data-brand-card={signal.brand}
       data-organization={signal.name}
-      title={signal.name}
+      onPointerEnter={
+        duplicate
+          ? undefined
+          : (event) =>
+              onShowTooltip(
+                signal.name,
+                event.currentTarget,
+                event.clientX,
+                event.clientY,
+              )
+      }
+      onPointerMove={duplicate ? undefined : onMoveTooltip}
+      onPointerLeave={duplicate ? undefined : onHideTooltip}
+      onFocus={
+        duplicate
+          ? undefined
+          : (event) => onShowTooltip(signal.name, event.currentTarget)
+      }
+      onBlur={duplicate ? undefined : onHideTooltip}
     >
       <span
         className="credibility-brand-marks credibility-logo-stage"
@@ -95,10 +135,15 @@ function CredibilitySequence({
   duplicate,
   sourceRepeats,
   groupRef,
+  tooltipHandlers,
 }: {
   duplicate: boolean;
   sourceRepeats: number;
   groupRef?: React.Ref<HTMLDivElement>;
+  tooltipHandlers: Pick<
+    BrandItemTooltipProps,
+    "onShowTooltip" | "onMoveTooltip" | "onHideTooltip"
+  >;
 }) {
   return (
     <div
@@ -116,6 +161,7 @@ function CredibilitySequence({
               key={`${signal.name}-${index}`}
               signal={signal}
               duplicate={duplicate}
+              {...tooltipHandlers}
             />
           );
         },
@@ -124,11 +170,71 @@ function CredibilitySequence({
   );
 }
 
+type BrandItemTooltipProps = {
+  onShowTooltip: (
+    label: string,
+    item: HTMLElement,
+    x?: number,
+    y?: number,
+  ) => void;
+  onMoveTooltip: (event: PointerEvent<HTMLSpanElement>) => void;
+  onHideTooltip: () => void;
+};
+
+function tooltipPosition(tooltip: HTMLElement, x: number, y: number) {
+  const gap = 14;
+  const margin = 8;
+  const rect = tooltip.getBoundingClientRect();
+  const left = Math.min(
+    window.innerWidth - rect.width - margin,
+    Math.max(margin, x + gap),
+  );
+  const above = y - rect.height - gap;
+  const top =
+    above >= margin
+      ? above
+      : Math.min(window.innerHeight - rect.height - margin, y + gap);
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${Math.max(margin, top)}px`;
+}
+
 export function CredibilityMarquee() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const groupRef = useRef<HTMLDivElement>(null);
   const [sourceRepeats, setSourceRepeats] = useState(1);
   const [loopWidth, setLoopWidth] = useState(0);
+  const [tooltipLabel, setTooltipLabel] = useState<string | null>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const tooltipCoordinatesRef = useRef({ x: 0, y: 0 });
+
+  const moveTooltip = (x: number, y: number) => {
+    if (window.matchMedia("(hover: none)").matches) return;
+    const tooltip = tooltipRef.current;
+    if (tooltip) tooltipPosition(tooltip, x, y);
+  };
+
+  const showTooltip = (
+    label: string,
+    item: HTMLElement,
+    x?: number,
+    y?: number,
+  ) => {
+    if (window.matchMedia("(hover: none)").matches) return;
+    const rect = item.getBoundingClientRect();
+    tooltipCoordinatesRef.current = {
+      x: x ?? rect.left + rect.width / 2,
+      y: y ?? rect.top,
+    };
+    setTooltipLabel(label);
+  };
+
+  const hideTooltip = () => setTooltipLabel(null);
+
+  useEffect(() => {
+    if (!tooltipLabel || !tooltipRef.current) return;
+    const { x, y } = tooltipCoordinatesRef.current;
+    tooltipPosition(tooltipRef.current, x, y);
+  }, [tooltipLabel]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -206,9 +312,35 @@ export function CredibilityMarquee() {
           duplicate={false}
           sourceRepeats={sourceRepeats}
           groupRef={groupRef}
+          tooltipHandlers={{
+            onShowTooltip: showTooltip,
+            onMoveTooltip: (event) => moveTooltip(event.clientX, event.clientY),
+            onHideTooltip: hideTooltip,
+          }}
         />
-        <CredibilitySequence duplicate sourceRepeats={sourceRepeats} />
+        <CredibilitySequence
+          duplicate
+          sourceRepeats={sourceRepeats}
+          tooltipHandlers={{
+            onShowTooltip: showTooltip,
+            onMoveTooltip: (event) => moveTooltip(event.clientX, event.clientY),
+            onHideTooltip: hideTooltip,
+          }}
+        />
       </div>
+      {tooltipLabel && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              ref={tooltipRef}
+              id="credibility-tooltip"
+              className="credibility-tooltip"
+              role="tooltip"
+            >
+              {tooltipLabel}
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }

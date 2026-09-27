@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 
 const screenshotDirectory = path.resolve(
   process.cwd(),
-  "../../outputs/hero-credibility-pass-02",
+  "../../outputs/hero-credibility-pass-03",
 );
 
 async function waitForMeasuredLoop(page: import("@playwright/test").Page) {

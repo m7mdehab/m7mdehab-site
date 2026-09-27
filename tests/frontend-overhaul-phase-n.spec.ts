@@ -128,8 +128,9 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     const network = sequences
       .first()
       .locator('.credibility-brand-item[aria-label^="Network International:"]');
-    await expect(network).toContainText("Data engineering & migration");
-    await expect(network).toHaveAttribute("title", "Network International");
+    await expect(network).toContainText("Data Engineer");
+    await network.focus();
+    await expect(page.getByRole("tooltip")).toHaveText("Network International");
 
     expect(await sequences.first().locator(".brand-logo img").count()).toBe(10);
     const unloaded = await sequences
@@ -142,7 +143,7 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
       );
     expect(unloaded).toBe(0);
 
-    await expect(rail).toContainText("BSc Computer Science · Data Science");
+    await expect(rail).toContainText("BSc Computer Science · Data Science Major");
     await expect(
       sequences.first().locator('[data-brand-logo="exploreai"]'),
     ).toBeVisible();
