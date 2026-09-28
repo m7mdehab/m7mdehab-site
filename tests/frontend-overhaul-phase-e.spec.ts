@@ -12,6 +12,14 @@ const allSlugs = [
   "solar-site-selection",
   "makhbazy",
 ] as const;
+const selectedWorkSlugs = [
+  "presaira",
+  "opportunityos",
+  "oil-spill-detection",
+  "solar-site-selection",
+  "ghareeb-oglu",
+  "makhbazy",
+] as const;
 const screenshotRoot = path.join(process.cwd(), "artifacts", "screenshots");
 
 async function settle(page: import("@playwright/test").Page) {
@@ -50,7 +58,7 @@ test.describe("Phase E selected work rebuild", () => {
       .evaluateAll((nodes) =>
         nodes.map((node) => node.getAttribute("data-project-slug")),
       );
-    expect(slugs).toEqual(allSlugs);
+    expect(slugs).toEqual(selectedWorkSlugs);
     await expect(section.locator("[data-carousel-track]")).toHaveCount(1);
     await expect(
       section.getByRole("button", { name: "Go to project 1 of 6" }),
@@ -59,8 +67,16 @@ test.describe("Phase E selected work rebuild", () => {
       section.getByRole("button", { name: "Go to project 6 of 6" }),
     ).toBeVisible();
     await expect(
-      section.getByRole("link", { name: /Open the work index/i }),
+      section.getByRole("link", { name: "View all work ↗" }),
     ).toHaveAttribute("href", "/work");
+    await expect(section.locator("h2")).toHaveText("Six projects.One standard.");
+    await expect(section.locator(".selected-work-intro-copy p")).toHaveText(
+      "Each project opens to a full case study with inspectable evidence.",
+    );
+    await expect(section.locator(".selected-work-carousel-card")).toHaveCount(6);
+    await expect(section.locator(".selected-work-case-link").first()).toHaveText(
+      "View case study ↗",
+    );
     await expect(page.locator(".work-list")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 

@@ -1,11 +1,10 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ProjectVisual } from "@/components/project-visual";
 import { useTimedCarousel } from "@/components/use-timed-carousel";
-import { projects } from "@/data/public";
+import { selectedWorkProjects } from "@/data/home-selected-work";
 
 export function SelectedWorkGallery() {
   const [mobileLayout, setMobileLayout] = useState(false);
@@ -22,7 +21,7 @@ export function SelectedWorkGallery() {
     onPointerDown,
     onPointerUp,
     onPointerCancel,
-  } = useTimedCarousel(projects.length);
+  } = useTimedCarousel(selectedWorkProjects.length);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 700px)");
@@ -47,7 +46,7 @@ export function SelectedWorkGallery() {
           return { slide, ratio: visible / Math.max(rect.width, 1) };
         })
         .sort((a, b) => b.ratio - a.ratio)[0]?.slide;
-      const index = projects.findIndex(
+      const index = selectedWorkProjects.findIndex(
         (project) => project.slug === mostVisible?.dataset.projectSlug,
       );
       if (index >= 0) setActive(index);
@@ -69,7 +68,7 @@ export function SelectedWorkGallery() {
     if (!mobileLayout) return;
     const root = windowRef.current;
     const target = root?.querySelector<HTMLElement>(
-      `[data-project-slug="${projects[active].slug}"]`,
+      `[data-project-slug="${selectedWorkProjects[active].slug}"]`,
     );
     if (!root || !target) return;
     const left =
@@ -84,12 +83,12 @@ export function SelectedWorkGallery() {
     });
   }, [active, mobileLayout]);
 
-  const activeProject = projects[active];
+  const activeProject = selectedWorkProjects[active];
   const goTo = (index: number) => {
     setActive(index);
     if (window.matchMedia("(max-width: 700px)").matches) {
       const target = windowRef.current?.querySelector<HTMLElement>(
-        `[data-project-slug="${projects[index].slug}"]`,
+        `[data-project-slug="${selectedWorkProjects[index].slug}"]`,
       );
       const root = windowRef.current;
       const left =
@@ -113,18 +112,16 @@ export function SelectedWorkGallery() {
         <header className="selected-work-intro">
           <div>
             <h2>
-              Six ways into the work.
+              Six projects.
               <br />
               One standard.
             </h2>
           </div>
           <div className="selected-work-intro-copy">
             <p>
-              Six public projects. One evidence-led route into each case study.
+              Each project opens to a full case study with inspectable evidence.
             </p>
-            <Link href="/work">
-              Open the work index <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
+            <Link href="/work">View all work ↗</Link>
           </div>
         </header>
 
@@ -153,7 +150,7 @@ export function SelectedWorkGallery() {
               data-carousel-track
               style={{ transform: `translate3d(-${active * 100}%, 0, 0)` }}
             >
-              {projects.map((project, index) => (
+              {selectedWorkProjects.map((project, index) => (
                 <article
                   className="selected-work-carousel-slide"
                   data-project-slug={project.slug}
@@ -168,18 +165,18 @@ export function SelectedWorkGallery() {
                     tabIndex={mobileLayout || index === active ? 0 : -1}
                     aria-label={`Open ${project.title} case study`}
                   >
-                    <div className="selected-work-carousel-visual">
-                      <ProjectVisual slug={project.slug} />
+                    <div className="selected-work-carousel-visual" data-evidence-region>
+                      <ProjectVisual slug={project.slug} context="card" />
                     </div>
                     <div className="selected-work-carousel-copy">
-                      <div className="selected-work-carousel-meta">
-                        <span>{project.kicker}</span>
-                      </div>
-                      <h3>{project.title}</h3>
-                      <p>{project.statement}</p>
+                      <span className="selected-work-carousel-meta">{project.kicker}</span>
+                      <h3 data-project-title>{project.title}</h3>
+                      <p className="selected-work-summary selected-work-summary-desktop">{project.summary}</p>
+                      <p className="selected-work-summary selected-work-summary-mobile">{project.mobileSummary}</p>
                       <div className="selected-work-carousel-proof">
-                        <span>{project.proof}</span>
-                        <ArrowUpRight size={18} aria-hidden="true" />
+                        <span className="selected-work-proof-desktop">{project.proof}</span>
+                        <span className="selected-work-proof-mobile">{project.mobileProof}</span>
+                        <span className="selected-work-case-link">View case study ↗</span>
                       </div>
                     </div>
                   </Link>
@@ -192,13 +189,13 @@ export function SelectedWorkGallery() {
             role="group"
             aria-label="Project slides"
           >
-            {projects.map((project, index) => (
+            {selectedWorkProjects.map((project, index) => (
               <button
                 key={project.slug}
                 type="button"
                 className={`carousel-dot${index === active ? " is-active" : ""}`}
-                aria-label={`Go to project ${index + 1} of ${projects.length}`}
-                aria-current={index === active ? "true" : undefined}
+                aria-label={`Go to project ${index + 1} of ${selectedWorkProjects.length}`}
+                aria-current={index === active ? "step" : undefined}
                 onClick={() => goTo(index)}
               >
                 <span aria-hidden="true" />

@@ -1,6 +1,6 @@
 # Execution Status
 
-Updated: 2026-09-28
+Updated: 2026-09-29
 
 ## Mobile composition pass
 
@@ -25,6 +25,10 @@ Implemented on `feat/mobile-composition-pass` from Pass 03 HEAD `2e45968608c6724
 ## Surgical pass 05: final Part 1 interaction polish
 
 Implemented on `feat/mobile-composition-pass` from reviewed base `ed12ac988b3e0c3ec43cb7727e15824fe5e85185`. The signature reveal clip now preserves the final script flourish; mobile tracking is −0.005em with 0.08em word spacing and remains one line from 320px through 480px. Three quarters of visible ambient details float on independent, slow paths on desktop and mobile, while reduced motion disables all of them. The credibility rail now uses three measured logical groups in a native scroll viewport with one scroll-left requestAnimationFrame loop, manual touch/drag/wheel input, hover/focus pause, hidden/offscreen pause and seamless recentering. Fractional-pixel accumulation keeps measured movement accurate despite integer `scrollLeft` rounding: 390px advanced 262px over 5.03s and 524px over 10.05s (about 52px/s); desktop remains 30px/s. The 390px viewport presented 2.28 equivalent items; standard items are 160px, long Orcas/CIC items 180px, gap 9px, logo stage 40px and captions 8px. Network retains the 140×32 native-color WebP at 70×16 CSS pixels (2× DPR 2 density; aspect ratio 4.375 matches). Fresh typecheck, lint and production build pass; the full browser gate passes **134/134**. Seven viewport captures, DPR 2 logo crops, signature diagnostics, ambient phase captures and metrics are under `outputs/hero-credibility-pass-05/`. Detailed evidence: `docs/frontend-overhaul/SURGICAL_PASS_05_2026-09-28.md`.
+
+## Selected Work refinement pass
+
+Implemented on `feat/mobile-composition-pass` from base `aabd3185ad62942b4151456550cecc3f47255782`. The English homepage now presents the six requested projects in the approved order and concise responsive copy while `/work` and the case studies retain their canonical data and order. Desktop card panels share a full-height evidence frame; mobile cards are 292–360px wide and 323–330px tall, with evidence occupying about 53% of the 390px card. The active dot is a stationary six-second progress ring (32px mobile ring inside a 44px touch target). The supplied Ghareeb logo is an opaque 78×74 WebP, so the homepage uses a text-only wordmark. The mobile dock uses the 12px plus safe-area offset and matching page/anchor clearance. `npm ci` reported 0 vulnerabilities; typecheck, lint, build and the full browser suite pass (**140/140**). Six mobile and six desktop project captures, 320/430 captures, 768–1920 viewport captures and geometry JSON are under `outputs/selected-work-pass/`. Details: `docs/frontend-overhaul/SELECTED_WORK_PASS_2026-09-29.md`. PR #26 remains open; this pass has not been merged or deployed.
 
 ## Autonomous iteration status
 

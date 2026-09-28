@@ -246,7 +246,7 @@ test.describe("Phone composition", () => {
     await expect(carousel).toHaveAttribute("data-active-project", "presaira");
     await expect(
       carousel.getByRole("button", { name: "Go to project 1 of 6" }),
-    ).toHaveAttribute("aria-current", "true");
+    ).toHaveAttribute("aria-current", "step");
     await carousel
       .getByRole("button", { name: "Go to project 2 of 6" })
       .click();
@@ -269,7 +269,7 @@ test.describe("Phone composition", () => {
     await expect(carousel).toHaveAttribute("data-active-project", "makhbazy");
     await expect(
       carousel.getByRole("button", { name: "Go to project 6 of 6" }),
-    ).toHaveAttribute("aria-current", "true");
+    ).toHaveAttribute("aria-current", "step");
     await expect(
       page.getByRole("link", { name: "Open Makhbazy case study" }),
     ).toHaveAttribute("href", "/work/makhbazy");
@@ -396,8 +396,8 @@ test.describe("Phone composition", () => {
     }));
     expect(heights.method).toBeGreaterThanOrEqual(750);
     expect(heights.method).toBeLessThanOrEqual(900);
-    expect(heights.work).toBeGreaterThanOrEqual(480);
-    expect(heights.work).toBeLessThanOrEqual(560);
+    expect(heights.work).toBeGreaterThanOrEqual(290);
+    expect(heights.work).toBeLessThanOrEqual(390);
     expect(heights.writing).toBeGreaterThanOrEqual(380);
     expect(heights.writing).toBeLessThanOrEqual(500);
   });
@@ -487,7 +487,7 @@ test.describe("Phone composition", () => {
     await page.waitForTimeout(6200);
     await expect(
       work.getByRole("button", { name: "Go to project 2 of 6" }),
-    ).toHaveAttribute("aria-current", "true");
+    ).toHaveAttribute("aria-current", "step");
 
     const writing = page.locator(".closing-notes");
     await writing.scrollIntoViewIfNeeded();
