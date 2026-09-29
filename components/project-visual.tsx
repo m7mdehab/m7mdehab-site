@@ -46,8 +46,18 @@ function PresairaVisual({ context, locale }: { context: "card" | "case"; locale:
           <text className={styles.axisLabel} x="230" y="272">{ar ? "متوسط الاحتمال المتوقع" : "Mean predicted probability"}</text>
         </svg>
       </div>
-      <div className={styles.proofStrip}>{proof.map((item) => <span key={item}>{item}</span>)}</div>
-      <figcaption><strong>{ar ? "دليل معايرة 2026 المحفوظ" : homeCard ? "2026 calibration evidence" : data.label}</strong><span>{ar ? "ثقة التوقع مقارنة بالنتائج المرصودة بعد اكتمال مباريات البطولة الـ104." : homeCard ? "Predicted probabilities compared with observed outcomes across all 104 matches." : data.caption}</span></figcaption>
+      <div className={`${styles.proofStrip}${homeCard ? " presaira-card-proof" : ""}`}>
+        {proof.map((item) => <span className={homeCard ? "presaira-proof-desktop" : undefined} key={item}>{item}</span>)}
+        {homeCard ? <>
+          <span className="presaira-proof-mobile">104 matches</span>
+          <span className="presaira-proof-mobile">Post-event evaluation</span>
+        </> : null}
+      </div>
+      <figcaption>
+        <strong>{ar ? "دليل معايرة 2026 المحفوظ" : homeCard ? "2026 calibration evidence" : data.label}</strong>
+        <span className={homeCard ? "presaira-caption-desktop" : undefined}>{ar ? "ثقة التوقع مقارنة بالنتائج المرصودة بعد اكتمال مباريات البطولة الـ104." : homeCard ? "Predicted probabilities compared with observed outcomes across all 104 matches." : data.caption}</span>
+        {homeCard ? <span className="presaira-caption-mobile">Predicted probabilities vs. observed outcomes across all 104 matches.</span> : null}
+      </figcaption>
     </figure>
   );
 }
@@ -106,7 +116,7 @@ function GhareebVisual({ context, locale }: { context: "card" | "case"; locale: 
           <div className={styles.commerceStages}>{stages.map((stage, index) => <span key={stage}><i>0{index + 1}</i>{stage}</span>)}</div>
         </div>
       </div>
-      <figcaption><strong>{ar ? "تدفق تجارة عام آمن — وليس لقطة شاشة" : homeCard ? "Public-safe commerce flow" : data.label}</strong><span>{ar ? "تمثيل منضبط لرحلة المتجر العام دون إعادة توزيع صور علامة أو منتجات غير مصرح بها." : homeCard ? "A storefront journey from browse to fulfillment, represented without redistributing protected product imagery." : data.caption}</span></figcaption>
+      <figcaption className={homeCard ? "ghareeb-card-caption" : undefined}><strong>{ar ? "تدفق تجارة عام آمن — وليس لقطة شاشة" : homeCard ? "Public-safe commerce flow" : data.label}</strong><span>{ar ? "تمثيل منضبط لرحلة المتجر العام دون إعادة توزيع صور علامة أو منتجات غير مصرح بها." : homeCard ? "A storefront journey from browse to fulfillment, represented without redistributing protected product imagery." : data.caption}</span></figcaption>
     </figure>
   );
 }
@@ -123,7 +133,7 @@ function OilVisual({ context, locale }: { context: "card" | "case"; locale: Loca
         <span className={styles.scanLine} aria-hidden="true" />
       </div>
       <div className={styles.metricGrid}>{data.metrics.map((metric) => <span key={metric.label}><strong dir="ltr">{metric.value}</strong><small lang="en" dir="ltr">{metric.label}</small></span>)}</div>
-      <figcaption><strong>{ar ? "مخرج دراسة حالة MV Wakashio" : homeCard ? "MV Wakashio case study" : data.label}</strong><span>{ar ? "دليل حقيقي من Sentinel-1 SAR مع تقييم لفئة النفط من تشغيل الاختبار المحفوظ." : homeCard ? "Sentinel-1 SAR output with oil-class metrics from the committed test run." : data.caption}</span></figcaption>
+      <figcaption className={homeCard ? "oil-card-caption" : undefined}><strong>{ar ? "مخرج دراسة حالة MV Wakashio" : homeCard ? "MV Wakashio case study" : data.label}</strong><span>{ar ? "دليل حقيقي من Sentinel-1 SAR مع تقييم لفئة النفط من تشغيل الاختبار المحفوظ." : homeCard ? "Sentinel-1 SAR output with oil-class metrics from the committed test run." : data.caption}</span></figcaption>
     </figure>
   );
 }
@@ -149,7 +159,11 @@ function SolarVisual({ context, locale }: { context: "card" | "case"; locale: Lo
           </div>
         ))}
       </div>
-      <figcaption><strong>{ar ? "دليل من التطبيق العام والتحقق" : homeCard ? "Public application · validation evidence" : data.label}</strong><span>{ar ? "شاشات حقيقية لمنطقة الدراسة والمعايير مع خريطة Land Suitability Index ذات الخمس فئات." : homeCard ? "AOI and criteria screens with the committed five-class Land Suitability Index map." : data.caption}</span></figcaption>
+      <figcaption className={homeCard ? "solar-card-caption" : undefined}>
+        <strong className={homeCard ? "solar-caption-desktop" : undefined}>{ar ? "دليل من التطبيق العام والتحقق" : homeCard ? "Public application · validation evidence" : data.label}</strong>
+        <span className={homeCard ? "solar-description-desktop" : undefined}>{ar ? "شاشات حقيقية لمنطقة الدراسة والمعايير مع خريطة Land Suitability Index ذات الخمس فئات." : homeCard ? "AOI and criteria screens with the committed five-class Land Suitability Index map." : data.caption}</span>
+        {homeCard ? <strong className="solar-caption-mobile">Five-class Land Suitability Index</strong> : null}
+      </figcaption>
     </figure>
   );
 }
@@ -170,7 +184,11 @@ function MakhbazyVisual({ context, locale }: { context: "card" | "case"; locale:
           </div>
         ))}
       </div>
-      <figcaption><strong>{ar ? "تمثيل آمن لرحلة المنتج" : homeCard ? "Mobile product journey" : data.label}</strong><span>{ar ? "تبقى الرحلة الداخلية الأصلية غير منشورة؛ يوضح هذا العرض قيادة UI/UX وتسليم المنتج دون إعادة إنتاج شاشات محمية." : homeCard ? "A public-safe view of the mobile journey without exposing protected internal screens." : data.caption}</span></figcaption>
+      <figcaption>
+        <strong>{ar ? "تمثيل آمن لرحلة المنتج" : homeCard ? "Mobile product journey" : data.label}</strong>
+        <span className={homeCard ? "makhbazy-caption-desktop" : undefined}>{ar ? "تبقى الرحلة الداخلية الأصلية غير منشورة؛ يوضح هذا العرض قيادة UI/UX وتسليم المنتج دون إعادة إنتاج شاشات محمية." : homeCard ? "A public-safe view of the mobile journey without exposing protected internal screens." : data.caption}</span>
+        {homeCard ? <span className="makhbazy-caption-mobile">Public-safe journey without protected internal screens.</span> : null}
+      </figcaption>
     </figure>
   );
 }

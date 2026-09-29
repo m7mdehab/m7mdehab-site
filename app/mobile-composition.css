@@ -25,6 +25,11 @@
   animation: none !important;
 }
 
+.selected-work-intro-mobile,
+.selected-work-meta-mobile {
+  display: none;
+}
+
 @media (max-width: 700px) {
   html {
     scroll-padding-top: 76px;
@@ -297,13 +302,13 @@
   }
 
   .selected-work {
-    padding: 66px 0 68px;
+    padding: 66px 0 46px;
     scroll-margin-top: 76px;
   }
 
   .selected-work-shell {
     width: calc(100% - 28px);
-    gap: 20px;
+    gap: 30px;
   }
 
   .selected-work-intro {
@@ -350,13 +355,20 @@
     font-size: 14px;
   }
 
-  .selected-work-intro-copy { gap: 8px; }
-  .selected-work-intro-copy p { max-width: 36ch; font-size: 13px; line-height: 1.42; }
+  .selected-work-intro-desktop { display: none; }
+  .selected-work-intro-mobile { display: block; }
+  .selected-work-intro-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+  }
+  .selected-work-intro-copy p { max-width: 36ch; font-size: 14px; line-height: 1.36; }
   .selected-work-intro-copy a { font-size: 13px; }
 
   .selected-work-carousel {
     display: grid;
-    gap: 10px;
+    gap: 4px;
+    background: transparent;
   }
 
   .selected-work-carousel-status {
@@ -385,6 +397,10 @@
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     padding: 0 0 2px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .selected-work-carousel-window::-webkit-scrollbar {
@@ -403,35 +419,40 @@
     gap: 10px;
     transform: none !important;
     transition: none !important;
+    background: transparent;
   }
 
   .selected-work-carousel-slide {
-    flex: 0 0 min(calc(100vw - 28px), 360px);
+    flex: 0 0 calc(91vw - 12.74px);
     min-width: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
+    background: transparent;
   }
 
   .selected-work-carousel-card {
     height: auto;
     min-height: 0;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 174px auto;
+    grid-template-rows: clamp(184px, 51.3vw, 204px) auto;
     border-radius: 18px;
     overflow: hidden;
+    box-shadow: 0 12px 28px rgba(18, 20, 18, .12);
   }
 
   .selected-work-carousel-visual {
     min-width: 0;
-    min-height: 174px;
+    min-height: 0;
     overflow: hidden;
     border: 0;
+    border-radius: 0;
   }
 
   .selected-work-carousel-visual > .home-selected-work-visual {
     width: 100%;
-    height: 174px !important;
-    min-height: 174px !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    border-radius: 0 !important;
   }
 
   .selected-work-carousel-visual figure {
@@ -441,28 +462,31 @@
   .selected-work-carousel-copy {
     min-height: 0;
     justify-content: flex-start;
-    gap: 5px;
-    padding: 12px 15px 11px;
+    gap: 4px;
+    padding: 13px 16px 11px;
     background: linear-gradient(115deg, color-mix(in srgb, var(--carousel-accent) 11%, #11161a), #11161a 72%);
   }
+
+  .selected-work-meta-desktop { display: none; }
+  .selected-work-meta-mobile { display: block; }
 
   .selected-work-carousel-meta {
     flex: 0 0 auto;
     color: rgba(244, 243, 237, .68);
-    font-size: 8px;
+    font-size: 9px;
     line-height: 1.15;
     letter-spacing: .075em;
   }
 
   .selected-work-carousel-copy h3 {
     margin: 0;
-    font-size: clamp(24px, 7.1vw, 31px);
+    font-size: clamp(26px, 7.2vw, 30px);
     line-height: .98;
     letter-spacing: -.04em;
   }
 
   .selected-work-carousel-slide[data-project-slug="opportunityos"] .selected-work-carousel-copy h3 {
-    font-size: clamp(22px, 6.7vw, 28px);
+    font-size: clamp(25px, 7.1vw, 30px);
   }
 
   .selected-work-summary-desktop,
@@ -486,8 +510,8 @@
   .selected-work-carousel-copy > p {
     margin: 0;
     color: rgba(244, 243, 237, .78);
-    font-size: 11px;
-    line-height: 1.3;
+    font-size: 14px;
+    line-height: 1.08;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
@@ -495,27 +519,31 @@
   }
 
   .selected-work-carousel-proof {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     justify-content: space-between;
     align-items: center;
     gap: 6px;
     margin-top: 0;
-    padding-top: 5px;
-    font-size: 8px;
-    line-height: 1.18;
-    letter-spacing: .025em;
+    padding-top: 2px;
+    font-size: 9px;
+    line-height: 1.2;
+    letter-spacing: .02em;
   }
 
   .selected-work-proof-mobile {
     min-width: 0;
     flex: 1 1 auto;
     color: rgba(244, 243, 237, .64);
+    font-size: 9px;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .selected-work-case-link {
-    min-height: 44px;
+    min-height: 20px;
     flex: 0 0 auto;
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .carousel-dots {
@@ -530,9 +558,9 @@
   }
 
   .carousel-dot > span {
-    width: 6px;
-    height: 6px;
-    opacity: .38;
+    width: 8px;
+    height: 8px;
+    opacity: .48;
   }
 
   .carousel-dot.is-active > span {
@@ -542,11 +570,11 @@
   }
 
   .carousel-dot.is-active::after {
-    inset: 6px;
+    inset: 8px;
   }
 
   .carousel-dot.is-active::before {
-    inset: 6px;
+    inset: 8px;
   }
 
   [data-selected-work] {
@@ -1443,7 +1471,7 @@
     letter-spacing: -0.05em;
   }
   .selected-work-intro-copy {
-    gap: 5px;
+    gap: 21px;
   }
   .selected-work-intro-copy p,
   .solve-think-intro-copy p,
@@ -1843,7 +1871,7 @@
 
   .selected-work-carousel .carousel-dot.is-active::before,
   .selected-work-carousel .carousel-dot.is-active::after {
-    inset: 6px;
+    inset: 8px;
   }
 }
 

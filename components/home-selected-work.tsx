@@ -54,11 +54,17 @@ export function SelectedWorkGallery() {
     let settleTimer = 0;
     const onScroll = () => {
       window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(syncActive, 120);
+      settleTimer = window.setTimeout(syncActive, 650);
+    };
+    const onScrollEnd = () => {
+      window.clearTimeout(settleTimer);
+      syncActive();
     };
     root.addEventListener("scroll", onScroll, { passive: true });
+    root.addEventListener("scrollend", onScrollEnd);
     return () => {
       root.removeEventListener("scroll", onScroll);
+      root.removeEventListener("scrollend", onScrollEnd);
       window.clearTimeout(settleTimer);
       media.removeEventListener("change", syncLayout);
     };
@@ -118,8 +124,11 @@ export function SelectedWorkGallery() {
             </h2>
           </div>
           <div className="selected-work-intro-copy">
-            <p>
+            <p className="selected-work-intro-desktop">
               Each project opens to a full case study with inspectable evidence.
+            </p>
+            <p className="selected-work-intro-mobile">
+              Each project is backed by a full case study and inspectable evidence.
             </p>
             <Link href="/work">View all work ↗</Link>
           </div>
@@ -169,7 +178,8 @@ export function SelectedWorkGallery() {
                       <ProjectVisual slug={project.slug} context="card" />
                     </div>
                     <div className="selected-work-carousel-copy">
-                      <span className="selected-work-carousel-meta">{project.kicker}</span>
+                      <span className="selected-work-carousel-meta selected-work-meta-desktop">{project.kicker}</span>
+                      <span className="selected-work-carousel-meta selected-work-meta-mobile">{project.mobileKicker}</span>
                       <h3 data-project-title>{project.title}</h3>
                       <p className="selected-work-summary selected-work-summary-desktop">{project.summary}</p>
                       <p className="selected-work-summary selected-work-summary-mobile">{project.mobileSummary}</p>

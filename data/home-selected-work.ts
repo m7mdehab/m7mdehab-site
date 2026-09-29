@@ -5,10 +5,11 @@ const presentation = [
     slug: "presaira",
     title: "Presaira",
     kicker: "Probabilistic forecasting product",
+    mobileKicker: "Probabilistic forecasting",
     summary:
       "A tournament-wide forecasting system covering all 104 matches of the 2026 World Cup, with reproducible simulation and post-event evaluation.",
     mobileSummary:
-      "Forecasted all 104 World Cup matches with reproducible simulation and post-event evaluation.",
+      "Forecasted all 104 matches of the 2026 World Cup with reproducible simulation and post-event evaluation.",
     proof: "Data science · Forecasting · Calibration · Monte Carlo",
     mobileProof: "Data science · Forecasting · Calibration",
   },
@@ -16,6 +17,7 @@ const presentation = [
     slug: "opportunityos",
     title: "OpportunityOS",
     kicker: "Governed AI system",
+    mobileKicker: "Governed AI system",
     summary:
       "A governed opportunity workflow built around autonomous agents, provenance and controlled generation.",
     mobileSummary:
@@ -27,6 +29,7 @@ const presentation = [
     slug: "oil-spill-detection",
     title: "Oil Spill Detection",
     kicker: "SAR computer vision",
+    mobileKicker: "SAR computer vision",
     summary:
       "A Sentinel-1 SAR segmentation pipeline for marine oil-spill detection, with model evaluation, georeferenced outputs, API serving and an interactive map.",
     mobileSummary:
@@ -38,6 +41,7 @@ const presentation = [
     slug: "solar-site-selection",
     title: "Solar Site Selection",
     kicker: "Geospatial decision system",
+    mobileKicker: "Geospatial decision system",
     summary:
       "A photovoltaic siting engine combining public geodata, AHP scoring, suitability mapping, ranked candidate sites and energy/LCOE estimates.",
     mobileSummary:
@@ -49,6 +53,7 @@ const presentation = [
     slug: "ghareeb-oglu",
     title: "Ghareeb Oglu",
     kicker: "End-to-end commerce platform",
+    mobileKicker: "End-to-end commerce platform",
     summary:
       "A commerce platform designed and built end to end — storefront, backend, payments, fulfillment and deployment.",
     mobileSummary:
@@ -60,6 +65,7 @@ const presentation = [
     slug: "makhbazy",
     title: "Makhbazy",
     kicker: "Mobile product leadership",
+    mobileKicker: "Mobile product leadership",
     summary:
       "Led UI/UX and Android/iOS product delivery from concept through implementation, supervision and release approval.",
     mobileSummary:

@@ -200,10 +200,15 @@
 .homeCardVisual .phoneJourney { min-height: 0; }
 .homeCardVisual .phoneShell { width: clamp(92px, 9.5vw, 132px); max-height: 100%; }
 
+.homeCardVisual :global(.presaira-proof-mobile),
+.homeCardVisual :global(.presaira-caption-mobile),
+.homeCardVisual :global(.solar-caption-mobile),
+.homeCardVisual :global(.makhbazy-caption-mobile) { display: none; }
+
 @media (max-width: 700px) {
   .homeCardVisual {
-    padding: 10px 12px 9px !important;
-    gap: 7px;
+    padding: 8px 12px 7px !important;
+    gap: 6px !important;
   }
 
   .homeCardVisual .visualHeader {
@@ -222,17 +227,26 @@
 
   .homeCardVisual figcaption {
     grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
-    gap: 8px;
-    padding-top: 7px;
+    gap: 6px;
+    padding-top: 6px;
   }
 
   .homeCardVisual figcaption strong { font-size: 8px; letter-spacing: .045em; }
   .homeCardVisual figcaption span { font-size: 8.5px; line-height: 1.2; }
-  .homeCardVisual .chartFrame { min-height: 0; }
+  .homeCardVisual .chartFrame { min-height: 0; flex: 1 1 auto; }
   .homeCardVisual .chartGrid text,
   .homeCardVisual .axisLabel { font-size: 12px; }
   .homeCardVisual .proofStrip { flex-wrap: nowrap; gap: 4px; }
-  .homeCardVisual .proofStrip span { padding: 5px 6px; font-size: 7px; white-space: nowrap; }
+  .homeCardVisual .proofStrip span { padding: 4px 6px; font-size: 8px; white-space: nowrap; }
+  .homeCardVisual :global(.presaira-proof-desktop),
+  .homeCardVisual :global(.presaira-caption-desktop) { display: none; }
+  .homeCardVisual :global(.presaira-proof-mobile) { display: inline-flex; }
+  .homeCardVisual :global(.presaira-caption-mobile) { display: block; }
+  .homeCardVisual .presaira-card-proof { flex: 0 0 auto; }
+  .homeCardVisual .presaira figcaption,
+  .homeCardVisual.presaira figcaption {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  }
   .homeCardVisual .opportunityFlow { grid-template-columns: minmax(0, 1fr); gap: 5px; }
   .homeCardVisual .opportunityStages { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .homeCardVisual .opportunityStages span { min-height: 24px; gap: 3px; padding: 3px 4px; font-size: 7.5px; }
@@ -244,21 +258,30 @@
   .homeCardVisual .authoritySpine > div:first-child > span { margin: 0; font-size: 7px; }
   .homeCardVisual .modeStack { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 3px; margin: 0 0 0 auto; }
   .homeCardVisual .modeStack span { padding: 3px 4px; font-size: 6px; line-height: 1; white-space: nowrap; }
-  .homeCardVisual .opportunity-card-caption { grid-template-columns: 1fr; gap: 0; padding-top: 5px; }
-  .homeCardVisual .opportunity-card-caption > strong { font-size: 8px; }
-  .homeCardVisual .opportunity-card-caption > span { display: none; }
+  .homeCardVisual :global(.opportunity-card-caption) { display: none; }
   .homeCardVisual .browserBar { display: none; }
-  .homeCardVisual .storefrontBody { padding: 5px 8px; gap: 8px; }
-  .homeCardVisual .storefrontBody .storefrontHeadline { font-size: clamp(1.85rem, 8vw, 2.5rem); }
-  .ghareebCardWordmark { min-height: 24px; font-size: 1rem; }
+  .homeCardVisual .storefrontFrame { flex: 1 1 auto; min-height: 0; margin: 0; border-radius: 12px; box-shadow: none; }
+  .homeCardVisual .storefrontBody { padding: 6px 10px; gap: 7px; }
+  .homeCardVisual .storefrontBody .storefrontHeadline { font-size: clamp(1.65rem, 7vw, 2.1rem); }
+  .homeCardVisual .commerceStages { margin-top: auto; }
   .homeCardVisual .commerceStages span { gap: 4px; padding: 5px 3px 0 0; font-size: 8px; }
   .homeCardVisual .commerceStages i { font-size: 7px; }
-  .homeCardVisual .oilImageWrap { min-height: 0; }
-  .homeCardVisual .metricGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
-  .homeCardVisual .metricGrid span { padding: 4px 3px; text-align: center; }
-  .homeCardVisual .metricGrid strong { font-family: var(--sans); font-size: 11px; font-weight: 700; }
-  .homeCardVisual .metricGrid small { font-size: 6px; letter-spacing: .025em; white-space: nowrap; }
-  .homeCardVisual .solarLayer span { top: 5px; left: 5px; padding: 4px 5px; font-size: 6px; }
+  .homeCardVisual :global(.ghareeb-card-caption) { display: none; }
+  .homeCardVisual .oilImageWrap { min-height: 105px; max-height: 135px; flex: 1 1 120px; border-radius: 9px; }
+  .homeCardVisual .oilImageWrap img { object-fit: cover; }
+  .homeCardVisual .metricGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; flex: 0 0 auto; }
+  .homeCardVisual .metricGrid span { min-width: 0; padding: 4px 3px; text-align: center; }
+  .homeCardVisual .metricGrid strong { font-family: var(--sans); font-size: clamp(18px, 5vw, 21px); font-weight: 700; line-height: 1; }
+  .homeCardVisual .metricGrid small { font-size: 7px; letter-spacing: .015em; white-space: nowrap; }
+  .homeCardVisual :global(.oil-card-caption) { display: none; }
+  .homeCardVisual .solarStack { flex: 1 1 auto; width: 100%; min-height: 0; margin: 0; }
+  .homeCardVisual .solarLayer { box-shadow: 0 8px 18px rgba(73,45,7,.14); }
+  .homeCardVisual .solarLayer[data-layer="2"] { width: 43%; height: 48%; }
+  .homeCardVisual .solarLayer span { top: 5px; left: 5px; padding: 4px 5px; font-size: 7px; }
+  .homeCardVisual :global(.solar-caption-desktop),
+  .homeCardVisual :global(.solar-description-desktop) { display: none; }
+  .homeCardVisual :global(.solar-caption-mobile) { display: block; font-size: 9px; text-transform: none; letter-spacing: 0; }
+  .homeCardVisual :global(.solar-card-caption) { display: block; grid-template-columns: 1fr; margin-top: 0; padding-top: 0; border: 0; }
   .homeCardVisual .phoneJourney { justify-content: space-between; gap: 2px; }
   .homeCardVisual .phoneStep { flex: 1 1 0; justify-content: center; gap: 2px; }
   .homeCardVisual .phoneShell { width: clamp(44px, 15vw, 58px); aspect-ratio: .56; border-radius: 10px; padding: 7px 5px 5px; }
@@ -267,6 +290,16 @@
   .homeCardVisual .phoneShell i { font-size: 6px; }
   .homeCardVisual .phoneLines { height: 25%; background-size: 100% 6px; }
   .homeCardVisual .journeyArrow { font-size: 7px; }
+  .homeCardVisual :global(.makhbazy-caption-desktop) { display: none; }
+  .homeCardVisual :global(.makhbazy-caption-mobile) { display: block; }
+  :global(.selected-work-carousel-slide[data-project-slug="makhbazy"]) .homeCardVisual figcaption {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .homeCardVisual .metricGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .homeCardVisual .metricGrid strong { font-size: 18px; }
 }
 
 @media (max-width: 360px) {
@@ -391,22 +424,22 @@
     font-size: 7px;
   }
 
-  .oil:not(.caseVisual) .oilImageWrap {
+  .oil:not(.caseVisual):not(.homeCardVisual) .oilImageWrap {
     min-height: 0;
     flex: 1 1 auto;
   }
-  .oil:not(.caseVisual) .metricGrid {
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 4px;
   }
-  .oil:not(.caseVisual) .metricGrid span {
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid span {
     padding: 4px 6px;
   }
-  .oil:not(.caseVisual) .metricGrid strong {
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid strong {
     font-size: 23px;
     line-height: 1;
   }
-  .oil:not(.caseVisual) .metricGrid small {
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid small {
     font-size: 8px;
   }
 

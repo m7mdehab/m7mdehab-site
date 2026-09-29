@@ -70,7 +70,7 @@ test.describe("Phase E selected work rebuild", () => {
       section.getByRole("link", { name: "View all work ↗" }),
     ).toHaveAttribute("href", "/work");
     await expect(section.locator("h2")).toHaveText("Six projects.One standard.");
-    await expect(section.locator(".selected-work-intro-copy p")).toHaveText(
+    await expect(section.locator(".selected-work-intro-desktop")).toHaveText(
       "Each project opens to a full case study with inspectable evidence.",
     );
     await expect(section.locator(".selected-work-carousel-card")).toHaveCount(6);
