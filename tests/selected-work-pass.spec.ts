@@ -116,40 +116,33 @@ test.describe("Selected Work refinement", () => {
           expect(metrics.cardHeight, `${slug} mobile compact card height`).toBeLessThanOrEqual(
             slug === "opportunityos" ? 360 : 350,
           );
-          if (slug === "presaira") {
-            expect(metrics.artboardPresent).toBe(true);
-            expect(metrics.artboardAspect).toBeCloseTo(1.55, 1);
-            expect(metrics.visualShare, `${slug} fills its landscape card`).toBeCloseTo(1, 2);
-          } else {
-            expect(metrics.visualShare, `${slug} evidence share`).toBeGreaterThanOrEqual(0.58);
-            expect(metrics.visualShare, `${slug} evidence share`).toBeLessThanOrEqual(0.68);
-          }
+          expect(metrics.artboardPresent, `${slug} artboard renders`).toBe(true);
+          expect(metrics.artboardAspect, `${slug} uses landscape art direction`).toBeCloseTo(1.55, 1);
+          expect(metrics.visualShare, `${slug} fills its landscape card`).toBeCloseTo(1, 2);
           expect(metrics.copyOverflow, `${slug} narrative fits its card`).toBe(false);
           expect(metrics.summaryOverflow, `${slug} summary fits`).toBe(false);
           expect(metrics.proofOverflow, `${slug} proof overflow`).toBe(false);
           expect(metrics.cardWidth, `${slug} mobile card width`).toBeLessThan(400);
           if (slug === "opportunityos") {
-            const authorityRow = page.locator(
-              '.selected-work-carousel-slide[data-project-slug="opportunityos"] .opportunity-card-authority > div:first-child',
+            const gate = page.locator(
+              '.selected-work-carousel-slide[data-project-slug="opportunityos"] [data-artboard-node="authorityGate"]',
             );
             const modes = page.locator(
-              '.selected-work-carousel-slide[data-project-slug="opportunityos"] .opportunity-card-mode',
+              '.selected-work-carousel-slide[data-project-slug="opportunityos"] [data-artboard-node="actionModes"]',
             );
-            const factRight = (await authorityRow.boundingBox())!.x +
-              (await authorityRow.boundingBox())!.width;
-            const firstMode = (await modes.first().boundingBox())!;
-            expect(firstMode.x, "OpportunityOS modes clear authority label").toBeGreaterThanOrEqual(factRight - 1);
-            await expect(modes).toHaveText(["Dry run", "Assisted", "Controlled submit"]);
+            const gateBox = (await gate.boundingBox())!;
+            const modesBox = (await modes.boundingBox())!;
+            const overlaps = gateBox.x < modesBox.x + modesBox.width && gateBox.x + gateBox.width > modesBox.x && gateBox.y < modesBox.y + modesBox.height && gateBox.y + gateBox.height > modesBox.y;
+            expect(overlaps, "OpportunityOS authority gate and action modes remain separate").toBe(false);
+            await expect(modes).toContainText("DRY RUN");
+            await expect(modes).toContainText("ASSISTED");
+            await expect(modes).toContainText("CONTROLLED SUBMIT");
           }
           await card.screenshot({ path: path.join(outputRoot, `${viewport.label}-${slug}.png`) });
         } else {
-          if (slug === "presaira") {
-            expect(metrics.artboardPresent).toBe(true);
-            expect(metrics.artboardAspect).toBeCloseTo(1.8, 1);
-            expect(metrics.visualShare, `${slug} fills its landscape artboard`).toBeCloseTo(1, 2);
-          } else {
-            expect(metrics.cardHeight, `${slug} desktop card height`).toBeGreaterThanOrEqual(580);
-          }
+          expect(metrics.artboardPresent, `${slug} artboard renders`).toBe(true);
+          expect(metrics.artboardAspect, `${slug} preserves canonical artboard ratio`).toBeCloseTo(1.8, 1);
+          expect(metrics.visualShare, `${slug} fills its landscape artboard`).toBeCloseTo(1, 2);
           expect(metrics.visualHeight, `${slug} desktop evidence region`).toBeGreaterThan(0);
           await card.screenshot({ path: path.join(outputRoot, `${viewport.label}-${slug}.png`) });
         }
@@ -159,13 +152,17 @@ test.describe("Selected Work refinement", () => {
     await writeFile(path.join(outputRoot, "geometry.json"), JSON.stringify(records, null, 2));
   });
 
-  test("Ghareeb homepage visual avoids the supplied opaque logo tile", async ({ page }) => {
+  test("Ghareeb uses the supplied transparent official logo and four-stage path", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await settle(page);
     await selectSlide(page, 4);
     const card = page.locator('.selected-work-carousel-slide[data-project-slug="ghareeb-oglu"]');
-    await expect(card.locator("[data-ghareeb-wordmark]")).toHaveText("Ghareeb Oglu");
-    await expect(card.locator(".ghareeb-storefront-brand img")).toHaveCount(0);
+    await expect(card.locator('img[alt="Ghareeb Oglu official white and gold logo"]')).toHaveCount(1);
+    await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("BROWSE");
+    await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("PRODUCT");
+    await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("CART");
+    await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("FULFILLMENT");
+    await expect(card.locator("[data-project-artboard] a")).toHaveCount(0);
   });
 
   test("mobile rail is transparent and exposes only a narrow neighboring-card hint", async ({ page }) => {
@@ -210,110 +207,66 @@ test.describe("Selected Work refinement", () => {
     }
   });
 
-  test("all six mobile cards use the approved copy and evidence-first treatments", async ({ page }) => {
+  test("all six landscape artboards retain project-specific copy, evidence, and one-card navigation", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await settle(page);
-    const intro = page.locator("[data-selected-work] .selected-work-intro-copy");
-    await expect(intro.locator(".selected-work-intro-desktop")).toHaveText(
-      "Each project opens to a full case study with inspectable evidence.",
-    );
-    await expect(intro.locator(".selected-work-intro-mobile")).toHaveText(
-      "Each project is backed by a full case study and inspectable evidence.",
-    );
-
-    const contracts = [
-      {
-        slug: "presaira",
-        kicker: "Probabilistic forecasting",
-        summary: "Forecasted all 104 matches of the 2026 World Cup with reproducible simulation and post-event evaluation.",
-        proof: "Data science · Forecasting · Calibration",
-      },
-      {
-        slug: "opportunityos",
-        kicker: "Governed AI system",
-        summary: "A governed agent workflow built around provenance, controlled generation and explicit action boundaries.",
-        proof: "AI engineering · Multi-agent · Governance",
-      },
-      {
-        slug: "oil-spill-detection",
-        kicker: "SAR computer vision",
-        summary: "Sentinel-1 SAR segmentation for marine oil-spill detection, evaluation and georeferenced outputs.",
-        proof: "Computer vision · Remote sensing · Validation",
-      },
-      {
-        slug: "solar-site-selection",
-        kicker: "Geospatial decision system",
-        summary: "A geospatial siting engine combining AHP scoring, suitability mapping and ranked candidate sites.",
-        proof: "Geospatial · AHP · Decision support",
-      },
-      {
-        slug: "ghareeb-oglu",
-        kicker: "End-to-end commerce platform",
-        summary: "An end-to-end commerce platform spanning storefront, backend, payments and fulfillment.",
-        proof: "Product ownership · Architecture · Ecommerce",
-      },
-      {
-        slug: "makhbazy",
-        kicker: "Mobile product leadership",
-        summary: "Led UI/UX and Android/iOS product delivery from concept through release approval.",
-        proof: "Product leadership · UI/UX · Mobile delivery",
-      },
+    const expectedHeadings = [
+      "PRESAIRA",
+      "OpportunityOS",
+      "Oil Spill Detection",
+      "Solar Site Selection",
+      "Browse to fulfillment.",
+      "Designing the whole journey —\nnot isolated screens.",
     ];
-
-    for (const [index, item] of contracts.entries()) {
+    for (const [index, slug] of slugs.entries()) {
       await selectSlide(page, index);
-      const slide = page.locator(`.selected-work-carousel-slide[data-project-slug="${item.slug}"]`);
-      await expect(slide.locator(".selected-work-meta-mobile")).toHaveText(item.kicker);
-      await expect(slide.locator(".selected-work-summary-mobile")).toHaveText(item.summary);
-      await expect(slide.locator(".selected-work-proof-mobile")).toHaveText(item.proof);
-      await expect(slide.locator(".selected-work-case-link")).toHaveText("View case study ↗");
+      const slide = page.locator(`.selected-work-carousel-slide[data-project-slug="${slug}"]`);
+      const card = slide.locator(".selected-work-carousel-card");
+      const title = card.locator("[data-project-title]");
+      if (["oil-spill-detection", "solar-site-selection", "makhbazy"].includes(slug)) {
+        await expect(title).toHaveAttribute("aria-label", expectedHeadings[index]);
+      } else {
+        await expect(title).toContainText(expectedHeadings[index]);
+      }
+      await expect(card.locator("[data-project-artboard]")).toBeVisible();
+      await expect(card.locator("a")).toHaveCount(0);
+      await expect(card).toHaveAttribute("href", `/work/${slug}`);
+      await expect(card).toHaveAttribute("aria-label", `Open ${slug === "ghareeb-oglu" ? "Ghareeb Oglu" : slug === "oil-spill-detection" ? "Oil Spill Detection" : slug === "solar-site-selection" ? "Solar Site Selection" : slug === "opportunityos" ? "OpportunityOS" : slug === "makhbazy" ? "Makhbazy" : "Presaira"} case study`);
     }
 
     const presaira = page.locator('.selected-work-carousel-slide[data-project-slug="presaira"]');
-    await expect(presaira.locator(".presaira-proof-mobile")).toHaveText(["104 matches", "Post-event evaluation"]);
-    await expect(presaira.locator(".presaira-caption-mobile")).toHaveText("Predicted probabilities vs. observed outcomes across all 104 matches.");
-    await expect(presaira.locator(".selected-work-summary-mobile")).toHaveText(contracts[0].summary);
+    await expect(presaira.locator('[data-artboard-node="scoreNumber"]')).toHaveAttribute("aria-label", "104 / 104");
+    await expect(presaira.locator("[data-artboard-node=competitionRail]")).toContainText("PROOF RECORD");
+    await expect(presaira.locator("[data-artboard-node=competitionRail]")).toContainText("ACTIVE");
 
     const opportunity = page.locator('.selected-work-carousel-slide[data-project-slug="opportunityos"]');
-    expect(
-      await opportunity.locator("[data-opportunity-stage]").evaluateAll((stages) =>
-        stages.map((stage) => stage.getAttribute("data-opportunity-stage")),
-      ),
-    ).toEqual(["Discover", "Ingest", "Qualify", "Score", "Truth-lock", "Prepare"]);
-    await expect(opportunity.locator(".opportunity-card-authority strong")).toHaveText("Truth Graph");
-    await expect(opportunity.locator(".opportunity-card-mode")).toHaveText(["Dry run", "Assisted", "Controlled submit"]);
-    await expect(opportunity.locator(".opportunity-card-caption")).toBeHidden();
+    await expect(opportunity.locator("[data-artboard-node=taxonomy]")).toContainText("SOURCES");
+    await expect(opportunity.locator("[data-artboard-node=taxonomy]")).toContainText("AUTHORITY");
+    await expect(opportunity.locator("[data-artboard-node=authorityGate]")).toContainText("SUFFICIENT EVIDENCE");
+    await expect(opportunity.locator("[data-artboard-node=actionModes]")).toContainText("CONTROLLED SUBMIT");
 
     const oil = page.locator('.selected-work-carousel-slide[data-project-slug="oil-spill-detection"]');
-    const oilImage = oil.locator('[class*="oilImageWrap"] img');
-    await expect(oilImage).toBeVisible();
-    const oilImageBounds = await oilImage.boundingBox();
-    expect(oilImageBounds?.height).toBeGreaterThanOrEqual(105);
-    expect(oilImageBounds?.height).toBeLessThanOrEqual(135);
-    await expect(oil.locator('[class*="metricGrid"] strong')).toHaveText(["0.566", "0.764", "0.696", "0.802"]);
+    await expect(oil.locator("[data-artboard-node=detectedLabel]")).toContainText("DETECTED");
+    await expect(oil.locator("[data-artboard-node=lookalikeLabel]")).toContainText("LOOK-ALIKE");
+    await expect(oil.locator("[data-artboard-node=detectionContour] path")).toHaveCount(4);
 
     const solar = page.locator('.selected-work-carousel-slide[data-project-slug="solar-site-selection"]');
-    await expect(solar.locator('[class*="solarLayer"] span')).toHaveText(["AOI", "Criteria", "Suitability"]);
-    await expect(solar.locator(".solar-caption-mobile")).toHaveText("Five-class Land Suitability Index");
-    expect((await solar.locator('[class*="solarStack"]').boundingBox())?.height).toBeGreaterThanOrEqual(130);
-    await expect(solar.locator(".solar-description-desktop")).toBeHidden();
+    await expect(solar.locator("[data-artboard-node=validatedMeasures]")).toContainText("12");
+    await expect(solar.locator("[data-artboard-node=validatedMeasures]")).toContainText("AHP");
+    await expect(solar.locator("[data-artboard-node=classLegend]")).toContainText("Most suitable");
+    await expect(solar.locator("[data-artboard-node=classLegend]")).toContainText("Least suitable");
+    await expect(solar).not.toContainText("320 GWh/yr");
+    await expect(solar).not.toContainText("210 GWh/yr");
 
     const ghareeb = page.locator('.selected-work-carousel-slide[data-project-slug="ghareeb-oglu"]');
-    await expect(ghareeb.locator("[data-ghareeb-wordmark]")).toHaveText("Ghareeb Oglu");
-    await expect(ghareeb.locator('[class*="commerceStages"] span')).toContainText(["Browse", "Product", "Cart", "Fulfillment"]);
-    await expect(ghareeb.locator(".ghareeb-card-caption")).toBeHidden();
-    const logoStyle = await ghareeb.locator("[data-ghareeb-wordmark]").evaluate((node) => getComputedStyle(node).backgroundColor);
-    expect(logoStyle).toBe("rgba(0, 0, 0, 0)");
+    await expect(ghareeb.locator('img[alt="Ghareeb Oglu official white and gold logo"]')).toBeVisible();
+    await expect(ghareeb.locator("[data-artboard-node=commerceJourney]")).toContainText("FULFILLMENT");
 
     const makhbazy = page.locator('.selected-work-carousel-slide[data-project-slug="makhbazy"]');
-    await expect(makhbazy.locator('[class*="phoneShell"] b')).toHaveText(["Discover", "Order", "Track", "Receive"]);
-    await expect(makhbazy.locator(".makhbazy-caption-mobile")).toHaveText("Public-safe journey without protected internal screens.");
-    const phoneLabels = await makhbazy.locator('[class*="phoneShell"]').evaluateAll((shells) => shells.map((shell) => {
-      const text = shell.querySelector("b")!.getBoundingClientRect();
-      const frame = shell.getBoundingClientRect();
-      return text.left >= frame.left && text.right <= frame.right && text.top >= frame.top && text.bottom <= frame.bottom;
-    }));
-    expect(phoneLabels.every(Boolean)).toBe(true);
+    await expect(makhbazy.locator('img[alt="Makhbazy official light logo"]')).toBeVisible();
+    await expect(makhbazy.locator("[data-artboard-node=journeyAbstraction]")).toContainText("DISCOVER");
+    await expect(makhbazy.locator("[data-artboard-node=journeyAbstraction]")).toContainText("RECEIVE");
+    await expect(makhbazy).not.toContainText("protected internal screens");
   });
 
   test("desktop and tablet section geometry stays in bounds at every review width", async ({ page }) => {
@@ -390,7 +343,7 @@ test.describe("Selected Work refinement", () => {
     expect(initial.hitTarget).toBeGreaterThanOrEqual(44);
   });
 
-  test("mobile summary and proof remain contained at narrow and wide phone widths", async ({
+  test("mobile artboard geometry remains landscape and contained at narrow and wide phone widths", async ({
     page,
   }) => {
     const records = [];
@@ -398,24 +351,24 @@ test.describe("Selected Work refinement", () => {
       await page.setViewportSize({ width, height: 844 });
       await settle(page);
       const sample = await page.locator(".selected-work-carousel-card").first().evaluate((card) => {
-        const copy = card.querySelector<HTMLElement>(".selected-work-carousel-copy")!;
-        const proof = card.querySelector<HTMLElement>(".selected-work-carousel-proof")!;
+        const artboard = card.querySelector<HTMLElement>("[data-project-artboard]")!;
         const evidence = card.querySelector<HTMLElement>("[data-evidence-region]")!;
         const bounds = card.getBoundingClientRect();
+        const artboardBounds = artboard.getBoundingClientRect();
         return {
           cardWidth: bounds.width,
           cardHeight: bounds.height,
           evidenceHeight: evidence.getBoundingClientRect().height,
-          copyHeight: copy.getBoundingClientRect().height,
-          proofScrollWidth: proof.scrollWidth,
-          proofClientWidth: proof.clientWidth,
+          aspectRatio: artboardBounds.width / artboardBounds.height,
+          artboardHeight: artboardBounds.height,
           documentWidth: document.documentElement.scrollWidth,
           viewportWidth: document.documentElement.clientWidth,
         };
       });
       records.push({ width, ...sample });
       expect(sample.documentWidth, `${width}px page overflow`).toBeLessThanOrEqual(sample.viewportWidth + 1);
-      expect(sample.proofScrollWidth, `${width}px proof overflow`).toBeLessThanOrEqual(sample.proofClientWidth + 1);
+      expect(sample.aspectRatio, `${width}px artboard is landscape`).toBeCloseTo(1.55, 1);
+      expect(sample.evidenceHeight, `${width}px artboard fills its visual frame`).toBeCloseTo(sample.artboardHeight, 1);
       if (width === 320 || width === 430) {
         await page.locator("[data-selected-work]").screenshot({
           path: path.join(outputRoot, `mobile-${width}-selected-work.png`),

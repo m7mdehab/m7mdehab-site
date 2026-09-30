@@ -1,0 +1,77 @@
+.title,
+.subtitle,
+.accent,
+.process,
+.metrics,
+.map,
+.legend,
+.footer { position: absolute; }
+
+.title { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; flex-direction: column; margin: 0; color: #f5efe5; font-family: "Playfair Display Variable", "Playfair Display", serif; font-size: 6.66cqw; font-weight: 500; letter-spacing: -0.045em; line-height: 0.96; }
+.title span:last-child { color: #e0a019; }
+.subtitle { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #f3eee7; font-family: "Inter Variable", Inter, sans-serif; font-size: 1.72cqw; font-weight: 350; line-height: 1.3; }
+.accent { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); background: #f1b62d; }
+
+.process { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; grid-template-columns: repeat(4, 1fr); }
+.process > svg { position: absolute; top: 13%; left: 3%; width: 92%; height: 36%; fill: none; stroke: #dda91f; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.process > div { position: relative; z-index: 1; display: flex; align-items: center; flex-direction: column; color: #edc142; font-family: "Inter Variable", Inter, sans-serif; text-align: center; }
+.process > div svg { width: 3cqw; height: 3cqw; margin-bottom: 0.6cqw; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.process b { font-size: 0.95cqw; font-weight: 600; letter-spacing: 0.14em; }
+.process span { display: flex; flex-direction: column; margin-top: 0.35cqw; color: #cbb88e; font-size: 0.72cqw; font-weight: 400; line-height: 1.35; }
+.process i { font-style: normal; }
+
+.metrics { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; grid-template-columns: 1.1fr 1.1fr 1fr; }
+.metrics > div { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; align-content: start; column-gap: 0.9cqw; padding: 0 1cqw; border-right: 1px solid rgb(242 212 145 / 24%); font-family: "Inter Variable", Inter, sans-serif; }
+.metrics > div:first-child { padding-left: 0; }
+.metrics > div:last-child { border: 0; }
+.metrics b { grid-row: 1 / span 2; color: #e1b54b; font-size: 3.4cqw; font-weight: 350; line-height: 0.92; }
+.metrics strong { color: #e5d5b5; font-size: 1.14cqw; font-weight: 450; line-height: 1.15; }
+.metrics small { grid-column: 2; margin-top: 0.45cqw; color: #c9b58c; font-size: 0.68cqw; line-height: 1.5; }
+.classSwatches { grid-column: 2; display: flex; gap: 0.16cqw; margin-top: 0.8cqw; }
+.classSwatches i { width: 1.7cqw; height: 1.4cqw; }
+
+.map { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
+.map svg { width: 100%; height: 100%; }
+.aoi { fill: rgb(219 175 45 / 14%); stroke: #f2dfb5; stroke-width: 5; stroke-dasharray: 10 5; }
+.classEdge { fill: none; stroke: rgb(241 215 164 / 67%); stroke-width: 2.6; }
+.site { fill: rgb(55 110 44 / 63%); stroke: #eff2c8; stroke-width: 4; }
+.siteSecondary { fill: rgb(90 133 38 / 55%); stroke: #dce3ae; stroke-width: 3; }
+.route { fill: none; stroke: rgb(244 232 202 / 84%); stroke-width: 2; stroke-dasharray: 7 8; }
+.sitePoint { fill: #fff3ce; stroke: #6b8e32; stroke-width: 3; }
+.classCells path { stroke: rgb(248 224 169 / 32%); stroke-width: 1.2; }
+.callout { position: absolute; display: flex; min-width: 22%; flex-direction: column; gap: 0.35cqw; padding: 0.7cqw 0.9cqw; border: 1px solid rgb(247 226 179 / 30%); border-radius: 8px; background: rgb(20 29 21 / 78%); color: #eee6d5; font-family: "Inter Variable", Inter, sans-serif; backdrop-filter: blur(5px); }
+.callout0 { left: 44%; top: 22%; }
+.callout1 { left: 65%; top: 60%; }
+.callout b { color: #f0c457; font-size: 1.1cqw; font-weight: 650; }
+.callout span { display: flex; flex-direction: column; gap: 0.22cqw; font-size: 0.77cqw; line-height: 1.2; }
+.callout i { font-style: normal; }
+
+.legend { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; flex-direction: column; gap: 1.1cqw; padding: 1.1cqw; border: 1px solid rgb(220 210 183 / 18%); border-radius: 12px; background: rgb(15 26 29 / 80%); color: #ecdfc3; font-family: "Inter Variable", Inter, sans-serif; }
+.legend > b { font-size: 0.78cqw; font-weight: 500; }
+.legend > span { display: flex; align-items: center; gap: 0.8cqw; color: #d5c7aa; font-size: 0.7cqw; white-space: nowrap; }
+.legend > span > i { width: 1.25cqw; height: 0.85cqw; border-radius: 2px; }
+.footer { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); overflow: hidden; margin: 0; padding-top: 0.45cqw; border-top: 1px solid rgb(236 220 185 / 32%); color: #ead9ba; font-family: "Inter Variable", Inter, sans-serif; font-size: 1.07cqw; font-weight: 350; line-height: 1.3; white-space: nowrap; }
+
+@container work-slide (max-width: 700px) {
+  .title { left: 5%; top: 6%; width: 48%; height: 29%; font-size: 7cqw; line-height: 0.95; }
+  .subtitle { left: 5%; top: 37%; width: 44%; height: 12%; font-size: 2.75cqw; line-height: 1.2; }
+  .accent { left: 5%; top: 52%; width: 9%; height: 1px; }
+  .process,.legend,.footer { display: none; }
+  .map { left: 49%; top: 9%; width: 47%; height: 63%; }
+  .aoi { stroke-width: 9; stroke-dasharray: 16 9; }
+  .classEdge { stroke-width: 5; }
+  .site { stroke-width: 7; }
+  .siteSecondary { stroke-width: 6; }
+  .route { stroke-width: 5; stroke-dasharray: 14 12; }
+  .sitePoint { r: 11px; }
+  .callout { min-width: 0; width: 88%; gap: 0; padding: 1.5cqw; border-radius: 4px; backdrop-filter: none; }
+  .callout0 { left: 8%; top: 49%; }
+  .callout1 { display: none; }
+  .callout b { font-size: 2.8cqw; }
+  .callout span { font-size: 2.8cqw; line-height: 1.1; }
+  .metrics { left: 5%; top: 66%; width: 90%; height: 25%; grid-template-columns: 1fr 1fr 1fr; }
+  .metrics > div { grid-template-columns: 1fr; grid-template-rows: auto auto; justify-items: center; padding: 0 1%; text-align: center; }
+  .metrics b { grid-row: 1; font-size: 5.2cqw; }
+  .metrics strong { grid-column: 1; font-size: 3cqw; line-height: 1.05; }
+  .metrics small,.classSwatches { display: none; }
+}

@@ -1899,6 +1899,8 @@
 .selected-work-carousel-slide-artboard .selected-work-carousel-visual > * {
   display: block;
   width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
 }
 
 .selected-work-carousel-slide-artboard .selected-work-carousel-copy {
