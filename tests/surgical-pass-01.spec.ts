@@ -187,9 +187,45 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
     await expect(track).toHaveCSS("transform", "none");
     // Pause the live scroll before targeting a moving child so Playwright can
     // resolve a stable hover position on slower hosted browsers.
-    await page.locator(".credibility-viewport").hover();
-    const item = firstSequence.locator(".credibility-brand-item").first();
-    await item.hover();
+    const viewport = page.locator(".credibility-viewport");
+    await viewport.hover();
+    const pausedScrollLeft = await viewport.evaluate((node) => node.scrollLeft);
+    await page.waitForTimeout(120);
+    await expect
+      .poll(() => viewport.evaluate((node) => node.scrollLeft))
+      .toBe(pausedScrollLeft);
+    const networkItems = page.locator(
+      ".credibility-viewport .credibility-brand-item[data-brand-card='network']",
+    );
+    await viewport.evaluate((node) => {
+      const viewportBounds = node.getBoundingClientRect();
+      const nextNetwork = Array.from(
+        node.querySelectorAll<HTMLElement>(
+          ".credibility-brand-item[data-brand-card='network']",
+        ),
+      )
+        .map((item) => ({ item, bounds: item.getBoundingClientRect() }))
+        .filter(({ bounds }) => bounds.left >= viewportBounds.right)
+        .sort((a, b) => a.bounds.left - b.bounds.left)[0];
+      if (nextNetwork) node.scrollLeft += nextNetwork.bounds.left - viewportBounds.left;
+    });
+    await page.waitForTimeout(120);
+    const visibleNetworkIndex = await networkItems.evaluateAll((items) => {
+      const viewportBounds = items[0]?.closest(".credibility-viewport")?.getBoundingClientRect();
+      if (!viewportBounds) return -1;
+      return items.findIndex((item) => {
+        const bounds = item.getBoundingClientRect();
+        return bounds.left >= viewportBounds.left && bounds.right <= viewportBounds.right;
+      });
+    });
+    expect(visibleNetworkIndex).toBeGreaterThanOrEqual(0);
+    const item = networkItems.nth(visibleNetworkIndex);
+    const itemBounds = await item.boundingBox();
+    expect(itemBounds).not.toBeNull();
+    await page.mouse.move(
+      itemBounds!.x + itemBounds!.width / 2,
+      itemBounds!.y + itemBounds!.height / 2,
+    );
     await expect(page.getByRole("tooltip")).toHaveText("Network International");
     const networkAlphaRange = await item
       .locator(".brand-logo img")
