@@ -312,7 +312,13 @@ test.describe("Selected Work refinement", () => {
 
   test("active artboard shares a progressive transition anchor with its case study link", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
-    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.addInitScript(() => {
+      window.addEventListener("pagereveal", (event) => {
+        if ((event as Event & { viewTransition?: unknown }).viewTransition) {
+          sessionStorage.setItem("selected-work-cross-document-transition", "true");
+        }
+      });
+    });
     await settle(page);
     const activeArtboard = page.locator('[data-project-slug="presaira"] [data-project-artboard]');
     await expect(activeArtboard).toHaveCSS("view-transition-name", "project-presaira");
@@ -324,6 +330,15 @@ test.describe("Selected Work refinement", () => {
     const destinationAnchor = page.locator(".case-hero-artboard-anchor");
     await expect(destinationAnchor).toHaveCSS("view-transition-name", "project-presaira");
     await expect(destinationAnchor).toBeVisible();
+    const supportsCrossDocumentViewTransitions = await page.evaluate(() => "onpagereveal" in window);
+    if (supportsCrossDocumentViewTransitions) {
+      await expect.poll(() => page.evaluate(() => sessionStorage.getItem("selected-work-cross-document-transition"))).toBe("true");
+    }
+
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await page.locator('[data-project-slug="presaira"] .selected-work-carousel-card').click();
+    await expect(page).toHaveURL(/\/work\/presaira$/);
   });
 
   test("desktop and tablet section geometry stays in bounds at every review width", async ({ page }) => {

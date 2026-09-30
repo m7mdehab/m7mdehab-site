@@ -110,7 +110,7 @@ export function SelectedWorkGallery() {
                   aria-hidden={index !== active}
                   key={project.slug}
                 >
-                  <Link
+                  <a
                     className="selected-work-carousel-card"
                     href={`/work/${project.slug}`}
                     data-conversion="selected-work-to-case-study"
@@ -125,7 +125,7 @@ export function SelectedWorkGallery() {
                       {project.slug === "solar-site-selection" ? <SolarArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                       {project.slug === "makhbazy" ? <MakhbazyArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                     </div>
-                  </Link>
+                  </a>
                 </article>
               ))}
             </div>
