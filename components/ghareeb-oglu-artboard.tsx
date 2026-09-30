@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { artboardNodeStyle, selectedWorkArtboards, selectedWorkCopy, type ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
 import styles from "./ghareeb-oglu-artboard.module.css";
@@ -13,9 +15,11 @@ function StageMark({ icon }: { icon: string }) {
   return <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 19h34v27H6zM40 28h10l9 10v8H40zM13 51a5 5 0 1 0 0 .1M48 51a5 5 0 1 0 0 .1M40 38h19"/></svg>;
 }
 
-export function GhareebOgluArtboard({ debugMode = "code", showGrid = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean }) {
+export function GhareebOgluArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="ghareeb-oglu" debugMode={debugMode} showGrid={showGrid}>
+    <ProjectArtboard project="ghareeb-oglu" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
       <div className={styles.logo} style={artboardNodeStyle(box.logo)} data-artboard-node="officialLogo" data-artboard-x="622" data-artboard-y="72" data-artboard-w="430" data-artboard-h="370">
         <Image src="/selected-work/logos/ghareeb-oglu-white-gold-transparent.png" alt="Ghareeb Oglu official white and gold logo" width={754} height={708} priority />
       </div>
@@ -23,7 +27,7 @@ export function GhareebOgluArtboard({ debugMode = "code", showGrid = false }: { 
       <p className={styles.subheadline} style={artboardNodeStyle(box.subheadline)} data-artboard-node="subheadline" data-artboard-x="395" data-artboard-y="550" data-artboard-w="900" data-artboard-h="42">{copy.subheadline}</p>
       <span className={styles.ornament} style={artboardNodeStyle(box.ornament)} aria-hidden="true"><i /></span>
       <div className={styles.stages} style={artboardNodeStyle(box.stages)} data-artboard-node="commerceJourney" data-artboard-x="120" data-artboard-y="620" data-artboard-w="1420" data-artboard-h="210">
-        <svg className={styles.path} viewBox="0 0 1420 210" aria-hidden="true"><path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150"/><circle cx="285" cy="68" r="6"/><circle cx="665" cy="115" r="6"/><circle cx="1070" cy="150" r="6"/></svg>
+        <svg className={styles.path} viewBox="0 0 1420 210" aria-hidden="true">{animate ? <motion.path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.6, ease: "easeInOut" }} /> : <path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150" />}<circle cx="285" cy="68" r="6"/><circle cx="665" cy="115" r="6"/><circle cx="1070" cy="150" r="6"/></svg>
         {copy.stages.map((stage, index) => <div className={`${styles.stage} ${styles[`stage${index}`]}`} key={stage.title}><StageMark icon={stage.icon} /><b>{stage.title}</b><i aria-hidden="true" /></div>)}
       </div>
       <div className={styles.skills} style={artboardNodeStyle(box.footerSkills)} data-artboard-node="capabilities" data-artboard-x="145" data-artboard-y="864" data-artboard-w="1380" data-artboard-h="34">

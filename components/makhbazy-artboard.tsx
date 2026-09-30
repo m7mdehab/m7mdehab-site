@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { artboardNodeStyle, selectedWorkArtboards, selectedWorkCopy, type ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
 import styles from "./makhbazy-artboard.module.css";
@@ -20,16 +22,18 @@ function PhoneContent({ index }: { index: number }) {
   return <><i className={styles.headerLine} /><div className={styles.packageTile}><i /><i /></div><div className={styles.receiptLine}><i /><i /><i /></div><i className={styles.button} /></>;
 }
 
-export function MakhbazyArtboard({ debugMode = "code", showGrid = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean }) {
+export function MakhbazyArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="makhbazy" debugMode={debugMode} showGrid={showGrid}>
+    <ProjectArtboard project="makhbazy" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
       <div className={styles.brand} style={artboardNodeStyle(box.logo)} data-artboard-node="brandLogo" data-artboard-x="75" data-artboard-y="65" data-artboard-w="360" data-artboard-h="305">
         <Image src="/selected-work/logos/makhbazy-light.png" alt="Makhbazy official light logo" width={3000} height={3000} priority />
       </div>
       <span className={styles.accent} style={artboardNodeStyle(box.accentLine)} aria-hidden="true" />
       <h3 className={styles.statement} aria-label={copy.statement.replace("\n", " ")} style={artboardNodeStyle(box.statement)} data-project-title data-artboard-node="productStatement" data-artboard-x="78" data-artboard-y="451" data-artboard-w="390" data-artboard-h="160">{copy.statement.split("\n").map((line) => <span key={line}>{line}</span>)}</h3>
       <div className={styles.phones} style={artboardNodeStyle(box.phones)} data-artboard-node="journeyAbstraction" data-artboard-x="445" data-artboard-y="132" data-artboard-w="1060" data-artboard-h="475">
-        <svg className={styles.path} viewBox="0 0 1060 475" aria-hidden="true"><path d="M130 335 C195 410 205 404 290 335 S435 262 505 335 S655 410 735 335 S880 262 965 335"/><circle cx="192" cy="386" r="7"/><circle cx="450" cy="335" r="7"/><circle cx="735" cy="335" r="7"/><circle cx="965" cy="335" r="7"/></svg>
+        <svg className={styles.path} viewBox="0 0 1060 475" aria-hidden="true">{animate ? <motion.path d="M130 335 C195 410 205 404 290 335 S435 262 505 335 S655 410 735 335 S880 262 965 335" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.55, ease: "easeInOut" }} /> : <path d="M130 335 C195 410 205 404 290 335 S435 262 505 335 S655 410 735 335 S880 262 965 335"/>}<circle cx="192" cy="386" r="7"/><circle cx="450" cy="335" r="7"/><circle cx="735" cy="335" r="7"/><circle cx="965" cy="335" r="7"/></svg>
         {copy.stages.map((stage, index) => <div className={`${styles.journeyStage} ${styles[`journeyStage${index}`]}`} key={stage.title}>
           <b>{stage.title}</b>
           <div className={styles.phone} aria-label={`${stage.title.toLowerCase()} journey screen abstraction`}><span className={styles.camera} /><div className={styles.phoneContent}><PhoneContent index={index} /></div></div>

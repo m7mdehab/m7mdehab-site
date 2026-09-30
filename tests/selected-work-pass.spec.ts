@@ -269,6 +269,40 @@ test.describe("Selected Work refinement", () => {
     await expect(makhbazy).not.toContainText("protected internal screens");
   });
 
+  test("project path motion is limited to the active card and disabled for reduced motion", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await settle(page);
+    const carousel = page.locator(".selected-work-carousel");
+    await carousel.scrollIntoViewIfNeeded();
+    const presaira = page.locator('[data-project-slug="presaira"] [data-project-artboard]');
+    const oil = page.locator('[data-project-slug="oil-spill-detection"] [data-project-artboard]');
+    await expect(presaira).toHaveAttribute("data-motion-active", "true");
+    await expect(oil).not.toHaveAttribute("data-motion-active", "true");
+    await carousel.getByRole("button", { name: "Go to project 3 of 6" }).click();
+    await expect(carousel).toHaveAttribute("data-active-project", "oil-spill-detection");
+    await expect(oil).toHaveAttribute("data-motion-active", "true");
+    await expect(presaira).not.toHaveAttribute("data-motion-active", "true");
+
+    await carousel.hover();
+    await expect(carousel).toHaveAttribute("data-carousel-paused", "true");
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+    await page.mouse.move(10, 10);
+    await expect(carousel).not.toHaveAttribute("data-carousel-paused", "true");
+
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.reload();
+    await settle(page);
+    await page.locator(".selected-work-carousel").scrollIntoViewIfNeeded();
+    await expect(page.locator('[data-project-slug="presaira"] [data-project-artboard]'))
+      .not.toHaveAttribute("data-motion-active", "true");
+    await page.locator(".selected-work-carousel")
+      .getByRole("button", { name: "Go to project 3 of 6" })
+      .click();
+    await expect(page.locator('[data-project-slug="oil-spill-detection"] [data-project-artboard]'))
+      .not.toHaveAttribute("data-motion-active", "true");
+  });
+
   test("desktop and tablet section geometry stays in bounds at every review width", async ({ page }) => {
     for (const width of [768, 900, 1024, 1280, 1920]) {
       await page.setViewportSize({ width, height: 1000 });

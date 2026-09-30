@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { artboardNodeStyle, selectedWorkArtboards, selectedWorkCopy, type ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
 import styles from "./solar-artboard.module.css";
@@ -13,16 +15,18 @@ function ProcessIcon({ kind }: { kind: string }) {
   return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 5h19l10 10v28H10zM29 5v11h10M16 24h17M16 30h17M16 36h13" /></svg>;
 }
 
-export function SolarArtboard({ debugMode = "code", showGrid = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean }) {
+export function SolarArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="solar-site-selection" debugMode={debugMode} showGrid={showGrid}>
+    <ProjectArtboard project="solar-site-selection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
       <h3 className={styles.title} aria-label={`${copy.titleLine1} ${copy.titleLine2}`} style={artboardNodeStyle(box.title)} data-project-title data-artboard-node="title" data-artboard-x="80" data-artboard-y="86" data-artboard-w="680" data-artboard-h="265">
         <span>{copy.titleLine1}</span><span>{copy.titleLine2}</span>
       </h3>
       <p className={styles.subtitle} style={artboardNodeStyle(box.subtitle)} data-artboard-node="subtitle" data-artboard-x="80" data-artboard-y="365" data-artboard-w="720" data-artboard-h="45">{copy.subtitle}</p>
       <span className={styles.accent} style={artboardNodeStyle(box.accentLine)} aria-hidden="true" />
       <div className={styles.process} style={artboardNodeStyle(box.process)} data-artboard-node="process" data-artboard-x="70" data-artboard-y="470" data-artboard-w="660" data-artboard-h="125">
-        <svg viewBox="0 0 660 125" aria-hidden="true"><path d="M46 34H206M208 34H366M368 34H526" /><path d="m198 28 8 6-8 6m158-12 8 6-8 6m158-12 8 6-8 6" /></svg>
+        <svg viewBox="0 0 660 125" aria-hidden="true">{animate ? <motion.path d="M46 34H206M208 34H366M368 34H526" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2, ease: "easeInOut" }} /> : <path d="M46 34H206M208 34H366M368 34H526" />}<path d="m198 28 8 6-8 6m158-12 8 6-8 6m158-12 8 6-8 6" /></svg>
         {copy.process.map((step) => <div key={step.title}><ProcessIcon kind={step.title} /><b>{step.title}</b><span>{step.detail.split("\n").map((line) => <i key={line}>{line}</i>)}</span></div>)}
       </div>
       <div className={styles.metrics} style={artboardNodeStyle(box.metrics)} data-artboard-node="validatedMeasures" data-artboard-x="68" data-artboard-y="630" data-artboard-w="650" data-artboard-h="130">
@@ -34,7 +38,9 @@ export function SolarArtboard({ debugMode = "code", showGrid = false }: { debugM
         <svg viewBox="0 0 700 650" role="img" aria-labelledby="solar-map-title solar-map-description">
           <title id="solar-map-title">Conceptual five-class solar suitability map</title>
           <desc id="solar-map-description">A stylized public-geodata suitability overlay showing five ranked classes and two ranked candidate callouts. No unsupported generation values are shown.</desc>
-          <path className={styles.aoi} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" />
+          {animate ? (
+            <motion.path className={styles.aoi} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.95, ease: "easeInOut" }} />
+          ) : <path className={styles.aoi} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" />}
           <path fill="#9c582b" d="m110 62 140-28 76 140-116 72-133-5-38-86Z" />
           <path fill="#d39d26" d="m250 34 122 23 49 115-91 96-120-50 116-72Z" />
           <path fill="#e3c436" d="m372 57 128-15 64 124-143 6-49-115Z" />
@@ -61,11 +67,17 @@ export function SolarArtboard({ debugMode = "code", showGrid = false }: { debugM
           <path className={styles.classEdge} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" />
           <path className={styles.site} d="m342 259 67 8 36 48-30 60-61 9-47-45 4-49Z" />
           <path className={styles.siteSecondary} d="m434 406 44 5 20 36-23 32-42-7-17-34Z" />
-          <path className={styles.route} d="M374 304 337 229 420 198M453 443l67-45 58 7" />
+          {animate ? <motion.path className={styles.route} d="M374 304 337 229 420 198M453 443l67-45 58 7" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 0.85, duration: 0.8, ease: "easeInOut" }} /> : <path className={styles.route} d="M374 304 337 229 420 198M453 443l67-45 58 7" />}
           <circle className={styles.sitePoint} cx="375" cy="305" r="8" />
           <circle className={styles.sitePoint} cx="454" cy="443" r="7" />
         </svg>
-        {copy.candidateCallouts.map((callout, index) => <div className={`${styles.callout} ${styles[`callout${index}`]}`} key={callout.rank}><b>{callout.rank}</b><span>{callout.lines.map((line) => <i key={line}>{line}</i>)}</span></div>)}
+        {copy.candidateCallouts.map((callout, index) => {
+          const className = styles.callout + " " + styles["callout" + index];
+          const contents = <><b>{callout.rank}</b><span>{callout.lines.map((line) => <i key={line}>{line}</i>)}</span></>;
+          return animate && index === 0 ? (
+            <motion.div className={className} key={callout.rank} initial={{ scale: 0.98 }} animate={{ scale: [0.98, 1.035, 1] }} transition={{ delay: 1.45, duration: 0.8, ease: "easeOut" }}>{contents}</motion.div>
+          ) : <div className={className} key={callout.rank}>{contents}</div>;
+        })}
       </div>
       <div className={styles.legend} style={artboardNodeStyle(box.legend)} data-artboard-node="classLegend" data-artboard-x="1432" data-artboard-y="80" data-artboard-w="190" data-artboard-h="320">
         <b>Land suitability</b>

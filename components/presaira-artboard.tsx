@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import {
   artboardNodeStyle,
   selectedWorkArtboards,
@@ -20,7 +22,7 @@ function sourceBox(name: PresairaBoxKey) {
   return artboardNodeStyle(box);
 }
 
-function CalibrationChart() {
+function CalibrationChart({ animate }: { animate: boolean }) {
   const plot = { left: 56, top: 36, width: 790, height: 294 };
   const point = (x: number, y: number) => ({
     x: plot.left + x * plot.width,
@@ -47,7 +49,9 @@ function CalibrationChart() {
         );
       })}
       <line className={styles.perfect} x1={baselineStart.x} y1={baselineStart.y} x2={baselineEnd.x} y2={baselineEnd.y} />
-      <path className={styles.observedLine} d={curve} />
+      {animate ? (
+        <motion.path className={styles.observedLine} d={curve} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.35, ease: "easeInOut" }} />
+      ) : <path className={styles.observedLine} d={curve} />}
       {points.map((p, index) => {
         const radius = Math.max(5, Math.sqrt(sourceChart[index].n) * 1.1);
         const ci = Math.sqrt((sourceChart[index].observed * (1 - sourceChart[index].observed)) / sourceChart[index].n) * 1.96 * plot.height;
@@ -66,7 +70,7 @@ function CalibrationChart() {
   );
 }
 
-function CompetitionRail() {
+function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
   return (
     <div className={styles.rail} style={sourceBox("competitionRail")} data-artboard-node="competitionRail" data-artboard-x="814" data-artboard-y="70" data-artboard-w="780" data-artboard-h="205">
       <svg className={styles.railPath} viewBox="0 0 780 205" aria-hidden="true">
@@ -79,18 +83,22 @@ function CompetitionRail() {
           </div>
           <span className={styles.competitionName}>{competition.name}</span>
           <span className={styles.competitionStatus}>{competition.status}</span>
-          <span className={styles.node} aria-hidden="true" />
+          {pulseActiveNode && competition.status === "ACTIVE" ? (
+            <motion.span className={styles.node} aria-hidden="true" initial={{ scale: 1, opacity: 0.8 }} animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 1.15, ease: "easeInOut" }} />
+          ) : <span className={styles.node} aria-hidden="true" />}
         </div>
       ))}
     </div>
   );
 }
 
-export function PresairaArtboard({ debugMode = "code", showGrid = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean }) {
+export function PresairaArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const animate = isActive && debugMode === "code" && !reducedMotion;
   const score = design.desktop.score;
 
   return (
-    <ProjectArtboard project="presaira" debugMode={debugMode} showGrid={showGrid}>
+    <ProjectArtboard project="presaira" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
       <div className={styles.identity} style={sourceBox("wordmark")} data-artboard-node="wordmark" data-artboard-x="94" data-artboard-y="128" data-artboard-w="665" data-artboard-h="88">
         <h3 data-project-title>{copy.wordmark}</h3>
       </div>
@@ -98,10 +106,10 @@ export function PresairaArtboard({ debugMode = "code", showGrid = false }: { deb
       <span className={styles.accent} style={sourceBox("accentLine")} aria-hidden="true" />
       <p className={styles.statement} style={sourceBox("statement")} data-artboard-node="statement" data-artboard-x="97" data-artboard-y="332" data-artboard-w="550" data-artboard-h="42">{copy.statement}</p>
 
-      <CompetitionRail />
+      <CompetitionRail pulseActiveNode={animate} />
 
       <div className={styles.chartWrap} style={sourceBox("chart")} data-artboard-node="calibrationChart" data-artboard-x="160" data-artboard-y="398" data-artboard-w="900" data-artboard-h="418">
-        <CalibrationChart />
+        <CalibrationChart animate={animate} />
       </div>
       <div className={styles.principles} style={sourceBox("chartNarrative")} data-artboard-node="principles" data-artboard-x="260" data-artboard-y="447" data-artboard-w="330" data-artboard-h="145">
         {copy.principles.map((principle) => <p key={principle}>{principle}</p>)}

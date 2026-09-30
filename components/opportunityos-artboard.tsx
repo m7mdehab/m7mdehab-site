@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import {
   artboardNodeStyle,
   selectedWorkArtboards,
@@ -10,9 +12,11 @@ import styles from "./opportunityos-artboard.module.css";
 const box = selectedWorkArtboards.projects.opportunityos.desktop;
 const copy = selectedWorkCopy.opportunityos;
 
-export function OpportunityOsArtboard({ debugMode = "code", showGrid = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean }) {
+export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="opportunityos" debugMode={debugMode} showGrid={showGrid}>
+    <ProjectArtboard project="opportunityos" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
       <div className={styles.title} style={artboardNodeStyle(box.title)} data-artboard-node="title" data-artboard-x="93" data-artboard-y="74" data-artboard-w="960" data-artboard-h="148">
         <h3 data-project-title><span>{copy.titlePrefix}</span><span>{copy.titleAccent}</span></h3>
       </div>
@@ -26,7 +30,9 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false }: 
       </div>
       <div className={styles.flow} style={artboardNodeStyle(box.flow)} data-artboard-node="truthFlow" data-artboard-x="88" data-artboard-y="507" data-artboard-w="1065" data-artboard-h="245">
         <svg viewBox="0 0 1065 245" aria-hidden="true">
-          <path d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" />
+          {animate ? (
+            <motion.path d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.8, ease: "easeInOut" }} />
+          ) : <path d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" />}
           <path d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
           {[22, 250, 490, 735, 995].map((x, index) => <circle key={x} cx={x} cy={[65, 70, 110, 72, 82][index]} r="12" />)}
         </svg>
@@ -44,7 +50,13 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false }: 
       </div>
       <div className={styles.modes} style={artboardNodeStyle(box.actionModes)} data-artboard-node="actionModes" data-artboard-x="1360" data-artboard-y="412" data-artboard-w="265" data-artboard-h="300">
         <b>Action modes</b>
-        {copy.modes.map((mode, index) => <div className={index === 2 ? styles.controlled : ""} key={mode.title}><i aria-hidden="true" /><span><strong>{mode.title}</strong><small>{mode.detail}</small></span></div>)}
+        {copy.modes.map((mode, index) => {
+          const className = index === 2 ? styles.controlled : "";
+          const contents = <><i aria-hidden="true" /><span><strong>{mode.title}</strong><small>{mode.detail}</small></span></>;
+          return animate && index === 2 ? (
+            <motion.div className={className} key={mode.title} initial={{ boxShadow: "0 0 0 rgb(85 196 126 / 0%)" }} animate={{ boxShadow: ["0 0 0 rgb(85 196 126 / 0%)", "0 0 18px rgb(85 196 126 / 34%)", "0 0 0 rgb(85 196 126 / 12%)"] }} transition={{ delay: 1.8, duration: 1.05, ease: "easeOut" }}>{contents}</motion.div>
+          ) : <div className={className} key={mode.title}>{contents}</div>;
+        })}
       </div>
       <span className={styles.footerLine} style={artboardNodeStyle(box.footerAccent)} aria-hidden="true" />
       <p className={styles.footer} style={artboardNodeStyle(box.footer)} data-artboard-node="footer" data-artboard-x="98" data-artboard-y="783" data-artboard-w="540" data-artboard-h="42">{copy.footer}</p>

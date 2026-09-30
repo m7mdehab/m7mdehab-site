@@ -118,12 +118,12 @@ export function SelectedWorkGallery() {
                     aria-label={`Open ${project.title} case study`}
                   >
                     <div className="selected-work-carousel-visual selected-work-carousel-artboard" data-evidence-region>
-                      {project.slug === "presaira" ? <PresairaArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} /> : null}
-                      {project.slug === "opportunityos" ? <OpportunityOsArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} /> : null}
-                      {project.slug === "ghareeb-oglu" ? <GhareebOgluArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} /> : null}
-                      {project.slug === "oil-spill-detection" ? <OilSpillArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} /> : null}
-                      {project.slug === "solar-site-selection" ? <SolarArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} /> : null}
-                      {project.slug === "makhbazy" ? <MakhbazyArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} /> : null}
+                      {project.slug === "presaira" ? <PresairaArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} /> : null}
+                      {project.slug === "opportunityos" ? <OpportunityOsArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} /> : null}
+                      {project.slug === "ghareeb-oglu" ? <GhareebOgluArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} /> : null}
+                      {project.slug === "oil-spill-detection" ? <OilSpillArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} /> : null}
+                      {project.slug === "solar-site-selection" ? <SolarArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} /> : null}
+                      {project.slug === "makhbazy" ? <MakhbazyArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} /> : null}
                     </div>
                   </Link>
                 </article>
