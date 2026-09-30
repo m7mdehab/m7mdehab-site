@@ -1870,8 +1870,60 @@
   }
 
   .selected-work-carousel .carousel-dot.is-active::before,
-  .selected-work-carousel .carousel-dot.is-active::after {
+.selected-work-carousel .carousel-dot.is-active::after {
     inset: 8px;
+  }
+}
+
+/* Canonical artboards use the entire link as one landscape visual. */
+.selected-work-carousel-slide-artboard {
+  container: work-slide / inline-size;
+}
+
+.selected-work-carousel-slide-artboard .selected-work-carousel-card {
+  display: block;
+  height: auto;
+  min-height: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.selected-work-carousel-slide-artboard .selected-work-carousel-visual {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  border: 0;
+}
+
+.selected-work-carousel-slide-artboard .selected-work-carousel-visual > * {
+  display: block;
+  width: 100%;
+}
+
+.selected-work-carousel-slide-artboard .selected-work-carousel-copy {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .selected-work-carousel-slide-artboard {
+    flex-basis: calc(91vw - 12.74px);
+    min-width: 0;
+  }
+
+  .selected-work-carousel-slide-artboard .selected-work-carousel-card {
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .selected-work-carousel-slide-artboard .selected-work-carousel-visual {
+    min-height: 0;
+    border-radius: 0;
+  }
+
+  .selected-work-carousel-slide-artboard .selected-work-carousel-visual > * {
+    height: auto !important;
+    min-height: 0 !important;
   }
 }
 

@@ -46,6 +46,23 @@ async function selectSlide(page: Page, index: number) {
 }
 
 test.describe("Selected Work refinement", () => {
+  test("Presaira is a live artboard with supplied logos and public calibration data", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await settle(page);
+    const card = page.locator('.selected-work-carousel-slide[data-project-slug="presaira"] .selected-work-carousel-card');
+    await expect(card.locator("h3[data-project-title]")).toHaveText("PRESAIRA");
+    await expect(card).toContainText("Sports forecasting, on the record.");
+    await expect(card).toContainText("Publish first. Score afterwards.");
+    await expect(card.locator('[data-artboard-node="scoreNumber"]')).toHaveAttribute("aria-label", "104 / 104");
+    await expect(card.locator("[data-artboard-node=calibrationChart] svg")).toHaveAttribute("role", "img");
+    await expect(card.locator("[data-artboard-node=calibrationChart] svg desc")).toContainText("public Presaira calibration evidence");
+    await expect(card.locator('img[alt$="logo"]')).toHaveCount(4);
+    const assets = await card.locator("img").evaluateAll((images) => (images as HTMLImageElement[]).map((image) => ({ src: image.currentSrc, loaded: image.complete && image.naturalWidth > 0 })));
+    expect(assets.every((asset) => asset.loaded)).toBe(true);
+    expect(assets.some((asset) => asset.src.includes("reference/full"))).toBe(false);
+    expect(assets.some((asset) => asset.src.includes("backgrounds/presaira-1683.webp"))).toBe(true);
+  });
+
   test("all project cards render at desktop and mobile with consistent evidence geometry", async ({
     page,
   }) => {
@@ -69,22 +86,26 @@ test.describe("Selected Work refinement", () => {
           const visual = element.querySelector<HTMLElement>("[data-evidence-region]")!;
           const visualBox = visual.getBoundingClientRect();
           const title = element.querySelector<HTMLElement>("[data-project-title]")!;
-          const copy = element.querySelector<HTMLElement>(".selected-work-carousel-copy")!;
-          const summary = element.querySelector<HTMLElement>(".selected-work-summary-mobile")!;
-          const proof = element.querySelector<HTMLElement>(".selected-work-carousel-proof")!;
+          const copy = element.querySelector<HTMLElement>(".selected-work-carousel-copy");
+          const summary = element.querySelector<HTMLElement>(".selected-work-summary-mobile");
+          const proof = element.querySelector<HTMLElement>(".selected-work-carousel-proof");
           const titleStyle = getComputedStyle(title);
           const titleLineHeight = Number.parseFloat(titleStyle.lineHeight);
+          const artboard = element.querySelector<HTMLElement>("[data-project-artboard]");
+          const artboardBox = artboard?.getBoundingClientRect();
           return {
             cardWidth: box.width,
             cardHeight: box.height,
             visualHeight: visualBox.height,
-            copyHeight: copy.getBoundingClientRect().height,
+            copyHeight: copy?.getBoundingClientRect().height ?? 0,
             visualShare: visualBox.height / box.height,
             titleLines: Math.max(1, Math.round(title.getBoundingClientRect().height / titleLineHeight)),
             titleOverflow: title.scrollWidth > title.clientWidth + 1,
-            copyOverflow: copy.scrollHeight > copy.clientHeight + 1,
-            summaryOverflow: summary.scrollWidth > summary.clientWidth + 1,
-            proofOverflow: proof.scrollWidth > proof.clientWidth + 1,
+            copyOverflow: copy ? copy.scrollHeight > copy.clientHeight + 1 : false,
+            summaryOverflow: summary ? summary.scrollWidth > summary.clientWidth + 1 : false,
+            proofOverflow: proof ? proof.scrollWidth > proof.clientWidth + 1 : false,
+            artboardAspect: artboardBox ? artboardBox.width / artboardBox.height : 0,
+            artboardPresent: Boolean(artboard),
             documentOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
           };
         });
@@ -95,8 +116,14 @@ test.describe("Selected Work refinement", () => {
           expect(metrics.cardHeight, `${slug} mobile compact card height`).toBeLessThanOrEqual(
             slug === "opportunityos" ? 360 : 350,
           );
-          expect(metrics.visualShare, `${slug} evidence share`).toBeGreaterThanOrEqual(0.58);
-          expect(metrics.visualShare, `${slug} evidence share`).toBeLessThanOrEqual(0.68);
+          if (slug === "presaira") {
+            expect(metrics.artboardPresent).toBe(true);
+            expect(metrics.artboardAspect).toBeCloseTo(1.55, 1);
+            expect(metrics.visualShare, `${slug} fills its landscape card`).toBeCloseTo(1, 2);
+          } else {
+            expect(metrics.visualShare, `${slug} evidence share`).toBeGreaterThanOrEqual(0.58);
+            expect(metrics.visualShare, `${slug} evidence share`).toBeLessThanOrEqual(0.68);
+          }
           expect(metrics.copyOverflow, `${slug} narrative fits its card`).toBe(false);
           expect(metrics.summaryOverflow, `${slug} summary fits`).toBe(false);
           expect(metrics.proofOverflow, `${slug} proof overflow`).toBe(false);
@@ -116,7 +143,13 @@ test.describe("Selected Work refinement", () => {
           }
           await card.screenshot({ path: path.join(outputRoot, `${viewport.label}-${slug}.png`) });
         } else {
-          expect(metrics.cardHeight, `${slug} desktop card height`).toBeGreaterThanOrEqual(580);
+          if (slug === "presaira") {
+            expect(metrics.artboardPresent).toBe(true);
+            expect(metrics.artboardAspect).toBeCloseTo(1.8, 1);
+            expect(metrics.visualShare, `${slug} fills its landscape artboard`).toBeCloseTo(1, 2);
+          } else {
+            expect(metrics.cardHeight, `${slug} desktop card height`).toBeGreaterThanOrEqual(580);
+          }
           expect(metrics.visualHeight, `${slug} desktop evidence region`).toBeGreaterThan(0);
           await card.screenshot({ path: path.join(outputRoot, `${viewport.label}-${slug}.png`) });
         }

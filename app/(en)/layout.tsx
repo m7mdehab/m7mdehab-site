@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Italianno } from "next/font/google";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/playfair-display";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/newsreader";
 import "../globals.css";

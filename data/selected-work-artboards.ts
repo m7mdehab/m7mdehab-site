@@ -42,10 +42,10 @@ export function artboardPercent(value: number, axis: "x" | "y") {
 /** CSS variables keep placement tied to the artboard's canonical coordinate space. */
 export function artboardNodeStyle(box: ArtboardBox) {
   return {
-    "--artboard-x": box.x,
-    "--artboard-y": box.y,
-    "--artboard-w": box.w,
-    "--artboard-h": box.h,
+    "--artboard-x": artboardPercent(box.x, "x"),
+    "--artboard-y": artboardPercent(box.y, "y"),
+    "--artboard-w": artboardPercent(box.w, "x"),
+    "--artboard-h": artboardPercent(box.h, "y"),
   } as CSSProperties;
 }
 

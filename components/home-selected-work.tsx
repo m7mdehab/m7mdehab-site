@@ -1,13 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ProjectVisual } from "@/components/project-visual";
+import { PresairaArtboard } from "@/components/presaira-artboard";
+import type { ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { useTimedCarousel } from "@/components/use-timed-carousel";
 import { selectedWorkProjects } from "@/data/home-selected-work";
 
 export function SelectedWorkGallery() {
   const [mobileLayout, setMobileLayout] = useState(false);
+  const search = useSyncExternalStore(
+    (notify) => {
+      window.addEventListener("popstate", notify);
+      return () => window.removeEventListener("popstate", notify);
+    },
+    () => window.location.search,
+    () => "",
+  );
+  const debugParams = new URLSearchParams(search);
+  const requestedMode = debugParams.get("view");
+  const artboardDebug = process.env.NODE_ENV === "development" && debugParams.get("cardDebug") === "presaira"
+    ? {
+        mode: (requestedMode === "reference" || requestedMode === "overlay" ? requestedMode : "code") as ArtboardDebugMode,
+        grid: debugParams.get("grid") === "1",
+      }
+    : null;
   const windowRef = useRef<HTMLDivElement>(null);
   const {
     active,
@@ -161,7 +179,7 @@ export function SelectedWorkGallery() {
             >
               {selectedWorkProjects.map((project, index) => (
                 <article
-                  className="selected-work-carousel-slide"
+                  className={`selected-work-carousel-slide${project.slug === "presaira" ? " selected-work-carousel-slide-artboard" : ""}`}
                   data-project-slug={project.slug}
                   data-tone={project.tone}
                   aria-hidden={!mobileLayout && index !== active}
@@ -174,21 +192,29 @@ export function SelectedWorkGallery() {
                     tabIndex={mobileLayout || index === active ? 0 : -1}
                     aria-label={`Open ${project.title} case study`}
                   >
-                    <div className="selected-work-carousel-visual" data-evidence-region>
-                      <ProjectVisual slug={project.slug} context="card" />
-                    </div>
-                    <div className="selected-work-carousel-copy">
-                      <span className="selected-work-carousel-meta selected-work-meta-desktop">{project.kicker}</span>
-                      <span className="selected-work-carousel-meta selected-work-meta-mobile">{project.mobileKicker}</span>
-                      <h3 data-project-title>{project.title}</h3>
-                      <p className="selected-work-summary selected-work-summary-desktop">{project.summary}</p>
-                      <p className="selected-work-summary selected-work-summary-mobile">{project.mobileSummary}</p>
-                      <div className="selected-work-carousel-proof">
-                        <span className="selected-work-proof-desktop">{project.proof}</span>
-                        <span className="selected-work-proof-mobile">{project.mobileProof}</span>
-                        <span className="selected-work-case-link">View case study ↗</span>
+                    {project.slug === "presaira" ? (
+                      <div className="selected-work-carousel-visual selected-work-carousel-artboard" data-evidence-region>
+                        <PresairaArtboard debugMode={artboardDebug?.mode} showGrid={artboardDebug?.grid} />
                       </div>
-                    </div>
+                    ) : (
+                      <>
+                        <div className="selected-work-carousel-visual" data-evidence-region>
+                          <ProjectVisual slug={project.slug} context="card" />
+                        </div>
+                        <div className="selected-work-carousel-copy">
+                          <span className="selected-work-carousel-meta selected-work-meta-desktop">{project.kicker}</span>
+                          <span className="selected-work-carousel-meta selected-work-meta-mobile">{project.mobileKicker}</span>
+                          <h3 data-project-title>{project.title}</h3>
+                          <p className="selected-work-summary selected-work-summary-desktop">{project.summary}</p>
+                          <p className="selected-work-summary selected-work-summary-mobile">{project.mobileSummary}</p>
+                          <div className="selected-work-carousel-proof">
+                            <span className="selected-work-proof-desktop">{project.proof}</span>
+                            <span className="selected-work-proof-mobile">{project.mobileProof}</span>
+                            <span className="selected-work-case-link">View case study ↗</span>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </Link>
                 </article>
               ))}

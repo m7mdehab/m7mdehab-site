@@ -1,6 +1,6 @@
 # Execution Status
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 ## Mobile composition pass
 
@@ -29,6 +29,10 @@ Implemented on `feat/mobile-composition-pass` from reviewed base `ed12ac988b3e0c
 ## Selected Work refinement pass
 
 Implemented on `feat/mobile-composition-pass` from base `aabd3185ad62942b4151456550cecc3f47255782`. The English homepage now presents the six requested projects in the approved order and concise responsive copy while `/work` and the case studies retain their canonical data and order. Desktop card panels share a full-height evidence frame; mobile cards are 292–360px wide and 323–330px tall, with evidence occupying about 53% of the 390px card. The active dot is a stationary six-second progress ring (32px mobile ring inside a 44px touch target). The supplied Ghareeb logo is an opaque 78×74 WebP, so the homepage uses a text-only wordmark. The mobile dock uses the 12px plus safe-area offset and matching page/anchor clearance. `npm ci` reported 0 vulnerabilities; typecheck, lint, build and the full browser suite pass (**140/140**). Six mobile and six desktop project captures, 320/430 captures, 768–1920 viewport captures and geometry JSON are under `outputs/selected-work-pass/`. Details: `docs/frontend-overhaul/SELECTED_WORK_PASS_2026-09-29.md`. PR #26 remains open; this pass has not been merged or deployed.
+
+## Selected Work artboard rebuild
+
+In progress on `feat/mobile-composition-pass`, keeping PR #26 draft and unmerged. Reviewed the prepared artboard pack and verified every listed archive checksum. Updated Next.js and `eslint-config-next` from 16.3.4 to the available security-patched 16.3.7 release in an isolated commit; React remains 19.2.7. The prepared sources are ingested in `design/selected-work/` with only responsive WebP plates and supplied logos in `public/selected-work/`. The shared source-coordinate artboard/debug-overlay system is in place. Presaira is the first static gate: live Space Grotesk/Inter content, the supplied four sports marks, a semantic calibration SVG using committed public values, and the 104/104 proof block are composed over the clean WebP plate. Chromium renders were inspected at 320, 360, 390, 430, 480, 1440 and 1920px; the artboard measures 1.55:1 on mobile and 1.8:1 on desktop, with no horizontal overflow, no logo aspect distortion, and no browser page errors. The dedicated Presaira browser assertion passes. Fresh typecheck, lint and production build pass. Remaining cards, carousel, motion, transitions and full-suite review are not yet complete; do not treat this work as ready for approval or deployment.
 
 ## Autonomous iteration status
 
@@ -72,7 +76,7 @@ Current sequence:
 | 5 AI visibility benchmark | **T0 BASELINED / PRODUCTION-DEPENDENT NEXT** | Pre-launch search checks did not surface the personal site | Re-run after canonical deployment/indexing |
 | 6 Brand/visual system | **COMPLETE FOR CURRENT DIRECTION** | Evidence-specific visuals and editorial case studies passed rendered desktop/mobile QA in both language contexts | Preserve evidence truth across future changes |
 | 7 Visual concepts | **COMPLETE FOR CURRENT DIRECTION** | Six differentiated treatments; no generic repeated-card system | No new concept phase without material evidence change |
-| 8 Technical architecture | **COMPLETE FOR REPOSITORY + STAGING** | Next.js 16.3.4, React 19.2.7, Node 22, lockfile, stock Next source + explicit Cloudflare static-export lane + real permanent-account bilingual staging | Production custom-domain activation remains deferred |
+| 8 Technical architecture | **COMPLETE FOR REPOSITORY + STAGING** | Next.js 16.3.7, React 19.2.7, Node 22, lockfile, stock Next source + explicit Cloudflare static-export lane + real permanent-account bilingual staging | Production custom-domain activation remains deferred |
 | 9 Repository design | **HARDENED / CURRENT** | Deterministic CI, consolidated rendered QA, Deployment Readiness, staging deployment and launch contracts | Maintain coherent checkpoint validation |
 | 10 Agent documentation | **CURRENT** | `AGENTS.md`, CI policy, deployment/staging docs, localization policy and authority-content strategy govern durable semantics | Update when contracts change |
 | 11 Homepage | **COMPLETE BILINGUAL** | English and Arabic launch surfaces, including real writing previews, accepted locally and on Cloudflare staging | Optimize only from evidence or later production behavior |
