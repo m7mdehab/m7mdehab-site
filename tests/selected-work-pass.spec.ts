@@ -313,7 +313,7 @@ test.describe("Selected Work refinement", () => {
   test("active artboard shares a progressive transition anchor with its case study link", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.addInitScript(() => {
-      window.addEventListener("pagereveal", (event) => {
+      window.addEventListener("pageswap", (event) => {
         if ((event as Event & { viewTransition?: unknown }).viewTransition) {
           sessionStorage.setItem("selected-work-cross-document-transition", "true");
         }
@@ -330,7 +330,7 @@ test.describe("Selected Work refinement", () => {
     const destinationAnchor = page.locator(".case-hero-artboard-anchor");
     await expect(destinationAnchor).toHaveCSS("view-transition-name", "project-presaira");
     await expect(destinationAnchor).toBeVisible();
-    const supportsCrossDocumentViewTransitions = await page.evaluate(() => "onpagereveal" in window);
+    const supportsCrossDocumentViewTransitions = await page.evaluate(() => "onpageswap" in window);
     if (supportsCrossDocumentViewTransitions) {
       await expect.poll(() => page.evaluate(() => sessionStorage.getItem("selected-work-cross-document-transition"))).toBe("true");
     }
