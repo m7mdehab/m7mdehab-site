@@ -15,11 +15,11 @@ function StageMark({ icon }: { icon: string }) {
   return <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 19h34v27H6zM40 28h10l9 10v8H40zM13 51a5 5 0 1 0 0 .1M48 51a5 5 0 1 0 0 .1M40 38h19"/></svg>;
 }
 
-export function GhareebOgluArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+export function GhareebOgluArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="ghareeb-oglu" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
+    <ProjectArtboard project="ghareeb-oglu" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
       <div className={styles.logo} style={artboardNodeStyle(box.logo)} data-artboard-node="officialLogo" data-artboard-x="622" data-artboard-y="72" data-artboard-w="430" data-artboard-h="370">
         <Image src="/selected-work/logos/ghareeb-oglu-white-gold-transparent.png" alt="Ghareeb Oglu official white and gold logo" width={754} height={708} priority />
       </div>

@@ -15,11 +15,11 @@ function ProcessIcon({ kind }: { kind: string }) {
   return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 5h19l10 10v28H10zM29 5v11h10M16 24h17M16 30h17M16 36h13" /></svg>;
 }
 
-export function SolarArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+export function SolarArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="solar-site-selection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
+    <ProjectArtboard project="solar-site-selection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
       <h3 className={styles.title} aria-label={`${copy.titleLine1} ${copy.titleLine2}`} style={artboardNodeStyle(box.title)} data-project-title data-artboard-node="title" data-artboard-x="80" data-artboard-y="86" data-artboard-w="680" data-artboard-h="265">
         <span>{copy.titleLine1}</span><span>{copy.titleLine2}</span>
       </h3>

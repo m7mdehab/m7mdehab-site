@@ -18,12 +18,14 @@ export function ProjectArtboard({
   showGrid = false,
   children,
   motionEnabled = false,
+  transitionEnabled = false,
 }: {
   project: ProjectSlug;
   debugMode?: ArtboardDebugMode;
   showGrid?: boolean;
   children: ReactNode;
   motionEnabled?: boolean;
+  transitionEnabled?: boolean;
 }) {
   const title = projects[project].title;
   const image = `/selected-work/backgrounds/${project}`;
@@ -35,6 +37,7 @@ export function ProjectArtboard({
       data-project-artboard={project}
       data-artboard-debug={debug ? debugMode : undefined}
       data-motion-active={motionEnabled ? "true" : undefined}
+      style={transitionEnabled ? { viewTransitionName: `project-${project}` } : undefined}
       aria-label={`${title} project artboard`}
     >
       <picture className={styles.background}>

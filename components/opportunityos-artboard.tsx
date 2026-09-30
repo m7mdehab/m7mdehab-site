@@ -12,11 +12,11 @@ import styles from "./opportunityos-artboard.module.css";
 const box = selectedWorkArtboards.projects.opportunityos.desktop;
 const copy = selectedWorkCopy.opportunityos;
 
-export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="opportunityos" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
+    <ProjectArtboard project="opportunityos" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
       <div className={styles.title} style={artboardNodeStyle(box.title)} data-artboard-node="title" data-artboard-x="93" data-artboard-y="74" data-artboard-w="960" data-artboard-h="148">
         <h3 data-project-title><span>{copy.titlePrefix}</span><span>{copy.titleAccent}</span></h3>
       </div>

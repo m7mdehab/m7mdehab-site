@@ -303,6 +303,22 @@ test.describe("Selected Work refinement", () => {
       .not.toHaveAttribute("data-motion-active", "true");
   });
 
+  test("active artboard shares a progressive transition anchor with its case study link", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await settle(page);
+    const activeArtboard = page.locator('[data-project-slug="presaira"] [data-project-artboard]');
+    await expect(activeArtboard).toHaveCSS("view-transition-name", "project-presaira");
+    await expect(page.locator('[data-project-slug="opportunityos"] [data-project-artboard]'))
+      .toHaveCSS("view-transition-name", "none");
+
+    await page.locator('[data-project-slug="presaira"] .selected-work-carousel-card').click();
+    await expect(page).toHaveURL(/\/work\/presaira$/);
+    const destinationAnchor = page.locator(".case-hero-artboard-anchor");
+    await expect(destinationAnchor).toHaveCSS("view-transition-name", "project-presaira");
+    await expect(destinationAnchor).toBeVisible();
+  });
+
   test("desktop and tablet section geometry stays in bounds at every review width", async ({ page }) => {
     for (const width of [768, 900, 1024, 1280, 1920]) {
       await page.setViewportSize({ width, height: 1000 });

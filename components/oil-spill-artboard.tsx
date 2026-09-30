@@ -7,11 +7,11 @@ import styles from "./oil-spill-artboard.module.css";
 const box = selectedWorkArtboards.projects["oil-spill-detection"].desktop;
 const copy = selectedWorkCopy["oil-spill-detection"];
 
-export function OilSpillArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+export function OilSpillArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="oil-spill-detection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
+    <ProjectArtboard project="oil-spill-detection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
       <h3 className={styles.title} aria-label={`${copy.titleLine1} ${copy.titleLine2}`} style={artboardNodeStyle(box.title)} data-project-title data-artboard-node="title" data-artboard-x="88" data-artboard-y="132" data-artboard-w="680" data-artboard-h="285">
         <span>{copy.titleLine1}</span><span>{copy.titleLine2}</span>
       </h3>

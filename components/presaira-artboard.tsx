@@ -92,13 +92,13 @@ function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
   );
 }
 
-export function PresairaArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+export function PresairaArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   const score = design.desktop.score;
 
   return (
-    <ProjectArtboard project="presaira" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
+    <ProjectArtboard project="presaira" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
       <div className={styles.identity} style={sourceBox("wordmark")} data-artboard-node="wordmark" data-artboard-x="94" data-artboard-y="128" data-artboard-w="665" data-artboard-h="88">
         <h3 data-project-title>{copy.wordmark}</h3>
       </div>

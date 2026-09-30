@@ -22,11 +22,11 @@ function PhoneContent({ index }: { index: number }) {
   return <><i className={styles.headerLine} /><div className={styles.packageTile}><i /><i /></div><div className={styles.receiptLine}><i /><i /><i /></div><i className={styles.button} /></>;
 }
 
-export function MakhbazyArtboard({ debugMode = "code", showGrid = false, isActive = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean }) {
+export function MakhbazyArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="makhbazy" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate}>
+    <ProjectArtboard project="makhbazy" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
       <div className={styles.brand} style={artboardNodeStyle(box.logo)} data-artboard-node="brandLogo" data-artboard-x="75" data-artboard-y="65" data-artboard-w="360" data-artboard-h="305">
         <Image src="/selected-work/logos/makhbazy-light.png" alt="Makhbazy official light logo" width={3000} height={3000} priority />
       </div>
