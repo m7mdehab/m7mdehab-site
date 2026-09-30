@@ -74,8 +74,13 @@ test.describe("Phase E selected work rebuild", () => {
       "Each project opens to a full case study with inspectable evidence.",
     );
     await expect(section.locator(".selected-work-carousel-card")).toHaveCount(6);
-    await expect(section.locator(".selected-work-case-link").first()).toHaveText(
-      "View case study ↗",
+    await expect(section.locator(".selected-work-carousel-card").first()).toHaveAttribute(
+      "href",
+      "/work/presaira",
+    );
+    await expect(section.locator(".selected-work-carousel-card").first()).toHaveAttribute(
+      "aria-label",
+      "Open Presaira case study",
     );
     await expect(page.locator(".work-list")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);

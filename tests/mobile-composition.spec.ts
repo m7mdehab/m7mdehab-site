@@ -263,9 +263,13 @@ test.describe("Phone composition", () => {
       cardBox!.y + cardBox!.height - 40,
     );
 
-    await window.evaluate((element) => {
-      element.scrollLeft = element.scrollWidth;
-    });
+    const swipeBox = (await window.boundingBox())!;
+    await page.mouse.move(swipeBox.x + swipeBox.width * 0.72, swipeBox.y + swipeBox.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(swipeBox.x + swipeBox.width * 0.18, swipeBox.y + swipeBox.height / 2, { steps: 6 });
+    await page.mouse.up();
+    await expect(carousel).toHaveAttribute("data-active-project", "oil-spill-detection");
+    await carousel.getByRole("button", { name: "Go to project 6 of 6" }).click();
     await expect(carousel).toHaveAttribute("data-active-project", "makhbazy");
     await expect(
       carousel.getByRole("button", { name: "Go to project 6 of 6" }),
@@ -396,8 +400,8 @@ test.describe("Phone composition", () => {
     }));
     expect(heights.method).toBeGreaterThanOrEqual(750);
     expect(heights.method).toBeLessThanOrEqual(900);
-    expect(heights.work).toBeGreaterThanOrEqual(290);
-    expect(heights.work).toBeLessThanOrEqual(390);
+    expect(heights.work).toBeGreaterThanOrEqual(205);
+    expect(heights.work).toBeLessThanOrEqual(245);
     expect(heights.writing).toBeGreaterThanOrEqual(380);
     expect(heights.writing).toBeLessThanOrEqual(500);
   });
@@ -410,45 +414,36 @@ test.describe("Phone composition", () => {
     await settle(page);
     const work = page.locator(".selected-work-carousel");
     await work.getByRole("button", { name: "Go to project 2 of 6" }).click();
-    const visual = page.locator(
-      '.selected-work-carousel-slide[data-project-slug="opportunityos"] .opportunity-card-visual',
+    const artboard = page.locator(
+      '.selected-work-carousel-slide[data-project-slug="opportunityos"] [data-project-artboard]',
     );
-    await expect(visual).toBeVisible();
-    const stages = visual.locator("[data-opportunity-stage]:visible");
-    await expect(stages).toHaveCount(6);
-    await expect(stages).toContainText([
-      "Discover",
-      "Ingest",
-      "Qualify",
-      "Score",
-      "Truth-lock",
-      "Prepare",
-    ]);
-    const fits = await stages.evaluateAll((elements) => {
-      const visual = document
-        .querySelector(
-          '.selected-work-carousel-slide[data-project-slug="opportunityos"] .opportunity-card-visual',
-        )!
-        .getBoundingClientRect();
-      return elements.every((element) => {
-        const rect = element.getBoundingClientRect();
-        return rect.left >= visual.left && rect.right <= visual.right;
-      });
+    await expect(artboard).toBeVisible();
+    const flow = artboard.locator('[data-artboard-node="truthFlow"]');
+    const gate = artboard.locator('[data-artboard-node="authorityGate"]');
+    const modes = artboard.locator('[data-artboard-node="actionModes"]');
+    await expect(flow).toContainText("SOURCE");
+    await expect(flow).toContainText("EVIDENCE");
+    await expect(flow).toContainText("CLAIM");
+    await expect(flow).toContainText("GENERATE");
+    await expect(gate).toContainText("SUFFICIENT EVIDENCE");
+    await expect(modes).toContainText("DRY RUN");
+    await expect(modes).toContainText("ASSISTED");
+    await expect(modes).toContainText("CONTROLLED SUBMIT");
+    const geometry = await artboard.evaluate((board) => {
+      const bounds = board.getBoundingClientRect();
+      const modeBox = board.querySelector('[data-artboard-node="actionModes"]')!.getBoundingClientRect();
+      const gateBox = board.querySelector('[data-artboard-node="authorityGate"]')!.getBoundingClientRect();
+      const fontSizes = [...board.querySelectorAll('[data-artboard-node="truthFlow"] b, [data-artboard-node="actionModes"] strong')]
+        .map((node) => Number.parseFloat(getComputedStyle(node).fontSize));
+      return {
+        inside: [modeBox, gateBox].every((box) => box.left >= bounds.left && box.right <= bounds.right && box.top >= bounds.top && box.bottom <= bounds.bottom),
+        overlaps: modeBox.left < gateBox.right && modeBox.right > gateBox.left && modeBox.top < gateBox.bottom && modeBox.bottom > gateBox.top,
+        smallestLabel: Math.min(...fontSizes),
+      };
     });
-    expect(fits).toBe(true);
-    const statusModes = visual.locator(".opportunity-card-mode");
-    await expect(statusModes).toHaveCount(3);
-    expect(
-      await statusModes.evaluateAll((elements) =>
-        elements.every((element) => {
-          const node = element as HTMLElement;
-          return (
-            getComputedStyle(node).whiteSpace === "nowrap" &&
-            node.scrollWidth <= node.clientWidth
-          );
-        }),
-      ),
-    ).toBe(true);
+    expect(geometry.inside).toBe(true);
+    expect(geometry.overlaps).toBe(false);
+    expect(geometry.smallestLabel).toBeGreaterThanOrEqual(9);
   });
 
   test("work carousel advances after six seconds and pauses while focused", async ({

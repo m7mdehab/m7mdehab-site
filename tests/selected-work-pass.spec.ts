@@ -310,35 +310,42 @@ test.describe("Selected Work refinement", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await settle(page);
     const carousel = page.locator(".selected-work-carousel");
+    await carousel.scrollIntoViewIfNeeded();
     const active = carousel.locator(".carousel-dot.is-active");
-    await active.evaluate((element) => {
-      const ring = element as HTMLElement;
-      ring.style.setProperty("--carousel-progress", "0%");
-      ring.style.animation = "none";
-      void ring.offsetWidth;
-      ring.style.animation = "";
-    });
+    await active.focus();
+    await expect(carousel).toHaveAttribute("data-carousel-paused", "true");
     const initial = await active.evaluate((element) => {
       const style = getComputedStyle(element, "::after");
       const button = element.getBoundingClientRect();
       return {
         animation: style.animationName,
-        duration: style.animationDuration,
-        progress: Number.parseFloat(style.getPropertyValue("--carousel-progress")),
+        progress: Number.parseFloat(getComputedStyle(element).getPropertyValue("--carousel-progress")),
+        background: style.backgroundImage,
         ringInset: style.inset,
         hitTarget: button.width,
       };
     });
-    await page.waitForTimeout(700);
-    const progress = await active.evaluate((element) =>
-      Number.parseFloat(
-        getComputedStyle(element, "::after").getPropertyValue("--carousel-progress"),
-      ),
+    await page.waitForTimeout(350);
+    const frozen = await active.evaluate((element) =>
+      Number.parseFloat(getComputedStyle(element).getPropertyValue("--carousel-progress")),
     );
-    expect(initial.animation).toBe("carousel-dot-countdown");
-    expect(initial.duration).toBe("6s");
+    expect(frozen).toBe(initial.progress);
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+    await expect(carousel).not.toHaveAttribute("data-carousel-paused", "true");
+    await page.waitForFunction(() => Number.parseFloat(
+      getComputedStyle(document.querySelector(".carousel-dot.is-active")!).getPropertyValue("--carousel-progress"),
+    ) > 0);
+    const resumed = await active.evaluate((element) =>
+      Number.parseFloat(getComputedStyle(element).getPropertyValue("--carousel-progress")),
+    );
+    await page.waitForTimeout(350);
+    const progress = await active.evaluate((element) =>
+      Number.parseFloat(getComputedStyle(element).getPropertyValue("--carousel-progress")),
+    );
+    expect(initial.animation).toBe("none");
+    expect(initial.background).toContain("conic-gradient");
     expect(initial.progress).toBeGreaterThanOrEqual(0);
-    expect(progress).toBeGreaterThan(initial.progress);
+    expect(progress).toBeGreaterThan(resumed);
     expect(initial.ringInset).toBe("8px");
     expect(initial.hitTarget).toBeGreaterThanOrEqual(44);
   });
