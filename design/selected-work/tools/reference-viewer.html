@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selected Work Card Reference Viewer</title>
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#eee;background:#111;--mix:.5}
+*{box-sizing:border-box}body{margin:0;padding:20px}.bar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px;position:sticky;top:0;background:#111e;padding:12px;z-index:10;backdrop-filter:blur(10px)}select,input,button{font:inherit}.stage{position:relative;max-width:1683px;margin:auto;aspect-ratio:1683/935;overflow:hidden;border-radius:36px;background:#000;box-shadow:0 20px 70px #0008}.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.bg{opacity:1}.full{opacity:var(--mix)}.grid{pointer-events:none;position:absolute;inset:0;display:none;background-image:linear-gradient(to right,#ff00ff88 1px,transparent 1px),linear-gradient(to bottom,#00ffff88 1px,transparent 1px);background-size:calc(100%/16.83) calc(100%/9.35)}.stage.show-grid .grid{display:block}.readout{font:12px ui-monospace,monospace;color:#9fe}.note{max-width:1683px;margin:12px auto;color:#aaa;font-size:13px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="bar">
+<label>Project <select id="project"></select></label>
+<label>Reference opacity <input id="mix" type="range" min="0" max="1" step="0.01" value="0.5"></label>
+<button id="grid">Toggle 100px grid</button>
+<span class="readout" id="readout">x: — y: —</span>
+</div>
+<div class="stage" id="stage">
+<img class="bg" id="bg" alt="background plate">
+<img class="full" id="full" alt="approved full-card reference">
+<div class="grid"></div>
+</div>
+<div class="note">Coordinate readout is in the canonical 1683×935 artboard. Set reference opacity to 0 for clean background, 1 for approved reference, or 0.5 while tuning a reconstruction screenshot. The production implementation must use live HTML/SVG text and real supplied logos; the full reference is a design target, not a production raster.</div>
+<script>
+const projects=['presaira','opportunityos','ghareeb-oglu','solar-site-selection','oil-spill-detection','makhbazy'];
+const select=document.querySelector('#project'), stage=document.querySelector('#stage'), bg=document.querySelector('#bg'), full=document.querySelector('#full'), mix=document.querySelector('#mix'), readout=document.querySelector('#readout');
+for(const p of projects){const o=document.createElement('option');o.value=p;o.textContent=p;select.append(o)}
+function load(){const p=select.value; bg.src=`../source/backgrounds/${p}.png`; full.src=`../reference/full/${p}.png`}
+select.addEventListener('change',load);mix.addEventListener('input',()=>document.documentElement.style.setProperty('--mix',mix.value));document.querySelector('#grid').onclick=()=>stage.classList.toggle('show-grid');
+stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*1683;const y=(e.clientY-r.top)/r.height*935;readout.textContent=`x: ${x.toFixed(1)}  y: ${y.toFixed(1)}`});
+load();
+</script>
+</body></html>

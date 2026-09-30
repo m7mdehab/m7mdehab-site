@@ -1,0 +1,65 @@
+{
+  "asOf": "2026-09-30",
+  "rule": "Reference art direction never overrides repository truth. If a visual reference contains a claim not supported by these sources, preserve the visual role but replace/remove the unsupported claim.",
+  "sources": {
+    "presaira": {
+      "repository": "https://github.com/m7mdehab/Presaira",
+      "verifiedFacts": [
+        "Presaira is broader than the World Cup and has a standalone Presaira surface.",
+        "World Cup 2026 is the completed proof record: 104 matches forecast/scored.",
+        "UCL 2026/27 is the active competition surface.",
+        "Formula 1 and NBA are future expansion surfaces represented as NEXT in the approved card.",
+        "The forecasting system is probabilistic and emphasizes calibration, reproducibility and post-event evaluation."
+      ],
+      "usefulPaths": ["web/src/app/(presaira)/layout.tsx", "web/src/app/(presaira)/presaira-theme.css", "web/src/lib/fonts.ts", "web/src/lib/presaira/fonts.ts"]
+    },
+    "opportunityos": {
+      "repository": "https://github.com/m7mdehab/opportunityos",
+      "verifiedFacts": [
+        "Professional Truth Graph is an accepted architecture concept (ADR-0007).",
+        "Truth-lock, provenance, action authority and controlled submit are live product/governance concepts.",
+        "Private founder truth must never be copied into the public portfolio."
+      ],
+      "usefulPaths": ["docs/adr/ADR-0007-truth-graph-and-provenance-model.md", "outbound/authority.py", "AGENTS.md"]
+    },
+    "ghareeb-oglu": {
+      "repository": "https://github.com/m7mdehab/ghareeb-oglu-commerce",
+      "verifiedFacts": [
+        "MVP stack includes Next.js storefront, Medusa v2 backend/admin, PostgreSQL, Redis, Nginx, Paymob and Bosta.",
+        "Portfolio positioning is an end-to-end commerce/product implementation, not merely a website."
+      ],
+      "usefulPaths": ["README.md"]
+    },
+    "solar-site-selection": {
+      "repository": "https://github.com/m7mdehab/SolarSiteSelection",
+      "verifiedFacts": [
+        "Web-based PV siting engine using public geodata.",
+        "Twelve criteria are aggregated via AHP/MCDA.",
+        "Produces a five-class Land Suitability Index and ranked candidate site polygons.",
+        "Produces per-site pvlib energy and LCOE estimates and PDF reports.",
+        "The generated reference's ~320 GWh/yr and ~210 GWh/yr callouts are not verified and must not ship."
+      ],
+      "usefulPaths": ["README.md", "docs/validation/README.md", "configs/criteria.yaml"]
+    },
+    "oil-spill-detection": {
+      "repository": "https://github.com/m7mdehab/oil-spill-detection",
+      "verifiedFacts": [
+        "Semantic segmentation of marine oil spills in Sentinel-1 SAR.",
+        "Five-class task distinguishing oil from look-alikes, sea surface, ship and land.",
+        "Selected SegFormer mit-b2 result: Oil IoU 0.566, Oil recall 0.764, Mean IoU 0.696, Macro F1 0.802.",
+        "MV Wakashio case study demonstrates georeferenced detection on a real Sentinel-1 scene."
+      ],
+      "usefulPaths": ["README.md", "docs/case_study/README.md", "docs/results.md"]
+    },
+    "makhbazy": {
+      "repository": null,
+      "verifiedFacts": [
+        "Mohammed designed the UI/UX.",
+        "He led product and development, monitored implementation, supervised phases and approved delivery.",
+        "He oversaw Android and iOS applications from start to finish.",
+        "The homepage treatment must remain a public-safe product-journey abstraction rather than exposing protected internal screens."
+      ],
+      "sourceNote": "Portfolio Master Plan v2 §7.4 and the supplied official Makhbazy logo assets. Do not invent technical stack details not present in public-safe sources."
+    }
+  }
+}

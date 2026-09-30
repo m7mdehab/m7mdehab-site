@@ -1,0 +1,102 @@
+{
+  "presaira": {
+    "wordmark": "PRESAIRA",
+    "tagline": "Sports forecasting, on the record.",
+    "statement": "Publish first. Score afterwards.",
+    "principles": ["Probabilistic models.", "Large-scale simulation.", "Calibrated and evaluated.", "Reproducible by design."],
+    "competitions": [
+      {"name": "WORLD CUP 2026", "status": "PROOF RECORD", "logo": "world-cup.png"},
+      {"name": "UCL 2026/27", "status": "ACTIVE", "logo": "champions-league.png"},
+      {"name": "FORMULA 1", "status": "NEXT", "logo": "formula-1.png"},
+      {"name": "NBA", "status": "NEXT", "logo": "nba.png"}
+    ],
+    "chartLabels": {"x": "Predicted probability", "y": "Observed win rate", "perfect": "Perfect calibration (y = x)"},
+    "score": {"number": "104 / 104", "caption": "World Cup matches scored"}
+  },
+  "opportunityos": {
+    "titlePrefix": "Opportunity",
+    "titleAccent": "OS",
+    "tagline": "Autonomy with explicit truth and action boundaries.",
+    "mantra": ["EVIDENCE", "REASON", "GENERATE", "ACT", "WITH BOUNDARIES"],
+    "watermark": "TRUTH GRAPH",
+    "taxonomy": ["SOURCES", "EVIDENCE", "CLAIMS", "AUTHORITY", "ACTIONS"],
+    "nodes": [
+      {"title": "SOURCE", "lines": ["EXTERNAL DATA", "DOCUMENTS", "OPPORTUNITIES"]},
+      {"title": "EVIDENCE", "lines": ["VERIFIED", "NORMALIZED", "ON RECORD"]},
+      {"title": "CLAIM", "lines": ["GROUNDED", "TRACEABLE", "EVIDENCE-AWARE"]},
+      {"title": "GENERATE", "lines": ["TRUTH-LOCKED", "WITH CITATIONS", "POLICY-AWARE"]}
+    ],
+    "gate": {"label": "AUTHORITY GATE", "conditions": ["SUFFICIENT EVIDENCE", "VALID AUTHORITY", "ALLOWED ACTION"]},
+    "modes": [
+      {"title": "DRY RUN", "detail": "SIMULATE ONLY"},
+      {"title": "ASSISTED", "detail": "HUMAN IN THE LOOP"},
+      {"title": "CONTROLLED SUBMIT", "detail": "EXECUTE WITH BOUNDARIES"}
+    ],
+    "footer": "Evidence before action."
+  },
+  "ghareeb-oglu": {
+    "headline": "Browse to fulfillment.",
+    "subheadline": "An end-to-end commerce product from storefront to delivery.",
+    "stages": [
+      {"title": "BROWSE", "icon": "grid"},
+      {"title": "PRODUCT", "icon": "package"},
+      {"title": "CART", "icon": "cart"},
+      {"title": "FULFILLMENT", "icon": "truck"}
+    ],
+    "capabilities": ["STOREFRONT", "BACKEND", "PAYMENTS", "FULFILLMENT", "DEPLOYMENT"]
+  },
+  "solar-site-selection": {
+    "titleLine1": "Solar Site",
+    "titleLine2": "Selection",
+    "subtitle": "From public geodata to ranked PV sites.",
+    "process": [
+      {"title": "DRAW", "detail": "Area of interest"},
+      {"title": "ANALYZE", "detail": "12 criteria\nAHP / MCDA"},
+      {"title": "RANK", "detail": "Candidate sites\nwith estimates"},
+      {"title": "REPORT", "detail": "Export results"}
+    ],
+    "metrics": [
+      {"value": "12", "label": "criteria", "detail": ["Economic", "Technical", "Environmental"]},
+      {"value": "5", "label": "suitability\nclasses"},
+      {"value": "AHP", "label": "consistency\nchecks"}
+    ],
+    "legend": [
+      {"class": 5, "label": "Most suitable"},
+      {"class": 4, "label": "Highly suitable"},
+      {"class": 3, "label": "Moderately suitable"},
+      {"class": 2, "label": "Marginally suitable"},
+      {"class": 1, "label": "Least suitable"}
+    ],
+    "candidateCallouts": [
+      {"rank": "#01", "lines": ["Top-ranked candidate", "PV + LCOE estimated"]},
+      {"rank": "#02", "lines": ["Ranked candidate", "Site-level estimates"]}
+    ],
+    "footer": "Geospatial analytics  ·  AHP / MCDA  ·  PV potential & LCOE  ·  Web-based decision engine",
+    "forbiddenGeneratedCopy": ["~320 GWh/yr", "~210 GWh/yr"],
+    "reason": "Those numeric callouts are visible in the AI reference but are not supported by the current public repository evidence. Preserve their visual role without inventing values."
+  },
+  "oil-spill-detection": {
+    "titleLine1": "Oil Spill",
+    "titleLine2": "Detection",
+    "tagline": "Finding oil — not just dark pixels.",
+    "skills": "Deep learning · Remote sensing · Geospatial ML",
+    "detected": "DETECTED\nOIL SPILL",
+    "lookalike": "LOOK-ALIKE\nPHENOMENA"
+  },
+  "makhbazy": {
+    "statement": "Designing the\nwhole journey —\nnot isolated screens.",
+    "stages": [
+      {"title": "DISCOVER", "detail": "Browse products\nand explore"},
+      {"title": "ORDER", "detail": "Add to cart\nand checkout"},
+      {"title": "TRACK", "detail": "Follow your order\nto delivery"},
+      {"title": "RECEIVE", "detail": "Get your order\nand reorder"}
+    ],
+    "utilities": ["Repeat ordering", "Support when needed", "Invoices and history"],
+    "capabilities": [
+      {"title": "UI/UX Design", "detail": "End-to-end customer journey"},
+      {"title": "Product Leadership", "detail": "Planning, design and delivery"},
+      {"title": "Implementation Supervision", "detail": "Android & iOS execution"},
+      {"title": "Android + iOS", "detail": "From concept to deployment"}
+    ]
+  }
+}
