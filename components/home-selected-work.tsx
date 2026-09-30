@@ -87,7 +87,7 @@ export function SelectedWorkGallery() {
           data-carousel-paused={paused ? "true" : undefined}
         >
           <div
-            className="selected-work-carousel-window"
+            className="selected-work-carousel-window selected-work-carousel-window-artboards"
             ref={viewportRef}
             role="region"
             aria-roledescription="carousel"

@@ -66,12 +66,15 @@ test.describe("Selected Work refinement", () => {
   test("all project cards render at desktop and mobile with consistent evidence geometry", async ({
     page,
   }) => {
+    test.setTimeout(180_000);
     await mkdir(outputRoot, { recursive: true });
     const records: Array<Record<string, number | string | boolean>> = [];
 
     for (const viewport of [
-      { width: 1440, height: 1000, label: "desktop-1440" },
       { width: 390, height: 844, label: "mobile-390" },
+      { width: 430, height: 932, label: "mobile-430" },
+      { width: 1440, height: 1000, label: "desktop-1440" },
+      { width: 1920, height: 1080, label: "desktop-1920" },
     ]) {
       await page.setViewportSize(viewport);
       await settle(page);
@@ -166,7 +169,7 @@ test.describe("Selected Work refinement", () => {
   });
 
   test("mobile rail is transparent and exposes only a narrow neighboring-card hint", async ({ page }) => {
-    for (const width of [320, 390, 430]) {
+    for (const width of [320, 360, 390, 430, 480]) {
       await page.setViewportSize({ width, height: 844 });
       await settle(page);
       await selectSlide(page, 0);
@@ -180,6 +183,8 @@ test.describe("Selected Work refinement", () => {
         const cardBounds = card.getBoundingClientRect();
         const nextBounds = slides[1].getBoundingClientRect();
         const visibleNext = Math.max(0, Math.min(nextBounds.right, viewport.right) - Math.max(nextBounds.left, viewport.left));
+        const dots = document.querySelector<HTMLElement>(".carousel-dots")!.getBoundingClientRect();
+        const navigation = document.querySelector<HTMLElement>(".site-nav-wrap")!.getBoundingClientRect();
         return {
           backgrounds: [carousel, window, track].map((element) => getComputedStyle(element).backgroundColor),
           cardWidth: cardBounds.width,
@@ -188,6 +193,7 @@ test.describe("Selected Work refinement", () => {
           visibleNextRatio: visibleNext / viewport.width,
           documentWidth: document.documentElement.scrollWidth,
           clientWidth: document.documentElement.clientWidth,
+          dotsOverNavigation: dots.left < navigation.right && dots.right > navigation.left && dots.top < navigation.bottom && dots.bottom > navigation.top,
         };
       });
 
@@ -200,6 +206,7 @@ test.describe("Selected Work refinement", () => {
       expect(geometry.cardWidth / geometry.viewportWidth, `${width}px card fits the viewport`).toBeLessThanOrEqual(0.94);
       expect(geometry.visibleNextRatio, `${width}px peek stays subtle`).toBeLessThanOrEqual(0.13);
       expect(geometry.documentWidth, `${width}px document has no horizontal overflow`).toBeLessThanOrEqual(geometry.clientWidth + 1);
+      expect(geometry.dotsOverNavigation, `${width}px carousel dots clear the fixed navigation`).toBe(false);
       if (width === 390) {
         expect(geometry.visibleNextRatio, "390px next-card hint is visible").toBeGreaterThanOrEqual(0.06);
         await page.locator("[data-selected-work]").screenshot({ path: path.join(outputRoot, "mobile-390-transparent-rail.png") });
@@ -326,17 +333,23 @@ test.describe("Selected Work refinement", () => {
       const metrics = await page.locator(".selected-work-carousel-card").first().evaluate((card) => {
         const box = card.getBoundingClientRect();
         const evidence = card.querySelector<HTMLElement>("[data-evidence-region]")!.getBoundingClientRect();
+        const window = document.querySelector<HTMLElement>(".selected-work-carousel-window")!;
+        const windowStyle = getComputedStyle(window);
         return {
           viewportWidth: document.documentElement.clientWidth,
           documentWidth: document.documentElement.scrollWidth,
           cardWidth: box.width,
           cardHeight: box.height,
           evidenceHeight: evidence.height,
+          railBackground: windowStyle.backgroundColor,
+          railBorderWidth: windowStyle.borderWidth,
         };
       });
       expect(metrics.documentWidth, `${width}px document overflow`).toBeLessThanOrEqual(metrics.viewportWidth + 1);
       expect(metrics.cardWidth, `${width}px card width`).toBeLessThan(2000);
       expect(metrics.evidenceHeight, `${width}px evidence area`).toBeGreaterThan(0);
+      expect(metrics.railBackground, `${width}px artboards have no dark rail`).toBe("rgba(0, 0, 0, 0)");
+      expect(metrics.railBorderWidth, `${width}px artboards have no frame`).toBe("0px");
       await page.locator("[data-selected-work]").screenshot({
         path: path.join(outputRoot, `selected-work-${width}.png`),
       });

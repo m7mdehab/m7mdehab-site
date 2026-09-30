@@ -1892,6 +1892,13 @@
   display: none;
 }
 
+.selected-work-carousel-window-artboards {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
 @media (max-width: 700px) {
   .selected-work-carousel-slide-artboard {
     flex-basis: calc(91vw - 12.74px);
