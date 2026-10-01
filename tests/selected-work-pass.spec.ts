@@ -52,7 +52,8 @@ test.describe("Selected Work refinement", () => {
     const card = page.locator('.selected-work-carousel-slide[data-project-slug="presaira"] .selected-work-carousel-card');
     await expect(card.locator("h3[data-project-title]")).toHaveText("PRESAIRA");
     await expect(card).toContainText("Sports forecasting, on the record.");
-    await expect(card).toContainText("Publish first. Score afterwards.");
+    await expect(card).toContainText("Champion predicted. Exact final predicted.");
+    await expect(card).toContainText("Three of four semifinalists.");
     await expect(card.locator('[data-artboard-node="scoreNumber"]')).toHaveAttribute("aria-label", "104 / 104");
     await expect(card.locator("[data-artboard-node=calibrationChart] svg")).toHaveAttribute("role", "img");
     await expect(card.locator("[data-artboard-node=calibrationChart] svg desc")).toContainText("public Presaira calibration evidence");
@@ -223,7 +224,7 @@ test.describe("Selected Work refinement", () => {
       "Oil Spill Detection",
       "Solar Site Selection",
       "Browse to fulfillment.",
-      "Designing the whole journey —\nnot isolated screens.",
+      "Designing the whole journey. Not isolated screens.",
     ];
     for (const [index, slug] of slugs.entries()) {
       await selectSlide(page, index);
@@ -236,6 +237,8 @@ test.describe("Selected Work refinement", () => {
         await expect(title).toContainText(expectedHeadings[index]);
       }
       await expect(card.locator("[data-project-artboard]")).toBeVisible();
+      const visibleCopy = await card.evaluate((element) => (element as HTMLElement).innerText);
+      expect(visibleCopy, `${slug} visible card copy has no dash punctuation`).not.toMatch(/[—–-]/);
       await expect(card.locator("a")).toHaveCount(0);
       await expect(card).toHaveAttribute("href", `/work/${slug}`);
       await expect(card).toHaveAttribute("aria-label", `Open ${slug === "ghareeb-oglu" ? "Ghareeb Oglu" : slug === "oil-spill-detection" ? "Oil Spill Detection" : slug === "solar-site-selection" ? "Solar Site Selection" : slug === "opportunityos" ? "OpportunityOS" : slug === "makhbazy" ? "Makhbazy" : "Presaira"} case study`);
@@ -254,8 +257,8 @@ test.describe("Selected Work refinement", () => {
 
     const oil = page.locator('.selected-work-carousel-slide[data-project-slug="oil-spill-detection"]');
     await expect(oil.locator("[data-artboard-node=detectedLabel]")).toContainText("DETECTED");
-    await expect(oil.locator("[data-artboard-node=lookalikeLabel]")).toContainText("LOOK-ALIKE");
-    await expect(oil.locator("[data-artboard-node=detectionContour] path")).toHaveCount(4);
+    await expect(oil.locator("[data-artboard-node=lookalikeLabel]")).toContainText("LOOKALIKE");
+    await expect(oil.locator("[data-artboard-node=detectionContour] path")).toHaveCount(5);
 
     const solar = page.locator('.selected-work-carousel-slide[data-project-slug="solar-site-selection"]');
     await expect(solar.locator("[data-artboard-node=validatedMeasures]")).toContainText("12");

@@ -21,6 +21,7 @@
   letter-spacing: -0.04em;
   line-height: 1;
 }
+.title h3 { letter-spacing: -0.025em; }
 .title h3 span:last-child { color: #7fe9ae; }
 
 .tagline {
@@ -51,16 +52,18 @@
 
 .flow { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
 .flow svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.flow .mobileFlow { display: none; }
 .flow svg path { fill: none; stroke: #70d9a0; stroke-width: 1.2; opacity: 0.72; }
-.flow svg path:first-child { opacity: 0.24; }
+.flow svg .signal { stroke: #a4ffc1; stroke-width: 2.2; opacity: 0.95; }
+.flow svg .ambientWave { stroke: #70d9a0; stroke-width: 1; opacity: 0.16; }
 .flow svg circle { fill: #0b2116; stroke: #91f0b7; stroke-width: 2.4; }
-.flowNode { position: absolute; width: 19%; color: #e5e8dd; font-family: "Inter Variable", Inter, sans-serif; }
+.flowNode { position: absolute; width: 16%; color: #e5e8dd; font-family: "Inter Variable", Inter, sans-serif; }
 .flowNode > b { display: block; margin: 0 0 0.48cqw; font-size: 1.24cqw; font-weight: 500; letter-spacing: 0.14em; }
 .flowNode > span { display: flex; flex-direction: column; gap: 0.1cqw; color: #87a891; font-size: 0.88cqw; font-weight: 450; letter-spacing: 0.11em; line-height: 1.25; }
-.flowNode0 { left: 0; top: 38%; }
-.flowNode1 { left: 22%; top: 48%; }
-.flowNode2 { left: 44%; top: 69%; }
-.flowNode3 { left: 68%; top: 46%; }
+.flowNode0 { left: 0; top: 55%; }
+.flowNode1 { left: 19.4%; top: 55%; }
+.flowNode2 { left: 38.9%; top: 55%; }
+.flowNode3 { left: 58.5%; top: 55%; }
 
 .gate { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; align-items: center; flex-direction: column; color: #e4e8dd; font-family: "Inter Variable", Inter, sans-serif; }
 .gateMobileLabel { display: none; }
@@ -70,10 +73,10 @@
 
 .modes { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; flex-direction: column; gap: 1.2cqw; color: #98bea4; font-family: "Inter Variable", Inter, sans-serif; }
 .modes > b { margin: 0 0 0.45cqw 1cqw; font-size: 0.9cqw; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; }
-.modes > div { display: flex; min-height: 22%; align-items: center; gap: 1.1cqw; padding: 0 1.1cqw; border: 1px solid rgb(122 182 141 / 28%); border-radius: 999px; }
-.modes i { width: 1.65cqw; aspect-ratio: 1; border: 1px solid #82c398; border-radius: 50%; }
+.modes > div { box-sizing: border-box; display: flex; min-height: 22%; align-items: center; gap: 0.85cqw; padding: 0 1.15cqw; border: 1px solid rgb(122 182 141 / 28%); border-radius: 999px; }
+.modes i { flex: 0 0 1.35cqw; width: 1.35cqw; aspect-ratio: 1; border: 1px solid #82c398; border-radius: 50%; }
 .modes span { display: flex; min-width: 0; flex-direction: column; gap: 0.32cqw; }
-.modes strong { color: #e7e8df; font-size: 0.96cqw; font-weight: 500; letter-spacing: 0.08em; white-space: nowrap; }
+.modes strong { color: #e7e8df; font-size: 0.88cqw; font-weight: 550; letter-spacing: 0.045em; white-space: nowrap; }
 .modes small { color: #87a791; font-size: 0.74cqw; font-weight: 450; letter-spacing: 0.07em; white-space: nowrap; }
 .modes .controlled { border-color: #73d99b; background: linear-gradient(90deg, rgb(85 196 126 / 20%), rgb(85 196 126 / 5%)); box-shadow: 0 0 1.1cqw rgb(85 196 126 / 12%); }
 .modes .controlled i { border: 0; background: #83e9ab; box-shadow: 0 0 0.8cqw rgb(85 196 126 / 60%); }
@@ -87,8 +90,13 @@
   .tagline { left: 5%; top: 21%; width: 89%; height: 9%; font-size: 3cqw; letter-spacing: 0.02em; }
   .mantra, .watermark, .taxonomy, .footerLine { display: none; }
   .flow { left: 4%; top: 39%; width: 92%; height: 25%; }
+  .flow > svg:first-child { display: none; }
+  .flow .mobileFlow { display: block; }
+  .flow .mobileSignal { opacity: 0.24; }
+  .flow .mobileWave { opacity: 0.72; }
   .flow svg path { stroke-width: 2; }
-  .flow svg path:first-child { opacity: 0.18; }
+  .flow svg .signal { opacity: 0.85; }
+  .flow svg .ambientWave { opacity: 0.12; }
   .flow svg circle { stroke-width: 3; }
   .flowNode { width: 20%; text-align: center; }
   .flowNode > b { margin-bottom: 0; font-size: 2.9cqw; letter-spacing: 0; }

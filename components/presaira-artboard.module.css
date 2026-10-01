@@ -36,6 +36,7 @@
 .statement {
   color: #dbe4f6;
   font-size: 1.54cqw;
+  white-space: pre-line;
 }
 
 .accent {
@@ -45,21 +46,6 @@
 
 .rail {
   overflow: visible;
-}
-
-.railPath {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.railPath path {
-  fill: none;
-  stroke: #357fc9;
-  stroke-width: 1.2;
-  opacity: 0.68;
 }
 
 .competition {
@@ -86,16 +72,16 @@
 }
 
 .competition0 { left: 0; }
-.competition1 { left: 24%; }
-.competition2 { left: 48%; }
-.competition3 { left: 72%; }
+.competition1 { left: 25%; }
+.competition2 { left: 50%; }
+.competition3 { left: 75%; }
 
 .markStage {
   position: relative;
   display: grid;
   width: 100%;
   height: 46%;
-  overflow: clip;
+  overflow: visible;
   place-items: center;
 }
 
@@ -109,6 +95,10 @@
   background: rgb(244 247 255 / 88%);
   content: "";
 }
+.competition1 .markStage::before {
+  width: 5.1cqw;
+  background: radial-gradient(circle, rgb(229 238 255 / 94%) 0%, rgb(198 216 246 / 76%) 57%, rgb(143 180 231 / 0%) 82%);
+}
 
 .markStage img {
   position: relative;
@@ -120,14 +110,10 @@
   object-fit: contain;
 }
 
-.competition0 .markStage img { max-width: 42%; }
-.competition1 .markStage img { max-width: 42%; }
-.competition2 .markStage img { max-width: 45%; max-height: 46%; }
-.competition3 .markStage img { max-width: 20%; }
-.competition0 .markStage img { transform: scale(1.45); }
-.competition1 .markStage img { transform: scale(1.25); }
-.competition2 .markStage img { transform: scale(2); }
-.competition3 .markStage img { transform: scale(2.2); }
+.competition0 .markStage img { max-width: 52%; max-height: 75%; transform: scale(1.12); }
+.competition1 .markStage img { max-width: 52%; max-height: 75%; }
+.competition2 .markStage img { max-width: 48%; max-height: 42%; transform: scale(2.2); }
+.competition3 .markStage img { max-width: 27%; max-height: 67%; transform: scale(2.2); }
 
 .competitionName,
 .competitionStatus {
@@ -152,7 +138,7 @@
 
 .node {
   position: absolute;
-  top: 79%;
+  top: 82%;
   left: 50%;
   display: grid;
   width: 1.55cqw;
@@ -192,7 +178,7 @@
 .axisMark line {
   stroke: #4774a9;
   stroke-width: 0.8;
-  opacity: 0.18;
+  opacity: 0.1;
 }
 
 .axisMark:first-of-type line:first-child,
@@ -260,6 +246,8 @@
   white-space: pre-line;
 }
 
+.perfectLabel { top: 42%; left: 51%; font-size: 0.74cqw; opacity: 0.78; }
+
 .score {
   display: flex;
   flex-direction: column;
@@ -298,7 +286,6 @@
   .rail { top: 65%; left: 4%; width: 92%; height: 34%; }
   .competition { width: 24%; height: 100%; }
   .competition:not(:first-of-type)::before { top: 0; height: 75%; }
-  .railPath,
   .node { display: none; }
   .markStage { height: 44%; }
   .markStage img { max-width: 60%; max-height: 26px; }
@@ -307,7 +294,7 @@
   .competition2 .markStage img { max-width: 60%; max-height: 26px; transform: scale(2); }
   .competition3 .markStage img { max-width: 60%; max-height: 26px; transform: scale(2.2); }
   .competition0 .markStage::before,
-  .competition1 .markStage::before { width: 5.2cqw; }
+  .competition1 .markStage::before { width: 5.2cqw; background: rgb(244 247 255 / 88%); }
   .competitionName { max-width: 100%; font-size: 2.8cqw; line-height: 1.02; white-space: normal; }
   .competitionStatus { max-width: 100%; font-size: 2.2cqw; line-height: 1.02; white-space: normal; }
   .chartWrap { top: 44%; left: 4%; width: 53%; height: 20%; }

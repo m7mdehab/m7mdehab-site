@@ -7,6 +7,7 @@ import {
   type ArtboardDebugMode,
 } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
+import { selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./opportunityos-artboard.module.css";
 
 const box = selectedWorkArtboards.projects.opportunityos.desktop;
@@ -28,12 +29,17 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
       <div className={styles.taxonomy} style={artboardNodeStyle(box.truthGraphTaxonomy)} data-artboard-node="taxonomy" data-artboard-x="160" data-artboard-y="446" data-artboard-w="760" data-artboard-h="32">
         {copy.taxonomy.map((term) => <span key={term}>{term}</span>)}
       </div>
-      <div className={styles.flow} style={artboardNodeStyle(box.flow)} data-artboard-node="truthFlow" data-artboard-x="88" data-artboard-y="507" data-artboard-w="1065" data-artboard-h="245">
-        <svg viewBox="0 0 1065 245" aria-hidden="true">
+      <div className={styles.flow} style={artboardNodeStyle(box.flow)} data-artboard-node="truthFlow" data-artboard-x="88" data-artboard-y="507" data-artboard-w="1144" data-artboard-h="245">
+        <svg viewBox="0 0 1144 245" aria-hidden="true">
           {animate ? (
-            <motion.path d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.8, ease: "easeInOut" }} />
-          ) : <path d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" />}
-          <path d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
+            <motion.path className={styles.signal} d="M85 80.5 H1137" initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.45)} />
+          ) : <path className={styles.signal} d="M85 80.5 H1137" />}
+          <path className={styles.ambientWave} d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
+          {[85, 292, 500, 708, 1137].map((x) => <circle key={x} cx={x} cy="80.5" r="12" />)}
+        </svg>
+        <svg className={styles.mobileFlow} viewBox="0 0 1065 245" aria-hidden="true">
+          <path className={styles.mobileSignal} d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" />
+          <path className={styles.mobileWave} d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
           {[22, 250, 490, 735, 995].map((x, index) => <circle key={x} cx={x} cy={[65, 70, 110, 72, 82][index]} r="12" />)}
         </svg>
         {copy.nodes.map((node, index) => (
@@ -48,13 +54,13 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
         <span className={styles.gateCheck} aria-hidden="true">✓</span>
         <ul>{copy.gate.conditions.map((condition) => <li key={condition}>{condition}</li>)}</ul>
       </div>
-      <div className={styles.modes} style={artboardNodeStyle(box.actionModes)} data-artboard-node="actionModes" data-artboard-x="1360" data-artboard-y="412" data-artboard-w="265" data-artboard-h="300">
+      <div className={styles.modes} style={artboardNodeStyle(box.actionModes)} data-artboard-node="actionModes" data-artboard-x="1345" data-artboard-y="412" data-artboard-w="300" data-artboard-h="300">
         <b>Action modes</b>
         {copy.modes.map((mode, index) => {
           const className = index === 2 ? styles.controlled : "";
           const contents = <><i aria-hidden="true" /><span><strong>{mode.title}</strong><small>{mode.detail}</small></span></>;
           return animate && index === 2 ? (
-            <motion.div className={className} key={mode.title} initial={{ boxShadow: "0 0 0 rgb(85 196 126 / 0%)" }} animate={{ boxShadow: ["0 0 0 rgb(85 196 126 / 0%)", "0 0 18px rgb(85 196 126 / 34%)", "0 0 0 rgb(85 196 126 / 12%)"] }} transition={{ delay: 1.8, duration: 1.05, ease: "easeOut" }}>{contents}</motion.div>
+            <motion.div className={className} key={mode.title} initial={{ boxShadow: "0 0 0 rgb(85 196 126 / 0%)" }} animate={{ boxShadow: ["0 0 0 rgb(85 196 126 / 0%)", "0 0 18px rgb(85 196 126 / 34%)", "0 0 0 rgb(85 196 126 / 12%)"] }} transition={{ delay: 3.35, duration: 1.8, repeat: Infinity, repeatDelay: 2.75, ease: "easeInOut" }}>{contents}</motion.div>
           ) : <div className={className} key={mode.title}>{contents}</div>;
         })}
       </div>

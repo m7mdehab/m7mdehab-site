@@ -18,6 +18,7 @@
 .leader,.lookLine { fill: none; stroke: #6cf5f6; stroke-width: 1.5; }
 .anchor { fill: #113538; stroke: #9cffff; stroke-width: 3; }
 .lookLine { stroke: #a9bdbc; stroke-dasharray: 5 6; opacity: 0.65; }
+.lookLineMobile { display: none; }
 .lookAnchor { fill: #304042; stroke: #b1c4c2; stroke-width: 2; opacity: 0.75; }
 
 .detected,.lookalike { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; flex-direction: column; justify-content: center; color: #c9ffff; font-family: "Inter Variable", Inter, sans-serif; font-size: 1.01cqw; font-weight: 500; letter-spacing: 0.2em; line-height: 1.35; }
@@ -31,6 +32,8 @@
   .accent { left: 5%; top: 42%; width: 10%; height: 1px; }
   .tagline { left: 5%; top: 46%; width: 56%; height: 13%; font-size: 3cqw; letter-spacing: 0.01em; }
   .skills,.lookalike { display: none; }
+  .lookLineDesktop { display: none; }
+  .lookLineMobile { display: block; }
   .contour { left: 51%; top: 11%; width: 45%; height: 78%; }
   .spill { fill: rgb(29 222 226 / 12%); }
   .edge { stroke-width: 3; }

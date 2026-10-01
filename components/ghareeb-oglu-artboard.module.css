@@ -17,19 +17,20 @@
 
 .stages { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
 .path { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mobilePath { display: none; }
 .path path { fill: none; stroke: #e2ae4d; stroke-width: 2; opacity: 0.8; }
 .path circle { fill: #f1ca76; stroke: #ffdb8d; stroke-width: 2; }
-.stage { position: absolute; top: 0; display: flex; width: 15%; align-items: center; flex-direction: column; color: #f2e5ca; font-family: "Playfair Display Variable", "Playfair Display", serif; }
-.stage0 { left: 4%; }
-.stage1 { left: 31%; top: 4%; }
-.stage2 { left: 58%; top: 11%; }
-.stage3 { left: 83%; top: 10%; }
+.stage { position: absolute; top: 0; display: flex; width: 25%; align-items: center; flex-direction: column; color: #f2e5ca; font-family: "Playfair Display Variable", "Playfair Display", serif; }
+.stage0 { left: 0; }
+.stage1 { left: 25%; }
+.stage2 { left: 50%; }
+.stage3 { left: 75%; }
 .stage svg { width: 3.5cqw; height: 3.5cqw; margin: 0 0 0.65cqw; fill: none; stroke: #e7b655; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
 .stage b { font-size: 1.42cqw; font-weight: 450; letter-spacing: 0.27em; line-height: 1.2; }
 .stage > i { width: 16%; height: 2px; margin-top: 0.72cqw; background: #dca13c; }
 
-.skills { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; align-items: center; justify-content: space-around; color: #dda84c; font-family: "Inter Variable", Inter, sans-serif; font-size: 0.9cqw; font-weight: 450; letter-spacing: 0.25em; }
-.skills span { display: flex; align-items: center; gap: 2cqw; white-space: nowrap; }
+.skills { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; color: #f0c477; font-family: "Inter Variable", Inter, sans-serif; font-size: 0.83cqw; font-weight: 500; letter-spacing: 0.19em; text-align: center; }
+.skills span { display: flex; align-items: center; justify-content: center; gap: 1.1cqw; white-space: nowrap; }
 .skills i { color: #d18f35; font-size: 1.5cqw; font-style: normal; }
 
 @container work-slide (max-width: 700px) {
@@ -37,6 +38,8 @@
   .headline { left: 5%; top: 32%; width: 90%; height: 15%; font-size: 5.2cqw; line-height: 1.05; }
   .subheadline,.ornament,.skills { display: none; }
   .stages { left: 4%; top: 54%; width: 92%; height: 39%; }
+  .desktopPath { display: none; }
+  .mobilePath { display: block; }
   .stage { width: 24%; }
   .stage0 { left: 0; top: 0; }
   .stage1 { left: 25%; top: 4%; }

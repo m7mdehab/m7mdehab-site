@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { artboardNodeStyle, selectedWorkArtboards, selectedWorkCopy, type ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
+import { selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./ghareeb-oglu-artboard.module.css";
 
 const box = selectedWorkArtboards.projects["ghareeb-oglu"].desktop;
@@ -27,8 +28,9 @@ export function GhareebOgluArtboard({ debugMode = "code", showGrid = false, isAc
       <p className={styles.subheadline} style={artboardNodeStyle(box.subheadline)} data-artboard-node="subheadline" data-artboard-x="395" data-artboard-y="550" data-artboard-w="900" data-artboard-h="42">{copy.subheadline}</p>
       <span className={styles.ornament} style={artboardNodeStyle(box.ornament)} aria-hidden="true"><i /></span>
       <div className={styles.stages} style={artboardNodeStyle(box.stages)} data-artboard-node="commerceJourney" data-artboard-x="120" data-artboard-y="620" data-artboard-w="1420" data-artboard-h="210">
-        <svg className={styles.path} viewBox="0 0 1420 210" aria-hidden="true">{animate ? <motion.path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.6, ease: "easeInOut" }} /> : <path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150" />}<circle cx="285" cy="68" r="6"/><circle cx="665" cy="115" r="6"/><circle cx="1070" cy="150" r="6"/></svg>
-        {copy.stages.map((stage, index) => <div className={`${styles.stage} ${styles[`stage${index}`]}`} key={stage.title}><StageMark icon={stage.icon} /><b>{stage.title}</b><i aria-hidden="true" /></div>)}
+        <svg className={`${styles.path} ${styles.desktopPath}`} viewBox="0 0 1420 210" aria-hidden="true">{animate ? <motion.path d="M177.5 112 H1242.5" initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.2)} /> : <path d="M177.5 112 H1242.5" />}{[177.5, 532.5, 887.5, 1242.5].map((x) => <circle key={x} cx={x} cy="112" r="6" />)}</svg>
+        <svg className={`${styles.path} ${styles.mobilePath}`} viewBox="0 0 1420 210" aria-hidden="true"><path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150"/><circle cx="285" cy="68" r="6"/><circle cx="665" cy="115" r="6"/><circle cx="1070" cy="150" r="6"/></svg>
+        {copy.stages.map((stage, index) => <div className={`${styles.stage} ${styles[`stage${index}`]}`} key={stage.title} data-stage-anchor={stage.title.toLowerCase()}><StageMark icon={stage.icon} /><b>{stage.title}</b><i aria-hidden="true" /></div>)}
       </div>
       <div className={styles.skills} style={artboardNodeStyle(box.footerSkills)} data-artboard-node="capabilities" data-artboard-x="145" data-artboard-y="864" data-artboard-w="1380" data-artboard-h="34">
         {copy.capabilities.map((capability, index) => <span key={capability}>{capability}{index !== copy.capabilities.length - 1 ? <i aria-hidden="true">·</i> : null}</span>)}

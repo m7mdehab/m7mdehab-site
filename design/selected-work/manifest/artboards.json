@@ -21,7 +21,7 @@
         "wordmark": {"x": 94, "y": 128, "w": 665, "h": 88, "font": "Space Grotesk", "size": 83, "weight": 300, "trackingEm": 0.23, "color": "#f7f8fb"},
         "tagline": {"x": 97, "y": 224, "w": 650, "h": 52, "font": "Inter", "size": 31, "weight": 300, "trackingEm": 0.0, "color": "#c9d4eb"},
         "accentLine": {"x": 98, "y": 297, "w": 58, "h": 2, "color": "#58a8ff"},
-        "statement": {"x": 97, "y": 332, "w": 550, "h": 42, "font": "Inter", "size": 26, "weight": 300, "color": "#dbe4f6"},
+        "statement": {"x": 97, "y": 332, "w": 550, "h": 70, "font": "Inter", "size": 24, "weight": 300, "lineHeight": 1.2, "color": "#dbe4f6"},
         "competitionRail": {"x": 814, "y": 70, "w": 780, "h": 205},
         "chart": {"x": 160, "y": 398, "w": 900, "h": 418},
         "chartNarrative": {"x": 260, "y": 447, "w": 330, "h": 145, "font": "Inter", "size": 17, "weight": 300, "lineHeight": 1.65, "color": "#b9c6e3"},
@@ -49,9 +49,9 @@
         "truthGraphWatermark": {"x": 92, "y": 315, "w": 980, "h": 125, "font": "Playfair Display", "size": 126, "weight": 400, "trackingEm": -0.04, "color": "rgba(110,170,125,.08)"},
         "truthGraphTaxonomy": {"x": 160, "y": 446, "w": 760, "h": 32, "font": "Inter", "size": 15, "weight": 400, "trackingEm": 0.32, "color": "#5c7765"},
         "rightMantra": {"x": 1418, "y": 78, "w": 175, "h": 130, "font": "Inter", "size": 16, "weight": 400, "trackingEm": 0.28, "lineHeight": 1.55, "color": "#6f9278"},
-        "flow": {"x": 88, "y": 507, "w": 1065, "h": 245},
+        "flow": {"x": 88, "y": 507, "w": 1144, "h": 245},
         "authorityGate": {"x": 1120, "y": 444, "w": 210, "h": 320},
-        "actionModes": {"x": 1360, "y": 412, "w": 265, "h": 300},
+        "actionModes": {"x": 1345, "y": 412, "w": 300, "h": 300},
         "footerAccent": {"x": 98, "y": 758, "w": 58, "h": 2, "color": "#7fe9ae"},
         "footer": {"x": 98, "y": 783, "w": 540, "h": 42, "font": "Inter", "size": 28, "weight": 300, "trackingEm": 0.12, "color": "#f2eee5"}
       },
@@ -95,7 +95,7 @@
         "accentLine": {"x": 80, "y": 431, "w": 72, "h": 2, "color": "#f1b62d"},
         "process": {"x": 70, "y": 470, "w": 660, "h": 125},
         "metrics": {"x": 68, "y": 630, "w": 650, "h": 130},
-        "suitabilityOverlay": {"x": 760, "y": 130, "w": 700, "h": 650},
+        "suitabilityOverlay": {"x": 760, "y": 130, "w": 650, "h": 650},
         "legend": {"x": 1432, "y": 80, "w": 190, "h": 320},
         "footer": {"x": 80, "y": 812, "w": 860, "h": 36, "font": "Inter", "size": 18, "weight": 300, "color": "#ead9ba"}
       },
@@ -139,7 +139,7 @@
       "desktop": {
         "logo": {"x": 75, "y": 65, "w": 360, "h": 305, "asset": "runtime/logos/makhbazy-light.png"},
         "accentLine": {"x": 79, "y": 420, "w": 50, "h": 2, "color": "#f2dcc2"},
-        "statement": {"x": 78, "y": 451, "w": 390, "h": 160, "font": "Playfair Display", "size": 43, "weight": 400, "lineHeight": 1.35, "color": "#f2dcc2"},
+        "statement": {"x": 78, "y": 451, "w": 460, "h": 160, "font": "Playfair Display", "size": 43, "weight": 400, "lineHeight": 1.35, "color": "#f2dcc2"},
         "phones": {"x": 445, "y": 132, "w": 1060, "h": 475},
         "journey": {"x": 470, "y": 596, "w": 1000, "h": 165},
         "utilityList": {"x": 1505, "y": 330, "w": 145, "h": 360},

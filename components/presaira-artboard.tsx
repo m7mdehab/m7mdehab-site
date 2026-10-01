@@ -9,6 +9,7 @@ import {
 } from "@/data/selected-work-artboards";
 import { projectVisuals } from "@/data/project-visuals";
 import { ProjectArtboard } from "@/components/project-artboard";
+import { selectedWorkNodeLoop, selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./presaira-artboard.module.css";
 
 const design = selectedWorkArtboards.projects.presaira;
@@ -50,7 +51,7 @@ function CalibrationChart({ animate }: { animate: boolean }) {
       })}
       <line className={styles.perfect} x1={baselineStart.x} y1={baselineStart.y} x2={baselineEnd.x} y2={baselineEnd.y} />
       {animate ? (
-        <motion.path className={styles.observedLine} d={curve} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.35, ease: "easeInOut" }} />
+        <motion.path className={styles.observedLine} d={curve} initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.35)} />
       ) : <path className={styles.observedLine} d={curve} />}
       {points.map((p, index) => {
         const radius = Math.max(5, Math.sqrt(sourceChart[index].n) * 1.1);
@@ -60,7 +61,7 @@ function CalibrationChart({ animate }: { animate: boolean }) {
             <line className={styles.interval} x1={p.x} x2={p.x} y1={p.y - ci} y2={p.y + ci} />
             <line className={styles.interval} x1={p.x - 5} x2={p.x + 5} y1={p.y - ci} y2={p.y - ci} />
             <line className={styles.interval} x1={p.x - 5} x2={p.x + 5} y1={p.y + ci} y2={p.y + ci} />
-            <circle className={styles.point} cx={p.x} cy={p.y} r={radius} />
+            {animate ? <motion.circle className={styles.point} cx={p.x} cy={p.y} r={radius} initial={{ opacity: 0.45, scale: 0.72 }} animate={{ opacity: [0.45, 1, 1, 0.45], scale: [0.72, 1.08, 1, 0.72] }} transition={selectedWorkNodeLoop(0.45 + index * 0.18)} /> : <circle className={styles.point} cx={p.x} cy={p.y} r={radius} />}
           </g>
         );
       })}
@@ -73,9 +74,6 @@ function CalibrationChart({ animate }: { animate: boolean }) {
 function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
   return (
     <div className={styles.rail} style={sourceBox("competitionRail")} data-artboard-node="competitionRail" data-artboard-x="814" data-artboard-y="70" data-artboard-w="780" data-artboard-h="205">
-      <svg className={styles.railPath} viewBox="0 0 780 205" aria-hidden="true">
-        <path d="M0 142 C120 128 238 133 355 117 S574 115 780 16" />
-      </svg>
       {competitions.map((competition, index) => (
         <div className={`${styles.competition} ${styles[`competition${index}`]}`} key={competition.logo}>
           <div className={styles.markStage}>
@@ -84,8 +82,8 @@ function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
           <span className={styles.competitionName}>{competition.name}</span>
           <span className={styles.competitionStatus}>{competition.status}</span>
           {pulseActiveNode && competition.status === "ACTIVE" ? (
-            <motion.span className={styles.node} aria-hidden="true" initial={{ scale: 1, opacity: 0.8 }} animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 1.15, ease: "easeInOut" }} />
-          ) : <span className={styles.node} aria-hidden="true" />}
+            <motion.span className={styles.node} data-status-node aria-hidden="true" initial={{ scale: 0.9, opacity: 0.7 }} animate={{ scale: [0.9, 1.08, 1, 0.9], opacity: [0.7, 1, 1, 0.7] }} transition={selectedWorkNodeLoop(1.1)} />
+          ) : <span className={styles.node} data-status-node aria-hidden="true" />}
         </div>
       ))}
     </div>
@@ -104,16 +102,12 @@ export function PresairaArtboard({ debugMode = "code", showGrid = false, isActiv
       </div>
       <p className={styles.tagline} style={sourceBox("tagline")} data-artboard-node="tagline" data-artboard-x="97" data-artboard-y="224" data-artboard-w="650" data-artboard-h="52">{copy.tagline}</p>
       <span className={styles.accent} style={sourceBox("accentLine")} aria-hidden="true" />
-      <p className={styles.statement} style={sourceBox("statement")} data-artboard-node="statement" data-artboard-x="97" data-artboard-y="332" data-artboard-w="550" data-artboard-h="42">{copy.statement}</p>
+      <p className={styles.statement} style={sourceBox("statement")} data-artboard-node="statement" data-artboard-x="97" data-artboard-y="332" data-artboard-w="550" data-artboard-h="70">{copy.statement}</p>
 
       <CompetitionRail pulseActiveNode={animate} />
 
       <div className={styles.chartWrap} style={sourceBox("chart")} data-artboard-node="calibrationChart" data-artboard-x="160" data-artboard-y="398" data-artboard-w="900" data-artboard-h="418">
         <CalibrationChart animate={animate} />
-      </div>
-      <div className={styles.principles} style={sourceBox("chartNarrative")} data-artboard-node="principles" data-artboard-x="260" data-artboard-y="447" data-artboard-w="330" data-artboard-h="145">
-        {copy.principles.map((principle) => <p key={principle}>{principle}</p>)}
-        <span aria-hidden="true" />
       </div>
       <div className={styles.perfectLabel} aria-hidden="true">{copy.chartLabels.perfect}</div>
       <div className={styles.score} style={sourceBox("score")} data-artboard-node="proof" data-artboard-x="1265" data-artboard-y="391" data-artboard-w="330" data-artboard-h="123">
