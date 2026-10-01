@@ -68,20 +68,46 @@ test.describe("Phase E selected work rebuild", () => {
     ).toBeVisible();
     await expect(
       section.getByRole("link", { name: "View all work ↗" }),
-    ).toHaveAttribute("href", "/work");
-    await expect(section.locator("h2")).toHaveText("Six projects.One standard.");
+    ).toHaveCount(0);
+    await expect(section.locator("h2")).toHaveText("Six projects. One standard.");
     await expect(section.locator(".selected-work-intro-desktop")).toHaveText(
       "Each project opens to a full case study with inspectable evidence.",
     );
     await expect(section.locator(".selected-work-carousel-artboard")).toHaveCount(6);
     await expect(section.locator('[data-project-artboard] a[data-conversion="selected-work-to-case-study"]')).toHaveCount(6);
     await expect(section.locator('[data-project-artboard] a[data-conversion="selected-work-to-case-study"]').first()).toHaveAttribute("href", "/work/presaira");
+    const cardLinkStructure = await section.locator("[data-project-artboard]").evaluateAll((boards) => boards.map((board) => ({
+      parentTag: board.parentElement?.tagName,
+      directLinks: board.querySelectorAll(":scope > a").length,
+      caseStudyLinks: board.querySelectorAll('a[data-conversion="selected-work-to-case-study"]').length,
+    })));
+    expect(cardLinkStructure.every((board) => board.parentTag !== "A" && board.directLinks === 1 && board.caseStudyLinks === 1)).toBe(true);
     await expect(page.locator(".work-list")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 
     await section.screenshot({
       path: path.join(screenshotRoot, "phase-e-selected-work-1440.png"),
     });
+  });
+
+  test("desktop section heading and supporting line stay on one line", async ({ page }) => {
+    for (const width of [1280, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto("/");
+      await settle(page);
+      const lineCounts = await page.locator("[data-selected-work]").evaluate((section) => {
+        const countLines = (element: Element) => {
+          const range = document.createRange();
+          range.selectNodeContents(element);
+          return range.getClientRects().length;
+        };
+        return {
+          heading: countLines(section.querySelector(".selected-work-intro h2")!),
+          support: countLines(section.querySelector(".selected-work-intro-desktop")!),
+        };
+      });
+      expect(lineCounts, `desktop header at ${width}px`).toEqual({ heading: 1, support: 1 });
+    }
   });
 
   test("manual carousel dots select the requested project", async ({

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSyncExternalStore, type CSSProperties } from "react";
 import { PresairaArtboard } from "@/components/presaira-artboard";
@@ -55,11 +54,7 @@ export function SelectedWorkGallery() {
       <div className="shell selected-work-shell">
         <header className="selected-work-intro">
           <div>
-            <h2>
-              Six projects.
-              <br />
-              One standard.
-            </h2>
+            <h2>Six projects. One standard.</h2>
           </div>
           <div className="selected-work-intro-copy">
             <p className="selected-work-intro-desktop">
@@ -68,7 +63,6 @@ export function SelectedWorkGallery() {
             <p className="selected-work-intro-mobile">
               Each project is backed by a full case study and inspectable evidence.
             </p>
-            <Link href="/work">View all work ↗</Link>
           </div>
         </header>
 

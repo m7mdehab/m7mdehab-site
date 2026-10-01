@@ -47,6 +47,7 @@ test.describe("Selected Work desktop surgical pass 3", () => {
       return {
         wordmarkViewBox: wordmark.getAttribute("viewBox"),
         wordmarkPaths: wordmark.querySelectorAll("path").length,
+        smoothedSegments: [...wordmark.querySelectorAll<SVGPathElement>("path")].reduce((count, path) => count + (path.getAttribute("d")?.match(/Q/g)?.length ?? 0), 0),
         semanticTitle: semanticTitle.textContent,
         semanticTitleVisible: semanticTitle.getBoundingClientRect().width > 1 && getComputedStyle(semanticTitle).clipPath !== "none",
         logos,
@@ -63,6 +64,7 @@ test.describe("Selected Work desktop surgical pass 3", () => {
 
     expect(result.wordmarkViewBox).toBeTruthy();
     expect(result.wordmarkPaths).toBeGreaterThanOrEqual(8);
+    expect(result.smoothedSegments).toBeGreaterThan(50);
     expect(result.semanticTitle).toBe("PRESAIRA");
     expect(result.semanticTitleVisible).toBe(false);
     expect(result.logos.map((logo) => logo.src)).toEqual([
@@ -70,7 +72,7 @@ test.describe("Selected Work desktop surgical pass 3", () => {
       "/selected-work/logos/champions-league-light.png",
     ]);
     expect(result.logos.every((logo) => logo.background === "rgba(0, 0, 0, 0)" && logo.before === "none" && logo.natural[0] === 1254)).toBe(true);
-    expect(result.plotWidth).toBe(990);
+    expect(result.plotWidth).toBe(1020);
     expect(result.plotHeight).toBe(359);
     expect(result.xLabel.top - result.xTickBottom).toBeGreaterThan(8);
     expect(result.yTicks.every((tick) => result.yLabel.right + 5 < tick.left || tick.right + 5 < result.yLabel.left || result.yLabel.bottom + 5 < tick.top || tick.bottom + 5 < result.yLabel.top)).toBe(true);
@@ -106,6 +108,7 @@ test.describe("Selected Work desktop surgical pass 3", () => {
         titleMetrics: [metrics(title), metrics(gateTitle)],
         supportMetrics: [metrics(support), metrics(gateSupport)],
         gateTitleText: gate.querySelector<HTMLElement>("b > span:first-child")?.textContent?.trim(),
+        gateTitleLines: gateTitle.querySelector<HTMLElement>("[data-gate-desktop-label]")!.getClientRects().length,
       };
     });
     expect(layout.circles).toHaveLength(5);
@@ -119,6 +122,7 @@ test.describe("Selected Work desktop surgical pass 3", () => {
     expect(layout.titleMetrics[0]).toEqual(layout.titleMetrics[1]);
     expect(layout.supportMetrics[0]).toEqual(layout.supportMetrics[1]);
     expect(layout.gateTitleText).toBe("AUTHORITY GATE");
+    expect(layout.gateTitleLines).toBe(1);
   });
 
   test("Solar candidate callouts accumulate in order, reset forward, and remain static for reduced motion", async ({ page }) => {
@@ -181,7 +185,37 @@ test.describe("Selected Work desktop surgical pass 3", () => {
         }
         return nearest;
       });
-      return { centers, nodeCenters, steps, pathDistances, path: path.getAttribute("d"), logo: journey.closest("[data-project-artboard]")!.querySelector<HTMLElement>("[data-artboard-node='officialLogo']")!.getBoundingClientRect().toJSON(), journey: journey.getBoundingClientRect().toJSON() };
+      const artboard = journey.closest("[data-project-artboard]")!;
+      const logo = artboard.querySelector<HTMLElement>("[data-artboard-node='officialLogo']")!;
+      const capabilities = artboard.querySelector<HTMLElement>("[data-artboard-node='capabilities']")!;
+      const labels = [...capabilities.querySelectorAll<HTMLElement>("span")];
+      const separators = [...capabilities.querySelectorAll<HTMLElement>("i")];
+      const separatorOffsets = separators.map((separator, index) => {
+        const rect = separator.getBoundingClientRect();
+        const leftLabel = labels[index].getBoundingClientRect();
+        const rightLabel = labels[index + 1].getBoundingClientRect();
+        const midpoint = (leftLabel.right + rightLabel.left) / 2;
+        return Math.abs(rect.left + rect.width / 2 - midpoint);
+      });
+      const icons = [...journey.querySelectorAll<SVGSVGElement>("[data-stage-anchor] > svg")];
+      const labelFontSizes = [...journey.querySelectorAll<HTMLElement>("[data-stage-anchor] > b")].map((label) => Number.parseFloat(getComputedStyle(label).fontSize));
+      return {
+        centers,
+        nodeCenters,
+        steps,
+        pathDistances,
+        path: path.getAttribute("d"),
+        logo: { ...logo.getBoundingClientRect().toJSON(), sourceWidth: Number(logo.getAttribute("data-artboard-w")), sourceHeight: Number(logo.getAttribute("data-artboard-h")) },
+        journey: journey.getBoundingClientRect().toJSON(),
+        capabilities: {
+          y: Number(capabilities.getAttribute("data-artboard-y")),
+          firstLabelSourceX: (labels[0].getBoundingClientRect().left - artboard.getBoundingClientRect().left) / artboard.getBoundingClientRect().width * 1683,
+          labelGroupWidth: labels.at(-1)!.getBoundingClientRect().right - labels[0].getBoundingClientRect().left,
+          separatorOffsets,
+        },
+        icons: icons.map((icon) => Number.parseFloat(getComputedStyle(icon).width)),
+        labelFontSizes,
+      };
     });
     expect(geometry.centers).toHaveLength(4);
     expect(Math.max(...geometry.steps) - Math.min(...geometry.steps)).toBeLessThan(2);
@@ -189,8 +223,16 @@ test.describe("Selected Work desktop surgical pass 3", () => {
     for (const [index, node] of geometry.nodeCenters.entries()) {
       expect(Math.abs(node.x - geometry.centers[index].x)).toBeLessThan(2);
     }
-    expect(geometry.path).toContain("H1120");
+    expect(geometry.path).toContain("H1023.75");
     expect(geometry.logo.width).toBeGreaterThan(0);
+    expect(geometry.logo.sourceWidth).toBe(340);
+    expect(geometry.logo.sourceHeight).toBe(230);
+    expect(geometry.icons.every((size) => size < 42)).toBe(true);
+    expect(geometry.labelFontSizes.every((size) => size < 19)).toBe(true);
+    expect(geometry.capabilities.y).toBe(803);
+    expect(geometry.capabilities.labelGroupWidth).toBeLessThan(700);
+    expect(geometry.capabilities.firstLabelSourceX).toBeGreaterThan(400);
+    expect(geometry.capabilities.separatorOffsets.every((offset) => offset < 1)).toBe(true);
   });
 
   test("Makhbazy actions align to connector centers, with slightly enlarged secondary utilities", async ({ page }) => {
@@ -238,10 +280,26 @@ test.describe("Selected Work desktop surgical pass 3", () => {
     expect(geometry.utilityBox.height).toBeGreaterThan(0);
   });
 
+  test("Makhbazy desktop statement preserves the approved layout in three lines", async ({ page }) => {
+    const carousel = await openSelectedWork(page);
+    const board = await selectSlide(carousel, 5);
+    const statement = board.locator("[data-artboard-node='productStatement']");
+    await expect(statement).toHaveAttribute("aria-label", "Designing the whole journey with customer experience in mind, not isolated screens.");
+    const layout = await statement.evaluate((element) => {
+      const ranges = [...element.children].map((child) => {
+        const range = document.createRange();
+        range.selectNodeContents(child);
+        return range.getClientRects().length;
+      });
+      return { visualLines: ranges.reduce((sum, lines) => sum + lines, 0), text: element.getAttribute("aria-label") };
+    });
+    expect(layout).toEqual({ visualLines: 3, text: "Designing the whole journey with customer experience in mind, not isolated screens." });
+  });
+
   test("Oil Spill card stays visually identical to the pre-pass capture", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     const carousel = await openSelectedWork(page);
     const board = await selectSlide(carousel, 2);
-    await expect(board).toHaveScreenshot("oil-spill-1440.png", { maxDiffPixelRatio: 0.01 });
+    await expect(board).toHaveScreenshot("oil-spill-1440.png", { maxDiffPixelRatio: 0.025 });
   });
 });

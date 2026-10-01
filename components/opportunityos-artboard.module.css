@@ -67,6 +67,7 @@
 .flowNode3 { left: 58.5%; top: 55%; }
 .flowNode4 { left: 77.884%; top: 55%; }
 
+.gateDesktopLabel { white-space: nowrap; }
 .gateMobileLabel { display: none; }
 .gate { left: 77.884%; top: 55%; text-align: center; }
 .gateCheckMobile { display: none; }

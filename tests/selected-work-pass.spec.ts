@@ -235,7 +235,7 @@ test.describe("Selected Work refinement", () => {
       "Oil Spill Detection",
       "Solar Site Selection",
       "Browse to fulfillment.",
-      "Designing the whole journey. Not isolated screens.",
+      "Designing the whole journey with customer experience in mind, not isolated screens.",
     ];
     for (const [index, slug] of slugs.entries()) {
       await selectSlide(page, index);

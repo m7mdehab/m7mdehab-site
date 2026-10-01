@@ -4,11 +4,29 @@
  * separately art-directed responsive pass remains Phase J territory.
  */
 
-@media (min-width: 1200px) {
+@media (min-width: 981px) {
   .selected-work-intro {
-    grid-template-columns: minmax(0, 1.35fr) minmax(300px, .45fr);
-    gap: clamp(44px, 5vw, 82px);
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: clamp(28px, 5vw, 72px);
   }
+
+  .selected-work-intro h2,
+  .selected-work-intro-desktop {
+    white-space: nowrap;
+  }
+
+  .selected-work-intro h2 {
+    max-width: none;
+  }
+}
+
+@media (min-width: 981px) and (max-width: 1199px) {
+  .selected-work-intro h2 {
+    font-size: clamp(2.4rem, 4.1vw, 3.2rem);
+  }
+}
+
+@media (min-width: 1200px) {
 
   .selected-work-intro h2 {
     max-width: 1040px;

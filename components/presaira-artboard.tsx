@@ -25,7 +25,7 @@ function sourceBox(name: PresairaBoxKey) {
 }
 
 function CalibrationChart({ animate }: { animate: boolean }) {
-  const plot = { left: 72, top: 24, width: 990, height: 359 };
+  const plot = { left: 72, top: 24, width: 1020, height: 359 };
   const point = (x: number, y: number) => ({
     x: plot.left + x * plot.width,
     y: plot.top + (1 - y) * plot.height,

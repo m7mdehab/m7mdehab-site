@@ -92,7 +92,7 @@ test.describe("Selected Work desktop surgical pass 2", () => {
     });
     expect(metrics.nodes).toHaveLength(4);
     expect(Math.max(...metrics.nodes.map((node) => node.center)) - Math.min(...metrics.nodes.map((node) => node.center))).toBeLessThan(0.5);
-    expect(metrics.plotWidth).toBe(990);
+    expect(metrics.plotWidth).toBe(1020);
     expect(metrics.plotHeight).toBe(359);
     expect(metrics.scoreHeight).toBeGreaterThan(0);
   });

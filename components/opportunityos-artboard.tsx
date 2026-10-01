@@ -51,7 +51,7 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
           </div>
         ))}
         <div className={`${styles.flowNode} ${styles.flowNode4} ${styles.gate}`} data-artboard-node="authorityGate" data-artboard-x="979" data-artboard-y="642" data-artboard-w="183" data-artboard-h="125" data-flow-stage="4">
-          <b aria-label={copy.gate.label}><span className={styles.gateDesktopLabel}>{copy.gate.label}</span><span className={styles.gateMobileLabel} aria-hidden="true">Gate</span></b>
+          <b aria-label={copy.gate.label}><span className={styles.gateDesktopLabel} data-gate-desktop-label>{copy.gate.label}</span><span className={styles.gateMobileLabel} aria-hidden="true">Gate</span></b>
           <span>{copy.gate.conditions.map((condition) => <span key={condition}>{condition}</span>)}</span>
         </div>
         <span className={styles.gateCheckMobile} aria-hidden="true">✓</span>

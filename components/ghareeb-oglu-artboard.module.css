@@ -10,11 +10,6 @@
 
 .headline { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #f5ead5; font-family: "Playfair Display Variable", "Playfair Display", serif; font-size: 4.28cqw; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; text-align: center; }
 .subheadline { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #e0b566; font-family: "Playfair Display Variable", "Playfair Display", serif; font-size: 1.43cqw; font-weight: 400; letter-spacing: 0.015em; line-height: 1.3; text-align: center; }
-.ornament { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; place-items: center; }
-.ornament::before,.ornament::after { width: 42%; height: 1px; background: #b87828; content: ""; }
-.ornament { grid-template-columns: 1fr 20px 1fr; gap: 9px; }
-.ornament i { width: 11px; aspect-ratio: 1; transform: rotate(45deg); border-radius: 50% 0; background: #dfaa4e; }
-
 .stages { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
 .path { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .mobilePath { display: none; }
@@ -25,17 +20,17 @@
 .stage1 { left: 25%; }
 .stage2 { left: 50%; }
 .stage3 { left: 75%; }
-.stage svg { width: 3.15cqw; height: 3.15cqw; margin: 0 0 0.65cqw; fill: none; stroke: #e7b655; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
-.stage b { font-size: 1.42cqw; font-weight: 450; letter-spacing: 0.27em; line-height: 1.2; }
+.stage svg { width: 2.95cqw; height: 2.95cqw; margin: 0 0 0.65cqw; fill: none; stroke: #e7b655; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.stage b { font-size: 1.34cqw; font-weight: 450; letter-spacing: 0.27em; line-height: 1.2; }
 
-.skills { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; color: #f0c477; font-family: "Inter Variable", Inter, sans-serif; font-size: 0.83cqw; font-weight: 500; letter-spacing: 0.19em; text-align: center; }
-.skills span { display: flex; align-items: center; justify-content: center; gap: 1.1cqw; white-space: nowrap; }
-.skills i { color: #d18f35; font-size: 1.5cqw; font-style: normal; }
+.skills { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; align-items: center; justify-content: center; color: #f0c477; font-family: "Inter Variable", Inter, sans-serif; font-size: 0.83cqw; font-weight: 500; letter-spacing: 0.19em; text-align: center; }
+.skills span { flex: 0 0 auto; white-space: nowrap; }
+.skills i { display: grid; flex: 0 0 auto; width: 0.5em; margin-inline: 0.45em; color: #d18f35; font-size: 1.1cqw; font-style: normal; letter-spacing: 0; line-height: 1; place-items: center; }
 
 @container work-slide (max-width: 700px) {
   .logo { left: 6%; top: 4%; width: 24%; height: 26%; }
   .headline { left: 5%; top: 32%; width: 90%; height: 15%; font-size: 5.2cqw; line-height: 1.05; }
-  .subheadline,.ornament,.skills { display: none; }
+  .subheadline,.skills { display: none; }
   .stages { left: 4%; top: 54%; width: 92%; height: 39%; }
   .desktopPath { display: none; }
   .mobilePath { display: block; }
