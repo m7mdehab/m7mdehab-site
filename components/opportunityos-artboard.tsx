@@ -12,6 +12,7 @@ import styles from "./opportunityos-artboard.module.css";
 
 const box = selectedWorkArtboards.projects.opportunityos.desktop;
 const copy = selectedWorkCopy.opportunityos;
+const desktopNodeCenters = [91.5, 313.5, 536.5, 759.5, 982.5] as const;
 
 export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, isActive = false, transitionEnabled = false }: { debugMode?: ArtboardDebugMode; showGrid?: boolean; isActive?: boolean; transitionEnabled?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
@@ -32,10 +33,11 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
       <div className={styles.flow} style={artboardNodeStyle(box.flow)} data-artboard-node="truthFlow" data-artboard-x="88" data-artboard-y="507" data-artboard-w="1144" data-artboard-h="245">
         <svg viewBox="0 0 1144 245" aria-hidden="true">
           {animate ? (
-            <motion.path className={styles.signal} d="M85 80.5 H1137" initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.45)} />
-          ) : <path className={styles.signal} d="M85 80.5 H1137" />}
+            <motion.path className={styles.signal} d={`M${desktopNodeCenters[0]} 80.5 H${desktopNodeCenters[4]}`} initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.45)} />
+          ) : <path className={styles.signal} d={`M${desktopNodeCenters[0]} 80.5 H${desktopNodeCenters[4]}`} />}
           <path className={styles.ambientWave} d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
-          {[85, 292, 500, 708, 1137].map((x) => <circle key={x} cx={x} cy="80.5" r="12" />)}
+          {desktopNodeCenters.map((x, index) => <circle data-flow-node={index} key={x} cx={x} cy="80.5" r="12" />)}
+          {animate ? <motion.path className={styles.gateCheckMark} data-gate-check d="M979 80.5 981.5 83 986.5 77" initial={{ opacity: 0.72 }} animate={{ opacity: [0.72, 0.72, 1, 1, 0.72] }} transition={selectedWorkPathLoop(2.45)} /> : <path className={styles.gateCheckMark} data-gate-check d="M979 80.5 981.5 83 986.5 77" />}
         </svg>
         <svg className={styles.mobileFlow} viewBox="0 0 1065 245" aria-hidden="true">
           <path className={styles.mobileSignal} d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" />
@@ -43,18 +45,16 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
           {[22, 250, 490, 735, 995].map((x, index) => <circle key={x} cx={x} cy={[65, 70, 110, 72, 82][index]} r="12" />)}
         </svg>
         {copy.nodes.map((node, index) => (
-          <div className={`${styles.flowNode} ${styles[`flowNode${index}`]}`} key={node.title}>
+          <div className={`${styles.flowNode} ${styles[`flowNode${index}`]}`} data-flow-stage={index} key={node.title}>
             <b>{node.title}</b>
             <span>{node.lines.map((line) => <span key={line}>{line}</span>)}</span>
           </div>
         ))}
-      </div>
-      <div className={styles.gate} style={artboardNodeStyle(box.authorityGate)} data-artboard-node="authorityGate" data-artboard-x="1120" data-artboard-y="444" data-artboard-w="210" data-artboard-h="320">
-        {animate ? <motion.span className={styles.gateCheck} data-gate-check aria-hidden="true" initial={{ opacity: 0.72 }} animate={{ opacity: [0.72, 0.72, 1, 1, 0.72] }} transition={selectedWorkPathLoop(2.45)}>
-          ✓
-        </motion.span> : <span className={styles.gateCheck} data-gate-check aria-hidden="true">✓</span>}
-        <b aria-label={copy.gate.label}><span className={styles.gateDesktopLabel}>{copy.gate.label}</span><span className={styles.gateMobileLabel} aria-hidden="true">Gate</span></b>
-        <ul>{copy.gate.conditions.map((condition) => <li key={condition}>{condition}</li>)}</ul>
+        <div className={`${styles.flowNode} ${styles.flowNode4} ${styles.gate}`} data-artboard-node="authorityGate" data-artboard-x="979" data-artboard-y="642" data-artboard-w="183" data-artboard-h="125" data-flow-stage="4">
+          <b aria-label={copy.gate.label}><span className={styles.gateDesktopLabel}>{copy.gate.label}</span><span className={styles.gateMobileLabel} aria-hidden="true">Gate</span></b>
+          <span>{copy.gate.conditions.map((condition) => <span key={condition}>{condition}</span>)}</span>
+        </div>
+        <span className={styles.gateCheckMobile} aria-hidden="true">✓</span>
       </div>
       <div className={styles.modes} style={artboardNodeStyle(box.actionModes)} data-artboard-node="actionModes" data-artboard-x="1345" data-artboard-y="412" data-artboard-w="300" data-artboard-h="300">
         <b>Action modes</b>

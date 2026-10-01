@@ -23,7 +23,7 @@
         "accentLine": {"x": 98, "y": 297, "w": 58, "h": 2, "color": "#58a8ff"},
         "proofMetrics": {"x": 97, "y": 332, "w": 670, "h": 68},
         "competitionRail": {"x": 860, "y": 54, "w": 740, "h": 190},
-        "chart": {"x": 88, "y": 417, "w": 1020, "h": 418},
+        "chart": {"x": 88, "y": 437, "w": 1120, "h": 470},
         "chartNarrative": {"x": 260, "y": 447, "w": 330, "h": 145, "font": "Inter", "size": 17, "weight": 300, "lineHeight": 1.65, "color": "#b9c6e3"},
         "score": {"x": 1265, "y": 382, "w": 330, "h": 235},
         "scoreNumber": {"font": "Inter", "size": 61, "weight": 300},
@@ -69,12 +69,12 @@
       "runtimePattern": "runtime/backgrounds/ghareeb-oglu-{960,1280,1683}.webp",
       "palette": {"ground": "#063d29", "gold": "#d89a3a", "goldBright": "#f3be61", "ivory": "#f5ead5", "dark": "#174c37"},
       "desktop": {
-        "logo": {"x": 622, "y": 45, "w": 430, "h": 300, "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"},
-        "headline": {"x": 360, "y": 453, "w": 980, "h": 92, "font": "Playfair Display", "size": 72, "weight": 500, "trackingEm": -0.025, "color": "#f5ead5", "align": "center"},
-        "subheadline": {"x": 395, "y": 550, "w": 900, "h": 42, "font": "Playfair Display", "size": 24, "weight": 400, "trackingEm": 0.01, "color": "#dfa954", "align": "center"},
+        "logo": {"x": 659, "y": 22, "w": 365, "h": 255, "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"},
+        "headline": {"x": 360, "y": 428, "w": 980, "h": 92, "font": "Playfair Display", "size": 72, "weight": 500, "trackingEm": -0.025, "color": "#f5ead5", "align": "center"},
+        "subheadline": {"x": 395, "y": 525, "w": 900, "h": 42, "font": "Playfair Display", "size": 24, "weight": 400, "trackingEm": 0.01, "color": "#dfa954", "align": "center"},
         "ornament": {"x": 748, "y": 598, "w": 190, "h": 34},
-        "stages": {"x": 120, "y": 620, "w": 1420, "h": 210},
-        "footerSkills": {"x": 145, "y": 864, "w": 1220, "h": 34, "font": "Inter", "size": 15, "weight": 500, "trackingEm": 0.26, "color": "#d59a46"}
+        "stages": {"x": 201.5, "y": 595, "w": 1280, "h": 210},
+        "footerSkills": {"x": 145, "y": 833, "w": 1220, "h": 34, "font": "Inter", "size": 15, "weight": 500, "trackingEm": 0.26, "color": "#d59a46"}
       },
       "mobile": {
         "targetAspectRatio": 1.55,

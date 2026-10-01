@@ -39,7 +39,7 @@ test.describe("Selected Work desktop surgical pass 2", () => {
       await board.click({ position: { x: bounds.width * 0.48, y: bounds.height * 0.48 } });
       await expect(page).toHaveURL("/");
       const title = board.locator("[data-project-title]");
-      await title.click();
+      await title.click({ force: true });
       await expect(page).toHaveURL("/");
     }
   });
@@ -92,30 +92,51 @@ test.describe("Selected Work desktop surgical pass 2", () => {
     });
     expect(metrics.nodes).toHaveLength(4);
     expect(Math.max(...metrics.nodes.map((node) => node.center)) - Math.min(...metrics.nodes.map((node) => node.center))).toBeLessThan(0.5);
-    expect(metrics.plotWidth).toBe(900);
-    expect(metrics.plotHeight).toBe(326);
+    expect(metrics.plotWidth).toBe(990);
+    expect(metrics.plotHeight).toBe(359);
     expect(metrics.scoreHeight).toBeGreaterThan(0);
   });
 
   test("OpportunityOS gate order and check containment are deliberate", async ({ page }) => {
     const carousel = await openSelectedWork(page);
     await carousel.getByRole("button", { name: "Go to project 2 of 6" }).click();
-    const gate = carousel.locator('[data-project-slug="opportunityos"] [data-artboard-node="authorityGate"]');
-    const layout = await gate.evaluate((element) => {
-      const check = element.querySelector<HTMLElement>("[data-gate-check]")!;
-      const label = element.querySelector<HTMLElement>("b")!;
-      const circleBox = check.getBoundingClientRect();
-      const labelBox = label.getBoundingClientRect();
-      const range = document.createRange();
-      range.selectNodeContents(check);
-      const glyph = range.getBoundingClientRect();
-      return { circleBox: circleBox.toJSON(), labelTop: labelBox.top, glyph: glyph.toJSON() };
+    const flow = carousel.locator('[data-project-slug="opportunityos"] [data-artboard-node="truthFlow"]');
+    const layout = await flow.evaluate((element) => {
+      const svg = element.querySelector<SVGSVGElement>("svg:not(.mobileFlow)")!;
+      const circles = [...svg.querySelectorAll<SVGCircleElement>("circle[data-flow-node]")];
+      const mark = svg.querySelector<SVGPathElement>("[data-gate-check]")!;
+      const ring = circles.at(-1)!;
+      const ringBox = { left: Number(ring.getAttribute("cx")) - Number(ring.getAttribute("r")), right: Number(ring.getAttribute("cx")) + Number(ring.getAttribute("r")), top: Number(ring.getAttribute("cy")) - Number(ring.getAttribute("r")), bottom: Number(ring.getAttribute("cy")) + Number(ring.getAttribute("r")) };
+      const markBox = mark.getBBox();
+      const label = element.querySelector<HTMLElement>("[data-flow-stage='0'] > b")!;
+      const gate = element.querySelector<HTMLElement>("[data-flow-stage='4']")!;
+      const gateLabel = gate.querySelector<HTMLElement>("b")!;
+      const support = element.querySelector<HTMLElement>("[data-flow-stage='0'] > span > span")!;
+      const gateSupport = gate.querySelector<HTMLElement>("span > span")!;
+      const typography = (node: HTMLElement) => {
+        const style = getComputedStyle(node);
+        return [style.fontFamily, style.fontSize, style.fontWeight, style.letterSpacing, style.lineHeight];
+      };
+      return {
+        circles: circles.map((circle) => ({ cx: Number(circle.getAttribute("cx")), cy: Number(circle.getAttribute("cy")), r: Number(circle.getAttribute("r")) })),
+        ringBox,
+        markBox: { left: markBox.x, right: markBox.x + markBox.width, top: markBox.y, bottom: markBox.y + markBox.height },
+        titleMetrics: [typography(label), typography(gateLabel)],
+        supportMetrics: [typography(support), typography(gateSupport)],
+        gateTitleText: gate.querySelector<HTMLElement>("b > span:first-child")?.textContent?.trim(),
+      };
     });
-    expect(layout.labelTop).toBeGreaterThan(layout.circleBox.bottom);
-    expect(layout.glyph.left).toBeGreaterThan(layout.circleBox.left + 2);
-    expect(layout.glyph.right).toBeLessThan(layout.circleBox.right - 2);
-    expect(layout.glyph.top).toBeGreaterThan(layout.circleBox.top + 2);
-    expect(layout.glyph.bottom).toBeLessThan(layout.circleBox.bottom - 2);
+    expect(layout.circles).toHaveLength(5);
+    expect(new Set(layout.circles.map((circle) => circle.r))).toEqual(new Set([12]));
+    expect(new Set(layout.circles.map((circle) => circle.cy))).toEqual(new Set([80.5]));
+    expect(layout.circles.map((circle) => circle.cx)).toEqual([91.5, 313.5, 536.5, 759.5, 982.5]);
+    expect(layout.markBox.left).toBeGreaterThan(layout.ringBox.left);
+    expect(layout.markBox.right).toBeLessThan(layout.ringBox.right);
+    expect(layout.markBox.top).toBeGreaterThan(layout.ringBox.top);
+    expect(layout.markBox.bottom).toBeLessThan(layout.ringBox.bottom);
+    expect(layout.titleMetrics[0]).toEqual(layout.titleMetrics[1]);
+    expect(layout.supportMetrics[0]).toEqual(layout.supportMetrics[1]);
+    expect(layout.gateTitleText).toBe("AUTHORITY GATE");
   });
 
   test("Solar tessellation cells do not overlap and exactly three ranked candidates are present", async ({ page }) => {

@@ -14,15 +14,8 @@
   height: var(--artboard-h);
 }
 
-.identity h3 {
-  margin: -0.04em 0 0;
-  color: #f7f8fb;
-  font-family: "Space Grotesk Variable", "Space Grotesk", sans-serif;
-  font-size: 4.93cqw;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0.23em;
-}
+.identity > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.semanticWordmark { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%); white-space: nowrap; }
 
 .tagline,
 .statement {
@@ -99,21 +92,6 @@
   height: 46%;
   overflow: visible;
   place-items: center;
-}
-
-.competition0 .markStage::before,
-.competition1 .markStage::before {
-  position: absolute;
-  z-index: 0;
-  width: 4.3cqw;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgb(244 247 255 / 88%);
-  content: "";
-}
-.competition1 .markStage::before {
-  width: 5.1cqw;
-  background: radial-gradient(circle, rgb(229 238 255 / 94%) 0%, rgb(198 216 246 / 76%) 57%, rgb(143 180 231 / 0%) 82%);
 }
 
 .markStage img {
@@ -300,7 +278,6 @@
 
 @container work-slide (max-width: 700px) {
   .identity { top: 8%; left: 5%; width: 58%; height: 18%; }
-  .identity h3 { font-size: 7.1cqw; letter-spacing: 0.16em; }
   .tagline { top: 21%; left: 5%; width: 60%; height: 9%; font-size: 3.25cqw; }
   .accent { top: 33%; left: 5%; width: 9%; height: 1px; }
   .proofMetrics { top: 34%; left: 5%; width: 60%; height: 9%; }
@@ -317,8 +294,6 @@
   .competition1 .markStage img { transform: scale(1.1); }
   .competition2 .markStage img { max-width: 60%; max-height: 26px; transform: scale(2); }
   .competition3 .markStage img { max-width: 60%; max-height: 26px; transform: scale(2.2); }
-  .competition0 .markStage::before,
-  .competition1 .markStage::before { width: 5.2cqw; background: rgb(244 247 255 / 88%); }
   .competitionName { max-width: 100%; font-size: 2.8cqw; line-height: 1.02; white-space: normal; }
   .competitionStatus { max-width: 100%; font-size: 2.2cqw; line-height: 1.02; white-space: normal; }
   .chartWrap { top: 44%; left: 4%; width: 53%; height: 20%; }
@@ -339,7 +314,6 @@
 }
 
 @media (max-width: 370px) {
-  .identity h3 { font-size: 6.65cqw; letter-spacing: 0.14em; }
   .tagline { font-size: 3cqw; }
   .scoreNumber { font-size: 6.3cqw; }
 }

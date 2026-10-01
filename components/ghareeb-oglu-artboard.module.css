@@ -25,7 +25,7 @@
 .stage1 { left: 25%; }
 .stage2 { left: 50%; }
 .stage3 { left: 75%; }
-.stage svg { width: 3.5cqw; height: 3.5cqw; margin: 0 0 0.65cqw; fill: none; stroke: #e7b655; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.stage svg { width: 3.15cqw; height: 3.15cqw; margin: 0 0 0.65cqw; fill: none; stroke: #e7b655; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
 .stage b { font-size: 1.42cqw; font-weight: 450; letter-spacing: 0.27em; line-height: 1.2; }
 
 .skills { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; color: #f0c477; font-family: "Inter Variable", Inter, sans-serif; font-size: 0.83cqw; font-weight: 500; letter-spacing: 0.19em; text-align: center; }

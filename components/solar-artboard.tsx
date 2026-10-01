@@ -10,12 +10,39 @@ const copy = selectedWorkCopy["solar-site-selection"];
 const legendColors = ["#567421", "#89a43b", "#d5ad28", "#bd7430", "#894324"];
 const aoiPath = "M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z";
 const candidateCells = [{ rank: "#01", column: 4, row: 4 }, { rank: "#02", column: 5, row: 5 }, { rank: "#03", column: 2, row: 3 }];
-const sequenceTimes = [0, 0.07, 0.08, 0.18, 0.19, 0.29, 0.3, 0.4, 0.6];
-const candidateEmphasis = [
-  [0.65, 0.65, 1, 1, 0.65, 0.65, 0.65, 0.65, 0.65],
-  [0.65, 0.65, 0.65, 0.65, 1, 1, 0.65, 0.65, 0.65],
-  [0.65, 0.65, 0.65, 0.65, 0.65, 0.65, 1, 1, 0.65],
-];
+const candidateCalloutPaths = ["M377.5 357.5 H365 V333", "M452.5 428.4 V440", "M227.5 284.8 V235 H216"] as const;
+const candidateCycleSeconds = 6.2;
+const candidateRevealSeconds = 0.32;
+const candidateResetStartSeconds = 5.22;
+const candidateResetEndSeconds = 5.34;
+const candidateRevealStarts = [0.45, 1.45, 2.45] as const;
+
+function candidateSequence(index: number) {
+  const start = candidateRevealStarts[index];
+  const times = [
+    0,
+    start / candidateCycleSeconds,
+    (start + candidateRevealSeconds) / candidateCycleSeconds,
+    candidateResetStartSeconds / candidateCycleSeconds,
+    candidateResetEndSeconds / candidateCycleSeconds,
+    1,
+  ];
+  return {
+    initial: { opacity: 0, scale: 0.96, y: 4 },
+    animate: {
+      opacity: [0, 0, 1, 1, 0, 0],
+      scale: [0.96, 0.96, 1, 1, 0.96, 0.96],
+      y: [4, 4, 0, 0, 4, 4],
+    },
+    transition: {
+      duration: candidateCycleSeconds,
+      times,
+      ease: ["linear", "easeOut", "linear", "linear", "linear"] as ["linear", "easeOut", "linear", "linear", "linear"],
+      repeat: Infinity,
+      repeatType: "loop" as const,
+    },
+  };
+}
 
 function ProcessIcon({ kind }: { kind: string }) {
   if (kind === "DRAW") return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="m10 9 25 8-7 24-9-9-8 5 1-13-7-15Z" /></svg>;
@@ -61,19 +88,18 @@ export function SolarArtboard({ debugMode = "code", showGrid = false, isActive =
               const x = 40 + cell.column * 75;
               const y = 34 + cell.row * 71.75;
               const rect = <rect className={styles.candidateCell} data-candidate-region={cell.rank} x={x} y={y} width="75" height="71.75" />;
-              return animate ? <motion.rect key={cell.rank} className={styles.candidateCell} data-candidate-region={cell.rank} x={x} y={y} width="75" height="71.75" initial={{ opacity: 0.65 }} animate={{ opacity: candidateEmphasis[index] }} transition={{ duration: 8, times: sequenceTimes, ease: "linear", repeat: Infinity }} /> : <g key={cell.rank}>{rect}</g>;
+              return animate ? <motion.rect key={cell.rank} className={styles.candidateCell} data-candidate-region={cell.rank} x={x} y={y} width="75" height="71.75" initial={{ opacity: 0 }} animate={{ opacity: [0, 0, 0.72, 0.72, 0, 0] }} transition={candidateSequence(index).transition} /> : <g key={cell.rank}>{rect}</g>;
             })}
           </g>
-          <path className={styles.candidateCalloutLeader} d="M377.5 357.5 H365 V333 M452.5 428.4 V440 M227.5 284.8 V235 H216" />
+          {candidateCells.map((cell, index) => animate ? <motion.path key={cell.rank} data-candidate-leader={cell.rank} className={styles.candidateCalloutLeader} d={candidateCalloutPaths[index]} initial={{ opacity: 0 }} animate={{ opacity: [0, 0, 0.78, 0.78, 0, 0] }} transition={candidateSequence(index).transition} /> : <path key={cell.rank} data-candidate-leader={cell.rank} className={styles.candidateCalloutLeader} d={candidateCalloutPaths[index]} />)}
           <path className={styles.aoiOutline} d={aoiPath} />
-          {candidateCells.map((cell) => <circle key={cell.rank} className={styles.sitePoint} cx={40 + cell.column * 75 + 37.5} cy={34 + cell.row * 71.75 + 35.875} r="7" />)}
+          {candidateCells.map((cell, index) => animate ? <motion.circle key={cell.rank} data-candidate-point={cell.rank} className={styles.sitePoint} cx={40 + cell.column * 75 + 37.5} cy={34 + cell.row * 71.75 + 35.875} r="7" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: [0, 0, 1, 1, 0, 0], scale: [0.8, 0.8, 1, 1, 0.8, 0.8] }} transition={candidateSequence(index).transition} /> : <circle key={cell.rank} data-candidate-point={cell.rank} className={styles.sitePoint} cx={40 + cell.column * 75 + 37.5} cy={34 + cell.row * 71.75 + 35.875} r="7" />)}
         </svg>
         {copy.candidateCallouts.map((callout, index) => {
           const className = styles.callout + " " + styles["callout" + index];
           const contents = <><b>{callout.rank}</b><span>{callout.lines.map((line) => <i key={line}>{line}</i>)}</span></>;
-          const glow = ["0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 16px rgb(240 196 87 / 24%)", "0 0 16px rgb(240 196 87 / 24%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)"];
-          const idle = "0 0 0 rgb(240 196 87 / 0%)";
-          return animate ? <motion.div className={className} data-candidate-callout={callout.rank} key={callout.rank} initial={{ boxShadow: idle }} animate={{ boxShadow: glow.map((value, stage) => stage >= index * 2 + 2 && stage <= index * 2 + 3 ? "0 0 16px rgb(240 196 87 / 24%)" : idle) }} transition={{ duration: 8, times: sequenceTimes, ease: "linear", repeat: Infinity }}>{contents}</motion.div> : <div className={className} data-candidate-callout={callout.rank} key={callout.rank}>{contents}</div>;
+          const sequence = candidateSequence(index);
+          return animate ? <motion.div className={className} data-candidate-callout={callout.rank} data-candidate-start-seconds={candidateRevealStarts[index]} key={callout.rank} initial={sequence.initial} animate={sequence.animate} transition={sequence.transition}>{contents}</motion.div> : <div className={className} data-candidate-callout={callout.rank} key={callout.rank}>{contents}</div>;
         })}
       </div>
       <div className={styles.legend} style={artboardNodeStyle(box.legend)} data-artboard-node="classLegend" data-artboard-x="1432" data-artboard-y="80" data-artboard-w="190" data-artboard-h="320">

@@ -8,6 +8,7 @@ import styles from "./ghareeb-oglu-artboard.module.css";
 
 const box = selectedWorkArtboards.projects["ghareeb-oglu"].desktop;
 const copy = selectedWorkCopy["ghareeb-oglu"];
+const stageCenters = [160, 480, 800, 1120] as const;
 
 function StageMark({ icon }: { icon: string }) {
   if (icon === "grid") return <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="8" width="18" height="18" rx="3"/><rect x="38" y="8" width="18" height="18" rx="3"/><rect x="8" y="38" width="18" height="18" rx="3"/><rect x="38" y="38" width="18" height="18" rx="3"/><path d="M47 43v8M43 47h8"/></svg>;
@@ -21,18 +22,18 @@ export function GhareebOgluArtboard({ debugMode = "code", showGrid = false, isAc
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
     <ProjectArtboard project="ghareeb-oglu" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled} active={isActive}>
-      <div className={styles.logo} style={artboardNodeStyle(box.logo)} data-artboard-node="officialLogo" data-artboard-x="622" data-artboard-y="45" data-artboard-w="430" data-artboard-h="300">
+      <div className={styles.logo} style={artboardNodeStyle(box.logo)} data-artboard-node="officialLogo" data-artboard-x="659" data-artboard-y="22" data-artboard-w="365" data-artboard-h="255">
         <Image src="/selected-work/logos/ghareeb-oglu-white-gold-transparent.png" alt="Ghareeb Oglu official white and gold logo" width={754} height={708} priority />
       </div>
-      <h3 className={styles.headline} style={artboardNodeStyle(box.headline)} data-project-title data-artboard-node="headline" data-artboard-x="360" data-artboard-y="453" data-artboard-w="980" data-artboard-h="92">{copy.headline}</h3>
-      <p className={styles.subheadline} style={artboardNodeStyle(box.subheadline)} data-artboard-node="subheadline" data-artboard-x="395" data-artboard-y="550" data-artboard-w="900" data-artboard-h="42">{copy.subheadline}</p>
+      <h3 className={styles.headline} style={artboardNodeStyle(box.headline)} data-project-title data-artboard-node="headline" data-artboard-x="360" data-artboard-y="428" data-artboard-w="980" data-artboard-h="92">{copy.headline}</h3>
+      <p className={styles.subheadline} style={artboardNodeStyle(box.subheadline)} data-artboard-node="subheadline" data-artboard-x="395" data-artboard-y="525" data-artboard-w="900" data-artboard-h="42">{copy.subheadline}</p>
       <span className={styles.ornament} style={artboardNodeStyle(box.ornament)} aria-hidden="true"><i /></span>
-      <div className={styles.stages} style={artboardNodeStyle(box.stages)} data-artboard-node="commerceJourney" data-artboard-x="120" data-artboard-y="620" data-artboard-w="1420" data-artboard-h="210">
-        <svg className={`${styles.path} ${styles.desktopPath}`} viewBox="0 0 1420 210" aria-hidden="true">{animate ? <motion.path d="M177.5 112 H1242.5" initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.2)} /> : <path d="M177.5 112 H1242.5" />}{[177.5, 532.5, 887.5, 1242.5].map((x) => <circle key={x} cx={x} cy="112" r="6" />)}</svg>
+      <div className={styles.stages} style={artboardNodeStyle(box.stages)} data-artboard-node="commerceJourney" data-artboard-x="201.5" data-artboard-y="595" data-artboard-w="1280" data-artboard-h="210">
+        <svg className={`${styles.path} ${styles.desktopPath}`} viewBox="0 0 1280 210" aria-hidden="true">{animate ? <motion.path d={`M${stageCenters[0]} 112 H${stageCenters[3]}`} initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.2)} /> : <path d={`M${stageCenters[0]} 112 H${stageCenters[3]}`} />}{stageCenters.map((x, index) => <circle data-commerce-node={index} key={x} cx={x} cy="112" r="6" />)}</svg>
         <svg className={`${styles.path} ${styles.mobilePath}`} viewBox="0 0 1420 210" aria-hidden="true"><path d="M20 68 C150 68 190 68 285 68 S470 115 540 115 S745 115 805 115 S1000 150 1070 150 S1280 150 1400 150"/><circle cx="285" cy="68" r="6"/><circle cx="665" cy="115" r="6"/><circle cx="1070" cy="150" r="6"/></svg>
         {copy.stages.map((stage, index) => <div className={`${styles.stage} ${styles[`stage${index}`]}`} key={stage.title} data-stage-anchor={stage.title.toLowerCase()}><StageMark icon={stage.icon} /><b>{stage.title}</b></div>)}
       </div>
-      <div className={styles.skills} style={artboardNodeStyle(box.footerSkills)} data-artboard-node="capabilities" data-artboard-x="145" data-artboard-y="864" data-artboard-w="1380" data-artboard-h="34">
+      <div className={styles.skills} style={artboardNodeStyle(box.footerSkills)} data-artboard-node="capabilities" data-artboard-x="145" data-artboard-y="833" data-artboard-w="1220" data-artboard-h="34">
         {copy.capabilities.map((capability, index) => <span key={capability}>{capability}{index !== copy.capabilities.length - 1 ? <i aria-hidden="true">·</i> : null}</span>)}
       </div>
     </ProjectArtboard>

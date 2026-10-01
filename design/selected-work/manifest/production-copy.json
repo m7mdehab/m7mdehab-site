@@ -9,8 +9,8 @@
     ],
     "principles": ["Probabilistic models.", "Large scale simulation.", "Calibrated and evaluated.", "Reproducible by design."],
     "competitions": [
-      {"name": "WORLD CUP 2026", "status": "PROOF RECORD", "logo": "world-cup.png"},
-      {"name": "UCL 2026/27", "status": "ACTIVE", "logo": "champions-league.png"},
+      {"name": "WORLD CUP 2026", "status": "PROOF RECORD", "logo": "world-cup-light.png"},
+      {"name": "UCL 2026/27", "status": "ACTIVE", "logo": "champions-league-light.png"},
       {"name": "FORMULA 1", "status": "NEXT", "logo": "formula-1.png"},
       {"name": "NBA", "status": "NEXT", "logo": "nba.png"}
     ],

@@ -8,6 +8,20 @@ import styles from "./makhbazy-artboard.module.css";
 
 const box = selectedWorkArtboards.projects.makhbazy.desktop;
 const copy = selectedWorkCopy.makhbazy;
+const desktopActionCenters = [
+  { x: 132.5, y: 377.33 },
+  { x: 397.5, y: 410.98 },
+  { x: 662.5, y: 394.14 },
+  { x: 927.5, y: 404.25 },
+] as const;
+
+function connectorPath(points: readonly { x: number; y: number }[]) {
+  return points.slice(1).reduce((path, point, index) => {
+    const previous = points[index];
+    const handle = (point.x - previous.x) / 3;
+    return `${path} C${previous.x + handle} ${previous.y} ${point.x - handle} ${point.y} ${point.x} ${point.y}`;
+  }, `M${points[0].x} ${points[0].y}`);
+}
 
 function JourneyGlyph({ index }: { index: number }) {
   if (index === 0) return <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="20" cy="20" r="12"/><path d="m29 29 11 11M13 19h14M13 24h9"/></svg>;
@@ -34,7 +48,7 @@ export function MakhbazyArtboard({ debugMode = "code", showGrid = false, isActiv
       <span className={styles.accent} style={artboardNodeStyle(box.accentLine)} aria-hidden="true" />
       <h3 className={styles.statement} aria-label={copy.statement.replace(/\n/g, " ")} style={artboardNodeStyle(box.statement)} data-project-title data-artboard-node="productStatement" data-artboard-x="78" data-artboard-y="451" data-artboard-w="460" data-artboard-h="160">{copy.statement.split("\n").map((line) => <span key={line}>{line}</span>)}</h3>
       <div className={styles.phones} style={artboardNodeStyle(box.phones)} data-artboard-node="journeyAbstraction" data-artboard-x="445" data-artboard-y="132" data-artboard-w="1060" data-artboard-h="475">
-        <svg className={`${styles.path} ${styles.desktopPath}`} viewBox="0 0 1060 475" aria-hidden="true">{animate ? <motion.path d="M132.5 354 C210 354 318 388 397.5 388 S584 370 662.5 370 S848 381 927.5 381" initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.35)} /> : <path d="M132.5 354 C210 354 318 388 397.5 388 S584 370 662.5 370 S848 381 927.5 381"/>}<circle cx="132.5" cy="354" r="7"/><circle cx="397.5" cy="388" r="7"/><circle cx="662.5" cy="370" r="7"/><circle cx="927.5" cy="381" r="7"/></svg>
+        <svg className={`${styles.path} ${styles.desktopPath}`} data-action-connector viewBox="0 0 1060 475" aria-hidden="true">{animate ? <motion.path d={connectorPath(desktopActionCenters)} initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.35)} /> : <path d={connectorPath(desktopActionCenters)} />}{desktopActionCenters.map((point, index) => <circle data-action-node={index} key={point.x} cx={point.x} cy={point.y} r="7" />)}</svg>
         <svg className={`${styles.path} ${styles.mobilePath}`} viewBox="0 0 1060 475" aria-hidden="true"><path d="M130 335 C195 410 205 404 290 335 S435 262 505 335 S655 410 735 335 S880 262 965 335"/><circle cx="192" cy="386" r="7"/><circle cx="450" cy="335" r="7"/><circle cx="735" cy="335" r="7"/><circle cx="965" cy="335" r="7"/></svg>
         {copy.stages.map((stage, index) => <div className={`${styles.journeyStage} ${styles[`journeyStage${index}`]}`} key={stage.title} data-stage-anchor={stage.title.toLowerCase()}>
           <b>{stage.title}</b>

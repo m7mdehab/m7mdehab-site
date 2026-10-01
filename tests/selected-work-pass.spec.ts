@@ -98,6 +98,10 @@ test.describe("Selected Work refinement", () => {
           const titleLineHeight = Number.parseFloat(titleStyle.lineHeight);
           const artboard = element.querySelector<HTMLElement>("[data-project-artboard]");
           const artboardBox = artboard?.getBoundingClientRect();
+          const identity = title.closest<HTMLElement>("[data-artboard-node='wordmark']");
+          const liveWordmark = identity?.querySelector<SVGSVGElement>("svg[data-presaira-wordmark]");
+          const visibleTitle = liveWordmark?.getBoundingClientRect();
+          const identityBox = identity?.getBoundingClientRect();
           return {
             cardWidth: box.width,
             cardHeight: box.height,
@@ -105,7 +109,12 @@ test.describe("Selected Work refinement", () => {
             copyHeight: copy?.getBoundingClientRect().height ?? 0,
             visualShare: visualBox.height / box.height,
             titleLines: Math.max(1, Math.round(title.getBoundingClientRect().height / titleLineHeight)),
-            titleOverflow: title.scrollWidth > title.clientWidth + 1,
+            titleOverflow: liveWordmark && visibleTitle && identityBox
+              ? visibleTitle.left < identityBox.left - 1
+                || visibleTitle.right > identityBox.right + 1
+                || visibleTitle.top < identityBox.top - 1
+                || visibleTitle.bottom > identityBox.bottom + 1
+              : title.scrollWidth > title.clientWidth + 1,
             copyOverflow: copy ? copy.scrollHeight > copy.clientHeight + 1 : false,
             summaryOverflow: summary ? summary.scrollWidth > summary.clientWidth + 1 : false,
             proofOverflow: proof ? proof.scrollWidth > proof.clientWidth + 1 : false,
