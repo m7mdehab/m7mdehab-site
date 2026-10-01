@@ -73,15 +73,9 @@ test.describe("Phase E selected work rebuild", () => {
     await expect(section.locator(".selected-work-intro-desktop")).toHaveText(
       "Each project opens to a full case study with inspectable evidence.",
     );
-    await expect(section.locator(".selected-work-carousel-card")).toHaveCount(6);
-    await expect(section.locator(".selected-work-carousel-card").first()).toHaveAttribute(
-      "href",
-      "/work/presaira",
-    );
-    await expect(section.locator(".selected-work-carousel-card").first()).toHaveAttribute(
-      "aria-label",
-      "Open Presaira case study",
-    );
+    await expect(section.locator(".selected-work-carousel-artboard")).toHaveCount(6);
+    await expect(section.locator('[data-project-artboard] a[data-conversion="selected-work-to-case-study"]')).toHaveCount(6);
+    await expect(section.locator('[data-project-artboard] a[data-conversion="selected-work-to-case-study"]').first()).toHaveAttribute("href", "/work/presaira");
     await expect(page.locator(".work-list")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 

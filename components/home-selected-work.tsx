@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSyncExternalStore, type CSSProperties } from "react";
 import { PresairaArtboard } from "@/components/presaira-artboard";
 import { OpportunityOsArtboard } from "@/components/opportunityos-artboard";
@@ -44,7 +45,6 @@ export function SelectedWorkGallery() {
     onMouseLeave,
     onFocusCapture,
     onBlurCapture,
-    onPointerDown,
     onPointerUp,
     onPointerCancel,
   } = useSelectedWorkCarousel();
@@ -79,7 +79,6 @@ export function SelectedWorkGallery() {
           onMouseLeave={onMouseLeave}
           onFocusCapture={onFocusCapture}
           onBlurCapture={onBlurCapture}
-          onPointerDown={onPointerDown}
           onPointerUp={onPointerUp}
           onPointerCancel={onPointerCancel}
           data-active-project={activeProject.slug}
@@ -110,14 +109,7 @@ export function SelectedWorkGallery() {
                   aria-hidden={index !== active}
                   key={project.slug}
                 >
-                  <a
-                    className="selected-work-carousel-card"
-                    href={`/work/${project.slug}`}
-                    data-conversion="selected-work-to-case-study"
-                    tabIndex={index === active ? 0 : -1}
-                    aria-label={`Open ${project.title} case study`}
-                  >
-                    <div className="selected-work-carousel-visual selected-work-carousel-artboard" data-evidence-region>
+                  <div className="selected-work-carousel-visual selected-work-carousel-artboard">
                       {project.slug === "presaira" ? <PresairaArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                       {project.slug === "opportunityos" ? <OpportunityOsArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                       {project.slug === "ghareeb-oglu" ? <GhareebOgluArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
@@ -125,11 +117,24 @@ export function SelectedWorkGallery() {
                       {project.slug === "solar-site-selection" ? <SolarArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                       {project.slug === "makhbazy" ? <MakhbazyArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                     </div>
-                  </a>
                 </article>
               ))}
             </div>
           </div>
+          <button
+            type="button"
+            className="selected-work-carousel-control selected-work-carousel-prev"
+            aria-label={`Previous project before ${activeProject.title}`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => api?.scrollPrev()}
+          ><ChevronLeft aria-hidden="true" strokeWidth={1.25} /></button>
+          <button
+            type="button"
+            className="selected-work-carousel-control selected-work-carousel-next"
+            aria-label={`Next project after ${activeProject.title}`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => api?.scrollNext()}
+          ><ChevronRight aria-hidden="true" strokeWidth={1.25} /></button>
           <div
             className="carousel-dots"
             role="group"

@@ -7,7 +7,7 @@ import {
   type ArtboardDebugMode,
 } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
-import { selectedWorkPathLoop } from "@/components/selected-work-motion";
+import { SELECTED_WORK_FORWARD_OPACITY, SELECTED_WORK_FORWARD_PATH, selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./opportunityos-artboard.module.css";
 
 const box = selectedWorkArtboards.projects.opportunityos.desktop;
@@ -17,7 +17,7 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="opportunityos" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
+    <ProjectArtboard project="opportunityos" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled} active={isActive}>
       <div className={styles.title} style={artboardNodeStyle(box.title)} data-artboard-node="title" data-artboard-x="93" data-artboard-y="74" data-artboard-w="960" data-artboard-h="148">
         <h3 data-project-title><span>{copy.titlePrefix}</span><span>{copy.titleAccent}</span></h3>
       </div>
@@ -32,7 +32,7 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
       <div className={styles.flow} style={artboardNodeStyle(box.flow)} data-artboard-node="truthFlow" data-artboard-x="88" data-artboard-y="507" data-artboard-w="1144" data-artboard-h="245">
         <svg viewBox="0 0 1144 245" aria-hidden="true">
           {animate ? (
-            <motion.path className={styles.signal} d="M85 80.5 H1137" initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.45)} />
+            <motion.path className={styles.signal} d="M85 80.5 H1137" initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.45)} />
           ) : <path className={styles.signal} d="M85 80.5 H1137" />}
           <path className={styles.ambientWave} d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
           {[85, 292, 500, 708, 1137].map((x) => <circle key={x} cx={x} cy="80.5" r="12" />)}
@@ -50,8 +50,10 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
         ))}
       </div>
       <div className={styles.gate} style={artboardNodeStyle(box.authorityGate)} data-artboard-node="authorityGate" data-artboard-x="1120" data-artboard-y="444" data-artboard-w="210" data-artboard-h="320">
+        {animate ? <motion.span className={styles.gateCheck} data-gate-check aria-hidden="true" initial={{ opacity: 0.72 }} animate={{ opacity: [0.72, 0.72, 1, 1, 0.72] }} transition={selectedWorkPathLoop(2.45)}>
+          ✓
+        </motion.span> : <span className={styles.gateCheck} data-gate-check aria-hidden="true">✓</span>}
         <b aria-label={copy.gate.label}><span className={styles.gateDesktopLabel}>{copy.gate.label}</span><span className={styles.gateMobileLabel} aria-hidden="true">Gate</span></b>
-        <span className={styles.gateCheck} aria-hidden="true">✓</span>
         <ul>{copy.gate.conditions.map((condition) => <li key={condition}>{condition}</li>)}</ul>
       </div>
       <div className={styles.modes} style={artboardNodeStyle(box.actionModes)} data-artboard-node="actionModes" data-artboard-x="1345" data-artboard-y="412" data-artboard-w="300" data-artboard-h="300">

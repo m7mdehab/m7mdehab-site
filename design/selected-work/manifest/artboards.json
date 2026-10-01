@@ -21,11 +21,11 @@
         "wordmark": {"x": 94, "y": 128, "w": 665, "h": 88, "font": "Space Grotesk", "size": 83, "weight": 300, "trackingEm": 0.23, "color": "#f7f8fb"},
         "tagline": {"x": 97, "y": 224, "w": 650, "h": 52, "font": "Inter", "size": 31, "weight": 300, "trackingEm": 0.0, "color": "#c9d4eb"},
         "accentLine": {"x": 98, "y": 297, "w": 58, "h": 2, "color": "#58a8ff"},
-        "statement": {"x": 97, "y": 332, "w": 550, "h": 70, "font": "Inter", "size": 24, "weight": 300, "lineHeight": 1.2, "color": "#dbe4f6"},
-        "competitionRail": {"x": 814, "y": 70, "w": 780, "h": 205},
-        "chart": {"x": 160, "y": 398, "w": 900, "h": 418},
+        "proofMetrics": {"x": 97, "y": 332, "w": 670, "h": 68},
+        "competitionRail": {"x": 860, "y": 54, "w": 740, "h": 190},
+        "chart": {"x": 88, "y": 417, "w": 1020, "h": 418},
         "chartNarrative": {"x": 260, "y": 447, "w": 330, "h": 145, "font": "Inter", "size": 17, "weight": 300, "lineHeight": 1.65, "color": "#b9c6e3"},
-        "score": {"x": 1265, "y": 391, "w": 330, "h": 123},
+        "score": {"x": 1265, "y": 382, "w": 330, "h": 235},
         "scoreNumber": {"font": "Inter", "size": 61, "weight": 300},
         "scoreCaption": {"font": "Inter", "size": 22, "weight": 300}
       },
@@ -69,12 +69,12 @@
       "runtimePattern": "runtime/backgrounds/ghareeb-oglu-{960,1280,1683}.webp",
       "palette": {"ground": "#063d29", "gold": "#d89a3a", "goldBright": "#f3be61", "ivory": "#f5ead5", "dark": "#174c37"},
       "desktop": {
-        "logo": {"x": 622, "y": 72, "w": 430, "h": 370, "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"},
+        "logo": {"x": 622, "y": 45, "w": 430, "h": 300, "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"},
         "headline": {"x": 360, "y": 453, "w": 980, "h": 92, "font": "Playfair Display", "size": 72, "weight": 500, "trackingEm": -0.025, "color": "#f5ead5", "align": "center"},
         "subheadline": {"x": 395, "y": 550, "w": 900, "h": 42, "font": "Playfair Display", "size": 24, "weight": 400, "trackingEm": 0.01, "color": "#dfa954", "align": "center"},
         "ornament": {"x": 748, "y": 598, "w": 190, "h": 34},
         "stages": {"x": 120, "y": 620, "w": 1420, "h": 210},
-        "footerSkills": {"x": 145, "y": 864, "w": 1380, "h": 34, "font": "Inter", "size": 15, "weight": 500, "trackingEm": 0.26, "color": "#d59a46"}
+        "footerSkills": {"x": 145, "y": 864, "w": 1220, "h": 34, "font": "Inter", "size": 15, "weight": 500, "trackingEm": 0.26, "color": "#d59a46"}
       },
       "mobile": {
         "targetAspectRatio": 1.55,
@@ -137,13 +137,13 @@
       "runtimePattern": "runtime/backgrounds/makhbazy-{960,1280,1683}.webp",
       "palette": {"ground": "#a94a31", "deep": "#7e2f1e", "cream": "#f2dcc2", "brown": "#5e2417", "white": "#fff0df"},
       "desktop": {
-        "logo": {"x": 75, "y": 65, "w": 360, "h": 305, "asset": "runtime/logos/makhbazy-light.png"},
+        "logo": {"x": 75, "y": 45, "w": 320, "h": 270, "asset": "runtime/logos/makhbazy-light.png"},
         "accentLine": {"x": 79, "y": 420, "w": 50, "h": 2, "color": "#f2dcc2"},
         "statement": {"x": 78, "y": 451, "w": 460, "h": 160, "font": "Playfair Display", "size": 43, "weight": 400, "lineHeight": 1.35, "color": "#f2dcc2"},
         "phones": {"x": 445, "y": 132, "w": 1060, "h": 475},
         "journey": {"x": 470, "y": 596, "w": 1000, "h": 165},
-        "utilityList": {"x": 1505, "y": 330, "w": 145, "h": 360},
-        "footerCapabilities": {"x": 74, "y": 803, "w": 1520, "h": 84}
+        "utilityList": {"x": 445, "y": 697, "w": 1060, "h": 76},
+        "footerCapabilities": {"x": 74, "y": 803, "w": 1300, "h": 84}
       },
       "mobile": {
         "targetAspectRatio": 1.5,

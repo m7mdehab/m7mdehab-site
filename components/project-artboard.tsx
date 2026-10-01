@@ -19,6 +19,7 @@ export function ProjectArtboard({
   children,
   motionEnabled = false,
   transitionEnabled = false,
+  active = false,
 }: {
   project: ProjectSlug;
   debugMode?: ArtboardDebugMode;
@@ -26,6 +27,7 @@ export function ProjectArtboard({
   children: ReactNode;
   motionEnabled?: boolean;
   transitionEnabled?: boolean;
+  active?: boolean;
 }) {
   const title = projects[project].title;
   const image = `/selected-work/backgrounds/${project}`;
@@ -35,6 +37,7 @@ export function ProjectArtboard({
     <div
       className={styles.artboard}
       data-project-artboard={project}
+      data-evidence-region
       data-artboard-debug={debug ? debugMode : undefined}
       data-motion-active={motionEnabled ? "true" : undefined}
       style={transitionEnabled ? { viewTransitionName: `project-${project}` } : undefined}
@@ -57,6 +60,10 @@ export function ProjectArtboard({
       <div className={styles.content} data-artboard-content>
         {children}
       </div>
+
+      <a className={styles.caseStudyCta} href={`/work/${project}`} tabIndex={active ? 0 : -1} data-conversion="selected-work-to-case-study">
+        View case study <span aria-hidden="true">↗</span>
+      </a>
 
       {debug ? (
         <>

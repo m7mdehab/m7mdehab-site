@@ -1,6 +1,6 @@
 # Execution Status
 
-Updated: 2026-09-30
+Updated: 2026-10-01
 
 ## Mobile composition pass
 
@@ -249,3 +249,9 @@ Detailed report: `docs/ITERATION_12_CONTENT_AUTHORITY_2026-09-11.md`.
 - `docs/DESIGN_SYSTEM.md`
 - `docs/OPEN_SOURCE_ATTRIBUTIONS.md`
 - `AGENTS.md`
+
+## Selected Work desktop surgical pass 2 (2026-10-01)
+
+Implemented on `feat/mobile-composition-pass` from `1cd6954235e717f029e8b52d5a93bd29fc9b14bf`; PR #26 remains open and draft. Refined only the six Selected Work artboards and shared carousel interactions: Presaira proof metrics and a 900×326 live calibration plot, aligned competition status nodes and a separated 104/104 proof block; OpportunityOS gate/check order and containment; Oil Spill Detection bracket cleanup; a clipped 64-cell, non-overlapping Solar suitability tessellation with three truth-safe candidate callouts; removal of Ghareeb Oglu's static node bars; and centered Makhbazy capability columns. Added restrained edge arrows, one explicit case-study CTA per artboard, drag-safe interactive targets, and forward-only motion loops with hidden resets. At 1440px, the four Presaira status-node centers measured 259.046875px (0px spread); the SVG plot is 900×326. The OpportunityOS gate ring is 57.31px square; the 14.08×23px check glyph sits 16.25/18.06px from top/bottom and 21.61/21.63px from left/right, with the label 10.41px below the ring. Two live cycles were sampled for Presaira (6.18s), OpportunityOS (6.28s), Ghareeb Oglu (6.03s) and Makhbazy (6.18s): each reset twice with zero visible reverse samples. Solar showed #01→#02→#03 twice in the 8s emphasis cycle. Fresh desktop screenshots at 1280/1440/1920 are in `outputs/selected-work-pass2/`; visual review focused on 1440 and 1920.
+
+`npm run typecheck`, `npm run lint`, and `npm run build` pass. `npm run test:browser` ran all 152 tests: 150 passed, two failed. The Selected Work additions and existing six-card desktop/mobile acceptance tests passed. The credibility wheel-interaction case passed on isolated rerun. `tests/iteration13.layout-motion.spec.ts` still fails in isolation on its floating-navigation scroll assertion; this is outside this pass's Selected Work scope and was left unchanged. Browser tests require `BASE_URL=http://localhost:3000` with the dev server because Next dev blocks `127.0.0.1` resources by default. No dependency changes, PR merge, or production deployment.

@@ -22,9 +22,6 @@
 .lookAnchor { fill: #304042; stroke: #b1c4c2; stroke-width: 2; opacity: 0.75; }
 
 .detected,.lookalike { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; flex-direction: column; justify-content: center; color: #c9ffff; font-family: "Inter Variable", Inter, sans-serif; font-size: 1.01cqw; font-weight: 500; letter-spacing: 0.2em; line-height: 1.35; }
-.detected::before,.detected::after { position: absolute; right: 0; width: 9%; height: 28%; border-color: #50edef; border-style: solid; content: ""; }
-.detected::before { top: 10%; border-width: 1px 1px 0 0; }
-.detected::after { bottom: 10%; border-width: 0 1px 1px 0; }
 .lookalike { align-items: flex-end; color: #aebfbe; font-size: 0.95cqw; font-weight: 430; letter-spacing: 0.16em; }
 
 @container work-slide (max-width: 700px) {

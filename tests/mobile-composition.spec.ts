@@ -255,7 +255,7 @@ test.describe("Phone composition", () => {
       "opportunityos",
     );
     const cardBox = await carousel
-      .locator(".selected-work-carousel-card")
+      .locator(".selected-work-carousel-artboard")
       .first()
       .boundingBox();
     const controlsBox = await carousel.locator(".carousel-dots").boundingBox();
@@ -275,7 +275,7 @@ test.describe("Phone composition", () => {
       carousel.getByRole("button", { name: "Go to project 6 of 6" }),
     ).toHaveAttribute("aria-current", "step");
     await expect(
-      page.getByRole("link", { name: "Open Makhbazy case study" }),
+      page.getByRole("link", { name: "View case study" }),
     ).toHaveAttribute("href", "/work/makhbazy");
   });
 
@@ -393,7 +393,7 @@ test.describe("Phone composition", () => {
     const heights = await page.evaluate(() => ({
       method: document.querySelector("#method")!.getBoundingClientRect().height,
       work: document
-        .querySelector(".selected-work-carousel-card")!
+        .querySelector(".selected-work-carousel-artboard")!
         .getBoundingClientRect().height,
       writing: document.querySelector(".closing-note")!.getBoundingClientRect()
         .height,

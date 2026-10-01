@@ -49,11 +49,12 @@ test.describe("Selected Work refinement", () => {
   test("Presaira is a live artboard with supplied logos and public calibration data", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await settle(page);
-    const card = page.locator('.selected-work-carousel-slide[data-project-slug="presaira"] .selected-work-carousel-card');
+    const card = page.locator('.selected-work-carousel-slide[data-project-slug="presaira"] .selected-work-carousel-artboard');
     await expect(card.locator("h3[data-project-title]")).toHaveText("PRESAIRA");
     await expect(card).toContainText("Sports forecasting, on the record.");
-    await expect(card).toContainText("Champion predicted. Exact final predicted.");
-    await expect(card).toContainText("Three of four semifinalists.");
+    await expect(card).toContainText("CHAMPION");
+    await expect(card).toContainText("EXACT MATCHUP");
+    await expect(card).toContainText("SEMIFINALISTS");
     await expect(card.locator('[data-artboard-node="scoreNumber"]')).toHaveAttribute("aria-label", "104 / 104");
     await expect(card.locator("[data-artboard-node=calibrationChart] svg")).toHaveAttribute("role", "img");
     await expect(card.locator("[data-artboard-node=calibrationChart] svg desc")).toContainText("public Presaira calibration evidence");
@@ -83,7 +84,7 @@ test.describe("Selected Work refinement", () => {
       for (const [index, slug] of slugs.entries()) {
         await selectSlide(page, index);
         const card = page.locator(
-          `.selected-work-carousel-slide[data-project-slug="${slug}"] .selected-work-carousel-card`,
+          `.selected-work-carousel-slide[data-project-slug="${slug}"] .selected-work-carousel-artboard`,
         );
         const metrics = await card.evaluate((element) => {
           const box = element.getBoundingClientRect();
@@ -166,7 +167,8 @@ test.describe("Selected Work refinement", () => {
     await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("PRODUCT");
     await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("CART");
     await expect(card.locator('[data-artboard-node="commerceJourney"]')).toContainText("FULFILLMENT");
-    await expect(card.locator("[data-project-artboard] a")).toHaveCount(0);
+    await expect(card.locator("[data-project-artboard] a")).toHaveCount(1);
+    await expect(card.locator("[data-project-artboard] a")).toHaveAttribute("href", "/work/ghareeb-oglu");
   });
 
   test("mobile rail is transparent and exposes only a narrow neighboring-card hint", async ({ page }) => {
@@ -179,7 +181,7 @@ test.describe("Selected Work refinement", () => {
         const window = document.querySelector<HTMLElement>(".selected-work-carousel-window")!;
         const track = document.querySelector<HTMLElement>(".selected-work-carousel-track")!;
         const slides = [...document.querySelectorAll<HTMLElement>(".selected-work-carousel-slide")];
-        const card = slides[0].querySelector<HTMLElement>(".selected-work-carousel-card")!;
+        const card = slides[0].querySelector<HTMLElement>(".selected-work-carousel-artboard")!;
         const viewport = window.getBoundingClientRect();
         const cardBounds = card.getBoundingClientRect();
         const nextBounds = slides[1].getBoundingClientRect();
@@ -229,7 +231,7 @@ test.describe("Selected Work refinement", () => {
     for (const [index, slug] of slugs.entries()) {
       await selectSlide(page, index);
       const slide = page.locator(`.selected-work-carousel-slide[data-project-slug="${slug}"]`);
-      const card = slide.locator(".selected-work-carousel-card");
+      const card = slide.locator(".selected-work-carousel-artboard");
       const title = card.locator("[data-project-title]");
       if (["oil-spill-detection", "solar-site-selection", "makhbazy"].includes(slug)) {
         await expect(title).toHaveAttribute("aria-label", expectedHeadings[index]);
@@ -239,9 +241,9 @@ test.describe("Selected Work refinement", () => {
       await expect(card.locator("[data-project-artboard]")).toBeVisible();
       const visibleCopy = await card.evaluate((element) => (element as HTMLElement).innerText);
       expect(visibleCopy, `${slug} visible card copy has no dash punctuation`).not.toMatch(/[—–-]/);
-      await expect(card.locator("a")).toHaveCount(0);
-      await expect(card).toHaveAttribute("href", `/work/${slug}`);
-      await expect(card).toHaveAttribute("aria-label", `Open ${slug === "ghareeb-oglu" ? "Ghareeb Oglu" : slug === "oil-spill-detection" ? "Oil Spill Detection" : slug === "solar-site-selection" ? "Solar Site Selection" : slug === "opportunityos" ? "OpportunityOS" : slug === "makhbazy" ? "Makhbazy" : "Presaira"} case study`);
+      await expect(card.locator("a")).toHaveCount(1);
+      await expect(card.locator("a")).toHaveText("View case study ↗");
+      await expect(card.locator("a")).toHaveAttribute("href", `/work/${slug}`);
     }
 
     const presaira = page.locator('.selected-work-carousel-slide[data-project-slug="presaira"]');
@@ -328,7 +330,7 @@ test.describe("Selected Work refinement", () => {
     await expect(page.locator('[data-project-slug="opportunityos"] [data-project-artboard]'))
       .toHaveCSS("view-transition-name", "none");
 
-    await page.locator('[data-project-slug="presaira"] .selected-work-carousel-card').click();
+    await page.locator('[data-project-slug="presaira"] [data-conversion="selected-work-to-case-study"]').click();
     await expect(page).toHaveURL(/\/work\/presaira$/);
     const destinationAnchor = page.locator(".case-hero-artboard-anchor");
     await expect(destinationAnchor).toHaveCSS("view-transition-name", "project-presaira");
@@ -340,7 +342,7 @@ test.describe("Selected Work refinement", () => {
 
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    await page.locator('[data-project-slug="presaira"] .selected-work-carousel-card').click();
+    await page.locator('[data-project-slug="presaira"] [data-conversion="selected-work-to-case-study"]').click();
     await expect(page).toHaveURL(/\/work\/presaira$/);
   });
 
@@ -348,7 +350,7 @@ test.describe("Selected Work refinement", () => {
     for (const width of [768, 900, 1024, 1280, 1920]) {
       await page.setViewportSize({ width, height: 1000 });
       await settle(page);
-      const metrics = await page.locator(".selected-work-carousel-card").first().evaluate((card) => {
+      const metrics = await page.locator(".selected-work-carousel-artboard").first().evaluate((card) => {
         const box = card.getBoundingClientRect();
         const evidence = card.querySelector<HTMLElement>("[data-evidence-region]")!.getBoundingClientRect();
         const window = document.querySelector<HTMLElement>(".selected-work-carousel-window")!;
@@ -438,7 +440,7 @@ test.describe("Selected Work refinement", () => {
     for (const width of [320, 360, 375, 412, 430, 480]) {
       await page.setViewportSize({ width, height: 844 });
       await settle(page);
-      const sample = await page.locator(".selected-work-carousel-card").first().evaluate((card) => {
+      const sample = await page.locator(".selected-work-carousel-artboard").first().evaluate((card) => {
         const artboard = card.querySelector<HTMLElement>("[data-project-artboard]")!;
         const evidence = card.querySelector<HTMLElement>("[data-evidence-region]")!;
         const bounds = card.getBoundingClientRect();

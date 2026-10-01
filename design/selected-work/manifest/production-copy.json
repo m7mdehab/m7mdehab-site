@@ -2,7 +2,11 @@
   "presaira": {
     "wordmark": "PRESAIRA",
     "tagline": "Sports forecasting, on the record.",
-    "statement": "Champion predicted. Exact final predicted.\nThree of four semifinalists.",
+    "proofMetrics": [
+      {"label": "CHAMPION", "value": "PREDICTED"},
+      {"label": "FINAL", "value": "EXACT MATCHUP"},
+      {"label": "SEMIFINALISTS", "value": "3 OF 4"}
+    ],
     "principles": ["Probabilistic models.", "Large scale simulation.", "Calibrated and evaluated.", "Reproducible by design."],
     "competitions": [
       {"name": "WORLD CUP 2026", "status": "PROOF RECORD", "logo": "world-cup.png"},
@@ -69,7 +73,8 @@
     ],
     "candidateCallouts": [
       {"rank": "#01", "lines": ["Top ranked candidate", "PV + LCOE estimated"]},
-      {"rank": "#02", "lines": ["Ranked candidate", "Site level estimates"]}
+      {"rank": "#02", "lines": ["Ranked candidate", "Site level estimates"]},
+      {"rank": "#03", "lines": ["Ranked candidate", "Public geodata screened"]}
     ],
     "footer": "Geospatial analytics  ·  AHP / MCDA  ·  PV potential & LCOE  ·  Web based decision engine",
     "forbiddenGeneratedCopy": ["~320 GWh/yr", "~210 GWh/yr"],

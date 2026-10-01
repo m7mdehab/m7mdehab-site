@@ -39,7 +39,12 @@ export function useSelectedWorkCarousel() {
     [],
   );
   const [viewportRef, api] = useEmblaCarousel(
-    { align: "start", containScroll: false, loop: true },
+    {
+      align: "start",
+      containScroll: false,
+      loop: true,
+      watchDrag: (_emblaApi, event) => !(event.target instanceof Element && event.target.closest("a, button")),
+    },
     [autoplay],
   );
   const [active, setActive] = useState(0);
@@ -66,6 +71,8 @@ export function useSelectedWorkCarousel() {
   useEffect(() => {
     if (!api) return;
     const plugin = api.plugins().autoplay;
+    const onDragStart = () => setDragging(true);
+    const onDragEnd = () => setDragging(false);
     const syncActive = () => {
       setActive(api.selectedScrollSnap());
       rootRef.current
@@ -74,9 +81,11 @@ export function useSelectedWorkCarousel() {
       plugin.reset();
     };
     api.on("select", syncActive).on("reInit", syncActive);
+    api.on("pointerDown", onDragStart).on("pointerUp", onDragEnd);
     syncActive();
     return () => {
       api.off("select", syncActive).off("reInit", syncActive);
+      api.off("pointerDown", onDragStart).off("pointerUp", onDragEnd);
     };
   }, [api]);
 

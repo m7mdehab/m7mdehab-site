@@ -2,12 +2,20 @@ import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { artboardNodeStyle, selectedWorkArtboards, selectedWorkCopy, type ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
-import { selectedWorkNodeLoop, selectedWorkPathLoop } from "@/components/selected-work-motion";
+import { selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./solar-artboard.module.css";
 
 const box = selectedWorkArtboards.projects["solar-site-selection"].desktop;
 const copy = selectedWorkCopy["solar-site-selection"];
 const legendColors = ["#567421", "#89a43b", "#d5ad28", "#bd7430", "#894324"];
+const aoiPath = "M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z";
+const candidateCells = [{ rank: "#01", column: 4, row: 4 }, { rank: "#02", column: 5, row: 5 }, { rank: "#03", column: 2, row: 3 }];
+const sequenceTimes = [0, 0.07, 0.08, 0.18, 0.19, 0.29, 0.3, 0.4, 0.6];
+const candidateEmphasis = [
+  [0.65, 0.65, 1, 1, 0.65, 0.65, 0.65, 0.65, 0.65],
+  [0.65, 0.65, 0.65, 0.65, 1, 1, 0.65, 0.65, 0.65],
+  [0.65, 0.65, 0.65, 0.65, 0.65, 0.65, 1, 1, 0.65],
+];
 
 function ProcessIcon({ kind }: { kind: string }) {
   if (kind === "DRAW") return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="m10 9 25 8-7 24-9-9-8 5 1-13-7-15Z" /></svg>;
@@ -20,7 +28,7 @@ export function SolarArtboard({ debugMode = "code", showGrid = false, isActive =
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="solar-site-selection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
+    <ProjectArtboard project="solar-site-selection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled} active={isActive}>
       <h3 className={styles.title} aria-label={`${copy.titleLine1} ${copy.titleLine2}`} style={artboardNodeStyle(box.title)} data-project-title data-artboard-node="title" data-artboard-x="80" data-artboard-y="86" data-artboard-w="680" data-artboard-h="265">
         <span>{copy.titleLine1}</span><span>{copy.titleLine2}</span>
       </h3>
@@ -37,48 +45,35 @@ export function SolarArtboard({ debugMode = "code", showGrid = false, isActive =
       <div className={styles.map} style={artboardNodeStyle(box.suitabilityOverlay)} data-artboard-node="suitabilityMap" data-artboard-x="760" data-artboard-y="130" data-artboard-w="650" data-artboard-h="650">
         <svg viewBox="0 0 700 650" role="img" aria-labelledby="solar-map-title solar-map-description">
           <title id="solar-map-title">Conceptual five-class solar suitability map</title>
-          <desc id="solar-map-description">A stylized public-geodata suitability overlay showing five ranked classes and two ranked candidate callouts. No unsupported generation values are shown.</desc>
+          <desc id="solar-map-description">A clipped five-class rectangular suitability tessellation over terrain, with three ranked candidate cells. No unsupported generation values are shown.</desc>
+          <defs><clipPath id="solar-aoi-clip"><path d={aoiPath} /></clipPath></defs>
           {animate ? (
-            <motion.path className={styles.aoi} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.2)} />
-          ) : <path className={styles.aoi} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" />}
-          <g className={styles.legacyMobileZones}>
-            <path fill="#9c582b" d="m110 62 140-28 76 140-116 72-133-5-38-86Z" />
-            <path fill="#d39d26" d="m250 34 122 23 49 115-91 96-120-50 116-72Z" />
-            <path fill="#e3c436" d="m372 57 128-15 64 124-143 6-49-115Z" />
-            <path fill="#8eaa3c" d="m429 172 143-6 17 70-84 92-118-60-57 0Z" />
-            <path fill="#577a31" d="m387 268 118 60-35 95-137 28-72-101Z" />
-            <path fill="#d5b22d" d="m206 194 120 50-65 106-126-20-3-84Z" />
-            <path fill="#b86930" d="m135 330 126 20 72 101-129 49-130 13-28-131Z" />
-            <path fill="#d3a42c" d="m363 451 107-28 90 65-117 94-147-13-4-118Z" />
+            <motion.path className={styles.aoi} d={aoiPath} initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.2)} />
+          ) : <path className={styles.aoi} d={aoiPath} />}
+          <g className={styles.classCells} clipPath="url(#solar-aoi-clip)">
+            {Array.from({ length: 64 }, (_, index) => {
+              const column = index % 8;
+              const row = Math.floor(index / 8);
+              const suitability = Math.min(4, Math.round(Math.hypot(column - 4, row - 4) * 0.72));
+              return <rect key={`${row}-${column}`} data-suitability-cell={`${row}-${column}`} data-suitability-class={5 - suitability} x={40 + column * 75} y={34 + row * 71.75} width="75" height="71.75" fill={legendColors[suitability]} />;
+            })}
+            {candidateCells.map((cell, index) => {
+              const x = 40 + cell.column * 75;
+              const y = 34 + cell.row * 71.75;
+              const rect = <rect className={styles.candidateCell} data-candidate-region={cell.rank} x={x} y={y} width="75" height="71.75" />;
+              return animate ? <motion.rect key={cell.rank} className={styles.candidateCell} data-candidate-region={cell.rank} x={x} y={y} width="75" height="71.75" initial={{ opacity: 0.65 }} animate={{ opacity: candidateEmphasis[index] }} transition={{ duration: 8, times: sequenceTimes, ease: "linear", repeat: Infinity }} /> : <g key={cell.rank}>{rect}</g>;
+            })}
           </g>
-          <g className={styles.classCells}>
-            <path fill="#bd7b30" d="m83 142 37-54 70-16 28 36-45 39-62 20Z" />
-            <path fill="#d5a52c" d="m213 91 37-53 63 12 34 55-43 32-78-9Z" />
-            <path fill="#a8ae38" d="m347 70 58-12 63 14-24 55-71 14-27-40Z" />
-            <path fill="#ba7830" d="m487 54 73-8 42 69-53 24-67-37Z" />
-            <path fill="#8eaa3c" d="m463 140 70-15 50 55-33 48-70-16-36-42Z" />
-            <path fill="#d3b932" d="m303 148 54-25 67 26-18 63-62 13-48-32Z" />
-            <path fill="#b36d30" d="m139 203 70-17 45 47-37 55-79 11-31-48Z" />
-            <path fill="#ddb930" d="m217 293 37-60 67 23 17 60-50 48-67-14Z" />
-            <path fill="#698438" d="m355 238 56-26 76 25-16 71-64 20-55-41Z" />
-            <path fill="#c58730" d="m506 247 44-19 48 22 22 68-59 31-56-46Z" />
-            <path fill="#a45d2d" d="m93 349 72-25 64 31 21 72-62 39-85-20-38-54Z" />
-            <path fill="#87a13a" d="m278 382 46-47 65 10 29 56-38 47-78 15-45-34Z" />
-            <path fill="#c48a30" d="m431 466 39-43 90 65-53 54-72 30-45-40Z" />
-          </g>
-          <path className={styles.classEdge} d="M110 62 250 34 372 57 500 42 617 119 589 236 641 330 560 488 443 582 296 569 182 608 74 513 46 382 77 271 39 155Z" />
-          <path className={styles.site} d="m342 259 67 8 36 48-30 60-61 9-47-45 4-49Z" />
-          <path className={styles.siteSecondary} d="m434 406 44 5 20 36-23 32-42-7-17-34Z" />
-          {animate ? <motion.path className={styles.route} d="M374 304 337 229 420 198M453 443l67-45 58 7" initial={{ opacity: 0 }} animate={{ opacity: [0, 0.82, 0.82, 0, 0] }} transition={selectedWorkPathLoop(2.15, 2.4, 0.55, 1.3)} /> : <path className={styles.route} d="M374 304 337 229 420 198M453 443l67-45 58 7" />}
-          <circle className={styles.sitePoint} cx="375" cy="305" r="8" />
-          <circle className={styles.sitePoint} cx="454" cy="443" r="7" />
+          <path className={styles.candidateCalloutLeader} d="M377.5 357.5 H365 V333 M452.5 428.4 V440 M227.5 284.8 V235 H216" />
+          <path className={styles.aoiOutline} d={aoiPath} />
+          {candidateCells.map((cell) => <circle key={cell.rank} className={styles.sitePoint} cx={40 + cell.column * 75 + 37.5} cy={34 + cell.row * 71.75 + 35.875} r="7" />)}
         </svg>
         {copy.candidateCallouts.map((callout, index) => {
           const className = styles.callout + " " + styles["callout" + index];
           const contents = <><b>{callout.rank}</b><span>{callout.lines.map((line) => <i key={line}>{line}</i>)}</span></>;
-          return animate && index === 0 ? (
-            <motion.div className={className} key={callout.rank} initial={{ boxShadow: "0 0 0 rgb(240 196 87 / 0%)" }} animate={{ boxShadow: ["0 0 0 rgb(240 196 87 / 0%)", "0 0 16px rgb(240 196 87 / 22%)", "0 0 0 rgb(240 196 87 / 0%)"] }} transition={{ ...selectedWorkNodeLoop(3.1), duration: 6.3 }}>{contents}</motion.div>
-          ) : <div className={className} key={callout.rank}>{contents}</div>;
+          const glow = ["0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 16px rgb(240 196 87 / 24%)", "0 0 16px rgb(240 196 87 / 24%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)", "0 0 0 rgb(240 196 87 / 0%)"];
+          const idle = "0 0 0 rgb(240 196 87 / 0%)";
+          return animate ? <motion.div className={className} data-candidate-callout={callout.rank} key={callout.rank} initial={{ boxShadow: idle }} animate={{ boxShadow: glow.map((value, stage) => stage >= index * 2 + 2 && stage <= index * 2 + 3 ? "0 0 16px rgb(240 196 87 / 24%)" : idle) }} transition={{ duration: 8, times: sequenceTimes, ease: "linear", repeat: Infinity }}>{contents}</motion.div> : <div className={className} data-candidate-callout={callout.rank} key={callout.rank}>{contents}</div>;
         })}
       </div>
       <div className={styles.legend} style={artboardNodeStyle(box.legend)} data-artboard-node="classLegend" data-artboard-x="1432" data-artboard-y="80" data-artboard-w="190" data-artboard-h="320">

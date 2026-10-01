@@ -9,14 +9,14 @@ import {
 } from "@/data/selected-work-artboards";
 import { projectVisuals } from "@/data/project-visuals";
 import { ProjectArtboard } from "@/components/project-artboard";
-import { selectedWorkNodeLoop, selectedWorkPathLoop } from "@/components/selected-work-motion";
+import { SELECTED_WORK_FORWARD_OPACITY, SELECTED_WORK_FORWARD_PATH, selectedWorkNodeLoop, selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./presaira-artboard.module.css";
 
 const design = selectedWorkArtboards.projects.presaira;
 const copy = selectedWorkCopy.presaira;
 const competitions = copy.competitions;
 const sourceChart = projectVisuals.presaira.reliability;
-type PresairaBoxKey = "wordmark" | "tagline" | "accentLine" | "statement" | "competitionRail" | "chart" | "chartNarrative" | "score";
+type PresairaBoxKey = "wordmark" | "tagline" | "accentLine" | "proofMetrics" | "competitionRail" | "chart" | "chartNarrative" | "score";
 
 function sourceBox(name: PresairaBoxKey) {
   const box = design.desktop[name];
@@ -24,7 +24,7 @@ function sourceBox(name: PresairaBoxKey) {
 }
 
 function CalibrationChart({ animate }: { animate: boolean }) {
-  const plot = { left: 56, top: 36, width: 790, height: 294 };
+  const plot = { left: 52, top: 24, width: 900, height: 326 };
   const point = (x: number, y: number) => ({
     x: plot.left + x * plot.width,
     y: plot.top + (1 - y) * plot.height,
@@ -35,7 +35,7 @@ function CalibrationChart({ animate }: { animate: boolean }) {
   const baselineEnd = point(1, 1);
 
   return (
-    <svg className={styles.chart} viewBox="0 0 900 418" role="img" aria-labelledby="presaira-chart-title presaira-chart-description">
+    <svg className={styles.chart} viewBox="0 0 1000 418" role="img" aria-labelledby="presaira-chart-title presaira-chart-description" data-plot-width={plot.width} data-plot-height={plot.height}>
       <title id="presaira-chart-title">Forecast calibration after the 2026 World Cup</title>
       <desc id="presaira-chart-description">Five observed win-rate points plotted against predicted probability from committed public Presaira calibration evidence. The dashed diagonal indicates perfect calibration.</desc>
       {[0, 0.2, 0.4, 0.6, 0.8, 1].map((tick) => {
@@ -51,7 +51,7 @@ function CalibrationChart({ animate }: { animate: boolean }) {
       })}
       <line className={styles.perfect} x1={baselineStart.x} y1={baselineStart.y} x2={baselineEnd.x} y2={baselineEnd.y} />
       {animate ? (
-        <motion.path className={styles.observedLine} d={curve} initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.35)} />
+        <motion.path className={styles.observedLine} d={curve} initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.35)} />
       ) : <path className={styles.observedLine} d={curve} />}
       {points.map((p, index) => {
         const radius = Math.max(5, Math.sqrt(sourceChart[index].n) * 1.1);
@@ -73,7 +73,7 @@ function CalibrationChart({ animate }: { animate: boolean }) {
 
 function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
   return (
-    <div className={styles.rail} style={sourceBox("competitionRail")} data-artboard-node="competitionRail" data-artboard-x="814" data-artboard-y="70" data-artboard-w="780" data-artboard-h="205">
+    <div className={styles.rail} style={sourceBox("competitionRail")} data-artboard-node="competitionRail" data-artboard-x="860" data-artboard-y="54" data-artboard-w="740" data-artboard-h="190">
       {competitions.map((competition, index) => (
         <div className={`${styles.competition} ${styles[`competition${index}`]}`} key={competition.logo}>
           <div className={styles.markStage}>
@@ -82,7 +82,7 @@ function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
           <span className={styles.competitionName}>{competition.name}</span>
           <span className={styles.competitionStatus}>{competition.status}</span>
           {pulseActiveNode && competition.status === "ACTIVE" ? (
-            <motion.span className={styles.node} data-status-node aria-hidden="true" initial={{ scale: 0.9, opacity: 0.7 }} animate={{ scale: [0.9, 1.08, 1, 0.9], opacity: [0.7, 1, 1, 0.7] }} transition={selectedWorkNodeLoop(1.1)} />
+            <motion.span className={styles.node} data-status-node aria-hidden="true" initial={{ opacity: 0.7 }} animate={{ opacity: [0.7, 1, 1, 0.7] }} transition={selectedWorkNodeLoop(1.1)} />
           ) : <span className={styles.node} data-status-node aria-hidden="true" />}
         </div>
       ))}
@@ -96,23 +96,26 @@ export function PresairaArtboard({ debugMode = "code", showGrid = false, isActiv
   const score = design.desktop.score;
 
   return (
-    <ProjectArtboard project="presaira" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
+    <ProjectArtboard project="presaira" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled} active={isActive}>
       <div className={styles.identity} style={sourceBox("wordmark")} data-artboard-node="wordmark" data-artboard-x="94" data-artboard-y="128" data-artboard-w="665" data-artboard-h="88">
         <h3 data-project-title>{copy.wordmark}</h3>
       </div>
       <p className={styles.tagline} style={sourceBox("tagline")} data-artboard-node="tagline" data-artboard-x="97" data-artboard-y="224" data-artboard-w="650" data-artboard-h="52">{copy.tagline}</p>
       <span className={styles.accent} style={sourceBox("accentLine")} aria-hidden="true" />
-      <p className={styles.statement} style={sourceBox("statement")} data-artboard-node="statement" data-artboard-x="97" data-artboard-y="332" data-artboard-w="550" data-artboard-h="70">{copy.statement}</p>
+      <div className={styles.proofMetrics} style={sourceBox("proofMetrics")} data-artboard-node="proofMetrics" data-artboard-x="97" data-artboard-y="332" data-artboard-w="670" data-artboard-h="68">
+        {copy.proofMetrics.map((metric) => <div key={metric.label}><b>{metric.label}</b><strong>{metric.value}</strong></div>)}
+      </div>
 
       <CompetitionRail pulseActiveNode={animate} />
 
-      <div className={styles.chartWrap} style={sourceBox("chart")} data-artboard-node="calibrationChart" data-artboard-x="160" data-artboard-y="398" data-artboard-w="900" data-artboard-h="418">
+      <div className={styles.chartWrap} style={sourceBox("chart")} data-artboard-node="calibrationChart" data-artboard-x="88" data-artboard-y="417" data-artboard-w="1020" data-artboard-h="418">
         <CalibrationChart animate={animate} />
       </div>
       <div className={styles.perfectLabel} aria-hidden="true">{copy.chartLabels.perfect}</div>
-      <div className={styles.score} style={sourceBox("score")} data-artboard-node="proof" data-artboard-x="1265" data-artboard-y="391" data-artboard-w="330" data-artboard-h="123">
+      <div className={styles.score} style={sourceBox("score")} data-artboard-node="proof" data-artboard-x="1265" data-artboard-y="382" data-artboard-w="330" data-artboard-h="235">
         <span className={styles.scoreNumber} data-artboard-node="scoreNumber" aria-label={copy.score.number}>{copy.score.number.split(" / ").map((number, index) => <span key={index}>{index ? "/ " : ""}{number}</span>)}</span>
         <span className={styles.scoreCaption}>{copy.score.caption}</span>
+        <div className={styles.platformStatus} data-artboard-node="platformStatus"><span>UCL 2026/27 <b>ACTIVE</b></span><span>FORMULA 1 + NBA <b>COMING SOON</b></span></div>
       </div>
     </ProjectArtboard>
   );

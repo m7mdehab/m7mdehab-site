@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { artboardNodeStyle, selectedWorkArtboards, selectedWorkCopy, type ArtboardDebugMode } from "@/data/selected-work-artboards";
 import { ProjectArtboard } from "@/components/project-artboard";
-import { selectedWorkPathLoop } from "@/components/selected-work-motion";
+import { SELECTED_WORK_FORWARD_OPACITY, SELECTED_WORK_FORWARD_PATH, selectedWorkPathLoop } from "@/components/selected-work-motion";
 import styles from "./oil-spill-artboard.module.css";
 
 const box = selectedWorkArtboards.projects["oil-spill-detection"].desktop;
@@ -12,7 +12,7 @@ export function OilSpillArtboard({ debugMode = "code", showGrid = false, isActiv
   const reducedMotion = usePrefersReducedMotion();
   const animate = isActive && debugMode === "code" && !reducedMotion;
   return (
-    <ProjectArtboard project="oil-spill-detection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled}>
+    <ProjectArtboard project="oil-spill-detection" debugMode={debugMode} showGrid={showGrid} motionEnabled={animate} transitionEnabled={transitionEnabled} active={isActive}>
       <h3 className={styles.title} aria-label={`${copy.titleLine1} ${copy.titleLine2}`} style={artboardNodeStyle(box.title)} data-project-title data-artboard-node="title" data-artboard-x="88" data-artboard-y="132" data-artboard-w="680" data-artboard-h="285">
         <span>{copy.titleLine1}</span><span>{copy.titleLine2}</span>
       </h3>
@@ -22,7 +22,7 @@ export function OilSpillArtboard({ debugMode = "code", showGrid = false, isActiv
       <svg className={styles.contour} style={artboardNodeStyle(box.detectionOverlay)} viewBox="0 0 790 720" aria-hidden="true" data-artboard-node="detectionContour" data-artboard-x="790" data-artboard-y="100" data-artboard-w="790" data-artboard-h="720">
         <path className={styles.spill} d="M172 13 C206 34 213 59 250 72 C288 87 280 118 310 133 C351 151 351 176 380 192 C421 214 406 240 445 260 C484 280 489 312 527 319 C571 329 576 358 610 379 C645 402 626 428 659 445 C698 465 683 490 712 504 C739 519 728 549 700 566 C664 587 673 620 640 634 C605 651 589 674 554 669 C521 663 514 634 487 627 C453 620 443 594 409 593 C370 591 356 565 326 552 C297 539 289 515 259 501 C231 488 232 460 205 444 C179 428 185 403 159 386 C133 369 147 341 122 325 C98 310 112 282 93 264 C77 247 97 221 111 207 C128 189 122 170 142 154 C160 139 148 116 165 99 C181 83 157 58 169 41 C176 31 166 22 172 13Z" />
         {animate ? (
-          <motion.path className={styles.edge} d="M172 13 C206 34 213 59 250 72 C288 87 280 118 310 133 C351 151 351 176 380 192 C421 214 406 240 445 260 C484 280 489 312 527 319 C571 329 576 358 610 379 C645 402 626 428 659 445 C698 465 683 490 712 504 C739 519 728 549 700 566 C664 587 673 620 640 634 C605 651 589 674 554 669 C521 663 514 634 487 627 C453 620 443 594 409 593 C370 591 356 565 326 552 C297 539 289 515 259 501 C231 488 232 460 205 444 C179 428 185 403 159 386 C133 369 147 341 122 325 C98 310 112 282 93 264 C77 247 97 221 111 207 C128 189 122 170 142 154 C160 139 148 116 165 99 C181 83 157 58 169 41 C176 31 166 22 172 13Z" initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1, 0, 0] }} transition={selectedWorkPathLoop(2.5, 2.5, 0.55, 1.3)} />
+          <motion.path className={styles.edge} d="M172 13 C206 34 213 59 250 72 C288 87 280 118 310 133 C351 151 351 176 380 192 C421 214 406 240 445 260 C484 280 489 312 527 319 C571 329 576 358 610 379 C645 402 626 428 659 445 C698 465 683 490 712 504 C739 519 728 549 700 566 C664 587 673 620 640 634 C605 651 589 674 554 669 C521 663 514 634 487 627 C453 620 443 594 409 593 C370 591 356 565 326 552 C297 539 289 515 259 501 C231 488 232 460 205 444 C179 428 185 403 159 386 C133 369 147 341 122 325 C98 310 112 282 93 264 C77 247 97 221 111 207 C128 189 122 170 142 154 C160 139 148 116 165 99 C181 83 157 58 169 41 C176 31 166 22 172 13Z" initial={{ pathLength: 0 }} animate={{ pathLength: SELECTED_WORK_FORWARD_PATH, opacity: SELECTED_WORK_FORWARD_OPACITY }} transition={selectedWorkPathLoop(2.5, 2.5, 0.08, 1.3)} />
         ) : (
           <path className={styles.edge} d="M172 13 C206 34 213 59 250 72 C288 87 280 118 310 133 C351 151 351 176 380 192 C421 214 406 240 445 260 C484 280 489 312 527 319 C571 329 576 358 610 379 C645 402 626 428 659 445 C698 465 683 490 712 504 C739 519 728 549 700 566 C664 587 673 620 640 634 C605 651 589 674 554 669 C521 663 514 634 487 627 C453 620 443 594 409 593 C370 591 356 565 326 552 C297 539 289 515 259 501 C231 488 232 460 205 444 C179 428 185 403 159 386 C133 369 147 341 122 325 C98 310 112 282 93 264 C77 247 97 221 111 207 C128 189 122 170 142 154 C160 139 148 116 165 99 C181 83 157 58 169 41 C176 31 166 22 172 13Z" />
         )}

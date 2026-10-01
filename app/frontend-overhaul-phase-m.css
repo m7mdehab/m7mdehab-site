@@ -286,6 +286,8 @@
   color: #f4f3ed;
 }
 
+.selected-work-carousel-artboard { width: 100%; height: 100%; min-width: 0; }
+
 .selected-work-carousel-card {
   display: grid;
   grid-template-columns: minmax(0, 1.14fr) minmax(360px, .86fr);
@@ -409,27 +411,25 @@
 .selected-work-carousel-control {
   position: absolute;
   z-index: 6;
-  top: calc(50% + 12px);
-  width: 42px;
-  height: 42px;
+  top: calc(50% - 22px);
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, .18);
-  border-radius: 50%;
-  background: rgba(9, 12, 14, .72);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #f7f4ec;
-  backdrop-filter: blur(10px);
+  opacity: .42;
   cursor: pointer;
   transform: translateY(-50%);
-  transition: background .2s ease, border-color .2s ease, transform .2s var(--ov-ease);
+  transition: opacity .2s ease, transform .2s var(--ov-ease);
 }
 
 .selected-work-carousel-control:hover,
 .selected-work-carousel-control:focus-visible {
-  border-color: color-mix(in srgb, var(--carousel-accent) 62%, white 10%);
-  background: rgba(9, 12, 14, .9);
-  outline: none;
+  opacity: 1;
   transform: translateY(-50%) scale(1.06);
 }
 
@@ -440,6 +440,10 @@
 
 .selected-work-carousel-prev { left: 14px; }
 .selected-work-carousel-next { right: 14px; }
+.selected-work-carousel:hover .selected-work-carousel-control,
+.selected-work-carousel:focus-within .selected-work-carousel-control { opacity: .68; }
+.selected-work-carousel .selected-work-carousel-control:hover,
+.selected-work-carousel .selected-work-carousel-control:focus-visible { opacity: 1; outline: 2px solid rgba(255, 255, 255, .82); outline-offset: -5px; border-radius: 50%; }
 
 /* Method diagram: stronger information hierarchy without changing its architecture. */
 .solve-think-board {
@@ -616,9 +620,7 @@
   }
 
   .selected-work-carousel-control {
-    top: calc(50% + 8px);
-    width: 38px;
-    height: 38px;
+    display: none;
   }
 
   .selected-work-carousel-prev { left: 8px; }
