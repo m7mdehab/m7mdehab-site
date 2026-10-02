@@ -60,6 +60,18 @@ Service presentation must preserve evidence asymmetry instead of forcing every s
 ## Design rule
 The site is a custom synthesis of multiple references. Do not reskin one template. Favor exceptional typography, real project visuals, generous spacing, restrained state-change motion, semantic HTML and distinctive project treatments.
 
+## Current method-story rebuild
+
+The English homepage method chapter is under an explicit design-locked rebuild. Before touching `components/home-solve-think.tsx`, read `docs/frontend-overhaul/METHOD_STORY_EXECUTION_PACKET.md` and `design/method-story/method-story.spec.json`.
+
+For this chapter:
+- do not reinterpret the art direction;
+- do not preserve legacy `.solve-think*` architecture merely because it exists;
+- use the existing `motion/react` dependency; do not add GSAP;
+- use native HTML + custom inline SVG; the blueprint SVG is reference-only and must not be shipped as the rendered production asset;
+- keep semantic content server-rendered and readable without JavaScript;
+- implement the locked copy, motion windows, mobile vertical composition and acceptance contract from the execution packet.
+
 ## Visual evidence and asset provenance
 Use `data/project-evidence.public.yaml` as the governing registry for project proof, visual candidates, asset status and project-specific interaction direction. See `docs/PROJECT_EVIDENCE_VISUAL_AUDIT_2026-09-09.md` for the audit rationale.
 

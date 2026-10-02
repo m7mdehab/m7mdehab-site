@@ -1,5 +1,7 @@
 # Phase F — What I Solve / How I Think
 
+> **2026-10-03 SUPERSEDING DIRECTION:** The implementation described below is now historical. Mohammed explicitly rejected the current board as insufficiently glanceable and story-driven. The next implementation is governed by `docs/frontend-overhaul/METHOD_STORY_EXECUTION_PACKET.md` and `design/method-story/method-story.spec.json`. Do not use this document's old visual architecture as the design target.
+
 **Program:** Frontend Rebuild — Visual Identity & Homepage Architecture  
 **Status:** IMPLEMENTED / AWAITING RENDERED ACCEPTANCE  
 **Date:** 2026-09-12  

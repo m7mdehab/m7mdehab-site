@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="920" viewBox="0 0 1700 920" role="img" aria-labelledby="t d">
+<title id="t">Method story composition blueprint</title>
+<desc id="d">Reference-only blueprint showing messy inputs transforming through evidence, decision and system stages into reliable outcomes.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07100e"/><stop offset="1" stop-color="#0b1512"/></linearGradient>
+  <radialGradient id="wash"><stop stop-color="#91e1bd" stop-opacity=".10"/><stop offset="1" stop-color="#91e1bd" stop-opacity="0"/></radialGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity=".28"/></filter>
+  <style>
+    .sans{font-family:Manrope,Arial,sans-serif}.ey{font:700 11px Manrope,Arial,sans-serif;letter-spacing:4px;fill:#91e1bd}
+    .h{font:700 66px Manrope,Arial,sans-serif;letter-spacing:-3px;fill:#f2f4ef}.ha{fill:#b8f2d5}
+    .body{font:450 16px Manrope,Arial,sans-serif;fill:#a9b3ad}.n{font:600 11px Manrope,Arial,sans-serif;fill:#75827b;letter-spacing:2px}
+    .st{font:700 18px Manrope,Arial,sans-serif;fill:#f2f4ef}.sd{font:450 13px Manrope,Arial,sans-serif;fill:#a9b3ad}
+    .card{fill:#111f1a;fill-opacity:.88;stroke:#bae2cd;stroke-opacity:.16}.line{fill:none;stroke:#91e1bd;stroke-opacity:.34;stroke-width:1.2;stroke-linecap:round}
+    .line2{fill:none;stroke:#9acfd3;stroke-opacity:.28;stroke-width:1.1;stroke-linecap:round}.hot{fill:none;stroke:#b8f2d5;stroke-opacity:.85;stroke-width:1.5;stroke-linecap:round}
+    .tiny{font:600 12px Manrope,Arial,sans-serif;fill:#dce4df}.tag{font:600 11px Manrope,Arial,sans-serif;fill:#dce4df}.muted{fill:#75827b}.accent{fill:#91e1bd}.warn{fill:#d6a25e}
+  </style>
+</defs>
+<rect width="1700" height="920" fill="url(#bg)"/>
+<ellipse cx="1180" cy="570" rx="520" ry="330" fill="url(#wash)"/>
+<path d="M-40 840 C240 650 430 860 680 780" fill="none" stroke="#91e1bd" stroke-opacity=".05"/>
+<path d="M1550 -60 C1500 180 1690 300 1740 480" fill="none" stroke="#91e1bd" stroke-opacity=".05"/>
+
+<text class="ey" x="96" y="88">APPROACH</text><line x1="200" y1="84" x2="252" y2="84" stroke="#91e1bd" stroke-opacity=".35"/>
+<text class="h" x="96" y="166">I turn messy reality</text>
+<text class="h" x="96" y="234">into <tspan class="ha">reliable systems.</tspan></text>
+<text class="body" x="1065" y="168">I make unclear problems legible, reduce ambiguity,</text>
+<text class="body" x="1065" y="195">then build the smallest system that can carry the job.</text>
+
+<text class="n" x="82" y="322">01</text><text class="st" x="82" y="351">Messy reality</text><text class="sd" x="82" y="376">Fragmented, inconsistent</text><text class="sd" x="82" y="395">and unclear.</text>
+<g filter="url(#shadow)" transform="translate(82 455) rotate(-4 85 24)"><rect class="card" width="190" height="48" rx="11"/><circle cx="22" cy="24" r="7" fill="none" stroke="#dce4df" stroke-opacity=".8"/><path d="M16 20h12M16 24h12M16 28h12" stroke="#dce4df" stroke-opacity=".8"/><text class="tiny" x="40" y="29">Fragmented data</text></g>
+<g filter="url(#shadow)" transform="translate(150 518) rotate(5 95 26)"><rect class="card" width="210" height="54" rx="11"/><path d="M22 15l9 18H13z" fill="none" stroke="#dce4df" stroke-opacity=".8"/><text class="tiny" x="45" y="25">Conflicting</text><text class="tiny" x="45" y="40">definitions</text></g>
+<g filter="url(#shadow)" transform="translate(72 590) rotate(2 90 24)"><rect class="card" width="190" height="48" rx="11"/><rect x="15" y="13" width="17" height="21" rx="2" fill="none" stroke="#dce4df" stroke-opacity=".8"/><text class="tiny" x="43" y="29">Missing context</text></g>
+<g filter="url(#shadow)" transform="translate(168 650) rotate(-5 90 25)"><rect class="card" width="190" height="52" rx="11"/><circle cx="24" cy="26" r="10" fill="none" stroke="#dce4df" stroke-opacity=".8"/><text class="tiny" x="20.5" y="31">?</text><text class="tiny" x="46" y="31">Incomplete evidence</text></g>
+<circle class="muted" cx="54" cy="440" r="4"/><circle class="warn" cx="200" cy="428" r="4"/><circle class="muted" cx="348" cy="466" r="3"/><rect x="45" y="545" width="9" height="9" transform="rotate(20 49 549)" fill="#9acfd3" fill-opacity=".55"/>
+
+<text class="n" x="455" y="322">02</text><text class="st" x="455" y="351">Expose the truth</text><text class="sd" x="455" y="376">Surface evidence, constraints</text><text class="sd" x="455" y="395">and unknowns.</text>
+<path class="line" d="M310 492 C380 486 392 500 432 520"/><path class="line2" d="M332 556 C390 548 401 542 445 555"/><path class="line" d="M300 620 C380 607 402 598 452 585"/>
+<g transform="translate(446 470)">
+  <rect class="card" x="0" y="72" width="150" height="96" rx="8" opacity=".38"/>
+  <rect class="card" x="16" y="54" width="150" height="96" rx="8" opacity=".50"/>
+  <rect class="card" x="32" y="36" width="150" height="96" rx="8" opacity=".62"/>
+  <rect class="card" x="48" y="18" width="150" height="96" rx="8" opacity=".78"/>
+  <rect class="card" x="64" y="0" width="150" height="96" rx="8"/>
+  <path d="M82 24h84M82 38h64M82 52h91M82 66h52" stroke="#dce4df" stroke-opacity=".35"/>
+</g>
+<g transform="translate(452 445)"><rect x="0" y="0" width="82" height="28" rx="8" fill="#10221b" stroke="#91e1bd" stroke-opacity=".45"/><text class="tag" x="13" y="18">Evidence</text></g>
+<g transform="translate(610 468)"><rect x="0" y="0" width="92" height="28" rx="8" fill="#102027" stroke="#9acfd3" stroke-opacity=".45"/><text class="tag" x="11" y="18">Constraints</text></g>
+<g transform="translate(596 632)"><rect x="0" y="0" width="83" height="28" rx="8" fill="#241b10" stroke="#d6a25e" stroke-opacity=".55"/><text class="tag" x="12" y="18">Unknowns</text></g>
+
+<text class="n" x="790" y="322">03</text><text class="st" x="790" y="351">Reduce ambiguity</text><text class="sd" x="790" y="376">Turn fuzzy questions into</text><text class="sd" x="790" y="395">explicit mappings and decisions.</text>
+<g>
+  <path class="line2" d="M722 495 C760 495 770 545 810 545"/><path class="line2" d="M722 515 C765 515 775 545 810 545"/><path class="line2" d="M722 535 C765 535 775 545 810 545"/><path class="hot" d="M722 555 C765 555 780 545 810 545"/><path class="line2" d="M722 575 C765 575 775 545 810 545"/><path class="line2" d="M722 595 C760 595 770 545 810 545"/>
+  <circle cx="810" cy="545" r="6" fill="#b8f2d5"/>
+  <path class="hot" d="M816 545 H850"/>
+  <rect class="card" x="850" y="482" width="160" height="126" rx="12"/>
+  <line x1="872" y1="516" x2="977" y2="516" stroke="#91e1bd" stroke-opacity=".55"/><circle cx="878" cy="516" r="4" fill="#91e1bd"/>
+  <line x1="872" y1="545" x2="965" y2="545" stroke="#dce4df" stroke-opacity=".24"/><circle cx="878" cy="545" r="4" fill="none" stroke="#dce4df" stroke-opacity=".35"/>
+  <line x1="872" y1="574" x2="956" y2="574" stroke="#dce4df" stroke-opacity=".24"/><circle cx="878" cy="574" r="4" fill="none" stroke="#dce4df" stroke-opacity=".35"/>
+</g>
+
+<text class="n" x="1080" y="322">04</text><text class="st" x="1080" y="351">Build the system</text><text class="sd" x="1080" y="376">Create the smallest reliable</text><text class="sd" x="1080" y="395">system that works in practice.</text>
+<path class="hot" d="M1010 545 C1040 545 1043 545 1064 545"/>
+<g transform="translate(1068 460)">
+  <g transform="translate(0 118)"><path d="M55 0l58 26-58 26L0 26z" fill="#13271f" stroke="#91e1bd" stroke-opacity=".48"/><path d="M0 26v46l55 26V52z" fill="#0f1f1a" stroke="#91e1bd" stroke-opacity=".33"/><path d="M113 26v46L55 98V52z" fill="#10251d" stroke="#91e1bd" stroke-opacity=".33"/><circle cx="55" cy="46" r="7" fill="none" stroke="#b8f2d5" stroke-opacity=".75"/></g>
+  <g transform="translate(0 59)"><path d="M55 0l58 26-58 26L0 26z" fill="#173326" stroke="#91e1bd" stroke-opacity=".55"/><path d="M0 26v46l55 26V52z" fill="#11261c" stroke="#91e1bd" stroke-opacity=".38"/><path d="M113 26v46L55 98V52z" fill="#123020" stroke="#91e1bd" stroke-opacity=".38"/><path d="M42 50l10-12 9 5 12-18" fill="none" stroke="#b8f2d5" stroke-opacity=".8"/></g>
+  <g><path d="M55 0l58 26-58 26L0 26z" fill="#1b3b2c" stroke="#91e1bd" stroke-opacity=".65"/><path d="M0 26v46l55 26V52z" fill="#143020" stroke="#91e1bd" stroke-opacity=".42"/><path d="M113 26v46L55 98V52z" fill="#173827" stroke="#91e1bd" stroke-opacity=".42"/><ellipse cx="55" cy="38" rx="12" ry="5" fill="none" stroke="#b8f2d5" stroke-opacity=".8"/><path d="M43 38v12c0 3 5 5 12 5s12-2 12-5V38" fill="none" stroke="#b8f2d5" stroke-opacity=".8"/></g>
+</g>
+<line x1="1200" y1="486" x2="1200" y2="675" stroke="#91e1bd" stroke-opacity=".38"/><circle cx="1200" cy="545" r="4" fill="#b8f2d5"/>
+
+<text class="st" x="1290" y="351">Reliable outcomes</text><text class="sd" x="1290" y="376">Validated, usable and</text><text class="sd" x="1290" y="395">ready for real use.</text>
+<g transform="translate(1270 448)">
+  <path class="line" d="M-70 40 C-30 40 -24 22 0 22"/><path class="line" d="M-70 72 C-28 72 -20 82 0 82"/><path class="line" d="M-70 104 C-28 104 -20 142 0 142"/><path class="line" d="M-70 136 C-28 136 -20 202 0 202"/><path class="line" d="M-70 168 C-28 168 -20 262 0 262"/>
+  <g transform="translate(0 0)"><rect class="card" width="330" height="46" rx="10"/><circle cx="18" cy="23" r="6" fill="none" stroke="#91e1bd"/><path d="M15 23l2 2 4-5" fill="none" stroke="#91e1bd"/><text class="tiny" x="44" y="28">Validated migration</text></g>
+  <g transform="translate(0 60)"><rect class="card" width="330" height="46" rx="10"/><circle cx="18" cy="23" r="6" fill="none" stroke="#91e1bd"/><path d="M15 23l2 2 4-5" fill="none" stroke="#91e1bd"/><text class="tiny" x="44" y="28">Decision-ready analytics</text></g>
+  <g transform="translate(0 120)"><rect class="card" width="330" height="46" rx="10"/><circle cx="18" cy="23" r="6" fill="none" stroke="#91e1bd"/><path d="M15 23l2 2 4-5" fill="none" stroke="#91e1bd"/><text class="tiny" x="44" y="28">Evaluated model</text></g>
+  <g transform="translate(0 180)"><rect class="card" width="330" height="46" rx="10"/><circle cx="18" cy="23" r="6" fill="none" stroke="#91e1bd"/><path d="M15 23l2 2 4-5" fill="none" stroke="#91e1bd"/><text class="tiny" x="44" y="28">Governed AI workflow</text></g>
+  <g transform="translate(0 240)"><rect class="card" width="330" height="46" rx="10"/><circle cx="18" cy="23" r="6" fill="none" stroke="#91e1bd"/><path d="M15 23l2 2 4-5" fill="none" stroke="#91e1bd"/><text class="tiny" x="44" y="28">Usable product</text></g>
+</g>
+
+<line x1="82" y1="806" x2="1618" y2="806" stroke="#bae2cd" stroke-opacity=".10"/>
+<g transform="translate(670 838)"><rect x="0" y="0" width="210" height="48" rx="24" fill="none" stroke="#91e1bd" stroke-opacity=".55"/><text class="tiny" x="32" y="29">Inspect the evidence ↗</text></g>
+<circle cx="1285" cy="856" r="4" fill="#91e1bd"/><text class="n" x="1298" y="860">DECISION-READY</text>
+<text class="n" x="82" y="892">REFERENCE ONLY — REBUILD AS NATIVE HTML + SVG; DO NOT SHIP THIS FILE AS THE PRODUCTION VISUAL.</text>
+</svg>

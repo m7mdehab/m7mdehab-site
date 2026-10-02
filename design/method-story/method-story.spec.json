@@ -1,0 +1,203 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-03",
+  "authority": "Mohammed Ehab ElNomany",
+  "status": "design-locked-ready-for-implementation",
+  "section": {
+    "id": "method",
+    "dataAttribute": "data-method-story",
+    "eyebrow": "APPROACH",
+    "headline": "I turn messy reality into reliable systems.",
+    "support": "I make unclear problems legible, reduce ambiguity, then build the smallest system that can carry the job.",
+    "cta": {
+      "label": "Inspect the evidence",
+      "href": "/work"
+    }
+  },
+  "narrative": [
+    {
+      "id": "messy",
+      "title": "Messy reality",
+      "detail": "Fragmented, inconsistent and unclear."
+    },
+    {
+      "id": "expose",
+      "title": "Expose the truth",
+      "detail": "Surface evidence, constraints and unknowns."
+    },
+    {
+      "id": "reduce",
+      "title": "Reduce ambiguity",
+      "detail": "Turn fuzzy questions into explicit mappings and decisions."
+    },
+    {
+      "id": "build",
+      "title": "Build the system",
+      "detail": "Create the smallest reliable system that works in practice."
+    },
+    {
+      "id": "outcomes",
+      "title": "Reliable outcomes",
+      "detail": "Validated, usable and ready for real use."
+    }
+  ],
+  "inputs": [
+    "Fragmented data",
+    "Conflicting definitions",
+    "Missing context",
+    "Incomplete evidence"
+  ],
+  "exposeTags": [
+    "Evidence",
+    "Constraints",
+    "Unknowns"
+  ],
+  "outputs": [
+    "Validated migration",
+    "Decision-ready analytics",
+    "Evaluated model",
+    "Governed AI workflow",
+    "Usable product"
+  ],
+  "statusLabel": "DECISION-READY",
+  "implementation": {
+    "animationLibrary": "motion/react",
+    "addDependencies": false,
+    "serverWrapper": "components/home-solve-think.tsx",
+    "clientCanvas": "components/method-story-canvas.tsx",
+    "iconFile": "components/method-story-icons.tsx",
+    "stylesheet": "app/method-story.css",
+    "testFile": "tests/frontend-overhaul-phase-f.spec.ts",
+    "legacyCssDeletionInSamePass": false
+  },
+  "breakpoints": {
+    "desktop": {
+      "min": 1100,
+      "storyMinHeight": 410,
+      "storyMaxHeight": 470,
+      "columns": [
+        18,
+        20,
+        18,
+        18,
+        26
+      ]
+    },
+    "tablet": {
+      "min": 720,
+      "max": 1099,
+      "model": "input / three-stage transformation / output"
+    },
+    "mobile": {
+      "max": 719,
+      "model": "vertical five-state story",
+      "tabs": false
+    }
+  },
+  "motion": {
+    "scrollOffset": [
+      "start 78%",
+      "end 28%"
+    ],
+    "spring": {
+      "stiffness": 115,
+      "damping": 28,
+      "mass": 0.35
+    },
+    "ranges": {
+      "messy": [
+        0,
+        0.18
+      ],
+      "expose": [
+        0.16,
+        0.38
+      ],
+      "reduce": [
+        0.34,
+        0.6
+      ],
+      "build": [
+        0.56,
+        0.8
+      ],
+      "outcomes": [
+        0.76,
+        1
+      ]
+    },
+    "allowed": [
+      "transform",
+      "opacity",
+      "svg-pathLength",
+      "svg-pathOffset",
+      "stroke-opacity",
+      "small-scale"
+    ],
+    "forbidden": [
+      "large-filter-animation",
+      "width-height-animation",
+      "scroll-pin",
+      "scroll-hijack",
+      "infinite-tracer"
+    ]
+  },
+  "palette": {
+    "bg": "#08110f",
+    "bg2": "#0b1512",
+    "surface": "#0e1915",
+    "raised": "#111f1a",
+    "text": "#f2f4ef",
+    "muted": "#a9b3ad",
+    "dim": "#75827b",
+    "line": "rgba(186,226,205,.14)",
+    "lineStrong": "rgba(186,226,205,.28)",
+    "accent": "#91e1bd",
+    "accentBright": "#b8f2d5",
+    "secondary": "#9acfd3",
+    "unknown": "#d6a25e"
+  },
+  "svg": {
+    "desktopViewBox": [
+      0,
+      0,
+      1500,
+      410
+    ],
+    "zones": {
+      "input": [
+        0,
+        270
+      ],
+      "expose": [
+        300,
+        575
+      ],
+      "reduce": [
+        610,
+        865
+      ],
+      "build": [
+        900,
+        1130
+      ],
+      "outcomes": [
+        1160,
+        1500
+      ]
+    },
+    "maxDecorativeNodes": 220,
+    "maxConnectorPaths": 40
+  },
+  "acceptance": [
+    "chaos-to-reliable-system readable without body copy",
+    "left visibly less ordered than right",
+    "reveal-convergence-assembly visible in center",
+    "single custom icon and line language",
+    "no interaction required to reveal stages",
+    "final static state is attractive without JavaScript or animation",
+    "mobile is vertical, not scaled desktop",
+    "no new runtime dependency",
+    "axe/no-overflow/reduced-motion/build/lint/full browser suite pass"
+  ]
+}
