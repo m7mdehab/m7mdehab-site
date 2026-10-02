@@ -74,37 +74,39 @@
   .subtitle { left: 5%; top: 13%; width: 90%; height: 5%; font-size: 1.45cqw; line-height: 1; white-space: nowrap; }
   .accent { left: 5%; top: 19%; width: 6%; height: 1px; }
 
-  .process { left: 5%; top: 22%; width: 90%; height: 10%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .process > div svg { width: 3.1cqw; height: 3.1cqw; margin-bottom: 0.4cqw; stroke-width: 2.1; }
-  .process b { font-size: 1.3cqw; letter-spacing: 0.04em; line-height: 1; white-space: nowrap; }
-  .process span { display: none; }
+  .process { left: 5%; top: 27%; width: 41%; height: 13%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 1.2%; }
+  .process > div svg { width: 3.5cqw; height: 3.5cqw; margin-bottom: 0.45cqw; stroke-width: 2.15; }
+  .process b { font-size: 1.42cqw; letter-spacing: 0.02em; line-height: 1; white-space: nowrap; }
+  .process span { display: flex; margin-top: 0.3cqw; color: #dccaa4; font-size: 0.88cqw; line-height: 1.03; }
+  .process span i { white-space: nowrap; }
+  .process span i + i { display: none; }
 
-  .map { left: 4%; top: 36%; width: 55%; height: 48%; }
+  .metrics { left: 5%; top: 54%; width: 41%; height: 17%; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .metrics > div { box-sizing: border-box; min-width: 0; grid-template-columns: 1fr; grid-template-rows: auto auto; justify-items: center; align-content: center; gap: 0.45cqw; padding: 0 0.2cqw; text-align: center; }
+  .metrics > div:first-child { padding-left: 0.2cqw; }
+  .metrics b { grid-row: 1; font-size: 2.4cqw; line-height: 1; white-space: nowrap; }
+  .metrics strong { grid-row: 2; grid-column: 1; color: #f1dec1; font-size: 1.05cqw; line-height: 1; white-space: nowrap; }
+  .metrics > div:last-child b { font-size: 2.2cqw; letter-spacing: 0; }
+  .metrics small,.classSwatches { display: none; }
+
+  .map { left: 48%; top: 27%; width: 49%; height: 60%; }
   .classCells rect { fill-opacity: 0.36; stroke-width: 1; }
   .aoi { fill: rgb(219 175 45 / 8%); stroke-width: 4; stroke-dasharray: 10 6; }
   .classEdge { stroke-width: 2.6; }
 
-  .callout { width: 34%; min-height: 0; gap: 0.18cqw; padding: 0.52cqw 0.6cqw; border: 1px solid rgb(247 226 179 / 38%); border-radius: 3px; background: rgb(20 29 21 / 88%); text-align: left; backdrop-filter: none; box-shadow: none; }
-  .callout0 { left: 46%; top: 48%; width: 36%; }
-  .callout1 { left: 54%; top: 72%; width: 31%; }
-  .callout2 { left: 2%; top: 25%; width: 33%; }
-  .callout b { display: block; font-size: 1.2cqw; line-height: 1; }
-  .callout span { display: flex; gap: 0.08cqw; font-size: 0.82cqw; line-height: 1.05; }
+  .callout { width: 31%; min-height: 0; gap: 0.16cqw; padding: 0.45cqw 0.55cqw; border: 1px solid rgb(247 226 179 / 38%); border-radius: 3px; background: rgb(20 29 21 / 88%); text-align: left; backdrop-filter: none; box-shadow: none; }
+  .callout0 { left: 47%; top: 48%; width: 35%; }
+  .callout1 { left: 58%; top: 72%; width: 30%; }
+  .callout2 { left: 3%; top: 25%; width: 32%; }
+  .callout b { display: block; font-size: 1.15cqw; line-height: 1; }
+  .callout span { display: flex; gap: 0.08cqw; font-size: 0.8cqw; line-height: 1.05; }
   .callout i { white-space: nowrap; }
   .callout i + i { display: none; }
 
-  .legend { left: 62%; top: 39%; width: 33%; height: auto; gap: 0.45cqw; padding: 0.72cqw; border-radius: 4px; }
-  .legend > b { font-size: 1.0cqw; white-space: nowrap; }
-  .legend > span { min-height: 1.05em; gap: 0.6cqw; font-size: 0.88cqw; }
-  .legend > span > i { width: 1.45cqw; height: 0.95cqw; }
-
-  .metrics { left: 61%; top: 66%; width: 35%; height: 12%; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .metrics > div { box-sizing: border-box; min-width: 0; grid-template-columns: 1fr; grid-template-rows: auto auto; justify-items: center; align-content: center; gap: 0.42cqw; padding: 0 0.28cqw; text-align: center; }
-  .metrics > div:first-child { padding-left: 0.28cqw; }
-  .metrics b { grid-row: 1; font-size: 1.9cqw; line-height: 1; white-space: nowrap; }
-  .metrics strong { grid-row: 2; grid-column: 1; font-size: 0.88cqw; line-height: 1; white-space: nowrap; }
-  .metrics > div:last-child b { font-size: 1.9cqw; letter-spacing: 0; }
-  .metrics small,.classSwatches { display: none; }
+  .legend { left: 77%; top: 29%; width: max-content; max-width: 20%; height: auto; gap: 0.35cqw; padding: 0.55cqw 0.65cqw; border-radius: 4px; }
+  .legend > b { font-size: 0.95cqw; white-space: nowrap; }
+  .legend > span { min-height: 1em; gap: 0.45cqw; font-size: 0.78cqw; }
+  .legend > span > i { width: 1.2cqw; height: 0.8cqw; }
 
   .footer { display: none; }
 }
