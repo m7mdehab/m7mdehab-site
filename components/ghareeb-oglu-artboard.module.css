@@ -33,7 +33,7 @@
   .headline { left: 5%; top: 27%; width: 90%; height: 8%; font-size: 4.1cqw; line-height: 1; white-space: nowrap; text-align: center; }
   .subheadline { left: 8%; top: 37%; width: 84%; height: 4%; display: block; margin: 0; font-size: 1.4cqw; line-height: 1; white-space: nowrap; text-align: center; }
 
-  .stages { left: 8%; top: 46%; width: 84%; height: 24%; }
+  .stages { left: 8%; top: 46%; width: 84%; height: 15.75cqw; }
   .path { display: block; }
   .stage { width: 25%; height: 100%; }
   .stage0 { left: 0; top: 0; }
