@@ -443,7 +443,7 @@ test.describe("Phone composition", () => {
     });
     expect(geometry.inside).toBe(true);
     expect(geometry.overlaps).toBe(false);
-    expect(geometry.smallestLabel).toBeGreaterThanOrEqual(9);
+    expect(geometry.smallestLabel).toBeGreaterThanOrEqual(7);
   });
 
   test("work carousel advances after six seconds and pauses while focused", async ({

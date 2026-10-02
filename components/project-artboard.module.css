@@ -98,10 +98,19 @@
 
 @container work-slide (max-width: 700px) {
   .artboard {
+    --mobile-title-scale: 4.2cqw;
+    --mobile-subtitle-scale: 1.9cqw;
+    --mobile-label-scale: 1.45cqw;
+    --mobile-micro-scale: 1.05cqw;
+    --mobile-icon-scale: 3cqw;
+    --mobile-logo-scale: 0.58;
+    --mobile-gap-xs: 1cqw;
+    --mobile-gap-sm: 2cqw;
+    --mobile-gap-md: 3.5cqw;
     aspect-ratio: 1.55;
     border-radius: 26px;
   }
-  .caseStudyCta { right: 3%; bottom: 2.5%; min-width: 34cqw; min-height: 12cqw; padding: 2cqw 3cqw; font-size: 2.8cqw; }
+  .caseStudyCta { right: 3%; bottom: 2.5%; min-width: 34cqw; min-height: 44px; padding: 2cqw 3cqw; font-size: clamp(8px, 2.8cqw, 10px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -438,8 +438,8 @@ test.describe("Selected Work desktop surgical pass 3", () => {
       const svg = journey.querySelector<SVGSVGElement>("[data-action-connector]")!;
       const path = svg.querySelector<SVGPathElement>("path")!;
       const nodes = [...svg.querySelectorAll<SVGCircleElement>("circle[data-action-node]")];
-      const controls = [...journey.querySelectorAll<SVGSVGElement>("[data-stage-anchor] > svg")];
-      const labels = [...journey.querySelectorAll<HTMLElement>("[data-stage-anchor] > span")];
+      const controls = [...journey.querySelectorAll<SVGSVGElement>("[data-stage-anchor] > svg")].filter((control) => control.getClientRects().length > 0);
+      const labels = [...journey.querySelectorAll<HTMLElement>("[data-stage-anchor] > span")].filter((label) => label.getClientRects().length > 0);
       const center = (rect: DOMRect) => ({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
       const utility = journey.closest("[data-project-artboard]")!.querySelector<HTMLElement>("[data-artboard-node='secondaryFeatures']")!;
       const utilityItems = [...utility.children].map((item) => ({ fontSize: getComputedStyle(item).fontSize, icon: getComputedStyle(item.querySelector("svg")!).width }));
@@ -480,14 +480,14 @@ test.describe("Selected Work desktop surgical pass 3", () => {
     const carousel = await openSelectedWork(page);
     const board = await selectSlide(carousel, 5);
     const statement = board.locator("[data-artboard-node='productStatement']");
-    await expect(statement).toHaveAttribute("aria-label", "Designing the whole journey with customer experience in mind, not isolated screens.");
+    await expect(statement).toHaveAccessibleName("Designing the whole journey with customer experience in mind, not isolated screens.");
     const layout = await statement.evaluate((element) => {
-      const ranges = [...element.children].map((child) => {
-        const range = document.createRange();
-        range.selectNodeContents(child);
-        return range.getClientRects().length;
-      });
-      return { visualLines: ranges.reduce((sum, lines) => sum + lines, 0), text: element.getAttribute("aria-label") };
+      const visibleContent = [...element.children].filter((child) => getComputedStyle(child).display !== "none");
+      const lineElements = visibleContent.flatMap((content) =>
+        content.children.length ? [...content.children] : [content],
+      ).filter((line) => line.getClientRects().length > 0);
+      const lineTops = new Set(lineElements.map((line) => Math.round(line.getBoundingClientRect().top)));
+      return { visualLines: lineTops.size, text: (element as HTMLElement).innerText.replace(/\s+/g, " ").trim() };
     });
     expect(layout).toEqual({ visualLines: 3, text: "Designing the whole journey with customer experience in mind, not isolated screens." });
   });

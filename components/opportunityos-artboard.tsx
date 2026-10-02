@@ -22,7 +22,7 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
       <div className={styles.title} style={artboardNodeStyle(box.title)} data-artboard-node="title" data-artboard-x="93" data-artboard-y="74" data-artboard-w="960" data-artboard-h="148">
         <h3 data-project-title><span>{copy.titlePrefix}</span><span>{copy.titleAccent}</span></h3>
       </div>
-      <p className={styles.tagline} style={artboardNodeStyle(box.tagline)} data-artboard-node="tagline" data-artboard-x="98" data-artboard-y="238" data-artboard-w="1030" data-artboard-h="55">{copy.tagline}</p>
+      <p className={styles.tagline} style={artboardNodeStyle(box.tagline)} data-mobile-one-line="opportunityos-tagline" data-artboard-node="tagline" data-artboard-x="98" data-artboard-y="238" data-artboard-w="1030" data-artboard-h="55">{copy.tagline}</p>
       <div className={styles.mantra} aria-label={copy.mantra.join(" ")}>
         <span />{copy.mantra.map((line) => <b key={line}>{line}</b>)}
       </div>
@@ -39,28 +39,22 @@ export function OpportunityOsArtboard({ debugMode = "code", showGrid = false, is
           {desktopNodeCenters.map((x, index) => <circle data-flow-node={index} key={x} cx={x} cy="80.5" r="12" />)}
           {animate ? <motion.path className={styles.gateCheckMark} data-gate-check d="M979 80.5 981.5 83 986.5 77" initial={{ opacity: 0.72 }} animate={{ opacity: [0.72, 0.72, 1, 1, 0.72] }} transition={selectedWorkPathLoop(2.45)} /> : <path className={styles.gateCheckMark} data-gate-check d="M979 80.5 981.5 83 986.5 77" />}
         </svg>
-        <svg className={styles.mobileFlow} viewBox="0 0 1065 245" aria-hidden="true">
-          <path className={styles.mobileSignal} d="M22 65 C124 10 177 22 250 70 S395 128 490 110 S635 72 735 72 S855 83 995 82" />
-          <path className={styles.mobileWave} d="M0 65 C124 42 145 52 250 83 S415 121 490 92 S666 103 735 72 S884 101 1065 70" />
-          {[22, 250, 490, 735, 995].map((x, index) => <circle key={x} cx={x} cy={[65, 70, 110, 72, 82][index]} r="12" />)}
-        </svg>
         {copy.nodes.map((node, index) => (
           <div className={`${styles.flowNode} ${styles[`flowNode${index}`]}`} data-flow-stage={index} key={node.title}>
-            <b>{node.title}</b>
+            <b data-mobile-one-line>{node.title}</b>
             <span>{node.lines.map((line) => <span key={line}>{line}</span>)}</span>
           </div>
         ))}
         <div className={`${styles.flowNode} ${styles.flowNode4} ${styles.gate}`} data-artboard-node="authorityGate" data-artboard-x="979" data-artboard-y="642" data-artboard-w="183" data-artboard-h="125" data-flow-stage="4">
-          <b aria-label={copy.gate.label}><span className={styles.gateDesktopLabel} data-gate-desktop-label>{copy.gate.label}</span><span className={styles.gateMobileLabel} aria-hidden="true">Gate</span></b>
+          <b aria-label={copy.gate.label} data-mobile-one-line><span className={styles.gateDesktopLabel} data-gate-desktop-label>{copy.gate.label}</span></b>
           <span>{copy.gate.conditions.map((condition) => <span key={condition}>{condition}</span>)}</span>
         </div>
-        <span className={styles.gateCheckMobile} aria-hidden="true">✓</span>
       </div>
       <div className={styles.modes} style={artboardNodeStyle(box.actionModes)} data-artboard-node="actionModes" data-artboard-x="1345" data-artboard-y="412" data-artboard-w="300" data-artboard-h="300">
         <b>Action modes</b>
         {copy.modes.map((mode, index) => {
           const className = index === 2 ? styles.controlled : "";
-          const contents = <><i aria-hidden="true" /><span><strong>{mode.title}</strong><small>{mode.detail}</small></span></>;
+          const contents = <><i aria-hidden="true" /><span><strong data-mobile-one-line>{mode.title}</strong><small>{mode.detail}</small></span></>;
           return animate && index === 2 ? (
             <motion.div className={className} key={mode.title} initial={{ boxShadow: "0 0 0 rgb(85 196 126 / 0%)" }} animate={{ boxShadow: ["0 0 0 rgb(85 196 126 / 0%)", "0 0 18px rgb(85 196 126 / 34%)", "0 0 0 rgb(85 196 126 / 12%)"] }} transition={{ delay: 3.35, duration: 1.8, repeat: Infinity, repeatDelay: 2.75, ease: "easeInOut" }}>{contents}</motion.div>
           ) : <div className={className} key={mode.title}>{contents}</div>;

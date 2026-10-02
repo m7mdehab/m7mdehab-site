@@ -277,43 +277,38 @@
 .platformStatus span:last-child b { color: #c7d6ec; }
 
 @container work-slide (max-width: 700px) {
-  .identity { top: 8%; left: 5%; width: 58%; height: 18%; }
-  .tagline { top: 21%; left: 5%; width: 60%; height: 9%; font-size: 3.25cqw; }
-  .accent { top: 33%; left: 5%; width: 9%; height: 1px; }
-  .proofMetrics { top: 34%; left: 5%; width: 60%; height: 9%; }
-  .proofMetrics > div { gap: 0.7cqw; padding: 0 1cqw; }
-  .proofMetrics b { font-size: 2.05cqw; line-height: 1.15; }
-  .proofMetrics strong { font-size: 2.35cqw; white-space: normal; }
-  .rail { top: 65%; left: 4%; width: 92%; height: 34%; }
+  .identity { top: 4%; left: 5%; width: 32%; height: 11%; }
+  .identity > [data-presaira-wordmark] { width: 100%; max-width: 100%; }
+  .tagline { top: 17%; left: 5%; width: 44%; height: 5%; font-size: var(--mobile-subtitle-scale); line-height: 1; white-space: nowrap; }
+  .accent { top: 23%; left: 5%; width: 5%; height: 1px; }
+  .proofMetrics { top: 25%; left: 5%; width: 57%; height: 13%; }
+  .proofMetrics > div { gap: 0.45cqw; padding: 0 1.1cqw; white-space: nowrap; }
+  .proofMetrics b { font-size: 1.25cqw; line-height: 1; letter-spacing: 0.04em; white-space: nowrap; }
+  .proofMetrics strong { font-size: 1.65cqw; line-height: 1; white-space: nowrap; }
+  .rail { top: 4%; left: 49%; width: 47%; height: 31%; }
   .competition { width: 24%; height: 100%; }
-  .competition:not(:first-of-type)::before { top: 0; height: 75%; }
-  .node { display: none; }
-  .markStage { height: 44%; }
-  .markStage img { max-width: 60%; max-height: 26px; }
-  .competition0 .markStage img { transform: scale(1.2); }
-  .competition1 .markStage img { transform: scale(1.1); }
-  .competition2 .markStage img { max-width: 60%; max-height: 26px; transform: scale(2); }
-  .competition3 .markStage img { max-width: 60%; max-height: 26px; transform: scale(2.2); }
-  .competitionName { max-width: 100%; font-size: 2.8cqw; line-height: 1.02; white-space: normal; }
-  .competitionStatus { max-width: 100%; font-size: 2.2cqw; line-height: 1.02; white-space: normal; }
-  .chartWrap { top: 44%; left: 4%; width: 53%; height: 20%; }
-  .chart { font-size: 10px; }
-  .chart .axisMark text,
-  .chart .axisLabel { display: none; }
-  .axisMark line { opacity: 0.22; }
-  .perfect { stroke-dasharray: 3 4; }
-  .observedLine { stroke-width: 3; }
-  .interval { display: none; }
-  .point { r: 6px; }
-  .principles,
-  .perfectLabel { display: none; }
-  .score { top: 44%; left: 63%; width: 33%; height: 18%; padding-left: 3%; }
-  .scoreNumber { font-size: 6.8cqw; gap: 0.13em; }
-  .scoreCaption { margin-top: 0.32em; font-size: 2.8cqw; line-height: 1.05; white-space: normal; }
-  .platformStatus { display: none; }
-}
-
-@media (max-width: 370px) {
-  .tagline { font-size: 3cqw; }
-  .scoreNumber { font-size: 6.3cqw; }
+  .competition:not(:first-of-type)::before { top: 3%; height: 72%; }
+  .node { top: 82%; display: grid; width: 2cqw; min-width: 4px; box-shadow: none; }
+  .markStage { height: 40%; }
+  .markStage img { max-width: 25%; max-height: 10cqw; }
+  .competition0 .markStage img,.competition1 .markStage img { transform: none; }
+  .competition2 .markStage img,.competition3 .markStage img { max-width: 25%; max-height: 10cqw; transform: none; }
+  .competitionName { max-width: 100%; font-size: 1.2cqw; line-height: 1; white-space: nowrap; }
+  .competitionStatus { max-width: 100%; margin-top: 0.3em; font-size: 1.05cqw; line-height: 1; white-space: nowrap; }
+  .chartWrap { top: 42%; left: 4%; width: 58%; height: 36%; }
+  .chart { font-size: 12px; }
+  .chart .axisMark text,.chart .axisLabel { display: block; font-size: 12px; }
+  .axisMark line { opacity: 0.42; }
+  .perfect { stroke-dasharray: 4 4; opacity: 0.86; stroke-width: 2.2; }
+  .observedLine { stroke-width: 4; }
+  .interval { display: block; stroke-width: 2; }
+  .point { r: 5px; }
+  .perfectLabel { top: 41%; left: 26%; font-size: 1.05cqw; line-height: 1.1; white-space: nowrap; }
+  .principles { display: none; }
+  .score { top: 48%; left: 66%; width: 29%; height: 28%; padding-left: 2.5%; }
+  .scoreNumber { font-size: 4.9cqw; gap: 0.13em; white-space: nowrap; }
+  .scoreCaption { flex: 0 0 auto; align-self: flex-start; width: max-content; margin-top: 0.35em; font-size: 1.2cqw; line-height: 1; white-space: nowrap; }
+  .platformStatus { display: flex; gap: 1.2cqw; margin-top: 1.2cqw; font-size: 1.1cqw; line-height: 1.1; }
+  .platformStatus span { gap: 0.6cqw; white-space: nowrap; }
+  .platformStatus b { font-size: 0.95cqw; letter-spacing: 0.035em; }
 }

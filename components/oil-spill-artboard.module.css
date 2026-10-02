@@ -25,15 +25,19 @@
 .lookalike { align-items: flex-end; color: #aebfbe; font-size: 0.95cqw; font-weight: 430; letter-spacing: 0.16em; }
 
 @container work-slide (max-width: 700px) {
-  .title { left: 5%; top: 8%; width: 55%; height: 31%; font-size: 7.3cqw; line-height: 0.94; }
-  .accent { left: 5%; top: 42%; width: 10%; height: 1px; }
-  .tagline { left: 5%; top: 46%; width: 56%; height: 13%; font-size: 3cqw; letter-spacing: 0.01em; }
-  .skills,.lookalike { display: none; }
+  .title { left: 5%; top: 8%; width: 90%; height: 13%; flex-direction: row; align-items: baseline; gap: 0.18em; font-size: var(--mobile-title-scale); line-height: 1; letter-spacing: -0.035em; white-space: nowrap; }
+  .title span { display: inline; white-space: nowrap; }
+  .accent { left: 5%; top: 23%; width: 8%; height: 1px; }
+  .tagline { left: 5%; top: 27%; width: 90%; height: 7%; font-size: var(--mobile-subtitle-scale); letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .skills { left: 5%; top: 35%; width: 90%; height: 6%; display: block; font-size: var(--mobile-label-scale); line-height: 1; white-space: nowrap; }
+  .lookalike { left: 30%; top: 72.5%; width: 20%; height: 5.5%; display: flex; align-items: center; justify-content: flex-start; flex-direction: row; gap: 0.6cqw; font-size: 1.1cqw; letter-spacing: 0.07em; line-height: 1; white-space: nowrap; }
+  .lookalike span { display: inline; white-space: nowrap; }
   .lookLineDesktop { display: none; }
   .lookLineMobile { display: block; }
-  .contour { left: 51%; top: 11%; width: 45%; height: 78%; }
+  .contour { left: 35%; top: 37%; width: 64%; height: 48%; }
+  .leader,.lookLine { vector-effect: non-scaling-stroke; stroke-width: 1; }
   .spill { fill: rgb(29 222 226 / 12%); }
   .edge { stroke-width: 3; }
-  .detected { left: 66%; top: 44%; width: 27%; height: 17%; font-size: 2.6cqw; letter-spacing: 0.1em; }
-  .detected::before,.detected::after { width: 10%; }
+  .detected { left: 76%; top: 51%; width: 20%; height: 5%; flex-direction: row; align-items: center; gap: 0.35cqw; font-size: 1.05cqw; letter-spacing: 0.025em; line-height: 1; white-space: nowrap; }
+  .detected span { display: inline; white-space: nowrap; }
 }

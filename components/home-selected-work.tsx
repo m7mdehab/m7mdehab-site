@@ -54,13 +54,13 @@ export function SelectedWorkGallery() {
       <div className="shell selected-work-shell">
         <header className="selected-work-intro">
           <div>
-            <h2>Six projects. One standard.</h2>
+            <h2 data-mobile-one-line="section-heading">Six projects. One standard.</h2>
           </div>
           <div className="selected-work-intro-copy">
             <p className="selected-work-intro-desktop">
               Each project opens to a full case study with inspectable evidence.
             </p>
-            <p className="selected-work-intro-mobile">
+            <p className="selected-work-intro-mobile" data-mobile-one-line="section-supporting-copy">
               Each project is backed by a full case study and inspectable evidence.
             </p>
           </div>

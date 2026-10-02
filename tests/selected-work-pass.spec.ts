@@ -249,7 +249,7 @@ test.describe("Selected Work refinement", () => {
       const card = slide.locator(".selected-work-carousel-artboard");
       const title = card.locator("[data-project-title]");
       if (["oil-spill-detection", "solar-site-selection", "makhbazy"].includes(slug)) {
-        await expect(title).toHaveAttribute("aria-label", expectedHeadings[index]);
+        await expect(title).toHaveAccessibleName(expectedHeadings[index]);
       } else {
         await expect(title).toContainText(expectedHeadings[index]);
       }

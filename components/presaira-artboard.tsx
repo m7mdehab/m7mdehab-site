@@ -74,14 +74,14 @@ function CalibrationChart({ animate }: { animate: boolean }) {
 
 function CompetitionRail({ pulseActiveNode }: { pulseActiveNode: boolean }) {
   return (
-    <div className={styles.rail} style={sourceBox("competitionRail")} data-artboard-node="competitionRail" data-artboard-x="860" data-artboard-y="54" data-artboard-w="740" data-artboard-h="190">
+    <div className={styles.rail} style={sourceBox("competitionRail")} data-mobile-required="presaira-competition-rail" data-artboard-node="competitionRail" data-artboard-x="860" data-artboard-y="54" data-artboard-w="740" data-artboard-h="190">
       {competitions.map((competition, index) => (
         <div className={`${styles.competition} ${styles[`competition${index}`]}`} key={competition.logo}>
           <div className={styles.markStage}>
             <Image src={`/selected-work/logos/${competition.logo}`} alt={`${competition.name} logo`} width={1254} height={1254} />
           </div>
-          <span className={styles.competitionName}>{competition.name}</span>
-          <span className={styles.competitionStatus}>{competition.status}</span>
+          <span className={styles.competitionName} data-mobile-one-line>{competition.name}</span>
+          <span className={styles.competitionStatus} data-mobile-one-line>{competition.status}</span>
           {pulseActiveNode && competition.status === "ACTIVE" ? (
             <motion.span className={styles.node} data-status-node aria-hidden="true" initial={{ opacity: 0.7 }} animate={{ opacity: [0.7, 1, 1, 0.7] }} transition={selectedWorkNodeLoop(1.1)} />
           ) : <span className={styles.node} data-status-node aria-hidden="true" />}
@@ -102,21 +102,21 @@ export function PresairaArtboard({ debugMode = "code", showGrid = false, isActiv
         <h3 className={styles.semanticWordmark} data-project-title>{copy.wordmark}</h3>
         <PresairaWordmark />
       </div>
-      <p className={styles.tagline} style={sourceBox("tagline")} data-artboard-node="tagline" data-artboard-x="97" data-artboard-y="224" data-artboard-w="650" data-artboard-h="52">{copy.tagline}</p>
+      <p className={styles.tagline} style={sourceBox("tagline")} data-mobile-one-line="presaira-tagline" data-artboard-node="tagline" data-artboard-x="97" data-artboard-y="224" data-artboard-w="650" data-artboard-h="52">{copy.tagline}</p>
       <span className={styles.accent} style={sourceBox("accentLine")} aria-hidden="true" />
       <div className={styles.proofMetrics} style={sourceBox("proofMetrics")} data-artboard-node="proofMetrics" data-artboard-x="97" data-artboard-y="332" data-artboard-w="670" data-artboard-h="68">
-        {copy.proofMetrics.map((metric) => <div key={metric.label}><b>{metric.label}</b><strong>{metric.value}</strong></div>)}
+        {copy.proofMetrics.map((metric) => <div key={metric.label}><b data-mobile-one-line>{metric.label}</b><strong data-mobile-one-line>{metric.value}</strong></div>)}
       </div>
 
       <CompetitionRail pulseActiveNode={animate} />
 
-      <div className={styles.chartWrap} style={sourceBox("chart")} data-artboard-node="calibrationChart" data-artboard-x="88" data-artboard-y="437" data-artboard-w="1120" data-artboard-h="470">
+      <div className={styles.chartWrap} style={sourceBox("chart")} data-mobile-required="presaira-calibration-chart" data-artboard-node="calibrationChart" data-artboard-x="88" data-artboard-y="437" data-artboard-w="1120" data-artboard-h="470">
         <CalibrationChart animate={animate} />
       </div>
       <div className={styles.perfectLabel} aria-hidden="true">{copy.chartLabels.perfect}</div>
-      <div className={styles.score} style={sourceBox("score")} data-artboard-node="proof" data-artboard-x="1265" data-artboard-y="382" data-artboard-w="330" data-artboard-h="235">
+      <div className={styles.score} style={sourceBox("score")} data-mobile-required="presaira-match-proof" data-artboard-node="proof" data-artboard-x="1265" data-artboard-y="382" data-artboard-w="330" data-artboard-h="235">
         <span className={styles.scoreNumber} data-artboard-node="scoreNumber" aria-label={copy.score.number}>{copy.score.number.split(" / ").map((number, index) => <span key={index}>{index ? "/ " : ""}{number}</span>)}</span>
-        <span className={styles.scoreCaption}>{copy.score.caption}</span>
+        <span className={styles.scoreCaption} data-mobile-one-line>{copy.score.caption}</span>
         <div className={styles.platformStatus} data-artboard-node="platformStatus"><span>UCL 2026/27 <b>ACTIVE</b></span><span>FORMULA 1 + NBA <b>COMING SOON</b></span></div>
       </div>
     </ProjectArtboard>
