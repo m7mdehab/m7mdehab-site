@@ -423,3 +423,34 @@ The rebuild is complete only when:
 12. typecheck/lint/build/static-export/browser/a11y/no-JS/reduced-motion/mobile gates pass;
 13. rendered screenshot matrix is manually reviewed;
 14. governing documentation records this decision so old project-only Writing does not return.
+
+## 22. Prefabricated implementation status
+
+This rebuild is no longer specification-only.
+
+A non-live component/style scaffold is prepared:
+
+- `components/writing-system-contract.ts`;
+- `components/writing-system-cover.tsx`;
+- `components/writing-system-card.tsx`;
+- `components/home-writing-section.tsx`;
+- `components/writing-system-article-blocks.tsx`;
+- `app/writing-system.css`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`.
+
+The prepared files intentionally do **not** alter the live site yet.
+
+The execution agent should use them as the starting implementation rather than rebuilding the card/cover/CSS system from scratch.
+
+Important migration rule: `components/writing-system-contract.ts` is a temporary pre-integration type scaffold. During activation, move/reconcile that contract into the canonical `data/writing.ts`, repoint the prepared components to `data/writing.ts`, then delete the temporary contract file. Do not leave two long-term editorial models.
+
+The remaining execution work is primarily:
+
+1. canonical data migration;
+2. component activation;
+3. archive/article integration;
+4. schema/discovery generalization;
+5. test surgery;
+6. rendered tuning;
+7. documentation reconciliation;
+8. merge/deploy/live verification.
