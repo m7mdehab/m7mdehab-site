@@ -296,6 +296,7 @@ A non-live implementation scaffold is already present on the groundwork branch/m
 - `components/writing-system-contract.ts`
 - `components/writing-system-cover.tsx`
 - `components/writing-system-card.tsx`
+- `components/writing-system-index.tsx`
 - `components/home-writing-section.tsx`
 - `components/writing-system-article-blocks.tsx`
 - `app/writing-system.css`
