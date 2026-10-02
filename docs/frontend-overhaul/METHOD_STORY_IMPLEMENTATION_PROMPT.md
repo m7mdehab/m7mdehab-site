@@ -55,3 +55,11 @@ Your implementation job is now primarily **integration + rendered visual tuning*
 6. run the complete validation and delivery workflow.
 
 Do not throw away the prepared files and rebuild them differently unless a concrete compile/runtime defect requires it.
+
+## Final execution aids
+
+Before coding, also read:
+- `docs/frontend-overhaul/METHOD_STORY_INTEGRATION_PATCH.md` for the exact activation/test changes;
+- `docs/frontend-overhaul/METHOD_STORY_VISUAL_QA.md` for screenshot acceptance.
+
+A known pre-existing Cloudflare staging issue is documented there: `/writing.json` returned 404 at the deployed staging origin even though the static artifact contained `out/writing.json`. Do not attribute that baseline deployment issue to this section without evidence.
