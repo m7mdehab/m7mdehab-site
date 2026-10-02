@@ -406,7 +406,7 @@
   }
 
   .selected-work-carousel-slide {
-    flex: 0 0 91%;
+    flex: 0 0 88%;
     min-width: 0;
     margin-right: 10px;
     background: transparent;
@@ -1859,7 +1859,7 @@
 
 @media (max-width: 700px) {
   .selected-work-carousel-slide-artboard {
-    flex-basis: 91%;
+    flex-basis: 88%;
     min-width: 0;
   }
 
