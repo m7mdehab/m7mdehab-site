@@ -30,14 +30,16 @@
   .accent { left: 5%; top: 23%; width: 8%; height: 1px; }
   .tagline { left: 5%; top: 27%; width: 90%; height: 7%; font-size: var(--mobile-subtitle-scale); letter-spacing: 0; line-height: 1; white-space: nowrap; }
   .skills { left: 5%; top: 35%; width: 90%; height: 6%; display: block; font-size: var(--mobile-label-scale); line-height: 1; white-space: nowrap; }
-  .lookalike { left: 30%; top: 72.5%; width: 20%; height: 5.5%; display: flex; align-items: center; justify-content: flex-start; flex-direction: row; gap: 0.6cqw; font-size: 1.1cqw; letter-spacing: 0.07em; line-height: 1; white-space: nowrap; }
+
+  .lookalike { left: 29%; top: 73%; width: 24%; height: 5.5%; display: flex; align-items: center; justify-content: flex-start; flex-direction: row; gap: 0.55cqw; font-size: 1.02cqw; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; }
   .lookalike span { display: inline; white-space: nowrap; }
   .lookLineDesktop { display: none; }
   .lookLineMobile { display: block; }
+
   .contour { left: 35%; top: 37%; width: 64%; height: 48%; }
   .leader,.lookLine { vector-effect: non-scaling-stroke; stroke-width: 1; }
   .spill { fill: rgb(29 222 226 / 12%); }
   .edge { stroke-width: 3; }
-  .detected { left: 76%; top: 51%; width: 20%; height: 5%; flex-direction: row; align-items: center; gap: 0.35cqw; font-size: 1.05cqw; letter-spacing: 0.025em; line-height: 1; white-space: nowrap; }
+  .detected { left: 79%; top: 51%; width: 17%; height: 5%; flex-direction: row; align-items: center; justify-content: flex-end; gap: 0.3cqw; font-size: 0.98cqw; letter-spacing: 0.02em; line-height: 1; white-space: nowrap; text-align: right; }
   .detected span { display: inline; white-space: nowrap; }
 }
