@@ -287,3 +287,25 @@ Report:
 - any genuine unresolved blocker.
 
 If there is no blocker, do not stop at “ready for review.” Follow the repository delivery workflow through production.
+
+## Prepared code: do not start from blank files
+
+A non-live implementation scaffold is already present on the groundwork branch/main checkpoint:
+
+- `components/writing-system-contract.ts`
+- `components/writing-system-cover.tsx`
+- `components/writing-system-card.tsx`
+- `components/home-writing-section.tsx`
+- `components/writing-system-article-blocks.tsx`
+- `app/writing-system.css`
+- `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`
+
+Use these files.
+
+Do not replace them with a separate visual system unless a concrete compile/runtime defect requires it.
+
+The temporary `writing-system-contract.ts` exists only to make the prefabricated non-live components self-contained. During integration, merge its types/helpers into `data/writing.ts`, import from the canonical data module, and delete the temporary contract.
+
+The stylesheet is intentionally unimported until activation.
+
+Before final QA, verify the scaffold has been fully collapsed into the canonical runtime architecture and no duplicate editorial model remains.
