@@ -120,9 +120,9 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npm ls --depth=0 @playwright/test @axe-core/playwright lighthouse eslint
 
-      - name: Install Chromium
+      - name: Install Playwright browsers
         if: github.event_name == 'pull_request'
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium webkit
 
       - name: Playwright rendered and accessibility QA
         if: github.event_name == 'pull_request'
