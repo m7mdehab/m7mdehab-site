@@ -200,7 +200,7 @@ test.describe("Phone composition", () => {
     );
   });
 
-  test("section anchors keep their headings above the fixed mobile dock", async ({
+  test("section anchors keep their headings clear of the fixed mobile header", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -220,17 +220,18 @@ test.describe("Phone composition", () => {
         return {
           headingTop: h.top,
           headingBottom: h.bottom,
-          dockTop: n.top,
+          headerBottom: n.bottom,
+          viewportHeight: window.innerHeight,
         };
       }, heading);
       expect(
         boxes.headingTop,
-        `#${anchor} heading starts in view`,
-      ).toBeGreaterThanOrEqual(-20);
+        `#${anchor} heading clears header`,
+      ).toBeGreaterThanOrEqual(boxes.headerBottom + 4);
       expect(
         boxes.headingBottom,
-        `#${anchor} heading clears dock`,
-      ).toBeLessThan(boxes.dockTop);
+        `#${anchor} heading remains in view`,
+      ).toBeLessThan(boxes.viewportHeight);
     }
   });
 
