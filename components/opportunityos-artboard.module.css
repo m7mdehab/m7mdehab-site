@@ -102,14 +102,14 @@
   .flow svg .ambientWave { opacity: 0.13; }
   .flow svg circle { stroke-width: 3; }
   .flowNode { width: 20%; text-align: center; }
-  .flowNode > b { margin-bottom: 0.6cqw; font-size: clamp(5.5px, 2.1cqw, 7.5px); letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .flowNode > b { margin-bottom: 0.6cqw; font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; line-height: 1; white-space: nowrap; }
   .flowNode > span { display: flex; gap: 0.2cqw; font-size: 1.05cqw; letter-spacing: 0; line-height: 1.08; }
   .flowNode0 { left: -2%; top: 46%; }
   .flowNode1 { left: 17.4%; top: 46%; }
   .flowNode2 { left: 36.9%; top: 46%; }
   .flowNode3 { left: 56.4%; top: 46%; }
-  .flowNode4 { left: 75.9%; top: 46%; width: 20%; text-align: center; }
-  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(5.2px, 1.95cqw, 7.2px); letter-spacing: 0; }
+  .flowNode4 { left: 73.4%; top: 46%; width: 25%; text-align: center; }
+  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; }
   .gateDesktopLabel { display: inline; }
   .modes { left: 4%; top: 67%; width: 92%; height: 9%; flex-direction: row; gap: 1.5%; }
   .modes > b { display: none; }
@@ -117,7 +117,7 @@
   .modes > div:last-child { flex: 1.25 1 0; }
   .modes i { display: none; }
   .modes span { overflow: visible; }
-  .modes strong { font-size: clamp(5.5px, 2.1cqw, 7.5px); letter-spacing: 0; white-space: nowrap; }
+  .modes strong { font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; white-space: nowrap; }
   .modes small { display: block; font-size: clamp(4px, 1.3cqw, 5px); letter-spacing: 0; white-space: nowrap; }
   .modes .controlled { border-width: 1px; }
   .footerLine { left: 4%; top: 86%; width: 2%; height: 1px; display: block; }
