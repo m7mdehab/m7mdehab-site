@@ -143,3 +143,17 @@ Keep:
 - machine-readable archive.
 
 Do not add hidden SEO paragraphs, AI-only duplicate content, keyword stuffing, or generic FAQ blocks.
+
+
+## 11. Standards references
+
+The implementation decisions above were checked against current primary documentation:
+
+- Google Search Central — Article structured data: https://developers.google.com/search/docs/appearance/structured-data/article
+- Google Search Central — General structured data guidelines: https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+- W3C WAI-ARIA Authoring Practices — Link pattern: https://www.w3.org/WAI/ARIA/apg/patterns/link/
+- W3C WAI — Designing for Web Accessibility: https://www.w3.org/WAI/tips/designing/
+- MDN — HTML `img`: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img
+- MDN — Image performance guidance: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/Multimedia
+
+These references reinforce the chosen `BlogPosting` model, meaningful crawlable images when supplied, stable publication/modification dates, native links, visible focus, reserved image dimensions/aspect ratio, and lazy loading for non-critical imagery.
