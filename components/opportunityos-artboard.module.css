@@ -89,37 +89,41 @@
 }
 
 @container work-slide (max-width: 700px) {
-  .title { left: 5%; top: 4%; width: 90%; height: 11%; }
-  .title h3 { font-size: var(--mobile-title-scale); line-height: 1; letter-spacing: 0.028em; white-space: nowrap; }
-  .tagline { left: 5%; top: 16%; width: 90%; height: 5%; font-size: var(--mobile-subtitle-scale); letter-spacing: 0; line-height: 1; white-space: nowrap; }
-  .mantra { top: 20%; right: 5%; width: 12%; gap: 0.3cqw; font-size: 0.9cqw; letter-spacing: 0.08em; }
-  .mantra > span { height: 1px; margin-bottom: 0.2cqw; }
-  .watermark { left: 11%; top: 35%; width: 76%; height: 20%; display: block; opacity: 0.24; font-size: 5.4cqw; white-space: nowrap; }
-  .taxonomy { left: 5%; top: 25%; width: 90%; height: 4%; display: flex; font-size: 1.12cqw; letter-spacing: 0.16em; }
-  .flow { left: 4%; top: 31%; width: 92%; height: 38%; }
+  .title { left: 5%; top: 5%; width: 90%; height: 9%; }
+  .title h3 { font-size: 4.4cqw; line-height: 1; letter-spacing: 0.024em; white-space: nowrap; }
+  .tagline { left: 5%; top: 15%; width: 90%; height: 4%; font-size: 1.55cqw; letter-spacing: 0; line-height: 1; white-space: nowrap; }
+
+  .mantra,.taxonomy { display: none; }
+  .watermark { left: 8%; top: 28%; width: 84%; height: 18%; display: block; opacity: 0.14; font-size: 5cqw; white-space: nowrap; }
+
+  .flow { left: 4%; top: 26%; width: 92%; height: 39%; }
   .flow > svg:first-child { display: block; }
-  .flow svg .signal { stroke-width: 3.2; opacity: 0.9; }
-  .flow svg .ambientWave { opacity: 0.13; }
-  .flow svg circle { stroke-width: 3; }
-  .flowNode { width: 20%; text-align: center; }
-  .flowNode > b { margin-bottom: 0.6cqw; font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; line-height: 1; white-space: nowrap; }
-  .flowNode > span { display: flex; gap: 0.2cqw; font-size: 1.05cqw; letter-spacing: 0; line-height: 1.08; }
-  .flowNode0 { left: -2%; top: 46%; }
-  .flowNode1 { left: 17.4%; top: 46%; }
-  .flowNode2 { left: 36.9%; top: 46%; }
-  .flowNode3 { left: 56.4%; top: 46%; }
-  .flowNode4 { left: 73.4%; top: 46%; width: 25%; text-align: center; }
-  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; }
+  .flow svg .signal { stroke-width: 3; opacity: 0.92; }
+  .flow svg .ambientWave { opacity: 0.1; }
+  .flow svg circle { stroke-width: 2.4; }
+
+  .flowNode { width: 18.5%; text-align: center; }
+  .flowNode > b { margin-bottom: 0.45cqw; font-size: 1.55cqw; letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .flowNode > span { display: none; }
+
+  .flowNode0 { left: -0.5%; top: 47%; }
+  .flowNode1 { left: 19.3%; top: 47%; }
+  .flowNode2 { left: 39.1%; top: 47%; }
+  .flowNode3 { left: 58.9%; top: 47%; }
+  .flowNode4 { left: 76.5%; top: 47%; width: 23.5%; text-align: center; }
+  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: 1.48cqw; letter-spacing: 0; }
   .gateDesktopLabel { display: inline; }
-  .modes { left: 4%; top: 67%; width: 92%; height: 9%; flex-direction: row; gap: 1.5%; }
+  .gate > span { display: flex; margin-top: 0.7cqw; gap: 0.18cqw; font-size: 0.95cqw; line-height: 1.05; }
+
+  .modes { left: 8%; top: 69%; width: 84%; height: 7%; flex-direction: row; gap: 1.5%; }
   .modes > b { display: none; }
-  .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1%; border-radius: 999px; }
-  .modes > div:last-child { flex: 1.25 1 0; }
-  .modes i { display: none; }
+  .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1.1%; border-radius: 999px; }
+  .modes > div:last-child { flex: 1.2 1 0; }
+  .modes i,.modes small { display: none; }
   .modes span { overflow: visible; }
-  .modes strong { font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; white-space: nowrap; }
-  .modes small { display: block; font-size: clamp(4px, 1.3cqw, 5px); letter-spacing: 0; white-space: nowrap; }
+  .modes strong { font-size: 1.42cqw; letter-spacing: 0; white-space: nowrap; }
   .modes .controlled { border-width: 1px; }
-  .footerLine { left: 4%; top: 86%; width: 2%; height: 1px; display: block; }
-  .footer { left: 4%; top: 87%; width: 48%; height: 6%; font-size: 1.55cqw; letter-spacing: 0; white-space: nowrap; }
+
+  .footerLine { left: 5%; top: 84%; width: 2.5%; height: 1px; display: block; }
+  .footer { left: 5%; top: 86%; width: 42%; height: 5%; font-size: 1.35cqw; letter-spacing: 0; white-space: nowrap; }
 }
