@@ -82,6 +82,7 @@ The English Writing system is under an explicit design/architecture-locked rebui
 - `docs/frontend-overhaul/WRITING_SYSTEM_SEO_AI_CONTRACT.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_DATA_MIGRATION_PATCH.md`;
 - `design/writing-system/writing-system.spec.json`.
 
 For Writing:
