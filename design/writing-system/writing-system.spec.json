@@ -1,0 +1,142 @@
+{
+  "version": "1.0",
+  "status": "design-architecture-locked",
+  "scope": [
+    "home-writing",
+    "/writing",
+    "/writing/[slug]",
+    "writing-discovery"
+  ],
+  "copy": {
+    "homeHeading": "Writing.",
+    "homeLede": "Notes on AI, technology, work, projects, and whatever else I’m thinking through.",
+    "homeCta": "All writing",
+    "archiveHeading": "Writing.",
+    "archiveLede": "Notes on AI, technology, work, projects, and whatever else I’m thinking through."
+  },
+  "layout": {
+    "homeMax": 6,
+    "desktopColumns": 3,
+    "tabletColumns": 2,
+    "mobileColumns": 1,
+    "desktopBreakpoint": 1120,
+    "mobileBreakpoint": 720,
+    "coverAspectRatio": "16/9",
+    "columnGapPx": 24,
+    "rowGapPxRange": [
+      42,
+      52
+    ],
+    "coverRadiusPxRange": [
+      12,
+      16
+    ]
+  },
+  "behavior": {
+    "carousel": false,
+    "autoplay": false,
+    "dots": false,
+    "horizontalMobileScroll": false,
+    "filtersInThisPhase": false,
+    "searchInThisPhase": false,
+    "paginationInThisPhase": false,
+    "hover": "subtle-css-only",
+    "reducedMotion": "no-transform-or-cover-zoom"
+  },
+  "data": {
+    "statusRequired": true,
+    "projectOptional": true,
+    "evidenceOptional": true,
+    "sourcesOptional": true,
+    "takeawaysOptional": true,
+    "thesisOptional": true,
+    "homeSelection": "homeRank",
+    "defaultSchema": "BlogPosting"
+  },
+  "categories": {
+    "ai": "AI",
+    "technology": "Technology",
+    "data": "Data",
+    "career": "Career",
+    "projects": "Projects",
+    "notes": "Notes"
+  },
+  "series": {
+    "what-the-work-taught-me": "What the Work Taught Me"
+  },
+  "currentArticles": [
+    {
+      "slug": "when-to-trust-a-probabilistic-forecast",
+      "category": "data",
+      "topics": [
+        "Forecasting",
+        "Calibration",
+        "Evaluation"
+      ],
+      "series": "what-the-work-taught-me",
+      "homeRank": 1,
+      "coverVisual": "forecast-calibration",
+      "projectSlugs": [
+        "presaira"
+      ]
+    },
+    {
+      "slug": "why-accuracy-is-not-enough-for-oil-spill-detection",
+      "category": "data",
+      "topics": [
+        "Computer vision",
+        "Metrics",
+        "Validation"
+      ],
+      "series": "what-the-work-taught-me",
+      "homeRank": 2,
+      "coverVisual": "oil-sar",
+      "projectSlugs": [
+        "oil-spill-detection"
+      ]
+    },
+    {
+      "slug": "what-an-ai-agent-should-do-when-evidence-is-missing",
+      "category": "ai",
+      "topics": [
+        "AI agents",
+        "Provenance",
+        "Governance"
+      ],
+      "series": "what-the-work-taught-me",
+      "homeRank": 3,
+      "coverVisual": "agent-provenance",
+      "projectSlugs": [
+        "opportunityos"
+      ]
+    }
+  ],
+  "selectors": {
+    "home": "[data-writing-home]",
+    "card": "[data-writing-card]",
+    "cardContext": "data-writing-context",
+    "cardSlug": "data-writing-slug"
+  },
+  "renderViewports": [
+    "1920x1080",
+    "1440x1000",
+    "1280x800",
+    "1024x768",
+    "430x932",
+    "390x844",
+    "320x568"
+  ],
+  "forbidden": [
+    "writing-carousel",
+    "writing-autoplay",
+    "writing-dots",
+    "fake-placeholder-cards",
+    "mandatory-project-relation",
+    "universal-TechArticle",
+    "project-only-archive-copy",
+    "SaaS-card-shells",
+    "heavy-card-shadow",
+    "premature-filter-search-ui",
+    "active-arabic-public-links"
+  ]
+}

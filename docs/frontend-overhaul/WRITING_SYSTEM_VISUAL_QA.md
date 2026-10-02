@@ -1,0 +1,160 @@
+# Writing System — Render Review Rubric
+
+Review in this order:
+
+1. Home Writing — 1440×1000;
+2. Home Writing — 390×844;
+3. `/writing` — 1440×1000;
+4. `/writing` — 390×844;
+5. full Home — 1920×1080;
+6. full Home — 320×568.
+
+## 1440 Home Writing
+
+Pass only if:
+
+- `Writing.` is the first visual anchor;
+- support copy is clearly secondary;
+- all three covers have equal 16:9 geometry;
+- three cards form one calm row;
+- cards are generous but not poster-sized;
+- no outer SaaS box dominates;
+- covers are distinct but feel like one editorial system;
+- titles are readable without being oversized;
+- card bottoms are not artificially forced into rigid equal-height boxes;
+- section feels lighter than Selected Work;
+- All writing is obvious without becoming a primary CTA.
+
+Immediate rejection:
+
+- SaaS feature-grid look;
+- project-case-study-card look;
+- heavy shadows;
+- giant titles;
+- cover labels/metrics overpower article titles;
+- one cover is dramatically louder;
+- carousel/slider behavior returns.
+
+## 390 Home Writing
+
+Pass only if:
+
+- one natural column;
+- no horizontal scrolling;
+- all three current posts are visible in document flow;
+- cover remains wide and legible;
+- title does not become a five-line wall;
+- metadata is legible;
+- excerpt remains secondary;
+- vertical rhythm separates cards without excessive emptiness;
+- Writing anchor clears the mobile dock.
+
+Reject:
+
+- horizontal swipe;
+- dots;
+- hidden inactive cards;
+- miniature 3-column desktop layout;
+- excessive height caused by typography.
+
+## `/writing` desktop
+
+Pass only if:
+
+- archive header is compact;
+- H1 is simply `Writing.`;
+- lede communicates broad personal scope;
+- same card grammar as Home;
+- archive reads as a publication, not project directory;
+- 3-column rhythm survives;
+- only published posts appear;
+- no premature filter/search chrome.
+
+## `/writing` mobile
+
+Pass only if:
+
+- H1/lede resolve quickly;
+- first cover appears without a large dead gap;
+- cards are normal vertical reading units;
+- no overflow;
+- no filter/search UI;
+- no carousel behavior.
+
+## Cover review
+
+Forecast:
+
+- calibration is recognizable;
+- dark navy;
+- restrained line work;
+- no KPI wall/dashboard chrome.
+
+Oil:
+
+- real case-study imagery;
+- meaningful crop;
+- overlay preserves evidence;
+- no fabricated annotation.
+
+Agent:
+
+- evidence → known/unknown → claim → authority logic is recognizable;
+- public-safe;
+- no fake UI;
+- no private OpportunityOS data.
+
+## Hover/focus
+
+Pass:
+
+- hover movement is barely perceptible;
+- focus is obvious;
+- card remains fully understandable without hover;
+- reduced motion removes lift/cover zoom.
+
+Reject glow, tilt, bouncing or cursor effects.
+
+## Article page
+
+Existing technical essay:
+
+- evidence remains strong;
+- sources remain inspectable;
+- project link remains visible;
+- article wording is unchanged except mechanical metadata terminology.
+
+Independent fixture/component contract:
+
+- no blank evidence area;
+- no blank sources area;
+- no empty project link;
+- no project disclaimer;
+- neutral ending.
+
+## Full-page rhythm
+
+At 1920:
+
+- Writing bridges Method and Opportunity rather than dominating both;
+- current three-card section is materially more compact than the old carousel composition;
+- warm Writing → dark Opportunity transition remains clean.
+
+At mobile:
+
+- Home remains consistent with the compact architecture;
+- Writing does not recreate three giant carousel panels.
+
+## 3-second test
+
+Ignore excerpts and look only at heading, covers and article titles.
+
+Pass if it reads as:
+
+> personal writing / publication
+
+Reject if it reads as:
+
+> three technical project case studies
+
+If it fails, reduce project-specific chrome rather than adding explanatory copy.
