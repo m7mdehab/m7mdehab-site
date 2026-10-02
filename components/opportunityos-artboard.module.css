@@ -110,16 +110,16 @@
   .flowNode1 { left: 18.404%; top: 47%; }
   .flowNode2 { left: 37.897%; top: 47%; }
   .flowNode3 { left: 57.39%; top: 47%; }
-  .flowNode4 { left: 74.883%; top: 47%; width: 22%; text-align: center; }
+  .flowNode4 { left: 73.383%; top: 47%; width: 25%; text-align: center; }
   .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7px, 1.65cqw, 8px); letter-spacing: 0; }
   .gateDesktopLabel { display: inline; }
   .gate > span { display: flex; margin-top: 0.75cqw; gap: 0.2cqw; font-size: clamp(5.5px, 1.25cqw, 6.5px); line-height: 1.06; }
   .gate > span > span { white-space: nowrap; }
 
-  .modes { left: 8%; top: 69%; width: 84%; height: 7%; flex-direction: row; gap: 1.5%; }
+  .modes { left: 8%; top: 69%; width: 84%; height: 7%; flex-direction: row; gap: 1%; }
   .modes > b { display: none; }
   .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1.1%; border-radius: 999px; }
-  .modes > div:last-child { flex: 1.2 1 0; }
+  .modes > div:last-child { flex: 1.28 1 0; }
   .modes i,.modes small { display: none; }
   .modes span { overflow: visible; }
   .modes strong { font-size: clamp(7px, 1.65cqw, 8px); letter-spacing: 0; white-space: nowrap; }
