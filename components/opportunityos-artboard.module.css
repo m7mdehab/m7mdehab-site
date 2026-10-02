@@ -96,7 +96,7 @@
   .mantra,.taxonomy { display: none; }
   .watermark { left: 8%; top: 27%; width: 84%; height: 18%; display: block; opacity: 0.11; font-size: 5cqw; white-space: nowrap; }
 
-  .flow { left: 4%; top: 25%; width: 92%; height: 43%; }
+  .flow { left: 4%; top: 24%; width: 92%; height: 37%; }
   .flow > svg:first-child { display: block; }
   .flow svg .signal { stroke-width: 3; opacity: 0.92; }
   .flow svg .ambientWave { opacity: 0.08; }
@@ -117,7 +117,7 @@
   .gate > span { display: flex; margin-top: 0.55cqw; gap: 0.12cqw; font-size: clamp(5.5px, 1.22cqw, 6.5px); line-height: 1.05; }
   .gate > span > span { white-space: nowrap; }
 
-  .modes { left: 6%; top: 70%; width: 70%; height: 7.5%; flex-direction: row; gap: 1%; }
+  .modes { left: 8%; top: 63%; width: 84%; height: 7.5%; flex-direction: row; gap: 1%; }
   .modes > b { display: none; }
   .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1.1%; border-radius: 999px; }
   .modes > div:last-child { flex: 1.28 1 0; }
@@ -126,6 +126,6 @@
   .modes strong { font-size: clamp(7.2px, 1.72cqw, 8.4px); letter-spacing: 0; white-space: nowrap; }
   .modes .controlled { border-width: 1px; }
 
-  .footerLine { left: 5%; top: 84%; width: 2.5%; height: 1px; display: block; }
-  .footer { left: 5%; top: 86%; width: 46%; height: 5%; font-size: clamp(7px, 1.8cqw, 9px); letter-spacing: 0; white-space: nowrap; }
+  .footerLine { left: 5%; top: 81%; width: 2.5%; height: 1px; display: block; }
+  .footer { left: 5%; top: 83%; width: 46%; height: 5%; font-size: clamp(7px, 1.8cqw, 9px); letter-spacing: 0; white-space: nowrap; }
 }
