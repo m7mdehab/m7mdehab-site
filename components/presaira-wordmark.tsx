@@ -1,17 +1,15 @@
-import { presairaWordmarkPaths } from "@/components/presaira-wordmark-paths";
+import Image from "next/image";
 
 export function PresairaWordmark() {
   return (
-    <svg
+    <Image
       aria-hidden="true"
       data-presaira-wordmark
-      focusable="false"
-      viewBox="0 0 665 88"
-      preserveAspectRatio="xMidYMid meet"
-    >
-      {presairaWordmarkPaths.map((path, index) => (
-        <path d={path} fill="#e9ecf4" fillRule="evenodd" key={index} />
-      ))}
-    </svg>
+      alt=""
+      src="/selected-work/logos/presaira-wordmark.png"
+      width={2172}
+      height={724}
+      unoptimized
+    />
   );
 }

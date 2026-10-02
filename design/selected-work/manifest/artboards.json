@@ -69,11 +69,11 @@
       "runtimePattern": "runtime/backgrounds/ghareeb-oglu-{960,1280,1683}.webp",
       "palette": {"ground": "#063d29", "gold": "#d89a3a", "goldBright": "#f3be61", "ivory": "#f5ead5", "dark": "#174c37"},
       "desktop": {
-        "logo": {"x": 671.5, "y": 10, "w": 340, "h": 230, "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"},
+        "logo": {"x": 681.5, "y": 10, "w": 320, "h": 216, "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"},
         "headline": {"x": 360, "y": 406, "w": 980, "h": 92, "font": "Playfair Display", "size": 72, "weight": 500, "trackingEm": -0.025, "color": "#f5ead5", "align": "center"},
         "subheadline": {"x": 395, "y": 503, "w": 900, "h": 42, "font": "Playfair Display", "size": 24, "weight": 400, "trackingEm": 0.01, "color": "#dfa954", "align": "center"},
-        "stages": {"x": 256.5, "y": 595, "w": 1170, "h": 210},
-        "footerSkills": {"x": 145, "y": 803, "w": 1220, "h": 34, "font": "Inter", "size": 15, "weight": 500, "trackingEm": 0.26, "color": "#d59a46"}
+        "stages": {"x": 281.5, "y": 595, "w": 1120, "h": 210},
+        "footerSkills": {"x": 231.5, "y": 787, "w": 1220, "h": 34, "font": "Inter", "size": 15, "weight": 500, "trackingEm": 0.26, "color": "#d59a46"}
       },
       "mobile": {
         "targetAspectRatio": 1.55,
@@ -118,7 +118,7 @@
         "accentLine": {"x": 92, "y": 438, "w": 68, "h": 3, "color": "#f0eee7"},
         "tagline": {"x": 90, "y": 466, "w": 650, "h": 42, "font": "Inter", "size": 27, "weight": 300, "trackingEm": 0.12, "color": "#f2eee8"},
         "skills": {"x": 90, "y": 520, "w": 650, "h": 34, "font": "Inter", "size": 19, "weight": 300, "trackingEm": 0.04, "color": "#78bdc3"},
-        "detectedLabel": {"x": 1185, "y": 302, "w": 170, "h": 70, "font": "Inter", "size": 17, "weight": 500, "trackingEm": 0.22, "color": "#c8ffff"},
+        "detectedLabel": {"x": 1418, "y": 302, "w": 170, "h": 70, "font": "Inter", "size": 17, "weight": 500, "trackingEm": 0.22, "color": "#c8ffff"},
         "lookalikeLabel": {"x": 682, "y": 605, "w": 230, "h": 72, "font": "Inter", "size": 16, "weight": 400, "trackingEm": 0.18, "color": "#9db1b0"},
         "detectionOverlay": {"x": 790, "y": 100, "w": 790, "h": 720}
       },

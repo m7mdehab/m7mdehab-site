@@ -1,7 +1,6 @@
 .logo,
 .headline,
 .subheadline,
-.ornament,
 .stages,
 .skills { position: absolute; }
 
@@ -44,4 +43,10 @@
   .stage svg { width: 6cqw; height: 6cqw; margin-bottom: 1cqw; }
   .stage b { font-size: 2.7cqw; letter-spacing: 0.08em; }
   .stage > i { margin-top: 1cqw; }
+}
+
+@container work-slide (min-width: 701px) {
+  .stage svg { width: 2.8cqw; height: 2.8cqw; }
+  .stage b { font-size: 1.25cqw; }
+  .skills i { width: 0.4em; margin-inline: 0.28em; }
 }

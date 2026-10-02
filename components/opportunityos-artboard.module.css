@@ -85,6 +85,12 @@
 .footerLine { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); background: #7fe9ae; }
 .footer { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #f2eee5; font-family: "Inter Variable", Inter, sans-serif; font-size: 1.66cqw; font-weight: 350; letter-spacing: 0.1em; line-height: 1.2; }
 
+@container work-slide (min-width: 701px) {
+  .title h3 { letter-spacing: 0.028em; }
+  .gate { left: 74.884%; width: 22%; text-align: center; }
+  .gate > span > span { white-space: nowrap; }
+}
+
 @container work-slide (max-width: 700px) {
   .title { left: 5%; top: 5%; width: 64%; height: 15%; }
   .title h3 { font-size: 7cqw; line-height: 1; }

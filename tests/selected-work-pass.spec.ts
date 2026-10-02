@@ -99,9 +99,15 @@ test.describe("Selected Work refinement", () => {
           const artboard = element.querySelector<HTMLElement>("[data-project-artboard]");
           const artboardBox = artboard?.getBoundingClientRect();
           const identity = title.closest<HTMLElement>("[data-artboard-node='wordmark']");
-          const liveWordmark = identity?.querySelector<SVGSVGElement>("svg[data-presaira-wordmark]");
+          const liveWordmark = identity?.querySelector<HTMLImageElement>("img[data-presaira-wordmark]");
           const visibleTitle = liveWordmark?.getBoundingClientRect();
           const identityBox = identity?.getBoundingClientRect();
+          const visibleInk = visibleTitle ? {
+            left: visibleTitle.left + visibleTitle.width * 115 / 2172,
+            right: visibleTitle.left + visibleTitle.width * 2058 / 2172,
+            top: visibleTitle.top + visibleTitle.height * 287 / 724,
+            bottom: visibleTitle.top + visibleTitle.height * 457 / 724,
+          } : null;
           return {
             cardWidth: box.width,
             cardHeight: box.height,
@@ -109,11 +115,11 @@ test.describe("Selected Work refinement", () => {
             copyHeight: copy?.getBoundingClientRect().height ?? 0,
             visualShare: visualBox.height / box.height,
             titleLines: Math.max(1, Math.round(title.getBoundingClientRect().height / titleLineHeight)),
-            titleOverflow: liveWordmark && visibleTitle && identityBox
-              ? visibleTitle.left < identityBox.left - 1
-                || visibleTitle.right > identityBox.right + 1
-                || visibleTitle.top < identityBox.top - 1
-                || visibleTitle.bottom > identityBox.bottom + 1
+            titleOverflow: visibleInk && identityBox
+              ? visibleInk.left < identityBox.left - 1
+                || visibleInk.right > identityBox.right + 1
+                || visibleInk.top < identityBox.top - 1
+                || visibleInk.bottom > identityBox.bottom + 1
               : title.scrollWidth > title.clientWidth + 1,
             copyOverflow: copy ? copy.scrollHeight > copy.clientHeight + 1 : false,
             summaryOverflow: summary ? summary.scrollWidth > summary.clientWidth + 1 : false,

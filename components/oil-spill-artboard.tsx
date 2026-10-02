@@ -32,7 +32,7 @@ export function OilSpillArtboard({ debugMode = "code", showGrid = false, isActiv
         <path className={`${styles.lookLine} ${styles.lookLineMobile}`} d="M218 514 H98 V554 H25" />
         <circle className={styles.lookAnchor} cx="218" cy="514" r="6" />
       </svg>
-      <div className={styles.detected} style={artboardNodeStyle(box.detectedLabel)} data-artboard-node="detectedLabel" data-artboard-x="1185" data-artboard-y="302" data-artboard-w="170" data-artboard-h="70">{copy.detected.split("\n").map((line) => <span key={line}>{line}</span>)}</div>
+      <div className={styles.detected} style={artboardNodeStyle(box.detectedLabel)} data-artboard-node="detectedLabel" data-artboard-x="1418" data-artboard-y="302" data-artboard-w="170" data-artboard-h="70">{copy.detected.split("\n").map((line) => <span key={line}>{line}</span>)}</div>
       <div className={styles.lookalike} style={artboardNodeStyle(box.lookalikeLabel)} data-artboard-node="lookalikeLabel" data-artboard-x="682" data-artboard-y="605" data-artboard-w="230" data-artboard-h="72">{copy.lookalike.split("\n").map((line) => <span key={line}>{line}</span>)}</div>
     </ProjectArtboard>
   );
