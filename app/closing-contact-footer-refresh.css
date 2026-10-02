@@ -281,7 +281,7 @@
     bottom: auto !important;
     padding-inline: max(10px, env(safe-area-inset-left))
       max(10px, env(safe-area-inset-right));
-    pointer-events: auto;
+    pointer-events: none;
     opacity: 1;
     transform: translateY(0);
     transition:
