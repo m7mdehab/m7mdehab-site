@@ -15,8 +15,9 @@ Do not propose alternative art directions and do not reinterpret Writing back in
 5. `design/writing-system/WRITING_SYSTEM_BLUEPRINT.html`
 6. `docs/frontend-overhaul/WRITING_SYSTEM_INTEGRATION_PATCH.md`
 7. `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`
-8. `docs/frontend-overhaul/WRITING_SYSTEM_SEO_AI_CONTRACT.md`
-9. `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`
+8. `docs/frontend-overhaul/WRITING_SYSTEM_DATA_MIGRATION_PATCH.md`
+9. `docs/frontend-overhaul/WRITING_SYSTEM_SEO_AI_CONTRACT.md`
+10. `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`
 10. `docs/frontend-overhaul/WRITING_SYSTEM_REPO_AUDIT.md`
 
 Read the local Next.js 16 documentation mandated by `AGENTS.md` before modifying metadata APIs.
