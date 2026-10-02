@@ -401,8 +401,8 @@ test.describe("Selected Work refinement", () => {
       return {
         position: getComputedStyle(wrap).position,
         headerTop: bounds.top,
+        headerBottom: bounds.bottom,
         headerHeight: nav.getBoundingClientRect().height,
-        computedBottom: getComputedStyle(wrap).bottom,
         bodyPadding: getComputedStyle(document.body).paddingBottom,
       };
     });
