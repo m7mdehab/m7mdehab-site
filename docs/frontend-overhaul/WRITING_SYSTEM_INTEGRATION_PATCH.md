@@ -29,40 +29,54 @@ Add:
 
 All public routes/data use the published projection.
 
-## 2. Build `components/writing-cover.tsx`
+## 2. Integrate the prepared component scaffold
 
-Implement:
+Do **not** build the visual/component layer from scratch.
+
+Prepared files already exist:
+
+- `components/writing-system-cover.tsx`;
+- `components/writing-system-card.tsx`;
+- `components/home-writing-section.tsx`;
+- `components/writing-system-article-blocks.tsx`;
+- `components/writing-system-contract.ts`.
+
+The cover component already implements:
 
 - `forecast-calibration` from actual Presaira reliability data;
 - `oil-sar` from the existing public SAR asset;
-- `agent-provenance` from public-safe OpportunityOS stages/authority;
+- `agent-provenance` as a public-safe OpportunityOS evidence/authority diagram;
 - generic image cover.
 
-Do not fabricate metrics, UI or private system state.
+The card already implements:
 
-## 3. Build `components/writing-card.tsx`
-
-One whole-card Link.
-
-Add deterministic test hooks:
-
+- one whole-card Link;
 - `data-writing-card`;
 - `data-writing-context="home|archive"`;
-- `data-writing-slug="<slug>"`.
+- `data-writing-slug="<slug>"`;
+- cover → metadata → heading → excerpt;
+- no nested Read link.
 
-The card contains cover → metadata → heading → excerpt. No nested Read link.
-
-## 4. Build `components/home-writing.tsx`
-
-Server component.
-
-Add:
+The Home section already implements:
 
 - `id="writing"`;
 - `data-writing-home`;
-- `data-writing-count`.
+- `data-writing-count`;
+- locked heading/lede/CTA;
+- maximum-six `homeRank` selection.
 
-Use locked copy and `getHomepageWriting(6)`.
+### Contract migration
+
+`components/writing-system-contract.ts` is temporary scaffold infrastructure, not a new content authority.
+
+During this step:
+
+1. migrate/reconcile its types, registries and helpers into `data/writing.ts`;
+2. update the prepared components to import canonical types/helpers from `data/writing.ts`;
+3. delete `components/writing-system-contract.ts`;
+4. ensure no second/third writing inventory remains.
+
+Do not alter the visual contract while doing this migration.
 
 ## 5. Refactor `components/home-closing.tsx`
 
@@ -100,20 +114,26 @@ If the only former consumer was removed, delete `components/use-timed-carousel.t
 
 Do not disturb Selected Work; it has its own carousel implementation.
 
-## 8. Create `app/writing-system.css`
+## 8. Activate the prepared `app/writing-system.css`
 
-Import after the historical frontend/mobile CSS in the English layout.
+The stylesheet is already authored and intentionally unimported.
 
-Use a new `.writing-system-*` namespace because legacy Writing selectors exist in Phase G/J/M/N and `mobile-composition.css`.
+Import it after the historical frontend/mobile CSS in the English layout only when the new Writing markup is activated.
 
-Core grid:
+It uses the isolated `.writing-system-*` namespace and already contains:
 
-- desktop: 3 columns;
-- tablet: 2;
-- mobile: 1;
+- 3-column desktop grid;
+- 2-column tablet grid;
+- 1-column mobile grid;
 - 24px desktop column gap;
-- roughly 42–52px row gap;
-- 16:9 cover.
+- 42–52px row rhythm;
+- 16:9 covers;
+- card typography;
+- forecast/SAR/agent cover styling;
+- restrained hover/focus;
+- reduced-motion fallback.
+
+Tune geometry/typography only after rendered inspection. Do not rewrite it into legacy `.closing-note*` selectors.
 
 Do not spend the implementation pass deleting every historical selector. First remove all live dependencies on them. Dead CSS cleanup may be a separate housekeeping commit after acceptance.
 
@@ -341,3 +361,19 @@ After rendered acceptance:
 8. report feature SHA, PR, merge SHA, deployment result and live verification.
 
 If concurrent section work changes `main`, rebase before the final screenshot/merge gate.
+
+
+## 20. Prepared-scaffold activation checklist
+
+Before calling the integration complete, verify all of the following:
+
+- `writing-system-contract.ts` has been deleted after its contract was moved into `data/writing.ts`;
+- `writing-system-cover.tsx` imports canonical runtime types;
+- `writing-system-card.tsx` imports canonical runtime types;
+- `home-writing-section.tsx` imports the canonical Home selector;
+- `writing-system-article-blocks.tsx` renders canonical section/block types;
+- `writing-system.css` is imported only once;
+- `HomeClosing` no longer receives article data;
+- `use-timed-carousel.ts` is deleted if no longer referenced;
+- no `.closing-notes` or article-dot markup remains on Home;
+- the old two-article Writing carousel cannot be reactivated by CSS alone.
