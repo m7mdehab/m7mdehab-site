@@ -72,13 +72,14 @@
 .capabilities i { letter-spacing: 0.12em; }
 
 @container work-slide (max-width: 700px) {
-  .brand { left: 5%; top: 5%; width: 8%; height: 11%; }
+  .brand { left: 5%; top: 5%; width: 12%; height: 12%; }
   .brand img { object-position: left center; }
   .accent { display: none; }
 
-  .statement { left: 15%; top: 5%; width: 52%; height: 15%; display: block; font-size: 1.72cqw; line-height: 1.08; white-space: normal; }
-  .desktopStatement { display: block; }
-  .desktopStatement > span { display: block; white-space: nowrap; }
+  .statement { left: 5%; top: 76%; width: 62%; height: 4%; display: block; color: #f6dfc5; font-size: 1.05cqw; line-height: 1; white-space: nowrap; }
+  .desktopStatement { display: block; white-space: nowrap; }
+  .desktopStatement > span { display: inline; white-space: nowrap; }
+  .desktopStatement > span + span::before { content: " "; }
 
   .phones { left: 5%; top: 24%; width: 90%; height: 44%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; }
   .desktopPath { display: none; }
@@ -106,13 +107,13 @@
   .path path { stroke-width: 1.8; }
   .path circle { r: 5px; }
 
-  .utilities { left: 5%; top: 69%; width: 55%; height: 7%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); font-size: 1.02cqw; line-height: 1; }
+  .utilities { left: 5%; top: 68%; width: 60%; height: 7%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); font-size: 1.02cqw; line-height: 1; }
   .utilities div { gap: 0.2cqw; }
   .utilities span { font-size: 1.2cqw; }
   .utilities span svg { width: 1.35cqw; height: 1.35cqw; }
 
-  .capabilities { left: 5%; top: 79%; width: 55%; height: 13%; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; padding-top: 0.65cqw; border-top-width: 1px; }
+  .capabilities { left: 5%; top: 82%; width: 66%; height: 12%; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; padding-top: 0.55cqw; border-top-width: 1px; }
   .capabilities > div { min-height: 100%; justify-content: flex-start; padding: 0 0.32cqw; border-right-width: 1px; }
-  .capabilities b { font-size: 0.98cqw; line-height: 1.02; }
-  .capabilities span { display: none; }
+  .capabilities b { font-size: 1.0cqw; line-height: 1.02; }
+  .capabilities span { display: block; margin-top: 0.22cqw; font-size: 0.72cqw; line-height: 1.08; }
 }
