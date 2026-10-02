@@ -384,7 +384,10 @@
     border: 0;
   }
 
-  .closing-path-tabs,
+  .closing-path-tabs {
+    display: none !important;
+  }
+
   .closing-paths.is-mobile-enhanced .closing-path-tabs {
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -430,7 +433,6 @@
       linear-gradient(145deg, rgba(241, 239, 232, .065), rgba(241, 239, 232, .03));
   }
 
-  .closing-path.is-inactive,
   .closing-paths.is-mobile-enhanced .closing-path.is-inactive {
     display: none;
   }
