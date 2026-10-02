@@ -391,17 +391,27 @@ test.describe("Selected Work refinement", () => {
     }
   });
 
-  test("mobile dock uses the 12px plus safe-area bottom offset", async ({ page }) => {
+  test("mobile header uses the safe-area top and removes retired dock padding", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await settle(page);
-    const values = await page.evaluate(() => ({
-      dockBottom: getComputedStyle(document.querySelector<HTMLElement>(".site-nav-wrap")!).bottom,
-      dockHeight: getComputedStyle(document.querySelector<HTMLElement>(".site-nav")!).height,
-      bodyPadding: getComputedStyle(document.body).paddingBottom,
-    }));
-    expect(values.dockBottom).toBe("12px");
-    expect(Number.parseFloat(values.dockHeight)).toBeGreaterThanOrEqual(60);
-    expect(Number.parseFloat(values.bodyPadding)).toBeGreaterThanOrEqual(72);
+    const values = await page.evaluate(() => {
+      const wrap = document.querySelector<HTMLElement>(".site-nav-wrap")!;
+      const nav = document.querySelector<HTMLElement>(".site-nav")!;
+      const bounds = wrap.getBoundingClientRect();
+      return {
+        position: getComputedStyle(wrap).position,
+        headerTop: bounds.top,
+        headerHeight: nav.getBoundingClientRect().height,
+        computedBottom: getComputedStyle(wrap).bottom,
+        bodyPadding: getComputedStyle(document.body).paddingBottom,
+      };
+    });
+    expect(values.position).toBe("fixed");
+    expect(values.headerTop).toBeGreaterThanOrEqual(0);
+    expect(values.headerTop).toBeLessThan(40);
+    expect(values.headerHeight).toBeGreaterThanOrEqual(56);
+    expect(values.computedBottom).toBe("auto");
+    expect(Number.parseFloat(values.bodyPadding)).toBeLessThanOrEqual(1);
   });
 
   test("active carousel dot reads as a stationary countdown ring", async ({ page }) => {
