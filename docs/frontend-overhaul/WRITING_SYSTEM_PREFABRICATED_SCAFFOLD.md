@@ -9,6 +9,7 @@ Prepared files:
 - `components/writing-system-contract.ts`
 - `components/writing-system-cover.tsx`
 - `components/writing-system-card.tsx`
+- `components/writing-system-index.tsx`
 - `components/home-writing-section.tsx`
 - `components/writing-system-article-blocks.tsx`
 - `app/writing-system.css`
