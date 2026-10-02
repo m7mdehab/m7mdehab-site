@@ -696,3 +696,17 @@ Do not:
 - This document — authoritative execution narrative.
 
 The production result should reproduce the **clarity, hierarchy, progression, darkness, mint restraint, layered depth, and visual payoff** of the blueprint while remaining native HTML/SVG and consistent with the real site.
+
+## 19. Prefabricated implementation status
+
+The handoff is no longer specification-only. A non-live, compile-checked implementation scaffold has been prepared so the execution agent does not have to invent component structure, SVG language, motion mapping or responsive CSS:
+
+- `components/method-story-section.tsx`
+- `components/method-story-canvas.tsx`
+- `components/method-story-icons.tsx`
+- `components/method-story-contract.ts`
+- `app/method-story.css`
+
+These files are intentionally **not wired into the live homepage yet**. This preserves the currently accepted production surface until the implementation agent can integrate them together with the updated browser-test contract and rendered acceptance pass.
+
+The execution agent should treat these as the starting implementation, not examples. Its remaining work is integration, screenshot-driven tuning, validation, then delivery.

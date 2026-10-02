@@ -34,3 +34,24 @@ Key constraints:
 The visual acceptance target is not “functionally similar.” It must preserve the blueprint's clarity and premium quality: disorder on the left, reveal/convergence/assembly through the middle, calm validated outcomes on the right, restrained mint accent, fine custom line work, and one coherent motion sequence.
 
 Only adjust geometry, spacing, typography, contrast, and motion timing during implementation. Do not change the narrative, copy, component strategy, animation library, responsive model, or art direction unless Mohammed gives a newer explicit instruction.
+
+## Prefabricated implementation now available
+
+The groundwork is further advanced. Do **not** start the section from a blank file.
+
+Ready-to-integrate files now exist:
+- `components/method-story-section.tsx` — complete server/semantic section shell;
+- `components/method-story-canvas.tsx` — complete Motion-based story canvas with staged connectors, inputs, evidence, convergence, system assembly and outputs;
+- `components/method-story-icons.tsx` — custom icon system;
+- `components/method-story-contract.ts` — locked copy/geometry/motion data;
+- `app/method-story.css` — complete responsive styling scaffold.
+
+Your implementation job is now primarily **integration + rendered visual tuning**:
+1. replace the live `SolveThinkBridge` implementation with/re-export the prepared `MethodStorySection`;
+2. import `method-story.css` last in the English layout;
+3. update the Phase F Playwright test to the locked new contract;
+4. render all four target viewports;
+5. tune geometry/spacing/contrast/timing only;
+6. run the complete validation and delivery workflow.
+
+Do not throw away the prepared files and rebuild them differently unless a concrete compile/runtime defect requires it.
