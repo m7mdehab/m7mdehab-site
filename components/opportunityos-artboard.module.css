@@ -120,7 +120,7 @@
   .modes { left: 8%; top: 63%; width: 84%; height: 7.5%; flex-direction: row; gap: 1%; }
   .modes > b { display: none; }
   .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1.1%; border-radius: 999px; }
-  .modes > div:last-child { flex: 1.28 1 0; }
+  .modes > div:last-child { flex: 1.36 1 0; }
   .modes i,.modes small { display: none; }
   .modes span { overflow: visible; }
   .modes strong { font-size: clamp(7.2px, 1.72cqw, 8.4px); letter-spacing: 0; white-space: nowrap; }
