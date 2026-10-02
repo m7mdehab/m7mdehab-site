@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Linkedin, Mail } from "lucide-react";
+import { Linkedin, Mail, Search, Wrench } from "lucide-react";
 import { emailComposeHref } from "@/data/contact-links";
 import { profile } from "@/data/public";
 
@@ -20,6 +20,13 @@ const paths = [
     title: "Have a system or product problem?",
     description:
       "Start with the service context, then reach me with the system and outcome.",
+  },
+  {
+    key: "question",
+    label: "QUESTION",
+    title: "Have a question or idea?",
+    description:
+      "If it does not fit a role or project brief, email me or start a conversation on LinkedIn.",
   },
 ] as const;
 
@@ -45,7 +52,7 @@ export function OpportunityPaths() {
       <div
         className="closing-path-tabs"
         role="tablist"
-        aria-label="Choose an opportunity path"
+        aria-label="Choose a conversation type"
       >
         {paths.map((path, index) => (
           <button
@@ -95,7 +102,8 @@ export function OpportunityPaths() {
 
       {paths.map((path, index) => (
         <div
-          className={`closing-path${index === 1 ? " closing-path-project" : ""}${active === index ? " is-active" : " is-inactive"}`}
+          className={`closing-path closing-path-${path.key}${active === index ? " is-active" : " is-inactive"}`}
+          data-opportunity-path={path.key}
           id={`opportunity-panel-${path.key}`}
           role={mobileEnhanced ? "tabpanel" : undefined}
           aria-labelledby={
@@ -106,49 +114,107 @@ export function OpportunityPaths() {
         >
           <h3>{path.title}</h3>
           <p>{path.description}</p>
+
           {path.key === "role" ? (
-            <div className="closing-path-actions">
+            <div className="closing-path-actions closing-path-actions-three">
               <a
+                className="closing-action-link"
                 href={emailComposeHref("Technical role opportunity")}
                 target="_blank"
                 rel="noreferrer"
                 data-conversion="contact-role-email"
               >
-                Email <Mail size={15} aria-hidden="true" />
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Mail size={18} />
+                </span>
+                <span>Email</span>
               </a>
               <a
+                className="closing-action-link"
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 data-conversion="contact-role-linkedin"
               >
-                LinkedIn <ArrowUpRight size={15} aria-hidden="true" />
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Linkedin size={18} />
+                </span>
+                <span>LinkedIn</span>
               </a>
-              <Link href="/work">
-                Inspect work <ArrowUpRight size={15} aria-hidden="true" />
+              <Link
+                className="closing-action-link"
+                href="/work"
+                aria-label="Inspect work"
+              >
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Search size={18} />
+                </span>
+                <span>Work</span>
               </Link>
             </div>
-          ) : (
-            <div className="closing-path-actions">
+          ) : path.key === "project" ? (
+            <div className="closing-path-actions closing-path-actions-three">
               <a
+                className="closing-action-link"
                 href={emailComposeHref("Project or system opportunity")}
                 target="_blank"
                 rel="noreferrer"
                 data-conversion="contact-project-email"
               >
-                Email <Mail size={15} aria-hidden="true" />
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Mail size={18} />
+                </span>
+                <span>Email</span>
               </a>
               <a
+                className="closing-action-link"
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
                 data-conversion="contact-project-linkedin"
               >
-                LinkedIn <ArrowUpRight size={15} aria-hidden="true" />
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Linkedin size={18} />
+                </span>
+                <span>LinkedIn</span>
               </a>
-              <Link href="/services" data-conversion="home-to-services">
-                Services <ArrowRight size={15} aria-hidden="true" />
+              <Link
+                className="closing-action-link"
+                href="/services"
+                data-conversion="home-to-services"
+              >
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Wrench size={18} />
+                </span>
+                <span>Services</span>
               </Link>
+            </div>
+          ) : (
+            <div className="closing-path-actions closing-path-actions-two">
+              <a
+                className="closing-action-link"
+                href={emailComposeHref("Question or idea")}
+                target="_blank"
+                rel="noreferrer"
+                data-conversion="contact-question-email"
+              >
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Mail size={18} />
+                </span>
+                <span>Email</span>
+              </a>
+              <a
+                className="closing-action-link"
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                data-conversion="contact-question-linkedin"
+              >
+                <span className="closing-action-icon" aria-hidden="true">
+                  <Linkedin size={18} />
+                </span>
+                <span>LinkedIn</span>
+              </a>
             </div>
           )}
         </div>
