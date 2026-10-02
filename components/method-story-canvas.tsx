@@ -283,7 +283,7 @@ export function MethodStoryCanvas() {
   const enhanced = hydrated && !reducedMotion;
   const { scrollYProgress } = useScroll({
     target: rootRef,
-    offset: METHOD_STORY_MOTION.scrollOffset,
+    offset: [...METHOD_STORY_MOTION.scrollOffset],
   });
   const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
 
