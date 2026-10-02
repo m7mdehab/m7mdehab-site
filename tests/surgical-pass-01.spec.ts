@@ -124,7 +124,7 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
     await expect(wrap).toHaveAttribute("data-nav-hidden", "true");
     await page.waitForTimeout(420);
     const hidden = await wrap.boundingBox();
-    expect(hidden?.bottom ?? 0).toBeLessThanOrEqual(8);
+    expect(hidden ? hidden.y + hidden.height : 0).toBeLessThanOrEqual(8);
 
     await page.evaluate(() => window.scrollBy(0, -240));
     await expect(wrap).toHaveAttribute("data-nav-hidden", "false");
