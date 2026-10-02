@@ -40,7 +40,7 @@ export function FloatingNav({
   const ticking = useRef(false);
 
   useEffect(() => {
-    setHidden(false);
+    const revealFrame = window.requestAnimationFrame(() => setHidden(false));
     lastY.current = window.scrollY;
 
     const onScroll = () => {
@@ -58,7 +58,10 @@ export function FloatingNav({
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.cancelAnimationFrame(revealFrame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [pathname]);
 
   useEffect(() => {
