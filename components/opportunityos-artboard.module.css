@@ -102,18 +102,19 @@
   .flow svg .ambientWave { opacity: 0.1; }
   .flow svg circle { stroke-width: 2.4; }
 
-  .flowNode { width: 18.5%; text-align: center; }
-  .flowNode > b { margin-bottom: 0.45cqw; font-size: 1.55cqw; letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .flowNode { width: 18%; text-align: center; }
+  .flowNode > b { margin-bottom: 0.45cqw; font-size: clamp(7px, 1.7cqw, 8.5px); letter-spacing: 0; line-height: 1; white-space: nowrap; }
   .flowNode > span { display: none; }
 
-  .flowNode0 { left: -0.5%; top: 47%; }
-  .flowNode1 { left: 19.3%; top: 47%; }
-  .flowNode2 { left: 39.1%; top: 47%; }
-  .flowNode3 { left: 58.9%; top: 47%; }
-  .flowNode4 { left: 76.5%; top: 47%; width: 23.5%; text-align: center; }
-  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: 1.48cqw; letter-spacing: 0; }
+  .flowNode0 { left: -1.002%; top: 47%; }
+  .flowNode1 { left: 18.404%; top: 47%; }
+  .flowNode2 { left: 37.897%; top: 47%; }
+  .flowNode3 { left: 57.39%; top: 47%; }
+  .flowNode4 { left: 74.883%; top: 47%; width: 22%; text-align: center; }
+  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7px, 1.65cqw, 8px); letter-spacing: 0; }
   .gateDesktopLabel { display: inline; }
-  .gate > span { display: flex; margin-top: 0.7cqw; gap: 0.18cqw; font-size: 0.95cqw; line-height: 1.05; }
+  .gate > span { display: flex; margin-top: 0.75cqw; gap: 0.2cqw; font-size: clamp(5.5px, 1.25cqw, 6.5px); line-height: 1.06; }
+  .gate > span > span { white-space: nowrap; }
 
   .modes { left: 8%; top: 69%; width: 84%; height: 7%; flex-direction: row; gap: 1.5%; }
   .modes > b { display: none; }
@@ -121,7 +122,7 @@
   .modes > div:last-child { flex: 1.2 1 0; }
   .modes i,.modes small { display: none; }
   .modes span { overflow: visible; }
-  .modes strong { font-size: 1.42cqw; letter-spacing: 0; white-space: nowrap; }
+  .modes strong { font-size: clamp(7px, 1.65cqw, 8px); letter-spacing: 0; white-space: nowrap; }
   .modes .controlled { border-width: 1px; }
 
   .footerLine { left: 5%; top: 84%; width: 2.5%; height: 1px; display: block; }
