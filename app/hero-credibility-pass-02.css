@@ -1,0 +1,221 @@
+/* Surgical pass 02: fixed credibility geometry and a measured, filled loop. */
+
+.credibility-rail {
+  margin: 0;
+  padding: 16px 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--ov-ink);
+  color: var(--ov-white);
+}
+
+.credibility-viewport {
+  --credibility-item-gap: 32px;
+  width: 100%;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  mask-image: none;
+  overscroll-behavior-x: contain;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: auto;
+  cursor: grab;
+}
+
+.credibility-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.credibility-viewport[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+.credibility-track.credibility-logo-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  min-width: 0;
+  padding: 0;
+  animation: none;
+  transform: none;
+  will-change: auto;
+}
+
+.credibility-logo-sequence {
+  display: flex;
+  align-items: flex-start;
+  flex: none;
+  gap: var(--credibility-item-gap);
+  width: max-content;
+  padding: 0 var(--credibility-item-gap) 0 0;
+}
+
+.credibility-brand-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 56px 12px;
+  align-items: start;
+  justify-items: center;
+  flex: 0 0 clamp(220px, 15vw, 250px);
+  width: clamp(220px, 15vw, 250px);
+  min-width: clamp(220px, 15vw, 250px);
+  height: 80px;
+  min-height: 80px;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.credibility-brand-marks.credibility-logo-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 56px;
+  min-height: 56px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  box-sizing: border-box;
+}
+
+.credibility-logo-stage .brand-logo {
+  max-width: 164px;
+  max-height: 42px;
+}
+
+.credibility-logo-stage .brand-logo img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 42px !important;
+  object-fit: contain;
+  object-position: center;
+}
+
+.credibility-brand-copy.relationship-caption {
+  display: block;
+  align-self: start;
+  width: 100%;
+  height: 12px;
+  min-width: 0;
+  overflow: visible;
+  text-align: center;
+}
+
+.relationship-caption strong {
+  display: block;
+  overflow: visible;
+  color: rgba(248, 248, 245, 0.84);
+  font-size: 10px;
+  font-weight: 560;
+  line-height: 12px;
+  letter-spacing: 0;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .overhaul-hero {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: calc(clamp(72px, 13svh, 120px) + env(safe-area-inset-top)) 0 52px;
+  }
+
+  .overhaul-hero-shell {
+    gap: 26px;
+  }
+
+  .credibility-rail {
+    padding: 17px 0;
+  }
+
+  .credibility-viewport {
+    --credibility-item-gap: 9px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: none;
+    mask-image: none;
+    cursor: auto;
+  }
+
+  .credibility-brand-item {
+    grid-template-rows: 40px 11px;
+    flex-basis: 160px;
+    width: 160px;
+    min-width: 160px;
+    height: 59px;
+    min-height: 59px;
+    gap: 8px;
+  }
+
+  .credibility-brand-item[data-brand-card="orcas"],
+  .credibility-brand-item[data-brand-card="cic"] {
+    flex-basis: 180px;
+    width: 180px;
+    min-width: 180px;
+  }
+
+  .credibility-brand-marks.credibility-logo-stage {
+    height: 40px;
+    min-height: 40px;
+  }
+
+  .credibility-logo-stage .brand-logo {
+    max-width: 114px;
+    max-height: 29px;
+  }
+
+  .credibility-logo-stage .brand-logo img {
+    max-width: 100% !important;
+    max-height: 29px !important;
+  }
+
+  .credibility-brand-item[data-brand-card="network"] .brand-logo {
+    width: 70px;
+    max-width: 70px;
+  }
+
+  .credibility-brand-copy.relationship-caption {
+    height: 11px;
+  }
+
+  .relationship-caption strong {
+    font-size: 8px;
+    line-height: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credibility-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .credibility-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .credibility-track.credibility-logo-track {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .credibility-logo-sequence[aria-hidden="true"] {
+    display: flex;
+  }
+}

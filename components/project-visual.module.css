@@ -75,7 +75,7 @@
 .storefrontBody p { margin:0; text-transform:uppercase; letter-spacing:.12em; font-size:9px; }
 .storefrontBody .storefrontHeadline { margin:28px 0; font-family:var(--serif); font-size:clamp(2.7rem,5vw,5rem); font-weight:430; line-height:.86; letter-spacing:-.04em; max-width:8ch; text-transform:none; }
 .commerceStages { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(20,59,50,.18); }
-.commerceStages span { display:grid; gap:12px; padding:14px 10px 0 0; font-size:11px; }
+.commerceStages span { display:grid; gap:12px; padding:14px 10px 0 0; border:1px solid rgba(20,59,50,.16); border-radius:4px; background:#f2eadb; color:#143b32; font-size:11px; }
 .commerceStages i { font-style:normal; opacity:.75; font-size:9px; }
 
 .oil { background:#102528; color:#eef7f3; }
@@ -150,6 +150,170 @@
   .journeyArrow { font-size:9px; }
 }
 
+/* Homepage carousel evidence uses its own compact frame. Case-study visuals keep
+   their original, more spacious presentation. */
+.homeCardVisual {
+  width: 100%;
+  height: 100%;
+  min-height: 0 !important;
+  flex: 1 1 auto;
+  padding: clamp(18px, 2.1vw, 30px);
+  gap: 12px;
+}
+
+.homeCardVisual .visualHeader {
+  flex: 0 0 auto;
+  font-size: 10px;
+  opacity: .86;
+}
+
+.homeCardVisual figcaption {
+  flex: 0 0 auto;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  gap: 16px;
+  margin-top: 0;
+  padding-top: 12px;
+}
+
+.homeCardVisual figcaption strong { font-size: 10px; }
+.homeCardVisual figcaption span { font-size: 11px; line-height: 1.4; }
+.homeCardVisual .chartFrame { min-height: 0; padding: 0; }
+.homeCardVisual .chartFrame svg { height: 100%; max-height: 100%; }
+.homeCardVisual .proofStrip { gap: 6px; }
+.homeCardVisual .proofStrip span { padding: 7px 9px; font-size: 9px; }
+.homeCardVisual .opportunityFlow { grid-template-columns: minmax(0, 1.15fr) minmax(150px, .85fr); gap: 14px; }
+.homeCardVisual .opportunityStages { min-height: 0; }
+.homeCardVisual .opportunityStages span { min-height: 42px; padding: 9px 10px; font-size: 10px; }
+.homeCardVisual .authoritySpine { min-height: 0; padding: 13px; }
+.homeCardVisual .modeStack { gap: 5px; margin-top: 14px; }
+.homeCardVisual .modeStack span { padding: 7px 8px; font-size: 8px; }
+.homeCardVisual .storefrontBody { min-height: 0; flex: 1 1 auto; gap: 12px; padding: 18px 22px; }
+.homeCardVisual .storefrontBody .storefrontHeadline { max-width: none; margin: 0; font-size: clamp(2.3rem, 4vw, 4.6rem); line-height: .92; text-align: center; }
+.ghareebCardWordmark { display: inline-flex; align-items: center; min-height: 34px; color: #143b32; font-family: var(--serif); font-size: 1.1rem; font-weight: 650; letter-spacing: -.04em; }
+.homeCardVisual .commerceStages { flex: 0 0 auto; }
+.homeCardVisual .commerceStages span { gap: 7px; padding: 9px 8px 0 0; font-size: 10px; }
+.homeCardVisual .oilImageWrap { min-height: 0; flex: 1 1 0; }
+.homeCardVisual .metricGrid { flex: 0 0 auto; gap: 6px; }
+.homeCardVisual .metricGrid span { padding: 7px 8px; }
+.homeCardVisual .metricGrid strong { font-size: clamp(1.1rem, 1.8vw, 1.7rem); }
+.homeCardVisual .solarStack { min-height: 0; margin: 0; }
+.homeCardVisual .phoneJourney { min-height: 0; }
+.homeCardVisual .phoneShell { width: clamp(92px, 9.5vw, 132px); max-height: 100%; }
+
+.homeCardVisual :global(.presaira-proof-mobile),
+.homeCardVisual :global(.presaira-caption-mobile),
+.homeCardVisual :global(.solar-caption-mobile),
+.homeCardVisual :global(.makhbazy-caption-mobile) { display: none; }
+
+@media (max-width: 700px) {
+  .homeCardVisual {
+    padding: 8px 12px 7px !important;
+    gap: 6px !important;
+  }
+
+  .homeCardVisual .visualHeader {
+    flex-wrap: nowrap;
+    gap: 8px;
+    font-size: 8px;
+    letter-spacing: .07em;
+    white-space: nowrap;
+  }
+
+  .homeCardVisual .visualHeader > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .homeCardVisual figcaption {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+    gap: 6px;
+    padding-top: 6px;
+  }
+
+  .homeCardVisual figcaption strong { font-size: 8px; letter-spacing: .045em; }
+  .homeCardVisual figcaption span { font-size: 8.5px; line-height: 1.2; }
+  .homeCardVisual .chartFrame { min-height: 0; flex: 1 1 auto; }
+  .homeCardVisual .chartGrid text,
+  .homeCardVisual .axisLabel { font-size: 12px; }
+  .homeCardVisual .proofStrip { flex-wrap: nowrap; gap: 4px; }
+  .homeCardVisual .proofStrip span { padding: 4px 6px; font-size: 8px; white-space: nowrap; }
+  .homeCardVisual :global(.presaira-proof-desktop),
+  .homeCardVisual :global(.presaira-caption-desktop) { display: none; }
+  .homeCardVisual :global(.presaira-proof-mobile) { display: inline-flex; }
+  .homeCardVisual :global(.presaira-caption-mobile) { display: block; }
+  .homeCardVisual .presaira-card-proof { flex: 0 0 auto; }
+  .homeCardVisual .presaira figcaption,
+  .homeCardVisual.presaira figcaption {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  }
+  .homeCardVisual .opportunityFlow { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  .homeCardVisual .opportunityStages { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .homeCardVisual .opportunityStages span { min-height: 24px; gap: 3px; padding: 3px 4px; font-size: 7.5px; }
+  .homeCardVisual .opportunityStages i { font-size: 7px; }
+  .homeCardVisual .authoritySpine { display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 0; border: 0; background: transparent; }
+  .homeCardVisual .authoritySpine > div:first-child { display: flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+  .homeCardVisual .authoritySpine small { margin: 0; font-size: 6px; letter-spacing: .045em; }
+  .homeCardVisual .authoritySpine strong { font-family: var(--sans); font-size: 9px; font-weight: 700; line-height: 1; }
+  .homeCardVisual .authoritySpine > div:first-child > span { margin: 0; font-size: 7px; }
+  .homeCardVisual .modeStack { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 3px; margin: 0 0 0 auto; }
+  .homeCardVisual .modeStack span { padding: 3px 4px; font-size: 6px; line-height: 1; white-space: nowrap; }
+  .homeCardVisual :global(.opportunity-card-caption) { display: none; }
+  .homeCardVisual .browserBar { display: none; }
+  .homeCardVisual .storefrontFrame { flex: 1 1 auto; min-height: 0; margin: 0; border-radius: 12px; box-shadow: none; }
+  .homeCardVisual .storefrontBody { padding: 6px 10px; gap: 7px; }
+  .homeCardVisual .storefrontBody .storefrontHeadline { font-size: clamp(1.65rem, 7vw, 2.1rem); }
+  .homeCardVisual .commerceStages { margin-top: auto; }
+  .homeCardVisual .commerceStages span { gap: 4px; padding: 5px 3px 0 0; font-size: 8px; }
+  .homeCardVisual .commerceStages i { font-size: 7px; }
+  .homeCardVisual :global(.ghareeb-card-caption) { display: none; }
+  .homeCardVisual .oilImageWrap { min-height: 105px; max-height: 135px; flex: 1 1 120px; border-radius: 9px; }
+  .homeCardVisual .oilImageWrap img { object-fit: cover; }
+  .homeCardVisual .metricGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; flex: 0 0 auto; }
+  .homeCardVisual .metricGrid span { min-width: 0; padding: 4px 3px; text-align: center; }
+  .homeCardVisual .metricGrid strong { font-family: var(--sans); font-size: clamp(18px, 5vw, 21px); font-weight: 700; line-height: 1; }
+  .homeCardVisual .metricGrid small { font-size: 7px; letter-spacing: .015em; white-space: nowrap; }
+  .homeCardVisual :global(.oil-card-caption) { display: none; }
+  .homeCardVisual .solarStack { flex: 1 1 auto; width: 100%; min-height: 0; margin: 0; }
+  .homeCardVisual .solarLayer { box-shadow: 0 8px 18px rgba(73,45,7,.14); }
+  .homeCardVisual .solarLayer[data-layer="2"] { width: 43%; height: 48%; }
+  .homeCardVisual .solarLayer span { top: 5px; left: 5px; padding: 4px 5px; font-size: 7px; }
+  .homeCardVisual :global(.solar-caption-desktop),
+  .homeCardVisual :global(.solar-description-desktop) { display: none; }
+  .homeCardVisual :global(.solar-caption-mobile) { display: block; font-size: 9px; text-transform: none; letter-spacing: 0; }
+  .homeCardVisual :global(.solar-card-caption) { display: block; grid-template-columns: 1fr; margin-top: 0; padding-top: 0; border: 0; }
+  .homeCardVisual .phoneJourney { justify-content: space-between; gap: 2px; }
+  .homeCardVisual .phoneStep { flex: 1 1 0; justify-content: center; gap: 2px; }
+  .homeCardVisual .phoneShell { width: clamp(44px, 15vw, 58px); aspect-ratio: .56; border-radius: 10px; padding: 7px 5px 5px; }
+  .homeCardVisual .phoneNotch { margin-bottom: 7px; }
+  .homeCardVisual .phoneShell b { margin-bottom: 4px; font-size: clamp(7px, 2.4vw, 9px); line-height: 1; }
+  .homeCardVisual .phoneShell i { font-size: 6px; }
+  .homeCardVisual .phoneLines { height: 25%; background-size: 100% 6px; }
+  .homeCardVisual .journeyArrow { font-size: 7px; }
+  .homeCardVisual :global(.makhbazy-caption-desktop) { display: none; }
+  .homeCardVisual :global(.makhbazy-caption-mobile) { display: block; }
+  :global(.selected-work-carousel-slide[data-project-slug="makhbazy"]) .homeCardVisual figcaption {
+    grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .homeCardVisual .metricGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .homeCardVisual .metricGrid strong { font-size: 18px; }
+}
+
+@media (max-width: 360px) {
+  .homeCardVisual { padding-inline: 8px !important; }
+  .homeCardVisual figcaption { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 5px; }
+  .homeCardVisual figcaption strong,
+  .homeCardVisual figcaption span { font-size: 7px; }
+  .homeCardVisual .phoneShell { width: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeCardVisual * { transition: none !important; }
+}
+
 @media (hover:none) {
   .presairaLine { stroke-dashoffset:0; }
   .scanLine { left:58%; }
@@ -159,4 +323,142 @@
   .row,.storefrontFrame,.oilImageWrap img,.scanLine,.solarLayer,.phoneShell,.presairaLine,.presairaPoint circle,.opportunityStages span,.modeStack span { transition:none !important; transform:none !important; }
   .presairaLine { stroke-dashoffset:0; }
   .scanLine { left:58%; box-shadow:none; }
+}
+@media (max-width: 700px) {
+  .visual:not(.caseVisual) {
+    gap: 8px;
+    padding: 12px;
+  }
+  .visual:not(.caseVisual) .visualHeader {
+    gap: 4px;
+    font-size: 8px;
+  }
+  .visual:not(.caseVisual) figcaption {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 6px;
+    padding-top: 6px;
+  }
+  .visual:not(.caseVisual) figcaption strong {
+    font-size: 8px;
+  }
+  .visual:not(.caseVisual) figcaption span {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+
+  .presaira:not(.caseVisual) .chartFrame {
+    min-height: 0;
+    padding: 0;
+  }
+  .presaira:not(.caseVisual) .chartFrame svg {
+    height: 100%;
+    min-height: 0;
+    object-fit: contain;
+  }
+  .presaira:not(.caseVisual) .proofStrip {
+    gap: 4px;
+  }
+  .presaira:not(.caseVisual) .proofStrip span {
+    padding: 4px 6px;
+    font-size: 8px;
+  }
+
+  .opportunity:not(.caseVisual) .opportunityFlow {
+    grid-template-columns: minmax(0, 1fr) minmax(76px, 0.42fr);
+    gap: 6px;
+  }
+  .opportunity:not(.caseVisual) .opportunityStages span {
+    min-height: 28px;
+    gap: 4px;
+    padding: 4px;
+    font-size: 8px;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine {
+    padding: 7px;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine small {
+    margin-bottom: 5px;
+    font-size: 7px;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine strong {
+    font-size: 1.2rem;
+  }
+  .opportunity:not(.caseVisual) .authoritySpine > div:first-child > span {
+    margin-top: 4px;
+    font-size: 8px;
+  }
+  .opportunity:not(.caseVisual) .modeStack {
+    gap: 3px;
+    margin-top: 5px;
+  }
+  .opportunity:not(.caseVisual) .modeStack span {
+    padding: 4px;
+    font-size: 7px;
+  }
+
+  .ghareeb:not(.caseVisual) .storefrontFrame {
+    margin: 2px 0;
+    border-radius: 12px;
+  }
+  .ghareeb:not(.caseVisual) .browserBar {
+    height: 28px;
+    padding-inline: 9px;
+  }
+  .ghareeb:not(.caseVisual) .storefrontBody {
+    min-height: 0;
+    height: calc(100% - 28px);
+    padding: 9px;
+  }
+  .ghareeb:not(.caseVisual) .storefrontHeadline {
+    max-width: none;
+    margin: 7px 0;
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+  .ghareeb:not(.caseVisual) .commerceStages span {
+    gap: 4px;
+    padding: 6px 3px 0 0;
+    font-size: 8px;
+  }
+  .ghareeb:not(.caseVisual) .commerceStages i {
+    font-size: 7px;
+  }
+
+  .oil:not(.caseVisual):not(.homeCardVisual) .oilImageWrap {
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid span {
+    padding: 4px 6px;
+  }
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid strong {
+    font-size: 23px;
+    line-height: 1;
+  }
+  .oil:not(.caseVisual):not(.homeCardVisual) .metricGrid small {
+    font-size: 8px;
+  }
+
+  .solar:not(.caseVisual) .solarStack {
+    min-height: 0;
+  }
+  .makhbazy:not(.caseVisual) .phoneJourney {
+    min-height: 0;
+    gap: 3px;
+  }
+  .makhbazy:not(.caseVisual) .phoneStep {
+    gap: 3px;
+  }
+  .makhbazy:not(.caseVisual) .phoneShell {
+    width: 52px;
+    border-radius: 10px;
+    padding: 11px 5px 8px;
+  }
+  .makhbazy:not(.caseVisual) .phoneNotch {
+    margin-bottom: 12px;
+  }
 }

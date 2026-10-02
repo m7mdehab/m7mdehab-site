@@ -23,7 +23,7 @@ test.describe("Phase H About architecture", () => {
     await expect(page.locator(".timeline")).toHaveCount(0);
     await expect(page.locator(".credential-grid")).toHaveCount(0);
     await expect(page.locator(".compact-grid")).toHaveCount(0);
-    await expect(page.locator(".credibility-rail-label").getByRole("link", { name: /Full background/i })).toHaveAttribute("href", "/about");
+    await expect(page.getByRole("link", { name: /Full background/i })).toHaveCount(0);
     await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     await expect(page.getByRole("navigation", { name: "Footer directory" }).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     await mkdir(artifactRoot, { recursive: true });

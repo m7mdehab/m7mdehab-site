@@ -16,6 +16,8 @@ type FloatingNavProps = {
   ariaLabel: string;
   markHref: string;
   markAriaLabel: string;
+  mobileIdentity?: string;
+  mobileIdentityNarrow?: string;
 };
 
 export function FloatingNav({
@@ -28,6 +30,8 @@ export function FloatingNav({
   ariaLabel,
   markHref,
   markAriaLabel,
+  mobileIdentity,
+  mobileIdentityNarrow,
 }: FloatingNavProps) {
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
@@ -58,9 +62,11 @@ export function FloatingNav({
 
   useEffect(() => {
     const ids = links
-      .map(([, href]) => href.includes("#") ? href.split("#")[1] : null)
+      .map(([, href]) => (href.includes("#") ? href.split("#")[1] : null))
       .filter((value): value is string => Boolean(value));
-    const elements = ids.map((id) => document.getElementById(id)).filter((node): node is HTMLElement => Boolean(node));
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => Boolean(node));
     if (!elements.length) return;
 
     const observer = new IntersectionObserver(
@@ -78,20 +84,46 @@ export function FloatingNav({
   }, [links, pathname]);
 
   return (
-    <header className={`site-nav-wrap${hidden ? " nav-hidden" : ""}`} data-nav-hidden={hidden ? "true" : "false"}>
+    <header
+      className={`site-nav-wrap${hidden ? " nav-hidden" : ""}`}
+      data-nav-hidden={hidden ? "true" : "false"}
+    >
       <nav
         className="site-nav"
         aria-label={ariaLabel}
         onFocusCapture={() => setHidden(false)}
         onMouseEnter={() => setHidden(false)}
       >
-        <Link className="nav-mark" href={markHref} aria-label={markAriaLabel}>M7</Link>
+        <Link className="nav-mark" href={markHref} aria-label={markAriaLabel}>
+          M7
+        </Link>
+        {mobileIdentity ? (
+          <span className="nav-identity" aria-label={mobileIdentity}>
+            <span className="nav-identity-wide">{mobileIdentity}</span>
+            {mobileIdentityNarrow ? (
+              <span className="nav-identity-narrow">
+                {mobileIdentityNarrow}
+              </span>
+            ) : null}
+          </span>
+        ) : null}
         <div className="nav-links">
           {links.map(([label, href]) => {
             const section = href.includes("#") ? href.split("#")[1] : null;
-            const routeActive = !section && (pathname === href || pathname.startsWith(`${href}/`));
-            const active = routeActive || Boolean(section && activeSection === section);
-            return <Link key={href} href={href} aria-current={active ? "location" : undefined}>{label}</Link>;
+            const routeActive =
+              !section &&
+              (pathname === href || pathname.startsWith(`${href}/`));
+            const active =
+              routeActive || Boolean(section && activeSection === section);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={active ? "location" : undefined}
+              >
+                {label}
+              </Link>
+            );
           })}
           {localeHref && localeLabel ? (
             <Link

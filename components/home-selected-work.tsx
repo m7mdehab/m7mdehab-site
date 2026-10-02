@@ -1,147 +1,153 @@
 "use client";
 
-import { ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { ProjectVisual } from "@/components/project-visual";
-import { projects } from "@/data/public";
-
-const AUTO_SCROLL_MS = 7000;
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSyncExternalStore, type CSSProperties } from "react";
+import { PresairaArtboard } from "@/components/presaira-artboard";
+import { OpportunityOsArtboard } from "@/components/opportunityos-artboard";
+import { GhareebOgluArtboard } from "@/components/ghareeb-oglu-artboard";
+import { OilSpillArtboard } from "@/components/oil-spill-artboard";
+import { SolarArtboard } from "@/components/solar-artboard";
+import { MakhbazyArtboard } from "@/components/makhbazy-artboard";
+import type { ArtboardDebugMode, ProjectSlug } from "@/data/selected-work-artboards";
+import { useSelectedWorkCarousel } from "@/components/use-selected-work-carousel";
+import { selectedWorkProjects } from "@/data/home-selected-work";
 
 export function SelectedWorkGallery() {
-  const [active, setActive] = useState(0);
-  const [interactionPaused, setInteractionPaused] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [cycle, setCycle] = useState(0);
-  const paused = interactionPaused || userPaused;
+  const search = useSyncExternalStore(
+    (notify) => {
+      window.addEventListener("popstate", notify);
+      return () => window.removeEventListener("popstate", notify);
+    },
+    () => window.location.search,
+    () => "",
+  );
+  const debugParams = new URLSearchParams(search);
+  const requestedProject = debugParams.get("cardDebug");
+  const requestedMode = debugParams.get("view");
+  const debugProject = process.env.NODE_ENV === "development" && selectedWorkProjects.some((project) => project.slug === requestedProject)
+    ? (requestedProject as ProjectSlug)
+    : null;
+  const artboardDebug = debugProject
+    ? {
+        mode: (requestedMode === "reference" || requestedMode === "overlay" ? requestedMode : "code") as ArtboardDebugMode,
+        grid: debugParams.get("grid") === "1",
+      }
+    : null;
+  const {
+    active,
+    select,
+    paused,
+    rootRef,
+    viewportRef,
+    api,
+    onMouseEnter,
+    onMouseLeave,
+    onFocusCapture,
+    onBlurCapture,
+    onPointerUp,
+    onPointerCancel,
+  } = useSelectedWorkCarousel();
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReducedMotion(media.matches);
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
-
-  useEffect(() => {
-    if (paused || reducedMotion) return;
-    const timer = window.setInterval(() => {
-      setActive((index) => (index + 1) % projects.length);
-    }, AUTO_SCROLL_MS);
-    return () => window.clearInterval(timer);
-  }, [paused, reducedMotion, cycle]);
-
-  const move = (direction: -1 | 1) => {
-    setActive((index) => (index + direction + projects.length) % projects.length);
-    setCycle((value) => value + 1);
-  };
-
-  const activeProject = projects[active];
-
+  const activeProject = selectedWorkProjects[active];
   return (
     <section id="work" className="selected-work" data-selected-work>
       <div className="shell selected-work-shell">
         <header className="selected-work-intro">
           <div>
-            <p className="selected-work-eyebrow">Selected work · 01</p>
-            <h2>Six ways into the work. <em>One standard.</em></h2>
+            <h2 data-mobile-one-line="section-heading">Six projects. One standard.</h2>
           </div>
           <div className="selected-work-intro-copy">
-            <p>
-              Six public projects, viewed one at a time. Each card carries one project, one evidence language and one route into the full case study.
+            <p className="selected-work-intro-desktop">
+              Each project opens to a full case study with inspectable evidence.
             </p>
-            <Link href="/work">Open the work index <ArrowUpRight size={15} aria-hidden="true" /></Link>
+            <p className="selected-work-intro-mobile" data-mobile-one-line="section-supporting-copy">
+              Each project is backed by a full case study and inspectable evidence.
+            </p>
           </div>
         </header>
 
         <div
-          className={`selected-work-carousel${paused ? " is-paused" : ""}`}
+          className="selected-work-carousel"
+          ref={rootRef}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onFocusCapture={onFocusCapture}
+          onBlurCapture={onBlurCapture}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerCancel}
           data-active-project={activeProject.slug}
           data-active-tone={activeProject.tone}
-          onMouseEnter={() => setInteractionPaused(true)}
-          onMouseLeave={() => setInteractionPaused(false)}
-          onFocusCapture={() => setInteractionPaused(true)}
-          onBlurCapture={() => setInteractionPaused(false)}
+          data-carousel-paused={paused ? "true" : undefined}
         >
-          <div className="selected-work-carousel-status" aria-live={paused || reducedMotion ? "polite" : "off"}>
-            <span>{String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
-            <div className="selected-work-carousel-progress" aria-hidden="true">
-              <span
-                key={`${active}-${cycle}`}
-                className="selected-work-carousel-progress-fill"
-                style={{ animationDuration: `${AUTO_SCROLL_MS}ms` }}
-              />
-            </div>
-            {reducedMotion ? (
-              <span className="selected-work-carousel-mode">Manual</span>
-            ) : (
-              <button
-                className="selected-work-carousel-pause"
-                type="button"
-                aria-pressed={userPaused}
-                aria-label={userPaused ? "Resume project autoplay" : "Pause project autoplay"}
-                onClick={() => setUserPaused((value) => !value)}
-              >
-                {userPaused ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
-                <span>{userPaused ? "Resume" : "Pause"}</span>
-              </button>
-            )}
-          </div>
-
-          <div className="selected-work-carousel-window">
+          <div
+            className="selected-work-carousel-window selected-work-carousel-window-artboards"
+            ref={viewportRef}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Selected projects"
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowRight") api?.scrollNext();
+              if (event.key === "ArrowLeft") api?.scrollPrev();
+            }}
+          >
             <div
               className="selected-work-carousel-track"
               data-carousel-track
-              style={{ transform: `translate3d(-${active * 100}%, 0, 0)` }}
             >
-              {projects.map((project, index) => (
+              {selectedWorkProjects.map((project, index) => (
                 <article
-                  className="selected-work-carousel-slide"
+                  className="selected-work-carousel-slide selected-work-carousel-slide-artboard"
                   data-project-slug={project.slug}
                   data-tone={project.tone}
                   aria-hidden={index !== active}
                   key={project.slug}
                 >
-                  <Link
-                    className="selected-work-carousel-card"
-                    href={`/work/${project.slug}`}
-                    data-conversion="selected-work-to-case-study"
-                    tabIndex={index === active ? 0 : -1}
-                    aria-label={`Open ${project.title} case study`}
-                  >
-                    <div className="selected-work-carousel-visual">
-                      <ProjectVisual slug={project.slug} />
+                  <div className="selected-work-carousel-visual selected-work-carousel-artboard">
+                      {project.slug === "presaira" ? <PresairaArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
+                      {project.slug === "opportunityos" ? <OpportunityOsArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
+                      {project.slug === "ghareeb-oglu" ? <GhareebOgluArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
+                      {project.slug === "oil-spill-detection" ? <OilSpillArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
+                      {project.slug === "solar-site-selection" ? <SolarArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
+                      {project.slug === "makhbazy" ? <MakhbazyArtboard debugMode={debugProject === project.slug ? artboardDebug?.mode : undefined} showGrid={debugProject === project.slug && artboardDebug?.grid} isActive={index === active} transitionEnabled={index === active && !debugProject} /> : null}
                     </div>
-                    <div className="selected-work-carousel-copy">
-                      <div className="selected-work-carousel-meta">
-                        <span>{String(index + 1).padStart(2, "0")}</span>
-                        <span>{project.kicker}</span>
-                      </div>
-                      <h3>{project.title}</h3>
-                      <p>{project.statement}</p>
-                      <div className="selected-work-carousel-proof">
-                        <span>{project.proof}</span>
-                        <ArrowUpRight size={18} aria-hidden="true" />
-                      </div>
-                    </div>
-                  </Link>
                 </article>
               ))}
             </div>
           </div>
-
-          <button className="selected-work-carousel-control selected-work-carousel-prev" type="button" onClick={() => move(-1)} aria-label="Previous project">
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <button className="selected-work-carousel-control selected-work-carousel-next" type="button" onClick={() => move(1)} aria-label="Next project">
-            <ChevronRight aria-hidden="true" />
-          </button>
-        </div>
-
-        <div className="selected-work-footer">
-          <span>6 projects · 6 public case studies</span>
-          <Link href="/work">All work <ArrowUpRight size={15} aria-hidden="true" /></Link>
+          <button
+            type="button"
+            className="selected-work-carousel-control selected-work-carousel-prev"
+            aria-label={`Previous project before ${activeProject.title}`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => api?.scrollPrev()}
+          ><ChevronLeft aria-hidden="true" strokeWidth={1.25} /></button>
+          <button
+            type="button"
+            className="selected-work-carousel-control selected-work-carousel-next"
+            aria-label={`Next project after ${activeProject.title}`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => api?.scrollNext()}
+          ><ChevronRight aria-hidden="true" strokeWidth={1.25} /></button>
+          <div
+            className="carousel-dots"
+            role="group"
+            aria-label="Project slides"
+          >
+            {selectedWorkProjects.map((project, index) => (
+              <button
+                key={project.slug}
+                type="button"
+                className={`carousel-dot${index === active ? " is-active" : ""}`}
+                aria-label={`Go to project ${index + 1} of ${selectedWorkProjects.length}`}
+                aria-current={index === active ? "step" : undefined}
+                style={index === active ? { "--carousel-progress": "0%" } as CSSProperties : undefined}
+                onClick={() => select(index)}
+              >
+                <span aria-hidden="true" />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,0 +1,314 @@
+.identity,
+.tagline,
+.accent,
+.statement,
+.proofMetrics,
+.rail,
+.chartWrap,
+.principles,
+.score {
+  position: absolute;
+  left: var(--artboard-x);
+  top: var(--artboard-y);
+  width: var(--artboard-w);
+  height: var(--artboard-h);
+}
+
+.identity > [data-presaira-wordmark] { position: absolute; top: 50%; left: 50%; display: block; width: 112%; max-width: none; height: auto; object-fit: contain; transform: translate(-50%, -50%); }
+.semanticWordmark { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%); white-space: nowrap; }
+
+.tagline,
+.statement {
+  margin: 0;
+  color: #c9d4eb;
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 1.84cqw;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+.statement {
+  color: #dbe4f6;
+  font-size: 1.54cqw;
+  white-space: pre-line;
+}
+
+.proofMetrics {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  border-top: 1px solid rgb(115 166 226 / 28%);
+  color: #dbe4f6;
+  font-family: "Inter Variable", Inter, sans-serif;
+}
+.proofMetrics > div { display: flex; min-width: 0; flex-direction: column; gap: 0.35cqw; padding: 0 1.25cqw; border-right: 1px solid rgb(115 166 226 / 22%); }
+.proofMetrics > div:first-child { padding-left: 0; }
+.proofMetrics > div:last-child { border: 0; }
+.proofMetrics b { color: #76baff; font-size: 0.82cqw; font-weight: 650; letter-spacing: 0.11em; }
+.proofMetrics strong { color: #eff5ff; font-size: 1.28cqw; font-weight: 520; letter-spacing: 0.015em; white-space: nowrap; }
+
+.accent {
+  display: block;
+  background: #58a8ff;
+}
+
+.rail {
+  overflow: visible;
+}
+
+.competition {
+  position: absolute;
+  top: 0;
+  display: flex;
+  width: 24%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+  color: #e8efff;
+  font-family: "Inter Variable", Inter, sans-serif;
+  text-align: center;
+}
+
+.competition:not(:first-of-type)::before {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 1px;
+  height: 47%;
+  background: rgb(111 161 220 / 22%);
+  content: "";
+}
+
+.competition0 { left: 0; }
+.competition1 { left: 25%; }
+.competition2 { left: 50%; }
+.competition3 { left: 75%; }
+
+.markStage {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 46%;
+  overflow: visible;
+  place-items: center;
+}
+
+.markStage img {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  max-width: 42%;
+  max-height: 88%;
+  object-fit: contain;
+}
+
+.competition0 .markStage img { max-width: 52%; max-height: 75%; transform: scale(1.12); }
+.competition1 .markStage img { max-width: 52%; max-height: 75%; }
+.competition2 .markStage img { max-width: 48%; max-height: 42%; transform: scale(2.2); }
+.competition3 .markStage img { max-width: 27%; max-height: 67%; transform: scale(2.2); }
+
+.competitionName,
+.competitionStatus {
+  display: block;
+  max-width: 100%;
+  font-size: 0.9cqw;
+  font-weight: 550;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.competitionStatus {
+  margin-top: 0.12em;
+  color: #54a6ed;
+  font-size: 0.82cqw;
+  font-weight: 450;
+  letter-spacing: 0.03em;
+}
+
+.competition2 .competitionStatus { color: #ff5446; }
+.competition3 .competitionStatus { color: #ffac37; }
+
+.node {
+  position: absolute;
+  top: 82%;
+  left: 50%;
+  display: grid;
+  width: 1.42cqw;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 0.1cqw solid #57adff;
+  border-radius: 50%;
+  background: #071b3f;
+  place-items: center;
+  box-shadow: 0 0 0 0.24cqw rgb(44 146 246 / 12%);
+}
+
+.node::after {
+  width: 44%;
+  height: 44%;
+  border-radius: 50%;
+  background: #338ef0;
+  content: "";
+}
+
+.competition1 .node { border-color: #63a7f2; }
+.competition1 .node::after { background: #5297ed; }
+.competition2 .node { border-color: #ed5444; }
+.competition2 .node::after { background: #d73f35; }
+.competition3 .node { border-color: #f4a32c; }
+.competition3 .node::after { background: #db8e1e; }
+
+.chart {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: #94add5;
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 16px;
+}
+
+.axisMark line {
+  stroke: #4774a9;
+  stroke-width: 0.8;
+  opacity: 0.1;
+}
+
+.axisMark:first-of-type line:first-child,
+.axisMark:last-of-type line:nth-child(2) {
+  opacity: 0.75;
+}
+
+.axisMark text,
+.axisLabel {
+  fill: #91a9d0;
+  font-size: 15px;
+}
+
+.axisLabel { font-size: 16px; }
+
+.perfect {
+  stroke: #4b8ccc;
+  stroke-dasharray: 6 6;
+  stroke-width: 1.4;
+  opacity: 0.7;
+}
+
+.observedLine {
+  fill: none;
+  stroke: #37a0ff;
+  stroke-width: 2.4;
+}
+
+.interval {
+  stroke: #6fb6ff;
+  stroke-width: 1.1;
+  opacity: 0.78;
+}
+
+.point {
+  fill: #d2e9ff;
+  stroke: #39a2ff;
+  stroke-width: 2;
+}
+
+.principles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 4.4%;
+  border-left: 1px solid rgb(91 154 221 / 75%);
+  color: #a7bddf;
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 1.01cqw;
+  font-weight: 350;
+  line-height: 1.3;
+}
+
+.principles p { margin: 0; }
+.principles span { width: 8%; height: 1px; background: #4c90d5; }
+
+.perfectLabel {
+  position: absolute;
+  top: 35%;
+  left: 64%;
+  color: #a9bbd8;
+  font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 0.9cqw;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+.perfectLabel { top: 42%; left: 51%; font-size: 0.74cqw; opacity: 0.78; }
+
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 4.5%;
+  border-left: 1px solid #308fe9;
+  color: #f3f5fb;
+  font-family: "Inter Variable", Inter, sans-serif;
+}
+
+.scoreNumber {
+  display: flex;
+  gap: 0.18em;
+  font-size: 3.63cqw;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.scoreNumber span:last-child { color: #348fea; }
+
+.scoreCaption {
+  margin-top: 0.4em;
+  color: #c2cee5;
+  font-size: 1.31cqw;
+  font-weight: 350;
+  white-space: nowrap;
+}
+
+.platformStatus { display: flex; flex-direction: column; gap: 0.72cqw; margin-top: 1.05cqw; color: #abc0dd; font-size: 0.82cqw; line-height: 1.2; }
+.platformStatus span { display: flex; align-items: center; justify-content: space-between; gap: 0.8cqw; }
+.platformStatus b { color: #7fc4ff; font-size: 0.72cqw; font-weight: 650; letter-spacing: 0.1em; }
+.platformStatus span:last-child b { color: #c7d6ec; }
+
+@container work-slide (max-width: 700px) {
+  .identity { top: 4%; left: 5%; width: 32%; height: 11%; }
+  .identity > [data-presaira-wordmark] { width: 100%; max-width: 100%; }
+  .tagline { top: 17%; left: 5%; width: 44%; height: 5%; font-size: var(--mobile-subtitle-scale); line-height: 1; white-space: nowrap; }
+  .accent { top: 23%; left: 5%; width: 5%; height: 1px; }
+  .proofMetrics { top: 25%; left: 5%; width: 57%; height: 13%; }
+  .proofMetrics > div { gap: 0.45cqw; padding: 0 1.1cqw; white-space: nowrap; }
+  .proofMetrics b { font-size: 1.25cqw; line-height: 1; letter-spacing: 0.04em; white-space: nowrap; }
+  .proofMetrics strong { font-size: 1.65cqw; line-height: 1; white-space: nowrap; }
+  .rail { top: 4%; left: 49%; width: 47%; height: 31%; }
+  .competition { width: 24%; height: 100%; }
+  .competition:not(:first-of-type)::before { top: 3%; height: 72%; }
+  .node { top: 82%; display: grid; width: 2cqw; min-width: 4px; box-shadow: none; }
+  .markStage { height: 40%; }
+  .markStage img { max-width: 25%; max-height: 10cqw; }
+  .competition0 .markStage img,.competition1 .markStage img { transform: none; }
+  .competition2 .markStage img,.competition3 .markStage img { max-width: 25%; max-height: 10cqw; transform: none; }
+  .competitionName { max-width: 100%; font-size: 1.2cqw; line-height: 1; white-space: nowrap; }
+  .competitionStatus { max-width: 100%; margin-top: 0.3em; font-size: 1.05cqw; line-height: 1; white-space: nowrap; }
+  .chartWrap { top: 42%; left: 4%; width: 58%; height: 36%; }
+  .chart { font-size: 12px; }
+  .chart .axisMark text,.chart .axisLabel { display: block; font-size: 12px; }
+  .axisMark line { opacity: 0.42; }
+  .perfect { stroke-dasharray: 4 4; opacity: 0.86; stroke-width: 2.2; }
+  .observedLine { stroke-width: 4; }
+  .interval { display: block; stroke-width: 2; }
+  .point { r: 5px; }
+  .perfectLabel { top: 41%; left: 26%; font-size: 1.05cqw; line-height: 1.1; white-space: nowrap; }
+  .principles { display: none; }
+  .score { top: 48%; left: 66%; width: 29%; height: 28%; padding-left: 2.5%; }
+  .scoreNumber { font-size: 4.9cqw; gap: 0.13em; white-space: nowrap; }
+  .scoreCaption { flex: 0 0 auto; align-self: flex-start; width: max-content; margin-top: 0.35em; font-size: 1.2cqw; line-height: 1; white-space: nowrap; }
+  .platformStatus { display: flex; gap: 1.2cqw; margin-top: 1.2cqw; font-size: 1.1cqw; line-height: 1.1; }
+  .platformStatus span { gap: 0.6cqw; white-space: nowrap; }
+  .platformStatus b { font-size: 0.95cqw; letter-spacing: 0.035em; }
+}

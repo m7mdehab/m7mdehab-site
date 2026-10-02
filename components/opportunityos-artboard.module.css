@@ -1,0 +1,125 @@
+.title,
+.tagline,
+.watermark,
+.taxonomy,
+.flow,
+.gate,
+.modes,
+.footerLine,
+.footer {
+  position: absolute;
+}
+
+.title { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
+.title h3 {
+  display: flex;
+  margin: -0.05em 0 0;
+  color: #f4efe4;
+  font-family: "Playfair Display Variable", "Playfair Display", serif;
+  font-size: 5.95cqw;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.title h3 { letter-spacing: -0.025em; }
+.title h3 span:last-child { color: #7fe9ae; }
+
+.tagline {
+  left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h);
+  margin: 0; color: #e8e7dc; font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 1.72cqw; font-weight: 350; letter-spacing: 0.07em; line-height: 1.3;
+}
+
+.mantra {
+  position: absolute; top: 8%; right: 5.3%; display: flex; width: 11%; flex-direction: column;
+  gap: 0.24cqw; color: #8ebda0; font-family: "Inter Variable", Inter, sans-serif;
+  font-size: 0.88cqw; letter-spacing: 0.24em; line-height: 1.35;
+}
+.mantra > span { width: 28%; height: 2px; margin-bottom: 0.65cqw; background: #7fe9ae; }
+.mantra b { font-weight: 450; }
+
+.watermark {
+  left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h);
+  overflow: hidden; color: rgb(110 170 125 / 9%); font-family: "Playfair Display Variable", "Playfair Display", serif;
+  font-size: 7.5cqw; font-weight: 400; letter-spacing: -0.045em; line-height: 1;
+}
+
+.taxonomy {
+  left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h);
+  display: flex; justify-content: space-between; align-items: center; color: #72967d;
+  font-family: "Inter Variable", Inter, sans-serif; font-size: 0.9cqw; letter-spacing: 0.3em; font-weight: 450;
+}
+
+.flow { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
+.flow svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.flow svg path { fill: none; stroke: #70d9a0; stroke-width: 1.2; opacity: 0.72; }
+.flow svg .signal { stroke: #a4ffc1; stroke-width: 2.2; opacity: 0.95; }
+.flow svg .ambientWave { stroke: #70d9a0; stroke-width: 1; opacity: 0.16; }
+.flow svg circle { fill: #0b2116; stroke: #91f0b7; stroke-width: 2.4; }
+.flow svg .gateCheckMark { fill: none; stroke: #92f6bc; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.flowNode { position: absolute; width: 16%; color: #e5e8dd; font-family: "Inter Variable", Inter, sans-serif; }
+.flowNode > b { display: block; margin: 0 0 0.48cqw; font-size: 1.24cqw; font-weight: 500; letter-spacing: 0.14em; }
+.flowNode > span { display: flex; flex-direction: column; gap: 0.1cqw; color: #87a891; font-size: 0.88cqw; font-weight: 450; letter-spacing: 0.11em; line-height: 1.25; }
+.flowNode0 { left: 0; top: 55%; }
+.flowNode1 { left: 19.4%; top: 55%; }
+.flowNode2 { left: 38.9%; top: 55%; }
+.flowNode3 { left: 58.5%; top: 55%; }
+.flowNode4 { left: 77.884%; top: 55%; }
+
+.gateDesktopLabel { white-space: nowrap; }
+.gate { left: 77.884%; top: 55%; text-align: center; }
+
+.modes { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; flex-direction: column; gap: 1.2cqw; color: #98bea4; font-family: "Inter Variable", Inter, sans-serif; }
+.modes > b { margin: 0 0 0.45cqw 1cqw; font-size: 0.9cqw; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; }
+.modes > div { box-sizing: border-box; display: flex; min-height: 22%; align-items: center; gap: 0.85cqw; padding: 0 1.15cqw; border: 1px solid rgb(122 182 141 / 28%); border-radius: 999px; }
+.modes i { flex: 0 0 1.35cqw; width: 1.35cqw; aspect-ratio: 1; border: 1px solid #82c398; border-radius: 50%; }
+.modes span { display: flex; min-width: 0; flex-direction: column; gap: 0.32cqw; }
+.modes strong { color: #e7e8df; font-size: 0.88cqw; font-weight: 550; letter-spacing: 0.045em; white-space: nowrap; }
+.modes small { color: #87a791; font-size: 0.74cqw; font-weight: 450; letter-spacing: 0.07em; white-space: nowrap; }
+.modes .controlled { border-color: #73d99b; background: linear-gradient(90deg, rgb(85 196 126 / 20%), rgb(85 196 126 / 5%)); box-shadow: 0 0 1.1cqw rgb(85 196 126 / 12%); }
+.modes .controlled i { border: 0; background: #83e9ab; box-shadow: 0 0 0.8cqw rgb(85 196 126 / 60%); }
+
+.footerLine { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); background: #7fe9ae; }
+.footer { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #f2eee5; font-family: "Inter Variable", Inter, sans-serif; font-size: 1.66cqw; font-weight: 350; letter-spacing: 0.1em; line-height: 1.2; }
+
+@container work-slide (min-width: 701px) {
+  .title h3 { letter-spacing: 0.028em; }
+  .gate { left: 74.884%; width: 22%; text-align: center; }
+  .gate > span > span { white-space: nowrap; }
+}
+
+@container work-slide (max-width: 700px) {
+  .title { left: 5%; top: 4%; width: 90%; height: 11%; }
+  .title h3 { font-size: var(--mobile-title-scale); line-height: 1; letter-spacing: 0.028em; white-space: nowrap; }
+  .tagline { left: 5%; top: 16%; width: 90%; height: 5%; font-size: var(--mobile-subtitle-scale); letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .mantra { top: 20%; right: 5%; width: 12%; gap: 0.3cqw; font-size: 0.9cqw; letter-spacing: 0.08em; }
+  .mantra > span { height: 1px; margin-bottom: 0.2cqw; }
+  .watermark { left: 11%; top: 35%; width: 76%; height: 20%; display: block; opacity: 0.24; font-size: 5.4cqw; white-space: nowrap; }
+  .taxonomy { left: 5%; top: 25%; width: 90%; height: 4%; display: flex; font-size: 1.12cqw; letter-spacing: 0.16em; }
+  .flow { left: 4%; top: 31%; width: 92%; height: 38%; }
+  .flow > svg:first-child { display: block; }
+  .flow svg .signal { stroke-width: 3.2; opacity: 0.9; }
+  .flow svg .ambientWave { opacity: 0.13; }
+  .flow svg circle { stroke-width: 3; }
+  .flowNode { width: 20%; text-align: center; }
+  .flowNode > b { margin-bottom: 0.6cqw; font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; line-height: 1; white-space: nowrap; }
+  .flowNode > span { display: flex; gap: 0.2cqw; font-size: 1.05cqw; letter-spacing: 0; line-height: 1.08; }
+  .flowNode0 { left: -2%; top: 46%; }
+  .flowNode1 { left: 17.4%; top: 46%; }
+  .flowNode2 { left: 36.9%; top: 46%; }
+  .flowNode3 { left: 56.4%; top: 46%; }
+  .flowNode4 { left: 73.4%; top: 46%; width: 25%; text-align: center; }
+  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; }
+  .gateDesktopLabel { display: inline; }
+  .modes { left: 4%; top: 67%; width: 92%; height: 9%; flex-direction: row; gap: 1.5%; }
+  .modes > b { display: none; }
+  .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1%; border-radius: 999px; }
+  .modes > div:last-child { flex: 1.25 1 0; }
+  .modes i { display: none; }
+  .modes span { overflow: visible; }
+  .modes strong { font-size: clamp(7px, 2.1cqw, 7.5px); letter-spacing: 0; white-space: nowrap; }
+  .modes small { display: block; font-size: clamp(4px, 1.3cqw, 5px); letter-spacing: 0; white-space: nowrap; }
+  .modes .controlled { border-width: 1px; }
+  .footerLine { left: 4%; top: 86%; width: 2%; height: 1px; display: block; }
+  .footer { left: 4%; top: 87%; width: 48%; height: 6%; font-size: 1.55cqw; letter-spacing: 0; white-space: nowrap; }
+}

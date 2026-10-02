@@ -1,0 +1,920 @@
+// Prepared seed manifest for Codex.
+// This file is intentionally not imported by the current site yet.
+// Copy/adapt it into data/selected-work-artboards.ts during implementation.
+
+export const SELECTED_WORK_ARTBOARD = {
+  "schemaVersion": 1,
+  "canonicalArtboard": {
+    "width": 1683,
+    "height": 935,
+    "aspectRatio": 1.8,
+    "cornerRadius": 68
+  },
+  "coordinateRule": "All desktop x/y/w/h values are source-pixel coordinates on the 1683x935 reference artboard. Implement with a single scalable artboard wrapper and SVG viewBox='0 0 1683 935'. Treat these as measured seed geometry and tune against the supplied full reference overlay; do not replace them with eyeballed CSS once tuned.",
+  "fontPolicy": {
+    "warning": "The approved references are AI-generated raster images and therefore contain no recoverable font metadata. There is no truthful way to claim an exact source font. Use the specified real-font matches and tune size/tracking by overlay.",
+    "displaySans": {
+      "family": "Space Grotesk",
+      "source": "next/font/google",
+      "use": "Presaira display/technical labels where appropriate"
+    },
+    "bodySans": {
+      "family": "Inter",
+      "source": "next/font/google",
+      "use": "technical body, labels, utility text"
+    },
+    "editorialSerif": {
+      "family": "Playfair Display",
+      "source": "next/font/google",
+      "use": "OpportunityOS, Solar, Oil, Ghareeb/Makhbazy editorial display text"
+    },
+    "portfolioSansFallback": "Manrope Variable",
+    "portfolioSerifFallback": "Newsreader Variable"
+  },
+  "projects": {
+    "presaira": {
+      "title": "Presaira",
+      "background": "source/backgrounds/presaira.png",
+      "reference": "reference/full/presaira.png",
+      "runtimePattern": "runtime/backgrounds/presaira-{960,1280,1683}.webp",
+      "palette": {
+        "ground": "#071746",
+        "blue": "#3a91ff",
+        "blueSoft": "#70b7ff",
+        "text": "#f4f7ff",
+        "muted": "#b9c6e3",
+        "orange": "#ff9c18",
+        "f1": "#ff1801"
+      },
+      "desktop": {
+        "wordmark": {
+          "x": 94,
+          "y": 128,
+          "w": 665,
+          "h": 88,
+          "font": "Space Grotesk",
+          "size": 83,
+          "weight": 300,
+          "trackingEm": 0.23,
+          "color": "#f7f8fb"
+        },
+        "tagline": {
+          "x": 97,
+          "y": 224,
+          "w": 650,
+          "h": 52,
+          "font": "Inter",
+          "size": 31,
+          "weight": 300,
+          "trackingEm": 0.0,
+          "color": "#c9d4eb"
+        },
+        "accentLine": {
+          "x": 98,
+          "y": 297,
+          "w": 58,
+          "h": 2,
+          "color": "#58a8ff"
+        },
+        "statement": {
+          "x": 97,
+          "y": 332,
+          "w": 550,
+          "h": 42,
+          "font": "Inter",
+          "size": 26,
+          "weight": 300,
+          "color": "#dbe4f6"
+        },
+        "competitionRail": {
+          "x": 814,
+          "y": 70,
+          "w": 780,
+          "h": 205
+        },
+        "chart": {
+          "x": 160,
+          "y": 398,
+          "w": 900,
+          "h": 418
+        },
+        "chartNarrative": {
+          "x": 260,
+          "y": 447,
+          "w": 330,
+          "h": 145,
+          "font": "Inter",
+          "size": 17,
+          "weight": 300,
+          "lineHeight": 1.65,
+          "color": "#b9c6e3"
+        },
+        "score": {
+          "x": 1265,
+          "y": 391,
+          "w": 330,
+          "h": 123
+        },
+        "scoreNumber": {
+          "font": "Inter",
+          "size": 61,
+          "weight": 300
+        },
+        "scoreCaption": {
+          "font": "Inter",
+          "size": 22,
+          "weight": 300
+        }
+      },
+      "mobile": {
+        "targetAspectRatio": 1.55,
+        "keep": [
+          "wordmark",
+          "tagline",
+          "competitionRail",
+          "calibrationCurve",
+          "score"
+        ],
+        "simplify": [
+          "chart axis tick labels",
+          "chart narrative bullets",
+          "micro labels"
+        ],
+        "minimumReadableTextPx": 10,
+        "note": "Mobile is an art-directed adaptation, not a literal 1683x935 shrink. Preserve identity and evidence; remove microcopy before shrinking it below legibility."
+      }
+    },
+    "opportunityos": {
+      "title": "OpportunityOS",
+      "background": "source/backgrounds/opportunityos.png",
+      "reference": "reference/full/opportunityos.png",
+      "runtimePattern": "runtime/backgrounds/opportunityos-{960,1280,1683}.webp",
+      "palette": {
+        "ground": "#06140d",
+        "mint": "#7fe9ae",
+        "mintSoft": "#9de9bd",
+        "text": "#f3efe6",
+        "muted": "#91a798"
+      },
+      "desktop": {
+        "title": {
+          "x": 93,
+          "y": 74,
+          "w": 960,
+          "h": 148,
+          "font": "Playfair Display",
+          "size": 100,
+          "weight": 400,
+          "trackingEm": -0.03,
+          "color": "#f4efe4"
+        },
+        "tagline": {
+          "x": 98,
+          "y": 238,
+          "w": 1030,
+          "h": 55,
+          "font": "Inter",
+          "size": 29,
+          "weight": 300,
+          "trackingEm": 0.08,
+          "color": "#efece5"
+        },
+        "truthGraphWatermark": {
+          "x": 92,
+          "y": 315,
+          "w": 980,
+          "h": 125,
+          "font": "Playfair Display",
+          "size": 126,
+          "weight": 400,
+          "trackingEm": -0.04,
+          "color": "rgba(110,170,125,.08)"
+        },
+        "truthGraphTaxonomy": {
+          "x": 160,
+          "y": 446,
+          "w": 760,
+          "h": 32,
+          "font": "Inter",
+          "size": 15,
+          "weight": 400,
+          "trackingEm": 0.32,
+          "color": "#5c7765"
+        },
+        "rightMantra": {
+          "x": 1418,
+          "y": 78,
+          "w": 175,
+          "h": 130,
+          "font": "Inter",
+          "size": 16,
+          "weight": 400,
+          "trackingEm": 0.28,
+          "lineHeight": 1.55,
+          "color": "#6f9278"
+        },
+        "flow": {
+          "x": 88,
+          "y": 507,
+          "w": 1065,
+          "h": 245
+        },
+        "authorityGate": {
+          "x": 1120,
+          "y": 444,
+          "w": 210,
+          "h": 320
+        },
+        "actionModes": {
+          "x": 1360,
+          "y": 412,
+          "w": 265,
+          "h": 300
+        },
+        "footerAccent": {
+          "x": 98,
+          "y": 758,
+          "w": 58,
+          "h": 2,
+          "color": "#7fe9ae"
+        },
+        "footer": {
+          "x": 98,
+          "y": 783,
+          "w": 540,
+          "h": 42,
+          "font": "Inter",
+          "size": 28,
+          "weight": 300,
+          "trackingEm": 0.12,
+          "color": "#f2eee5"
+        }
+      },
+      "mobile": {
+        "targetAspectRatio": 1.5,
+        "keep": [
+          "title",
+          "tagline",
+          "source/evidence/claim/generate chain",
+          "authority gate",
+          "three action modes"
+        ],
+        "simplify": [
+          "large TRUTH GRAPH watermark",
+          "top-right mantra",
+          "node subcopy"
+        ],
+        "minimumReadableTextPx": 10
+      }
+    },
+    "ghareeb-oglu": {
+      "title": "Ghareeb Oglu",
+      "background": "source/backgrounds/ghareeb-oglu.png",
+      "reference": "reference/full/ghareeb-oglu.png",
+      "runtimePattern": "runtime/backgrounds/ghareeb-oglu-{960,1280,1683}.webp",
+      "palette": {
+        "ground": "#063d29",
+        "gold": "#d89a3a",
+        "goldBright": "#f3be61",
+        "ivory": "#f5ead5",
+        "dark": "#174c37"
+      },
+      "desktop": {
+        "logo": {
+          "x": 622,
+          "y": 72,
+          "w": 430,
+          "h": 370,
+          "asset": "runtime/logos/ghareeb-oglu-white-gold-transparent.png"
+        },
+        "headline": {
+          "x": 360,
+          "y": 453,
+          "w": 980,
+          "h": 92,
+          "font": "Playfair Display",
+          "size": 72,
+          "weight": 500,
+          "trackingEm": -0.025,
+          "color": "#f5ead5",
+          "align": "center"
+        },
+        "subheadline": {
+          "x": 395,
+          "y": 550,
+          "w": 900,
+          "h": 42,
+          "font": "Playfair Display",
+          "size": 24,
+          "weight": 400,
+          "trackingEm": 0.01,
+          "color": "#dfa954",
+          "align": "center"
+        },
+        "ornament": {
+          "x": 748,
+          "y": 598,
+          "w": 190,
+          "h": 34
+        },
+        "stages": {
+          "x": 120,
+          "y": 620,
+          "w": 1420,
+          "h": 210
+        },
+        "footerSkills": {
+          "x": 145,
+          "y": 864,
+          "w": 1380,
+          "h": 34,
+          "font": "Inter",
+          "size": 15,
+          "weight": 500,
+          "trackingEm": 0.26,
+          "color": "#d59a46"
+        }
+      },
+      "mobile": {
+        "targetAspectRatio": 1.55,
+        "keep": [
+          "logo",
+          "headline",
+          "four commerce stages"
+        ],
+        "simplify": [
+          "subheadline",
+          "footer skills microcopy",
+          "decorative coffee beans if crowded"
+        ],
+        "minimumReadableTextPx": 10
+      }
+    },
+    "solar-site-selection": {
+      "title": "Solar Site Selection",
+      "background": "source/backgrounds/solar-site-selection.png",
+      "reference": "reference/full/solar-site-selection.png",
+      "runtimePattern": "runtime/backgrounds/solar-site-selection-{960,1280,1683}.webp",
+      "palette": {
+        "ground": "#3d2607",
+        "amber": "#e0a019",
+        "amberBright": "#ffbd28",
+        "ivory": "#f5efe5",
+        "green": "#557c20",
+        "teal": "#0c4650"
+      },
+      "desktop": {
+        "title": {
+          "x": 80,
+          "y": 86,
+          "w": 680,
+          "h": 265,
+          "font": "Playfair Display",
+          "size": 112,
+          "weight": 500,
+          "trackingEm": -0.04,
+          "lineHeight": 0.96
+        },
+        "subtitle": {
+          "x": 80,
+          "y": 365,
+          "w": 720,
+          "h": 45,
+          "font": "Inter",
+          "size": 29,
+          "weight": 300,
+          "color": "#f3eee7"
+        },
+        "accentLine": {
+          "x": 80,
+          "y": 431,
+          "w": 72,
+          "h": 2,
+          "color": "#f1b62d"
+        },
+        "process": {
+          "x": 70,
+          "y": 470,
+          "w": 660,
+          "h": 125
+        },
+        "metrics": {
+          "x": 68,
+          "y": 630,
+          "w": 650,
+          "h": 130
+        },
+        "suitabilityOverlay": {
+          "x": 760,
+          "y": 130,
+          "w": 700,
+          "h": 650
+        },
+        "legend": {
+          "x": 1432,
+          "y": 80,
+          "w": 190,
+          "h": 320
+        },
+        "footer": {
+          "x": 80,
+          "y": 812,
+          "w": 860,
+          "h": 36,
+          "font": "Inter",
+          "size": 18,
+          "weight": 300,
+          "color": "#ead9ba"
+        }
+      },
+      "mobile": {
+        "targetAspectRatio": 1.5,
+        "keep": [
+          "title",
+          "subtitle",
+          "suitability map",
+          "12 criteria",
+          "5 classes",
+          "AHP"
+        ],
+        "simplify": [
+          "full legend",
+          "four process descriptions",
+          "footer list"
+        ],
+        "minimumReadableTextPx": 10,
+        "truthRule": "Do not reproduce the generated ~320 GWh/yr or ~210 GWh/yr callouts. Those values are not supported by the repository. Use non-numeric ranked-candidate callouts or values actually derived from repository outputs."
+      }
+    },
+    "oil-spill-detection": {
+      "title": "Oil Spill Detection",
+      "background": "source/backgrounds/oil-spill-detection.png",
+      "reference": "reference/full/oil-spill-detection.png",
+      "runtimePattern": "runtime/backgrounds/oil-spill-detection-{960,1280,1683}.webp",
+      "palette": {
+        "ground": "#06191d",
+        "cyan": "#49e6e9",
+        "cyanSoft": "#b5ffff",
+        "ivory": "#f5f0e8",
+        "muted": "#9bc2c5"
+      },
+      "desktop": {
+        "title": {
+          "x": 88,
+          "y": 132,
+          "w": 680,
+          "h": 285,
+          "font": "Playfair Display",
+          "size": 116,
+          "weight": 500,
+          "trackingEm": -0.04,
+          "lineHeight": 0.93,
+          "color": "#f5f0e8"
+        },
+        "titleGlowLine": {
+          "line": 2,
+          "color": "#c8ffff",
+          "textShadow": "0 0 24px rgba(73,230,233,.35)"
+        },
+        "accentLine": {
+          "x": 92,
+          "y": 438,
+          "w": 68,
+          "h": 3,
+          "color": "#f0eee7"
+        },
+        "tagline": {
+          "x": 90,
+          "y": 466,
+          "w": 650,
+          "h": 42,
+          "font": "Inter",
+          "size": 27,
+          "weight": 300,
+          "trackingEm": 0.12,
+          "color": "#f2eee8"
+        },
+        "skills": {
+          "x": 90,
+          "y": 520,
+          "w": 650,
+          "h": 34,
+          "font": "Inter",
+          "size": 19,
+          "weight": 300,
+          "trackingEm": 0.04,
+          "color": "#78bdc3"
+        },
+        "detectedLabel": {
+          "x": 1185,
+          "y": 302,
+          "w": 170,
+          "h": 70,
+          "font": "Inter",
+          "size": 17,
+          "weight": 500,
+          "trackingEm": 0.22,
+          "color": "#c8ffff"
+        },
+        "lookalikeLabel": {
+          "x": 682,
+          "y": 605,
+          "w": 230,
+          "h": 72,
+          "font": "Inter",
+          "size": 16,
+          "weight": 400,
+          "trackingEm": 0.18,
+          "color": "#9db1b0"
+        },
+        "detectionOverlay": {
+          "x": 790,
+          "y": 100,
+          "w": 790,
+          "h": 720
+        }
+      },
+      "mobile": {
+        "targetAspectRatio": 1.5,
+        "keep": [
+          "title",
+          "tagline",
+          "cyan detection overlay",
+          "detected oil spill label"
+        ],
+        "simplify": [
+          "skills line",
+          "look-alike label if unreadable"
+        ],
+        "minimumReadableTextPx": 10
+      }
+    },
+    "makhbazy": {
+      "title": "Makhbazy",
+      "background": "source/backgrounds/makhbazy.png",
+      "reference": "reference/full/makhbazy.png",
+      "runtimePattern": "runtime/backgrounds/makhbazy-{960,1280,1683}.webp",
+      "palette": {
+        "ground": "#a94a31",
+        "deep": "#7e2f1e",
+        "cream": "#f2dcc2",
+        "brown": "#5e2417",
+        "white": "#fff0df"
+      },
+      "desktop": {
+        "logo": {
+          "x": 75,
+          "y": 65,
+          "w": 360,
+          "h": 305,
+          "asset": "runtime/logos/makhbazy-light.png"
+        },
+        "accentLine": {
+          "x": 79,
+          "y": 420,
+          "w": 50,
+          "h": 2,
+          "color": "#f2dcc2"
+        },
+        "statement": {
+          "x": 78,
+          "y": 451,
+          "w": 390,
+          "h": 160,
+          "font": "Playfair Display",
+          "size": 43,
+          "weight": 400,
+          "lineHeight": 1.35,
+          "color": "#f2dcc2"
+        },
+        "phones": {
+          "x": 445,
+          "y": 132,
+          "w": 1060,
+          "h": 475
+        },
+        "journey": {
+          "x": 470,
+          "y": 596,
+          "w": 1000,
+          "h": 165
+        },
+        "utilityList": {
+          "x": 1505,
+          "y": 330,
+          "w": 145,
+          "h": 360
+        },
+        "footerCapabilities": {
+          "x": 74,
+          "y": 803,
+          "w": 1520,
+          "h": 84
+        }
+      },
+      "mobile": {
+        "targetAspectRatio": 1.5,
+        "keep": [
+          "logo",
+          "statement",
+          "four-phone journey",
+          "stage names"
+        ],
+        "simplify": [
+          "right utility list",
+          "footer capability descriptions"
+        ],
+        "minimumReadableTextPx": 10
+      }
+    }
+  }
+} as const;
+
+export const SELECTED_WORK_COPY = {
+  "presaira": {
+    "wordmark": "PRESAIRA",
+    "tagline": "Sports forecasting, on the record.",
+    "statement": "Publish first. Score afterwards.",
+    "principles": [
+      "Probabilistic models.",
+      "Large-scale simulation.",
+      "Calibrated and evaluated.",
+      "Reproducible by design."
+    ],
+    "competitions": [
+      {
+        "name": "WORLD CUP 2026",
+        "status": "PROOF RECORD",
+        "logo": "world-cup.png"
+      },
+      {
+        "name": "UCL 2026/27",
+        "status": "ACTIVE",
+        "logo": "champions-league.png"
+      },
+      {
+        "name": "FORMULA 1",
+        "status": "NEXT",
+        "logo": "formula-1.png"
+      },
+      {
+        "name": "NBA",
+        "status": "NEXT",
+        "logo": "nba.png"
+      }
+    ],
+    "chartLabels": {
+      "x": "Predicted probability",
+      "y": "Observed win rate",
+      "perfect": "Perfect calibration (y = x)"
+    },
+    "score": {
+      "number": "104 / 104",
+      "caption": "World Cup matches scored"
+    }
+  },
+  "opportunityos": {
+    "titlePrefix": "Opportunity",
+    "titleAccent": "OS",
+    "tagline": "Autonomy with explicit truth and action boundaries.",
+    "mantra": [
+      "EVIDENCE",
+      "REASON",
+      "GENERATE",
+      "ACT",
+      "WITH BOUNDARIES"
+    ],
+    "watermark": "TRUTH GRAPH",
+    "taxonomy": [
+      "SOURCES",
+      "EVIDENCE",
+      "CLAIMS",
+      "AUTHORITY",
+      "ACTIONS"
+    ],
+    "nodes": [
+      {
+        "title": "SOURCE",
+        "lines": [
+          "EXTERNAL DATA",
+          "DOCUMENTS",
+          "OPPORTUNITIES"
+        ]
+      },
+      {
+        "title": "EVIDENCE",
+        "lines": [
+          "VERIFIED",
+          "NORMALIZED",
+          "ON RECORD"
+        ]
+      },
+      {
+        "title": "CLAIM",
+        "lines": [
+          "GROUNDED",
+          "TRACEABLE",
+          "EVIDENCE-AWARE"
+        ]
+      },
+      {
+        "title": "GENERATE",
+        "lines": [
+          "TRUTH-LOCKED",
+          "WITH CITATIONS",
+          "POLICY-AWARE"
+        ]
+      }
+    ],
+    "gate": {
+      "label": "AUTHORITY GATE",
+      "conditions": [
+        "SUFFICIENT EVIDENCE",
+        "VALID AUTHORITY",
+        "ALLOWED ACTION"
+      ]
+    },
+    "modes": [
+      {
+        "title": "DRY RUN",
+        "detail": "SIMULATE ONLY"
+      },
+      {
+        "title": "ASSISTED",
+        "detail": "HUMAN IN THE LOOP"
+      },
+      {
+        "title": "CONTROLLED SUBMIT",
+        "detail": "EXECUTE WITH BOUNDARIES"
+      }
+    ],
+    "footer": "Evidence before action."
+  },
+  "ghareeb-oglu": {
+    "headline": "Browse to fulfillment.",
+    "subheadline": "An end-to-end commerce product from storefront to delivery.",
+    "stages": [
+      {
+        "title": "BROWSE",
+        "icon": "grid"
+      },
+      {
+        "title": "PRODUCT",
+        "icon": "package"
+      },
+      {
+        "title": "CART",
+        "icon": "cart"
+      },
+      {
+        "title": "FULFILLMENT",
+        "icon": "truck"
+      }
+    ],
+    "capabilities": [
+      "STOREFRONT",
+      "BACKEND",
+      "PAYMENTS",
+      "FULFILLMENT",
+      "DEPLOYMENT"
+    ]
+  },
+  "solar-site-selection": {
+    "titleLine1": "Solar Site",
+    "titleLine2": "Selection",
+    "subtitle": "From public geodata to ranked PV sites.",
+    "process": [
+      {
+        "title": "DRAW",
+        "detail": "Area of interest"
+      },
+      {
+        "title": "ANALYZE",
+        "detail": "12 criteria\nAHP / MCDA"
+      },
+      {
+        "title": "RANK",
+        "detail": "Candidate sites\nwith estimates"
+      },
+      {
+        "title": "REPORT",
+        "detail": "Export results"
+      }
+    ],
+    "metrics": [
+      {
+        "value": "12",
+        "label": "criteria",
+        "detail": [
+          "Economic",
+          "Technical",
+          "Environmental"
+        ]
+      },
+      {
+        "value": "5",
+        "label": "suitability\nclasses"
+      },
+      {
+        "value": "AHP",
+        "label": "consistency\nchecks"
+      }
+    ],
+    "legend": [
+      {
+        "class": 5,
+        "label": "Most suitable"
+      },
+      {
+        "class": 4,
+        "label": "Highly suitable"
+      },
+      {
+        "class": 3,
+        "label": "Moderately suitable"
+      },
+      {
+        "class": 2,
+        "label": "Marginally suitable"
+      },
+      {
+        "class": 1,
+        "label": "Least suitable"
+      }
+    ],
+    "candidateCallouts": [
+      {
+        "rank": "#01",
+        "lines": [
+          "Top-ranked candidate",
+          "PV + LCOE estimated"
+        ]
+      },
+      {
+        "rank": "#02",
+        "lines": [
+          "Ranked candidate",
+          "Site-level estimates"
+        ]
+      }
+    ],
+    "footer": "Geospatial analytics  ·  AHP / MCDA  ·  PV potential & LCOE  ·  Web-based decision engine",
+    "forbiddenGeneratedCopy": [
+      "~320 GWh/yr",
+      "~210 GWh/yr"
+    ],
+    "reason": "Those numeric callouts are visible in the AI reference but are not supported by the current public repository evidence. Preserve their visual role without inventing values."
+  },
+  "oil-spill-detection": {
+    "titleLine1": "Oil Spill",
+    "titleLine2": "Detection",
+    "tagline": "Finding oil — not just dark pixels.",
+    "skills": "Deep learning · Remote sensing · Geospatial ML",
+    "detected": "DETECTED\nOIL SPILL",
+    "lookalike": "LOOK-ALIKE\nPHENOMENA"
+  },
+  "makhbazy": {
+    "statement": "Designing the\nwhole journey —\nnot isolated screens.",
+    "stages": [
+      {
+        "title": "DISCOVER",
+        "detail": "Browse products\nand explore"
+      },
+      {
+        "title": "ORDER",
+        "detail": "Add to cart\nand checkout"
+      },
+      {
+        "title": "TRACK",
+        "detail": "Follow your order\nto delivery"
+      },
+      {
+        "title": "RECEIVE",
+        "detail": "Get your order\nand reorder"
+      }
+    ],
+    "utilities": [
+      "Repeat ordering",
+      "Support when needed",
+      "Invoices and history"
+    ],
+    "capabilities": [
+      {
+        "title": "UI/UX Design",
+        "detail": "End-to-end customer journey"
+      },
+      {
+        "title": "Product Leadership",
+        "detail": "Planning, design and delivery"
+      },
+      {
+        "title": "Implementation Supervision",
+        "detail": "Android & iOS execution"
+      },
+      {
+        "title": "Android + iOS",
+        "detail": "From concept to deployment"
+      }
+    ]
+  }
+} as const;

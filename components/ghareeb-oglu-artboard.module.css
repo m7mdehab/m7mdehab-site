@@ -1,0 +1,52 @@
+.logo,
+.headline,
+.subheadline,
+.stages,
+.skills { position: absolute; }
+
+.logo { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: grid; place-items: center; }
+.logo img { width: 100%; height: 100%; object-fit: contain; }
+
+.headline { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #f5ead5; font-family: "Playfair Display Variable", "Playfair Display", serif; font-size: 4.28cqw; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; text-align: center; }
+.subheadline { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); margin: 0; color: #e0b566; font-family: "Playfair Display Variable", "Playfair Display", serif; font-size: 1.43cqw; font-weight: 400; letter-spacing: 0.015em; line-height: 1.3; text-align: center; }
+.stages { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); }
+.path { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.path path { fill: none; stroke: #e2ae4d; stroke-width: 2; opacity: 0.8; }
+.path circle { fill: #f1ca76; stroke: #ffdb8d; stroke-width: 2; }
+.stage { position: absolute; top: 0; display: flex; width: 25%; align-items: center; flex-direction: column; color: #f2e5ca; font-family: "Playfair Display Variable", "Playfair Display", serif; }
+.stage0 { left: 0; }
+.stage1 { left: 25%; }
+.stage2 { left: 50%; }
+.stage3 { left: 75%; }
+.stage svg { width: 2.95cqw; height: 2.95cqw; margin: 0 0 0.65cqw; fill: none; stroke: #e7b655; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.stage b { font-size: 1.34cqw; font-weight: 450; letter-spacing: 0.27em; line-height: 1.2; }
+
+.skills { left: var(--artboard-x); top: var(--artboard-y); width: var(--artboard-w); height: var(--artboard-h); display: flex; align-items: center; justify-content: center; color: #f0c477; font-family: "Inter Variable", Inter, sans-serif; font-size: 0.83cqw; font-weight: 500; letter-spacing: 0.19em; text-align: center; }
+.skills span { flex: 0 0 auto; white-space: nowrap; }
+.skills i { display: grid; flex: 0 0 auto; width: 0.5em; margin-inline: 0.45em; color: #d18f35; font-size: 1.1cqw; font-style: normal; letter-spacing: 0; line-height: 1; place-items: center; }
+
+
+@container work-slide (max-width: 700px) {
+  .logo { left: 42.5%; top: 3%; width: 15%; height: 11%; }
+  .logo img { object-position: center; }
+  .headline { left: 5%; top: 28%; width: 90%; height: 9%; font-size: var(--mobile-title-scale); line-height: 1; white-space: nowrap; text-align: center; }
+  .subheadline { left: 5%; top: 39%; width: 90%; height: 5%; display: block; margin: 0; font-size: 1.55cqw; line-height: 1; white-space: nowrap; text-align: center; }
+  .skills { left: 0; top: 72.8%; width: 100%; height: 3%; display: flex; align-items: center; justify-content: center; gap: 0; border: 0; font-size: 1.15cqw; letter-spacing: 0.015em; white-space: nowrap; }
+  .skills i { width: auto; margin-inline: 0.25em; font-size: inherit; }
+  .stages { left: 6%; top: 47%; width: 88%; height: 25.6%; }
+  .path { display: block; }
+  .stage { width: 25%; height: 100%; }
+  .stage0 { left: 0; top: 0; }
+  .stage1 { left: 25%; top: 0; }
+  .stage2 { left: 50%; top: 0; }
+  .stage3 { left: 75%; top: 0; }
+  .path path { stroke-width: 3; }
+  .path circle { r: 7px; }
+  .stage svg { width: var(--mobile-icon-scale); height: var(--mobile-icon-scale); margin-bottom: 0.45cqw; }
+  .stage b { font-size: 1.35cqw; letter-spacing: 0.025em; line-height: 1; white-space: nowrap; }
+}
+@container work-slide (min-width: 701px) {
+  .stage svg { width: 2.8cqw; height: 2.8cqw; }
+  .stage b { font-size: 1.25cqw; }
+  .skills i { width: 0.4em; margin-inline: 0.28em; }
+}

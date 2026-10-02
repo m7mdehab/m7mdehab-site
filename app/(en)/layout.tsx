@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Italianno } from "next/font/google";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/playfair-display";
 import "@fontsource-variable/manrope";
 import "@fontsource-variable/newsreader";
 import "../globals.css";
@@ -25,6 +28,11 @@ import "../frontend-overhaul-phase-n.css";
 import "../contact-credibility-polish.css";
 import "../frontend-overhaul-phase-o.css";
 import "../frontend-overhaul-phase-o-fixes.css";
+import "../mobile-composition.css";
+import "../hero-credibility-nav-pass-01.css";
+import "../hero-credibility-pass-02.css";
+import "../hero-credibility-pass-03.css";
+import "../selected-work-transitions.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
@@ -39,7 +47,10 @@ const signatureFont = Italianno({
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.domain),
-  title: { default: `${profile.name} — Data, AI & Product`, template: `%s — ${profile.name}` },
+  title: {
+    default: `${profile.name} — Data, AI & Product`,
+    template: `%s — ${profile.name}`,
+  },
   description: profile.proposition,
   alternates: { canonical: "/" },
   authors: [{ name: profile.name, url: profile.domain }],
@@ -80,12 +91,22 @@ const siteSchema = {
       alternateName: profile.handle,
       url: profile.domain,
       jobTitle: profile.role,
-      address: { "@type": "PostalAddress", addressLocality: "Cairo", addressCountry: "EG" },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Cairo",
+        addressCountry: "EG",
+      },
       sameAs: [profile.github, profile.linkedin],
       worksFor: { "@type": "Organization", name: profile.employer },
       alumniOf: [
-        { "@type": "EducationalOrganization", name: "Canadian International College" },
-        { "@type": "EducationalOrganization", name: "ExploreAI Academy / ALX / African Leadership University" },
+        {
+          "@type": "EducationalOrganization",
+          name: "Canadian International College",
+        },
+        {
+          "@type": "EducationalOrganization",
+          name: "ExploreAI Academy / ALX / African Leadership University",
+        },
       ],
       knowsAbout: [
         "Data Engineering",
@@ -120,12 +141,19 @@ const siteSchema = {
   ],
 };
 
-export default function EnglishRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function EnglishRootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={signatureFont.variable}>
       <body>
-        <a className="skip-link" href="#main-content">Skip to content</a>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }} />
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
+        />
         <SmoothScroll />
         <SiteNav />
         {children}

@@ -12,15 +12,25 @@ export function BrandLogo({
   alt = "",
   className = "",
   mode = "native",
+  src,
 }: {
   brand: BrandKey;
   alt?: string;
   className?: string;
   mode?: "mono" | "native";
+  src?: string;
 }) {
   return (
-    <span className={`brand-logo brand-logo-${mode}${className ? ` ${className}` : ""}`} data-brand-logo={brand}>
-      <img src={logoAssets[brand]} alt={alt} decoding="async" loading="lazy" />
+    <span
+      className={`brand-logo brand-logo-${mode}${className ? ` ${className}` : ""}`}
+      data-brand-logo={brand}
+    >
+      <img
+        src={src ?? logoAssets[brand]}
+        alt={alt}
+        decoding="async"
+        loading="eager"
+      />
     </span>
   );
 }

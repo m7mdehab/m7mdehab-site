@@ -1,6 +1,11 @@
 import { FloatingNav } from "@/components/floating-nav";
 
-const links = [["Work", "/#work"], ["About", "/about"], ["Writing", "/writing"], ["Contact", "/#contact"]] as const;
+const links = [
+  ["Work", "/#work"],
+  ["About", "/about"],
+  ["Writing", "/writing"],
+  ["Contact", "/#contact"],
+] as const;
 
 export function SiteNav() {
   return (
@@ -9,6 +14,8 @@ export function SiteNav() {
       ariaLabel="Primary navigation"
       markHref="/#top"
       markAriaLabel="M7 — back to top"
+      mobileIdentity="Mohammed Ehab"
+      mobileIdentityNarrow="Mohammed"
     />
   );
 }

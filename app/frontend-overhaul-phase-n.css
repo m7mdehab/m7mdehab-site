@@ -521,9 +521,6 @@
     word-spacing: .06em;
   }
 
-  .hero-ambient-item:nth-child(4n) {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

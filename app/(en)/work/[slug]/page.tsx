@@ -68,7 +68,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </a>
           ) : null}
         </div>
-        <ProjectVisual slug={project.slug} context="case" />
+        <div className="case-hero-artboard-anchor" style={{ viewTransitionName: `project-${project.slug}` }}>
+          <ProjectVisual slug={project.slug} context="case" />
+        </div>
       </div>
       <CaseStudyNarrative study={study} nextProject={nextProject} projectSlug={project.slug} />
     </main>
