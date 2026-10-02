@@ -13,6 +13,7 @@ Prepared files:
 - `components/home-writing-section.tsx`
 - `components/writing-system-article-blocks.tsx`
 - `app/writing-system.css`
+- `tests/writing-system-groundwork.spec.ts`
 
 ## Purpose
 
@@ -32,6 +33,7 @@ They are intentionally **not wired into the live homepage or routes yet**. The a
 - CSS-only hover/focus behavior;
 - reduced-motion fallback;
 - typed future article contract;
+- publication/draft filtering and integrity-guard tests;
 - `homeRank` selection helper;
 - typed blocks plus legacy paragraph/bullet rendering support.
 
