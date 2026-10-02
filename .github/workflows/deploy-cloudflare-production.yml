@@ -121,7 +121,7 @@ jobs:
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('Production homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('Production homepage still links to Arabic');
           const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          for (const needle of ['Six ways into the work. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
+          for (const needle of ['Six projects. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
             if (!visibleText.includes(needle)) throw new Error(`Production homepage missing accepted visible marker: ${needle}`);
           }
           if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
@@ -161,8 +161,8 @@ jobs:
           if grep -Fq '/ar' artifacts/production-verification/sitemap.xml; then echo "Live sitemap still exposes Arabic routes" >&2; exit 1; fi
           test "$(grep -o '<url>' artifacts/production-verification/sitemap.xml | wc -l | tr -d ' ')" = "14"
 
-      - name: Install Chromium for production acceptance
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright browsers for production acceptance
+        run: npx playwright install --with-deps chromium webkit
 
       - name: Playwright rendered and accessibility QA against production
         env:
