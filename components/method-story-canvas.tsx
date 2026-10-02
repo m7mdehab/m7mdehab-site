@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   motion,
   useScroll,
@@ -276,11 +276,7 @@ function OutputRow({
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => setHydrated(true), []);
-
-  const enhanced = hydrated && !reducedMotion;
+  const enhanced = !reducedMotion;
   const { scrollYProgress } = useScroll({
     target: rootRef,
     offset: [...METHOD_STORY_MOTION.scrollOffset],
