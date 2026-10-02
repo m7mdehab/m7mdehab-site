@@ -73,15 +73,13 @@ export type WritingSystemSection = {
   blocks?: readonly WritingSystemBlock[];
 };
 
-export type PublishedWritingSystemArticle = {
-  status: "published";
+type WritingSystemArticleBase = {
   slug: string;
   title: string;
   description: string;
   category: WritingSystemCategoryId;
   topics: readonly string[];
   series?: WritingSystemSeriesId;
-  publishedAt: string;
   updatedAt?: string;
   readingMinutes: number;
   homeRank?: number;
@@ -94,6 +92,32 @@ export type PublishedWritingSystemArticle = {
   takeawaysTitle?: string;
   sources?: readonly WritingSystemSource[];
 };
+
+export type PublishedWritingSystemArticle = WritingSystemArticleBase & {
+  status: "published";
+  publishedAt: string;
+};
+
+export type DraftWritingSystemArticle = WritingSystemArticleBase & {
+  status: "draft";
+  publishedAt?: string;
+};
+
+export type WritingSystemArticle =
+  | PublishedWritingSystemArticle
+  | DraftWritingSystemArticle;
+
+export function isPublishedWritingSystemArticle(
+  article: WritingSystemArticle,
+): article is PublishedWritingSystemArticle {
+  return article.status === "published";
+}
+
+export function getPublishedWritingSystemArticles(
+  articles: readonly WritingSystemArticle[],
+) {
+  return articles.filter(isPublishedWritingSystemArticle);
+}
 
 export function getHomepageWritingSystemArticles(
   articles: readonly PublishedWritingSystemArticle[],
@@ -123,4 +147,48 @@ export function writingSystemTopicLabel(
   const category = writingSystemCategoryLabel(article.category);
   const firstTopic = article.topics[0];
   return firstTopic ? `${category} · ${firstTopic}` : category;
+}
+
+
+export function assertWritingSystemIntegrity(
+  articles: readonly WritingSystemArticle[],
+) {
+  const slugs = new Set<string>();
+  const homeRanks = new Set<number>();
+
+  for (const article of articles) {
+    if (slugs.has(article.slug)) {
+      throw new Error(`Duplicate writing slug: ${article.slug}`);
+    }
+    slugs.add(article.slug);
+
+    if (article.homeRank != null) {
+      if (article.homeRank < 1 || !Number.isInteger(article.homeRank)) {
+        throw new Error(
+          `Invalid homeRank for ${article.slug}: ${article.homeRank}`,
+        );
+      }
+      if (homeRanks.has(article.homeRank)) {
+        throw new Error(`Duplicate writing homeRank: ${article.homeRank}`);
+      }
+      homeRanks.add(article.homeRank);
+    }
+
+    if (!article.topics.length) {
+      throw new Error(`Writing article has no topics: ${article.slug}`);
+    }
+
+    if (!article.cover.alt.trim()) {
+      throw new Error(`Writing cover has empty alt text: ${article.slug}`);
+    }
+
+    if (
+      article.status === "published" &&
+      !/^\d{4}-\d{2}-\d{2}$/.test(article.publishedAt)
+    ) {
+      throw new Error(
+        `Published article has invalid publishedAt: ${article.slug}`,
+      );
+    }
+  }
 }
