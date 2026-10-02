@@ -117,7 +117,7 @@
   .gate > span { display: flex; margin-top: 0.55cqw; gap: 0.12cqw; font-size: clamp(5.5px, 1.22cqw, 6.5px); line-height: 1.05; }
   .gate > span > span { white-space: nowrap; }
 
-  .modes { left: 8%; top: 70%; width: 84%; height: 7.5%; flex-direction: row; gap: 1%; }
+  .modes { left: 6%; top: 70%; width: 70%; height: 7.5%; flex-direction: row; gap: 1%; }
   .modes > b { display: none; }
   .modes > div { flex: 1 1 0; min-width: 0; min-height: 100%; justify-content: center; gap: 0; padding: 0 1.1%; border-radius: 999px; }
   .modes > div:last-child { flex: 1.28 1 0; }
