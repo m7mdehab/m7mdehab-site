@@ -277,3 +277,25 @@ Implemented mobile-only art direction on `feat/mobile-composition-pass` from `3b
 Fresh mobile card and section captures cover 320/360/375/390/412/430/480px in `outputs/selected-work-mobile-parity-20261002/after/`; six 390px desktop/mobile comparison sheets are in `pair-review-1.jpg` and `pair-review-2.jpg`. Desktop before/after card captures at 1280/1440/1920 are in `before/` and `after/`; all 18 comparisons were pixel-identical after the final mobile changes. Visual review included contact sheets at every requested phone width, individual 390px card renders, and the six desktop/mobile pairs. Seven-width browser coverage, Android Pixel 7, and iPhone WebKit checks passed; the fixed navigation stayed within its safe-area position.
 
 Fresh verification: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run test:browser` (**167 passed**), and `git diff --check` passed. The browser suite also verified mobile overflow, one-line constraints, landscape cards, drag/swipe, active pagination, active-only motion, reduced motion, CTA-only navigation, rank sequencing, and fixed navigation positioning. No dependency changes, commit, push, merge, or deployment.
+
+## Writing System Rebuild — DESIGN LOCKED / PREFABRICATED / NOT LIVE
+
+The English Writing system is now product-, architecture- and design-locked as a broad personal publishing surface rather than a project-only evidence-note carousel.
+
+Groundwork on main:
+- execution packet, integration patch, visual QA rubric, SEO/AI contract, test matrix and repository audit;
+- English-only localization conflict reconciled in `AGENTS.md`;
+- static HTML visual blueprint + machine-readable design spec.
+
+Prepared non-live scaffold:
+- typed publication/article contract;
+- reusable editorial card;
+- forecast/SAR/agent cover treatments;
+- server-oriented Home Writing section;
+- archive grid scaffold;
+- typed article-block renderer;
+- isolated `.writing-system-*` stylesheet.
+
+The scaffold is intentionally not wired into production. The implementation agent must migrate the temporary contract into canonical `data/writing.ts`, activate the prepared components, generalize archive/article/schema/discovery, update tests, complete rendered QA, then merge/deploy per `AGENTS.md`.
+
+No claim is made that the new Writing UI is live until that activation and production verification are complete.
