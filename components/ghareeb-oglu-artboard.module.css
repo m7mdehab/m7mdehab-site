@@ -33,7 +33,7 @@
   .headline { left: 5%; top: 27%; width: 90%; height: 8%; font-size: 4.1cqw; line-height: 1; white-space: nowrap; text-align: center; }
   .subheadline { left: 8%; top: 37%; width: 84%; height: 4%; display: block; margin: 0; font-size: 1.4cqw; line-height: 1; white-space: nowrap; text-align: center; }
 
-  .stages { left: 8%; top: 46%; width: 84%; height: 15.75cqw; }
+  .stages { left: 14%; top: 50%; width: 72%; height: 15.75cqw; }
   .path { display: block; }
   .stage { width: 25%; height: 100%; }
   .stage0 { left: 0; top: 0; }
@@ -42,11 +42,11 @@
   .stage3 { left: 75%; top: 0; }
   .path path { stroke-width: 2.5; }
   .path circle { r: 6px; }
-  .stage svg { width: 3cqw; height: 3cqw; margin-bottom: 0.35cqw; }
-  .stage b { font-size: 1.18cqw; letter-spacing: 0.02em; line-height: 1; white-space: nowrap; }
+  .stage svg { width: 3.6cqw; height: 3.6cqw; margin-bottom: 0.45cqw; }
+  .stage b { font-size: 1.32cqw; letter-spacing: 0.015em; line-height: 1; white-space: nowrap; }
 
-  .skills { left: 0; top: 75%; width: 100%; height: 3%; display: flex; align-items: center; justify-content: center; gap: 0; border: 0; font-size: 1.0cqw; letter-spacing: 0.01em; white-space: nowrap; }
-  .skills i { width: auto; margin-inline: 0.22em; font-size: inherit; }
+  .skills { left: 0; top: 78%; width: 100%; height: 3%; display: flex; align-items: center; justify-content: center; gap: 0; border: 0; font-size: 1.18cqw; letter-spacing: 0.005em; white-space: nowrap; }
+  .skills i { width: auto; margin-inline: 0.2em; font-size: inherit; }
 }
 @container work-slide (min-width: 701px) {
   .stage svg { width: 2.8cqw; height: 2.8cqw; }
