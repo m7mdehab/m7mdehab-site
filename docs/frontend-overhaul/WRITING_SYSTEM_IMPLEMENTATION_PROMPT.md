@@ -18,7 +18,8 @@ Do not propose alternative art directions and do not reinterpret Writing back in
 8. `docs/frontend-overhaul/WRITING_SYSTEM_DATA_MIGRATION_PATCH.md`
 9. `docs/frontend-overhaul/WRITING_SYSTEM_SEO_AI_CONTRACT.md`
 10. `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`
-10. `docs/frontend-overhaul/WRITING_SYSTEM_REPO_AUDIT.md`
+11. `docs/frontend-overhaul/WRITING_SYSTEM_REPO_AUDIT.md`
+12. `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`
 
 Read the local Next.js 16 documentation mandated by `AGENTS.md` before modifying metadata APIs.
 
@@ -60,12 +61,17 @@ Home:
 
 ## Architecture
 
-Create:
+Start from the prepared non-live files:
 
-- `components/home-writing.tsx`;
-- `components/writing-card.tsx`;
-- `components/writing-cover.tsx`;
+- `components/home-writing-section.tsx`;
+- `components/writing-system-card.tsx`;
+- `components/writing-system-cover.tsx`;
+- `components/writing-system-index.tsx`;
+- `components/writing-system-article-blocks.tsx`;
+- `components/writing-system-contract.ts` (temporary; delete after canonical data migration);
 - `app/writing-system.css`.
+
+Do not create parallel `home-writing.tsx` / `writing-card.tsx` / `writing-cover.tsx` implementations. Integrate and, if desired, rename the prepared files once without leaving duplicate components.
 
 Refactor:
 
@@ -203,9 +209,9 @@ Keep Selected Work carousel behavior and tests intact.
 
 1. sync/rebase repository state;
 2. read governing docs/local Next docs;
-3. migrate data model/public selectors;
-4. build WritingCover and WritingCard;
-5. build HomeWriting;
+3. migrate the temporary scaffold contract into canonical `data/writing.ts`;
+4. repoint the prepared cover/card/index/block components to canonical data types;
+5. activate the prepared Home Writing section and isolated stylesheet;
 6. extract Writing from HomeClosing;
 7. update Home route;
 8. update archive;
