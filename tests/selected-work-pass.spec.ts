@@ -410,7 +410,7 @@ test.describe("Selected Work refinement", () => {
     expect(values.headerTop).toBeGreaterThanOrEqual(0);
     expect(values.headerTop).toBeLessThan(40);
     expect(values.headerHeight).toBeGreaterThanOrEqual(56);
-    expect(values.computedBottom).not.toBe("12px");
+    expect(values.headerBottom).toBeLessThan(110);
     expect(Number.parseFloat(values.bodyPadding)).toBeLessThanOrEqual(1);
   });
 
