@@ -116,13 +116,35 @@ Read `docs/LOCALIZATION_POLICY.md` before changing language routes or localized 
 - The permanent pre-domain staging origin is `https://m7mdehab-site.m7mdehab.workers.dev`; it is manually deployed and must remain `noindex`.
 - `wrangler.production.jsonc` is the production custom-domain contract. The canonical public host is the apex `m7mdehab.com`; production disables `workers.dev` and preview URLs.
 - `www.m7mdehab.com` is redirect-only. Implement `www` → apex as a Cloudflare edge redirect with path/query preservation; never serve a second independently indexable content copy.
-- Production deployment is manually gated through `.github/workflows/deploy-cloudflare-production.yml` and requires authorized `CLOUDFLARE_API_TOKEN` plus `CLOUDFLARE_ACCOUNT_ID`. Never commit Cloudflare tokens, account credentials or temporary-account claim tokens.
+- Production deployment is automated by `.github/workflows/deploy-cloudflare-production.yml` after non-documentation changes reach `main`; it may also be started manually with `workflow_dispatch`. The workflow requires authorized `CLOUDFLARE_API_TOKEN` plus `CLOUDFLARE_ACCOUNT_ID`. Never commit Cloudflare tokens, account credentials or temporary-account claim tokens.
 - `.github/workflows/deployment-readiness.yml` is the durable repository deployment gate. It must continue to validate static export surfaces, preview and production Wrangler configuration, the production dependency audit, and the advisory Vinext compatibility probe. The Vinext probe intentionally reuses the same runner and dependency install instead of allocating a second hosted job.
 - `.github/workflows/deploy-cloudflare-staging.yml` is a stateful manual staging gate. Preserve post-deploy propagation stabilization and real-origin header/route/browser checks; do not merge it into read-only CI merely to save minutes.
 - A temporary Cloudflare deployment can prove that the artifact uploads/deploys, but it does not prove the permanent custom-domain origin. Temporary-account edge challenges or preview-platform behavior must not be mistaken for application behavior.
 - Do not submit the site to Search Console/Bing or publicly promote it until the permanent apex origin passes DNS, TLS, canonical-host redirect, security-header, browser/a11y/mobile/no-JS and crawlability checks in `docs/DEPLOYMENT.md`.
 - Do not guess a Content Security Policy or enable HSTS preload merely for a checklist. Introduce CSP from measured production resource behavior (prefer report-only first) and consider HSTS/preload only after HTTPS/subdomain behavior is stable.
 - Cloudflare vinext is currently an optional future server-runtime migration path, not the launch dependency. Re-run compatibility against the then-current app/release before adopting it.
+
+
+## Delivery workflow
+
+Mohammed's default workflow for active website implementation is **ship completed work to production**, not stop at a local commit or an unmerged feature branch.
+
+Unless Mohammed explicitly requests preview-only work or says not to deploy:
+
+1. complete the requested implementation and local validation;
+2. commit the completed checkpoint;
+3. push the current feature branch to GitHub;
+4. update/create the pull request and wait for required GitHub checks;
+5. merge the accepted checkpoint into `main`;
+6. allow `.github/workflows/deploy-cloudflare-production.yml` to deploy the resulting `main` commit to `https://m7mdehab.com`;
+7. verify the production workflow and the affected live route(s);
+8. report the feature commit SHA, PR, merge/main SHA, production workflow result and live verification.
+
+A task is **not complete** merely because the code is committed locally. Do not claim that changes are pushed, merged or live unless the corresponding remote GitHub state and production origin have been verified.
+
+If GitHub authentication is missing in the execution environment, surface that immediately and resolve the authentication path before treating the work as delivered. Do not silently leave a finished implementation stranded only in a local clone.
+
+Do not deploy when validation fails. Preserve the user's ability to inspect intermediate production checkpoints, but never bypass failing correctness, security, confidentiality or deployment gates merely to make a change visible.
 
 ## Performance / accessibility / progressive enhancement
 Respect reduced motion. Avoid unnecessary client components. Keep animated effects isolated and pausable. Aesthetic treatments lose when they damage crawlability, Core Web Vitals, accessibility, clarity, conversion or mobile usability.
