@@ -26,7 +26,7 @@ All three must render through the same shell.
 5. visible author byline
 6. published/updated/read/listen metadata
 7. browser text-to-speech narration bar
-8. article cover
+8. no default in-article cover; imagery is inserted only when it adds information
 9. optional Key idea
 10. optional evidence anchors
 11. On this page
@@ -39,13 +39,14 @@ All three must render through the same shell.
 ## Reading geometry
 
 Desktop:
-- page frame <=1180px;
-- prose <=760px / roughly 65–72 characters;
+- page frame <=1360px;
+- main reading column expands to roughly 900–1160px on desktop rather than being trapped at 760px;
 - hero/prose/narration/related/footer share one primary left edge;
 - long-form prose is justified with the final line left-aligned;
-- secondary TOC rail about 180–220px;
-- body line-height about 1.7;
-- H2 around 2–3rem, not poster scale.
+- automatic hyphenation is disabled;
+- secondary TOC rail remains about 200–220px;
+- body line-height remains around 1.68;
+- H1/H2/Key idea are deliberately restrained; no poster-scale article typography.
 
 Mobile:
 - one reading column;
@@ -61,10 +62,14 @@ Controls:
 - play/pause;
 - previous/next passage;
 - passage progress scrubber;
+- voice presets: Natural, US English, UK English, System;
+- Natural mode prioritizes browser-exposed voices labelled natural/neural/premium/enhanced, then high-quality English fallbacks;
 - speeds 0.75× through 2×;
-- remember speed locally;
+- remember voice and speed locally;
 - no autoplay;
 - graceful unsupported-browser state.
+
+The browser/OS still determines the actual installed voices. If no neural/natural voice is exposed, the control falls back cleanly rather than pretending otherwise.
 
 Do not claim AudioObject schema for this synthesized playback because no stable hosted audio object exists.
 
@@ -110,6 +115,9 @@ For every current article:
 - exactly one H1;
 - visible byline;
 - Key idea visible;
+- no default giant article cover;
+- narration bar spans the available article width;
+- Natural/US/UK/System voice presets are present;
 - TOC works at desktop and mobile;
 - prose measure is readable;
 - sources visible;
