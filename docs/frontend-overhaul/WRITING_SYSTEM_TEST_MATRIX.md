@@ -1,3 +1,5 @@
+> **v1.3 supersession:** Phone acceptance now uses a two-column Writing grid and one-line card titles. Heading/subtitle are each one line. See `WRITING_SYSTEM_V13_REFINEMENT_2026-10-03.md`.
+
 # Writing System — Test Matrix
 
 ## Data/model
@@ -45,9 +47,9 @@ At 1024:
 
 - computed grid columns = 2.
 
-At 390:
+At 320/390/430:
 
-- computed grid columns = 1;
+- computed grid columns = 2;
 - every .writing-system-excerpt is display:none;
 - all three links visible;
 - no horizontal overflow;
@@ -234,3 +236,20 @@ Home must not contain:
 - old cover labels `FORECAST / CALIBRATION`, `SAR / SEGMENTATION`, `AI / GOVERNANCE`
 
 The taxonomy/timing values should instead be discoverable inside the cover overlay.
+
+
+## v1.3 additional geometry assertions
+
+At 320 / 390 / 430:
+
+- Home and archive heading height <= 1.1 × computed line-height;
+- Home and archive heading scrollWidth <= clientWidth + 1;
+- subtitle height <= 1.1 × computed line-height;
+- subtitle scrollWidth <= clientWidth + 1;
+- grid columns = 2;
+- each card title height <= 1.15 × computed line-height;
+- card descriptions remain display:none;
+- cover ratio remains ~16:9;
+- cover metadata remains inside the cover;
+- cover metadata scrollWidth <= clientWidth + 1;
+- no horizontal document overflow.
