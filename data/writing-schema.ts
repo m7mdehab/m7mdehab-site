@@ -1,6 +1,7 @@
 import { profile, projects } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 import {
+  getWritingNarrationSources,
   getWritingWordCount,
   writingCategories,
   type PublishedWritingArticle,
@@ -51,15 +52,13 @@ export function buildWritingBlogPostingSchema(article: PublishedWritingArticle) 
   const image = writingStableImage(article);
   const relatedProjects = getRelatedWritingProjects(article);
   const sectionNames = article.sections.flatMap((section) => section.title ? [section.title] : []);
-  const audio = article.audio
-    ? {
-        "@type": "AudioObject",
-        contentUrl: writingAbsoluteMediaUrl(article.audio.src),
-        encodingFormat: article.audio.mimeType,
-        duration: `PT${Math.round(article.audio.durationSeconds)}S`,
-        caption: "Audio narration of this article",
-      }
-    : undefined;
+  const audio = getWritingNarrationSources(article).map((source) => ({
+    "@type": "AudioObject",
+    name: `${article.title} — ${source.label} narration`,
+    contentUrl: writingAbsoluteMediaUrl(source.src),
+    encodingFormat: source.mimeType,
+    caption: `${source.label} AI narration of this article`,
+  }));
 
   return {
     "@context": "https://schema.org",
@@ -105,7 +104,7 @@ export function buildWritingBlogPostingSchema(article: PublishedWritingArticle) 
       ? { citation: article.sources.map((source) => source.href) }
       : {}),
     ...(image ? { image: writingAbsoluteMediaUrl(image) } : {}),
-    ...(audio ? { audio } : {}),
+    audio,
   };
 }
 
