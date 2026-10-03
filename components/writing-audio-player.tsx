@@ -119,7 +119,16 @@ export function WritingAudioPlayer({
 
       <label className={styles.speed}>
         <span>Speed</span>
-        <select value={rate} onChange={(event) => setRate(Number(event.currentTarget.value))} aria-label="Playback speed">
+        <select
+          ref={speedRef}
+          defaultValue={1}
+          onChange={(event) => {
+            const next = Number(event.currentTarget.value);
+            if (audioRef.current) audioRef.current.playbackRate = next;
+            window.localStorage.setItem(playbackRateKey, String(next));
+          }}
+          aria-label="Playback speed"
+        >
           {playbackRates.map((value) => <option key={value} value={value}>{value}×</option>)}
         </select>
       </label>
