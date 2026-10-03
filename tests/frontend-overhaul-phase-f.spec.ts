@@ -165,6 +165,56 @@ test.describe("Method story rebuild", () => {
     });
   });
 
+  test("mobile sticky story keeps a continuous left-to-right signal across all five states", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    const connectors = section.locator("[data-mobile-connectors]");
+    await expect(connectors).toHaveCount(5);
+
+    for (const stage of ["messy", "expose", "reduce", "build", "outcomes"]) {
+      await expect(
+        section.locator(`[data-mobile-connectors="${stage}"]`),
+      ).toHaveCount(1);
+    }
+
+    const endpoints = await connectors.evaluateAll((items) =>
+      items.map((svg) => {
+        const paths = [...svg.querySelectorAll("path")];
+        const parse = (value: string | null) =>
+          (value?.match(/-?\\d+(?:\\.\\d+)?/g) ?? []).map(Number);
+        const first = parse(paths[0]?.getAttribute("d") ?? null);
+        const last = parse(paths[paths.length - 1]?.getAttribute("d") ?? null);
+        return {
+          first: { x: first[0], y: first[1] },
+          last: {
+            x: last[last.length - 2],
+            y: last[last.length - 1],
+          },
+        };
+      }),
+    );
+
+    expect(endpoints[0].last).toEqual({ x: 350, y: 175 });
+    expect(endpoints[1].first).toEqual({ x: 0, y: 175 });
+    expect(endpoints[1].last).toEqual({ x: 350, y: 175 });
+    expect(endpoints[2].first).toEqual({ x: 0, y: 105 });
+    expect(endpoints[2].last).toEqual({ x: 350, y: 175 });
+    expect(endpoints[3].first).toEqual({ x: 0, y: 175 });
+    expect(endpoints[3].last).toEqual({ x: 350, y: 175 });
+    expect(endpoints[4].first).toEqual({ x: 0, y: 175 });
+
+    const buildNodes = section
+      .locator('[data-mobile-connectors="build"] circle');
+    await expect(buildNodes).toHaveCount(5);
+
+    await expectNoHorizontalOverflow(page);
+  });
+
   test("captures all five normal-motion mobile story states", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
     await page.setViewportSize({ width: 390, height: 844 });
