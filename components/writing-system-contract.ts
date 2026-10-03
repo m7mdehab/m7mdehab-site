@@ -34,6 +34,12 @@ export type WritingSystemCover =
       socialImage?: string;
     };
 
+export type WritingSystemAudio = {
+  src: string;
+  mimeType: string;
+  durationSeconds: number;
+};
+
 export type WritingSystemOrigin =
   | {
       kind: "project";
@@ -77,11 +83,14 @@ type WritingSystemArticleBase = {
   slug: string;
   title: string;
   description: string;
+  cardDescription?: string;
   category: WritingSystemCategoryId;
   topics: readonly string[];
   series?: WritingSystemSeriesId;
   updatedAt?: string;
   readingMinutes: number;
+  listenMinutes?: number;
+  audio?: WritingSystemAudio;
   homeRank?: number;
   cover: WritingSystemCover;
   origin: WritingSystemOrigin;
@@ -149,6 +158,17 @@ export function writingSystemTopicLabel(
   return firstTopic ? `${category} · ${firstTopic}` : category;
 }
 
+export function writingSystemTimingLabel(
+  article: Pick<
+    PublishedWritingSystemArticle,
+    "readingMinutes" | "listenMinutes" | "audio"
+  >,
+) {
+  const read = `${article.readingMinutes} min read`;
+  if (!article.listenMinutes) return read;
+  const estimate = article.audio ? "" : "~";
+  return `${read} · ${estimate}${article.listenMinutes} min listen`;
+}
 
 export function assertWritingSystemIntegrity(
   articles: readonly WritingSystemArticle[],
@@ -180,6 +200,43 @@ export function assertWritingSystemIntegrity(
 
     if (!article.cover.alt.trim()) {
       throw new Error(`Writing cover has empty alt text: ${article.slug}`);
+    }
+
+    if (article.cardDescription && article.cardDescription.length > 140) {
+      throw new Error(
+        `Writing cardDescription is too long (>140 chars): ${article.slug}`,
+      );
+    }
+
+    if (
+      article.listenMinutes != null &&
+      (!Number.isInteger(article.listenMinutes) || article.listenMinutes < 1)
+    ) {
+      throw new Error(
+        `Invalid listenMinutes for ${article.slug}: ${article.listenMinutes}`,
+      );
+    }
+
+    if (article.audio) {
+      if (!article.audio.src.trim()) {
+        throw new Error(`Writing audio has empty src: ${article.slug}`);
+      }
+      if (!article.audio.mimeType.trim()) {
+        throw new Error(`Writing audio has empty mimeType: ${article.slug}`);
+      }
+      if (
+        !Number.isFinite(article.audio.durationSeconds) ||
+        article.audio.durationSeconds <= 0
+      ) {
+        throw new Error(
+          `Writing audio has invalid durationSeconds: ${article.slug}`,
+        );
+      }
+      if (article.listenMinutes == null) {
+        throw new Error(
+          `Writing audio requires listenMinutes: ${article.slug}`,
+        );
+      }
     }
 
     if (
