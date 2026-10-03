@@ -174,22 +174,28 @@ test.describe("Method story rebuild", () => {
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
   });
 
-  test("normal scrolling resolves every stage and output", async ({ page }) => {
+  test("desktop animation is complete when the story is centered in the viewport", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/");
     await settle(page);
 
-    const canvas = page.locator("[data-method-canvas]");
+    const section = page.locator("[data-method-story]");
+    const canvas = section.locator("[data-method-canvas]");
     await expect(canvas).toHaveAttribute("data-motion-mode", "enhanced");
-    await page.locator("[data-method-story]").evaluate((element) => {
+
+    await section.evaluate((element) => {
       const bounds = element.getBoundingClientRect();
+      const absoluteTop = window.scrollY + bounds.top;
       window.scrollTo({
-        top: window.scrollY + bounds.bottom - window.innerHeight * 0.28,
+        top: absoluteTop + bounds.height / 2 - window.innerHeight / 2,
         behavior: "instant",
       });
     });
-    await page.waitForTimeout(1400);
+    await page.waitForTimeout(1200);
 
-    const opacities = await page
+    const opacities = await section
       .locator("[data-method-stage], [data-method-output]")
       .evaluateAll((elements) =>
         elements.map((element) =>
@@ -199,7 +205,50 @@ test.describe("Method story rebuild", () => {
     expect(opacities).toHaveLength(10);
     expect(
       opacities.every((opacity) => opacity >= 0.99),
-      `Final stage/output opacities: ${JSON.stringify(opacities)}`,
+      `Centered desktop stage/output opacities: ${JSON.stringify(opacities)}`,
     ).toBeTruthy();
+
+    await expect(
+      section.locator('[data-method-connector="input-to-expose"]'),
+    ).toHaveCount(4);
+    await expect(
+      section.locator('[data-method-connector="expose-to-reduce"]'),
+    ).toHaveCount(7);
+
+    const geometry = await section.evaluate((root) => {
+      const centerX = (selector: string) => {
+        const box = root.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+        return box.left + box.width / 2;
+      };
+      const overlaps = (aSelector: string, bSelector: string) => {
+        const a = root.querySelector<HTMLElement>(aSelector)!.getBoundingClientRect();
+        const b = root.querySelector<HTMLElement>(bSelector)!.getBoundingClientRect();
+        return (
+          a.left < b.right &&
+          a.right > b.left &&
+          a.top < b.bottom &&
+          a.bottom > b.top
+        );
+      };
+
+      return {
+        reduceCenterDelta: Math.abs(
+          centerX('[data-method-stage="reduce"]') -
+            centerX(".method-story__decision-module"),
+        ),
+        buildCenterDelta: Math.abs(
+          centerX('[data-method-stage="build"]') -
+            centerX(".method-story__system-stack"),
+        ),
+        constraintsOverlapsStack: overlaps(
+          ".method-story__evidence-tag--teal",
+          ".method-story__evidence-stack",
+        ),
+      };
+    });
+
+    expect(geometry.reduceCenterDelta).toBeLessThanOrEqual(2);
+    expect(geometry.buildCenterDelta).toBeLessThanOrEqual(2);
+    expect(geometry.constraintsOverlapsStack).toBe(false);
   });
 });
