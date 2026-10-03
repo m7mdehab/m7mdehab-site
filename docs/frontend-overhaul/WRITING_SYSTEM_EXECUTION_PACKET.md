@@ -203,20 +203,28 @@ Create an original public-safe diagram from OpportunityOS public architecture:
 
 Future covers may be original graphics, owned photography, illustrations, typographic compositions, project evidence or licensed images. General posts must not be forced to look like project dashboards.
 
-## 7. Component architecture
+## 7. Prepared component architecture
 
-Create:
+Do not start the Writing UI from blank files. The non-live scaffold already contains:
 
-- `components/home-writing.tsx` — server-rendered Home section;
-- `components/writing-card.tsx` — shared Home/archive card;
-- `components/writing-cover.tsx` — visual/image covers;
-- `app/writing-system.css` — isolated `.writing-system-*` namespace.
+- `components/home-writing-section.tsx` — server-rendered Home Writing section;
+- `components/writing-system-card.tsx` — shared Home/archive card;
+- `components/writing-system-cover.tsx` — visual/image cover system;
+- `components/writing-system-index.tsx` — archive grid/header;
+- `components/writing-system-article-blocks.tsx` — legacy + typed body blocks;
+- `components/writing-system-article.tsx` — conditional article renderer;
+- `components/writing-system-schema.ts` — pure `BlogPosting` schema builder;
+- `components/writing-system-contract.ts` — **temporary pre-integration contract only**;
+- `app/writing-system.css` — isolated `.writing-system-*` visual system;
+- `tests/writing-system-groundwork.spec.ts` and `tests/writing-system-schema.spec.ts` — scaffold invariants.
+
+During activation, migrate the temporary contract into canonical `data/writing.ts`, repoint every prepared component/schema import to `data/writing.ts`, then delete `components/writing-system-contract.ts`. Do not create parallel `home-writing.tsx`, `writing-card.tsx` or `writing-cover.tsx` implementations.
 
 Refactor `components/home-closing.tsx` so it contains only Opportunity + Footer.
 
 Target Home order:
 
-`SystemHero → CredibilityRail → SelectedWorkGallery → SolveThinkBridge → HomeWriting → HomeClosing`
+`SystemHero → CredibilityRail → SelectedWorkGallery → SolveThinkBridge → HomeWritingSection → HomeClosing`
 
 Writing must no longer make `HomeClosing` a client component. `OpportunityPaths` may remain a client child.
 
@@ -424,20 +432,25 @@ The rebuild is complete only when:
 13. rendered screenshot matrix is manually reviewed;
 14. governing documentation records this decision so old project-only Writing does not return.
 
-## 22. Prefabricated implementation status
+## 17. Prefabricated implementation status
 
 This rebuild is no longer specification-only.
 
 A non-live component/style scaffold is prepared:
 
-- `components/writing-system-contract.ts`;
+- `components/writing-system-contract.ts` (temporary);
 - `components/writing-system-cover.tsx`;
-- `components/writing-system-card.tsx`
+- `components/writing-system-card.tsx`;
 - `components/writing-system-index.tsx`;
 - `components/home-writing-section.tsx`;
 - `components/writing-system-article-blocks.tsx`;
+- `components/writing-system-article.tsx`;
+- `components/writing-system-schema.ts`;
 - `app/writing-system.css`;
-- `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`.
+- `tests/writing-system-groundwork.spec.ts`;
+- `tests/writing-system-schema.spec.ts`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_DATA_MIGRATION_PATCH.md`.
 
 The prepared files intentionally do **not** alter the live site yet.
 
