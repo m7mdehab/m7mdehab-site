@@ -12,8 +12,11 @@ Prepared files:
 - `components/writing-system-index.tsx`
 - `components/home-writing-section.tsx`
 - `components/writing-system-article-blocks.tsx`
+- `components/writing-system-article.tsx`
+- `components/writing-system-schema.ts`
 - `app/writing-system.css`
 - `tests/writing-system-groundwork.spec.ts`
+- `tests/writing-system-schema.spec.ts`
 
 ## Purpose
 
@@ -35,7 +38,11 @@ They are intentionally **not wired into the live homepage or routes yet**. The a
 - typed future article contract;
 - publication/draft filtering and integrity-guard tests;
 - `homeRank` selection helper;
-- typed blocks plus legacy paragraph/bullet rendering support.
+- typed blocks plus legacy paragraph/bullet rendering support;
+- full conditional article-view scaffold that omits absent thesis/evidence/takeaways/sources/projects cleanly;
+- pure `BlogPosting` schema builder that emits image/citations/project relationships only when real values exist;
+- schema tests for both independent and project-origin writing;
+- article-page CSS for the prepared renderer.
 
 ## Integration rule
 
@@ -43,7 +50,7 @@ Do not preserve `writing-system-contract.ts` as a second long-term editorial mod
 
 During activation:
 1. migrate the contract into `data/writing.ts`;
-2. make the prepared components import the canonical types/helpers from `data/writing.ts`;
+2. make the prepared components, article renderer and schema builder import the canonical types/helpers from `data/writing.ts`;
 3. delete `components/writing-system-contract.ts`;
 4. keep `data/writing.ts` as the one editorial authority.
 
