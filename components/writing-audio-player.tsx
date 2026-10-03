@@ -99,10 +99,10 @@ export function WritingAudioPlayer({
   function changeVoice(next: WritingNarrationVoice) {
     const audio = audioRef.current;
     const max = audio?.duration;
+    const hasFiniteDuration =
+      typeof max === "number" && Number.isFinite(max) && max > 0;
     pendingSeekRatioRef.current =
-      audio && Number.isFinite(max) && max > 0
-        ? audio.currentTime / max
-        : 0;
+      audio && hasFiniteDuration ? audio.currentTime / max : 0;
     pendingResumeRef.current = Boolean(audio && !audio.paused);
     if (audio && !audio.paused) audio.pause();
 
