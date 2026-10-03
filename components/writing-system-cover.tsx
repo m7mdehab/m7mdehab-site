@@ -13,7 +13,6 @@ function ForecastCalibrationCover({ alt }: { alt: string }) {
 
   return (
     <div className="writing-system-cover writing-system-cover--forecast">
-      <span className="writing-system-cover-label">Forecast / calibration</span>
       <svg
         viewBox="0 0 320 160"
         role="img"
@@ -46,7 +45,6 @@ function OilSarCover({ alt }: { alt: string }) {
         loading="lazy"
       />
       <span className="writing-system-cover-shade" aria-hidden="true" />
-      <span className="writing-system-cover-label">SAR / segmentation</span>
     </div>
   );
 }
@@ -54,7 +52,6 @@ function OilSarCover({ alt }: { alt: string }) {
 function AgentProvenanceCover({ alt }: { alt: string }) {
   return (
     <div className="writing-system-cover writing-system-cover--agent">
-      <span className="writing-system-cover-label">AI / governance</span>
       <svg
         viewBox="0 0 360 180"
         role="img"
