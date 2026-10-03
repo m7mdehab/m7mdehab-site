@@ -158,40 +158,6 @@ function visibleEdgePoint(
   };
 }
 
-function routedHorizontalPath(
-  start: MethodStoryPoint,
-  end: MethodStoryPoint,
-  laneX: number,
-): string {
-  const verticalDistance = end.y - start.y;
-  if (Math.abs(verticalDistance) < 1) {
-    return `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
-  }
-
-  const radius = Math.min(
-    12,
-    Math.abs(verticalDistance) / 2,
-    (laneX - start.x) / 3,
-    (end.x - laneX) / 3,
-  );
-  const direction = Math.sign(verticalDistance);
-  const curveFactor = 0.5523;
-  const firstBendEndY = start.y + direction * radius;
-  const secondBendStartY = end.y - direction * radius;
-  return [
-    `M ${start.x.toFixed(2)} ${start.y.toFixed(2)}`,
-    `L ${(laneX - radius).toFixed(2)} ${start.y.toFixed(2)}`,
-    `C ${(laneX - radius + radius * curveFactor).toFixed(2)} ${start.y.toFixed(2)}`,
-    `${laneX.toFixed(2)} ${(firstBendEndY - direction * radius * curveFactor).toFixed(2)}`,
-    `${laneX.toFixed(2)} ${firstBendEndY.toFixed(2)}`,
-    `L ${laneX.toFixed(2)} ${secondBendStartY.toFixed(2)}`,
-    `C ${laneX.toFixed(2)} ${(secondBendStartY + direction * radius * curveFactor).toFixed(2)}`,
-    `${(laneX + radius - radius * curveFactor).toFixed(2)} ${end.y.toFixed(2)}`,
-    `${(laneX + radius).toFixed(2)} ${end.y.toFixed(2)}`,
-    `L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`,
-  ].join(" ");
-}
-
 function horizontalCurve(
   start: MethodStoryPoint,
   end: MethodStoryPoint,
