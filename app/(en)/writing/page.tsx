@@ -26,13 +26,13 @@ export const metadata: Metadata = {
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
+  "@type": "Blog",
   "@id": `${canonical}#collection`,
   url: canonical,
   name: `Writing — ${profile.name}`,
   description: "Personal writing on AI, technology, data, career, projects and ideas worth thinking through.",
   inLanguage: "en",
-  author: { "@id": `${profile.domain}/#person`, "@type": "Person", name: profile.name, url: profile.domain },
+  author: { "@id": `${profile.domain}/#person`, "@type": "Person", name: profile.name, url: `${profile.domain}/about`, sameAs: [profile.github, profile.linkedin] },
   hasPart: publishedWritingArticles.map((article) => ({
     "@type": "BlogPosting",
     "@id": `${profile.domain}/writing/${article.slug}#article`,
