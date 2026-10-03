@@ -335,7 +335,7 @@ test.describe("Phone composition", () => {
     ).toHaveAttribute("aria-current", "true");
 
     const tabs = page.getByRole("tablist", {
-      name: "Choose an opportunity path",
+      name: "Choose a conversation type",
     });
     await expect(page.locator(".closing-paths")).toHaveClass(
       /is-mobile-enhanced/,
