@@ -56,6 +56,7 @@
 .writing-system-cover-frame {
   position: relative;
   min-width: 0;
+  border-radius: 14px;
 }
 
 .writing-system-cover {
@@ -194,6 +195,7 @@
   font: 750 9px/1.35 var(--sans, "Manrope Variable"), Arial, sans-serif;
   letter-spacing: .075em;
   text-transform: uppercase;
+  border-radius: 0 0 14px 14px;
   pointer-events: none;
 }
 
@@ -215,6 +217,7 @@
   font-family: var(--serif, "Newsreader Variable"), Georgia, serif;
   font-size: clamp(25px, 2vw, 32px);
   font-weight: 450;
+  max-height: 2.08em;
   line-height: 1.04;
   letter-spacing: -.035em;
   text-wrap: balance;
@@ -228,6 +231,7 @@
   max-width: 52ch;
   margin: 0;
   overflow: hidden;
+  max-height: 3.1em;
   color: #6c6a63;
   font: 400 13px/1.55 var(--sans, "Manrope Variable"), Arial, sans-serif;
   -webkit-box-orient: vertical;
@@ -365,13 +369,15 @@
     row-gap: 32px;
   }
 
-  .writing-system-cover {
+  .writing-system-cover,
+  .writing-system-cover-frame {
     border-radius: 12px;
   }
 
   .writing-system-card-overlay {
     min-height: 64px;
     padding: 27px 13px 12px;
+    border-radius: 0 0 12px 12px;
     font-size: 8.5px;
   }
 
