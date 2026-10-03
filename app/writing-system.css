@@ -15,20 +15,31 @@
 }
 
 .writing-system-home-header {
-  max-width: 1040px;
-  margin-bottom: clamp(32px, 3vw, 40px);
+  max-width: none;
+  margin-bottom: clamp(30px, 2.8vw, 38px);
 }
 
 .writing-system-home-header h2,
 .writing-system-archive-header h1 {
-  max-width: 14ch;
+  max-width: none;
   margin: 0;
+  overflow: visible;
   font-family: var(--serif, "Newsreader Variable"), Georgia, serif;
   font-size: clamp(54px, 4.8vw, 88px);
   font-weight: 400;
   line-height: .94;
   letter-spacing: -.052em;
-  text-wrap: balance;
+  text-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.writing-system-home-header > p,
+.writing-system-archive-subtitle {
+  margin: 10px 0 0;
+  color: #6c6a63;
+  font: 500 13px/1.4 var(--sans, "Manrope Variable"), Arial, sans-serif;
+  letter-spacing: -.01em;
+  white-space: nowrap;
 }
 
 .writing-system-grid {
@@ -93,17 +104,25 @@
   pointer-events: none;
 }
 
-.writing-system-cover-meta span:first-child {
+.writing-system-cover-taxonomy {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.writing-system-cover-meta span:last-child {
+.writing-system-cover-timing {
   flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   white-space: nowrap;
   text-align: right;
+}
+
+.writing-system-cover-timing > span + span::before {
+  margin-right: 4px;
+  content: "·";
 }
 
 .writing-system-cover {
@@ -378,38 +397,89 @@
   }
 
   .writing-system-home-header {
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .writing-system-home-header h2,
   .writing-system-archive-header h1 {
-    max-width: 12ch;
-    font-size: clamp(46px, 12.8vw, 58px);
-    line-height: .94;
+    max-width: none;
+    font-size: clamp(25px, 7.7vw, 34px);
+    line-height: 1;
+    letter-spacing: -.045em;
+    text-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .writing-system-home-header > p,
+  .writing-system-archive-subtitle {
+    margin-top: 7px;
+    overflow: hidden;
+    font-size: clamp(10px, 2.85vw, 11.5px);
+    line-height: 1.3;
+    text-overflow: clip;
+    white-space: nowrap;
   }
 
   .writing-system-grid {
-    grid-template-columns: 1fr;
-    row-gap: 30px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 24px;
   }
 
   .writing-system-cover-frame,
   .writing-system-cover {
-    border-radius: 12px;
+    border-radius: 10px;
+  }
+
+  .writing-system-cover-frame::after {
+    height: 58%;
   }
 
   .writing-system-cover-meta {
-    left: 12px;
-    right: 12px;
-    bottom: 11px;
-    gap: 8px;
-    font-size: 8px;
-    letter-spacing: .055em;
+    left: 8px;
+    right: 8px;
+    bottom: 7px;
+    align-items: end;
+    gap: 5px;
+    font-size: clamp(6.25px, 1.7vw, 7.2px);
+    line-height: 1.12;
+    letter-spacing: .025em;
+  }
+
+  .writing-system-cover-taxonomy {
+    max-width: calc(100% - 52px);
+  }
+
+  .writing-system-cover-timing {
+    display: grid;
+    gap: 1px;
+    line-height: 1.08;
+  }
+
+  .writing-system-cover-timing > span + span::before {
+    margin: 0;
+    content: "";
+  }
+
+  .writing-system-cover-forecast svg,
+  .writing-system-cover-agent svg {
+    inset: 8px 8px 18px;
+    width: calc(100% - 16px);
+    height: calc(100% - 26px);
   }
 
   .writing-system-card :is(h2, h3) {
-    margin-top: 9px;
-    font-size: clamp(23px, 6.2vw, 27px);
+    display: block;
+    margin: 7px 0 0;
+    overflow: hidden;
+    font-size: clamp(16px, 4.55vw, 19px);
+    line-height: 1.08;
+    letter-spacing: -.025em;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
   }
 
   .writing-system-card > p {
@@ -417,7 +487,7 @@
   }
 
   .writing-system-footer {
-    margin-top: 24px;
+    margin-top: 22px;
   }
 
   .writing-system-archive {
@@ -425,7 +495,7 @@
   }
 
   .writing-system-archive-header {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
   }
 }
 
