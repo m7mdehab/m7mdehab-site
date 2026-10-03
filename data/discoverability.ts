@@ -7,7 +7,7 @@ import {
   services,
   skillGroups,
 } from "@/data/public";
-import { publishedWritingArticles } from "@/data/writing";
+import { getWritingWordCount, publishedWritingArticles } from "@/data/writing";
 import { projectVisuals } from "@/data/project-visuals";
 import { getRelatedWritingProjects } from "@/data/writing-schema";
 
