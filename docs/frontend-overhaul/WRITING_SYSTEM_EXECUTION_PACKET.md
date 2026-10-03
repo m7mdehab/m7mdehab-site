@@ -158,12 +158,13 @@ Title target:
 
 Excerpt:
 
-- keep for now while the inventory is small;
+- keep for now while the inventory is small on desktop/tablet;
 - use optional `cardDescription` so card copy can stay concise without weakening canonical metadata;
 - 12.5–13px Manrope;
 - muted;
 - line-height roughly 1.55;
-- **two lines maximum**.
+- **two lines maximum**;
+- hide the excerpt below 720px to keep mobile browsing compact.
 
 Hover/focus:
 
@@ -254,7 +255,7 @@ Generalize `WritingArticle` around:
 - `topics[]`;
 - optional `series`;
 - `readingMinutes`;
-- optional `listenMinutes`;
+- required `listenMinutes`;
 - optional real `audio: { src, mimeType, durationSeconds }`;
 - optional concise `cardDescription`;
 - optional `homeRank`;
@@ -357,7 +358,7 @@ Always render:
 - description;
 - publication date;
 - reading time;
-- listen-time estimate when configured.
+- listen time on every article.
 
 Render only when present:
 
@@ -379,7 +380,7 @@ The current global project-evidence disclaimer becomes conditional to project-or
 
 Prepare the article for audio now, but do not fake availability.
 
-- `listenMinutes` may exist before an audio file and is displayed with a `~` prefix.
+- `listenMinutes` exists on every article; before an audio file it is an estimate and is displayed with a `~` prefix.
 - a Listen player renders only when a real `audio.src` exists;
 - use native `<audio controls preload="metadata">` inside the prepared minimal wrapper;
 - the article text on the same route is the equivalent text representation;
@@ -473,7 +474,11 @@ The rebuild is complete only when:
 11. no active English output points at dormant Arabic routes;
 12. typecheck/lint/build/static-export/browser/a11y/no-JS/reduced-motion/mobile gates pass;
 13. rendered screenshot matrix is manually reviewed;
-14. governing documentation records this decision so old project-only Writing does not return.
+14. governing documentation records this decision so old project-only Writing does not return;
+15. card taxonomy + read/listen timing are inside the cover;
+16. card titles never exceed two visual lines;
+17. mobile card descriptions are hidden;
+18. audio controls appear only for real narration assets.
 
 ## 17. Prefabricated implementation status
 
