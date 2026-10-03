@@ -94,7 +94,7 @@ Must contain published public projections only:
 - relatedProjects[];
 - sourceLinks[];
 - optional stable cover image;
-- listenMinutes when configured;
+- required listenMinutes;
 - real audio metadata only when a playable public asset exists.
 
 Must not contain:
@@ -182,6 +182,6 @@ The article text remains present on the same page. This makes narration an alter
 
 ## 13. Card copy vs metadata description
 
-`cardDescription` is a browse-only editorial projection.
+`cardDescription` is a browse-only editorial projection. It may be hidden on mobile without changing canonical article metadata.
 
 SEO/Open Graph/JSON-LD should continue to use canonical `description`, not the shortened cardDescription.
