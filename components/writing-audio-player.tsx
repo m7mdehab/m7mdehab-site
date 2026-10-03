@@ -52,7 +52,7 @@ export function WritingAudioPlayer({
   }
 
   function speakChunk(index: number, generation: number) {
-    if (!("speechSynthesis" in window) || typeof window.SpeechSynthesisUtterance === "undefined") {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
       setStatus("unsupported");
       return;
     }
@@ -86,7 +86,7 @@ export function WritingAudioPlayer({
   }
 
   function startAt(index: number) {
-    if (!("speechSynthesis" in window) || typeof window.SpeechSynthesisUtterance === "undefined") {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
       setStatus("unsupported");
       return;
     }
