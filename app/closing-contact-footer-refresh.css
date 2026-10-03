@@ -539,7 +539,9 @@
   .closing-directory-end {
     grid-column: 1 / -1;
     display: flex;
-    width: 100%;
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    justify-self: center;
     align-items: center;
     justify-content: flex-end;
     gap: clamp(6px, 2vw, 10px);
