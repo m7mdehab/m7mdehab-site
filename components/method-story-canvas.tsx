@@ -425,6 +425,7 @@ export function MethodStoryCanvas() {
       data-motion-mode={
         reducedMotion ? "reduced" : enhanced ? "enhanced" : "static"
       }
+      data-mobile-enhanced={isMobile && enhanced ? "true" : "false"}
     >
       {isDesktop ? (
         <MethodStoryDesktopConnectors
