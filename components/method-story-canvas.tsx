@@ -197,7 +197,6 @@ function BranchPath({
           : "method-story__path"
       }
       style={enhanced ? { pathLength, opacity } : undefined}
-      data-method-connector={group}
     />
   );
 }
@@ -233,6 +232,7 @@ function ConnectorPath({
           : "method-story__path"
       }
       style={enhanced ? { pathLength, opacity } : undefined}
+      data-method-connector={group}
     />
   );
 }
