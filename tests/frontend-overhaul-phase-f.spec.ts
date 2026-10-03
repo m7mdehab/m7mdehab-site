@@ -275,7 +275,7 @@ test.describe("Method story rebuild", () => {
         .locator(".method-story__journey")
         .evaluate((element) => getComputedStyle(element).zIndex),
     );
-    expect(connectorZIndex).toBeGreaterThan(journeyZIndex);
+    expect(connectorZIndex).toBeLessThan(journeyZIndex);
 
     const inputPaths = measured.locator(
       '[data-method-connectors="input-expose"] path',
@@ -288,7 +288,7 @@ test.describe("Method story rebuild", () => {
     );
 
     await expect(inputPaths).toHaveCount(4);
-    await expect(exposePaths).toHaveCount(10);
+    await expect(exposePaths).toHaveCount(12);
     await expect(
       measured.locator('[data-method-measured-connector="reduce-build"]'),
     ).toHaveCount(1);
@@ -334,40 +334,28 @@ test.describe("Method story rebuild", () => {
 
     const errors: number[] = [];
 
-    const incomingSheetIndexes = [1, 2, 4, 5];
+    const exposeInRect = await readLocalRect(
+      canvas,
+      section.locator('[data-method-port="expose-in"]'),
+    );
+    const exposeEntry = edgeCenter(exposeInRect, "left");
+    const messyEndpoints: Array<{ x: number; y: number }> = [];
+
     for (let index = 0; index < 4; index += 1) {
       const endpoints = await readSvgPathEndpoints(inputPaths.nth(index));
       const sourceRect = await readLocalRect(
         canvas,
         section.locator(`[data-method-port="messy-${index + 1}-out"]`),
       );
-      const targetRect = await readLocalRect(
-        canvas,
-        section.locator(
-          `[data-method-evidence-sheet="${incomingSheetIndexes[index]}"]`,
-        ),
-      );
-      const targetIndex = incomingSheetIndexes[index] - 1;
+
       errors.push(
         pointError(endpoints.start, edgeCenter(sourceRect, "right")),
-        Math.abs(endpoints.end.x - targetRect.left),
+        pointError(endpoints.end, exposeEntry),
       );
-      expect(endpoints.end.y).toBeGreaterThan(targetRect.top);
-      expect(endpoints.end.y).toBeLessThan(targetRect.bottom);
-
-      for (const blocker of evidenceRects.slice(0, targetIndex)) {
-        if (endpoints.end.x > blocker.left && endpoints.end.x < blocker.right) {
-          expect(
-            endpoints.end.y < blocker.top || endpoints.end.y > blocker.bottom,
-          ).toBeTruthy();
-        }
-      }
+      messyEndpoints.push(endpoints.end);
 
       const blockers = [
         ...inputRects.filter((_, blockerIndex) => blockerIndex !== index),
-        ...evidenceRects.filter(
-          (_, blockerIndex) => blockerIndex !== targetIndex,
-        ),
         ...evidenceTagRects,
       ];
       const samples = await readSvgPathSamples(inputPaths.nth(index));
@@ -378,14 +366,21 @@ test.describe("Method story rebuild", () => {
       ).toBe(false);
     }
 
+    for (const endpoint of messyEndpoints) {
+      expect(pointError(endpoint, messyEndpoints[0])).toBeLessThanOrEqual(0.02);
+    }
+
     const reduceInRect = await readLocalRect(
       canvas,
       section.locator('[data-method-port="reduce-in"]'),
     );
-    for (let index = 0; index < 10; index += 1) {
+    const frontRatios = [0.07, 0.19, 0.31, 0.43, 0.57, 0.69, 0.81, 0.93];
+
+    for (let index = 0; index < 12; index += 1) {
       const endpoints = await readSvgPathEndpoints(exposePaths.nth(index));
-      const sheetIndex = Math.floor(index / 2) + 1;
-      const sourceRect = evidenceRects[sheetIndex - 1];
+      const sheetIndex = index < 4 ? index : 4;
+      const sourceRect = evidenceRects[sheetIndex];
+
       errors.push(
         Math.abs(endpoints.start.x - sourceRect.right),
         pointError(endpoints.end, edgeCenter(reduceInRect, "left")),
@@ -393,23 +388,14 @@ test.describe("Method story rebuild", () => {
       expect(endpoints.start.y).toBeGreaterThan(sourceRect.top);
       expect(endpoints.start.y).toBeLessThan(sourceRect.bottom);
 
-      for (const blocker of evidenceRects.slice(sheetIndex)) {
-        if (
-          endpoints.start.x > blocker.left &&
-          endpoints.start.x < blocker.right
-        ) {
-          expect(
-            endpoints.start.y < blocker.top ||
-              endpoints.start.y > blocker.bottom,
-          ).toBeTruthy();
-        }
+      if (index >= 4) {
+        const expectedY =
+          sourceRect.top + sourceRect.height * frontRatios[index - 4];
+        expect(Math.abs(endpoints.start.y - expectedY)).toBeLessThanOrEqual(2);
       }
 
       const blockers = [
         ...inputRects,
-        ...evidenceRects.filter(
-          (_, blockerIndex) => blockerIndex !== sheetIndex - 1,
-        ),
         ...evidenceTagRects,
       ];
       const samples = await readSvgPathSamples(exposePaths.nth(index));
@@ -434,6 +420,23 @@ test.describe("Method story rebuild", () => {
     errors.push(
       pointError(reduceBuild.start, edgeCenter(reduceOutRect, "right")),
       pointError(reduceBuild.end, edgeCenter(buildInRect, "left")),
+    );
+
+    const buildEntry = await readSvgPathEndpoints(
+      measured.locator('[data-method-measured-connector="build-entry"]'),
+    );
+    const buildOutRect = await readLocalRect(
+      canvas,
+      section.locator('[data-method-port="build-out"]'),
+    );
+    const middleNode = measured.locator('[data-method-measured-node="3"]');
+    const middleNodePoint = await middleNode.evaluate((element) => ({
+      x: Number(element.getAttribute("cx")),
+      y: Number(element.getAttribute("cy")),
+    }));
+    errors.push(
+      pointError(buildEntry.start, edgeCenter(buildOutRect, "right")),
+      pointError(buildEntry.end, middleNodePoint),
     );
 
     for (let index = 0; index < 5; index += 1) {
@@ -471,7 +474,7 @@ test.describe("Method story rebuild", () => {
     ).toHaveCount(4);
     await expect(
       section.locator('[data-method-connectors="expose-reduce"] path'),
-    ).toHaveCount(10);
+    ).toHaveCount(12);
 
     await section.evaluate((element) => {
       const bounds = element.getBoundingClientRect();
