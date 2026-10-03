@@ -39,6 +39,33 @@ export type WritingFormat =
   | "deep-dive"
   | "project-reflection";
 
+export const writingNarrationVoices = {
+  female: {
+    label: "Female",
+    kokoroVoice: "af_heart",
+    fileName: "female.mp3",
+  },
+  male: {
+    label: "Male",
+    kokoroVoice: "am_michael",
+    fileName: "male.mp3",
+  },
+} as const;
+
+export type WritingNarrationVoice = keyof typeof writingNarrationVoices;
+
+export function getWritingNarrationSources(
+  article: Pick<WritingArticleBase, "slug">,
+) {
+  return Object.entries(writingNarrationVoices).map(([id, voice]) => ({
+    id: id as WritingNarrationVoice,
+    label: voice.label,
+    kokoroVoice: voice.kokoroVoice,
+    src: `/audio/writing/${article.slug}/${voice.fileName}`,
+    mimeType: "audio/mpeg" as const,
+  }));
+}
+
 export const writingCategories = {
   ai: { label: "AI" },
   technology: { label: "Technology" },
@@ -688,22 +715,19 @@ export function writingArticleUrl(slug: string) {
 }
 
 export function getWritingTimingLabel(
-  article: Pick<WritingArticleBase, "readingMinutes" | "listenMinutes" | "audio">,
+  article: Pick<WritingArticleBase, "readingMinutes" | "listenMinutes">,
 ) {
-  return `${article.readingMinutes} min read · ${article.audio ? "" : "~"}${article.listenMinutes} min listen`;
+  return `${article.readingMinutes} min read · ~${article.listenMinutes} min listen`;
 }
 
 export function getWritingListenDetails(
-  article: Pick<WritingArticleBase, "title" | "listenMinutes" | "audio">,
+  article: Pick<WritingArticleBase, "slug" | "title" | "listenMinutes">,
 ) {
-  if (!article.audio) return undefined;
   return {
     sectionLabel: "Listen to this article",
     playerLabel: `Audio narration of ${article.title}`,
     listenMinutes: article.listenMinutes,
-    src: article.audio.src,
-    mimeType: article.audio.mimeType,
-    preload: "metadata" as const,
-    controls: true as const,
+    defaultVoice: "female" as const,
+    sources: getWritingNarrationSources(article),
   };
 }
