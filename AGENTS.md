@@ -62,15 +62,25 @@ The site is a custom synthesis of multiple references. Do not reskin one templat
 
 ## Current method-story rebuild
 
-The English homepage method chapter is under an explicit design-locked rebuild. Before touching `components/home-solve-think.tsx`, read `docs/frontend-overhaul/METHOD_STORY_EXECUTION_PACKET.md` and `design/method-story/method-story.spec.json`.
+The base Method Story is live. The active follow-up is **Desktop Pass 02 precision geometry** on branch `method-story-desktop-pass-02-setup`.
 
-For this chapter:
-- do not reinterpret the art direction;
-- do not preserve legacy `.solve-think*` architecture merely because it exists;
-- use the existing `motion/react` dependency; do not add GSAP;
-- use native HTML + custom inline SVG; the blueprint SVG is reference-only and must not be shipped as the rendered production asset;
-- keep semantic content server-rendered and readable without JavaScript;
-- implement the locked copy, motion windows, mobile vertical composition and acceptance contract from the execution packet.
+Before touching the Method Story in this pass, read:
+1. `docs/frontend-overhaul/METHOD_STORY_DESKTOP_PASS_02_EXECUTION.md`;
+2. `docs/frontend-overhaul/METHOD_STORY_DESKTOP_PASS_02_LUNA_PROMPT.md`;
+3. `components/method-story-connector-geometry.ts`;
+4. `components/use-method-story-desktop-geometry.ts`;
+5. `components/method-story-desktop-connectors.tsx`.
+
+For this pass:
+- desktop only; do not redesign tablet/mobile;
+- exact edge-to-edge connector geometry is the primary quality bar;
+- use the prepared DOM-measured geometry system; do not return to hand-authored desktop path strings;
+- required counts are 4 Messy→Expose, 10 Expose→Reduce, 1 Reduce→Build, 5 Build→Outcome;
+- use exactly 5 build bus nodes aligned to the 5 outcome-card centers;
+- desktop title/support are single-line; the eyebrow is hidden;
+- endpoint acceptance tolerance is 2px;
+- use the existing `motion/react` dependency; do not add GSAP or any new runtime dependency;
+- preserve semantic server-rendered content and reduced-motion behavior.
 
 ## Current writing-system rebuild
 

@@ -1025,3 +1025,235 @@
     right: auto;
   }
 }
+
+
+/* Desktop Method Story pass 02 setup.
+   Luna should tune values, not change the locked composition or connector model. */
+@media (min-width: 1100px) {
+  .method-story__intro {
+    display: block;
+  }
+
+  .method-story__eyebrow {
+    display: none;
+  }
+
+  .method-story__intro-main {
+    width: 100%;
+  }
+
+  .method-story__intro h2 {
+    max-width: none;
+    margin: 0;
+    font-size: clamp(44px, 4.15vw, 66px);
+    line-height: 0.98;
+    letter-spacing: -0.052em;
+    white-space: nowrap;
+  }
+
+  .method-story__support {
+    max-width: none;
+    margin: 14px 0 0;
+    font-size: clamp(12px, 1vw, 15px);
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  .method-story__canvas {
+    margin-top: 44px;
+  }
+
+  .method-story__input-position {
+    width: min(168px, 88%);
+  }
+
+  .method-story__input-position--2 {
+    width: min(184px, 92%);
+  }
+
+  .method-story__input-card {
+    min-height: 44px;
+    padding: 9px 11px;
+  }
+
+  .method-story__input-card strong {
+    font-size: 10.5px;
+  }
+
+  .method-story__evidence-stack {
+    left: 22%;
+    right: 10%;
+    top: 54px;
+    height: 164px;
+  }
+
+  .method-story__evidence-sheet {
+    width: 58%;
+    height: 92px;
+  }
+
+  .method-story__evidence-sheet--1 {
+    left: 0;
+    top: 58px;
+  }
+
+  .method-story__evidence-sheet--2 {
+    left: 8%;
+    top: 44px;
+  }
+
+  .method-story__evidence-sheet--3 {
+    left: 16%;
+    top: 30px;
+  }
+
+  .method-story__evidence-sheet--4 {
+    left: 24%;
+    top: 16px;
+  }
+
+  .method-story__evidence-sheet--5 {
+    left: 32%;
+    top: 2px;
+  }
+
+  .method-story__evidence-tag--mint {
+    left: 10%;
+    top: 8px;
+  }
+
+  .method-story__evidence-tag--teal {
+    right: 4%;
+    top: 8px;
+  }
+
+  .method-story__evidence-tag--amber {
+    right: 8%;
+    bottom: 2px;
+  }
+
+  .method-story__decision-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    padding-top: 0;
+  }
+
+  .method-story__decision-module {
+    width: 92px;
+    min-height: 184px;
+    flex: 0 0 92px;
+    margin: 0 auto;
+    padding: 18px 14px;
+    gap: 13px;
+    background: rgba(13, 28, 22, 0.97);
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(145, 225, 189, 0.02);
+  }
+
+  .method-story__build-field {
+    height: 300px;
+  }
+
+  .method-story__system-stack {
+    margin: 12px auto 0;
+  }
+
+  .method-story__system-bus {
+    left: calc(50% + 74px);
+    right: auto;
+    top: 39px;
+    height: 216px;
+  }
+
+  .method-story__system-bus i:nth-child(1) {
+    top: 0;
+  }
+
+  .method-story__system-bus i:nth-child(2) {
+    top: 25%;
+  }
+
+  .method-story__system-bus i:nth-child(3) {
+    top: 50%;
+  }
+
+  .method-story__system-bus i:nth-child(4) {
+    top: 75%;
+  }
+
+  .method-story__system-bus i:nth-child(5) {
+    top: 100%;
+  }
+
+  .method-story__connectors--measured {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    z-index: 1;
+  }
+
+  .method-story__path--bus {
+    stroke: var(--method-accent);
+    stroke-width: 1.15;
+    fill: none;
+  }
+
+  .method-story__measured-node {
+    fill: var(--method-accent-bright);
+    stroke: var(--method-bg);
+    stroke-width: 1.5;
+  }
+}
+
+
+/* Exact invisible edge ports for desktop connector measurement. */
+.method-story__input-card,
+.method-story__decision-module,
+.method-story__system-stack,
+.method-story__output-row {
+  position: relative;
+}
+
+.method-story__port {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.method-story__port--left {
+  left: 0;
+  top: 50%;
+}
+
+.method-story__port--right {
+  right: 0;
+  top: 50%;
+}
+
+.method-story__port--expose-in {
+  left: 0;
+  top: 50%;
+}
+
+.method-story__port--system-left {
+  left: 7px;
+  top: 122px;
+}
+
+.method-story__port--system-right {
+  left: 110px;
+  top: 117px;
+}
+
+@media (min-width: 1100px) {
+  /* Desktop uses the measured SVG bus; keep the DOM bus only as tablet/mobile fallback. */
+  .method-story__system-bus {
+    visibility: hidden;
+  }
+}

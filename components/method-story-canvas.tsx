@@ -27,6 +27,8 @@ import {
   MethodUnknownIcon,
 } from "@/components/method-story-icons";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
+import { MethodStoryDesktopConnectors } from "@/components/method-story-desktop-connectors";
+import { useMethodStoryDesktopGeometry } from "@/components/use-method-story-desktop-geometry";
 
 type Progress = MotionValue<number>;
 
@@ -105,9 +107,15 @@ function AnimatedInput({
         className="method-story__input-card"
         style={enhanced ? { x, y, rotate, opacity } : undefined}
         data-method-input={input.id}
+        data-method-anchor={`messy-${index + 1}`}
       >
         {inputIcon(input.icon)}
         <strong>{input.label}</strong>
+        <span
+          className="method-story__port method-story__port--right"
+          data-method-port={`messy-${index + 1}-out`}
+          aria-hidden="true"
+        />
       </motion.div>
     </div>
   );
@@ -133,6 +141,7 @@ function RevealSheet({
       className={`method-story__evidence-sheet method-story__evidence-sheet--${index + 1}`}
       style={enhanced ? { x, y, opacity } : undefined}
       aria-hidden="true"
+      data-method-evidence-sheet={index + 1}
     >
       <i />
       <i />
@@ -288,7 +297,13 @@ function OutputRow({
       className="method-story__output-row"
       style={enhanced ? { x, opacity } : undefined}
       data-method-output={output.id}
+      data-method-anchor={`outcome-${index + 1}`}
     >
+      <span
+        className="method-story__port method-story__port--left"
+        data-method-port={`outcome-${index + 1}-in`}
+        aria-hidden="true"
+      />
       <motion.span
         className="method-story__output-check"
         style={enhanced ? { scale: checkScale } : undefined}
@@ -319,6 +334,11 @@ export function MethodStoryCanvas() {
     offset: [...scrollOffset],
   });
   const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
+  const desktopGeometry = useMethodStoryDesktopGeometry(
+    rootRef,
+    progress,
+    isDesktop,
+  );
 
   const exposeOpacity = useTransform(progress, [0.16, 0.3], [0.45, 1]);
   const reduceOpacity = useTransform(progress, [0.34, 0.49], [0.45, 1]);
@@ -336,52 +356,60 @@ export function MethodStoryCanvas() {
         reducedMotion ? "reduced" : enhanced ? "enhanced" : "static"
       }
     >
-      <svg
-        className="method-story__connectors"
-        viewBox="0 0 1500 410"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <g data-method-connectors="input-expose">
-          {METHOD_STORY_CONNECTORS.inputToExpose.map((d, index) => (
-            <ConnectorPath
-              key={d}
-              d={d}
-              window={[0.08 + index * 0.018, 0.24 + index * 0.018]}
-              progress={progress}
-              enhanced={enhanced}
-            />
-          ))}
-        </g>
-        <g data-method-connectors="expose-reduce">
-          {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
-            <ConnectorPath
-              key={d}
-              d={d}
-              window={[0.2 + index * 0.012, 0.46 + index * 0.012]}
-              progress={progress}
-              enhanced={enhanced}
-              hot={index === 2 || index === 3}
-            />
-          ))}
-        </g>
-        <ConnectorPath
-          d={METHOD_STORY_CONNECTORS.reduceToBuild}
-          window={[0.54, 0.7]}
+      {isDesktop ? (
+        <MethodStoryDesktopConnectors
+          geometry={desktopGeometry}
           progress={progress}
           enhanced={enhanced}
-          hot
         />
-        {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
+      ) : (
+        <svg
+          className="method-story__connectors method-story__connectors--legacy"
+          viewBox="0 0 1500 410"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <g data-method-connectors="input-expose">
+            {METHOD_STORY_CONNECTORS.inputToExpose.map((d, index) => (
+              <ConnectorPath
+                key={d}
+                d={d}
+                window={[0.08 + index * 0.018, 0.24 + index * 0.018]}
+                progress={progress}
+                enhanced={enhanced}
+              />
+            ))}
+          </g>
+          <g data-method-connectors="expose-reduce">
+            {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
+              <ConnectorPath
+                key={d}
+                d={d}
+                window={[0.2 + index * 0.012, 0.46 + index * 0.012]}
+                progress={progress}
+                enhanced={enhanced}
+                hot={index === 2 || index === 3}
+              />
+            ))}
+          </g>
           <ConnectorPath
-            key={d}
-            d={d}
-            window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
+            d={METHOD_STORY_CONNECTORS.reduceToBuild}
+            window={[0.54, 0.7]}
             progress={progress}
             enhanced={enhanced}
+            hot
           />
-        ))}
-      </svg>
+          {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
+            <ConnectorPath
+              key={d}
+              d={d}
+              window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
+              progress={progress}
+              enhanced={enhanced}
+            />
+          ))}
+        </svg>
+      )}
 
       <ol
         className="method-story__journey"
@@ -439,8 +467,14 @@ export function MethodStoryCanvas() {
                 />
                 <div
                   className="method-story__evidence-stack"
+                  data-method-anchor="expose-stack"
                   aria-hidden="true"
                 >
+                  <span
+                    className="method-story__port method-story__port--expose-in"
+                    data-method-port="expose-in"
+                    aria-hidden="true"
+                  />
                   {[0, 1, 2, 3, 4].map((index) => (
                     <RevealSheet
                       key={index}
@@ -505,6 +539,7 @@ export function MethodStoryCanvas() {
                 </svg>
                 <motion.div
                   className="method-story__decision-module"
+                  data-method-anchor="reduce-card"
                   style={
                     enhanced
                       ? { scale: decisionScale, opacity: decisionOpacity }
@@ -512,8 +547,20 @@ export function MethodStoryCanvas() {
                   }
                   aria-hidden="true"
                 >
+                  <span
+                    className="method-story__port method-story__port--left"
+                    data-method-port="reduce-in"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="method-story__port method-story__port--right"
+                    data-method-port="reduce-out"
+                    aria-hidden="true"
+                  />
                   <MethodDecisionIcon />
+                  <i />
                   <i className="is-selected" />
+                  <i />
                   <i />
                   <i />
                 </motion.div>
@@ -527,7 +574,20 @@ export function MethodStoryCanvas() {
             >
               <StageHeader id="build" />
               <div className="method-story__build-field">
-                <div className="method-story__system-stack">
+                <div
+                  className="method-story__system-stack"
+                  data-method-anchor="build-system"
+                >
+                  <span
+                    className="method-story__port method-story__port--system-left"
+                    data-method-port="build-in"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="method-story__port method-story__port--system-right"
+                    data-method-port="build-out"
+                    aria-hidden="true"
+                  />
                   {[0, 1, 2].map((index) => (
                     <BuildLayer
                       key={index}
@@ -537,10 +597,14 @@ export function MethodStoryCanvas() {
                     />
                   ))}
                 </div>
-                <span className="method-story__system-bus" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
+                <span
+                  className="method-story__system-bus"
+                  data-method-anchor="build-bus"
+                  aria-hidden="true"
+                >
+                  {[0, 1, 2, 3, 4].map((index) => (
+                    <i key={index} data-method-bus-node={index + 1} />
+                  ))}
                 </span>
               </div>
             </motion.li>
