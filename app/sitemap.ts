@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { profile, projects } from "@/data/public";
-import { writingArticles } from "@/data/writing";
+import { publishedWritingArticles } from "@/data/writing";
 
 export const dynamic = "force-static";
 
@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...writingArticles.map((article) => ({
+    ...publishedWritingArticles.map((article) => ({
       url: `${profile.domain}/writing/${article.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.75,

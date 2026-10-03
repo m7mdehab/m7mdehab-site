@@ -158,3 +158,9 @@ Reject if it reads as:
 > three technical project case studies
 
 If it fails, reduce project-specific chrome rather than adding explanatory copy.
+
+## Reviewed render record — 2026-10-03
+
+The required render matrix was captured against the production build and inspected at all 13 targets: Home Writing (1920×1080, 1440×1000, 1280×800, 1024×768, 430×932, 390×844, 320×568), archive (1440×1000, 390×844), article (1440×1000, 390×844), and full Home (1920×1080, 390×844).
+
+Review passed. The Home grid resolves to three columns at desktop widths, two at tablet width, and one on phones; all three curated posts appear without placeholders or horizontal Writing scroll. The forecast curve, public SAR case image, and provenance diagram remain visually distinct. Archive/article reading columns fit mobile, and the full-Home transitions retain the existing Opportunity and Footer composition. The 13 PNGs and contact sheet are preserved in the task output folder under `outputs/writing-system/screenshots/`.

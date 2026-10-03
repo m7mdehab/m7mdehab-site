@@ -1,6 +1,7 @@
 // Curated runtime projection for the website UI.
 // The governed completeness/provenance layer is data/source-of-truth.public.yaml.
 // Never add private/confidential source facts here merely because they are verified.
+import { publishedWritingArticles } from "@/data/writing";
 
 export type ProjectTone = "blue" | "graphite" | "emerald" | "teal" | "amber" | "coral";
 
@@ -26,6 +27,14 @@ export const capabilities = [
   { title: "AI Engineering", detail: "LLM applications, RAG, governed workflows and agentic product architecture." },
   { title: "Product & Software", detail: "Web products, ecommerce, product delivery and end-to-end technical execution." },
 ] as const;
+
+// Compatibility projection for the dormant prototype. data/writing.ts remains the editorial source.
+export const writing = publishedWritingArticles.map((article) => ({
+  slug: article.slug,
+  title: article.title,
+  topic: article.topics.join(" · "),
+  status: "Essay",
+}));
 
 export const skillGroups = [
   { title: "Data engineering", skills: ["Advanced SQL", "ETL & Data Pipelines", "Data Migration", "Source-to-Target Mapping", "Data Transformation", "Data Profiling", "Data Cleansing & Validation", "Data Reconciliation", "PostgreSQL"] },
@@ -123,11 +132,4 @@ export const services = [
     projectContext: "Ownership language remains project-specific; product leadership is not inflated into sole coding where the evidence does not support it.",
     contactSubject: "Product and web development opportunity",
   },
-] as const;
-
-// Editorial inventory only. Substantive article bodies and evidence links live in data/writing.ts.
-export const writing = [
-  { slug: "when-to-trust-a-probabilistic-forecast", title: "When should you trust a probabilistic forecast?", topic: "Forecasting · calibration · evaluation", status: "Essay" },
-  { slug: "why-accuracy-is-not-enough-for-oil-spill-detection", title: "Why accuracy alone is not enough for oil-spill detection", topic: "Computer vision · metrics · validation", status: "Essay" },
-  { slug: "what-an-ai-agent-should-do-when-evidence-is-missing", title: "What should an AI agent do when the evidence is missing?", topic: "AI agents · provenance · governance", status: "Essay" },
 ] as const;

@@ -55,7 +55,7 @@ async function viewportMetrics(page: Page) {
           return false;
         if (
           element.closest(
-            ".credibility-viewport, .selected-work-carousel-window, .closing-notes",
+            ".credibility-viewport, .selected-work-carousel-window",
           )
         )
           return false;
@@ -78,7 +78,7 @@ async function viewportMetrics(page: Page) {
       roles: rect(".overhaul-hero-roles"),
       location: rect(".overhaul-hero-meta"),
       workHeading: rect(".selected-work-intro h2"),
-      writingHeading: rect(".closing-heading h2"),
+      writingHeading: rect(".writing-system-home-header > h2"),
       opportunityHeading: rect(".closing-opportunity-head h2"),
       nav: rect(".site-nav"),
       identity: rect(".nav-identity"),
@@ -112,7 +112,7 @@ test.describe("Phone composition", () => {
         ".overhaul-hero-title",
         ".overhaul-hero-roles",
         ".overhaul-hero-meta",
-        ".closing-heading h2",
+        ".writing-system-home-header > h2",
         ".closing-opportunity-head h2",
       ];
       for (const selector of oneLineSelectors) {
@@ -267,7 +267,7 @@ test.describe("Phone composition", () => {
     for (const [anchor, heading] of [
       ["work", ".selected-work-intro h2"],
       ["method", ".solve-think-intro h2"],
-      ["writing", ".closing-heading h2"],
+      ["writing", ".writing-system-home-header > h2"],
       ["contact", ".closing-opportunity-head h2"],
     ]) {
       await page.goto(`/#${anchor}`);
@@ -373,26 +373,25 @@ test.describe("Phone composition", () => {
     ).toHaveCount(0);
   });
 
-  test("writing cards browse horizontally and opportunity tabs switch paths by keyboard", async ({
+  test("Writing cards remain in a vertical grid and opportunity tabs switch paths by keyboard", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
-    const writing = page.locator(".closing-notes");
-    await expect(writing.locator(".closing-note")).toHaveCount(2);
-    await expect(
-      writing.getByRole("link", { name: /Read the field note/i }).first(),
-    ).toHaveAttribute("href", /\/writing\//);
-    await expect(
-      page
-        .locator(".closing-heading-side")
-        .getByRole("link", { name: /All writing/ }),
-    ).toHaveAttribute("href", "/writing");
-    await page.getByRole("button", { name: "Go to article 2 of 2" }).click();
-    await expect(
-      page.getByRole("button", { name: "Go to article 2 of 2" }),
-    ).toHaveAttribute("aria-current", "true");
+    const writing = page.locator("[data-writing-home]");
+    await expect(writing.locator("[data-writing-card]")).toHaveCount(3);
+    await expect(writing.locator("[data-writing-card]").nth(0)).toHaveAttribute("href", /\/writing\//);
+    await expect(writing.getByRole("link", { name: /All writing/ })).toHaveAttribute("href", "/writing");
+    await expect(writing.locator(".carousel-dots")).toHaveCount(0);
+    const geometry = await writing.evaluate((section) => ({
+      columns: getComputedStyle(section.querySelector(".writing-system-grid")!).gridTemplateColumns.split(" ").length,
+      cardColumns: section.querySelectorAll("[data-writing-card]").length,
+      coverRatio: (() => { const cover = section.querySelector(".writing-system-cover")!.getBoundingClientRect(); return cover.width / cover.height; })(),
+    }));
+    expect(geometry.columns).toBe(1);
+    expect(geometry.cardColumns).toBe(3);
+    expect(geometry.coverRatio).toBeCloseTo(16 / 9, 1);
 
     const tabs = page.getByRole("tablist", {
       name: "Choose a conversation type",
@@ -456,15 +455,14 @@ test.describe("Phone composition", () => {
       work: document
         .querySelector(".selected-work-carousel-artboard")!
         .getBoundingClientRect().height,
-      writing: document.querySelector(".closing-note")!.getBoundingClientRect()
-        .height,
+      writing: document.querySelector("[data-writing-card]")!.getBoundingClientRect().height,
     }));
     expect(heights.method).toBeGreaterThanOrEqual(750);
     expect(heights.method).toBeLessThanOrEqual(900);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
-    expect(heights.writing).toBeGreaterThanOrEqual(380);
-    expect(heights.writing).toBeLessThanOrEqual(500);
+    expect(heights.writing).toBeGreaterThanOrEqual(320);
+    expect(heights.writing).toBeLessThanOrEqual(520);
   });
 
   test("OpportunityOS mobile card keeps all six core workflow states legible", async ({
@@ -533,7 +531,7 @@ test.describe("Phone composition", () => {
     );
   });
 
-  test("mobile work and writing carousels advance on the shared six-second interval", async ({
+  test("mobile Selected Work carousel advances on the shared six-second interval", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -545,12 +543,6 @@ test.describe("Phone composition", () => {
       work.getByRole("button", { name: "Go to project 2 of 6" }),
     ).toHaveAttribute("aria-current", "step");
 
-    const writing = page.locator(".closing-notes");
-    await writing.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(6200);
-    await expect(
-      page.getByRole("button", { name: "Go to article 2 of 2" }),
-    ).toHaveAttribute("aria-current", "true");
   });
 
   test("small-phone landscape and desktop regression widths do not overflow", async ({

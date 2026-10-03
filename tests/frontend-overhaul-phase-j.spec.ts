@@ -106,7 +106,7 @@ async function mobileMetrics(page: Page) {
       heroLines: lineCount(".overhaul-hero-title"),
       workHeadingLines: lineCount(".selected-work-intro h2"),
       methodHeadingLines: lineCount(".solve-think-intro h2"),
-      writingHeadingLines: lineCount(".closing-heading h2"),
+      writingHeadingLines: lineCount("#writing h2"),
       opportunityHeadingLines: lineCount(".closing-opportunity-head h2"),
       credibilityAnimation: track
         ? getComputedStyle(track).animationName

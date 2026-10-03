@@ -1,11 +1,27 @@
-import type { WritingArticle } from "@/data/writing";
+import type { WritingEvidence, WritingSection, WritingSource } from "@/data/writing";
+
+export type DormantWritingArticleAr = {
+  slug: string;
+  title: string;
+  description: string;
+  topic: string;
+  createdAt: string;
+  readingMinutes: number;
+  projectSlug: string;
+  projectTitle: string;
+  thesis: string;
+  evidence: readonly WritingEvidence[];
+  sections: readonly WritingSection[];
+  takeaways: readonly string[];
+  sources: readonly WritingSource[];
+};
 
 /**
  * Purpose-built Arabic editorial projection of the governed authority articles.
  * It preserves the same factual/evidence boundaries as data/writing.ts and does
  * not introduce independent claims.
  */
-export const writingArticlesAr: readonly WritingArticle[] = [
+export const writingArticlesAr: readonly DormantWritingArticleAr[] = [
   {
     slug: "when-to-trust-a-probabilistic-forecast",
     title: "متى يمكنك أن تثق في توقع احتمالي؟",

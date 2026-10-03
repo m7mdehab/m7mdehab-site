@@ -65,6 +65,12 @@ Current sequence:
 5. bind an authorized analytics provider to the existing stable `data-conversion` / `data-service-id` semantics;
 6. update legitimate external authority associations to the live canonical domain and begin search/AI visibility, conversion and field-performance optimization from real data.
 
+## Writing System Rebuild — current contract (2026-10-03)
+
+The English public surface uses a broad personal-publishing model. Project origin, thesis, evidence, takeaways and sources are optional; the historical Arabic files remain dormant. Current public selectors include published entries only. Home uses three `homeRank` selections in a non-carousel 3/2/1 grid, while `/writing` sorts all published posts newest-first. The three existing slugs and article bodies are preserved. Article pages use `BlogPosting`, and JSON/discovery/LLM outputs no longer require a project relationship or expose active Arabic article URLs. This replaces the older bilingual, two-essay Writing descriptions in the historical iteration rows above.
+
+The rebuild is implemented on `writing-system-rebuild`, rebased on current `main` before final rendered QA. Local Node 22 typecheck, lint, standard build, Cloudflare static-export build, and the complete browser gate pass; the full gate is **169/169** on the final base. All 13 required renders were manually reviewed. See `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md` and `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md` for evidence. The three existing English articles retain their slugs and body content; the dormant Arabic source remains unserved.
+
 ## Original master-plan phase status
 
 | Phase | Status | Evidence / notes | Next executable task |

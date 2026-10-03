@@ -182,3 +182,15 @@ Run:
 - `git diff --check`.
 
 CI is necessary, not sufficient. Rendered visual QA is a separate acceptance gate.
+
+## Local execution record — 2026-10-03
+
+- `npm run typecheck`: passed.
+- `npm run lint`: passed.
+- `npm run build`: passed on the current rebased branch.
+- `CLOUDFLARE_STATIC_EXPORT=1 npm run build`: passed on the current rebased branch.
+- Focused Writing, discovery, Phase G, mobile-composition, independent-fixture, and render-matrix suites: 29 passed.
+- Full `npm run test:browser` on the final rebased branch: **169 passed**. Selected Work carousel tests remain in this gate and passed.
+- Focused Phase I/Phase J and Writing render-matrix recheck: 7 passed before the full final-base run.
+- `git diff --check`: passed before delivery.
+- All 13 requested screenshot targets were manually reviewed; the dated record and output paths are in `WRITING_SYSTEM_VISUAL_QA.md`.

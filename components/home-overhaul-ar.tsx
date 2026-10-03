@@ -12,8 +12,7 @@ import { ProjectVisual } from "@/components/project-visual";
 import { profile } from "@/data/public";
 import { profileAr, projectsAr } from "@/data/public-ar";
 import { projectVisuals } from "@/data/project-visuals";
-import { writingArticlesAr } from "@/data/writing-ar";
-import type { WritingArticle } from "@/data/writing";
+import { writingArticlesAr, type DormantWritingArticleAr } from "@/data/writing-ar";
 
 const experienceSignalsAr = [
   { name: "Network International", relationship: "وظيفة" },
@@ -470,7 +469,7 @@ function OilNoteVisualAr() {
   );
 }
 
-function noteVisualAr(article: WritingArticle) {
+function noteVisualAr(article: DormantWritingArticleAr) {
   if (article.projectSlug === "presaira") return <ForecastNoteVisualAr />;
   if (article.projectSlug === "oil-spill-detection") return <OilNoteVisualAr />;
   return null;
@@ -480,7 +479,7 @@ export function HomeClosingAr() {
   const featured = [
     writingArticlesAr.find((article) => article.slug === "when-to-trust-a-probabilistic-forecast"),
     writingArticlesAr.find((article) => article.slug === "why-accuracy-is-not-enough-for-oil-spill-detection"),
-  ].filter((article): article is WritingArticle => Boolean(article));
+  ].filter((article): article is DormantWritingArticleAr => Boolean(article));
 
   return (
     <>

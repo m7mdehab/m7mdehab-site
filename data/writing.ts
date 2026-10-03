@@ -5,11 +5,20 @@ export type WritingEvidence = {
 };
 
 export type WritingSection = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
-  paragraphs: readonly string[];
+  paragraphs?: readonly string[];
   bullets?: readonly string[];
+  blocks?: readonly WritingBlock[];
 };
+
+export type WritingBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "bullets"; items: readonly string[] }
+  | { type: "quote"; text: string; attribution?: string }
+  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "code"; language?: string; code: string }
+  | { type: "callout"; title?: string; text: string };
 
 export type WritingSource = {
   label: string;
@@ -17,24 +26,39 @@ export type WritingSource = {
   kind: "first-hand" | "reference";
 };
 
+export type WritingCategory = "ai" | "technology" | "data" | "career" | "projects" | "notes";
+export type WritingSeries = string;
+export type WritingCover =
+  | { kind: "visual"; visual: "forecast-calibration" | "oil-sar" | "agent-provenance" }
+  | { kind: "image"; src: string; alt: string };
+export type WritingOrigin =
+  | { kind: "project"; projectSlug: string }
+  | { kind: "independent" };
+
 export type WritingArticle = {
   slug: string;
   title: string;
   description: string;
-  topic: string;
-  createdAt: string;
+  status: "published" | "draft";
+  publishedAt: string;
+  updatedAt?: string;
+  category: WritingCategory;
+  topics: readonly string[];
+  series?: WritingSeries;
   readingMinutes: number;
-  projectSlug: "presaira" | "oil-spill-detection" | "opportunityos";
-  projectTitle: string;
-  thesis: string;
-  evidence: readonly WritingEvidence[];
+  homeRank?: number;
+  cover: WritingCover;
+  origin: WritingOrigin;
+  thesis?: string;
+  evidence?: readonly WritingEvidence[];
   sections: readonly WritingSection[];
-  takeaways: readonly string[];
-  sources: readonly WritingSource[];
+  takeaways?: readonly string[];
+  takeawaysTitle?: string;
+  sources?: readonly WritingSource[];
 };
 
 /**
- * First-hand authority writing derived from governed public project evidence.
+ * Editorial content is subordinate to the governed public truth and evidence model.
  *
  * This is editorial content, not a new source of biographical truth. Material
  * project claims must remain supported by the public evidence linked from each
@@ -46,11 +70,15 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "When should you trust a probabilistic forecast?",
     description:
       "A practical trust test for probabilistic forecasts: proper scoring, calibration, complete coverage, leakage-resistant evaluation, reproducibility and published failure modes.",
-    topic: "Forecasting · calibration · evaluation",
-    createdAt: "2026-09-11",
+    status: "published",
+    publishedAt: "2026-09-11",
+    category: "data",
+    topics: ["Forecasting", "Calibration", "Evaluation"],
+    series: "what-the-work-taught-me",
+    homeRank: 1,
+    cover: { kind: "visual", visual: "forecast-calibration" },
     readingMinutes: 9,
-    projectSlug: "presaira",
-    projectTitle: "Presaira",
+    origin: { kind: "project", projectSlug: "presaira" },
     thesis:
       "A forecast earns trust by surviving inspection after reality is known. The useful question is not whether one prediction was right, but whether the probability system was evaluated completely, reproducibly and without hiding the ways it failed.",
     evidence: [
@@ -167,11 +195,15 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "Why accuracy alone is not enough for oil-spill detection",
     description:
       "A metric-design case study from Sentinel-1 SAR segmentation: why rare oil pixels, look-alikes and deployment domain gaps make overall accuracy a weak headline measure.",
-    topic: "Computer vision · metrics · validation",
-    createdAt: "2026-09-11",
+    status: "published",
+    publishedAt: "2026-09-11",
+    category: "data",
+    topics: ["Computer vision", "Metrics", "Validation"],
+    series: "what-the-work-taught-me",
+    homeRank: 2,
+    cover: { kind: "visual", visual: "oil-sar" },
     readingMinutes: 8,
-    projectSlug: "oil-spill-detection",
-    projectTitle: "Oil Spill Detection",
+    origin: { kind: "project", projectSlug: "oil-spill-detection" },
     thesis:
       "When the class you care about is rare, overall accuracy can improve while the useful part of the system remains poor. Evaluation has to follow the operational question: did the model find oil, distinguish it from look-alikes and preserve that behaviour when the pipeline left the curated test chips?",
     evidence: [
@@ -289,11 +321,15 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "What should an AI agent do when the evidence is missing?",
     description:
       "A practical governance pattern for agentic systems: preserve unknowns, trace material claims to evidence and separate content generation from authority to take external action.",
-    topic: "AI agents · provenance · governance",
-    createdAt: "2026-09-11",
+    status: "published",
+    publishedAt: "2026-09-11",
+    category: "ai",
+    topics: ["AI agents", "Provenance", "Governance"],
+    series: "what-the-work-taught-me",
+    homeRank: 3,
+    cover: { kind: "visual", visual: "agent-provenance" },
     readingMinutes: 9,
-    projectSlug: "opportunityos",
-    projectTitle: "OpportunityOS",
+    origin: { kind: "project", projectSlug: "opportunityos" },
     thesis:
       "The safest useful answer to missing evidence is often neither yes nor no. A governed agent needs an explicit unknown state, traceable material claims and a separate authority model for external actions so fluency never silently becomes permission.",
     evidence: [
@@ -414,10 +450,30 @@ export const writingArticles: readonly WritingArticle[] = [
   },
 ] as const;
 
-export const writingSlugs = writingArticles.map((article) => article.slug);
+export const publishedWritingArticles = writingArticles.filter((article) => article.status === "published");
+
+export const writingSlugs = publishedWritingArticles.map((article) => article.slug);
 
 export function getWritingArticle(slug: string) {
-  return writingArticles.find((article) => article.slug === slug);
+  return publishedWritingArticles.find((article) => article.slug === slug);
+}
+
+export function getHomepageWriting(limit = 6) {
+  return publishedWritingArticles
+    .filter((article) => article.homeRank !== undefined)
+    .sort((left, right) => (left.homeRank ?? Infinity) - (right.homeRank ?? Infinity))
+    .slice(0, Math.max(0, Math.min(limit, 6)));
+}
+
+export function getWritingArticleOptionalContent(article: WritingArticle) {
+  return {
+    thesis: article.thesis,
+    evidence: article.evidence ?? [],
+    takeaways: article.takeaways ?? [],
+    takeawaysTitle: article.takeawaysTitle,
+    sources: article.sources ?? [],
+    relatedProjectSlug: article.origin.kind === "project" ? article.origin.projectSlug : undefined,
+  };
 }
 
 export function writingArticleUrl(slug: string) {

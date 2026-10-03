@@ -153,6 +153,10 @@ User visually accepted. PR #15 merged at `0f91ad846c7fa1fac9521daf0683b23ff55e9f
 
 Replaced the old Services + Writing + Contact + utility-footer stack with two evidence-led essays, two explicit opportunity paths, an intentional dark directory footer, and dedicated service routes.
 
+### Writing System Rebuild — 2026-10-03
+
+Writing is a broad personal publishing surface. Project-derived essays are an optional series; future independent writing does not require project, evidence, sources, takeaways or thesis fields. Home uses the shared editorial card grammar in a non-carousel 3/2/1 grid with up to six curated posts. The archive and machine-readable projections include published articles only. The current execution packet, integration patch and rendered QA rubric govern implementation details.
+
 Final Phase G browser suite: `66/66` PASS. User visually accepted. PR #16 merged at `5450fe00b8c1f98e1f7ce46d44142fa0e61aeb9b`.
 
 ## Phase H — About / Professional History — COMPLETE / ACCEPTED
