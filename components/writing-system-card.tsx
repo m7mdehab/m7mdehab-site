@@ -25,7 +25,7 @@ export function WritingSystemCard({
     >
       <div className="writing-system-cover-frame">
         <WritingSystemCover article={article} />
-        <div className="writing-system-cover-meta" aria-hidden="true">
+        <div className="writing-system-cover-meta">
           <span>{writingSystemTopicLabel(article)}</span>
           <span>{writingSystemTimingLabel(article)}</span>
         </div>
