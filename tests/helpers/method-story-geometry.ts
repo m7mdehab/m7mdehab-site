@@ -40,6 +40,20 @@ export async function readSvgPathEndpoints(
   };
 }
 
+export async function readSvgPathSamples(
+  path: Locator,
+  sampleCount = 80,
+): Promise<TestPoint[]> {
+  return path.evaluate((element, count) => {
+    const svgPath = element as SVGPathElement;
+    const length = svgPath.getTotalLength();
+    return Array.from({ length: count - 1 }, (_, index) => {
+      const point = svgPath.getPointAtLength((length * (index + 1)) / count);
+      return { x: point.x, y: point.y };
+    });
+  }, sampleCount);
+}
+
 export async function readLocalRect(
   root: Locator,
   target: Locator,

@@ -3,11 +3,11 @@ import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
 import {
-  edgeAtRatio,
   edgeCenter,
   pointError,
   readLocalRect,
   readSvgPathEndpoints,
+  readSvgPathSamples,
 } from "./helpers/method-story-geometry";
 
 const screenshotRoot = path.join(process.cwd(), "artifacts", "screenshots");
@@ -244,8 +244,6 @@ test.describe("Method story rebuild", () => {
     expect(introLines.support).toBe(1);
   });
 
-
-
   test("desktop measured connectors touch their exact source and destination edges", async ({
     page,
   }) => {
@@ -297,6 +295,43 @@ test.describe("Method story rebuild", () => {
     await expect(measured.locator("[data-method-measured-node]")).toHaveCount(5);
     await expect(outcomePaths).toHaveCount(5);
 
+    const inputRects = await Promise.all(
+      Array.from({ length: 4 }, (_, index) =>
+        readLocalRect(
+          canvas,
+          section.locator("[data-method-input]").nth(index),
+        ),
+      ),
+    );
+    const evidenceRects = await Promise.all(
+      Array.from({ length: 5 }, (_, index) =>
+        readLocalRect(
+          canvas,
+          section.locator(`[data-method-evidence-sheet="${index + 1}"]`),
+        ),
+      ),
+    );
+    const evidenceTagRects = await Promise.all(
+      Array.from(
+        {
+          length: await section.locator(".method-story__evidence-tag").count(),
+        },
+        (_, index) =>
+          readLocalRect(
+            canvas,
+            section.locator(".method-story__evidence-tag").nth(index),
+          ),
+      ),
+    );
+    const crossesRect = (
+      point: { x: number; y: number },
+      rect: Awaited<ReturnType<typeof readLocalRect>>,
+    ) =>
+      point.x > rect.left + 1 &&
+      point.x < rect.right - 1 &&
+      point.y > rect.top + 1 &&
+      point.y < rect.bottom - 1;
+
     const errors: number[] = [];
 
     const incomingSheetIndexes = [1, 2, 4, 5];
@@ -312,10 +347,35 @@ test.describe("Method story rebuild", () => {
           `[data-method-evidence-sheet="${incomingSheetIndexes[index]}"]`,
         ),
       );
+      const targetIndex = incomingSheetIndexes[index] - 1;
       errors.push(
         pointError(endpoints.start, edgeCenter(sourceRect, "right")),
-        pointError(endpoints.end, edgeCenter(targetRect, "left")),
+        Math.abs(endpoints.end.x - targetRect.left),
       );
+      expect(endpoints.end.y).toBeGreaterThan(targetRect.top);
+      expect(endpoints.end.y).toBeLessThan(targetRect.bottom);
+
+      for (const blocker of evidenceRects.slice(0, targetIndex)) {
+        if (endpoints.end.x > blocker.left && endpoints.end.x < blocker.right) {
+          expect(
+            endpoints.end.y < blocker.top || endpoints.end.y > blocker.bottom,
+          ).toBeTruthy();
+        }
+      }
+
+      const blockers = [
+        ...inputRects.filter((_, blockerIndex) => blockerIndex !== index),
+        ...evidenceRects.filter(
+          (_, blockerIndex) => blockerIndex !== targetIndex,
+        ),
+        ...evidenceTagRects,
+      ];
+      const samples = await readSvgPathSamples(inputPaths.nth(index));
+      expect(
+        samples.some((point) =>
+          blockers.some((rect) => crossesRect(point, rect)),
+        ),
+      ).toBe(false);
     }
 
     const reduceInRect = await readLocalRect(
@@ -325,15 +385,39 @@ test.describe("Method story rebuild", () => {
     for (let index = 0; index < 10; index += 1) {
       const endpoints = await readSvgPathEndpoints(exposePaths.nth(index));
       const sheetIndex = Math.floor(index / 2) + 1;
-      const ratio = index % 2 === 0 ? 0.3 : 0.7;
-      const sourceRect = await readLocalRect(
-        canvas,
-        section.locator(`[data-method-evidence-sheet="${sheetIndex}"]`),
-      );
+      const sourceRect = evidenceRects[sheetIndex - 1];
       errors.push(
-        pointError(endpoints.start, edgeAtRatio(sourceRect, "right", ratio)),
+        Math.abs(endpoints.start.x - sourceRect.right),
         pointError(endpoints.end, edgeCenter(reduceInRect, "left")),
       );
+      expect(endpoints.start.y).toBeGreaterThan(sourceRect.top);
+      expect(endpoints.start.y).toBeLessThan(sourceRect.bottom);
+
+      for (const blocker of evidenceRects.slice(sheetIndex)) {
+        if (
+          endpoints.start.x > blocker.left &&
+          endpoints.start.x < blocker.right
+        ) {
+          expect(
+            endpoints.start.y < blocker.top ||
+              endpoints.start.y > blocker.bottom,
+          ).toBeTruthy();
+        }
+      }
+
+      const blockers = [
+        ...inputRects,
+        ...evidenceRects.filter(
+          (_, blockerIndex) => blockerIndex !== sheetIndex - 1,
+        ),
+        ...evidenceTagRects,
+      ];
+      const samples = await readSvgPathSamples(exposePaths.nth(index));
+      expect(
+        samples.some((point) =>
+          blockers.some((rect) => crossesRect(point, rect)),
+        ),
+      ).toBe(false);
     }
 
     const reduceBuild = await readSvgPathEndpoints(

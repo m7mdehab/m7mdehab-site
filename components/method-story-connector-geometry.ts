@@ -103,15 +103,92 @@ function relativePoint(rootRect: DOMRect, element: HTMLElement): MethodStoryPoin
   };
 }
 
-function edgePoint(
+function visibleEdgeSegment(
   rect: MethodStoryRect,
   edge: "left" | "right",
+  occluders: MethodStoryRect[],
+  clearance = 2,
+): { top: number; bottom: number } {
+  const edgeX = edge === "left" ? rect.left : rect.right;
+  const start = rect.top + clearance;
+  const end = rect.bottom - clearance;
+  const covered = occluders
+    .filter((other) => edgeX > other.left && edgeX < other.right)
+    .map((other) => ({
+      top: Math.max(start, other.top - clearance),
+      bottom: Math.min(end, other.bottom + clearance),
+    }))
+    .filter((interval) => interval.bottom > interval.top)
+    .sort((first, second) => first.top - second.top);
+
+  const visible: Array<{ top: number; bottom: number }> = [];
+  let cursor = start;
+  for (const interval of covered) {
+    if (interval.top > cursor)
+      visible.push({ top: cursor, bottom: interval.top });
+    cursor = Math.max(cursor, interval.bottom);
+  }
+  if (cursor < end) visible.push({ top: cursor, bottom: end });
+
+  const segment = visible.reduce<{ top: number; bottom: number } | null>(
+    (largest, current) =>
+      !largest || current.bottom - current.top > largest.bottom - largest.top
+        ? current
+        : largest,
+    null,
+  );
+
+  if (!segment || segment.bottom - segment.top < 4) {
+    throw new Error(`Method Story ${edge} edge has no exposed connector port`);
+  }
+  return segment;
+}
+
+function visibleEdgePoint(
+  rect: MethodStoryRect,
+  edge: "left" | "right",
+  occluders: MethodStoryRect[],
   ratio = 0.5,
 ): MethodStoryPoint {
+  const segment = visibleEdgeSegment(rect, edge, occluders);
   return {
     x: edge === "left" ? rect.left : rect.right,
-    y: rect.top + rect.height * ratio,
+    y: segment.top + (segment.bottom - segment.top) * ratio,
   };
+}
+
+function routedHorizontalPath(
+  start: MethodStoryPoint,
+  end: MethodStoryPoint,
+  laneX: number,
+): string {
+  const verticalDistance = end.y - start.y;
+  if (Math.abs(verticalDistance) < 1) {
+    return `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
+  }
+
+  const radius = Math.min(
+    12,
+    Math.abs(verticalDistance) / 2,
+    (laneX - start.x) / 3,
+    (end.x - laneX) / 3,
+  );
+  const direction = Math.sign(verticalDistance);
+  const curveFactor = 0.5523;
+  const firstBendEndY = start.y + direction * radius;
+  const secondBendStartY = end.y - direction * radius;
+  return [
+    `M ${start.x.toFixed(2)} ${start.y.toFixed(2)}`,
+    `L ${(laneX - radius).toFixed(2)} ${start.y.toFixed(2)}`,
+    `C ${(laneX - radius + radius * curveFactor).toFixed(2)} ${start.y.toFixed(2)}`,
+    `${laneX.toFixed(2)} ${(firstBendEndY - direction * radius * curveFactor).toFixed(2)}`,
+    `${laneX.toFixed(2)} ${firstBendEndY.toFixed(2)}`,
+    `L ${laneX.toFixed(2)} ${secondBendStartY.toFixed(2)}`,
+    `C ${laneX.toFixed(2)} ${(secondBendStartY + direction * radius * curveFactor).toFixed(2)}`,
+    `${(laneX + radius - radius * curveFactor).toFixed(2)} ${end.y.toFixed(2)}`,
+    `${(laneX + radius).toFixed(2)} ${end.y.toFixed(2)}`,
+    `L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`,
+  ].join(" ");
 }
 
 function horizontalCurve(
@@ -142,9 +219,17 @@ export function measureMethodStoryDesktopGeometry(
 ): MethodStoryConnectorGeometry {
   const rootRect = root.getBoundingClientRect();
 
-  const messySources = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map(
-    (selector) => relativePoint(rootRect, queryRequired(root, selector)),
+  const messySources = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map((selector) =>
+    relativePoint(rootRect, queryRequired(root, selector)),
   );
+  const messyRects = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map((selector) => {
+    const input = queryRequired(root, selector).closest<HTMLElement>(
+      "[data-method-input]",
+    );
+    if (!input)
+      throw new Error(`Method Story input card missing for ${selector}`);
+    return relativeRect(rootRect, input);
+  });
 
   const evidenceRects = METHOD_STORY_DESKTOP_ANCHORS.evidenceSheets.map(
     (selector) => relativeRect(rootRect, queryRequired(root, selector)),
@@ -154,15 +239,20 @@ export function measureMethodStoryDesktopGeometry(
   // Keep the middle sheet unassigned so the stack still reads as five layers.
   const incomingSheetIndexes = [0, 1, 3, 4] as const;
   const exposeLeftTargets = incomingSheetIndexes.map((sheetIndex) =>
-    edgePoint(evidenceRects[sheetIndex], "left"),
+    visibleEdgePoint(
+      evidenceRects[sheetIndex],
+      "left",
+      evidenceRects.slice(0, sheetIndex),
+    ),
   );
 
   // Two outgoing paths per evidence sheet = ten total paths.
-  // This makes the convergence occupy the full visual height of the five-sheet stack.
-  const exposeRightSources = evidenceRects.flatMap((rect) => [
-    edgePoint(rect, "right", 0.3),
-    edgePoint(rect, "right", 0.7),
-  ]);
+  // Place them only on edge segments exposed beyond all later sheets.
+  const exposeRightSources = evidenceRects.flatMap((rect, index) =>
+    [0.3, 0.7].map((ratio) =>
+      visibleEdgePoint(rect, "right", evidenceRects.slice(index + 1), ratio),
+    ),
+  );
 
   const reduceLeft = relativePoint(
     rootRect,
@@ -199,8 +289,14 @@ export function measureMethodStoryDesktopGeometry(
     y: target.y,
   }));
 
+  const incomingLaneX = Math.max(...messyRects.map((rect) => rect.right)) + 12;
+
   const inputToExpose = messySources.map((source, index) =>
-    horizontalCurve(source, exposeLeftTargets[index], 0.38),
+    routedHorizontalPath(
+      source,
+      exposeLeftTargets[index],
+      incomingLaneX + index * 5,
+    ),
   );
 
   const exposeToReduce = exposeRightSources.map((source) =>
