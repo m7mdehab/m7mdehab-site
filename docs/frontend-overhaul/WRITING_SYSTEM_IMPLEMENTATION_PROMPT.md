@@ -43,9 +43,9 @@ PR #29 also changes the English layout and Method. Preserve its accepted result 
 
 Home:
 
-- H2: `Writing.`;
-- copy: `Notes on AI, technology, work, projects, and whatever else I’m thinking through.`;
-- CTA: `All writing`;
+- H2: `What I’m thinking through.`;
+- no supporting lede under/alongside the Home heading;
+- CTA: `All writing`, placed after the grid at the bottom-right;
 - current three published posts;
 - maximum six curated posts via `homeRank`;
 - 3 columns desktop / 2 tablet / 1 mobile;
@@ -57,8 +57,9 @@ Home:
 
 `/writing`:
 
-- H1: `Writing.`;
-- same broad lede;
+- eyebrow: `Writing`;
+- H1: `What I’m thinking through.`;
+- no redundant archive lede;
 - shared card grammar;
 - every published post;
 - no filters/search/pagination in this phase.
@@ -75,6 +76,7 @@ Start from the prepared non-live files:
 - `components/writing-system-index.tsx`;
 - `components/writing-system-article-blocks.tsx`;
 - `components/writing-system-article.tsx`;
+- `components/writing-system-listen.tsx`;
 - `components/writing-system-schema.ts`;
 - `components/writing-system-contract.ts` (temporary; delete after canonical data migration);
 - `app/writing-system.css`.
@@ -106,6 +108,9 @@ Generalize article data around:
 - topics;
 - optional series;
 - readingMinutes;
+- optional listenMinutes;
+- optional real audio asset metadata;
+- optional concise cardDescription;
 - optional homeRank;
 - cover;
 - origin = project | independent;
@@ -116,9 +121,9 @@ Keep existing paragraphs/bullets compatible. Add typed blocks for future posts w
 
 Current three:
 
-1. forecast → data → homeRank 1 → forecast-calibration → Presaira;
-2. oil spill → data → homeRank 2 → oil-sar → Oil Spill Detection;
-3. AI agent → ai → homeRank 3 → agent-provenance → OpportunityOS.
+1. forecast → data → 9 min read / ~8 min listen → concise cardDescription → homeRank 1 → forecast-calibration → Presaira;
+2. oil spill → data → 8 min read / ~8 min listen → concise cardDescription → homeRank 2 → oil-sar → Oil Spill Detection;
+3. AI agent → ai → 9 min read / ~8 min listen → concise cardDescription → homeRank 3 → agent-provenance → OpportunityOS.
 
 All three series:
 
@@ -155,9 +160,12 @@ Minimal, clean, elegant, calm.
 Card:
 
 - 16:9 cover;
-- compact metadata;
-- restrained Newsreader title;
-- muted excerpt;
+- category/topic at bottom-left **inside** the cover;
+- read/listen timing at bottom-right **inside** the cover;
+- dedicated dark bottom gradient behind metadata for contrast;
+- no duplicated top taxonomy label;
+- restrained Newsreader title with a **hard two-line maximum**;
+- concise cardDescription with a **hard two-line maximum**;
 - transparent outer background;
 - whole card is one link;
 - no SaaS shell or heavy shadow.
@@ -219,25 +227,27 @@ Keep Selected Work carousel behavior and tests intact.
 2. read governing docs/local Next docs;
 3. migrate the temporary scaffold contract into canonical `data/writing.ts`;
 4. repoint the prepared cover/card/index/block/article/schema components to canonical data types;
-5. activate the prepared Home Writing section and isolated stylesheet;
-6. extract Writing from HomeClosing;
-7. update Home route;
-8. activate the prepared archive scaffold;
-9. activate/tune the prepared conditional article renderer rather than rebuilding it;
-10. wire the prepared `BlogPosting` schema builder into route metadata/JSON-LD;
-11. update JSON/discovery/llms;
-12. update tests;
-13. add/import isolated CSS;
-14. typecheck/lint/build/static-export;
-15. run focused browser tests;
-16. run full browser suite;
-17. render the full screenshot matrix;
-18. inspect against the visual QA rubric;
-19. fix objective visual defects in the same pass;
-20. rerun validation;
-21. reconcile governing docs;
-22. commit/push/PR/check/merge/deploy per `AGENTS.md`;
-23. verify live `/`, `/writing`, the three article URLs and `/writing.json`.
+5. activate the refined prepared Home Writing section and isolated stylesheet;
+6. keep the CTA below the grid and ensure the Home lede is absent;
+7. extract Writing from HomeClosing;
+8. update Home route;
+9. activate the refined archive scaffold;
+10. activate/tune the prepared conditional article renderer rather than rebuilding it;
+11. wire the prepared Listen component so it renders only for real audio assets;
+12. wire the prepared `BlogPosting` schema builder and optional `AudioObject`;
+13. update JSON/discovery/llms;
+14. update tests;
+15. add/import isolated CSS;
+16. typecheck/lint/build/static-export;
+17. run focused browser tests;
+18. run full browser suite;
+19. render the full screenshot matrix;
+20. inspect against the visual QA rubric;
+21. fix objective visual defects in the same pass;
+22. rerun validation;
+23. reconcile governing docs;
+24. commit/push/PR/check/merge/deploy per `AGENTS.md`;
+25. verify live `/`, `/writing`, the three article URLs and `/writing.json`.
 
 ## Render targets
 
@@ -272,6 +282,11 @@ Do not treat automated tests as visual acceptance.
 
 - preserve the old Writing carousel;
 - keep article dots;
+- put category/timing metadata below the thumbnail;
+- allow any card title to exceed two visible lines;
+- restore the removed explanatory Home lede;
+- put All writing back in the header;
+- render a disabled/fake audio player when no real audio source exists;
 - add filter/search UI;
 - fill a 3×3 with placeholders;
 - show nine Home posts by default;
@@ -314,6 +329,7 @@ A non-live implementation scaffold is already present on the groundwork branch/m
 - `components/home-writing-section.tsx`
 - `components/writing-system-article-blocks.tsx`
 - `components/writing-system-article.tsx`
+- `components/writing-system-listen.tsx`
 - `components/writing-system-schema.ts`
 - `app/writing-system.css`
 - `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`
@@ -327,3 +343,14 @@ The temporary `writing-system-contract.ts` exists only to make the prefabricated
 The stylesheet is intentionally unimported until activation.
 
 Before final QA, verify the scaffold has been fully collapsed into the canonical runtime architecture and no duplicate editorial model remains.
+
+
+## Refinement authority
+
+Also read and obey:
+
+`docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`
+
+It supersedes v1.0 presentation details for the heading, lede, CTA placement, metadata placement, title clamp, card-description density, SAR crop and audio-ready behavior.
+
+Do not “restore” the previous screenshot merely because it already looked polished.
