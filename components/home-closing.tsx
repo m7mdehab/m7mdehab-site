@@ -280,19 +280,13 @@ export function HomeClosing({
 
       <footer className="closing-directory">
         <div className="shell closing-directory-grid">
-          <div className="closing-directory-brand">
-            <Link
-              className="closing-directory-mark"
-              href="/#top"
-              aria-label="M7 — back to top"
-            >
-              M7
-            </Link>
-            <div>
-              <strong>{profile.name}</strong>
-              <span>Data · AI · Product</span>
-            </div>
-          </div>
+          <Link
+            className="closing-directory-mark"
+            href="/#top"
+            aria-label="M7 — back to top"
+          >
+            M7
+          </Link>
 
           <nav className="closing-directory-nav" aria-label="Footer directory">
             <Link href="/#work">Work</Link>
@@ -302,10 +296,6 @@ export function HomeClosing({
           </nav>
 
           <div className="closing-directory-end">
-            <p>
-              © {new Date().getFullYear()} {profile.name} · Built as a living
-              professional web identity.
-            </p>
             <div className="closing-directory-icons" aria-label="Contact links">
               <a
                 href={emailComposeHref()}
@@ -314,7 +304,7 @@ export function HomeClosing({
                 aria-label={`Email ${profile.name}`}
                 data-conversion="footer-email"
               >
-                <Mail size={14} aria-hidden="true" />
+                <Mail size={16} aria-hidden="true" />
               </a>
               <a
                 href={profile.linkedin}
@@ -322,7 +312,7 @@ export function HomeClosing({
                 rel="noreferrer"
                 aria-label={`${profile.name} on LinkedIn`}
               >
-                <Linkedin size={14} aria-hidden="true" />
+                <Linkedin size={16} aria-hidden="true" />
               </a>
               <a
                 href={profile.github}
@@ -330,9 +320,13 @@ export function HomeClosing({
                 rel="noreferrer"
                 aria-label={`${profile.name} on GitHub`}
               >
-                <Github size={14} aria-hidden="true" />
+                <Github size={16} aria-hidden="true" />
               </a>
             </div>
+            <p>
+              © {new Date().getFullYear()} · Built as a living professional web
+              identity.
+            </p>
           </div>
         </div>
       </footer>

@@ -91,7 +91,7 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
     }
   });
 
-  test("mobile dock exposes all destinations, stays fixed on scroll, and removes the top bar", async ({
+  test("mobile header exposes all destinations and hides down / returns up", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 320, height: 844 });
@@ -114,16 +114,24 @@ test.describe("Surgical pass 01 homepage identity and navigation", () => {
         44,
       );
     }
-    const initial = await page.locator(".site-nav-wrap").boundingBox();
-    expect(initial?.y).toBeGreaterThan(700);
-    await page.evaluate(() =>
-      window.scrollTo(0, document.body.scrollHeight / 2),
-    );
-    await page.waitForTimeout(150);
-    const scrolled = await page.locator(".site-nav-wrap").boundingBox();
-    expect(
-      Math.abs((scrolled?.y ?? 0) - (initial?.y ?? 0)),
-    ).toBeLessThanOrEqual(1);
+
+    const wrap = page.locator(".site-nav-wrap");
+    const initial = await wrap.boundingBox();
+    expect(initial?.y).toBeGreaterThanOrEqual(0);
+    expect(initial?.y).toBeLessThan(40);
+
+    await page.evaluate(() => window.scrollTo(0, 900));
+    await expect(wrap).toHaveAttribute("data-nav-hidden", "true");
+    await page.waitForTimeout(420);
+    const hidden = await wrap.boundingBox();
+    expect(hidden ? hidden.y + hidden.height : 0).toBeLessThanOrEqual(8);
+
+    await page.evaluate(() => window.scrollBy(0, -240));
+    await expect(wrap).toHaveAttribute("data-nav-hidden", "false");
+    await page.waitForTimeout(420);
+    const visible = await wrap.boundingBox();
+    expect(visible?.y).toBeGreaterThanOrEqual(0);
+    expect(visible?.y).toBeLessThan(40);
   });
 
   test("logo rail uses image assets, relationship titles, marquee and an accessible hover label", async ({
