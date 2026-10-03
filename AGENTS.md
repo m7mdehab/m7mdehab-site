@@ -76,6 +76,7 @@ For this chapter:
 
 The English Writing system is under an explicit design/architecture-locked rebuild. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering or writing discovery/schema, read:
 
+- `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_PACKET.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_EXECUTION_PACKET.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_INTEGRATION_PATCH.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`;
@@ -85,6 +86,7 @@ The English Writing system is under an explicit design/architecture-locked rebui
 - `docs/frontend-overhaul/WRITING_SYSTEM_DATA_MIGRATION_PATCH.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_ROUTE_ACTIVATION_PATCH.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_AUTHORING_GUIDE.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_FINAL_EXECUTION_PROMPT.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V12_EXECUTION_PROMPT.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V11_EXECUTION_PROMPT.md`;
@@ -94,6 +96,8 @@ For Writing:
 - the route/nav taxonomy is **Writing**, while the visible Home/archive heading is **What I’m thinking through.**;
 - “What the Work Taught Me” is only an optional series for work-derived essays;
 - Home uses a non-carousel 3/2/1 editorial card grid with up to six explicitly curated posts;
+- card metadata belongs inside the bottom of the cover; titles are visually capped at two lines; Home CTA sits after the grid at bottom-right;
+- every article carries read and listen timing; real audio is optional and must never be fabricated;
 - card taxonomy and read/listen timing live inside the cover bottom edge;
 - card titles are hard-capped at two visual lines; card descriptions are hidden on mobile;
 - every article carries read + listen timing; audio itself remains optional and never autoplays;
