@@ -30,7 +30,7 @@ const schema = {
   "@id": `${canonical}#collection`,
   url: canonical,
   name: `Writing — ${profile.name}`,
-  description: "First-hand technical essays derived from inspectable project evidence.",
+  description: "Personal writing on AI, technology, data, career, projects and ideas worth thinking through.",
   inLanguage: "en",
   author: { "@id": `${profile.domain}/#person`, "@type": "Person", name: profile.name, url: profile.domain },
   hasPart: publishedWritingArticles.map((article) => ({
