@@ -33,6 +33,7 @@ import { useMethodStoryDesktopGeometry } from "@/components/use-method-story-des
 type Progress = MotionValue<number>;
 
 const DESKTOP_QUERY = "(min-width: 1100px)";
+const MOBILE_QUERY = "(max-width: 719px)";
 
 function subscribeDesktopMatch(callback: () => void) {
   const media = window.matchMedia(DESKTOP_QUERY);
@@ -45,6 +46,20 @@ function getDesktopSnapshot() {
 }
 
 function getDesktopServerSnapshot() {
+  return false;
+}
+
+function subscribeMobileMatch(callback: () => void) {
+  const media = window.matchMedia(MOBILE_QUERY);
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function getMobileSnapshot() {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+
+function getMobileServerSnapshot() {
   return false;
 }
 
@@ -317,6 +332,23 @@ function OutputRow({
   );
 }
 
+function MobileStoryProgress({ progress }: { progress: Progress }) {
+  const scaleX = useTransform(progress, [0, 1], [0, 1]);
+
+  return (
+    <div className="method-story__mobile-progress" aria-hidden="true">
+      <div className="method-story__mobile-progress-track">
+        <motion.i style={{ scaleX }} />
+      </div>
+      <div className="method-story__mobile-progress-labels">
+        {METHOD_STORY.stages.map((stage) => (
+          <span key={stage.id}>{stage.index}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
@@ -325,10 +357,17 @@ export function MethodStoryCanvas() {
     getDesktopSnapshot,
     getDesktopServerSnapshot,
   );
+  const isMobile = useSyncExternalStore(
+    subscribeMobileMatch,
+    getMobileSnapshot,
+    getMobileServerSnapshot,
+  );
   const enhanced = !reducedMotion;
   const scrollOffset = isDesktop
     ? METHOD_STORY_MOTION.desktopScrollOffset
-    : METHOD_STORY_MOTION.scrollOffset;
+    : isMobile
+      ? (["start 12%", "end 88%"] as const)
+      : METHOD_STORY_MOTION.scrollOffset;
   const { scrollYProgress } = useScroll({
     target: rootRef,
     offset: [...scrollOffset],
@@ -346,6 +385,37 @@ export function MethodStoryCanvas() {
   const outputOpacity = useTransform(progress, [0.76, 0.88], [0.55, 1]);
   const decisionScale = useTransform(progress, [0.43, 0.58], [0.88, 1]);
   const decisionOpacity = useTransform(progress, [0.43, 0.56], [0.35, 1]);
+
+  const mobileMessyOpacity = useTransform(
+    progress,
+    [0, 0.13, 0.2],
+    [1, 1, 0],
+  );
+  const mobileExposeOpacity = useTransform(
+    progress,
+    [0.14, 0.22, 0.34, 0.42],
+    [0, 1, 1, 0],
+  );
+  const mobileReduceOpacity = useTransform(
+    progress,
+    [0.36, 0.44, 0.56, 0.64],
+    [0, 1, 1, 0],
+  );
+  const mobileBuildOpacity = useTransform(
+    progress,
+    [0.58, 0.66, 0.78, 0.86],
+    [0, 1, 1, 0],
+  );
+  const mobileOutcomeOpacity = useTransform(
+    progress,
+    [0.8, 0.88, 1],
+    [0, 1, 1],
+  );
+  const mobileMessyY = useTransform(progress, [0, 0.2], [0, -18]);
+  const mobileExposeY = useTransform(progress, [0.14, 0.22], [18, 0]);
+  const mobileReduceY = useTransform(progress, [0.36, 0.44], [18, 0]);
+  const mobileBuildY = useTransform(progress, [0.58, 0.66], [18, 0]);
+  const mobileOutcomeY = useTransform(progress, [0.8, 0.88], [18, 0]);
 
   return (
     <div
@@ -411,13 +481,20 @@ export function MethodStoryCanvas() {
         </svg>
       )}
 
-      <ol
-        className="method-story__journey"
-        aria-label="From messy reality to reliable outcomes"
-      >
-        <li
+      <div className="method-story__stage-shell">
+        <MobileStoryProgress progress={progress} />
+        <ol
+          className="method-story__journey"
+          aria-label="From messy reality to reliable outcomes"
+        >
+        <motion.li
           className="method-story__stage method-story__stage--messy"
           data-method-stage="messy"
+          style={
+            isMobile && enhanced
+              ? { opacity: mobileMessyOpacity, y: mobileMessyY }
+              : undefined
+          }
         >
           <StageHeader id="messy" />
           <div className="method-story__input-field">
@@ -447,7 +524,7 @@ export function MethodStoryCanvas() {
               aria-hidden="true"
             />
           </div>
-        </li>
+        </motion.li>
 
         <li className="method-story__transformation">
           <ol
@@ -457,7 +534,13 @@ export function MethodStoryCanvas() {
             <motion.li
               className="method-story__stage method-story__stage--expose"
               data-method-stage="expose"
-              style={enhanced ? { opacity: exposeOpacity } : undefined}
+              style={
+                isMobile && enhanced
+                  ? { opacity: mobileExposeOpacity, y: mobileExposeY }
+                  : enhanced
+                    ? { opacity: exposeOpacity }
+                    : undefined
+              }
             >
               <StageHeader id="expose" />
               <div className="method-story__evidence-field">
@@ -501,7 +584,13 @@ export function MethodStoryCanvas() {
             <motion.li
               className="method-story__stage method-story__stage--reduce"
               data-method-stage="reduce"
-              style={enhanced ? { opacity: reduceOpacity } : undefined}
+              style={
+                isMobile && enhanced
+                  ? { opacity: mobileReduceOpacity, y: mobileReduceY }
+                  : enhanced
+                    ? { opacity: reduceOpacity }
+                    : undefined
+              }
             >
               <StageHeader id="reduce" />
               <div className="method-story__decision-field">
@@ -570,7 +659,13 @@ export function MethodStoryCanvas() {
             <motion.li
               className="method-story__stage method-story__stage--build"
               data-method-stage="build"
-              style={enhanced ? { opacity: buildOpacity } : undefined}
+              style={
+                isMobile && enhanced
+                  ? { opacity: mobileBuildOpacity, y: mobileBuildY }
+                  : enhanced
+                    ? { opacity: buildOpacity }
+                    : undefined
+              }
             >
               <StageHeader id="build" />
               <div className="method-story__build-field">
@@ -614,7 +709,13 @@ export function MethodStoryCanvas() {
         <motion.li
           className="method-story__stage method-story__stage--outcomes"
           data-method-stage="outcomes"
-          style={enhanced ? { opacity: outputOpacity } : undefined}
+          style={
+            isMobile && enhanced
+              ? { opacity: mobileOutcomeOpacity, y: mobileOutcomeY }
+              : enhanced
+                ? { opacity: outputOpacity }
+                : undefined
+          }
         >
           <StageHeader id="outcomes" />
           <ul className="method-story__outputs">
@@ -629,7 +730,8 @@ export function MethodStoryCanvas() {
             ))}
           </ul>
         </motion.li>
-      </ol>
+        </ol>
+      </div>
     </div>
   );
 }
