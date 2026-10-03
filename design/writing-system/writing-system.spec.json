@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
+  "version": "1.1",
   "status": "design-architecture-refinement-locked",
   "scope": [
     "home-writing",
@@ -39,7 +39,12 @@
     "excerptMaxLines": 2,
     "mobileExcerpt": "hidden",
     "desktopExcerpt": "cardDescription-or-description; maximum two visible lines",
-    "oilCoverCrop": "crop/mask source-strip text so it reads as an editorial cover"
+    "oilCoverCrop": "crop/mask source-strip text so it reads as an editorial cover",
+    "mobileDescriptions": false,
+    "cardTitleMaxLines": 2,
+    "cardDescriptionMaxLines": 2,
+    "metadataPlacement": "inside-cover-bottom",
+    "ctaPlacement": "after-grid-bottom-right"
   },
   "behavior": {
     "carousel": false,
@@ -174,6 +179,12 @@
     "metadata-below-cover",
     "three-line-card-title",
     "duplicate-cover-taxonomy-label",
-    "fake-audio-control-without-source"
+    "fake-audio-control-without-source",
+    "home-heading-writing-only",
+    "home-explanatory-lede",
+    "top-header-writing-cta",
+    "card-title-over-two-lines",
+    "mobile-card-descriptions",
+    "fake-audio-player"
   ]
 }
