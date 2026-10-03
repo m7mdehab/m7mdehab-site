@@ -224,34 +224,35 @@ test.describe("Phone composition", () => {
       }
 
       const footerAlignment = await page.evaluate(() => {
-        const footer = document.querySelector<HTMLElement>(".closing-directory")!;
-        const copy = footer.querySelector<HTMLElement>(".closing-directory-end > p")!;
-        const icons = footer.querySelector<HTMLElement>(".closing-directory-icons")!;
-        const footerBox = footer.getBoundingClientRect();
+        const grid = document.querySelector<HTMLElement>(".closing-directory-grid")!;
+        const mark = grid.querySelector<HTMLElement>(".closing-directory-mark")!;
+        const nav = grid.querySelector<HTMLElement>(".closing-directory-nav")!;
+        const icons = grid.querySelector<HTMLElement>(".closing-directory-icons")!;
+        const copy = grid.querySelector<HTMLElement>(".closing-directory-end > p")!;
+        const gridBox = grid.getBoundingClientRect();
+        const boxes = [mark, nav, icons].map((node) => node.getBoundingClientRect());
         const copyBox = copy.getBoundingClientRect();
-        const iconBox = icons.getBoundingClientRect();
         const copyStyle = getComputedStyle(copy);
         return {
-          copyLeft: copyBox.left,
-          copyRight: copyBox.right,
-          copyCenterY: copyBox.top + copyBox.height / 2,
+          rowCenters: boxes.map((box) => box.top + box.height / 2),
+          rowBottom: Math.max(...boxes.map((box) => box.bottom)),
+          copyTop: copyBox.top,
+          copyCenterX: copyBox.left + copyBox.width / 2,
+          gridCenterX: gridBox.left + gridBox.width / 2,
           copyHeight: copyBox.height,
           copyLineHeight: Number.parseFloat(copyStyle.lineHeight),
-          copyFontSize: Number.parseFloat(copyStyle.fontSize),
           copyClient: copy.clientWidth,
           copyScroll: copy.scrollWidth,
-          iconLeft: iconBox.left,
-          iconCenterY: iconBox.top + iconBox.height / 2,
-          iconRightGap: footerBox.right - iconBox.right,
         };
       });
-      expect(footerAlignment.iconLeft).toBeGreaterThan(footerAlignment.copyLeft);
-      expect(footerAlignment.iconLeft - footerAlignment.copyRight).toBeLessThanOrEqual(12);
-      expect(Math.abs(footerAlignment.iconCenterY - footerAlignment.copyCenterY)).toBeLessThanOrEqual(2);
-      expect(footerAlignment.iconRightGap).toBeLessThan(width * 0.14);
+      expect(
+        Math.max(...footerAlignment.rowCenters) - Math.min(...footerAlignment.rowCenters),
+        `${width}px footer primary items share one center line`,
+      ).toBeLessThanOrEqual(2);
+      expect(footerAlignment.copyTop).toBeGreaterThanOrEqual(footerAlignment.rowBottom + 6);
+      expect(Math.abs(footerAlignment.copyCenterX - footerAlignment.gridCenterX)).toBeLessThanOrEqual(2);
       expect(footerAlignment.copyScroll).toBeLessThanOrEqual(footerAlignment.copyClient + 1);
       expect(footerAlignment.copyHeight).toBeLessThanOrEqual(footerAlignment.copyLineHeight + 2);
-      expect(footerAlignment.copyFontSize).toBeLessThanOrEqual(7.5);
 
       const activeOpportunityTitle = await page
         .locator(".closing-path.is-active h3")
@@ -616,22 +617,34 @@ test.describe("Phone composition", () => {
           page.locator(".nav-links a[href='/writing']"),
         ).toBeVisible();
 
-        const footerRow = await page.evaluate(() => {
-          const selectors = [
+        const footerGeometry = await page.evaluate(() => {
+          const grid = document.querySelector<HTMLElement>(".closing-directory-grid")!;
+          const primarySelectors = [
             ".closing-directory-mark",
             ".closing-directory-nav",
             ".closing-directory-icons",
-            ".closing-directory-end > p",
           ];
-          return selectors.map((selector) => {
-            const box = document.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
-            return box.top + box.height / 2;
-          });
+          const primary = primarySelectors.map((selector) =>
+            grid.querySelector<HTMLElement>(selector)!.getBoundingClientRect(),
+          );
+          const copy = grid
+            .querySelector<HTMLElement>(".closing-directory-end > p")!
+            .getBoundingClientRect();
+          const gridBox = grid.getBoundingClientRect();
+          return {
+            rowCenters: primary.map((box) => box.top + box.height / 2),
+            rowBottom: Math.max(...primary.map((box) => box.bottom)),
+            copyTop: copy.top,
+            copyCenterX: copy.left + copy.width / 2,
+            gridCenterX: gridBox.left + gridBox.width / 2,
+          };
         });
         expect(
-          Math.max(...footerRow) - Math.min(...footerRow),
-          `${viewport.width}px footer items share one center line`,
+          Math.max(...footerGeometry.rowCenters) - Math.min(...footerGeometry.rowCenters),
+          `${viewport.width}px footer primary items share one center line`,
         ).toBeLessThanOrEqual(3);
+        expect(footerGeometry.copyTop).toBeGreaterThan(footerGeometry.rowBottom);
+        expect(Math.abs(footerGeometry.copyCenterX - footerGeometry.gridCenterX)).toBeLessThanOrEqual(2);
 
         const desktopTitles = await page.locator(".closing-path h3").evaluateAll((items) =>
           items.map((item) => {
