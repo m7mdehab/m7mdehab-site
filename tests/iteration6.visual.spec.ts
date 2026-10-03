@@ -152,7 +152,7 @@ test.describe("progressive enhancement without JavaScript", () => {
   test.use({ javaScriptEnabled: false, viewport: { width: 1440, height: 1000 } });
 
   test("homepage evidence and narrative remain visible", async ({ page }) => {
-    const response = await page.goto("/");
+    const response = await page.goto("/", { waitUntil: "domcontentloaded" });
     expect(response?.ok()).toBeTruthy();
     await page.waitForLoadState("domcontentloaded");
 

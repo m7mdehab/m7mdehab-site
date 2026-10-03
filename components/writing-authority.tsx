@@ -9,6 +9,7 @@ import {
   getWritingTocEntries,
   writingCategories,
   writingSectionAnchor,
+  writingSectionCopy,
   type PublishedWritingArticle,
   type WritingBlock,
 } from "@/data/writing";
@@ -36,7 +37,8 @@ export function WritingIndex({ articles }: { articles: readonly PublishedWriting
       <div className="writing-system-shell">
         <header className="writing-system-archive-header">
           <p className="writing-system-archive-kicker">Writing</p>
-          <h1>What I’m thinking through.</h1>
+          <h1>{writingSectionCopy.heading}</h1>
+          <p className="writing-system-archive-subtitle">{writingSectionCopy.subtitle}</p>
         </header>
         <div className="writing-system-grid">
           {ordered.map((article) => <WritingCard key={article.slug} article={article} context="archive" />)}
