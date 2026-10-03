@@ -398,29 +398,48 @@ test.describe("Phone composition", () => {
     ).toHaveAttribute("href", "/work/makhbazy");
   });
 
-  test("method story exposes all five stages vertically without mobile tabs", async ({
+  test("method story becomes one pinned five-stage transformation on mobile", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
+
     const section = page.locator("[data-method-story]");
+    const canvas = section.locator("[data-method-canvas]");
     const stages = section.locator("[data-method-stage]");
+
     await expect(stages).toHaveCount(5);
     await expect(section.locator('[role="tab"]')).toHaveCount(0);
+    await expect(canvas).toHaveAttribute("data-mobile-enhanced", "true");
+    await expect(section.locator(".method-story__stage-shell")).toHaveCSS(
+      "position",
+      "sticky",
+    );
+    await expect(
+      section.locator(".method-story__mobile-progress-labels span"),
+    ).toHaveCount(5);
+
     await expect(stages.nth(0)).toContainText("Messy reality");
     await expect(stages.nth(1)).toContainText("Expose the truth");
     await expect(stages.nth(2)).toContainText("Reduce ambiguity");
     await expect(stages.nth(3)).toContainText("Build the system");
     await expect(stages.nth(4)).toContainText("Reliable outcomes");
-    const stageTops = await stages.evaluateAll((items) =>
-      items.map((item) => item.getBoundingClientRect().top),
+
+    const positions = await stages.evaluateAll((items) =>
+      items.map((item) => {
+        const rect = item.getBoundingClientRect();
+        return {
+          position: getComputedStyle(item).position,
+          left: rect.left,
+          right: rect.right,
+        };
+      }),
     );
-    expect(
-      stageTops.every(
-        (top, index) => index === 0 || top > stageTops[index - 1],
-      ),
-    ).toBeTruthy();
+    expect(positions.every((item) => item.position === "absolute")).toBeTruthy();
+    expect(positions.every((item) => item.left >= -1)).toBeTruthy();
+    expect(positions.every((item) => item.right <= 391)).toBeTruthy();
+
     await expect(section.locator("[data-method-input]")).toHaveCount(4);
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
   });
@@ -546,6 +565,18 @@ test.describe("Phone composition", () => {
         name: "I turn messy reality into reliable systems.",
       }),
     ).toBeVisible();
+    const methodCanvas = page.locator("[data-method-canvas]");
+    await expect(methodCanvas).toHaveAttribute("data-mobile-enhanced", "false");
+    const methodStageTops = await page
+      .locator("[data-method-stage]")
+      .evaluateAll((items) =>
+        items.map((item) => item.getBoundingClientRect().top),
+      );
+    expect(
+      methodStageTops.every(
+        (top, index) => index === 0 || top > methodStageTops[index - 1],
+      ),
+    ).toBeTruthy();
     const results = await new AxeBuilder({ page }).analyze();
     expect(
       results.violations,
@@ -553,21 +584,24 @@ test.describe("Phone composition", () => {
     ).toEqual([]);
   });
 
-  test("390px method story preserves the full vertical narrative", async ({
+  test("390px method story reserves a deliberate sticky scroll track", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
     const heights = await page.evaluate(() => ({
-      method: document.querySelector("#method")!.getBoundingClientRect().height,
+      canvas: document
+        .querySelector("[data-method-canvas]")!
+        .getBoundingClientRect().height,
+      viewport: window.innerHeight,
       work: document
         .querySelector(".selected-work-carousel-artboard")!
         .getBoundingClientRect().height,
       writing: document.querySelector("[data-writing-card]")!.getBoundingClientRect().height,
     }));
-    expect(heights.method).toBeGreaterThanOrEqual(1800);
-    expect(heights.method).toBeLessThanOrEqual(2600);
+    expect(heights.canvas / heights.viewport).toBeGreaterThanOrEqual(4.2);
+    expect(heights.canvas / heights.viewport).toBeLessThanOrEqual(4.4);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
     expect(heights.writing).toBeGreaterThanOrEqual(110);

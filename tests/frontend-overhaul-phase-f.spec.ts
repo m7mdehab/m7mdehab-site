@@ -165,6 +165,75 @@ test.describe("Method story rebuild", () => {
     });
   });
 
+  test("mobile scroll drives one pinned transformation through all five stages", async ({
+    page,
+  }) => {
+    await mkdir(screenshotRoot, { recursive: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = await expectMethodContract(page);
+    const canvas = section.locator("[data-method-canvas]");
+    const shell = section.locator(".method-story__stage-shell");
+    const stages = section.locator("[data-method-stage]");
+
+    await expect(canvas).toHaveAttribute("data-mobile-enhanced", "true");
+    await expect(shell).toHaveCSS("position", "sticky");
+    await expect(
+      section.locator(".method-story__mobile-progress-labels span"),
+    ).toHaveCount(5);
+    await expectNoHorizontalOverflow(page);
+
+    const checkpoints = [
+      { progress: 0.05, id: "messy", file: "method-story-mobile-01-messy.png" },
+      { progress: 0.28, id: "expose", file: "method-story-mobile-02-expose.png" },
+      { progress: 0.5, id: "reduce", file: "method-story-mobile-03-reduce.png" },
+      { progress: 0.72, id: "build", file: "method-story-mobile-04-build.png" },
+      { progress: 0.98, id: "outcomes", file: "method-story-mobile-05-outcomes.png" },
+    ] as const;
+
+    for (const checkpoint of checkpoints) {
+      await canvas.evaluate((element, targetProgress) => {
+        const rect = element.getBoundingClientRect();
+        const absoluteTop = window.scrollY + rect.top;
+        const viewport = window.innerHeight;
+        const progressRange = Math.max(1, rect.height - viewport * 0.76);
+        const targetScroll =
+          absoluteTop - viewport * 0.12 + progressRange * targetProgress;
+        window.scrollTo({ top: targetScroll, behavior: "instant" });
+      }, checkpoint.progress);
+      await page.waitForTimeout(650);
+
+      const active = section.locator(
+        `[data-method-stage="${checkpoint.id}"]`,
+      );
+      const activeOpacity = await active.evaluate((element) =>
+        Number.parseFloat(getComputedStyle(element).opacity),
+      );
+      expect(
+        activeOpacity,
+        `${checkpoint.id} opacity at progress ${checkpoint.progress}`,
+      ).toBeGreaterThanOrEqual(0.85);
+
+      await shell.screenshot({
+        path: path.join(screenshotRoot, checkpoint.file),
+      });
+    }
+
+    const stageRects = await stages.evaluateAll((elements) =>
+      elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+      }),
+    );
+    expect(
+      stageRects.every(
+        (rect) => rect.left >= -1 && rect.right <= 391,
+      ),
+    ).toBeTruthy();
+  });
+
   test("reduced motion keeps the complete story visible without staged motion", async ({
     page,
   }) => {
