@@ -1,7 +1,7 @@
 # Writing System Refinement v1.3 — One-line Identity + Two-column Phones
 
-**Date:** 2026-10-03  
-**Status:** LOCKED FOR IMPLEMENTATION / RENDERED QA  
+**Date:** 2026-10-03
+**Status:** LOCKED FOR IMPLEMENTATION / RENDERED QA
 **Supersedes:** v1.2 only where this document explicitly conflicts
 
 ## 1. Why this refinement exists

@@ -33,7 +33,7 @@ test.describe("Writing publication authority", () => {
 
   test("published essays expose BlogPosting schema, project provenance and inspectable sources", async ({ page }) => {
     for (const slug of slugs) {
-      await page.goto(`/writing/${slug}`);
+      await page.goto(`/writing/${slug}`, { waitUntil: "domcontentloaded" });
       const schema = await page.locator('script[type="application/ld+json"]').last().evaluate((node) => JSON.parse(node.textContent ?? "{}"));
       expect(schema["@type"]).toBe("BlogPosting");
       expect(schema.author.name).toBe("Mohammed Ehab ElNomany");
@@ -68,7 +68,7 @@ test.describe("Writing publication authority", () => {
   test("all English writing surfaces pass axe on desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     for (const route of englishRoutes) {
-      const response = await page.goto(route);
+      const response = await page.goto(route, { waitUntil: "domcontentloaded" });
       expect(response?.ok()).toBeTruthy();
       const results = await new AxeBuilder({ page }).analyze();
       expect(results.violations, `${route} axe violations`).toEqual([]);
@@ -78,7 +78,7 @@ test.describe("Writing publication authority", () => {
   test("all English writing surfaces fit a 390px viewport", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     for (const route of englishRoutes) {
-      const response = await page.goto(route);
+      const response = await page.goto(route, { waitUntil: "domcontentloaded" });
       expect(response?.ok()).toBeTruthy();
       await assertNoHorizontalOverflow(page, route);
     }
@@ -88,7 +88,7 @@ test.describe("Writing publication authority", () => {
     test.use({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     test("English essays remain readable and retain evidence links", async ({ page }) => {
       const route = "/writing/when-to-trust-a-probabilistic-forecast";
-      const response = await page.goto(route);
+      const response = await page.goto(route, { waitUntil: "domcontentloaded" });
       expect(response?.ok()).toBeTruthy();
       await page.waitForLoadState("domcontentloaded");
       await assertNoHorizontalOverflow(page, route);

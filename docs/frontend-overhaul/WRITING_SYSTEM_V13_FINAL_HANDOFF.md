@@ -1,7 +1,7 @@
 # Writing v1.3 — Final Narrow Handoff
 
-**Branch:** `writing-system-v13-two-column-groundwork`  
-**Base:** current `main` at handoff time  
+**Branch:** `writing-system-v13-two-column-groundwork`
+**Base:** current `main` at handoff time
 **PR:** #52 (draft until rendered acceptance)
 
 ## Locked copy

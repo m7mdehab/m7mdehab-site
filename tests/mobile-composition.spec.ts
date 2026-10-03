@@ -442,7 +442,9 @@ test.describe("Phone composition", () => {
         name: "What I’m thinking through.",
       }),
     ).toBeVisible();
-    await expect(writing).toContainText("Ideas, experiments, and the things I’m exploring.");
+    await expect(writing).toContainText(
+      "Ideas, experiments, and everything that piques my curiosity as I navigate my career.",
+    );
     const excerpts = await writing.locator(".writing-system-excerpt").all();
     expect(excerpts).toHaveLength(3);
     for (const excerpt of excerpts) await expect(excerpt).toHaveCSS("display", "none");
@@ -568,8 +570,8 @@ test.describe("Phone composition", () => {
     expect(heights.method).toBeLessThanOrEqual(2600);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
-    expect(heights.writing).toBeGreaterThanOrEqual(240);
-    expect(heights.writing).toBeLessThanOrEqual(290);
+    expect(heights.writing).toBeGreaterThanOrEqual(110);
+    expect(heights.writing).toBeLessThanOrEqual(155);
   });
 
   test("OpportunityOS mobile card keeps all six core workflow states legible", async ({
