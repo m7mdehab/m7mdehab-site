@@ -64,7 +64,7 @@ Every article renders through one shell:
 5. Byline linked to /about
 6. Published/updated date + read/listen time
 7. Browser text-to-speech narration bar
-8. Representative cover
+8. No mandatory article cover; add imagery only where it improves understanding
 9. Optional Key idea
 10. Optional evidence anchors
 11. On-this-page navigation for long articles
@@ -77,10 +77,11 @@ Every article renders through one shell:
 
 ## 7. Reading-layout rules
 
-- prose target: about 65–72 characters per line;
-- body text: roughly 17–19px desktop-equivalent;
-- line-height: roughly 1.65–1.75;
+- desktop reading column should use the available article canvas rather than a narrow fixed measure; target roughly 900–1160px inside the 1360px article frame;
+- body text: roughly 16–17px desktop-equivalent;
+- line-height: roughly 1.65–1.7;
 - body/deck/key-idea prose is justified, with the final line left-aligned;
+- automatic hyphenation is disabled;
 - hero copy, narration bar, body, related-writing section and footer share one primary left edge;
 - H2s strong but not theatrical;
 - generous paragraph spacing;
