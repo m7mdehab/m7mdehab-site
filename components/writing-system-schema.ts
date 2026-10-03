@@ -32,6 +32,15 @@ export function buildWritingSystemBlogPostingSchema({
   const url = writingSystemArticleUrl(article.slug);
   const image = writingSystemStableImage(article);
   const citations = article.sources?.map((source) => source.href) ?? [];
+  const audio = article.audio
+    ? {
+        "@type": "AudioObject",
+        contentUrl: article.audio.src,
+        encodingFormat: article.audio.mimeType,
+        duration: `PT${Math.round(article.audio.durationSeconds)}S`,
+        caption: "Audio narration of this article",
+      }
+    : undefined;
 
   return {
     "@context": "https://schema.org",
@@ -51,6 +60,7 @@ export function buildWritingSystemBlogPostingSchema({
     },
     keywords: article.topics,
     ...(image ? { image } : {}),
+    ...(audio ? { audio } : {}),
     ...(citations.length ? { citation: citations } : {}),
     ...(relatedProjects.length
       ? {
