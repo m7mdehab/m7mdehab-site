@@ -85,12 +85,18 @@ The English Writing system is under an explicit design/architecture-locked rebui
 - `docs/frontend-overhaul/WRITING_SYSTEM_DATA_MIGRATION_PATCH.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_ROUTE_ACTIVATION_PATCH.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_AUTHORING_GUIDE.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`;
 - `design/writing-system/writing-system.spec.json`.
 
 For Writing:
 - the public umbrella is **Writing**, not “What the Work Taught Me”;
 - “What the Work Taught Me” is only an optional series for work-derived essays;
 - Home uses a non-carousel 3/2/1 editorial card grid with up to six explicitly curated posts;
+- visible Home heading is **What I’m thinking through.** with no supporting lede;
+- `All writing` sits after the grid at the bottom-right;
+- card taxonomy/timing lives inside the bottom of the 16:9 cover;
+- card titles and card descriptions are hard-capped at two visible lines;
+- `listenMinutes` may be estimated, but a Listen player and AudioObject require a real audio asset;
 - project relation, evidence, sources, takeaways and thesis are optional;
 - a future independent personal post must not require component/schema redesign;
 - default article schema is `BlogPosting`;
