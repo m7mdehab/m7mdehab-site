@@ -23,16 +23,7 @@ export function HomeWritingSection({
     >
       <div className="shell">
         <header className="writing-system-head">
-          <h2>Writing.</h2>
-          <div className="writing-system-head-side">
-            <p>
-              Notes on AI, technology, work, projects, and whatever else I’m
-              thinking through.
-            </p>
-            <Link href="/writing">
-              All writing <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
-          </div>
+          <h2>What I’m thinking through.</h2>
         </header>
 
         <div className="writing-system-grid">
@@ -44,6 +35,12 @@ export function HomeWritingSection({
             />
           ))}
         </div>
+
+        <footer className="writing-system-footer">
+          <Link href="/writing">
+            All writing <ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
+        </footer>
       </div>
     </section>
   );
