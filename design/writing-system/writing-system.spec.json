@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "status": "design-architecture-refinement-locked",
   "scope": [
     "home-writing",
@@ -36,7 +36,10 @@
     ],
     "cardMetadataPlacement": "inside-cover-bottom",
     "titleMaxLines": 2,
-    "excerptMaxLines": 2
+    "excerptMaxLines": 2,
+    "mobileExcerpt": "hidden",
+    "desktopExcerpt": "cardDescription-or-description; maximum two visible lines",
+    "oilCoverCrop": "crop/mask source-strip text so it reads as an editorial cover"
   },
   "behavior": {
     "carousel": false,
@@ -55,7 +58,7 @@
     "playerPlacement": "article-top-before-cover",
     "renderPlayerOnlyWhenAudioSourceExists": true,
     "estimatedListenTimePrefix": "~",
-    "currentEstimateBasis": "article body length at a restrained narration pace",
+    "currentEstimateBasis": "estimated narration time; current ~1.1k-word essays use 8 minutes until real audio duration exists",
     "schemaWhenAvailable": "AudioObject",
     "textArticleIsEquivalentContent": true
   },
@@ -67,10 +70,11 @@
     "takeawaysOptional": true,
     "thesisOptional": true,
     "cardDescriptionOptional": true,
-    "listenMinutesOptional": true,
+    "listenMinutesOptional": false,
     "audioOptional": true,
     "homeSelection": "homeRank",
-    "defaultSchema": "BlogPosting"
+    "defaultSchema": "BlogPosting",
+    "listenMinutesRequired": true
   },
   "categories": {
     "ai": "AI",
