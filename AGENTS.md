@@ -72,6 +72,29 @@ For this chapter:
 - keep semantic content server-rendered and readable without JavaScript;
 - implement the locked copy, motion windows, mobile vertical composition and acceptance contract from the execution packet.
 
+## Current writing-system rebuild
+
+The English Writing system is under an explicit design/architecture-locked rebuild. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering or writing discovery/schema, read:
+
+- `docs/frontend-overhaul/WRITING_SYSTEM_EXECUTION_PACKET.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_INTEGRATION_PATCH.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_SEO_AI_CONTRACT.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`;
+- `design/writing-system/writing-system.spec.json`.
+
+For Writing:
+- the public umbrella is **Writing**, not “What the Work Taught Me”;
+- “What the Work Taught Me” is only an optional series for work-derived essays;
+- Home uses a non-carousel 3/2/1 editorial card grid with up to six explicitly curated posts;
+- project relation, evidence, sources, takeaways and thesis are optional;
+- a future independent personal post must not require component/schema redesign;
+- default article schema is `BlogPosting`;
+- drafts must not leak to routes, sitemap, JSON, discovery or Home;
+- preserve the current three article URLs and governed evidence claims;
+- keep Writing semantic/server-readable without JavaScript;
+- do not add search/filter/category-route UI until real content volume justifies it.
+
 ## Visual evidence and asset provenance
 Use `data/project-evidence.public.yaml` as the governing registry for project proof, visual candidates, asset status and project-specific interaction direction. See `docs/PROJECT_EVIDENCE_VISUAL_AUDIT_2026-09-09.md` for the audit rationale.
 
@@ -110,15 +133,17 @@ Keep visible content, structured data and machine-readable outputs consistent wi
 
 Read `docs/LOCALIZATION_POLICY.md` before changing language routes or localized content.
 
-- English remains the primary/default language at `/` and `/work/<slug>`; Arabic lives at `/ar` and `/ar/work/<slug>`.
-- Arabic pages must use a genuine document root with `lang="ar" dir="rtl"`; do not fake RTL under an English root.
-- Every English/Arabic page pair must self-canonicalize and expose reciprocal `hreflang`; English remains `x-default`.
-- `data/public-ar.ts` and `data/case-studies-ar.ts` are presentation projections only. They never outrank the public truth/evidence registries or authorize stronger claims.
-- Do not invent an Arabic legal/public spelling of Mohammed's name. Keep **Mohammed Ehab ElNomany** until he explicitly supplies or approves an Arabic rendering.
-- Translating content never widens publication rights, service-proof strength, project ownership or confidentiality boundaries.
-- Keep stable `data-conversion` and `data-service-id` semantics across languages; localized routes/labels may change, identifiers may not.
-- Arabic launch routes must preserve strict axe, mobile-overflow, reduced-motion and no-JavaScript behavior.
-- Localize explanatory evidence captions and accessibility descriptions where useful, but preserve technical model/API names and metric notation when translation would reduce precision.
+Current public contract:
+
+- The public website is **English-only**.
+- Public HTML lives at `/`, `/about`, `/work`, `/work/<slug>`, `/services`, `/writing` and `/writing/<slug>`.
+- `/ar` and all `/ar/*` routes are dormant/unpublished and must return `404` while the current policy is active.
+- Public navigation must not expose an Arabic locale switch.
+- English pages and machine-readable outputs must not emit Arabic `hreflang`, Arabic Open Graph alternates or active Arabic route references.
+- The sitemap contains only canonical English HTML routes.
+- Authored Arabic components/data/RTL styling may remain in source control as dormant capability. Do not delete them merely because they are unpublished.
+- Reactivating Arabic is an explicit product decision. When Mohammed re-enables it, reassess and rerun the complete localization/accessibility/responsive/canonical/sitemap/deployment gates before publication.
+- Any future Arabic projection remains subordinate to the governed public truth/evidence model. Translation never widens publication rights, ownership wording, service-proof strength or confidentiality boundaries.
 
 ## Deployment architecture
 

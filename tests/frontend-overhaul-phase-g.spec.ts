@@ -25,15 +25,19 @@ async function hideFixedChrome(page: Page) {
 test.describe("Phase G closing system", () => {
   test.use({ viewport: { width: 1440, height: 1000 } });
 
-  test("English Home closes with two evidence notes and two opportunity paths instead of the service catalogue", async ({ page }) => {
+  test("English Home closes with two evidence notes and three clean conversation paths instead of the service catalogue", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
     await page.goto("/");
     await settle(page);
 
     await expect(page.locator(".closing-note")).toHaveCount(2);
-    await expect(page.locator(".closing-path")).toHaveCount(2);
+    await expect(page.locator(".closing-path")).toHaveCount(3);
     await expect(page.locator("#services")).toHaveCount(0);
     await expect(page.locator('[data-conversion="home-to-services"]')).toHaveAttribute("href", "/services");
+    await expect(page.locator('[data-opportunity-path="question"]')).toContainText("Have a question or idea?");
+    await expect(page.locator('[data-conversion="contact-question-email"]')).toHaveCount(1);
+    await expect(page.locator('[data-conversion="contact-question-linkedin"]')).toHaveCount(1);
+    await expect(page.locator(".closing-directory-brand")).toHaveCount(0);
     await expect(page.locator(".closing-directory-nav")).toBeVisible();
     await expect(page.locator("#contact")).toBeVisible();
     await noHorizontalOverflow(page);
@@ -71,7 +75,7 @@ test.describe("Phase G closing system", () => {
     await settle(page);
 
     await expect(page.locator(".closing-note")).toHaveCount(2);
-    await expect(page.locator(".closing-path")).toHaveCount(2);
+    await expect(page.locator(".closing-path")).toHaveCount(3);
     await noHorizontalOverflow(page);
     expect(await page.locator(".closing-note-curve").evaluate((element) => getComputedStyle(element).animationName)).toBe("none");
 

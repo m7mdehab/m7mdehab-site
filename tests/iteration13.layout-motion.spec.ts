@@ -47,12 +47,17 @@ test.describe("Iteration 13 layout refinement", () => {
 
     const navWrap = page.locator(".site-nav-wrap");
     await expect(navWrap).toHaveAttribute("data-nav-hidden", "false");
+    await page.waitForTimeout(300);
 
-    await page.evaluate(() => window.scrollTo(0, 1800));
+    await page.evaluate(() =>
+      window.scrollTo({ top: 1800, behavior: "instant" }),
+    );
     await page.waitForTimeout(180);
     await expect(navWrap).toHaveAttribute("data-nav-hidden", "true");
 
-    await page.evaluate(() => window.scrollTo(0, 900));
+    await page.evaluate(() =>
+      window.scrollTo({ top: 900, behavior: "instant" }),
+    );
     await page.waitForTimeout(180);
     await expect(navWrap).toHaveAttribute("data-nav-hidden", "false");
   });

@@ -268,13 +268,16 @@ test.describe("Selected Work native mobile composition", () => {
     await page.locator(".carousel-dot").nth(1).click();
     await expect(page.locator('[data-project-artboard="opportunityos"]')).toBeVisible();
     await expect(page.locator('[data-motion-active="true"]')).toHaveCount(0);
+    await page.evaluate(() => window.scrollBy(0, -180));
     const nav = page.locator(".site-nav-wrap");
+    await expect(nav).toHaveAttribute("data-nav-hidden", "false");
     const navMetrics = await nav.evaluate((element) => {
       const box = element.getBoundingClientRect();
-      return { bottom: box.bottom, viewport: window.innerHeight, position: getComputedStyle(element).position };
+      return { top: box.top, position: getComputedStyle(element).position };
     });
     expect(navMetrics.position).toBe("fixed");
-    expect(navMetrics.viewport - navMetrics.bottom).toBeGreaterThanOrEqual(12);
+    expect(navMetrics.top).toBeGreaterThanOrEqual(0);
+    expect(navMetrics.top).toBeLessThan(40);
     await page.locator('[data-project-artboard="opportunityos"] [data-conversion="selected-work-to-case-study"]').click();
     await expect(page).toHaveURL(/\/work\/opportunityos$/);
   });
@@ -306,7 +309,7 @@ test.describe("Selected Work native mobile composition", () => {
     await context.close();
   });
 
-  test("iPhone WebKit keeps the rail, one-line labels and fixed navigation safe", async () => {
+  test("iPhone WebKit keeps the rail, one-line labels and top auto-hide navigation safe", async () => {
     const browser = await webkit.launch();
     const context = await browser.newContext({
       ...devices["iPhone 13"],
@@ -327,12 +330,16 @@ test.describe("Selected Work native mobile composition", () => {
       if (slug === "solar-site-selection") await page.waitForTimeout(3_200);
       expect(await oneLineFailures(page), `${slug} iPhone copy`).toEqual([]);
     }
-    const navMetrics = await page.locator(".site-nav-wrap").evaluate((element) => {
+    await page.evaluate(() => window.scrollBy(0, -180));
+    const header = page.locator(".site-nav-wrap");
+    await expect(header).toHaveAttribute("data-nav-hidden", "false");
+    const navMetrics = await header.evaluate((element) => {
       const box = element.getBoundingClientRect();
-      return { bottom: box.bottom, viewport: window.innerHeight, position: getComputedStyle(element).position };
+      return { top: box.top, position: getComputedStyle(element).position };
     });
     expect(navMetrics.position).toBe("fixed");
-    expect(navMetrics.viewport - navMetrics.bottom).toBeGreaterThanOrEqual(12);
+    expect(navMetrics.top).toBeGreaterThanOrEqual(0);
+    expect(navMetrics.top).toBeLessThan(40);
     await context.close();
     await browser.close();
   });

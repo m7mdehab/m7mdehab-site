@@ -73,12 +73,59 @@ jobs:
           test ! -f out/ar/index.html
           if grep -Fq '/ar' out/sitemap.xml; then echo "Production sitemap artifact still exposes Arabic routes" >&2; exit 1; fi
           test "$(grep -o '<url>' out/sitemap.xml | wc -l | tr -d ' ')" = "14"
+          grep -Fq 'Have a question or idea?' out/index.html
 
       - name: Deploy to Cloudflare production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.production.jsonc
+
+      - name: Purge custom-domain cache after deployment
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          zone_response="$(curl --fail --silent --show-error \
+            --get 'https://api.cloudflare.com/client/v4/zones' \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            --header 'Content-Type: application/json' \
+            --data-urlencode 'name=m7mdehab.com' \
+            --data-urlencode "account.id=$CLOUDFLARE_ACCOUNT_ID")"
+
+          zone_id="$(ZONE_RESPONSE="$zone_response" node - <<'NODE'
+          const response = JSON.parse(process.env.ZONE_RESPONSE || '{}');
+          if (!response.success) {
+            console.error(JSON.stringify(response.errors || response));
+            process.exit(1);
+          }
+          const zone = response.result?.find((item) => item.name === 'm7mdehab.com');
+          if (!zone?.id) {
+            console.error('Could not resolve Cloudflare zone ID for m7mdehab.com');
+            process.exit(1);
+          }
+          process.stdout.write(zone.id);
+          NODE
+          )"
+
+          purge_response="$(curl --fail --silent --show-error \
+            --request POST "https://api.cloudflare.com/client/v4/zones/$zone_id/purge_cache" \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            --header 'Content-Type: application/json' \
+            --data '{"purge_everything":true}')"
+
+          PURGE_RESPONSE="$purge_response" node - <<'NODE'
+          const response = JSON.parse(process.env.PURGE_RESPONSE || '{}');
+          if (!response.success) {
+            console.error(JSON.stringify(response.errors || response));
+            process.exit(1);
+          }
+          console.log('Cloudflare custom-domain cache purge accepted.');
+          NODE
 
       - name: Verify live production routes, indexing, security, canonical, and Arabic absence
         shell: bash
@@ -105,6 +152,31 @@ jobs:
           }
 
           assert_stable_status "/" "200" "Production root"
+
+          # A Workers custom-domain deploy can become reachable before every edge
+          # serves the new HTML. Require the release-specific homepage marker to
+          # converge before browser QA so stale HTML cannot produce false failures.
+          homepage_marker='Have a question or idea?'
+          marker_ready=0
+          for attempt in {1..45}; do
+            curl --fail --silent --show-error --location \
+              --header 'Cache-Control: no-cache' \
+              --header 'Pragma: no-cache' \
+              --output /tmp/prod-home-convergence.html \
+              "$PROD_BASE_URL/?release=$GITHUB_SHA&attempt=$attempt"
+            if grep -Fq "$homepage_marker" /tmp/prod-home-convergence.html; then
+              marker_ready=1
+              echo "Production homepage marker converged on attempt $attempt."
+              break
+            fi
+            echo "Production homepage still serving pre-release HTML on attempt $attempt."
+            sleep 4
+          done
+          if [ "$marker_ready" -ne 1 ]; then
+            echo "Production homepage did not converge to release $GITHUB_SHA." >&2
+            exit 1
+          fi
+
           curl --fail --silent --show-error --location --dump-header /tmp/prod-headers.txt --output /tmp/prod-home.html "$PROD_BASE_URL/"
           tr -d '\r' < /tmp/prod-headers.txt > artifacts/production-verification/home-headers.txt
           cp /tmp/prod-home.html artifacts/production-verification/home.html
@@ -121,7 +193,7 @@ jobs:
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('Production homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('Production homepage still links to Arabic');
           const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          for (const needle of ['Six projects. One standard.', 'I like the messy part.', 'Choose the right conversation.']) {
+          for (const needle of ['Six projects. One standard.', 'I like the messy part.', 'Choose the right conversation.', 'Have a question or idea?']) {
             if (!visibleText.includes(needle)) throw new Error(`Production homepage missing accepted visible marker: ${needle}`);
           }
           if (html.includes('WordPress')) throw new Error('Production homepage contains the removed WordPress claim');
