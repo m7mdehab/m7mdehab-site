@@ -6,15 +6,24 @@ export type WritingSystemRelatedProject = {
   url: string;
 };
 
+const SITE_URL = "https://m7mdehab.com";
+
 export function writingSystemArticleUrl(slug: string) {
-  return `https://m7mdehab.com/writing/${slug}`;
+  return `${SITE_URL}/writing/${slug}`;
+}
+
+export function writingSystemAbsoluteMediaUrl(src: string) {
+  if (/^https?:\/\//.test(src)) return src;
+  return `${SITE_URL}${src.startsWith("/") ? src : `/${src}`}`;
 }
 
 export function writingSystemStableImage(
   article: PublishedWritingSystemArticle,
 ) {
-  if (article.cover.socialImage) return article.cover.socialImage;
-  if (article.cover.kind === "image") return article.cover.src;
+  if (article.cover.socialImage)
+    return writingSystemAbsoluteMediaUrl(article.cover.socialImage);
+  if (article.cover.kind === "image")
+    return writingSystemAbsoluteMediaUrl(article.cover.src);
   return undefined;
 }
 
@@ -35,7 +44,7 @@ export function buildWritingSystemBlogPostingSchema({
   const audio = article.audio
     ? {
         "@type": "AudioObject",
-        contentUrl: article.audio.src,
+        contentUrl: writingSystemAbsoluteMediaUrl(article.audio.src),
         encodingFormat: article.audio.mimeType,
         duration: `PT${Math.round(article.audio.durationSeconds)}S`,
         caption: "Audio narration of this article",
