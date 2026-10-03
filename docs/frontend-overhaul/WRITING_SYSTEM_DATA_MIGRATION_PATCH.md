@@ -160,6 +160,9 @@ cardDescription:
   "How agents should handle missing evidence without inventing certainty.",
 listenMinutes: 8,
 homeRank: 3,
+listenMinutes: 7,
+cardDescription:
+  "A governance pattern for agents when evidence is missing or uncertain.",
 cover: {
   kind: "visual",
   visual: "agent-provenance",
@@ -185,6 +188,24 @@ Also preserve the current takeaway heading for these three essays with:
     takeawaysTitle: "What I carry into the next system."
 
 Future independent/general articles do not inherit either field automatically.
+
+## 6.2 Read/listen timing and audio
+
+Every article carries both `readingMinutes` and `listenMinutes`.
+
+Until a real narration asset exists, `listenMinutes` is an estimate and cards render it with a leading `~`. For the current three essays, use 7 minutes as the estimate based on their roughly 1.1k-word bodies.
+
+When narration is produced, add:
+
+```ts
+audio: {
+  src: "/media/writing/<slug>.mp3",
+  mimeType: "audio/mpeg",
+  durationSeconds: <real-duration>,
+},
+```
+
+Once `audio` exists the UI removes the estimate marker and uses the rounded display timing. Never render a fake player before an audio asset exists.
 
 ## 7. Public projections
 
