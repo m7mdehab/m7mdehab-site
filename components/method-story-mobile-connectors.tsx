@@ -250,14 +250,14 @@ export function MethodStoryMobileConnectors({
         data-mobile-connectors="build"
       >
         <AnimatedPath
-          d="M 0 175 C 26 175 48 175 76 175"
+          d="M 0 175 C 30 175 54 175 80 175"
           progress={progress}
           window={window}
           enhanced={enhanced}
           hot
         />
         <AnimatedPath
-          d="M 236 175 C 252 175 264 175 276 175"
+          d="M 220 175 C 242 175 260 175 276 175"
           progress={progress}
           window={window}
           enhanced={enhanced}
