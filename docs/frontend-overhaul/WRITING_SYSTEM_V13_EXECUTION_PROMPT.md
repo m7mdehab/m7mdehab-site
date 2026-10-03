@@ -70,7 +70,7 @@ Home and `/writing`:
 Phone typography target from the prepared CSS:
 
 - heading roughly 25–34px responsive
-- subtitle roughly 10–11.5px responsive
+- subtitle roughly 7.75–11.5px responsive; the 320px endpoint is intentionally compact, so inspect legibility rather than increasing size blindly
 
 If the 320px render does not fit, tune font-size/letter-spacing slightly rather than allowing wrapping.
 
@@ -84,6 +84,7 @@ Phone <720px: **2 columns**.
 
 Phone:
 
+- 12px outer Writing-shell gutters are already prepared
 - 12px column gap target
 - ~24px row gap target
 - keep 16:9 covers
@@ -285,3 +286,34 @@ Return:
 - genuine blocker if any
 
 Do not return new design alternatives. Execute the prepared v1.3 prototype and judge it from the renders.
+
+## 19. Narrow execution scope
+
+Most implementation work is already complete on the branch.
+
+Luna/Codex should begin with rendered QA, not coding.
+
+Preferred order:
+1. run the prepared focused tests;
+2. render 430 / 390 / 320 Home Writing;
+3. inspect only the v1.3 acceptance questions;
+4. if a visual defect exists, change only the minimum necessary CSS/test expectation;
+5. rerun the affected focused tests;
+6. run the full regression suite;
+7. ship.
+
+Expected code-touch surface after handoff:
+- primarily `app/writing-system.css`;
+- tests only if assertions need to reflect the locked design more precisely;
+- documentation only for final delivery record.
+
+Do not alter:
+- the locked subtitle copy;
+- Writing article data;
+- SEO/schema/audio code;
+- card component structure unless CSS cannot solve a demonstrated render defect;
+- any non-Writing section.
+
+The target subtitle is exact and locked:
+
+**Ideas, experiments, and everything that piques my curiosity as I navigate my career.**
