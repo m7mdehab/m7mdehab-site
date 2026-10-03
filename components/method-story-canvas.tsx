@@ -470,6 +470,11 @@ export function MethodStoryCanvas() {
                   data-method-anchor="expose-stack"
                   aria-hidden="true"
                 >
+                  <span
+                    className="method-story__port method-story__port--expose-in"
+                    data-method-port="expose-in"
+                    aria-hidden="true"
+                  />
                   {[0, 1, 2, 3, 4].map((index) => (
                     <RevealSheet
                       key={index}
@@ -553,7 +558,9 @@ export function MethodStoryCanvas() {
                     aria-hidden="true"
                   />
                   <MethodDecisionIcon />
+                  <i />
                   <i className="is-selected" />
+                  <i />
                   <i />
                   <i />
                 </motion.div>
