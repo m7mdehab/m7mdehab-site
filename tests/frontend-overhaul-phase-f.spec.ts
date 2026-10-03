@@ -2,6 +2,13 @@ import AxeBuilder from "@axe-core/playwright";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
+import {
+  edgeAtRatio,
+  edgeCenter,
+  pointError,
+  readLocalRect,
+  readSvgPathEndpoints,
+} from "./helpers/method-story-geometry";
 
 const screenshotRoot = path.join(process.cwd(), "artifacts", "screenshots");
 
@@ -237,6 +244,126 @@ test.describe("Method story rebuild", () => {
     expect(introLines.support).toBe(1);
   });
 
+
+
+  test("desktop measured connectors touch their exact source and destination edges", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    const canvas = section.locator("[data-method-canvas]");
+
+    await section.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      const absoluteTop = window.scrollY + bounds.top;
+      window.scrollTo({
+        top: absoluteTop + bounds.height / 2 - window.innerHeight / 2,
+        behavior: "instant",
+      });
+    });
+
+    const measured = section.locator("[data-method-measured-connectors]");
+    await expect(measured).toBeVisible();
+    await page.waitForTimeout(900);
+
+    const inputPaths = measured.locator(
+      '[data-method-connectors="input-expose"] path',
+    );
+    const exposePaths = measured.locator(
+      '[data-method-connectors="expose-reduce"] path',
+    );
+    const outcomePaths = measured.locator(
+      '[data-method-connectors="build-outcomes"] path',
+    );
+
+    await expect(inputPaths).toHaveCount(4);
+    await expect(exposePaths).toHaveCount(10);
+    await expect(
+      measured.locator('[data-method-measured-connector="reduce-build"]'),
+    ).toHaveCount(1);
+    await expect(measured.locator("[data-method-measured-node]")).toHaveCount(5);
+    await expect(outcomePaths).toHaveCount(5);
+
+    const errors: number[] = [];
+
+    const incomingSheetIndexes = [1, 2, 4, 5];
+    for (let index = 0; index < 4; index += 1) {
+      const endpoints = await readSvgPathEndpoints(inputPaths.nth(index));
+      const sourceRect = await readLocalRect(
+        canvas,
+        section.locator(`[data-method-port="messy-${index + 1}-out"]`),
+      );
+      const targetRect = await readLocalRect(
+        canvas,
+        section.locator(
+          `[data-method-evidence-sheet="${incomingSheetIndexes[index]}"]`,
+        ),
+      );
+      errors.push(
+        pointError(endpoints.start, edgeCenter(sourceRect, "right")),
+        pointError(endpoints.end, edgeCenter(targetRect, "left")),
+      );
+    }
+
+    const reduceInRect = await readLocalRect(
+      canvas,
+      section.locator('[data-method-port="reduce-in"]'),
+    );
+    for (let index = 0; index < 10; index += 1) {
+      const endpoints = await readSvgPathEndpoints(exposePaths.nth(index));
+      const sheetIndex = Math.floor(index / 2) + 1;
+      const ratio = index % 2 === 0 ? 0.3 : 0.7;
+      const sourceRect = await readLocalRect(
+        canvas,
+        section.locator(`[data-method-evidence-sheet="${sheetIndex}"]`),
+      );
+      errors.push(
+        pointError(endpoints.start, edgeAtRatio(sourceRect, "right", ratio)),
+        pointError(endpoints.end, edgeCenter(reduceInRect, "left")),
+      );
+    }
+
+    const reduceBuild = await readSvgPathEndpoints(
+      measured.locator('[data-method-measured-connector="reduce-build"]'),
+    );
+    const reduceOutRect = await readLocalRect(
+      canvas,
+      section.locator('[data-method-port="reduce-out"]'),
+    );
+    const buildInRect = await readLocalRect(
+      canvas,
+      section.locator('[data-method-port="build-in"]'),
+    );
+    errors.push(
+      pointError(reduceBuild.start, edgeCenter(reduceOutRect, "right")),
+      pointError(reduceBuild.end, edgeCenter(buildInRect, "left")),
+    );
+
+    for (let index = 0; index < 5; index += 1) {
+      const endpoints = await readSvgPathEndpoints(outcomePaths.nth(index));
+      const node = measured.locator(
+        `[data-method-measured-node="${index + 1}"]`,
+      );
+      const nodePoint = await node.evaluate((element) => ({
+        x: Number(element.getAttribute("cx")),
+        y: Number(element.getAttribute("cy")),
+      }));
+      const outcomeRect = await readLocalRect(
+        canvas,
+        section.locator(`[data-method-port="outcome-${index + 1}-in"]`),
+      );
+      errors.push(
+        pointError(endpoints.start, nodePoint),
+        pointError(endpoints.end, edgeCenter(outcomeRect, "left")),
+      );
+    }
+
+    const maxError = Math.max(...errors);
+    expect(maxError, `Maximum connector endpoint error: ${maxError}px`).toBeLessThanOrEqual(2);
+  });
   test("desktop connectors and centered viewport resolve before scrolling past the section", async ({
     page,
   }) => {
@@ -250,7 +377,7 @@ test.describe("Method story rebuild", () => {
     ).toHaveCount(4);
     await expect(
       section.locator('[data-method-connectors="expose-reduce"] path'),
-    ).toHaveCount(6);
+    ).toHaveCount(10);
 
     await section.evaluate((element) => {
       const bounds = element.getBoundingClientRect();
