@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { getHomepageWriting } from "@/data/writing";
+import { getHomepageWriting, writingSectionCopy } from "@/data/writing";
 import { WritingCard } from "@/components/writing-card";
 
 export function HomeWriting() {
@@ -15,8 +15,8 @@ export function HomeWriting() {
     >
       <div className="writing-system-shell">
         <header className="writing-system-home-header">
-          <h2>What I’m thinking through.</h2>
-          <p>Ideas, experiments, and everything that piques my curiosity as I navigate my career.</p>
+          <h2>{writingSectionCopy.heading}</h2>
+          <p>{writingSectionCopy.subtitle}</p>
         </header>
 
         <div className="writing-system-grid">
