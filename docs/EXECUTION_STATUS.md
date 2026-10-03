@@ -294,7 +294,10 @@ Prepared non-live scaffold:
 - server-oriented Home Writing section;
 - archive grid scaffold;
 - typed article-block renderer;
-- isolated `.writing-system-*` stylesheet.
+- conditional article-page renderer;
+- pure `BlogPosting` schema builder with optional image/citation/project relationships;
+- schema tests covering independent and project-origin posts;
+- isolated `.writing-system-*` stylesheet including prepared article-page styling.
 
 The scaffold is intentionally not wired into production. The implementation agent must migrate the temporary contract into canonical `data/writing.ts`, activate the prepared components, generalize archive/article/schema/discovery, update tests, complete rendered QA, then merge/deploy per `AGENTS.md`.
 
