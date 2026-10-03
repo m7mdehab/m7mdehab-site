@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import {
   motion,
   useScroll,
@@ -29,6 +29,24 @@ import {
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 
 type Progress = MotionValue<number>;
+
+function subscribeDesktopMethodStory(callback: () => void) {
+  const media = window.matchMedia("(min-width: 1100px)");
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function getDesktopMethodStorySnapshot() {
+  return window.matchMedia("(min-width: 1100px)").matches;
+}
+
+function useDesktopMethodStory() {
+  return useSyncExternalStore(
+    subscribeDesktopMethodStory,
+    getDesktopMethodStorySnapshot,
+    () => false,
+  );
+}
 
 const stageMap = Object.fromEntries(
   METHOD_STORY.stages.map((stage) => [stage.id, stage]),
@@ -179,6 +197,7 @@ function BranchPath({
           : "method-story__path"
       }
       style={enhanced ? { pathLength, opacity } : undefined}
+      data-method-connector={group}
     />
   );
 }
@@ -189,12 +208,14 @@ function ConnectorPath({
   progress,
   enhanced,
   hot = false,
+  group,
 }: {
   d: string;
   window: readonly [number, number];
   progress: Progress;
   enhanced: boolean;
   hot?: boolean;
+  group?: "input-expose" | "expose-reduce" | "reduce-build" | "build-outcomes";
 }) {
   const pathLength = useTransform(progress, [...window], [0, 1]);
   const opacity = useTransform(
@@ -289,12 +310,17 @@ function OutputRow({
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const isDesktop = useDesktopMethodStory();
   const enhanced = !reducedMotion;
   const { scrollYProgress } = useScroll({
     target: rootRef,
     offset: [...METHOD_STORY_MOTION.scrollOffset],
   });
-  const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
+  const desktopProgress = useTransform(scrollYProgress, [0, 0.56], [0, 1]);
+  const progress = useSpring(
+    isDesktop ? desktopProgress : scrollYProgress,
+    METHOD_STORY_MOTION.spring,
+  );
 
   const exposeOpacity = useTransform(progress, [0.16, 0.3], [0.45, 1]);
   const reduceOpacity = useTransform(progress, [0.34, 0.49], [0.45, 1]);
@@ -325,6 +351,7 @@ export function MethodStoryCanvas() {
             window={[0.08 + index * 0.02, 0.28 + index * 0.02]}
             progress={progress}
             enhanced={enhanced}
+            group="input-expose"
           />
         ))}
         {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
@@ -334,6 +361,7 @@ export function MethodStoryCanvas() {
             window={[0.24 + index * 0.02, 0.46 + index * 0.02]}
             progress={progress}
             enhanced={enhanced}
+            group="expose-reduce"
           />
         ))}
         {METHOD_STORY_CONNECTORS.reduceBranches.map((d, index) => (
@@ -351,6 +379,7 @@ export function MethodStoryCanvas() {
           progress={progress}
           enhanced={enhanced}
           hot
+          group="reduce-build"
         />
         {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
           <ConnectorPath
@@ -359,6 +388,7 @@ export function MethodStoryCanvas() {
             window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
             progress={progress}
             enhanced={enhanced}
+            group="build-outcomes"
           />
         ))}
       </svg>
@@ -479,20 +509,22 @@ export function MethodStoryCanvas() {
                     d="M117 80H150"
                   />
                 </svg>
-                <motion.div
-                  className="method-story__decision-module"
-                  style={
-                    enhanced
-                      ? { scale: decisionScale, opacity: decisionOpacity }
-                      : undefined
-                  }
-                  aria-hidden="true"
-                >
-                  <MethodDecisionIcon />
-                  <i className="is-selected" />
-                  <i />
-                  <i />
-                </motion.div>
+                <div className="method-story__decision-module-anchor">
+                  <motion.div
+                    className="method-story__decision-module"
+                    style={
+                      enhanced
+                        ? { scale: decisionScale, opacity: decisionOpacity }
+                        : undefined
+                    }
+                    aria-hidden="true"
+                  >
+                    <MethodDecisionIcon />
+                    <i className="is-selected" />
+                    <i />
+                    <i />
+                  </motion.div>
+                </div>
               </div>
             </motion.li>
 
