@@ -462,9 +462,9 @@ test.describe("Phone composition", () => {
 
     await scrollStageToCenter(0, "Messy reality");
     await scrollStageToCenter(0.25, "Expose the truth");
-    await scrollStageToCenter(0.5, "Reduce ambiguity");
-    await scrollStageToCenter(0.75, "Build the system");
-    await scrollStageToCenter(1, "Reliable outcomes");
+    await scrollStageToCenter(0.45, "Reduce ambiguity");
+    await scrollStageToCenter(0.65, "Build the system");
+    await scrollStageToCenter(0.9, "Reliable outcomes");
 
     await expect(sticky).toBeVisible();
     await expect(rail).toBeVisible();
