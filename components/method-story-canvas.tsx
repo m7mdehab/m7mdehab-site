@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useRef } from "react";
 import {
   motion,
   useScroll,
@@ -29,24 +29,6 @@ import {
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 
 type Progress = MotionValue<number>;
-
-function subscribeDesktopMethodStory(callback: () => void) {
-  const media = window.matchMedia("(min-width: 1100px)");
-  media.addEventListener("change", callback);
-  return () => media.removeEventListener("change", callback);
-}
-
-function getDesktopMethodStorySnapshot() {
-  return window.matchMedia("(min-width: 1100px)").matches;
-}
-
-function useDesktopMethodStory() {
-  return useSyncExternalStore(
-    subscribeDesktopMethodStory,
-    getDesktopMethodStorySnapshot,
-    () => false,
-  );
-}
 
 const stageMap = Object.fromEntries(
   METHOD_STORY.stages.map((stage) => [stage.id, stage]),
@@ -310,17 +292,18 @@ function OutputRow({
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
-  const isDesktop = useDesktopMethodStory();
   const enhanced = !reducedMotion;
   const { scrollYProgress } = useScroll({
     target: rootRef,
     offset: [...METHOD_STORY_MOTION.scrollOffset],
   });
-  const desktopProgress = useTransform(scrollYProgress, [0, 0.22], [0, 1]);
-  const progress = useSpring(
-    isDesktop ? desktopProgress : scrollYProgress,
-    METHOD_STORY_MOTION.spring,
-  );
+  const responsiveProgress = useTransform(() => {
+    const raw = scrollYProgress.get();
+    if (typeof window === "undefined") return raw;
+    const desktop = window.matchMedia("(min-width: 1100px)").matches;
+    return desktop ? Math.min(raw / 0.22, 1) : raw;
+  });
+  const progress = useSpring(responsiveProgress, METHOD_STORY_MOTION.spring);
 
   const exposeOpacity = useTransform(progress, [0.16, 0.3], [0.45, 1]);
   const reduceOpacity = useTransform(progress, [0.34, 0.49], [0.45, 1]);
