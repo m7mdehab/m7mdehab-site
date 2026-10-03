@@ -55,7 +55,7 @@ async function viewportMetrics(page: Page) {
           return false;
         if (
           element.closest(
-            ".credibility-viewport, .selected-work-carousel-window",
+            ".credibility-viewport, .selected-work-carousel-window, .method-story__mobile-window",
           )
         )
           return false;
@@ -398,14 +398,21 @@ test.describe("Phone composition", () => {
     ).toHaveAttribute("href", "/work/makhbazy");
   });
 
-  test("method story exposes all five stages vertically without mobile tabs", async ({
+  test("method story uses one sticky horizontal five-stage narrative on mobile", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
+
     const section = page.locator("[data-method-story]");
+    const track = section.locator("[data-mobile-method-story]");
+    const sticky = section.locator(".method-story__mobile-sticky");
+    const rail = section.locator(".method-story__mobile-rail");
     const stages = section.locator("[data-method-stage]");
+
+    await expect(track).toHaveCount(1);
+    await expect(track).toHaveAttribute("data-motion-mode", "enhanced");
     await expect(stages).toHaveCount(5);
     await expect(section.locator('[role="tab"]')).toHaveCount(0);
     await expect(stages.nth(0)).toContainText("Messy reality");
@@ -413,16 +420,67 @@ test.describe("Phone composition", () => {
     await expect(stages.nth(2)).toContainText("Reduce ambiguity");
     await expect(stages.nth(3)).toContainText("Build the system");
     await expect(stages.nth(4)).toContainText("Reliable outcomes");
-    const stageTops = await stages.evaluateAll((items) =>
-      items.map((item) => item.getBoundingClientRect().top),
-    );
-    expect(
-      stageTops.every(
-        (top, index) => index === 0 || top > stageTops[index - 1],
-      ),
-    ).toBeTruthy();
     await expect(section.locator("[data-method-input]")).toHaveCount(4);
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
+
+    const layout = await section.evaluate((node) => {
+      const sticky = node.querySelector<HTMLElement>(".method-story__mobile-sticky")!;
+      const rail = node.querySelector<HTMLElement>(".method-story__mobile-rail")!;
+      const stages = [...node.querySelectorAll<HTMLElement>("[data-method-stage]")];
+      const stickyStyle = getComputedStyle(sticky);
+      const railBox = rail.getBoundingClientRect();
+      const stageBoxes = stages.map((stage) => stage.getBoundingClientRect());
+      return {
+        stickyPosition: stickyStyle.position,
+        railToViewport: railBox.width / window.innerWidth,
+        stageWidths: stageBoxes.map((box) => box.width),
+        stageTopSpread:
+          Math.max(...stageBoxes.map((box) => box.top)) -
+          Math.min(...stageBoxes.map((box) => box.top)),
+      };
+    });
+
+    expect(layout.stickyPosition).toBe("sticky");
+    expect(layout.railToViewport).toBeGreaterThan(4.4);
+    expect(layout.railToViewport).toBeLessThan(5.1);
+    expect(Math.max(...layout.stageWidths) - Math.min(...layout.stageWidths)).toBeLessThanOrEqual(1);
+    expect(layout.stageTopSpread).toBeLessThanOrEqual(2);
+
+    const scrollStageToCenter = async (progress: number, expectedTitle: string) => {
+      await track.evaluate((element, value) => {
+        const bounds = element.getBoundingClientRect();
+        const top = window.scrollY + bounds.top;
+        const distance = Math.max(0, bounds.height - window.innerHeight);
+        window.scrollTo({
+          top: top + distance * value,
+          behavior: "instant",
+        });
+      }, progress);
+      await page.waitForTimeout(500);
+
+      const closest = await stages.evaluateAll((items) => {
+        const center = window.innerWidth / 2;
+        return items
+          .map((item) => {
+            const box = item.getBoundingClientRect();
+            return {
+              text: item.querySelector("h3")?.textContent ?? "",
+              distance: Math.abs(box.left + box.width / 2 - center),
+            };
+          })
+          .sort((a, b) => a.distance - b.distance)[0]?.text;
+      });
+      expect(closest).toBe(expectedTitle);
+    };
+
+    await scrollStageToCenter(0, "Messy reality");
+    await scrollStageToCenter(0.25, "Expose the truth");
+    await scrollStageToCenter(0.45, "Reduce ambiguity");
+    await scrollStageToCenter(0.65, "Build the system");
+    await scrollStageToCenter(0.9, "Reliable outcomes");
+
+    await expect(sticky).toBeVisible();
+    await expect(rail).toBeVisible();
   });
 
   test("Writing cards use the compact two-column phone grid and opportunity tabs switch paths by keyboard", async ({
@@ -553,7 +611,7 @@ test.describe("Phone composition", () => {
     ).toEqual([]);
   });
 
-  test("390px method story preserves the full vertical narrative", async ({
+  test("390px method story reserves enough scroll distance for the sticky transformation", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -566,8 +624,8 @@ test.describe("Phone composition", () => {
         .getBoundingClientRect().height,
       writing: document.querySelector("[data-writing-card]")!.getBoundingClientRect().height,
     }));
-    expect(heights.method).toBeGreaterThanOrEqual(1800);
-    expect(heights.method).toBeLessThanOrEqual(2600);
+    expect(heights.method).toBeGreaterThanOrEqual(3200);
+    expect(heights.method).toBeLessThanOrEqual(3900);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
     expect(heights.writing).toBeGreaterThanOrEqual(110);
