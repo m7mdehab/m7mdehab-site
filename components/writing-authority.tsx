@@ -3,12 +3,12 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { WritingCard } from "@/components/writing-card";
 import { ArticleCover } from "@/components/writing-cover";
+import { WritingListen } from "@/components/writing-listen";
 import { projects } from "@/data/public";
 import { getWritingArticleOptionalContent, type WritingArticle, type WritingBlock } from "@/data/writing";
 import styles from "@/components/writing-authority.module.css";
 
 const categoryLabels = { ai: "AI", technology: "Technology", data: "Data", career: "Career", projects: "Projects", notes: "Notes" } as const;
-const lede = "Notes on AI, technology, work, projects, and whatever else I’m thinking through.";
 
 function formattedDate(date: string) {
   const [year, month, day] = date.split("-").map(Number);
@@ -23,8 +23,7 @@ export function WritingIndex({ articles }: { articles: readonly WritingArticle[]
       <div className="writing-system-shell">
         <header className="writing-system-archive-header">
           <p className="writing-system-archive-kicker">Writing</p>
-          <h1>Writing.</h1>
-          <p>{lede}</p>
+          <h1>What I’m thinking through.</h1>
         </header>
         <div className="writing-system-grid">
           {ordered.map((article) => <WritingCard key={article.slug} article={article} context="archive" />)}
@@ -97,12 +96,13 @@ export function WritingArticleView({ article }: { article: WritingArticle }) {
           <div className={styles.articleMetaGroup}>
             <time className={styles.articleMeta} dateTime={article.publishedAt}>{formattedDate(article.publishedAt)}</time>
             {article.updatedAt ? <time className={styles.articleMeta} dateTime={article.updatedAt}>Updated {formattedDate(article.updatedAt)}</time> : null}
-            <span className={styles.articleMeta}>{article.readingMinutes} min read</span>
+            <span className={styles.articleMeta}>{article.readingMinutes} min read · {article.audio ? "" : "~"}{article.listenMinutes} min listen</span>
           </div>
         </div>
         <p className="eyebrow">{categoryLabels[article.category]} · {article.topics.join(" · ")}</p>
         <h1>{article.title}</h1>
         <p className={styles.articleDeck}>{article.description}</p>
+        <WritingListen article={article} />
         {article.cover ? <div className="writing-system-article-cover"><ArticleCover article={article} /></div> : null}
         {optional.thesis ? <p className={styles.articleThesis}>{optional.thesis}</p> : null}
         {optional.evidence.length ? (
