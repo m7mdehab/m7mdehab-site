@@ -1,0 +1,123 @@
+# Writing Article System v1.4
+
+**Status:** draft implementation / rendered QA required  
+**Scope:** individual Writing article pages, authoring governance, article discovery metadata
+
+## Locked objective
+
+Every article should feel like part of one publication system: calm, minimal, readable, attributable, source-aware and technically credible.
+
+The shell is uniform. The rhetorical structure is not.
+
+## Current reference fixtures
+
+1. When should you trust a probabilistic forecast? — Deep dive
+2. Why accuracy alone is not enough for oil-spill detection — Deep dive
+3. What should an AI agent do when the evidence is missing? — Analysis
+
+All three must render through the same shell.
+
+## Page order
+
+1. back to Writing + format
+2. category/topics
+3. title
+4. deck
+5. visible author byline
+6. published/updated/read/listen metadata
+7. real-audio player when audio exists
+8. article cover
+9. optional Key idea
+10. optional evidence anchors
+11. On this page
+12. body
+13. optional takeaways
+14. Sources & further reading
+15. related writing
+16. project provenance/disclosure when relevant
+
+## Reading geometry
+
+Desktop:
+- page frame <=1180px;
+- prose <=760px / roughly 65–72 characters;
+- secondary TOC rail about 180–220px;
+- body line-height about 1.7;
+- H2 around 2–3rem, not poster scale.
+
+Mobile:
+- one reading column;
+- collapsed TOC before body;
+- same source trail and content;
+- no horizontal overflow.
+
+## Audio
+
+Do not render a fake player.
+
+When a real narration asset exists:
+- play/pause;
+- ±15 seconds;
+- seek;
+- elapsed/total;
+- speeds 0.75× through 2×;
+- remember speed locally;
+- no autoplay;
+- no-JS native audio fallback.
+
+## SEO / AI visibility
+
+Article HTML remains the canonical source.
+
+Implemented:
+- visible author → /about;
+- explicit /about ProfilePage;
+- BlogPosting;
+- BreadcrumbList;
+- genre;
+- abstract only when visible Key idea exists;
+- articleSection;
+- wordCount;
+- isPartOf Writing Blog;
+- citations;
+- author sameAs;
+- max-image-preview:large;
+- accurate sitemap lastModified;
+- related-writing internal links;
+- format + wordCount in writing.json/discoverability.
+
+Do not add:
+- hidden AI summaries;
+- AI-only duplicate routes;
+- invented FAQ markup;
+- fake updated dates;
+- keyword-stuffed headings;
+- schema that is not visible/supported by the article.
+
+## Next discovery upgrades after article-shell acceptance
+
+1. Create a real >=1200px representative raster/social image for every article. Forecast and AI-agent posts still need stable image assets; oil-spill already has a public image.
+2. Add IndexNow to the publish/deploy workflow for prompt Bing/Copilot discovery.
+3. Measure Google Search Console + Bing Webmaster AI Performance rather than guessing at “AI rankings.”
+
+## Acceptance
+
+For every current article:
+- self-canonical;
+- exactly one H1;
+- visible byline;
+- Key idea visible;
+- TOC works at desktop and mobile;
+- prose measure is readable;
+- sources visible;
+- two related articles appear;
+- existing project link remains;
+- no audio player without audio;
+- BlogPosting and BreadcrumbList validate;
+- no horizontal overflow at 390px;
+- axe clean;
+- no article claim/source text is altered by layout work.
+
+## Concurrency rule
+
+The Writing v1.3 card-grid work is a separate presentation branch. Before v1.4 is merged, rebase onto the accepted v1.3/main state and resolve only mechanical conflicts. Do not overwrite v1.3 Home/archive decisions.
