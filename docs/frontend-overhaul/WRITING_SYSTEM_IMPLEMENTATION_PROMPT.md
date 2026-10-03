@@ -35,6 +35,10 @@ Do not use stale draft PR #25 as the Writing implementation base.
 
 Prefer the latest accepted `main`. If concurrent work remains open, rebase the Writing branch before final rendered QA and merge.
 
+**PR #31 is a direct integration conflict** because it changes `home-closing.tsx`, Opportunity, Phase G/mobile tests and the English layout. Do not activate Writing on an older HomeClosing snapshot. If PR #31 is accepted, merge/rebase it first, then remove only the Writing-specific parts from that newest closing implementation while preserving its accepted Opportunity/Footer/mobile behavior.
+
+PR #29 also changes the English layout and Method. Preserve its accepted result if/when it lands.
+
 ## Locked outcome
 
 Home:
