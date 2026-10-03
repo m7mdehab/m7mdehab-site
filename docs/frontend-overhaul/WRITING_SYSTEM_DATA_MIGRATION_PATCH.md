@@ -50,6 +50,22 @@ export type WritingArticle =
 
 Do not keep mandatory `projectSlug` / `projectTitle` in the canonical type.
 
+Also add to the canonical base type:
+
+```ts
+cardDescription?: string;
+listenMinutes?: number;
+audio?: {
+  src: string;
+  mimeType: string;
+  durationSeconds: number;
+};
+```
+
+`cardDescription` is for browse surfaces only. Keep canonical `description` as the article/metadata description.
+
+`listenMinutes` may exist before audio publication and is treated as an estimate. A real `audio` object makes it an exact published listen duration.
+
 ## 3. Existing body compatibility
 
 Do not rewrite the existing long-form prose merely to migrate types.
@@ -85,6 +101,9 @@ publishedAt: "2026-09-11",
 category: "data",
 topics: ["Forecasting", "Calibration", "Evaluation"],
 series: "what-the-work-taught-me",
+cardDescription:
+  "A practical test for knowing when a probabilistic forecast deserves trust.",
+listenMinutes: 8,
 homeRank: 1,
 cover: {
   kind: "visual",
@@ -114,6 +133,9 @@ publishedAt: "2026-09-11",
 category: "data",
 topics: ["Computer vision", "Metrics", "Validation"],
 series: "what-the-work-taught-me",
+cardDescription:
+  "Why rare oil pixels make accuracy a weak headline metric.",
+listenMinutes: 8,
 homeRank: 2,
 cover: {
   kind: "visual",
@@ -134,6 +156,9 @@ publishedAt: "2026-09-11",
 category: "ai",
 topics: ["AI agents", "Provenance", "Governance"],
 series: "what-the-work-taught-me",
+cardDescription:
+  "How agents should handle missing evidence without inventing certainty.",
+listenMinutes: 8,
 homeRank: 3,
 cover: {
   kind: "visual",
@@ -201,7 +226,11 @@ At minimum detect:
 - invalid/non-positive `homeRank`;
 - published article without ISO date;
 - article with no topics;
-- cover with blank alt.
+- cover with blank alt;
+- `cardDescription` longer than 140 characters;
+- invalid/non-positive `listenMinutes`;
+- real audio without non-empty src/mime type/positive duration;
+- real audio without `listenMinutes`.
 
 Call it from tests. Do not make production rendering depend on a client runtime check.
 
@@ -221,10 +250,35 @@ After the migration compiles:
    - `writing-system-cover.tsx`;
    - `writing-system-card.tsx`;
    - `home-writing-section.tsx`;
+   - `writing-system-index.tsx`;
    - `writing-system-article-blocks.tsx`;
+   - `writing-system-article.tsx`;
+   - `writing-system-listen.tsx`;
+   - `writing-system-schema.ts`;
 2. point imports at `@/data/writing`;
 3. delete `components/writing-system-contract.ts`;
 4. run `rg "WritingSystemArticle|writing-system-contract"`;
 5. zero runtime references must remain.
 
 That closes the temporary scaffold and restores one editorial source of truth.
+
+
+## 11. Audio publication rule
+
+The current three entries should receive `listenMinutes: 8` but **no fake `audio` object yet** unless a real narration file is supplied.
+
+Card behavior:
+- with `listenMinutes` but no `audio`: render `~8 min listen`;
+- with both: render `8 min listen`.
+
+Article behavior:
+- no `audio` → no player;
+- real `audio` → render the prepared Listen block near the top.
+
+When narration is produced, derive the final listen time from the real audio duration and replace the estimate.
+
+## 12. Current body-length basis
+
+A repository-source word-count pass on 2026-10-03 found each current essay at roughly 1.1k words of prose.
+
+At approximately 150 words/minute narration, each is roughly 8 minutes. This justifies the initial estimate without inventing an audio asset.
