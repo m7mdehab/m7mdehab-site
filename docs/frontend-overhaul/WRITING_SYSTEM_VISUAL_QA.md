@@ -126,6 +126,26 @@ Pass:
 
 Reject glow, tilt, bouncing or cursor effects.
 
+## Card metadata / timing
+
+Pass only if:
+- taxonomy is bottom-left inside the cover;
+- read + listen timing is bottom-right inside the cover;
+- estimated listen timing carries `~` before real audio exists;
+- old top-left cover taxonomy labels are gone;
+- no metadata row remains under the cover.
+
+## Audio
+
+Before narration assets exist:
+- cards show estimated listen time;
+- article page shows no player.
+
+After a real asset is configured:
+- timing loses the estimate marker;
+- Listen block appears near the article top;
+- native controls are usable by keyboard.
+
 ## Article page
 
 Existing technical essay:
