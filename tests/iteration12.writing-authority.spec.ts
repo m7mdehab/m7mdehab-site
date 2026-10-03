@@ -48,9 +48,15 @@ test.describe("Writing publication authority", () => {
       expect(schema.articleSection.length).toBeGreaterThanOrEqual(7);
       expect(schema.isPartOf.url).toBe(`${domain}/writing`);
       expect(schema.author.url).toBe(`${domain}/about`);
-      expect(schema.audio).toBeUndefined();
+      expect(schema.audio).toHaveLength(2);
+      expect(schema.audio.map((item) => item.contentUrl)).toEqual([
+        `${domain}/audio/writing/${slug}/female.mp3`,
+        `${domain}/audio/writing/${slug}/male.mp3`,
+      ]);
       expect(schema.citation.length).toBeGreaterThanOrEqual(3);
       await expect(page.locator("[data-writing-listen]")).toHaveCount(1);
+      await expect(page.getByLabel("Narration voice")).toHaveValue("female");
+      await expect(page.getByLabel("Narration voice").locator("option")).toHaveText(["Female", "Male"]);
       await expect(page.getByText("By Mohammed Ehab ElNomany")).toBeVisible();
       await expect(page.getByText("Key idea")).toBeVisible();
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
