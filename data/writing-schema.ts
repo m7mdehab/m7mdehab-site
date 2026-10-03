@@ -1,6 +1,10 @@
 import { profile, projects } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
-import type { PublishedWritingArticle } from "@/data/writing";
+import {
+  getWritingWordCount,
+  writingCategories,
+  type PublishedWritingArticle,
+} from "@/data/writing";
 
 export function writingAbsoluteMediaUrl(src: string) {
   if (/^https?:\/\//.test(src)) return src;
@@ -35,10 +39,18 @@ export function getRelatedWritingProjects(article: PublishedWritingArticle): Rel
   });
 }
 
+const formatLabels = {
+  note: "Note",
+  analysis: "Analysis",
+  "deep-dive": "Deep dive",
+  "project-reflection": "Project reflection",
+} as const;
+
 export function buildWritingBlogPostingSchema(article: PublishedWritingArticle) {
   const canonical = `${profile.domain}/writing/${article.slug}`;
   const image = writingStableImage(article);
   const relatedProjects = getRelatedWritingProjects(article);
+  const sectionNames = article.sections.flatMap((section) => section.title ? [section.title] : []);
   const audio = article.audio
     ? {
         "@type": "AudioObject",
@@ -56,16 +68,28 @@ export function buildWritingBlogPostingSchema(article: PublishedWritingArticle) 
     url: canonical,
     headline: article.title,
     description: article.description,
+    ...(article.thesis ? { abstract: article.thesis } : {}),
     datePublished: article.publishedAt,
     ...(article.updatedAt ? { dateModified: article.updatedAt } : {}),
-    keywords: article.topics,
+    keywords: [writingCategories[article.category].label, ...article.topics],
+    genre: formatLabels[article.format],
+    ...(sectionNames.length ? { articleSection: sectionNames } : {}),
+    wordCount: getWritingWordCount(article),
     timeRequired: `PT${article.readingMinutes}M`,
     inLanguage: "en",
     author: {
       "@id": `${profile.domain}/#person`,
       "@type": "Person",
       name: profile.name,
-      url: profile.domain,
+      url: `${profile.domain}/about`,
+      sameAs: [profile.github, profile.linkedin],
+    },
+    publisher: { "@id": `${profile.domain}/#person` },
+    isPartOf: {
+      "@type": "Blog",
+      "@id": `${profile.domain}/writing#blog`,
+      name: "Writing",
+      url: `${profile.domain}/writing`,
     },
     mainEntityOfPage: canonical,
     ...(relatedProjects.length
@@ -82,5 +106,34 @@ export function buildWritingBlogPostingSchema(article: PublishedWritingArticle) 
       : {}),
     ...(image ? { image: writingAbsoluteMediaUrl(image) } : {}),
     ...(audio ? { audio } : {}),
+  };
+}
+
+export function buildWritingBreadcrumbSchema(article: PublishedWritingArticle) {
+  const canonical = `${profile.domain}/writing/${article.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: profile.domain,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Writing",
+        item: `${profile.domain}/writing`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: canonical,
+      },
+    ],
   };
 }
