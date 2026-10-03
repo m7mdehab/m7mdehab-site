@@ -223,15 +223,6 @@ export function measureMethodStoryDesktopGeometry(
   const messySources = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map((selector) =>
     relativePoint(rootRect, queryRequired(root, selector)),
   );
-  const messyRects = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map((selector) => {
-    const input = queryRequired(root, selector).closest<HTMLElement>(
-      "[data-method-input]",
-    );
-    if (!input)
-      throw new Error(`Method Story input card missing for ${selector}`);
-    return relativeRect(rootRect, input);
-  });
-
   const evidenceRects = METHOD_STORY_DESKTOP_ANCHORS.evidenceSheets.map(
     (selector) => relativeRect(rootRect, queryRequired(root, selector)),
   );
@@ -294,14 +285,11 @@ export function measureMethodStoryDesktopGeometry(
     y: target.y,
   }));
 
-  const incomingLaneX = Math.max(...messyRects.map((rect) => rect.right)) + 12;
-
-  const inputToExpose = messySources.map((source, index) =>
-    routedHorizontalPath(
-      source,
-      exposeLeftTargets[index],
-      incomingLaneX + index * 5,
-    ),
+  // All four input paths now converge directly into the exact same Expose
+  // entry point with the same horizontal arrival tangent. This removes the
+  // staggered lane effect while preserving each card's exact edge source.
+  const inputToExpose = messySources.map((source) =>
+    horizontalCurve(source, exposeEntry, 0.34),
   );
 
   const exposeToReduce = exposeRightSources.map((source) =>
