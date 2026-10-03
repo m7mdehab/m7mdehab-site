@@ -379,7 +379,7 @@ export function MethodStoryCanvas() {
         <motion.circle
           className="method-story__decision-node"
           cx="625"
-          cy="180"
+          cy="120"
           r="5"
           style={enhanced ? { opacity: reduceOpacity } : undefined}
         />
