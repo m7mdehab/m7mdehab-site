@@ -90,9 +90,12 @@ The English Writing system is under an explicit design/architecture-locked rebui
 - `design/writing-system/writing-system.spec.json`.
 
 For Writing:
-- the public umbrella is **Writing**, not “What the Work Taught Me”;
+- the route/nav taxonomy is **Writing**, while the visible Home/archive heading is **What I’m thinking through.**;
 - “What the Work Taught Me” is only an optional series for work-derived essays;
 - Home uses a non-carousel 3/2/1 editorial card grid with up to six explicitly curated posts;
+- card taxonomy and read/listen timing live inside the cover bottom edge;
+- card titles are hard-capped at two visual lines; card descriptions are hidden on mobile;
+- every article carries read + listen timing; audio itself remains optional and never autoplays;
 - visible Home heading is **What I’m thinking through.** with no supporting lede;
 - `All writing` sits after the grid at the bottom-right;
 - card taxonomy/timing lives inside the bottom of the 16:9 cover;
