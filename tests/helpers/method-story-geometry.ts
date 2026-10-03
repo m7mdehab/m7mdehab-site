@@ -44,13 +44,20 @@ export async function readLocalRect(
   root: Locator,
   target: Locator,
 ): Promise<TestRect> {
-  const [rootBox, targetBox] = await Promise.all([
-    root.boundingBox(),
-    target.boundingBox(),
-  ]);
+  const readRect = (element: Element) => {
+    const rect = element.getBoundingClientRect();
+    return {
+      x: rect.left,
+      y: rect.top,
+      width: rect.width,
+      height: rect.height,
+    };
+  };
 
-  if (!rootBox) throw new Error("Method Story root has no bounding box");
-  if (!targetBox) throw new Error("Method Story anchor has no bounding box");
+  const [rootBox, targetBox] = await Promise.all([
+    root.evaluate(readRect),
+    target.evaluate(readRect),
+  ]);
 
   const left = targetBox.x - rootBox.x;
   const top = targetBox.y - rootBox.y;
