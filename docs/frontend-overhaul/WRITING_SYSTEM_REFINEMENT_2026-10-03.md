@@ -3,7 +3,7 @@
 **Status:** LOCKED v1.2 / supersedes the earlier Writing v1.0/v1.1 presentation details
 **Scope:** Home Writing + archive card grammar + future article audio
 
-**Implementation validation (2026-10-03):** The prepared v1.2 system is integrated with the canonical generalized writing model. `npm ci`, typecheck, lint, production build, Cloudflare static export, focused Playwright (36/36), and the full browser suite (179/179) passed. The requested desktop, tablet, and phone matrix was captured and visually reviewed; the oil cover crop removes the baked-in source strip while retaining the public SAR evidence. Screenshots are in `outputs/writing-system-final-refinement/screenshots/`. PR, merge and production status are recorded in `docs/EXECUTION_STATUS.md` after the repository delivery workflow completes.
+**Implementation validation (2026-10-03):** The prepared v1.2 system is integrated with the canonical generalized writing model and rebased onto `main` at `6bc1250cfa2a80982f24462cbc7bf9eedfa14648`. `npm ci`, typecheck, lint, production build, Cloudflare static export, focused Playwright (36/36), and the full browser suite (180/180) passed. The requested desktop, tablet, and phone matrix was captured and visually reviewed; the oil cover crop removes the baked-in source strip while retaining the public SAR evidence. Screenshots are in `outputs/writing-system-final-refinement/screenshots/`. PR, merge and production status are recorded in `docs/EXECUTION_STATUS.md` after the repository delivery workflow completes.
 
 ## Decision summary
 
