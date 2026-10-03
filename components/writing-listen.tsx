@@ -1,3 +1,4 @@
+import { WritingAudioPlayer } from "@/components/writing-audio-player";
 import { getWritingListenDetails, type WritingArticle } from "@/data/writing";
 
 export function WritingListen({ article }: { article: WritingArticle }) {
@@ -5,23 +6,12 @@ export function WritingListen({ article }: { article: WritingArticle }) {
   if (!listen) return null;
 
   return (
-    <section
-      className="writing-system-listen"
-      data-writing-listen
-      aria-label={listen.sectionLabel}
-    >
-      <div className="writing-system-listen-copy">
-        <strong>Listen to this article</strong>
-        <span>Audio narration · {listen.listenMinutes} min</span>
-      </div>
-      <audio
-        controls={listen.controls}
-        preload={listen.preload}
-        aria-label={listen.playerLabel}
-      >
-        <source src={listen.src} type={listen.mimeType} />
-        Your browser does not support the audio element.
-      </audio>
-    </section>
+    <WritingAudioPlayer
+      title={article.title}
+      src={listen.src}
+      mimeType={listen.mimeType}
+      durationSeconds={article.audio?.durationSeconds ?? article.listenMinutes * 60}
+      listenMinutes={listen.listenMinutes}
+    />
   );
 }
