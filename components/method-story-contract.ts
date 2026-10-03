@@ -71,6 +71,7 @@ export const METHOD_STORY_VIEWBOX = {
 
 export const METHOD_STORY_MOTION = {
   scrollOffset: ["start 78%", "end 28%"] as const,
+  desktopScrollOffset: ["start 86%", "start 42%"] as const,
   spring: { stiffness: 115, damping: 28, mass: 0.35 },
   ranges: {
     messy: [0, 0.18],
@@ -91,14 +92,18 @@ export const METHOD_STORY_INPUT_LAYOUT = [
 
 export const METHOD_STORY_CONNECTORS = {
   inputToExpose: [
-    "M250 145 C300 138 315 170 356 184",
-    "M278 205 C314 207 332 214 372 218",
-    "M242 267 C304 258 328 248 383 244",
+    "M190 63 C248 63 286 82 330 96",
+    "M270 147 C296 147 316 139 342 132",
+    "M190 238 C252 238 294 194 354 166",
+    "M263 322 C294 304 326 234 366 202",
   ],
   exposeToReduce: [
-    "M545 175 C585 175 600 184 630 205",
-    "M552 222 C595 222 607 222 640 222",
-    "M548 269 C588 269 603 254 632 238",
+    "M536 80 C586 80 610 128 662 154",
+    "M542 102 C590 102 616 136 662 154",
+    "M548 124 C596 124 620 143 662 154",
+    "M548 146 C596 146 622 150 662 154",
+    "M544 168 C594 168 618 161 662 154",
+    "M536 190 C586 190 612 172 662 154",
   ],
   reduceBranches: [
     "M640 174 C690 174 710 205 748 205",
