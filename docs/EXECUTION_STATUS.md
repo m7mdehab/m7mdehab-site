@@ -302,3 +302,25 @@ Prepared non-live scaffold:
 The scaffold is intentionally not wired into production. The implementation agent must migrate the temporary contract into canonical `data/writing.ts`, activate the prepared components, generalize archive/article/schema/discovery, update tests, complete rendered QA, then merge/deploy per `AGENTS.md`.
 
 No claim is made that the new Writing UI is live until that activation and production verification are complete.
+
+## Writing System refinement v1.1 — 2026-10-03
+
+User-reviewed desktop/mobile screenshots triggered a locked density/hierarchy refinement on `writing-system-groundwork`.
+
+Refined prepared state:
+- visible Home/archive title: **What I’m thinking through.**;
+- redundant Home/archive explanatory lede removed;
+- `All writing` moved after the Home grid at bottom-right;
+- category/topic + read/listen timing moved into the cover bottom edge;
+- duplicate top taxonomy cover labels removed;
+- card title hard-capped to two visual lines;
+- card description hard-capped to two visual lines with separate concise `cardDescription` support;
+- current three listen estimates set to ~8 minutes based on ~1.1k-word bodies and restrained narration pace;
+- real audio contract prepared with native top-of-article controls, but no fake player will render before an actual asset exists;
+- BlogPosting schema scaffold now supports real `AudioObject` only when audio exists;
+- oil-spill thumbnail crop is intentionally tightened so baked source-header text does not compete with editorial metadata;
+- responsive mobile rhythm tightened.
+
+Authority: `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md` and design spec v1.1.
+
+The refined scaffold remains non-live until canonical data migration, route activation, full browser validation, rendered QA, merge and production verification are completed.
