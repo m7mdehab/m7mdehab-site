@@ -46,6 +46,11 @@ export const writingSeries = {
   "what-the-work-taught-me": { label: "What the Work Taught Me" },
 } as const;
 
+export const writingSectionCopy = {
+  heading: "What I’m thinking through.",
+  subtitle: "Ideas, experiments, and everything that piques my curiosity as I navigate my career.",
+} as const;
+
 export type WritingCategory = keyof typeof writingCategories;
 export type WritingSeries = keyof typeof writingSeries;
 export type WritingCover =

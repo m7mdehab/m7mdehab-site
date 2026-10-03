@@ -84,8 +84,11 @@ For this pass:
 
 ## Current writing-system rebuild
 
-Writing v1.2 is the current design/implementation authority. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering, audio, or writing discovery/schema, read in this order:
+Writing v1.3 is the current presentation authority. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering, audio, or writing discovery/schema, read in this order:
 
+- `docs/frontend-overhaul/WRITING_SYSTEM_V13_FINAL_HANDOFF.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_V13_EXECUTION_PROMPT.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_V13_REFINEMENT_2026-10-03.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V12_EXECUTION_PROMPT.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`;
 - `design/writing-system/writing-system.spec.json`;
@@ -93,16 +96,18 @@ Writing v1.2 is the current design/implementation authority. Before touching `da
 - `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`.
 
-Older Writing execution/integration documents remain historical architecture context only. Where they conflict with v1.2, v1.2 wins.
+Older Writing execution/integration documents remain historical architecture context only. v1.3 supersedes v1.2 only for heading/subtitle wrapping, phone grid density, phone title clamping, and phone metadata geometry. For all other Writing architecture, v1.2 remains the underlying implementation authority.
 
 For Writing:
 - the route/nav taxonomy remains **Writing**; the visible Home/archive heading is **What I’m thinking through.**;
 - “What the Work Taught Me” is only an optional series for work-derived essays;
-- Home uses a non-carousel 3/2/1 editorial grid with up to six explicitly curated posts;
+- Home uses a non-carousel 3/2/2 editorial grid with up to six explicitly curated posts;
 - card taxonomy sits inside the cover bottom-left;
 - read + listen time sit inside the cover bottom-right;
-- card titles are hard-capped at two visual lines;
+- the visible Home/archive heading is one visual line and has the subtitle **Ideas, experiments, and everything that piques my curiosity as I navigate my career.** on one visual line;
+- card titles are hard-capped at two visual lines on desktop/tablet and one visual line below 720px;
 - concise card descriptions are capped at two lines on desktop/tablet and hidden below 720px;
+- phone cards remain two columns even at the 320px acceptance width; the final odd card stays in normal left-column flow;
 - every article has `readingMinutes` and `listenMinutes`; a real `audio` asset is optional;
 - never render a fake/disabled audio player; real audio uses native controls and never autoplays;
 - project relation, evidence, sources, takeaways and thesis are optional;

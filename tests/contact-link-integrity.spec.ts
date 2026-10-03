@@ -105,7 +105,7 @@ test.describe("public contact link integrity", () => {
       "/prototypes/spatial",
       "/prototypes/kinetic",
     ]) {
-      await page.goto(route);
+      await page.goto(route, { waitUntil: "domcontentloaded" });
       const mailtoLinks = page.locator('a[href^="mailto:"]');
       await expect(mailtoLinks).toHaveCount(0);
       const composeLinks = page.locator(

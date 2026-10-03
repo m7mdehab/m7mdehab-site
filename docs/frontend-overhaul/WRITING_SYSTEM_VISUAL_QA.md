@@ -1,3 +1,5 @@
+> **v1.3 supersession:** For current acceptance, read `WRITING_SYSTEM_V13_REFINEMENT_2026-10-03.md` first. v1.3 changes the heading/subtitle to one line, adds the new subtitle, changes phone Writing grids to two columns, and makes phone card titles one line. The rest of this rubric remains applicable.
+
 # Writing System — Render Review Rubric
 
 Review in this order:
@@ -14,7 +16,8 @@ Review in this order:
 Pass only if:
 
 - `What I’m thinking through.` is the first visual anchor;
-- there is no redundant support paragraph in the header;
+- the compact subtitle `Ideas, experiments, and everything that piques my curiosity as I navigate my career.` appears directly below the heading;
+- heading and subtitle are each exactly one visual line;
 - all three covers have equal 16:9 geometry;
 - three cards form one calm row;
 - cards are generous but not poster-sized;
@@ -47,8 +50,9 @@ Immediate rejection:
 
 Pass only if:
 
-- one natural column;
+- two natural columns;
 - no horizontal scrolling;
+- the final odd card stays in the left cell rather than spanning/centering;
 - all three current posts are visible in document flow;
 - cover remains wide and legible;
 - section heading is materially smaller than v1.0 and resolves quickly;
@@ -190,3 +194,20 @@ When real audio exists:
 The metadata rail uses a dedicated dark bottom gradient.
 
 Reject any cover where the category or timing text falls below WCAG AA contrast against the pixels behind it. Do not rely on text-shadow alone.
+
+
+## v1.3 phone density gate
+
+At 320, 390 and 430px, reject if any of these occur:
+
+- Writing grid computes to one column;
+- the section heading wraps;
+- the subtitle wraps;
+- a card title reaches two lines;
+- metadata overflows the cover;
+- read/listen timing becomes unreadable;
+- the forecast/agent graphic becomes too compressed to parse;
+- the document gains horizontal overflow;
+- the third card is stretched to full width.
+
+The intended phone read is a compact visual index, not a stack of mini article pages.

@@ -47,7 +47,7 @@ test.describe("Final English-only public production acceptance", () => {
   test("all 14 public HTML routes are English, self-canonical, and expose no Arabic alternate", async ({ page }) => {
     const evidence: Array<{ route: string; canonical: string }> = [];
     for (const route of htmlRoutes) {
-      const response = await page.goto(route);
+      const response = await page.goto(route, { waitUntil: "domcontentloaded" });
       expect(response?.ok(), `route failed: ${route}`).toBeTruthy();
       await settle(page);
       await expect(page.locator("html")).toHaveAttribute("lang", "en");
@@ -120,7 +120,7 @@ test.describe("Final English-only public production acceptance", () => {
   test("reduced-motion and no-JS fallbacks preserve the English Home narrative", async ({ browser }) => {
     const reducedContext = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
     const reducedPage = await reducedContext.newPage();
-    await reducedPage.goto("/");
+    await reducedPage.goto("/", { waitUntil: "domcontentloaded" });
     await settle(reducedPage);
     await expect(reducedPage.locator("h1")).toBeVisible();
     await expect(reducedPage.locator("#work")).toBeVisible();
@@ -130,7 +130,7 @@ test.describe("Final English-only public production acceptance", () => {
 
     const noJsContext = await browser.newContext({ viewport: { width: 390, height: 844 }, javaScriptEnabled: false });
     const noJsPage = await noJsContext.newPage();
-    const response = await noJsPage.goto("/");
+    const response = await noJsPage.goto("/", { waitUntil: "domcontentloaded" });
     expect(response?.ok()).toBeTruthy();
     for (const selector of ["h1", "#work", "#method", "#writing", "#contact"]) await expect(noJsPage.locator(selector)).toBeVisible();
     await expectNoHorizontalOverflow(noJsPage);
