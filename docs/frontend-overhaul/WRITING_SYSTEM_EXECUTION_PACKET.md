@@ -19,6 +19,8 @@ It must not read as:
 
 Project-derived technical essays remain valid and keep their evidence boundaries, but they become one optional series rather than the definition of Writing.
 
+The companion `WRITING_SYSTEM_REFINEMENT_PACKET.md` supersedes this packet wherever later card/header/audio details conflict.
+
 This packet supersedes the old Phase G assumption that Home must show exactly two evidence-led project essays.
 
 ## 1. Locked public copy
@@ -255,6 +257,9 @@ Generalize `WritingArticle` around:
 - `topics[]`;
 - optional `series`;
 - `readingMinutes`;
+- `listenMinutes`;
+- optional `audio`;
+- optional `cardDescription`;
 - required `listenMinutes`;
 - optional real `audio: { src, mimeType, durationSeconds }`;
 - optional concise `cardDescription`;
@@ -438,12 +443,18 @@ No-JS state is the complete readable state.
 Reject if:
 
 - the section still reads as project lessons;
-- Home H2 remains “What the work taught me”;
+- Home H2 remains “Writing.” or “What the work taught me”;
 - Home remains a two-card carousel;
 - dots remain;
 - mobile still horizontally swipes Writing;
 - cards look like SaaS features;
 - cards become giant case-study posters;
+- card metadata remains below the cover;
+- old top-left technical cover labels remain;
+- any card title renders on three or more lines;
+- mobile card descriptions remain visible;
+- All writing remains in the header;
+- listen time is omitted or a fake audio player is shown;
 - taxonomy/timing sits below the thumbnail instead of inside its bottom edge;
 - any card title visibly exceeds two lines;
 - the redundant explanatory Home lede returns;
