@@ -366,3 +366,14 @@ Do not put category or timing back beneath the cover.
 Do not duplicate taxonomy as a permanent top-left cover label.
 
 When a title truncates visually, keep the complete semantic title in the link/DOM. Do not rewrite a strong title merely to make the card prettier.
+
+
+## 18. Final browse-surface rule
+
+The card title is visually clamped to two lines on every viewport. The complete article title remains semantic and is never manually truncated for layout.
+
+Card taxonomy/timing belongs inside the bottom of the cover. Do not reintroduce a metadata row under the image.
+
+Home and archive card descriptions are intentionally temporary density aids: keep them to two lines on desktop/tablet and hide them on mobile.
+
+The Home/archive visible heading is **What I’m thinking through.** The small archive eyebrow may remain **Writing** for route orientation.
