@@ -33,6 +33,7 @@ import "../hero-credibility-nav-pass-01.css";
 import "../hero-credibility-pass-02.css";
 import "../hero-credibility-pass-03.css";
 import "../selected-work-transitions.css";
+import "../method-story.css";
 import "../closing-contact-footer-refresh.css";
 import "../writing-system.css";
 import { SiteNav } from "@/components/site-nav";

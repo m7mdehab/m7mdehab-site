@@ -8,14 +8,22 @@ const services = [
 ] as const;
 
 test.describe("Iteration 7 conversion architecture", () => {
-  test("method bridge replaces homepage capability anchors while service proof lives on the dedicated route", async ({ page }) => {
+  test("method bridge replaces homepage capability anchors while service proof lives on the dedicated route", async ({
+    page,
+  }) => {
     await page.goto("/");
 
-    await expect(page.locator("[data-solve-think]")).toBeVisible();
-    await expect(page.locator('[data-conversion="capability-to-service"]')).toHaveCount(0);
-    await expect(page.locator('[data-conversion="method-to-work"]')).toHaveAttribute("href", "/work");
+    await expect(page.locator("[data-method-story]")).toBeVisible();
+    await expect(
+      page.locator('[data-conversion="capability-to-service"]'),
+    ).toHaveCount(0);
+    await expect(
+      page.locator('[data-conversion="method-to-work"]'),
+    ).toHaveAttribute("href", "/work");
     await expect(page.locator("#services")).toHaveCount(0);
-    await expect(page.locator('[data-conversion="home-to-services"]')).toHaveAttribute("href", "/services");
+    await expect(
+      page.locator('[data-conversion="home-to-services"]'),
+    ).toHaveAttribute("href", "/services");
 
     await page.goto("/services");
     await expect(page.locator("#services")).toBeVisible();
@@ -24,7 +32,9 @@ test.describe("Iteration 7 conversion architecture", () => {
     }
   });
 
-  test("service cards expose governed evidence and browser-reliable contact intents", async ({ page }) => {
+  test("service cards expose governed evidence and browser-reliable contact intents", async ({
+    page,
+  }) => {
     await page.goto("/services");
 
     const serviceCards = page.locator("#services .service-card");
@@ -47,41 +57,79 @@ test.describe("Iteration 7 conversion architecture", () => {
     }
 
     const analytics = page.locator("#service-analytics-power-bi");
-    await expect(analytics).toContainText("no publishable Power BI screenshot claimed");
+    await expect(analytics).toContainText(
+      "no publishable Power BI screenshot claimed",
+    );
     await expect(analytics).toContainText("not Power BI artifacts");
 
     const migration = page.locator("#service-data-migration-reconciliation");
-    await expect(migration).toContainText("public visual evidence intentionally limited");
-    await expect(migration).toContainText("not reconstructed into fake public screenshots");
+    await expect(migration).toContainText(
+      "public visual evidence intentionally limited",
+    );
+    await expect(migration).toContainText(
+      "not reconstructed into fake public screenshots",
+    );
   });
 
-  test("case studies link only to directly supported services on the dedicated service route", async ({ page }) => {
+  test("case studies link only to directly supported services on the dedicated service route", async ({
+    page,
+  }) => {
     await page.goto("/work/presaira");
 
-    const presairaBridge = page.locator('[data-conversion="project-to-service"]');
+    const presairaBridge = page.locator(
+      '[data-conversion="project-to-service"]',
+    );
     await expect(presairaBridge).toHaveCount(2);
-    await expect(presairaBridge.filter({ hasText: "Service context" }).first()).toBeVisible();
-    await expect(page.locator('[data-service-id="analytics-power-bi"][data-conversion="project-to-service"]')).toHaveCount(0);
-    await expect(page.locator('[data-service-id="ml-ai-product-development"][data-conversion="project-to-service"]')).toHaveCount(1);
-    await expect(page.locator('[data-service-id="product-web-development"][data-conversion="project-to-service"]')).toHaveCount(1);
+    await expect(
+      presairaBridge.filter({ hasText: "Service context" }).first(),
+    ).toBeVisible();
+    await expect(
+      page.locator(
+        '[data-service-id="analytics-power-bi"][data-conversion="project-to-service"]',
+      ),
+    ).toHaveCount(0);
+    await expect(
+      page.locator(
+        '[data-service-id="ml-ai-product-development"][data-conversion="project-to-service"]',
+      ),
+    ).toHaveCount(1);
+    await expect(
+      page.locator(
+        '[data-service-id="product-web-development"][data-conversion="project-to-service"]',
+      ),
+    ).toHaveCount(1);
     for (const link of await presairaBridge.all()) {
       await expect(link).toHaveAttribute("href", /^\/services#service-/);
     }
 
     await page.goto("/work/makhbazy");
-    await expect(page.locator('[data-conversion="project-to-service"]')).toHaveCount(1);
-    await expect(page.locator('[data-service-id="product-web-development"][data-conversion="project-to-service"]')).toHaveCount(1);
-    await expect(page.locator('[data-conversion="project-to-service"]')).toHaveAttribute("href", "/services#service-product-web-development");
+    await expect(
+      page.locator('[data-conversion="project-to-service"]'),
+    ).toHaveCount(1);
+    await expect(
+      page.locator(
+        '[data-service-id="product-web-development"][data-conversion="project-to-service"]',
+      ),
+    ).toHaveCount(1);
+    await expect(
+      page.locator('[data-conversion="project-to-service"]'),
+    ).toHaveAttribute("href", "/services#service-product-web-development");
   });
 });
 
 test.describe("Iteration 7 progressive enhancement", () => {
   test.use({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
 
-  test("service proof and contact links remain available without JavaScript", async ({ page }) => {
+  test("service proof and contact links remain available without JavaScript", async ({
+    page,
+  }) => {
     await page.goto("/services");
     await expect(page.locator("#services")).toBeVisible();
-    await expect(page.locator('[data-conversion="service-to-contact"]')).toHaveCount(4);
-    await expect(page.locator("#service-ml-ai-product-development")).toContainText("Strong public project evidence");
+    await expect(
+      page.locator('[data-conversion="service-to-contact"]'),
+    ).toHaveCount(4);
+    await expect(
+      page.locator("#service-ml-ai-product-development"),
+    ).toContainText("Strong public project evidence");
   });
 });
