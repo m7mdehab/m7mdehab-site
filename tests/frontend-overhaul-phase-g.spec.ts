@@ -30,8 +30,21 @@ test.describe("Phase G closing system", () => {
     await page.goto("/");
     await settle(page);
 
-    await expect(page.locator("[data-writing-home]")).toHaveAttribute("data-writing-count", "3");
-    await expect(page.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
+    const writing = page.locator("[data-writing-home]");
+    await expect(writing).toHaveAttribute("data-writing-count", "3");
+    await expect(
+      writing.getByRole("heading", {
+        level: 2,
+        name: "What I’m thinking through.",
+      }),
+    ).toBeVisible();
+    await expect(writing.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
+    await expect(writing.locator(".writing-system-card-overlay")).toHaveCount(3);
+    await expect(writing.locator(".writing-system-card-meta")).toHaveCount(0);
+    await expect(writing.locator(".writing-system-cover-label")).toHaveCount(0);
+    await expect(writing).not.toContainText(
+      "Notes on AI, technology, work, projects, and whatever else I’m thinking through.",
+    );
     await expect(page.locator(".closing-path")).toHaveCount(3);
     await expect(page.locator("#services")).toHaveCount(0);
     await expect(page.locator('[data-conversion="home-to-services"]')).toHaveAttribute("href", "/services");
@@ -75,8 +88,15 @@ test.describe("Phase G closing system", () => {
     await page.goto("/");
     await settle(page);
 
-    await expect(page.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
-    await expect(page.locator("[data-writing-home]")).not.toContainText("What the work taught me");
+    const writing = page.locator("[data-writing-home]");
+    await expect(writing.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
+    await expect(writing).not.toContainText("What the work taught me");
+    await expect(
+      writing.getByRole("heading", {
+        level: 2,
+        name: "What I’m thinking through.",
+      }),
+    ).toBeVisible();
     await expect(page.locator(".closing-path")).toHaveCount(3);
     await noHorizontalOverflow(page);
     expect(await page.locator(".writing-system-cover").first().evaluate((element) => getComputedStyle(element).transform)).toBe("none");
