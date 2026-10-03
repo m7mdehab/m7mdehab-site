@@ -130,6 +130,17 @@ Rules:
 - Every project-specific visual introduced in code should map to a registry entry or cause the registry to be updated in the same change.
 - Reduced-motion and mobile fallbacks must preserve the same truthful proof in static form rather than substitute generic decoration.
 
+## Writing article governance
+
+Before changing article-body layout, article schema, article audio, or authoring rules, read:
+
+- `docs/WRITING_ARTICLE_RUNBOOK.md`;
+- `docs/SEO_AND_AI_VISIBILITY.md`;
+- `data/writing.ts`;
+- `data/writing-schema.ts`.
+
+The article shell is uniform; article rhetoric is format-dependent. Do not add hidden AI-only summaries, unsupported schema, fake freshness dates, or generic FAQ blocks for ranking purposes.
+
 ## SEO / AI visibility
 Keep visible content, structured data and machine-readable outputs consistent with the governed public truth model. Do not fabricate schema claims that do not appear visibly or lack evidence. Never leak private facts through JSON-LD, `/profile.json`, `/projects.json`, `/services.json`, `/llms.txt`, metadata or hidden HTML.
 
