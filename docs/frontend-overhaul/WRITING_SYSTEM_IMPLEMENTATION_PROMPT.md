@@ -110,7 +110,7 @@ Generalize article data around:
 - topics;
 - optional series;
 - readingMinutes;
-- optional listenMinutes;
+- required listenMinutes;
 - optional real audio asset metadata;
 - optional concise cardDescription;
 - optional homeRank;
@@ -167,7 +167,7 @@ Card:
 - dedicated dark bottom gradient behind metadata for contrast;
 - no duplicated top taxonomy label;
 - restrained Newsreader title with a **hard two-line maximum**;
-- concise cardDescription with a **hard two-line maximum**;
+- concise cardDescription with a **hard two-line maximum on desktop/tablet and hidden on mobile (<720px)**;
 - transparent outer background;
 - whole card is one link;
 - no SaaS shell or heavy shadow.
@@ -289,6 +289,8 @@ Do not treat automated tests as visual acceptance.
 - restore the removed explanatory Home lede;
 - put All writing back in the header;
 - render a disabled/fake audio player when no real audio source exists;
+- omit listenMinutes on any article;
+- restore card descriptions on mobile without a new explicit decision;
 - add filter/search UI;
 - fill a 3×3 with placeholders;
 - show nine Home posts by default;
@@ -353,6 +355,6 @@ Also read and obey:
 
 `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`
 
-It supersedes v1.0 presentation details for the heading, lede, CTA placement, metadata placement, title clamp, card-description density, SAR crop and audio-ready behavior.
+It supersedes v1.0/v1.1 presentation details for the heading, lede, CTA placement, metadata placement, title clamp, mobile description visibility, SAR crop and audio-ready behavior.
 
 Do not “restore” the previous screenshot merely because it already looked polished.
