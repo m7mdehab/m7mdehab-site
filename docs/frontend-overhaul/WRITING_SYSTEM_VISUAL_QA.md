@@ -54,7 +54,7 @@ Pass only if:
 - section heading is materially smaller than v1.0 and resolves quickly;
 - every card title remains two lines maximum;
 - metadata stays inside the cover and remains legible;
-- card description remains two lines maximum and secondary;
+- card description is not shown on mobile;
 - vertical rhythm separates cards without excessive emptiness;
 - Writing anchor clears the mobile dock.
 
@@ -154,6 +154,7 @@ At 1920:
 At mobile:
 
 - Home remains consistent with the compact architecture;
+- card descriptions are hidden;
 - Writing does not recreate three giant carousel panels.
 
 ## 3-second test
