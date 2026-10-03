@@ -31,7 +31,8 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
       await expect(page.locator('[data-writing-card][data-writing-context="related"]')).toHaveCount(2);
       await expect(page.locator("[data-writing-listen]")).toHaveCount(1);
-      await expect(page.getByLabel("Narration voice")).toHaveValue("natural");
+      await expect(page.getByLabel("Narration voice")).toHaveValue("female");
+      await expect(page.getByLabel("Narration voice").locator("option")).toHaveText(["Female", "Male"]);
       await expect(page.getByLabel("Narration speed")).toHaveValue("1");
       await expect(page.locator(".writing-system-article-cover")).toHaveCount(0);
 
@@ -46,6 +47,7 @@ test("all current articles use the same readable publication shell", async ({ pa
           textAlign: style.textAlign,
           bodyLeft: article.getBoundingClientRect().left,
           heroLeft: document.querySelector<HTMLElement>("main h1")!.getBoundingClientRect().left,
+          h1FontSize: Number.parseFloat(getComputedStyle(document.querySelector<HTMLElement>("main h1")!).fontSize),
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         };
       });
@@ -54,6 +56,7 @@ test("all current articles use the same readable publication shell", async ({ pa
       expect(geometry.paragraphLineHeight / geometry.paragraphFontSize).toBeGreaterThanOrEqual(1.6);
       expect(geometry.textAlign).toBe("justify");
       expect(Math.abs(geometry.bodyLeft - geometry.heroLeft)).toBeLessThanOrEqual(2);
+      if (width >= 1000) expect(geometry.h1FontSize).toBeLessThanOrEqual(58);
       if (width >= 1000) {
         expect(geometry.articleWidth).toBeGreaterThanOrEqual(900);
         expect(geometry.articleWidth).toBeLessThanOrEqual(1160);
