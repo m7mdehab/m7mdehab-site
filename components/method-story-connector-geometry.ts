@@ -39,21 +39,29 @@ export type MethodStoryConnectorGeometry = {
 };
 
 export const METHOD_STORY_DESKTOP_ANCHORS = {
-  messy: [
-    '[data-method-anchor="messy-1"]',
-    '[data-method-anchor="messy-2"]',
-    '[data-method-anchor="messy-3"]',
-    '[data-method-anchor="messy-4"]',
+  messyPorts: [
+    '[data-method-port="messy-1-out"]',
+    '[data-method-port="messy-2-out"]',
+    '[data-method-port="messy-3-out"]',
+    '[data-method-port="messy-4-out"]',
   ],
-  expose: '[data-method-anchor="expose-stack"]',
-  reduce: '[data-method-anchor="reduce-card"]',
-  build: '[data-method-anchor="build-system"]',
-  outcomes: [
-    '[data-method-anchor="outcome-1"]',
-    '[data-method-anchor="outcome-2"]',
-    '[data-method-anchor="outcome-3"]',
-    '[data-method-anchor="outcome-4"]',
-    '[data-method-anchor="outcome-5"]',
+  evidenceSheets: [
+    '[data-method-evidence-sheet="1"]',
+    '[data-method-evidence-sheet="2"]',
+    '[data-method-evidence-sheet="3"]',
+    '[data-method-evidence-sheet="4"]',
+    '[data-method-evidence-sheet="5"]',
+  ],
+  reduceIn: '[data-method-port="reduce-in"]',
+  reduceOut: '[data-method-port="reduce-out"]',
+  buildIn: '[data-method-port="build-in"]',
+  buildOut: '[data-method-port="build-out"]',
+  outcomePorts: [
+    '[data-method-port="outcome-1-in"]',
+    '[data-method-port="outcome-2-in"]',
+    '[data-method-port="outcome-3-in"]',
+    '[data-method-port="outcome-4-in"]',
+    '[data-method-port="outcome-5-in"]',
   ],
 } as const;
 
@@ -87,6 +95,14 @@ function relativeRect(rootRect: DOMRect, element: HTMLElement): MethodStoryRect 
   };
 }
 
+function relativePoint(rootRect: DOMRect, element: HTMLElement): MethodStoryPoint {
+  const rect = element.getBoundingClientRect();
+  return {
+    x: rect.left - rootRect.left + rect.width / 2,
+    y: rect.top - rootRect.top + rect.height / 2,
+  };
+}
+
 function edgePoint(
   rect: MethodStoryRect,
   edge: "left" | "right",
@@ -98,18 +114,6 @@ function edgePoint(
   };
 }
 
-function distributedRatios(
-  count: number,
-  start = 0.08,
-  end = 0.92,
-): number[] {
-  if (count <= 1) return [0.5];
-  const span = end - start;
-  return Array.from({ length: count }, (_, index) => {
-    return start + (span * index) / (count - 1);
-  });
-}
-
 function horizontalCurve(
   start: MethodStoryPoint,
   end: MethodStoryPoint,
@@ -117,8 +121,10 @@ function horizontalCurve(
 ): string {
   const dx = end.x - start.x;
   const controlDistance = Math.max(16, Math.abs(dx) * tension);
-  const c1x = start.x + Math.sign(dx || 1) * controlDistance;
-  const c2x = end.x - Math.sign(dx || 1) * controlDistance;
+  const direction = Math.sign(dx || 1);
+  const c1x = start.x + direction * controlDistance;
+  const c2x = end.x - direction * controlDistance;
+
   return [
     `M ${start.x.toFixed(2)} ${start.y.toFixed(2)}`,
     `C ${c1x.toFixed(2)} ${start.y.toFixed(2)}`,
@@ -136,38 +142,47 @@ export function measureMethodStoryDesktopGeometry(
 ): MethodStoryConnectorGeometry {
   const rootRect = root.getBoundingClientRect();
 
-  const messyRects = METHOD_STORY_DESKTOP_ANCHORS.messy.map((selector) =>
-    relativeRect(rootRect, queryRequired(root, selector)),
-  );
-  const exposeRect = relativeRect(
-    rootRect,
-    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.expose),
-  );
-  const reduceRect = relativeRect(
-    rootRect,
-    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.reduce),
-  );
-  const buildRect = relativeRect(
-    rootRect,
-    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.build),
-  );
-  const outcomeRects = METHOD_STORY_DESKTOP_ANCHORS.outcomes.map((selector) =>
-    relativeRect(rootRect, queryRequired(root, selector)),
+  const messySources = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map(
+    (selector) => relativePoint(rootRect, queryRequired(root, selector)),
   );
 
-  const messySources = messyRects.map((rect) => edgePoint(rect, "right"));
-  const exposeLeftTargets = distributedRatios(4, 0.14, 0.86).map((ratio) =>
-    edgePoint(exposeRect, "left", ratio),
+  const evidenceRects = METHOD_STORY_DESKTOP_ANCHORS.evidenceSheets.map(
+    (selector) => relativeRect(rootRect, queryRequired(root, selector)),
   );
 
-  const exposeRightSources = distributedRatios(10, 0.05, 0.95).map((ratio) =>
-    edgePoint(exposeRect, "right", ratio),
+  // Four incoming cards feed four visually separated sheet edges.
+  // Keep the middle sheet unassigned so the stack still reads as five layers.
+  const incomingSheetIndexes = [0, 1, 3, 4] as const;
+  const exposeLeftTargets = incomingSheetIndexes.map((sheetIndex) =>
+    edgePoint(evidenceRects[sheetIndex], "left"),
   );
-  const reduceLeft = edgePoint(reduceRect, "left");
-  const reduceRight = edgePoint(reduceRect, "right");
-  const buildLeft = edgePoint(buildRect, "left");
-  const buildRight = edgePoint(buildRect, "right");
-  const outcomeLeftTargets = outcomeRects.map((rect) => edgePoint(rect, "left"));
+
+  // Two outgoing paths per evidence sheet = ten total paths.
+  // This makes the convergence occupy the full visual height of the five-sheet stack.
+  const exposeRightSources = evidenceRects.flatMap((rect) => [
+    edgePoint(rect, "right", 0.3),
+    edgePoint(rect, "right", 0.7),
+  ]);
+
+  const reduceLeft = relativePoint(
+    rootRect,
+    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.reduceIn),
+  );
+  const reduceRight = relativePoint(
+    rootRect,
+    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.reduceOut),
+  );
+  const buildLeft = relativePoint(
+    rootRect,
+    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.buildIn),
+  );
+  const buildRight = relativePoint(
+    rootRect,
+    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.buildOut),
+  );
+  const outcomeLeftTargets = METHOD_STORY_DESKTOP_ANCHORS.outcomePorts.map(
+    (selector) => relativePoint(rootRect, queryRequired(root, selector)),
+  );
 
   const firstOutcomeLeft = Math.min(
     ...outcomeLeftTargets.map((point) => point.x),
