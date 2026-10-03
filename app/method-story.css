@@ -657,6 +657,50 @@
   box-shadow: 0 0 0 4px rgba(145, 225, 189, 0.06);
 }
 
+
+@media (min-width: 1100px) {
+  .method-story__connectors {
+    height: 410px;
+  }
+
+  .method-story__evidence-tag--teal {
+    top: 2px;
+    right: 1%;
+  }
+
+  .method-story__decision-field {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 52px;
+  }
+
+  .method-story__decision-field > svg {
+    display: none;
+  }
+
+  .method-story__decision-module {
+    width: 90px;
+    flex: 0 0 90px;
+  }
+
+  .method-story__build-field {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 14px;
+  }
+
+  .method-story__system-stack {
+    margin: 12px 0 0;
+  }
+
+  .method-story__system-bus {
+    left: calc(50% + 70px);
+    right: auto;
+  }
+}
+
 @media (min-width: 1600px) {
   .method-story__intro {
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
