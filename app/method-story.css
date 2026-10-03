@@ -964,3 +964,64 @@
     transform: none;
   }
 }
+
+
+/* Desktop-only geometry pass — keep tablet/mobile behavior untouched. */
+@media (min-width: 1100px) {
+  .method-story__evidence-stack {
+    left: 18%;
+    right: 8%;
+    top: 52px;
+  }
+
+  .method-story__evidence-tag--mint {
+    left: 11%;
+    top: 10px;
+  }
+
+  .method-story__evidence-tag--teal {
+    right: 2%;
+    top: 10px;
+  }
+
+  .method-story__evidence-tag--amber {
+    right: 6%;
+    bottom: 2px;
+  }
+
+  .method-story__decision-field {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 54px;
+  }
+
+  .method-story__decision-branches {
+    display: none;
+  }
+
+  .method-story__decision-module {
+    position: relative;
+    z-index: 2;
+    width: 82px;
+    flex: 0 0 82px;
+    margin: 0 auto;
+  }
+
+  .method-story__build-field {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 14px;
+  }
+
+  .method-story__system-stack {
+    margin: 12px 0 0;
+  }
+
+  .method-story__system-bus {
+    left: calc(50% + 74px);
+    right: auto;
+  }
+}
