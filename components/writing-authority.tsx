@@ -3,12 +3,12 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { WritingCard } from "@/components/writing-card";
 import { ArticleCover } from "@/components/writing-cover";
-import { projects } from "@/data/public";
-import { getWritingArticleOptionalContent, type WritingArticle, type WritingBlock } from "@/data/writing";
+import { WritingListen } from "@/components/writing-listen";
+import { getWritingArticleOptionalContent, type PublishedWritingArticle, type WritingBlock } from "@/data/writing";
+import type { RelatedWritingProject } from "@/data/writing-schema";
 import styles from "@/components/writing-authority.module.css";
 
 const categoryLabels = { ai: "AI", technology: "Technology", data: "Data", career: "Career", projects: "Projects", notes: "Notes" } as const;
-const lede = "Notes on AI, technology, work, projects, and whatever else I’m thinking through.";
 
 function formattedDate(date: string) {
   const [year, month, day] = date.split("-").map(Number);
@@ -16,15 +16,14 @@ function formattedDate(date: string) {
     .format(new Date(Date.UTC(year, month - 1, day, 12)));
 }
 
-export function WritingIndex({ articles }: { articles: readonly WritingArticle[] }) {
+export function WritingIndex({ articles }: { articles: readonly PublishedWritingArticle[] }) {
   const ordered = [...articles].sort((left, right) => right.publishedAt.localeCompare(left.publishedAt) || left.slug.localeCompare(right.slug));
   return (
     <main id="main-content" className="writing-system-archive">
       <div className="writing-system-shell">
         <header className="writing-system-archive-header">
           <p className="writing-system-archive-kicker">Writing</p>
-          <h1>Writing.</h1>
-          <p>{lede}</p>
+          <h1>What I’m thinking through.</h1>
         </header>
         <div className="writing-system-grid">
           {ordered.map((article) => <WritingCard key={article.slug} article={article} context="archive" />)}
@@ -45,14 +44,14 @@ function renderBlock(block: WritingBlock, index: number) {
   }
 }
 
-export function WritingArticleBody({ article }: { article: WritingArticle }) {
+export function WritingArticleBody({ article }: { article: PublishedWritingArticle }) {
   const optional = getWritingArticleOptionalContent(article);
   return (
     <article className={styles.articleBody}>
       {article.sections.map((section, sectionIndex) => (
-        <section key={section.eyebrow ?? `${section.title}-${sectionIndex}`} className={styles.articleSection}>
+        <section key={section.id ?? `${section.title ?? "section"}-${sectionIndex}`} className={styles.articleSection}>
           {section.eyebrow ? <p className={styles.sectionEyebrow}>{section.eyebrow}</p> : null}
-          <h2>{section.title}</h2>
+          {section.title ? <h2>{section.title}</h2> : null}
           {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           {section.bullets?.length ? <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul> : null}
           {section.blocks?.map(renderBlock)}
@@ -61,7 +60,6 @@ export function WritingArticleBody({ article }: { article: WritingArticle }) {
 
       {optional.takeaways.length ? (
         <section className={styles.takeaways} data-writing-takeaways>
-          {optional.takeawaysTitle ? <p className={styles.sectionEyebrow}>{optional.takeawaysTitle}</p> : null}
           <h2>{optional.takeawaysTitle ?? "Key takeaways."}</h2>
           <ul>{optional.takeaways.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
         </section>
@@ -85,10 +83,15 @@ export function WritingArticleBody({ article }: { article: WritingArticle }) {
   );
 }
 
-export function WritingArticleView({ article }: { article: WritingArticle }) {
+export function WritingArticleView({
+  article,
+  relatedProjects,
+}: {
+  article: PublishedWritingArticle;
+  relatedProjects: readonly RelatedWritingProject[];
+}) {
   const origin = article.origin;
   const optional = getWritingArticleOptionalContent(article);
-  const project = optional.relatedProjectSlug ? projects.find((item) => item.slug === optional.relatedProjectSlug) : undefined;
   return (
     <main id="main-content" className={`shell ${styles.articleShell}`}>
       <header className={styles.articleHero}>
@@ -97,12 +100,13 @@ export function WritingArticleView({ article }: { article: WritingArticle }) {
           <div className={styles.articleMetaGroup}>
             <time className={styles.articleMeta} dateTime={article.publishedAt}>{formattedDate(article.publishedAt)}</time>
             {article.updatedAt ? <time className={styles.articleMeta} dateTime={article.updatedAt}>Updated {formattedDate(article.updatedAt)}</time> : null}
-            <span className={styles.articleMeta}>{article.readingMinutes} min read</span>
+            <span className={styles.articleMeta}>{article.readingMinutes} min read · {article.audio ? "" : "~"}{article.listenMinutes} min listen</span>
           </div>
         </div>
         <p className="eyebrow">{categoryLabels[article.category]} · {article.topics.join(" · ")}</p>
         <h1>{article.title}</h1>
         <p className={styles.articleDeck}>{article.description}</p>
+        <WritingListen article={article} />
         {article.cover ? <div className="writing-system-article-cover"><ArticleCover article={article} /></div> : null}
         {optional.thesis ? <p className={styles.articleThesis}>{optional.thesis}</p> : null}
         {optional.evidence.length ? (
@@ -113,8 +117,12 @@ export function WritingArticleView({ article }: { article: WritingArticle }) {
       </header>
       <WritingArticleBody article={article} />
       <footer className={styles.articleEnd}>
-        {origin.kind === "project" ? <p>This essay is informed by public project material. Project claims remain within the published evidence and ownership boundaries.</p> : <p>Writing reflects personal analysis and references where linked.</p>}
-        {project ? <Link className={styles.projectLink} href={`/work/${project.slug}`} data-authority-link="article-to-project">{project.title} case study <ArrowUpRight size={15} aria-hidden="true" /></Link> : null}
+        {origin.kind === "project" && origin.disclosure ? <p>{origin.disclosure}</p> : null}
+        {relatedProjects.map((project) => (
+          <Link key={project.slug} className={styles.projectLink} href={project.caseStudyUrl} data-authority-link="article-to-project">
+            {project.title} case study <ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
+        ))}
         <Link className={styles.projectLink} href="/writing">All writing <ArrowUpRight size={15} aria-hidden="true" /></Link>
       </footer>
     </main>

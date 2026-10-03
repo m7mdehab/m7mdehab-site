@@ -80,7 +80,27 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const writing = await writingResponse.json();
     expect(writing.map((article: { slug: string }) => article.slug)).toEqual(writingSlugs);
     expect(writing.every((article: { url: string }) => article.url.startsWith(`${domain}/writing/`))).toBeTruthy();
-    expect(writing.every((article: { category: string; topics: string[]; relatedProjects: unknown[]; publishedAt: string }) => Boolean(article.category && article.topics.length && article.publishedAt) && Array.isArray(article.relatedProjects))).toBeTruthy();
+    expect(writing.every((article: {
+      category: string;
+      topics: string[];
+      relatedProjects: unknown[];
+      publishedAt: string;
+      cardDescription: string | null;
+      readingMinutes: number;
+      listenMinutes: number;
+      audio?: unknown;
+    }) =>
+      Boolean(
+        article.category &&
+        article.topics.length &&
+        article.publishedAt &&
+        article.cardDescription &&
+        article.readingMinutes > 0 &&
+        article.listenMinutes > 0,
+      ) &&
+      Array.isArray(article.relatedProjects) &&
+      article.audio === undefined,
+    )).toBeTruthy();
     expect(JSON.stringify(writing)).not.toContain("alternateLanguageUrl");
     expect(JSON.stringify(writing)).not.toContain('"project":');
   });
@@ -95,6 +115,8 @@ test.describe("Iteration 8 discoverability architecture", () => {
     expect(body).toContain(`${domain}/work`);
     expect(body).toContain(`${domain}/services.json`);
     expect(body).toContain(`${domain}/writing.json`);
+    expect(body).toContain("min read");
+    expect(body).toContain("min listen");
     expect(body).not.toContain(`${domain}/ar`);
     expect(body).not.toContain("Derived from:");
   });

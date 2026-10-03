@@ -7,7 +7,10 @@
 - Home maximum is six;
 - Home order is `homeRank`;
 - current ranks are 1/2/3;
-- current slugs remain unchanged.
+- current slugs remain unchanged;
+- current cardDescriptions are <= 140 characters;
+- current listenMinutes are 8 and every published article requires listenMinutes;
+- real audio metadata, when present, has src/mimeType/positive duration.
 
 ### Independent-post contract
 
@@ -31,7 +34,12 @@ At 1440/1920:
 - no Writing carousel dots;
 - no `.closing-notes`;
 - all hrefs point to `/writing/<slug>`;
-- All writing points to `/writing`.
+- section heading is exactly `What I’m thinking through.`;
+- no Home supporting lede exists;
+- metadata is inside each cover, not below it;
+- every card title is clamped to <= 2 lines;
+- every card description is clamped to <= 2 lines;
+- All writing points to `/writing` and appears after the grid.
 
 At 1024:
 
@@ -40,9 +48,13 @@ At 1024:
 At 390:
 
 - computed grid columns = 1;
+- every .writing-system-excerpt is display:none;
 - all three links visible;
 - no horizontal overflow;
 - 16:9 cover ratio within tolerance;
+- title line-box height is <= 2 × computed line-height (+ tolerance);
+- description line-box height is <= 2 × computed line-height (+ tolerance);
+- metadata overlay is inside cover bounds;
 - section anchor clears mobile dock.
 
 ## Archive
@@ -52,7 +64,11 @@ At 390:
 - all and only published articles;
 - shared WritingCard;
 - archive context test hook;
+- eyebrow `Writing` + H1 `What I’m thinking through.`;
+- no archive lede;
 - no project-only hero copy;
+- card metadata remains inside covers;
+- card titles/descriptions remain <= 2 lines;
 - axe clean;
 - no 390px overflow.
 
@@ -69,7 +85,9 @@ For each current article:
 - current evidence preserved;
 - current sources preserved;
 - related project link preserved;
-- no Arabic alternate.
+- no Arabic alternate;
+- reading time remains present;
+- required listen time remains present.
 
 Independent fixture:
 
@@ -84,6 +102,8 @@ Independent fixture:
 `/writing.json`:
 
 - returns three current published articles;
+- exposes cardDescription/listenMinutes when part of the public projection;
+- exposes real audio metadata only when an asset actually exists;
 - contains no `/ar`;
 - contains category/topics;
 - uses `relatedProjects[]`;
@@ -120,6 +140,14 @@ Reduced motion:
 
 - no Writing lift/cover zoom;
 - information unchanged.
+
+Audio:
+
+- no real audio asset => no `[data-writing-listen]` player;
+- a test fixture with real audio => player renders;
+- audio never autoplays;
+- BlogPosting schema omits AudioObject without audio;
+- BlogPosting schema includes AudioObject with real src/mime/duration.
 
 ## Accessibility
 
@@ -183,14 +211,26 @@ Run:
 
 CI is necessary, not sufficient. Rendered visual QA is a separate acceptance gate.
 
-## Local execution record — 2026-10-03
+## Card geometry assertions
 
-- `npm run typecheck`: passed.
-- `npm run lint`: passed.
-- `npm run build`: passed on the current rebased branch.
-- `CLOUDFLARE_STATIC_EXPORT=1 npm run build`: passed on the current rebased branch.
-- Focused Writing, discovery, Phase G, mobile-composition, independent-fixture, and render-matrix suites: 29 passed.
-- Full `npm run test:browser` on the final rebased branch: **169 passed**. Selected Work carousel tests remain in this gate and passed.
-- Focused Phase I/Phase J and Writing render-matrix recheck: 7 passed before the full final-base run.
-- `git diff --check`: passed before delivery.
-- All 13 requested screenshot targets were manually reviewed; the dated record and output paths are in `WRITING_SYSTEM_VISUAL_QA.md`.
+At 1440 and 390:
+- compute title line-height and bounding-box height; fail if height exceeds 2.1 lines;
+- verify `.writing-system-cover-meta` is fully contained inside `.writing-system-cover-frame`;
+- verify cover metadata bottom edge aligns with cover bottom within 1px;
+- verify no legacy `.writing-system-meta` row is rendered;
+- verify `All writing` is vertically below the bottom edge of the final card row.
+
+At 1440:
+- compute excerpt line-height and bounding-box height; fail if height exceeds 2.1 lines.
+
+At 390:
+- verify every `.writing-system-excerpt` computes to `display: none`.
+
+## Copy regression assertions
+
+Home must not contain:
+- `Notes on AI, technology, work, projects, and whatever else I’m thinking through.`
+- a top/header `All writing` CTA
+- old cover labels `FORECAST / CALIBRATION`, `SAR / SEGMENTATION`, `AI / GOVERNANCE`
+
+The taxonomy/timing values should instead be discoverable inside the cover overlay.

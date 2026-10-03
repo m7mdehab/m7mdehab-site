@@ -3,24 +3,27 @@ import { notFound } from "next/navigation";
 import { WritingArticleView } from "@/components/writing-authority";
 import { profile } from "@/data/public";
 import { getWritingArticle, publishedWritingArticles } from "@/data/writing";
-import { projects } from "@/data/public";
-import { projectVisuals } from "@/data/project-visuals";
+import {
+  buildWritingBlogPostingSchema,
+  getRelatedWritingProjects,
+  writingStableImage,
+} from "@/data/writing-schema";
 
 export function generateStaticParams() {
   return publishedWritingArticles.map((article) => ({ slug: article.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const article = getWritingArticle(slug);
   if (!article) return {};
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
-  const image = article.cover.kind === "image"
-    ? article.cover.src
-    : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
-      ? projectVisuals["oil-spill-detection"].image
-      : undefined;
+  const image = writingStableImage(article);
 
   return {
     title: article.title,
@@ -47,50 +50,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function WritingArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function WritingArticlePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const article = getWritingArticle(slug);
   if (!article) notFound();
 
-  const canonical = `${profile.domain}/writing/${article.slug}`;
-  const image = article.cover.kind === "image"
-    ? article.cover.src
-    : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
-      ? projectVisuals["oil-spill-detection"].image
-      : undefined;
-  const origin = article.origin;
-  const project = origin.kind === "project" ? projects.find((item) => item.slug === origin.projectSlug) : undefined;
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": `${canonical}#article`,
-    url: canonical,
-    headline: article.title,
-    description: article.description,
-    datePublished: article.publishedAt,
-    ...(article.updatedAt ? { dateModified: article.updatedAt } : {}),
-    keywords: article.topics,
-    inLanguage: "en",
-    author: {
-      "@id": `${profile.domain}/#person`,
-      "@type": "Person",
-      name: profile.name,
-      url: profile.domain,
-    },
-    mainEntityOfPage: canonical,
-    ...(project ? { about: {
-      "@type": "CreativeWork",
-      name: project.title,
-      url: `${profile.domain}/work/${project.slug}`,
-    } } : {}),
-    ...(article.sources?.length ? { citation: article.sources.map((source) => source.href) } : {}),
-    ...(image ? { image } : {}),
-  };
+  const schema = buildWritingBlogPostingSchema(article);
+  const relatedProjects = getRelatedWritingProjects(article);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <WritingArticleView article={article} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <WritingArticleView article={article} relatedProjects={relatedProjects} />
     </>
   );
 }

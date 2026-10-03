@@ -423,14 +423,63 @@ test.describe("Phone composition", () => {
     await expect(writing.locator("[data-writing-card]").nth(0)).toHaveAttribute("href", /\/writing\//);
     await expect(writing.getByRole("link", { name: /All writing/ })).toHaveAttribute("href", "/writing");
     await expect(writing.locator(".carousel-dots")).toHaveCount(0);
-    const geometry = await writing.evaluate((section) => ({
-      columns: getComputedStyle(section.querySelector(".writing-system-grid")!).gridTemplateColumns.split(" ").length,
-      cardColumns: section.querySelectorAll("[data-writing-card]").length,
-      coverRatio: (() => { const cover = section.querySelector(".writing-system-cover")!.getBoundingClientRect(); return cover.width / cover.height; })(),
-    }));
+    await expect(
+      writing.getByRole("heading", {
+        level: 2,
+        name: "What I’m thinking through.",
+      }),
+    ).toBeVisible();
+    const excerpts = await writing.locator(".writing-system-excerpt").all();
+    expect(excerpts).toHaveLength(3);
+    for (const excerpt of excerpts) await expect(excerpt).toHaveCSS("display", "none");
+    await expect(writing.locator(".writing-system-card-meta")).toHaveCount(0);
+    await expect(writing.locator(".writing-system-cover-label")).toHaveCount(0);
+
+    const geometry = await writing.evaluate((section) => {
+      const firstCard = section.querySelector<HTMLElement>(
+        "[data-writing-card]",
+      )!;
+      const cover = firstCard.querySelector<HTMLElement>(
+        ".writing-system-cover",
+      )!;
+      const frame = firstCard.querySelector<HTMLElement>(
+        ".writing-system-cover-frame",
+      )!;
+      const meta = firstCard.querySelector<HTMLElement>(
+        ".writing-system-cover-meta",
+      )!;
+      const title = firstCard.querySelector<HTMLElement>("h2, h3")!;
+      const frameBox = frame.getBoundingClientRect();
+      const metaBox = meta.getBoundingClientRect();
+      const titleStyle = getComputedStyle(title);
+
+      return {
+        columns: getComputedStyle(
+          section.querySelector(".writing-system-grid")!,
+        ).gridTemplateColumns.split(" ").length,
+        cardColumns: section.querySelectorAll("[data-writing-card]").length,
+        coverRatio:
+          cover.getBoundingClientRect().width /
+          cover.getBoundingClientRect().height,
+        titleHeight: title.getBoundingClientRect().height,
+        titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+        metaInside:
+          metaBox.left >= frameBox.left - 1 &&
+          metaBox.right <= frameBox.right + 1 &&
+          metaBox.top >= frameBox.top - 1 &&
+          metaBox.bottom <= frameBox.bottom + 1,
+        metaText: meta.textContent ?? "",
+      };
+    });
     expect(geometry.columns).toBe(1);
     expect(geometry.cardColumns).toBe(3);
     expect(geometry.coverRatio).toBeCloseTo(16 / 9, 1);
+    expect(geometry.titleHeight).toBeLessThanOrEqual(
+      geometry.titleLineHeight * 2.1,
+    );
+    expect(geometry.metaInside).toBe(true);
+    expect(geometry.metaText).toMatch(/min read/i);
+    expect(geometry.metaText).toMatch(/min listen/i);
 
     const tabs = page.getByRole("tablist", {
       name: "Choose a conversation type",
@@ -502,8 +551,8 @@ test.describe("Phone composition", () => {
     expect(heights.method).toBeLessThanOrEqual(2600);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
-    expect(heights.writing).toBeGreaterThanOrEqual(320);
-    expect(heights.writing).toBeLessThanOrEqual(520);
+    expect(heights.writing).toBeGreaterThanOrEqual(240);
+    expect(heights.writing).toBeLessThanOrEqual(290);
   });
 
   test("OpportunityOS mobile card keeps all six core workflow states legible", async ({

@@ -283,3 +283,43 @@ Implemented mobile-only art direction on `feat/mobile-composition-pass` from `3b
 Fresh mobile card and section captures cover 320/360/375/390/412/430/480px in `outputs/selected-work-mobile-parity-20261002/after/`; six 390px desktop/mobile comparison sheets are in `pair-review-1.jpg` and `pair-review-2.jpg`. Desktop before/after card captures at 1280/1440/1920 are in `before/` and `after/`; all 18 comparisons were pixel-identical after the final mobile changes. Visual review included contact sheets at every requested phone width, individual 390px card renders, and the six desktop/mobile pairs. Seven-width browser coverage, Android Pixel 7, and iPhone WebKit checks passed; the fixed navigation stayed within its safe-area position.
 
 Fresh verification: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run test:browser` (**167 passed**), and `git diff --check` passed. The browser suite also verified mobile overflow, one-line constraints, landscape cards, drag/swipe, active pagination, active-only motion, reduced motion, CTA-only navigation, rank sequencing, and fixed navigation positioning. No dependency changes, commit, push, merge, or deployment.
+
+## Writing System v1.2 final refinement validation (2026-10-03)
+
+Implemented the locked v1.2 refinement on the prepared Writing system branch `writing-system-final-refinement`, updating the existing draft PR #44. The canonical `data/writing.ts` model now supports published/draft status, publication/update dates, category/topics/series, reading/listening time, optional real audio metadata, card descriptions, home rank, project or independent origin, optional thesis/evidence/sections/takeaways/sources, and typed covers. The existing three published slugs, article bodies, claims, sources, evidence and project relationships are preserved. All three current records receive the governed category/topic/card-description metadata and an estimated eight-minute listen; no audio asset or player is fabricated.
+
+The Home and archive use the compact shared card grammar, in-cover taxonomy and read/listen timing, and the `What I’m thinking through.` heading. Writing remains a real publishing surface, with conditional article sections, native audio only when a real asset exists, BlogPosting JSON-LD, optional project relationships, and generalized `/writing.json`, profile, sitemap and `llms.txt` projections. HomeClosing contains Opportunity and Footer only; Selected Work carousel behavior is unchanged. The static SAR crop removes the baked-in source text strip without changing the public evidence image.
+
+Validation on Node 22 / Next.js 16.3.7:
+- `npm ci`, `npm run typecheck`, `npm run lint`, `npm run build`, and `CLOUDFLARE_STATIC_EXPORT=1 npm run build`: PASS.
+- Focused Writing/schema/audio/authority/discoverability/Phase G/mobile/matrix Playwright run: **36/36 PASS**.
+- `npm run test:browser`: **179/179 PASS** against the production build.
+- Home Writing render matrix: 1920×1080, 1440×1000, 1280×800, 1024×768, 430×932, 390×844, 320×568. Archive: 1440×1000, 390×844, 320×568. Article: 1440×1000, 390×844. Full Home: 1920×1080, 390×844. All requested viewport and full-page captures were reviewed; artifacts are in `outputs/writing-system-final-refinement/screenshots/`.
+- `git diff --check`: PASS.
+
+PR merge and production deployment/live-route verification remain pending until the feature commit is pushed and required repository checks complete. Do not describe this implementation as production-live before that verification.
+
+
+## Writing System v1.2 refinement — 2026-10-03
+
+Implementation groundwork is now active on `writing-system-refinement-v12-r2`, draft PR #44. This pass supersedes the earlier Writing v1.0 presentation without changing the three published article slugs/bodies/evidence boundaries.
+
+Locked v1.2 changes:
+- visible Home/archive heading: **What I’m thinking through.**;
+- no visible explanatory lede;
+- taxonomy + read/listen timing inside the cover bottom edge;
+- hard two-line card-title cap;
+- concise card descriptions on desktop/tablet and hidden mobile descriptions;
+- bottom-right post-grid `All writing` CTA;
+- tighter mobile rhythm and SAR crop cleanup;
+- required `listenMinutes` plus optional real narration metadata;
+- native Listen player and `AudioObject` only when a real audio asset exists;
+- centralized BlogPosting schema helper and extended writing/discovery JSON.
+
+The branch includes focused schema, discoverability, Writing authority, Home/closing, mobile and multi-viewport visual-matrix tests. PR CI/rendered QA is the next gate; no production/live claim is made until those checks, manual screenshot review, merge and deployment verification complete.
+
+Current authority:
+- `docs/frontend-overhaul/WRITING_SYSTEM_V12_EXECUTION_PROMPT.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`;
+- `design/writing-system/writing-system.spec.json`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`.
