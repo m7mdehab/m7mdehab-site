@@ -54,7 +54,7 @@ Also add to the canonical base type:
 
 ```ts
 cardDescription?: string;
-listenMinutes?: number;
+listenMinutes: number;
 audio?: {
   src: string;
   mimeType: string;
@@ -160,9 +160,6 @@ cardDescription:
   "How agents should handle missing evidence without inventing certainty.",
 listenMinutes: 8,
 homeRank: 3,
-listenMinutes: 7,
-cardDescription:
-  "A governance pattern for agents when evidence is missing or uncertain.",
 cover: {
   kind: "visual",
   visual: "agent-provenance",
@@ -193,7 +190,7 @@ Future independent/general articles do not inherit either field automatically.
 
 Every article carries both `readingMinutes` and `listenMinutes`.
 
-Until a real narration asset exists, `listenMinutes` is an estimate and cards render it with a leading `~`. For the current three essays, use 7 minutes as the estimate based on their roughly 1.1k-word bodies.
+Until a real narration asset exists, `listenMinutes` is an estimate and cards render it with a leading `~`. For the current three essays, use 8 minutes as the conservative rounded estimate for their roughly 1.1k-word bodies.
 
 When narration is produced, add:
 
