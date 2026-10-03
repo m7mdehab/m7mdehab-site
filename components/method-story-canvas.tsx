@@ -316,7 +316,7 @@ export function MethodStoryCanvas() {
     target: rootRef,
     offset: [...METHOD_STORY_MOTION.scrollOffset],
   });
-  const desktopProgress = useTransform(scrollYProgress, [0, 0.56], [0, 1]);
+  const desktopProgress = useTransform(scrollYProgress, [0, 0.22], [0, 1]);
   const progress = useSpring(
     isDesktop ? desktopProgress : scrollYProgress,
     METHOD_STORY_MOTION.spring,
