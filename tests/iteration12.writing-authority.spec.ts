@@ -34,15 +34,28 @@ test.describe("Writing publication authority", () => {
   test("published essays expose BlogPosting schema, project provenance and inspectable sources", async ({ page }) => {
     for (const slug of slugs) {
       await page.goto(`/writing/${slug}`);
-      const schema = await page.locator('script[type="application/ld+json"]').last().evaluate((node) => JSON.parse(node.textContent ?? "{}"));
+      const schemas = await page.locator('script[type="application/ld+json"]').evaluateAll((nodes) => nodes.map((node) => JSON.parse(node.textContent ?? "{}")));
+      const schema = schemas.find((entry) => entry["@type"] === "BlogPosting");
+      const breadcrumb = schemas.find((entry) => entry["@type"] === "BreadcrumbList");
+      expect(schema).toBeTruthy();
+      expect(breadcrumb).toBeTruthy();
       expect(schema["@type"]).toBe("BlogPosting");
       expect(schema.author.name).toBe("Mohammed Ehab ElNomany");
       expect(schema.url).toBe(`${domain}/writing/${slug}`);
       expect(schema.datePublished).toBe("2026-09-11");
       expect(schema.timeRequired).toMatch(/^PT\d+M$/);
+      expect(schema.wordCount).toBeGreaterThan(500);
+      expect(schema.articleSection.length).toBeGreaterThanOrEqual(7);
+      expect(schema.isPartOf.url).toBe(`${domain}/writing`);
+      expect(schema.author.url).toBe(`${domain}/about`);
       expect(schema.audio).toBeUndefined();
       expect(schema.citation.length).toBeGreaterThanOrEqual(3);
       await expect(page.locator("[data-writing-listen]")).toHaveCount(0);
+      await expect(page.getByText("By Mohammed Ehab ElNomany")).toBeVisible();
+      await expect(page.getByText("Key idea")).toBeVisible();
+      await expect(page.getByText("Sources & further reading.")).toBeVisible();
+      await expect(page.getByRole("navigation", { name: "Article contents" }).last()).toBeVisible();
+      await expect(page.locator('[data-writing-card][data-writing-context="archive"]')).toHaveCount(2);
       expect(await page.locator("article section").count()).toBeGreaterThanOrEqual(9);
       await expect(page.locator('[data-authority-link="article-to-project"]')).toHaveCount(1);
       expect(await page.locator('a[target="_blank"]').count()).toBeGreaterThanOrEqual(3);
