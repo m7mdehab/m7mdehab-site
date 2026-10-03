@@ -271,7 +271,7 @@ export function HomeClosing({
       <section id="contact" className="closing-opportunity">
         <div className="shell closing-opportunity-shell">
           <header className="closing-opportunity-head">
-            <h2>Choose the right conversation.</h2>
+            <h2><span>Choose the right</span> <span>conversation.</span></h2>
           </header>
 
           <OpportunityPaths />
