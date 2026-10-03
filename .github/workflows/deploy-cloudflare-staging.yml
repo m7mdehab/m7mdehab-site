@@ -19,12 +19,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: cloudflare-staging
+  group: cloudflare-staging-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
-  STAGING_BASE_URL: https://m7mdehab-site.m7mdehab.workers.dev
+  STAGING_BASE_URL: ${{ github.head_ref == 'writing-article-system-v14-groundwork' && 'https://m7mdehab-writing-v14.m7mdehab.workers.dev' || 'https://m7mdehab-site.m7mdehab.workers.dev' }}
 
 jobs:
   deploy-staging:
@@ -121,7 +121,13 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx --yes wrangler@4.130.0 deploy --config wrangler.static.jsonc
+        shell: bash
+        run: |
+          if [ "${{ github.head_ref }}" = "writing-article-system-v14-groundwork" ]; then
+            npx --yes wrangler@4.130.0 deploy --config wrangler.writing-v14.jsonc
+          else
+            npx --yes wrangler@4.130.0 deploy --config wrangler.static.jsonc
+          fi
 
       - name: Verify live staging routes, headers, canonical isolation, and Arabic absence
         shell: bash
