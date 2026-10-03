@@ -8,7 +8,6 @@ function ForecastCover() {
     .join(" ");
   return (
     <div className="writing-system-cover writing-system-cover-forecast">
-      <span className="writing-system-cover-label">Forecast / calibration</span>
       <svg viewBox="0 0 300 160" aria-hidden="true" focusable="false">
         <line className="writing-system-forecast-reference" x1="24" y1="142" x2="276" y2="18" />
         {[48, 80, 112, 142].map((y) => <line className="writing-system-forecast-guide" key={y} x1="24" x2="276" y1={y} y2={y} />)}
@@ -26,7 +25,6 @@ function OilCover({ loading }: { loading: "lazy" | "eager" }) {
   return (
     <div className="writing-system-cover writing-system-cover-oil">
       <img src={visual.image} alt="" width={1024} height={640} loading={loading} fetchPriority={loading === "eager" ? "high" : "auto"} />
-      <span className="writing-system-cover-label">SAR / segmentation</span>
     </div>
   );
 }
@@ -34,7 +32,6 @@ function OilCover({ loading }: { loading: "lazy" | "eager" }) {
 function AgentCover() {
   return (
     <div className="writing-system-cover writing-system-cover-agent">
-      <span className="writing-system-cover-label">AI / governance</span>
       <svg viewBox="0 0 360 160" aria-hidden="true" focusable="false">
         <path className="writing-system-agent-wire" d="M58 80 C96 80 96 45 132 45 M58 80 C96 80 96 115 132 115" />
         <path className="writing-system-agent-wire-active" d="M202 80 H246 M300 80 H332" />
