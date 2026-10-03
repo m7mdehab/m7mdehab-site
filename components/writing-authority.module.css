@@ -91,6 +91,39 @@
 
 .indexLede,
 .articleDeck,
+
+.writingListen {
+  width: min(100%, 760px);
+  margin-top: 24px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .16);
+}
+
+.writingListenCopy {
+  display: grid;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.writingListenCopy strong {
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.writingListenCopy span {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.writingListen audio {
+  width: 100%;
+  min-height: 38px;
+  display: block;
+}
+
 .articleThesis {
   max-width: 820px;
   font-size: clamp(1.1rem, 1.7vw, 1.4rem);
