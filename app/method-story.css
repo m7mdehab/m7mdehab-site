@@ -1204,3 +1204,46 @@
     stroke-width: 1.5;
   }
 }
+
+
+/* Exact invisible edge ports for desktop connector measurement. */
+.method-story__input-card,
+.method-story__decision-module,
+.method-story__system-stack,
+.method-story__output-row {
+  position: relative;
+}
+
+.method-story__port {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.method-story__port--left {
+  left: 0;
+  top: 50%;
+}
+
+.method-story__port--right {
+  right: 0;
+  top: 50%;
+}
+
+.method-story__port--system-left {
+  left: 0;
+  top: 113px;
+}
+
+.method-story__port--system-right {
+  right: 0;
+  top: 113px;
+}
+
+@media (min-width: 1100px) {
+  /* Desktop uses the measured SVG bus; keep the DOM bus only as tablet/mobile fallback. */
+  .method-story__system-bus {
+    visibility: hidden;
+  }
+}
