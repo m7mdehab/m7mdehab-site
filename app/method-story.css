@@ -1738,12 +1738,12 @@
   }
 
   .method-story__mobile-stage {
-    padding: 18px 10px 24px;
+    padding: 18px 0 24px;
   }
 
   .method-story__mobile-stage .method-story__stage-head {
     min-height: 82px;
-    padding: 0 6px;
+    padding: 0 10px;
   }
 
   .method-story__mobile-stage .method-story__stage-head h3 {
@@ -1755,9 +1755,9 @@
   }
 
   .method-story__mobile-visual {
-    width: min(100%, 350px);
+    width: 100%;
     height: 350px;
-    margin: 0 auto;
+    margin: 0;
     align-self: center;
     isolation: isolate;
   }
@@ -1981,7 +1981,7 @@
 
   .method-story__mobile-next,
   .method-story__mobile-complete {
-    margin-right: 8px;
+    margin-right: 10px;
   }
 
   /* Reduced-motion fallback remains a complete vertical static story. */
