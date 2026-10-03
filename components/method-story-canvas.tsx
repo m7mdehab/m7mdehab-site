@@ -360,9 +360,6 @@ function MobileMethodStory({
   const reduceOpacity = useTransform(progress, [0.3, 0.42], [0.42, 1]);
   const buildOpacity = useTransform(progress, [0.5, 0.62], [0.42, 1]);
   const outputOpacity = useTransform(progress, [0.7, 0.82], [0.52, 1]);
-  const decisionScale = useTransform(progress, [0.32, 0.44], [0.9, 1]);
-  const decisionOpacity = useTransform(progress, [0.32, 0.44], [0.45, 1]);
-
   return (
     <div
       ref={trackRef}
