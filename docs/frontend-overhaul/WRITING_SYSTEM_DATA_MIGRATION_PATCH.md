@@ -146,6 +146,21 @@ origin: {
 },
 ```
 
+## 6.1 Preserve current project-essay disclosure and takeaway heading
+
+The current three articles already communicate an explicit evidence boundary. Preserve that boundary as optional per-article data rather than a universal template.
+
+For all three current project-origin essays, use:
+
+    disclosure:
+      "This essay is derived from public project evidence and does not widen the ownership or publication boundaries of the underlying case study."
+
+Also preserve the current takeaway heading for these three essays with:
+
+    takeawaysTitle: "What I carry into the next system."
+
+Future independent/general articles do not inherit either field automatically.
+
 ## 7. Public projections
 
 Add:
