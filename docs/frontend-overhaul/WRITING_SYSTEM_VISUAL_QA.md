@@ -16,7 +16,7 @@ Review in this order:
 Pass only if:
 
 - `What I’m thinking through.` is the first visual anchor;
-- the compact subtitle `Ideas, experiments, and the things I’m exploring.` appears directly below the heading;
+- the compact subtitle `Ideas, experiments, and everything that piques my curiosity as I navigate my career.` appears directly below the heading;
 - heading and subtitle are each exactly one visual line;
 - all three covers have equal 16:9 geometry;
 - three cards form one calm row;
