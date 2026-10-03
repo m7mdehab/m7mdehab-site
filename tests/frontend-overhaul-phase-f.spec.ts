@@ -229,7 +229,7 @@ test.describe("Method story rebuild", () => {
     );
     expect(
       stageRects.every(
-        (rect) => rect.left >= -1 && rect.right <= window.innerWidth + 1,
+        (rect) => rect.left >= -1 && rect.right <= 391,
       ),
     ).toBeTruthy();
   });
