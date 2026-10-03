@@ -174,7 +174,54 @@ test.describe("Method story rebuild", () => {
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
   });
 
-  test("normal scrolling resolves every stage and output", async ({ page }) => {
+  test("desktop geometry uses four input connectors and six seamless convergence paths", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await settle(page);
+
+    const section = await expectMethodContract(page);
+    await expect(
+      section.locator('[data-method-connector="input-expose"]'),
+    ).toHaveCount(4);
+    await expect(
+      section.locator('[data-method-connector="expose-reduce"]'),
+    ).toHaveCount(6);
+
+    const centered = await section.evaluate((root) => {
+      const centerDelta = (stageSelector: string, visualSelector: string) => {
+        const stage = root.querySelector<HTMLElement>(stageSelector)!;
+        const visual = root.querySelector<HTMLElement>(visualSelector)!;
+        const stageBox = stage.getBoundingClientRect();
+        const visualBox = visual.getBoundingClientRect();
+        return Math.abs(
+          stageBox.left +
+            stageBox.width / 2 -
+            (visualBox.left + visualBox.width / 2),
+        );
+      };
+      return {
+        reduce: centerDelta(
+          '[data-method-stage="reduce"]',
+          ".method-story__decision-module-anchor",
+        ),
+        build: centerDelta(
+          '[data-method-stage="build"]',
+          ".method-story__system-stack",
+        ),
+      };
+    });
+
+    expect(centered.reduce).toBeLessThanOrEqual(2);
+    expect(centered.build).toBeLessThanOrEqual(2);
+  });
+
+  test("desktop animation is complete when the section reaches the viewport center", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/");
     await settle(page);
 
@@ -182,12 +229,13 @@ test.describe("Method story rebuild", () => {
     await expect(canvas).toHaveAttribute("data-motion-mode", "enhanced");
     await page.locator("[data-method-story]").evaluate((element) => {
       const bounds = element.getBoundingClientRect();
+      const absoluteTop = window.scrollY + bounds.top;
       window.scrollTo({
-        top: window.scrollY + bounds.bottom - window.innerHeight * 0.28,
+        top: absoluteTop + bounds.height / 2 - window.innerHeight / 2,
         behavior: "instant",
       });
     });
-    await page.waitForTimeout(1400);
+    await page.waitForTimeout(1200);
 
     const opacities = await page
       .locator("[data-method-stage], [data-method-output]")
