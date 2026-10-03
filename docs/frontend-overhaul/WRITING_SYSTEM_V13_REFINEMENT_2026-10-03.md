@@ -48,6 +48,7 @@ The subtitle sits immediately below it in muted Manrope.
 Below 720px:
 
 - **2 columns**, not 1;
+- Writing shell uses 12px side gutters on phones to preserve card and subtitle width;
 - 12px column gap;
 - approximately 24px row gap;
 - 16:9 covers remain;
@@ -93,7 +94,7 @@ This is the same metadata hierarchy; only the phone geometry changes.
 At phone widths:
 
 - Heading: approximately 25–34px responsive; one line; no horizontal overflow.
-- Subtitle: approximately 10–11.5px responsive; one line; no horizontal overflow.
+- Subtitle: approximately 7.75–11.5px responsive across the 320–719px range; one line; no horizontal overflow. The 320px endpoint is intentionally compact and must still pass rendered legibility review.
 - Card title: approximately 16–19px responsive; one line.
 - Metadata: approximately 6.25–7.2px; high contrast; compact letter spacing.
 
