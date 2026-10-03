@@ -33,11 +33,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${profile.domain}/writing`,
-      changeFrequency: "monthly",
+      lastModified: publishedWritingArticles.reduce(
+        (latest, article) => {
+          const candidate = article.updatedAt ?? article.publishedAt;
+          return candidate > latest ? candidate : latest;
+        },
+        publishedWritingArticles[0]?.publishedAt ?? "2026-01-01",
+      ),
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     ...publishedWritingArticles.map((article) => ({
       url: `${profile.domain}/writing/${article.slug}`,
+      lastModified: article.updatedAt ?? article.publishedAt,
       changeFrequency: "monthly" as const,
       priority: 0.75,
     })),
