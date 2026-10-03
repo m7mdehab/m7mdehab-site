@@ -34,6 +34,7 @@ test.describe("Phase G closing system", () => {
     const writing = page.locator("[data-writing-home]");
     await expect(writing.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
     await expect(writing.getByRole("heading", { level: 2, name: "What I’m thinking through." })).toBeVisible();
+    await expect(writing).toContainText("Ideas, experiments, and the things I’m exploring.");
     await expect(writing).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
     await expect(writing.locator(".writing-system-card-meta")).toHaveCount(0);
     await expect(writing.locator(".writing-system-cover-label")).toHaveCount(0);
@@ -83,10 +84,42 @@ test.describe("Phase G closing system", () => {
     const writing = page.locator("[data-writing-home]");
     await expect(writing.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
     await expect(writing.getByRole("heading", { level: 2, name: "What I’m thinking through." })).toBeVisible();
+    await expect(writing).toContainText("Ideas, experiments, and the things I’m exploring.");
     await expect(writing).not.toContainText("What the work taught me");
     const excerpts = await writing.locator(".writing-system-excerpt").all();
     expect(excerpts).toHaveLength(3);
     for (const excerpt of excerpts) await expect(excerpt).toHaveCSS("display", "none");
+
+    const compactGeometry = await writing.evaluate((section) => {
+      const grid = section.querySelector<HTMLElement>(".writing-system-grid")!;
+      const heading = section.querySelector<HTMLElement>(".writing-system-home-header h2")!;
+      const subtitle = section.querySelector<HTMLElement>(".writing-system-home-header p")!;
+      const firstTitle = section.querySelector<HTMLElement>("[data-writing-card] h3")!;
+      const titleStyle = getComputedStyle(firstTitle);
+      const headingStyle = getComputedStyle(heading);
+      const subtitleStyle = getComputedStyle(subtitle);
+      return {
+        columns: getComputedStyle(grid).gridTemplateColumns.split(" ").length,
+        headingHeight: heading.getBoundingClientRect().height,
+        headingLineHeight: Number.parseFloat(headingStyle.lineHeight),
+        headingScroll: heading.scrollWidth,
+        headingClient: heading.clientWidth,
+        subtitleHeight: subtitle.getBoundingClientRect().height,
+        subtitleLineHeight: Number.parseFloat(subtitleStyle.lineHeight),
+        subtitleScroll: subtitle.scrollWidth,
+        subtitleClient: subtitle.clientWidth,
+        titleHeight: firstTitle.getBoundingClientRect().height,
+        titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+      };
+    });
+
+    expect(compactGeometry.columns).toBe(2);
+    expect(compactGeometry.headingHeight).toBeLessThanOrEqual(compactGeometry.headingLineHeight + 2);
+    expect(compactGeometry.headingScroll).toBeLessThanOrEqual(compactGeometry.headingClient + 1);
+    expect(compactGeometry.subtitleHeight).toBeLessThanOrEqual(compactGeometry.subtitleLineHeight + 2);
+    expect(compactGeometry.subtitleScroll).toBeLessThanOrEqual(compactGeometry.subtitleClient + 1);
+    expect(compactGeometry.titleHeight).toBeLessThanOrEqual(compactGeometry.titleLineHeight * 1.15);
+
     await expect(page.locator(".closing-path")).toHaveCount(3);
     await noHorizontalOverflow(page);
     expect(await page.locator(".writing-system-cover").first().evaluate((element) => getComputedStyle(element).transform)).toBe("none");
