@@ -286,7 +286,7 @@ Fresh verification: `npm run typecheck`, `npm run lint`, `npm run build`, `npm r
 
 ## Writing System v1.2 final refinement validation (2026-10-03)
 
-Implemented the locked v1.2 refinement on the prepared Writing system branch `writing-system-final-refinement`, updating the existing draft PR #44. The canonical `data/writing.ts` model now supports published/draft status, publication/update dates, category/topics/series, reading/listening time, optional real audio metadata, card descriptions, home rank, project or independent origin, optional thesis/evidence/sections/takeaways/sources, and typed covers. The existing three published slugs, article bodies, claims, sources, evidence and project relationships are preserved. All three current records receive the governed category/topic/card-description metadata and an estimated eight-minute listen; no audio asset or player is fabricated.
+Implemented the locked v1.2 refinement on `writing-system-final-refinement`, updated existing PR #44, and rebased the feature commit onto current `main` (`d474a3d3a480180a40c9f1c11b8875f6ac2538d9`). PR #44 is ready for review; hosted checks are rerunning for the rebased head. The canonical `data/writing.ts` model now supports published/draft status, publication/update dates, category/topics/series, reading/listening time, optional real audio metadata, card descriptions, home rank, project or independent origin, optional thesis/evidence/sections/takeaways/sources, and typed covers. The existing three published slugs, article bodies, claims, sources, evidence and project relationships are preserved. All three current records receive the governed category/topic/card-description metadata and an estimated eight-minute listen; no audio asset or player is fabricated.
 
 The Home and archive use the compact shared card grammar, in-cover taxonomy and read/listen timing, and the `What I’m thinking through.` heading. Writing remains a real publishing surface, with conditional article sections, native audio only when a real asset exists, BlogPosting JSON-LD, optional project relationships, and generalized `/writing.json`, profile, sitemap and `llms.txt` projections. HomeClosing contains Opportunity and Footer only; Selected Work carousel behavior is unchanged. The static SAR crop removes the baked-in source text strip without changing the public evidence image.
 
@@ -297,12 +297,12 @@ Validation on Node 22 / Next.js 16.3.7:
 - Home Writing render matrix: 1920×1080, 1440×1000, 1280×800, 1024×768, 430×932, 390×844, 320×568. Archive: 1440×1000, 390×844, 320×568. Article: 1440×1000, 390×844. Full Home: 1920×1080, 390×844. All requested viewport and full-page captures were reviewed; artifacts are in `outputs/writing-system-final-refinement/screenshots/`.
 - `git diff --check`: PASS.
 
-PR merge and production deployment/live-route verification remain pending until the feature commit is pushed and required repository checks complete. Do not describe this implementation as production-live before that verification.
+Post-rebase local validation is complete: install, typecheck, lint, both build targets, focused tests (36/36), the full browser suite (179/179), and rendered matrix review passed. The rebased feature commit and this status update are being pushed to PR #44. Merge, production deployment and live-route verification remain pending; do not describe this implementation as production-live before that verification.
 
 
 ## Writing System v1.2 refinement — 2026-10-03
 
-Implementation groundwork is now active on `writing-system-refinement-v12-r2`, draft PR #44. This pass supersedes the earlier Writing v1.0 presentation without changing the three published article slugs/bodies/evidence boundaries.
+Historical implementation checkpoint: the groundwork initially appeared on `writing-system-refinement-v12-r2` as draft PR #44. The final refinement and current delivery state are recorded above. This pass supersedes the earlier Writing v1.0 presentation without changing the three published article slugs/bodies/evidence boundaries.
 
 Locked v1.2 changes:
 - visible Home/archive heading: **What I’m thinking through.**;
@@ -316,7 +316,7 @@ Locked v1.2 changes:
 - native Listen player and `AudioObject` only when a real audio asset exists;
 - centralized BlogPosting schema helper and extended writing/discovery JSON.
 
-The branch includes focused schema, discoverability, Writing authority, Home/closing, mobile and multi-viewport visual-matrix tests. PR CI/rendered QA is the next gate; no production/live claim is made until those checks, manual screenshot review, merge and deployment verification complete.
+Focused schema, discoverability, Writing authority, Home/closing, mobile and multi-viewport visual-matrix tests pass. See the validation record above for current PR/production state.
 
 Current authority:
 - `docs/frontend-overhaul/WRITING_SYSTEM_V12_EXECUTION_PROMPT.md`;
