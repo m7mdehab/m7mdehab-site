@@ -11,7 +11,21 @@ const categoryLabels: Record<WritingCategory, string> = {
   notes: "Notes",
 };
 
-export function WritingCard({ article, context }: { article: WritingArticle; context: "home" | "archive" }) {
+function timingLabel(article: WritingArticle) {
+  const estimate = article.audio ? "" : "~";
+  return `${article.readingMinutes} min read · ${estimate}${article.listenMinutes} min listen`;
+}
+
+export function WritingCard({
+  article,
+  context,
+}: {
+  article: WritingArticle;
+  context: "home" | "archive";
+}) {
+  const taxonomy = `${categoryLabels[article.category]}${article.topics[0] ? ` · ${article.topics[0]}` : ""}`;
+  const description = article.cardDescription ?? article.description;
+
   return (
     <Link
       className="writing-system-card"
@@ -20,13 +34,16 @@ export function WritingCard({ article, context }: { article: WritingArticle; con
       data-writing-context={context}
       data-writing-slug={article.slug}
     >
-      <WritingCover cover={article.cover} title={article.title} />
-      <div className="writing-system-card-meta">
-        <span>{categoryLabels[article.category]}{article.topics[0] ? ` · ${article.topics[0]}` : ""}</span>
-        <span>{article.readingMinutes} min</span>
+      <div className="writing-system-cover-frame">
+        <WritingCover cover={article.cover} title={article.title} />
+        <div className="writing-system-cover-meta">
+          <span>{taxonomy}</span>
+          <span>{timingLabel(article)}</span>
+        </div>
       </div>
+
       <h2>{article.title}</h2>
-      <p>{article.description}</p>
+      <p>{description}</p>
     </Link>
   );
 }
