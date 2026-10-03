@@ -16,9 +16,13 @@ export function GET() {
     `- **${service.title}** — ${service.description} Proof: ${service.proofLabel}. [Service context](${service.url})`,
   );
 
-  const writingLines = writingRecords.map((article) =>
-    `- **${article.title}**: ${article.description} · Topics: ${article.topics.join(", ")} · [Article](${article.url})${article.relatedProjects[0] ? ` · Related project: [${article.relatedProjects[0].title}](${article.relatedProjects[0].caseStudyUrl})` : ""}`,
-  );
+  const writingLines = writingRecords.map((article) => {
+    const listenEstimate = article.audio ? "" : "~";
+    const relatedProjects = article.relatedProjects.length
+      ? ` · Related projects: ${article.relatedProjects.map((project) => `[${project.title}](${project.caseStudyUrl})`).join(", ")}`
+      : "";
+    return `- **${article.title}**: ${article.description} · Topics: ${article.topics.join(", ")} · ${article.readingMinutes} min read · ${listenEstimate}${article.listenMinutes} min listen · [Article](${article.url})${relatedProjects}`;
+  });
 
   const body = [
     `# ${profile.name}`,

@@ -22,7 +22,7 @@ test.describe("Writing publication authority", () => {
 
     for (const slug of slugs) {
       const canonical = `${domain}/writing/${slug}`;
-      await page.goto(`/writing/${slug}`);
+      await page.goto(`/writing/${slug}`, { waitUntil: "domcontentloaded" });
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical);
       await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", canonical);
       await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveCount(0);
@@ -39,7 +39,10 @@ test.describe("Writing publication authority", () => {
       expect(schema.author.name).toBe("Mohammed Ehab ElNomany");
       expect(schema.url).toBe(`${domain}/writing/${slug}`);
       expect(schema.datePublished).toBe("2026-09-11");
+      expect(schema.timeRequired).toMatch(/^PT\d+M$/);
+      expect(schema.audio).toBeUndefined();
       expect(schema.citation.length).toBeGreaterThanOrEqual(3);
+      await expect(page.locator("[data-writing-listen]")).toHaveCount(0);
       expect(await page.locator("article section").count()).toBeGreaterThanOrEqual(9);
       await expect(page.locator('[data-authority-link="article-to-project"]')).toHaveCount(1);
       expect(await page.locator('a[target="_blank"]').count()).toBeGreaterThanOrEqual(3);
@@ -49,9 +52,16 @@ test.describe("Writing publication authority", () => {
   test("English Home promotes the evidence-backed writing signal", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator(".site-nav-wrap").getByRole("link", { name: "Writing", exact: true })).toHaveAttribute("href", "/writing");
-    await expect(page.locator("#writing [data-writing-card]")).toHaveCount(3);
+    const writing = page.locator("#writing");
+    await expect(writing.getByRole("heading", { level: 2, name: "What I’m thinking through." })).toBeVisible();
+    await expect(writing).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
+    await expect(writing.locator("[data-writing-card]")).toHaveCount(3);
+    await expect(writing.locator(".writing-system-card-meta")).toHaveCount(0);
+    await expect(writing.locator(".writing-system-cover-label")).toHaveCount(0);
     await expect(page.locator('#writing a[href="/writing/when-to-trust-a-probabilistic-forecast"]')).toBeVisible();
     await expect(page.locator('#writing a[href="/writing"]')).toContainText("All writing");
+    await expect(writing.locator(".writing-system-cover-meta").first()).toContainText("min read");
+    await expect(writing.locator(".writing-system-cover-meta").first()).toContainText("min listen");
     await expect(page.locator('a[href="/ar/writing"]')).toHaveCount(0);
   });
 

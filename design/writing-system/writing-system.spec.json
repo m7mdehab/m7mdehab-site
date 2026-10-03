@@ -1,18 +1,21 @@
 {
-  "version": "1.0",
-  "status": "design-architecture-locked",
+  "version": "1.2",
+  "status": "design-architecture-refinement-locked",
   "scope": [
     "home-writing",
     "/writing",
     "/writing/[slug]",
-    "writing-discovery"
+    "writing-discovery",
+    "article-audio"
   ],
   "copy": {
-    "homeHeading": "Writing.",
-    "homeLede": "Notes on AI, technology, work, projects, and whatever else I’m thinking through.",
+    "homeHeading": "What I’m thinking through.",
+    "homeLede": null,
     "homeCta": "All writing",
-    "archiveHeading": "Writing.",
-    "archiveLede": "Notes on AI, technology, work, projects, and whatever else I’m thinking through."
+    "homeCtaPlacement": "section-bottom-right",
+    "archiveEyebrow": "Writing",
+    "archiveHeading": "What I’m thinking through.",
+    "archiveLede": null
   },
   "layout": {
     "homeMax": 6,
@@ -24,13 +27,19 @@
     "coverAspectRatio": "16/9",
     "columnGapPx": 24,
     "rowGapPxRange": [
-      42,
+      32,
       52
     ],
     "coverRadiusPxRange": [
       12,
       16
-    ]
+    ],
+    "cardMetadataPlacement": "inside-cover-bottom",
+    "titleMaxLines": 2,
+    "excerptMaxLines": 2,
+    "mobileExcerpt": "hidden",
+    "desktopExcerpt": "cardDescription-or-description; maximum two visible lines",
+    "oilCoverCrop": "crop/mask source-strip text so it reads as an editorial cover"
   },
   "behavior": {
     "carousel": false,
@@ -41,7 +50,17 @@
     "searchInThisPhase": false,
     "paginationInThisPhase": false,
     "hover": "subtle-css-only",
-    "reducedMotion": "no-transform-or-cover-zoom"
+    "reducedMotion": "no-transform-or-cover-zoom",
+    "cardWholeLink": true
+  },
+  "audio": {
+    "cardListenTime": "supported",
+    "playerPlacement": "article-top-before-cover",
+    "renderPlayerOnlyWhenAudioSourceExists": true,
+    "estimatedListenTimePrefix": "~",
+    "currentEstimateBasis": "estimated narration time; current ~1.1k-word essays use 8 minutes until real audio duration exists",
+    "schemaWhenAvailable": "AudioObject",
+    "textArticleIsEquivalentContent": true
   },
   "data": {
     "statusRequired": true,
@@ -50,8 +69,12 @@
     "sourcesOptional": true,
     "takeawaysOptional": true,
     "thesisOptional": true,
+    "cardDescriptionOptional": true,
+    "listenMinutesOptional": false,
+    "audioOptional": true,
     "homeSelection": "homeRank",
-    "defaultSchema": "BlogPosting"
+    "defaultSchema": "BlogPosting",
+    "listenMinutesRequired": true
   },
   "categories": {
     "ai": "AI",
@@ -73,6 +96,9 @@
         "Calibration",
         "Evaluation"
       ],
+      "cardDescription": "A practical test for knowing when a probabilistic forecast deserves trust.",
+      "readingMinutes": 9,
+      "listenMinutes": 8,
       "series": "what-the-work-taught-me",
       "homeRank": 1,
       "coverVisual": "forecast-calibration",
@@ -88,6 +114,9 @@
         "Metrics",
         "Validation"
       ],
+      "cardDescription": "Why rare oil pixels make accuracy a weak headline metric.",
+      "readingMinutes": 8,
+      "listenMinutes": 8,
       "series": "what-the-work-taught-me",
       "homeRank": 2,
       "coverVisual": "oil-sar",
@@ -103,6 +132,9 @@
         "Provenance",
         "Governance"
       ],
+      "cardDescription": "How agents should handle missing evidence without inventing certainty.",
+      "readingMinutes": 9,
+      "listenMinutes": 8,
       "series": "what-the-work-taught-me",
       "homeRank": 3,
       "coverVisual": "agent-provenance",
@@ -115,7 +147,8 @@
     "home": "[data-writing-home]",
     "card": "[data-writing-card]",
     "cardContext": "data-writing-context",
-    "cardSlug": "data-writing-slug"
+    "cardSlug": "data-writing-slug",
+    "listen": "[data-writing-listen]"
   },
   "renderViewports": [
     "1920x1080",
@@ -137,6 +170,10 @@
     "SaaS-card-shells",
     "heavy-card-shadow",
     "premature-filter-search-ui",
-    "active-arabic-public-links"
+    "active-arabic-public-links",
+    "metadata-below-cover",
+    "three-line-card-title",
+    "duplicate-cover-taxonomy-label",
+    "fake-audio-control-without-source"
   ]
 }

@@ -2,13 +2,12 @@
 import { projectVisuals } from "@/data/project-visuals";
 import type { WritingArticle, WritingCover as WritingCoverSpec } from "@/data/writing";
 
-function ForecastCover() {
+function ForecastCover({ alt, decorative }: { alt: string; decorative: boolean }) {
   const points = projectVisuals.presaira.reliability
     .map(({ predicted, observed }) => `${(24 + predicted * 252).toFixed(1)},${(142 - observed * 112).toFixed(1)}`)
     .join(" ");
   return (
-    <div className="writing-system-cover writing-system-cover-forecast">
-      <span className="writing-system-cover-label">Forecast / calibration</span>
+    <div className="writing-system-cover writing-system-cover-forecast" aria-hidden={decorative || undefined} role={decorative ? undefined : "img"} aria-label={decorative ? undefined : alt}>
       <svg viewBox="0 0 300 160" aria-hidden="true" focusable="false">
         <line className="writing-system-forecast-reference" x1="24" y1="142" x2="276" y2="18" />
         {[48, 80, 112, 142].map((y) => <line className="writing-system-forecast-guide" key={y} x1="24" x2="276" y1={y} y2={y} />)}
@@ -21,20 +20,18 @@ function ForecastCover() {
   );
 }
 
-function OilCover({ loading }: { loading: "lazy" | "eager" }) {
+function OilCover({ loading, alt }: { loading: "lazy" | "eager"; alt: string }) {
   const visual = projectVisuals["oil-spill-detection"];
   return (
     <div className="writing-system-cover writing-system-cover-oil">
-      <img src={visual.image} alt="" width={1024} height={640} loading={loading} fetchPriority={loading === "eager" ? "high" : "auto"} />
-      <span className="writing-system-cover-label">SAR / segmentation</span>
+      <img src={visual.image} alt={alt} width={1024} height={640} loading={loading} fetchPriority={loading === "eager" ? "high" : "auto"} />
     </div>
   );
 }
 
-function AgentCover() {
+function AgentCover({ alt, decorative }: { alt: string; decorative: boolean }) {
   return (
-    <div className="writing-system-cover writing-system-cover-agent">
-      <span className="writing-system-cover-label">AI / governance</span>
+    <div className="writing-system-cover writing-system-cover-agent" aria-hidden={decorative || undefined} role={decorative ? undefined : "img"} aria-label={decorative ? undefined : alt}>
       <svg viewBox="0 0 360 160" aria-hidden="true" focusable="false">
         <path className="writing-system-agent-wire" d="M58 80 C96 80 96 45 132 45 M58 80 C96 80 96 115 132 115" />
         <path className="writing-system-agent-wire-active" d="M202 80 H246 M300 80 H332" />
@@ -53,14 +50,14 @@ function AgentCover() {
   );
 }
 
-export function WritingCover({ cover, title, loading = "lazy" }: { cover: WritingCoverSpec; title: string; loading?: "lazy" | "eager" }) {
+export function WritingCover({ cover, title, loading = "lazy", decorative = false }: { cover: WritingCoverSpec; title: string; loading?: "lazy" | "eager"; decorative?: boolean }) {
   if (cover.kind === "image") {
-    return <div className="writing-system-cover"><img src={cover.src} alt={cover.alt} width={1200} height={675} loading={loading} fetchPriority={loading === "eager" ? "high" : "auto"} /></div>;
+    return <div className="writing-system-cover"><img src={cover.src} alt={decorative ? "" : cover.alt} width={1200} height={675} loading={loading} fetchPriority={loading === "eager" ? "high" : "auto"} /></div>;
   }
   switch (cover.visual) {
-    case "forecast-calibration": return <ForecastCover />;
-    case "oil-sar": return <OilCover loading={loading} />;
-    case "agent-provenance": return <AgentCover />;
+    case "forecast-calibration": return <ForecastCover alt={cover.alt} decorative={decorative} />;
+    case "oil-sar": return <OilCover loading={loading} alt={decorative ? "" : cover.alt} />;
+    case "agent-provenance": return <AgentCover alt={cover.alt} decorative={decorative} />;
   }
   return <div className="writing-system-cover" role="img" aria-label={title} />;
 }

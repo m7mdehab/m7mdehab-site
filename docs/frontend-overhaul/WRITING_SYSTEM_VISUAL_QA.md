@@ -13,17 +13,22 @@ Review in this order:
 
 Pass only if:
 
-- `Writing.` is the first visual anchor;
-- support copy is clearly secondary;
+- `What I’m thinking through.` is the first visual anchor;
+- there is no redundant support paragraph in the header;
 - all three covers have equal 16:9 geometry;
 - three cards form one calm row;
 - cards are generous but not poster-sized;
 - no outer SaaS box dominates;
 - covers are distinct but feel like one editorial system;
-- titles are readable without being oversized;
+- category/topic sits inside each cover at bottom-left;
+- read/listen timing sits inside each cover at bottom-right;
+- overlay text remains readable over all imagery;
+- no old top-left cover taxonomy label remains;
+- every title is visibly capped at two lines;
+- card descriptions are concise and visibly capped at two lines;
 - card bottoms are not artificially forced into rigid equal-height boxes;
 - section feels lighter than Selected Work;
-- All writing is obvious without becoming a primary CTA.
+- All writing appears only after the grid, aligned bottom-right.
 
 Immediate rejection:
 
@@ -31,6 +36,9 @@ Immediate rejection:
 - project-case-study-card look;
 - heavy shadows;
 - giant titles;
+- three-line card titles;
+- metadata below the thumbnail;
+- duplicated taxonomy both above and inside the thumbnail;
 - cover labels/metrics overpower article titles;
 - one cover is dramatically louder;
 - carousel/slider behavior returns.
@@ -43,9 +51,10 @@ Pass only if:
 - no horizontal scrolling;
 - all three current posts are visible in document flow;
 - cover remains wide and legible;
-- title does not become a five-line wall;
-- metadata is legible;
-- excerpt remains secondary;
+- section heading is materially smaller than v1.0 and resolves quickly;
+- every card title remains two lines maximum;
+- metadata stays inside the cover and remains legible;
+- card description is not shown on mobile;
 - vertical rhythm separates cards without excessive emptiness;
 - Writing anchor clears the mobile dock.
 
@@ -62,8 +71,9 @@ Reject:
 Pass only if:
 
 - archive header is compact;
-- H1 is simply `Writing.`;
-- lede communicates broad personal scope;
+- eyebrow reads `Writing`;
+- H1 reads `What I’m thinking through.`;
+- no redundant archive lede;
 - same card grammar as Home;
 - archive reads as a publication, not project directory;
 - 3-column rhythm survives;
@@ -94,7 +104,8 @@ Oil:
 
 - real case-study imagery;
 - meaningful crop;
-- overlay preserves evidence;
+- the baked-in source header at the extreme top is no longer visually competing;
+- bottom metadata overlay preserves evidence;
 - no fabricated annotation.
 
 Agent:
@@ -143,6 +154,7 @@ At 1920:
 At mobile:
 
 - Home remains consistent with the compact architecture;
+- card descriptions are hidden;
 - Writing does not recreate three giant carousel panels.
 
 ## 3-second test
@@ -159,8 +171,22 @@ Reject if it reads as:
 
 If it fails, reduce project-specific chrome rather than adding explanatory copy.
 
-## Reviewed render record — 2026-10-03
 
-The required render matrix was captured against the production build and inspected at all 13 targets: Home Writing (1920×1080, 1440×1000, 1280×800, 1024×768, 430×932, 390×844, 320×568), archive (1440×1000, 390×844), article (1440×1000, 390×844), and full Home (1920×1080, 390×844).
+## Audio / listen review
 
-Review passed. The Home grid resolves to three columns at desktop widths, two at tablet width, and one on phones; all three curated posts appear without placeholders or horizontal Writing scroll. The forecast curve, public SAR case image, and provenance diagram remain visually distinct. Archive/article reading columns fit mobile, and the full-Home transitions retain the existing Opportunity and Footer composition. The 13 PNGs and contact sheet are preserved in the task output folder under `outputs/writing-system/screenshots/`.
+Before real audio exists:
+- card may show an estimated listen time prefixed with ~;
+- no fake player or disabled Listen control appears on the article.
+
+When real audio exists:
+- the Listen block appears near the top of the article before the cover;
+- native controls fit desktop and mobile;
+- the displayed listen duration no longer uses ~;
+- the article text remains fully available as the equivalent text representation;
+- no audio autoplay.
+
+## Metadata overlay contrast
+
+The metadata rail uses a dedicated dark bottom gradient.
+
+Reject any cover where the category or timing text falls below WCAG AA contrast against the pixels behind it. Do not rely on text-shadow alone.

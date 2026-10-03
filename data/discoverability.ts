@@ -9,6 +9,7 @@ import {
 } from "@/data/public";
 import { publishedWritingArticles } from "@/data/writing";
 import { projectVisuals } from "@/data/project-visuals";
+import { getRelatedWritingProjects } from "@/data/writing-schema";
 
 export function projectCaseStudyUrl(slug: string) {
   return `${profile.domain}/work/${slug}`;
@@ -71,7 +72,6 @@ export const projectRecords = projects.map((project) => {
 });
 
 export const writingRecords = publishedWritingArticles.map((article) => {
-  const origin = article.origin;
   const coverImage = article.cover.kind === "image"
     ? article.cover.src
     : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
@@ -81,16 +81,25 @@ export const writingRecords = publishedWritingArticles.map((article) => {
   slug: article.slug,
   title: article.title,
   description: article.description,
+  cardDescription: article.cardDescription ?? null,
   category: article.category,
   topics: article.topics,
   series: article.series ?? null,
   publishedAt: article.publishedAt,
   updatedAt: article.updatedAt ?? null,
   readingMinutes: article.readingMinutes,
+  listenMinutes: article.listenMinutes,
+  ...(article.audio
+    ? { audio: {
+        url: article.audio.src.startsWith("http")
+          ? article.audio.src
+          : `${profile.domain}${article.audio.src.startsWith("/") ? article.audio.src : `/${article.audio.src}`}`,
+        mimeType: article.audio.mimeType,
+        durationSeconds: article.audio.durationSeconds,
+      } }
+    : {}),
   url: writingArticleUrl(article.slug),
-  relatedProjects: origin.kind === "project"
-    ? projects.flatMap((project) => project.slug === origin.projectSlug ? [{ slug: project.slug, title: project.title, caseStudyUrl: projectCaseStudyUrl(project.slug) }] : [])
-    : [],
+  relatedProjects: getRelatedWritingProjects(article),
   sourceLinks: (article.sources ?? []).map((source) => ({ label: source.label, url: source.href, kind: source.kind })),
   ...(coverImage ? { coverImage } : {}),
   });

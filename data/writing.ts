@@ -5,8 +5,9 @@ export type WritingEvidence = {
 };
 
 export type WritingSection = {
+  id?: string;
   eyebrow?: string;
-  title: string;
+  title?: string;
   paragraphs?: readonly string[];
   bullets?: readonly string[];
   blocks?: readonly WritingBlock[];
@@ -26,26 +27,46 @@ export type WritingSource = {
   kind: "first-hand" | "reference";
 };
 
-export type WritingCategory = "ai" | "technology" | "data" | "career" | "projects" | "notes";
-export type WritingSeries = string;
+export type WritingAudio = {
+  src: string;
+  mimeType: string;
+  durationSeconds: number;
+};
+
+export const writingCategories = {
+  ai: { label: "AI" },
+  technology: { label: "Technology" },
+  data: { label: "Data" },
+  career: { label: "Career" },
+  projects: { label: "Projects" },
+  notes: { label: "Notes" },
+} as const;
+
+export const writingSeries = {
+  "what-the-work-taught-me": { label: "What the Work Taught Me" },
+} as const;
+
+export type WritingCategory = keyof typeof writingCategories;
+export type WritingSeries = keyof typeof writingSeries;
 export type WritingCover =
-  | { kind: "visual"; visual: "forecast-calibration" | "oil-sar" | "agent-provenance" }
+  | { kind: "visual"; visual: "forecast-calibration" | "oil-sar" | "agent-provenance"; alt: string }
   | { kind: "image"; src: string; alt: string };
 export type WritingOrigin =
-  | { kind: "project"; projectSlug: string }
+  | { kind: "project"; projectSlugs: readonly string[]; disclosure?: string }
   | { kind: "independent" };
 
-export type WritingArticle = {
+export type WritingArticleBase = {
   slug: string;
   title: string;
   description: string;
-  status: "published" | "draft";
-  publishedAt: string;
+  cardDescription?: string;
   updatedAt?: string;
   category: WritingCategory;
   topics: readonly string[];
   series?: WritingSeries;
   readingMinutes: number;
+  listenMinutes: number;
+  audio?: WritingAudio;
   homeRank?: number;
   cover: WritingCover;
   origin: WritingOrigin;
@@ -56,6 +77,18 @@ export type WritingArticle = {
   takeawaysTitle?: string;
   sources?: readonly WritingSource[];
 };
+
+export type PublishedWritingArticle = WritingArticleBase & {
+  status: "published";
+  publishedAt: string;
+};
+
+export type DraftWritingArticle = WritingArticleBase & {
+  status: "draft";
+  publishedAt?: string;
+};
+
+export type WritingArticle = PublishedWritingArticle | DraftWritingArticle;
 
 /**
  * Editorial content is subordinate to the governed public truth and evidence model.
@@ -70,15 +103,26 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "When should you trust a probabilistic forecast?",
     description:
       "A practical trust test for probabilistic forecasts: proper scoring, calibration, complete coverage, leakage-resistant evaluation, reproducibility and published failure modes.",
+    cardDescription:
+      "A practical test for knowing when a probabilistic forecast deserves trust.",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
     topics: ["Forecasting", "Calibration", "Evaluation"],
     series: "what-the-work-taught-me",
     homeRank: 1,
-    cover: { kind: "visual", visual: "forecast-calibration" },
+    cover: {
+      kind: "visual",
+      visual: "forecast-calibration",
+      alt: "Dark navy calibration chart comparing forecast probabilities with observed outcomes.",
+    },
     readingMinutes: 9,
-    origin: { kind: "project", projectSlug: "presaira" },
+    listenMinutes: 8,
+    origin: {
+      kind: "project",
+      projectSlugs: ["presaira"],
+      disclosure: "This essay is derived from public project evidence and does not widen the ownership or publication boundaries of the underlying case study.",
+    },
     thesis:
       "A forecast earns trust by surviving inspection after reality is known. The useful question is not whether one prediction was right, but whether the probability system was evaluated completely, reproducibly and without hiding the ways it failed.",
     evidence: [
@@ -165,6 +209,7 @@ export const writingArticles: readonly WritingArticle[] = [
         ],
       },
     ],
+    takeawaysTitle: "What I carry into the next system.",
     takeaways: [
       "Judge probabilistic systems over many forecasts with proper scoring rules, not isolated wins.",
       "Treat coverage and temporal cutoffs as part of the evaluation, not implementation trivia.",
@@ -195,15 +240,26 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "Why accuracy alone is not enough for oil-spill detection",
     description:
       "A metric-design case study from Sentinel-1 SAR segmentation: why rare oil pixels, look-alikes and deployment domain gaps make overall accuracy a weak headline measure.",
+    cardDescription:
+      "Why rare oil pixels make accuracy a weak headline metric.",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
     topics: ["Computer vision", "Metrics", "Validation"],
     series: "what-the-work-taught-me",
     homeRank: 2,
-    cover: { kind: "visual", visual: "oil-sar" },
+    cover: {
+      kind: "visual",
+      visual: "oil-sar",
+      alt: "Public Sentinel-1 SAR case-study image used for oil-spill segmentation.",
+    },
     readingMinutes: 8,
-    origin: { kind: "project", projectSlug: "oil-spill-detection" },
+    listenMinutes: 8,
+    origin: {
+      kind: "project",
+      projectSlugs: ["oil-spill-detection"],
+      disclosure: "This essay is derived from public project evidence and does not widen the ownership or publication boundaries of the underlying case study.",
+    },
     thesis:
       "When the class you care about is rare, overall accuracy can improve while the useful part of the system remains poor. Evaluation has to follow the operational question: did the model find oil, distinguish it from look-alikes and preserve that behaviour when the pipeline left the curated test chips?",
     evidence: [
@@ -286,6 +342,7 @@ export const writingArticles: readonly WritingArticle[] = [
         ],
       },
     ],
+    takeawaysTitle: "What I carry into the next system.",
     takeaways: [
       "For rare-class segmentation, overall accuracy can be numerically strong while the target class remains weak.",
       "Report target-class overlap and recall alongside balanced multiclass metrics.",
@@ -321,15 +378,26 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "What should an AI agent do when the evidence is missing?",
     description:
       "A practical governance pattern for agentic systems: preserve unknowns, trace material claims to evidence and separate content generation from authority to take external action.",
+    cardDescription:
+      "How agents should handle missing evidence without inventing certainty.",
     status: "published",
     publishedAt: "2026-09-11",
     category: "ai",
     topics: ["AI agents", "Provenance", "Governance"],
     series: "what-the-work-taught-me",
     homeRank: 3,
-    cover: { kind: "visual", visual: "agent-provenance" },
+    cover: {
+      kind: "visual",
+      visual: "agent-provenance",
+      alt: "Public-safe governance diagram linking evidence, known and unknown claims, traceable provenance, and action authority.",
+    },
     readingMinutes: 9,
-    origin: { kind: "project", projectSlug: "opportunityos" },
+    listenMinutes: 8,
+    origin: {
+      kind: "project",
+      projectSlugs: ["opportunityos"],
+      disclosure: "This essay is derived from public project evidence and does not widen the ownership or publication boundaries of the underlying case study.",
+    },
     thesis:
       "The safest useful answer to missing evidence is often neither yes nor no. A governed agent needs an explicit unknown state, traceable material claims and a separate authority model for external actions so fluency never silently becomes permission.",
     evidence: [
@@ -413,6 +481,7 @@ export const writingArticles: readonly WritingArticle[] = [
         ],
       },
     ],
+    takeawaysTitle: "What I carry into the next system.",
     takeaways: [
       "Keep UNKNOWN distinct from FALSE; missing evidence should not become a negative fact.",
       "Bind material generated claims to explicit provenance before generation, not as a cosmetic citation step afterward.",
@@ -450,7 +519,13 @@ export const writingArticles: readonly WritingArticle[] = [
   },
 ] as const;
 
-export const publishedWritingArticles = writingArticles.filter((article) => article.status === "published");
+export function isPublishedWritingArticle(
+  article: WritingArticle,
+): article is PublishedWritingArticle {
+  return article.status === "published";
+}
+
+export const publishedWritingArticles = writingArticles.filter(isPublishedWritingArticle);
 
 export const writingSlugs = publishedWritingArticles.map((article) => article.slug);
 
@@ -459,9 +534,9 @@ export function getWritingArticle(slug: string) {
 }
 
 export function getHomepageWriting(limit = 6) {
-  return publishedWritingArticles
+  return [...publishedWritingArticles]
     .filter((article) => article.homeRank !== undefined)
-    .sort((left, right) => (left.homeRank ?? Infinity) - (right.homeRank ?? Infinity))
+    .sort((left, right) => (left.homeRank ?? Infinity) - (right.homeRank ?? Infinity) || left.slug.localeCompare(right.slug))
     .slice(0, Math.max(0, Math.min(limit, 6)));
 }
 
@@ -472,10 +547,66 @@ export function getWritingArticleOptionalContent(article: WritingArticle) {
     takeaways: article.takeaways ?? [],
     takeawaysTitle: article.takeawaysTitle,
     sources: article.sources ?? [],
-    relatedProjectSlug: article.origin.kind === "project" ? article.origin.projectSlug : undefined,
   };
+}
+
+export function assertWritingIntegrity(articles: readonly WritingArticle[] = writingArticles) {
+  const slugs = new Set<string>();
+  const ranks = new Set<number>();
+
+  for (const article of articles) {
+    if (slugs.has(article.slug)) throw new Error(`Duplicate Writing slug: ${article.slug}`);
+    slugs.add(article.slug);
+
+    if (article.homeRank !== undefined) {
+      if (!Number.isInteger(article.homeRank) || article.homeRank < 1) {
+        throw new Error(`Invalid Writing homeRank for ${article.slug}`);
+      }
+      if (ranks.has(article.homeRank)) throw new Error(`Duplicate Writing homeRank: ${article.homeRank}`);
+      ranks.add(article.homeRank);
+    }
+
+    if (article.status === "published" && !/^\d{4}-\d{2}-\d{2}$/.test(article.publishedAt)) {
+      throw new Error(`Published Writing article needs an ISO date: ${article.slug}`);
+    }
+    if (article.topics.length === 0) throw new Error(`Writing article needs a topic: ${article.slug}`);
+    if (!article.cover.alt.trim()) throw new Error(`Writing cover needs alt text: ${article.slug}`);
+    if ((article.cardDescription?.length ?? 0) > 140) {
+      throw new Error(`Writing cardDescription exceeds 140 characters: ${article.slug}`);
+    }
+    if (!Number.isFinite(article.readingMinutes) || article.readingMinutes <= 0) {
+      throw new Error(`Writing article needs positive readingMinutes: ${article.slug}`);
+    }
+    if (!Number.isFinite(article.listenMinutes) || article.listenMinutes <= 0) {
+      throw new Error(`Writing article needs positive listenMinutes: ${article.slug}`);
+    }
+    if (article.audio && (!article.audio.src.trim() || !article.audio.mimeType.trim() || !Number.isFinite(article.audio.durationSeconds) || article.audio.durationSeconds <= 0)) {
+      throw new Error(`Writing audio metadata is invalid: ${article.slug}`);
+    }
+  }
 }
 
 export function writingArticleUrl(slug: string) {
   return `https://m7mdehab.com/writing/${slug}`;
+}
+
+export function getWritingTimingLabel(
+  article: Pick<WritingArticleBase, "readingMinutes" | "listenMinutes" | "audio">,
+) {
+  return `${article.readingMinutes} min read · ${article.audio ? "" : "~"}${article.listenMinutes} min listen`;
+}
+
+export function getWritingListenDetails(
+  article: Pick<WritingArticleBase, "title" | "listenMinutes" | "audio">,
+) {
+  if (!article.audio) return undefined;
+  return {
+    sectionLabel: "Listen to this article",
+    playerLabel: `Audio narration of ${article.title}`,
+    listenMinutes: article.listenMinutes,
+    src: article.audio.src,
+    mimeType: article.audio.mimeType,
+    preload: "metadata" as const,
+    controls: true as const,
+  };
 }
