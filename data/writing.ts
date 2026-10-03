@@ -494,6 +494,18 @@ export function writingTimingLabel(article: WritingArticle) {
   return `${read} · ${estimated}${article.listenMinutes} min listen`;
 }
 
+export function writingAudioObject(article: WritingArticle, baseUrl: string) {
+  if (!article.audio) return undefined;
+  const contentUrl = new URL(article.audio.src, `${baseUrl.replace(/\/$/, "")}/`).toString();
+  return {
+    "@type": "AudioObject" as const,
+    contentUrl,
+    encodingFormat: article.audio.mimeType,
+    duration: `PT${Math.round(article.audio.durationSeconds)}S`,
+    caption: "Audio narration of this article",
+  };
+}
+
 export function getWritingArticleOptionalContent(article: WritingArticle) {
   return {
     thesis: article.thesis,
