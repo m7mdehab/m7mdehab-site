@@ -1252,6 +1252,16 @@
 }
 
 @media (min-width: 1100px) {
+  /* Final desktop breathing-room pass: keep all five stages visually distinct
+     without changing their content, interaction or vertical composition. */
+  .method-story__journey {
+    column-gap: clamp(24px, 2vw, 38px);
+  }
+
+  .method-story__transformation-list {
+    column-gap: clamp(20px, 1.6vw, 30px);
+  }
+
   /* Desktop uses the measured SVG bus; keep the DOM bus only as tablet/mobile fallback. */
   .method-story__system-bus {
     visibility: hidden;
