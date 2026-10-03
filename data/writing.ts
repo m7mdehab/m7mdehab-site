@@ -33,6 +33,12 @@ export type WritingAudio = {
   durationSeconds: number;
 };
 
+export type WritingFormat =
+  | "note"
+  | "analysis"
+  | "deep-dive"
+  | "project-reflection";
+
 export const writingCategories = {
   ai: { label: "AI" },
   technology: { label: "Technology" },
@@ -60,6 +66,7 @@ export type WritingArticleBase = {
   title: string;
   description: string;
   cardDescription?: string;
+  format: WritingFormat;
   updatedAt?: string;
   category: WritingCategory;
   topics: readonly string[];
@@ -105,6 +112,7 @@ export const writingArticles: readonly WritingArticle[] = [
       "A practical trust test for probabilistic forecasts: proper scoring, calibration, complete coverage, leakage-resistant evaluation, reproducibility and published failure modes.",
     cardDescription:
       "A practical test for knowing when a probabilistic forecast deserves trust.",
+    format: "deep-dive",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
@@ -242,6 +250,7 @@ export const writingArticles: readonly WritingArticle[] = [
       "A metric-design case study from Sentinel-1 SAR segmentation: why rare oil pixels, look-alikes and deployment domain gaps make overall accuracy a weak headline measure.",
     cardDescription:
       "Why rare oil pixels make accuracy a weak headline metric.",
+    format: "deep-dive",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
@@ -380,6 +389,7 @@ export const writingArticles: readonly WritingArticle[] = [
       "A practical governance pattern for agentic systems: preserve unknowns, trace material claims to evidence and separate content generation from authority to take external action.",
     cardDescription:
       "How agents should handle missing evidence without inventing certainty.",
+    format: "analysis",
     status: "published",
     publishedAt: "2026-09-11",
     category: "ai",
@@ -540,6 +550,90 @@ export function getHomepageWriting(limit = 6) {
     .slice(0, Math.max(0, Math.min(limit, 6)));
 }
 
+function slugifyWritingHeading(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function writingSectionAnchor(section: WritingSection, index: number) {
+  if (section.id?.trim()) return section.id;
+  const label = section.title ?? section.eyebrow ?? `section-${index + 1}`;
+  const slug = slugifyWritingHeading(label) || `section-${index + 1}`;
+  return `section-${index + 1}-${slug}`;
+}
+
+export function getWritingTocEntries(article: Pick<WritingArticleBase, "sections">) {
+  return article.sections.flatMap((section, index) =>
+    section.title
+      ? [{ id: writingSectionAnchor(section, index), label: section.title }]
+      : [],
+  );
+}
+
+function blockPlainText(block: WritingBlock) {
+  switch (block.type) {
+    case "paragraph":
+      return block.text;
+    case "bullets":
+      return block.items.join(" ");
+    case "quote":
+      return [block.text, block.attribution ?? ""].join(" ");
+    case "image":
+      return block.caption ?? "";
+    case "code":
+      return "";
+    case "callout":
+      return [block.title ?? "", block.text].join(" ");
+  }
+}
+
+export function getWritingWordCount(article: Pick<WritingArticleBase, "thesis" | "sections" | "takeaways">) {
+  const body = [
+    article.thesis ?? "",
+    ...article.sections.flatMap((section) => [
+      section.title ?? "",
+      ...(section.paragraphs ?? []),
+      ...(section.bullets ?? []),
+      ...(section.blocks ?? []).map(blockPlainText),
+    ]),
+    ...(article.takeaways ?? []),
+  ]
+    .join(" ")
+    .trim();
+
+  return body ? body.split(/\s+/u).filter(Boolean).length : 0;
+}
+
+export function getRelatedWritingArticles(article: PublishedWritingArticle, limit = 2) {
+  const articleTopics = new Set(article.topics.map((topic) => topic.toLowerCase()));
+
+  return publishedWritingArticles
+    .filter((candidate) => candidate.slug !== article.slug)
+    .map((candidate) => {
+      const sharedTopics = candidate.topics.reduce(
+        (count, topic) => count + (articleTopics.has(topic.toLowerCase()) ? 1 : 0),
+        0,
+      );
+      const score =
+        (candidate.category === article.category ? 4 : 0) +
+        sharedTopics * 2 +
+        (candidate.series && candidate.series === article.series ? 1 : 0);
+      return { candidate, score };
+    })
+    .sort(
+      (left, right) =>
+        right.score - left.score ||
+        right.candidate.publishedAt.localeCompare(left.candidate.publishedAt) ||
+        left.candidate.slug.localeCompare(right.candidate.slug),
+    )
+    .slice(0, Math.max(0, limit))
+    .map(({ candidate }) => candidate);
+}
+
 export function getWritingArticleOptionalContent(article: WritingArticle) {
   return {
     thesis: article.thesis,
@@ -566,6 +660,9 @@ export function assertWritingIntegrity(articles: readonly WritingArticle[] = wri
       ranks.add(article.homeRank);
     }
 
+    if (!["note", "analysis", "deep-dive", "project-reflection"].includes(article.format)) {
+      throw new Error(`Writing article needs a valid format: ${article.slug}`);
+    }
     if (article.status === "published" && !/^\d{4}-\d{2}-\d{2}$/.test(article.publishedAt)) {
       throw new Error(`Published Writing article needs an ISO date: ${article.slug}`);
     }
