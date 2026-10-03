@@ -28,23 +28,17 @@ export function WritingAudioPlayer({
   listenMinutes: number;
 }) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const speedRef = useRef<HTMLSelectElement>(null);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(durationSeconds);
-  const [rate, setRate] = useState(1);
 
   useEffect(() => {
     const stored = Number.parseFloat(window.localStorage.getItem(playbackRateKey) ?? "");
-    if (playbackRates.includes(stored as (typeof playbackRates)[number])) {
-      setRate(stored);
-    }
+    if (!playbackRates.includes(stored as (typeof playbackRates)[number])) return;
+    if (audioRef.current) audioRef.current.playbackRate = stored;
+    if (speedRef.current) speedRef.current.value = String(stored);
   }, []);
-
-  useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.playbackRate = rate;
-    window.localStorage.setItem(playbackRateKey, String(rate));
-  }, [rate]);
 
   const progressMax = useMemo(
     () => (Number.isFinite(duration) && duration > 0 ? duration : durationSeconds),
