@@ -269,6 +269,16 @@ test.describe("Method story rebuild", () => {
     await expect(measured).toBeVisible();
     await page.waitForTimeout(900);
 
+    const connectorZIndex = Number(
+      await measured.evaluate((element) => getComputedStyle(element).zIndex),
+    );
+    const journeyZIndex = Number(
+      await section
+        .locator(".method-story__journey")
+        .evaluate((element) => getComputedStyle(element).zIndex),
+    );
+    expect(connectorZIndex).toBeGreaterThan(journeyZIndex);
+
     const inputPaths = measured.locator(
       '[data-method-connectors="input-expose"] path',
     );
