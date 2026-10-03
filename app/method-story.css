@@ -1716,3 +1716,276 @@
     border-top: 1px solid rgba(145, 225, 189, 0.08);
   }
 }
+
+
+/* Mobile Method Story pass 02 — connected sticky horizontal narrative.
+   Desktop and tablet remain unchanged. */
+@media (max-width: 719px) {
+  .method-story__mobile-track {
+    height: 420svh;
+  }
+
+  .method-story__mobile-sticky {
+    grid-template-rows: 32px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .method-story__mobile-progress-node {
+    width: 23px;
+    height: 23px;
+    font-size: 7.5px;
+    border-color: rgba(145, 225, 189, 0.24);
+  }
+
+  .method-story__mobile-stage {
+    padding: 18px 10px 24px;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head {
+    min-height: 82px;
+    padding: 0 6px;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head h3 {
+    font-size: 21px;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head p {
+    max-width: 310px;
+  }
+
+  .method-story__mobile-visual {
+    width: min(100%, 350px);
+    height: 350px;
+    margin: 0 auto;
+    align-self: center;
+    isolation: isolate;
+  }
+
+  .method-story__mobile-connectors {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .method-story__mobile-path {
+    fill: none;
+    stroke: var(--method-secondary);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.54;
+  }
+
+  .method-story__mobile-path--hot {
+    stroke: var(--method-accent-bright);
+    stroke-width: 1.5;
+    opacity: 0.94;
+  }
+
+  .method-story__mobile-node {
+    fill: var(--method-secondary);
+    stroke: var(--method-bg);
+    stroke-width: 1.5;
+  }
+
+  .method-story__mobile-node--hot {
+    fill: var(--method-accent-bright);
+  }
+
+  .method-story__mobile-stage .method-story__input-field,
+  .method-story__mobile-stage .method-story__evidence-field,
+  .method-story__mobile-stage .method-story__decision-field,
+  .method-story__mobile-stage .method-story__build-field,
+  .method-story__mobile-stage .method-story__outputs {
+    position: relative;
+    z-index: 1;
+  }
+
+  .method-story__mobile-stage .method-story__input-field,
+  .method-story__mobile-stage .method-story__evidence-field,
+  .method-story__mobile-stage .method-story__decision-field,
+  .method-story__mobile-stage .method-story__build-field {
+    width: 100%;
+    height: 350px;
+    margin: 0;
+  }
+
+  /* Messy reality: cards terminate exactly where the mobile connector fan begins. */
+  .method-story__mobile-stage--messy .method-story__input-position--1 {
+    left: 4.3%;
+    top: 34px;
+    width: 47.1%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-position--2 {
+    left: 20.9%;
+    top: 102px;
+    width: 55.7%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-position--3 {
+    left: 7.1%;
+    top: 184px;
+    width: 47.1%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-position--4 {
+    left: 27.7%;
+    top: 258px;
+    width: 52.9%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-card {
+    min-height: 48px;
+  }
+
+  /* Expose the truth: keep the layered evidence centered around the shared signal axis. */
+  .method-story__mobile-stage--expose .method-story__stage-symbol {
+    left: 8px;
+    top: 52px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-stack {
+    left: 11%;
+    right: 7%;
+    top: 88px;
+    height: 180px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet {
+    width: 61%;
+    height: 96px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--1 {
+    left: 0;
+    top: 70px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--2 {
+    left: 8%;
+    top: 52px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--3 {
+    left: 16%;
+    top: 34px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--4 {
+    left: 24%;
+    top: 16px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--5 {
+    left: 32%;
+    top: 0;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--mint {
+    left: 7%;
+    top: 28px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--teal {
+    right: 2%;
+    top: 42px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--amber {
+    right: 7%;
+    bottom: 20px;
+  }
+
+  /* Reduce ambiguity: the persistent mobile connector replaces the old isolated branch glyph. */
+  .method-story__mobile-stage--reduce .method-story__decision-field {
+    display: block;
+    padding: 0;
+  }
+
+  .method-story__mobile-stage--reduce .method-story__decision-branches {
+    display: none;
+  }
+
+  .method-story__mobile-stage--reduce .method-story__decision-module {
+    position: absolute;
+    z-index: 2;
+    left: 55.4%;
+    top: 83px;
+    width: 92px;
+    min-height: 184px;
+    padding: 18px 14px;
+    gap: 13px;
+    background: rgba(13, 28, 22, 0.98);
+  }
+
+  /* Build the system: use the shared connector overlay for the entry, bus and five nodes. */
+  .method-story__mobile-stage--build .method-story__build-field {
+    display: block;
+    padding: 0;
+  }
+
+  .method-story__mobile-stage--build .method-story__build-field::after,
+  .method-story__mobile-stage--build .method-story__system-bus {
+    display: none;
+  }
+
+  .method-story__mobile-stage--build .method-story__system-stack {
+    position: absolute;
+    left: 25.7%;
+    top: 45px;
+    width: 116px;
+    height: 260px;
+    margin: 0;
+    transform: scale(1.18);
+    transform-origin: center center;
+  }
+
+  /* Reliable outcomes: the five output rows align with the five connector nodes. */
+  .method-story__mobile-stage--outcomes .method-story__outputs {
+    position: absolute;
+    left: 21.7%;
+    right: 0;
+    top: 49px;
+    width: auto;
+    margin: 0;
+    gap: 8px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-row {
+    min-height: 44px;
+    height: 44px;
+    padding: 7px 9px;
+    grid-template-columns: 19px 18px minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-row strong {
+    font-size: 10.5px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-check {
+    width: 18px;
+    height: 18px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-check svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .method-story__mobile-next,
+  .method-story__mobile-complete {
+    margin-right: 8px;
+  }
+
+  /* Reduced-motion fallback remains a complete vertical static story. */
+  .method-story__mobile-track[data-motion-mode="reduced"] .method-story__mobile-connectors {
+    opacity: 0.82;
+  }
+}
