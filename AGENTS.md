@@ -62,25 +62,24 @@ The site is a custom synthesis of multiple references. Do not reskin one templat
 
 ## Current method-story rebuild
 
-The base Method Story is live. The active follow-up is **Desktop Pass 02 precision geometry** on branch `method-story-desktop-pass-02-setup`.
+The desktop Method Story is complete and must be treated as a locked visual baseline. The active follow-up is the **mobile pinned transformation story** on branch `method-story-mobile-pinned-pass`.
 
-Before touching the Method Story in this pass, read:
-1. `docs/frontend-overhaul/METHOD_STORY_DESKTOP_PASS_02_EXECUTION.md`;
-2. `docs/frontend-overhaul/METHOD_STORY_DESKTOP_PASS_02_LUNA_PROMPT.md`;
-3. `components/method-story-connector-geometry.ts`;
-4. `components/use-method-story-desktop-geometry.ts`;
-5. `components/method-story-desktop-connectors.tsx`.
+Mobile contract:
+- below 720px with normal motion, keep the intro in normal document flow, then use one sticky visual stage shell driven by ordinary vertical scrolling;
+- the five stages occupy the same mobile canvas in sequence: Messy → Expose → Reduce → Build → Outcomes;
+- use a compact 01–05 progress rail to make the chapter position obvious;
+- preserve the existing stage visuals and Motion primitives rather than inventing a second art direction;
+- no horizontal swipe/carousel and no scroll hijacking; browser scroll remains native;
+- reduced-motion and JavaScript-disabled users must receive the complete semantic vertical story instead of overlapping hidden panels;
+- do not change the finished desktop geometry, connector measurement system, copy, or tablet composition during this pass;
+- do not add dependencies or GSAP;
+- the mobile visual must fit 390px and 430px widths without horizontal overflow and must remain usable on short phone heights.
 
-For this pass:
-- desktop only; do not redesign tablet/mobile;
-- exact edge-to-edge connector geometry is the primary quality bar;
-- use the prepared DOM-measured geometry system; do not return to hand-authored desktop path strings;
-- required counts are 4 Messy→Expose, 10 Expose→Reduce, 1 Reduce→Build, 5 Build→Outcome;
-- use exactly 5 build bus nodes aligned to the 5 outcome-card centers;
-- desktop title/support are single-line; the eyebrow is hidden;
-- endpoint acceptance tolerance is 2px;
-- use the existing `motion/react` dependency; do not add GSAP or any new runtime dependency;
-- preserve semantic server-rendered content and reduced-motion behavior.
+Primary implementation surfaces:
+- `components/method-story-canvas.tsx`
+- `app/method-story.css`
+- `tests/frontend-overhaul-phase-f.spec.ts`
+- `tests/mobile-composition.spec.ts`
 
 ## Current writing-system rebuild
 
