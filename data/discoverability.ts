@@ -82,6 +82,7 @@ export const writingRecords = publishedWritingArticles.map((article) => {
   title: article.title,
   description: article.description,
   cardDescription: article.cardDescription ?? null,
+  format: article.format,
   category: article.category,
   topics: article.topics,
   series: article.series ?? null,
@@ -89,6 +90,7 @@ export const writingRecords = publishedWritingArticles.map((article) => {
   updatedAt: article.updatedAt ?? null,
   readingMinutes: article.readingMinutes,
   listenMinutes: article.listenMinutes,
+  wordCount: getWritingWordCount(article),
   ...(article.audio
     ? { audio: {
         url: article.audio.src.startsWith("http")
