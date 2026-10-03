@@ -102,7 +102,7 @@ test("capture and validate the locked Writing v1.2 render matrix", async ({ page
     const section = page.locator("[data-writing-home]");
     const heading = section.getByRole("heading", { level: 2, name: "What I’m thinking through." });
     await expect(heading).toBeVisible();
-    await expect(section).toContainText("Ideas, experiments, and the things I’m exploring.");
+    await expect(section).toContainText("Ideas, experiments, and everything that piques my curiosity as I navigate my career.");
     await expect(section).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
 
     const headerGeometry = await section.locator(".writing-system-home-header").evaluate((header) => {
@@ -162,7 +162,7 @@ test("capture and validate the locked Writing v1.2 render matrix", async ({ page
     const archiveHeading = page.getByRole("heading", { level: 1, name: "What I’m thinking through." });
     await expect(archiveHeading).toBeVisible();
     const archive = page.locator(".writing-system-archive");
-    await expect(archive).toContainText("Ideas, experiments, and the things I’m exploring.");
+    await expect(archive).toContainText("Ideas, experiments, and everything that piques my curiosity as I navigate my career.");
     await expect(archive).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
 
     const archiveHeaderGeometry = await archive.locator(".writing-system-archive-header").evaluate((header) => {
