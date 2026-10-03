@@ -1,5 +1,7 @@
 # Codex / Luna Execution Prompt — Writing System Rebuild
 
+> **v1.1 note:** The final consolidated executor handoff is `WRITING_SYSTEM_V11_EXECUTION_PROMPT.md`. Use that document for implementation; this file remains supporting detail.
+
 Implement the Writing System Rebuild for `m7mdehab/m7mdehab-site`.
 
 The product definition, editorial scope, visual grammar, data-model direction, responsive model, SEO/discovery contract, accessibility contract and acceptance criteria are already decided.
