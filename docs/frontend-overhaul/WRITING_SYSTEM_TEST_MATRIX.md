@@ -1,5 +1,7 @@
 # Writing System — Test Matrix
 
+> **v1.1 supersession:** preserve the first-pass execution record below as history. New runs must additionally satisfy the screenshot-driven card-density/audio predicates listed at the end of this file.
+
 ## Data/model
 
 - current three articles are published;
@@ -194,3 +196,20 @@ CI is necessary, not sufficient. Rendered visual QA is a separate acceptance gat
 - Focused Phase I/Phase J and Writing render-matrix recheck: 7 passed before the full final-base run.
 - `git diff --check`: passed before delivery.
 - All 13 requested screenshot targets were manually reviewed; the dated record and output paths are in `WRITING_SYSTEM_VISUAL_QA.md`.
+
+
+## v1.1 additional predicates
+
+- Home H2 exactly `What I’m thinking through.`.
+- Old visible explanatory lede absent from Home.
+- `All writing` is below the final grid row.
+- Three current cards expose `.writing-system-card-overlay` and no `.writing-system-card-meta`.
+- No `.writing-system-cover-label` remains.
+- Card title height <= 2.1 computed line-heights at 1920/1440/1280/1024/430/390/320.
+- Card description height <= 2.1 computed line-heights at the same widths.
+- Overlay bounds remain contained in the 16:9 cover frame.
+- Current timing labels show 9/~8, 8/~8, 9/~8 read/listen minutes respectively.
+- Current articles have no real audio object, therefore article pages contain no `[data-writing-listen]` and schema contains no `audio`.
+- Test-only real-audio fixture removes the estimate marker and projects a canonical AudioObject.
+- `/writing.json` exposes `cardDescription` and `listenMinutes`, and exposes audio only when real.
+- Archive H1 exactly `What I’m thinking through.` with Writing eyebrow and no visible lede.
