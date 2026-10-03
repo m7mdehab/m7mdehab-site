@@ -55,7 +55,7 @@ async function viewportMetrics(page: Page) {
           return false;
         if (
           element.closest(
-            ".credibility-viewport, .selected-work-carousel-window",
+            ".credibility-viewport, .selected-work-carousel-window, .method-story__mobile-window",
           )
         )
           return false;
