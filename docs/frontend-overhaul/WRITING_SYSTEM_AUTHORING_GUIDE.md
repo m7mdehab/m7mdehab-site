@@ -27,6 +27,7 @@ Every post needs:
 - slug;
 - title;
 - description;
+- optional concise cardDescription is strongly recommended for browse surfaces;
 - category;
 - at least one topic;
 - publishedAt once published;
@@ -35,7 +36,9 @@ Every post needs:
 - origin;
 - at least one body section.
 
-Everything else is optional.
+Everything else is optional, including project evidence and audio.
+
+If the canonical description is too long for cards, do not weaken it. Add a separate `cardDescription` capped at 140 characters.
 
 Do not add empty evidence/sources/project arrays just to satisfy a template.
 
@@ -131,9 +134,11 @@ After canonical migration, the semantic template is:
       slug: "your-stable-slug",
       title: "Article title",
       description: "One concise sentence explaining what the article gives the reader.",
+      cardDescription: "Shorter browse-surface sentence when useful.",
       category: "notes",
       topics: ["Topic"],
       readingMinutes: 5,
+      listenMinutes: 4,
       cover: {
         kind: "image",
         src: "/media/writing/example.webp",
@@ -168,10 +173,12 @@ Do not add a fake publishedAt to drafts.
       slug: "stable-project-essay-slug",
       title: "Article title",
       description: "One concise sentence explaining the argument.",
+      cardDescription: "Short browse-surface version of the argument.",
       category: "data",
       topics: ["Evaluation", "Calibration"],
       series: "what-the-work-taught-me",
       readingMinutes: 8,
+      listenMinutes: 7,
       cover: {
         kind: "visual",
         visual: "forecast-calibration",
@@ -277,19 +284,40 @@ Prefer:
 
 Do not add citations merely to make an opinion look academic.
 
-## 14. Reading time
+## 14. Reading and listen time
 
-Use a consistent estimate based on body word count, roughly 220–250 words/minute, rounded to a whole minute with a floor of 1.
+Reading:
+- use a consistent estimate based on body word count, roughly 220–250 words/minute;
+- round to a whole minute with a floor of 1;
+- do not manually inflate it.
 
-Do not manually inflate reading time.
+Listening:
+- `listenMinutes` is the expected narration duration;
+- before audio exists, estimate at roughly 145–160 spoken words/minute and the card will display `~`;
+- once a real audio file exists, replace the estimate from the actual audio duration and add the audio object;
+- do not publish a fake audio source just to remove the `~`.
 
-A helper may automate this later, but it is not required for this rebuild.
+Real audio shape:
+
+    audio: {
+      src: "/media/writing/<slug>.mp3",
+      mimeType: "audio/mpeg",
+      durationSeconds: 463,
+    }
+
+The prepared article renderer exposes native audio controls only when this real asset metadata exists.
+
+The article text on the same page remains the equivalent text representation of the narration.
 
 ## 15. Publication checklist
 
 Before status becomes published:
 - title is specific and human;
 - description is useful outside the article;
+- cardDescription is concise when provided and <= 140 characters;
+- title still scans well when visually clamped to two lines;
+- listenMinutes is reasonable if configured;
+- audio metadata points to a real playable asset if configured;
 - slug is stable;
 - category/topics are accurate;
 - cover is truthful/public-safe;
@@ -321,3 +349,19 @@ Avoid:
 - turning a personal observation into a project case study without reason.
 
 The visual system should be consistent. The writing itself should be allowed to vary.
+
+## 17. Card browse contract
+
+The browse surfaces deliberately show less than the article page.
+
+Card order:
+1. cover;
+2. taxonomy/timing inside the bottom of the cover;
+3. title, max two visible lines;
+4. cardDescription/description, max two visible lines.
+
+Do not put category or timing back beneath the cover.
+
+Do not duplicate taxonomy as a permanent top-left cover label.
+
+When a title truncates visually, keep the complete semantic title in the link/DOM. Do not rewrite a strong title merely to make the card prettier.
