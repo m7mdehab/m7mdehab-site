@@ -202,4 +202,59 @@ test.describe("Method story rebuild", () => {
       `Final stage/output opacities: ${JSON.stringify(opacities)}`,
     ).toBeTruthy();
   });
+
+  test("desktop connectors and centered viewport resolve before scrolling past the section", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    await expect(
+      section.locator('[data-method-connectors="input-expose"] path'),
+    ).toHaveCount(4);
+    await expect(
+      section.locator('[data-method-connectors="expose-reduce"] path'),
+    ).toHaveCount(6);
+
+    await section.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      const absoluteTop = window.scrollY + bounds.top;
+      window.scrollTo({
+        top: absoluteTop + bounds.height / 2 - window.innerHeight / 2,
+        behavior: "instant",
+      });
+    });
+    await page.waitForTimeout(900);
+
+    const opacities = await page
+      .locator("[data-method-stage], [data-method-output]")
+      .evaluateAll((elements) =>
+        elements.map((element) =>
+          Number.parseFloat(getComputedStyle(element).opacity),
+        ),
+      );
+
+    expect(
+      opacities.every((opacity) => opacity >= 0.99),
+      `Centered-section stage/output opacities: ${JSON.stringify(opacities)}`,
+    ).toBeTruthy();
+
+    const geometry = await section.evaluate((node) => {
+      const centerX = (selector: string) => {
+        const rect = node.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+        return rect.left + rect.width / 2;
+      };
+      return {
+        reduceTitle: centerX('[data-method-stage="reduce"] .method-story__stage-head'),
+        reduceDocument: centerX('[data-method-stage="reduce"] .method-story__decision-module'),
+        buildTitle: centerX('[data-method-stage="build"] .method-story__stage-head'),
+        buildSystem: centerX('[data-method-stage="build"] .method-story__system-stack'),
+      };
+    });
+
+    expect(Math.abs(geometry.reduceTitle - geometry.reduceDocument)).toBeLessThanOrEqual(12);
+    expect(Math.abs(geometry.buildTitle - geometry.buildSystem)).toBeLessThanOrEqual(12);
+  });
 });

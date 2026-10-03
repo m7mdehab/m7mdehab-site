@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import {
   motion,
   useScroll,
@@ -29,6 +29,22 @@ import {
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 
 type Progress = MotionValue<number>;
+
+const DESKTOP_QUERY = "(min-width: 1100px)";
+
+function subscribeDesktopMatch(callback: () => void) {
+  const media = window.matchMedia(DESKTOP_QUERY);
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function getDesktopSnapshot() {
+  return window.matchMedia(DESKTOP_QUERY).matches;
+}
+
+function getDesktopServerSnapshot() {
+  return false;
+}
 
 const stageMap = Object.fromEntries(
   METHOD_STORY.stages.map((stage) => [stage.id, stage]),
@@ -289,10 +305,18 @@ function OutputRow({
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const isDesktop = useSyncExternalStore(
+    subscribeDesktopMatch,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot,
+  );
   const enhanced = !reducedMotion;
+  const scrollOffset = isDesktop
+    ? METHOD_STORY_MOTION.desktopScrollOffset
+    : METHOD_STORY_MOTION.scrollOffset;
   const { scrollYProgress } = useScroll({
     target: rootRef,
-    offset: [...METHOD_STORY_MOTION.scrollOffset],
+    offset: [...scrollOffset],
   });
   const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
 
@@ -318,33 +342,29 @@ export function MethodStoryCanvas() {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {METHOD_STORY_CONNECTORS.inputToExpose.map((d, index) => (
-          <ConnectorPath
-            key={d}
-            d={d}
-            window={[0.08 + index * 0.02, 0.28 + index * 0.02]}
-            progress={progress}
-            enhanced={enhanced}
-          />
-        ))}
-        {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
-          <ConnectorPath
-            key={d}
-            d={d}
-            window={[0.24 + index * 0.02, 0.46 + index * 0.02]}
-            progress={progress}
-            enhanced={enhanced}
-          />
-        ))}
-        {METHOD_STORY_CONNECTORS.reduceBranches.map((d, index) => (
-          <BranchPath
-            key={d}
-            d={d}
-            index={index}
-            progress={progress}
-            enhanced={enhanced}
-          />
-        ))}
+        <g data-method-connectors="input-expose">
+          {METHOD_STORY_CONNECTORS.inputToExpose.map((d, index) => (
+            <ConnectorPath
+              key={d}
+              d={d}
+              window={[0.08 + index * 0.018, 0.24 + index * 0.018]}
+              progress={progress}
+              enhanced={enhanced}
+            />
+          ))}
+        </g>
+        <g data-method-connectors="expose-reduce">
+          {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
+            <ConnectorPath
+              key={d}
+              d={d}
+              window={[0.2 + index * 0.012, 0.46 + index * 0.012]}
+              progress={progress}
+              enhanced={enhanced}
+              hot={index === 2 || index === 3}
+            />
+          ))}
+        </g>
         <ConnectorPath
           d={METHOD_STORY_CONNECTORS.reduceToBuild}
           window={[0.54, 0.7]}
@@ -451,7 +471,11 @@ export function MethodStoryCanvas() {
             >
               <StageHeader id="reduce" />
               <div className="method-story__decision-field">
-                <svg viewBox="0 0 220 160" aria-hidden="true">
+                <svg
+                  className="method-story__decision-branches"
+                  viewBox="0 0 220 160"
+                  aria-hidden="true"
+                >
                   {[
                     "M8 24 C60 24 72 80 112 80",
                     "M8 46 C60 46 72 80 112 80",
