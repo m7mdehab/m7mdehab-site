@@ -55,7 +55,7 @@ test.describe("Writing publication authority", () => {
       await expect(page.getByText("Key idea")).toBeVisible();
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
       await expect(page.getByRole("navigation", { name: "Article contents" }).last()).toBeVisible();
-      await expect(page.locator('[data-writing-card][data-writing-context="archive"]')).toHaveCount(2);
+      await expect(page.locator('[data-writing-card][data-writing-context="related"]')).toHaveCount(2);
       expect(await page.locator("article section").count()).toBeGreaterThanOrEqual(9);
       await expect(page.locator('[data-authority-link="article-to-project"]')).toHaveCount(1);
       expect(await page.locator('a[target="_blank"]').count()).toBeGreaterThanOrEqual(3);
