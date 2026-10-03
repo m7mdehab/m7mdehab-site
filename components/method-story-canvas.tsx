@@ -407,7 +407,7 @@ function MobileMethodStory({
                       input={input}
                       index={index}
                       progress={progress}
-                      enhanced={!reducedMotion}
+                      enhanced={false}
                     />
                   ))}
                   <span className="method-story__noise method-story__noise--1" aria-hidden="true" />
@@ -434,7 +434,7 @@ function MobileMethodStory({
                         key={index}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                   </div>
@@ -445,7 +445,7 @@ function MobileMethodStory({
                         tag={tag}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                   </div>
@@ -480,7 +480,7 @@ function MobileMethodStory({
                         d={d}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                     <circle className="method-story__decision-node" cx="112" cy="80" r="5" />
@@ -488,11 +488,6 @@ function MobileMethodStory({
                   </svg>
                   <motion.div
                     className="method-story__decision-module"
-                    style={
-                      reducedMotion
-                        ? undefined
-                        : { scale: decisionScale, opacity: decisionOpacity }
-                    }
                     aria-hidden="true"
                   >
                     <MethodDecisionIcon />
@@ -521,7 +516,7 @@ function MobileMethodStory({
                         key={index}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                   </div>
@@ -549,7 +544,7 @@ function MobileMethodStory({
                       output={output}
                       index={index}
                       progress={progress}
-                      enhanced={!reducedMotion}
+                      enhanced={false}
                     />
                   ))}
                 </ul>
