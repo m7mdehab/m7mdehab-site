@@ -34,7 +34,7 @@ test.describe("Phase G closing system", () => {
     const writing = page.locator("[data-writing-home]");
     await expect(writing.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
     await expect(writing.getByRole("heading", { level: 2, name: "What I’m thinking through." })).toBeVisible();
-    await expect(writing).toContainText("Ideas, experiments, and the things I’m exploring.");
+    await expect(writing).toContainText("Ideas, experiments, and everything that piques my curiosity as I navigate my career.");
     await expect(writing).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
     await expect(writing.locator(".writing-system-card-meta")).toHaveCount(0);
     await expect(writing.locator(".writing-system-cover-label")).toHaveCount(0);
@@ -84,7 +84,7 @@ test.describe("Phase G closing system", () => {
     const writing = page.locator("[data-writing-home]");
     await expect(writing.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
     await expect(writing.getByRole("heading", { level: 2, name: "What I’m thinking through." })).toBeVisible();
-    await expect(writing).toContainText("Ideas, experiments, and the things I’m exploring.");
+    await expect(writing).toContainText("Ideas, experiments, and everything that piques my curiosity as I navigate my career.");
     await expect(writing).not.toContainText("What the work taught me");
     const excerpts = await writing.locator(".writing-system-excerpt").all();
     expect(excerpts).toHaveLength(3);
