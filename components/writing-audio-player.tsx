@@ -81,6 +81,11 @@ export function WritingAudioPlayer({
       >
         <source src={src} type={mimeType} />
       </audio>
+      <noscript>
+        <audio controls preload="metadata" aria-label={`Audio narration of ${title}`}>
+          <source src={src} type={mimeType} />
+        </audio>
+      </noscript>
 
       <div className={styles.identity}>
         <strong>Listen</strong>
