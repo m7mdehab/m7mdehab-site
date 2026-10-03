@@ -63,7 +63,7 @@ Every article renders through one shell:
 4. Deck/description
 5. Byline linked to /about
 6. Published/updated date + read/listen time
-7. Browser text-to-speech narration bar
+7. Kokoro-generated dual-voice narration bar
 8. No mandatory article cover; add imagery only where it improves understanding
 9. Optional Key idea
 10. Optional evidence anchors
@@ -103,21 +103,34 @@ Desktop: subtle sticky rail. Mobile/tablet: compact disclosure control before th
 
 ## 10. Audio
 
-Narration is generated in the browser from the same visible article text. Mohammed does not need to record narration or upload an audio file.
+Narration is generated offline from the canonical visible article text using Kokoro-82M v1.0. Visitors download only the finished MP3 files; the model never runs in the browser.
+
+Locked voices:
+- **Female** — Kokoro `af_heart` — default for first-time visitors.
+- **Male** — Kokoro `am_michael`.
 
 Player requirements:
-- the narration bar is always present near the top of an article;
+- Female / Male only; never expose model IDs in the UI;
+- remember the visitor’s voice choice locally;
+- default to Female when there is no stored preference;
 - play/pause;
-- previous/next passage navigation;
-- passage progress scrubber;
+- real ±15-second seeking;
+- continuous progress scrubber;
+- elapsed / total time;
 - 0.75×, 1×, 1.25×, 1.5×, 1.75×, 2×;
-- remember speed locally;
+- remember playback speed locally;
 - never autoplay;
-- keyboard accessible;
-- use an available English system/browser voice;
-- fail gracefully when browser speech synthesis is unavailable.
+- keyboard accessible.
 
-Because this is client-side speech synthesis rather than a hosted recording, do not emit AudioObject schema unless a real audio asset is added later.
+Generation requirements:
+- generate both voices for every published article;
+- derive narration from the same article data used by the visible page;
+- exclude source URLs, UI metadata and code;
+- hash narrated text/model/voice so unchanged articles can be skipped;
+- encode final audio as 24 kHz mono 64 kbps MP3;
+- regenerate only when narrated text or generation settings change.
+
+Because these are real stable static audio files, `AudioObject` schema is valid for both voice files.
 
 ## 11. SEO + AI-search contract
 
