@@ -75,6 +75,7 @@ app/(en)/writing/[slug]/page.tsx must use:
 - publishedWritingArticles for generateStaticParams;
 - published-only getWritingArticle;
 - WritingSystemArticleView;
+- WritingSystemListen is rendered by the article view only when real audio exists;
 - buildWritingSystemBlogPostingSchema;
 - the canonical related-project resolver.
 
