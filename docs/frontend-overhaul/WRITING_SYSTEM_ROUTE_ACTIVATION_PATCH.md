@@ -45,8 +45,11 @@ A server component may render the nested client OpportunityPaths component. Do n
 app/(en)/writing/page.tsx must:
 - import WritingSystemIndex;
 - use publishedWritingArticles only;
-- use title "Writing";
-- use a broad description covering AI, technology, data, career, projects, products and ideas;
+- keep route metadata title "Writing" for clear document semantics;
+- visible archive eyebrow = Writing;
+- visible H1 = "What I’m thinking through.";
+- no visible explanatory archive lede;
+- use a broad metadata description covering AI, technology, data, career, projects, products and ideas;
 - self-canonicalize to /writing;
 - retain CollectionPage JSON-LD;
 - change hasPart article type from TechArticle to BlogPosting;
@@ -107,8 +110,10 @@ Each record must contain:
 - publishedAt;
 - updatedAt or null;
 - readingMinutes;
+- listenMinutes or null;
 - canonical URL;
 - optional coverImage only when stable;
+- optional audio object only when a real public audio asset exists;
 - relatedProjects array with slug/title/caseStudyUrl;
 - sourceLinks array.
 
@@ -132,6 +137,7 @@ writingRecords must use publishedWritingArticles and expose:
 - publishedAt;
 - updatedAt;
 - readingMinutes;
+- listenMinutes;
 - canonical article URL;
 - relatedProjects[].
 
@@ -195,3 +201,18 @@ rg "WritingIndex|WritingArticleView|WritingPreview|writing-authority"
 If components/writing-authority.tsx and its module CSS have no consumer that must compile, delete them.
 
 If dormant Arabic source still imports the old component, do not let dormant compatibility force the English public architecture back into the legacy model. Keep or isolate only the minimum dormant compatibility required to compile, without publishing Arabic routes.
+
+## 13. Refined Home card activation
+
+Before screenshot QA, verify the activated Home card matches v1.1:
+- no supporting Home lede;
+- H2 is `What I’m thinking through.`;
+- `All writing` is after the grid and aligned right;
+- taxonomy/timing is overlaid at the bottom of the cover;
+- no separate metadata row under the cover;
+- no old top-left cover taxonomy label;
+- title and cardDescription are each visually capped at two lines;
+- current cards use their concise cardDescription values;
+- current listen estimates render with `~` because no narration asset exists yet.
+
+Do not activate an audio control until a real file is present.
