@@ -27,6 +27,8 @@ import {
   MethodUnknownIcon,
 } from "@/components/method-story-icons";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
+import { MethodStoryDesktopConnectors } from "@/components/method-story-desktop-connectors";
+import { useMethodStoryDesktopGeometry } from "@/components/use-method-story-desktop-geometry";
 
 type Progress = MotionValue<number>;
 
@@ -321,6 +323,11 @@ export function MethodStoryCanvas() {
     offset: [...scrollOffset],
   });
   const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
+  const desktopGeometry = useMethodStoryDesktopGeometry(
+    rootRef,
+    progress,
+    isDesktop,
+  );
 
   const exposeOpacity = useTransform(progress, [0.16, 0.3], [0.45, 1]);
   const reduceOpacity = useTransform(progress, [0.34, 0.49], [0.45, 1]);
@@ -338,52 +345,60 @@ export function MethodStoryCanvas() {
         reducedMotion ? "reduced" : enhanced ? "enhanced" : "static"
       }
     >
-      <svg
-        className="method-story__connectors"
-        viewBox="0 0 1500 410"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <g data-method-connectors="input-expose">
-          {METHOD_STORY_CONNECTORS.inputToExpose.map((d, index) => (
-            <ConnectorPath
-              key={d}
-              d={d}
-              window={[0.08 + index * 0.018, 0.24 + index * 0.018]}
-              progress={progress}
-              enhanced={enhanced}
-            />
-          ))}
-        </g>
-        <g data-method-connectors="expose-reduce">
-          {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
-            <ConnectorPath
-              key={d}
-              d={d}
-              window={[0.2 + index * 0.012, 0.46 + index * 0.012]}
-              progress={progress}
-              enhanced={enhanced}
-              hot={index === 2 || index === 3}
-            />
-          ))}
-        </g>
-        <ConnectorPath
-          d={METHOD_STORY_CONNECTORS.reduceToBuild}
-          window={[0.54, 0.7]}
+      {isDesktop ? (
+        <MethodStoryDesktopConnectors
+          geometry={desktopGeometry}
           progress={progress}
           enhanced={enhanced}
-          hot
         />
-        {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
+      ) : (
+        <svg
+          className="method-story__connectors method-story__connectors--legacy"
+          viewBox="0 0 1500 410"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <g data-method-connectors="input-expose">
+            {METHOD_STORY_CONNECTORS.inputToExpose.map((d, index) => (
+              <ConnectorPath
+                key={d}
+                d={d}
+                window={[0.08 + index * 0.018, 0.24 + index * 0.018]}
+                progress={progress}
+                enhanced={enhanced}
+              />
+            ))}
+          </g>
+          <g data-method-connectors="expose-reduce">
+            {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
+              <ConnectorPath
+                key={d}
+                d={d}
+                window={[0.2 + index * 0.012, 0.46 + index * 0.012]}
+                progress={progress}
+                enhanced={enhanced}
+                hot={index === 2 || index === 3}
+              />
+            ))}
+          </g>
           <ConnectorPath
-            key={d}
-            d={d}
-            window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
+            d={METHOD_STORY_CONNECTORS.reduceToBuild}
+            window={[0.54, 0.7]}
             progress={progress}
             enhanced={enhanced}
+            hot
           />
-        ))}
-      </svg>
+          {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
+            <ConnectorPath
+              key={d}
+              d={d}
+              window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
+              progress={progress}
+              enhanced={enhanced}
+            />
+          ))}
+        </svg>
+      )}
 
       <ol
         className="method-story__journey"
