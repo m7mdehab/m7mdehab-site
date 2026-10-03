@@ -50,6 +50,11 @@ jobs:
       - name: Install Kokoro generation tooling
         run: npm install --no-save --package-lock=false kokoro-js@1.2.1 @huggingface/transformers@3.8.1
 
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
       - name: Verify ffmpeg
         run: |
           ffmpeg -version
