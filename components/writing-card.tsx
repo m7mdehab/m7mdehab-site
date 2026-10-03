@@ -16,7 +16,7 @@ export function WritingCard({
   context,
 }: {
   article: PublishedWritingArticle;
-  context: "home" | "archive";
+  context: "home" | "archive" | "related";
 }) {
   const taxonomy = `${categoryLabels[article.category]}${article.topics[0] ? ` · ${article.topics[0]}` : ""}`;
   const description = article.cardDescription ?? article.description;
@@ -37,7 +37,7 @@ export function WritingCard({
         </div>
       </div>
 
-      {context === "home" ? <h3>{article.title}</h3> : <h2>{article.title}</h2>}
+      {context === "archive" ? <h2>{article.title}</h2> : <h3>{article.title}</h3>}
       <p className="writing-system-excerpt">{description}</p>
     </Link>
   );
