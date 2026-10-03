@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { WritingCard } from "@/components/writing-card";
-import { ArticleCover } from "@/components/writing-cover";
 import { WritingListen } from "@/components/writing-listen";
 import { profile } from "@/data/public";
 import {
@@ -142,7 +141,6 @@ export function WritingArticleView({
           </div>
         </div>
         <WritingListen article={article} />
-        {article.cover ? <div className={styles.articleCover}><ArticleCover article={article} /></div> : null}
         {optional.thesis ? <aside className={styles.keyIdea}><span className={styles.keyIdeaLabel}>Key idea</span><p>{optional.thesis}</p></aside> : null}
         {optional.evidence.length ? (
           <div className={styles.evidenceGrid} aria-label="Article evidence anchors">
