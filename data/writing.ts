@@ -31,6 +31,12 @@ export type WritingSeries = string;
 export type WritingCover =
   | { kind: "visual"; visual: "forecast-calibration" | "oil-sar" | "agent-provenance" }
   | { kind: "image"; src: string; alt: string };
+
+export type WritingAudio = {
+  src: string;
+  mimeType: string;
+  durationSeconds: number;
+};
 export type WritingOrigin =
   | { kind: "project"; projectSlug: string }
   | { kind: "independent" };
@@ -39,6 +45,7 @@ export type WritingArticle = {
   slug: string;
   title: string;
   description: string;
+  cardDescription?: string;
   status: "published" | "draft";
   publishedAt: string;
   updatedAt?: string;
@@ -46,6 +53,8 @@ export type WritingArticle = {
   topics: readonly string[];
   series?: WritingSeries;
   readingMinutes: number;
+  listenMinutes?: number;
+  audio?: WritingAudio;
   homeRank?: number;
   cover: WritingCover;
   origin: WritingOrigin;
@@ -70,6 +79,8 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "When should you trust a probabilistic forecast?",
     description:
       "A practical trust test for probabilistic forecasts: proper scoring, calibration, complete coverage, leakage-resistant evaluation, reproducibility and published failure modes.",
+    cardDescription:
+      "A practical test for knowing when a probabilistic forecast deserves trust.",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
@@ -78,6 +89,7 @@ export const writingArticles: readonly WritingArticle[] = [
     homeRank: 1,
     cover: { kind: "visual", visual: "forecast-calibration" },
     readingMinutes: 9,
+    listenMinutes: 8,
     origin: { kind: "project", projectSlug: "presaira" },
     thesis:
       "A forecast earns trust by surviving inspection after reality is known. The useful question is not whether one prediction was right, but whether the probability system was evaluated completely, reproducibly and without hiding the ways it failed.",
@@ -195,6 +207,8 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "Why accuracy alone is not enough for oil-spill detection",
     description:
       "A metric-design case study from Sentinel-1 SAR segmentation: why rare oil pixels, look-alikes and deployment domain gaps make overall accuracy a weak headline measure.",
+    cardDescription:
+      "Why rare oil pixels make accuracy a weak headline metric.",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
@@ -203,6 +217,7 @@ export const writingArticles: readonly WritingArticle[] = [
     homeRank: 2,
     cover: { kind: "visual", visual: "oil-sar" },
     readingMinutes: 8,
+    listenMinutes: 8,
     origin: { kind: "project", projectSlug: "oil-spill-detection" },
     thesis:
       "When the class you care about is rare, overall accuracy can improve while the useful part of the system remains poor. Evaluation has to follow the operational question: did the model find oil, distinguish it from look-alikes and preserve that behaviour when the pipeline left the curated test chips?",
@@ -321,6 +336,8 @@ export const writingArticles: readonly WritingArticle[] = [
     title: "What should an AI agent do when the evidence is missing?",
     description:
       "A practical governance pattern for agentic systems: preserve unknowns, trace material claims to evidence and separate content generation from authority to take external action.",
+    cardDescription:
+      "How agents should handle missing evidence without inventing certainty.",
     status: "published",
     publishedAt: "2026-09-11",
     category: "ai",
@@ -329,6 +346,7 @@ export const writingArticles: readonly WritingArticle[] = [
     homeRank: 3,
     cover: { kind: "visual", visual: "agent-provenance" },
     readingMinutes: 9,
+    listenMinutes: 8,
     origin: { kind: "project", projectSlug: "opportunityos" },
     thesis:
       "The safest useful answer to missing evidence is often neither yes nor no. A governed agent needs an explicit unknown state, traceable material claims and a separate authority model for external actions so fluency never silently becomes permission.",
@@ -463,6 +481,29 @@ export function getHomepageWriting(limit = 6) {
     .filter((article) => article.homeRank !== undefined)
     .sort((left, right) => (left.homeRank ?? Infinity) - (right.homeRank ?? Infinity))
     .slice(0, Math.max(0, Math.min(limit, 6)));
+}
+
+export function writingCardDescription(article: WritingArticle) {
+  return article.cardDescription ?? article.description;
+}
+
+export function writingTimingLabel(article: WritingArticle) {
+  const read = `${article.readingMinutes} min read`;
+  if (!article.listenMinutes) return read;
+  const estimated = article.audio ? "" : "~";
+  return `${read} · ${estimated}${article.listenMinutes} min listen`;
+}
+
+export function writingAudioObject(article: WritingArticle, baseUrl: string) {
+  if (!article.audio) return undefined;
+  const contentUrl = new URL(article.audio.src, `${baseUrl.replace(/\/$/, "")}/`).toString();
+  return {
+    "@type": "AudioObject" as const,
+    contentUrl,
+    encodingFormat: article.audio.mimeType,
+    duration: `PT${Math.round(article.audio.durationSeconds)}S`,
+    caption: "Audio narration of this article",
+  };
 }
 
 export function getWritingArticleOptionalContent(article: WritingArticle) {

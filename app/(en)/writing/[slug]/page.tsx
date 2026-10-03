@@ -2,9 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { WritingArticleView } from "@/components/writing-authority";
 import { profile } from "@/data/public";
-import { getWritingArticle, publishedWritingArticles } from "@/data/writing";
+import {
+  getWritingArticle,
+  publishedWritingArticles,
+  writingAudioObject,
+} from "@/data/writing";
 import { projects } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
+
+function absoluteMediaUrl(value: string) {
+  return new URL(value, `${profile.domain}/`).toString();
+}
 
 export function generateStaticParams() {
   return publishedWritingArticles.map((article) => ({ slug: article.slug }));
@@ -16,11 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return {};
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
-  const image = article.cover.kind === "image"
+  const rawImage = article.cover.kind === "image"
     ? article.cover.src
     : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
       ? projectVisuals["oil-spill-detection"].image
       : undefined;
+  const image = rawImage ? absoluteMediaUrl(rawImage) : undefined;
 
   return {
     title: article.title,
@@ -53,11 +62,12 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
   if (!article) notFound();
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
-  const image = article.cover.kind === "image"
+  const rawImage = article.cover.kind === "image"
     ? article.cover.src
     : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
       ? projectVisuals["oil-spill-detection"].image
       : undefined;
+  const image = rawImage ? absoluteMediaUrl(rawImage) : undefined;
   const origin = article.origin;
   const project = origin.kind === "project" ? projects.find((item) => item.slug === origin.projectSlug) : undefined;
   const schema = {
@@ -85,6 +95,9 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
     } } : {}),
     ...(article.sources?.length ? { citation: article.sources.map((source) => source.href) } : {}),
     ...(image ? { image } : {}),
+    ...(writingAudioObject(article, profile.domain)
+      ? { audio: writingAudioObject(article, profile.domain) }
+      : {}),
   };
 
   return (

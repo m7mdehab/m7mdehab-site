@@ -1,5 +1,7 @@
 # Writing System — Render Review Rubric
 
+> **v1.1 supersession:** the earlier first-pass acceptance record remains historical. New acceptance is governed by `WRITING_SYSTEM_REFINEMENT_2026-10-03.md`: visible heading **What I’m thinking through.**, no visible lede, metadata inside the cover bottom, two-line maximum title/description, post-grid bottom-right CTA, tighter mobile rhythm, and real-audio-only Listen UI.
+
 Review in this order:
 
 1. Home Writing — 1440×1000;
@@ -164,3 +166,19 @@ If it fails, reduce project-specific chrome rather than adding explanatory copy.
 The required render matrix was captured against the production build and inspected at all 13 targets: Home Writing (1920×1080, 1440×1000, 1280×800, 1024×768, 430×932, 390×844, 320×568), archive (1440×1000, 390×844), article (1440×1000, 390×844), and full Home (1920×1080, 390×844).
 
 Review passed. The Home grid resolves to three columns at desktop widths, two at tablet width, and one on phones; all three curated posts appear without placeholders or horizontal Writing scroll. The forecast curve, public SAR case image, and provenance diagram remain visually distinct. Archive/article reading columns fit mobile, and the full-Home transitions retain the existing Opportunity and Footer composition. The 13 PNGs and contact sheet are preserved in the task output folder under `outputs/writing-system/screenshots/`.
+
+
+## v1.1 required visual review
+
+- Home heading is personal and materially less generic than “Writing.”.
+- There is no explanatory Home lede consuming header space.
+- `All writing` appears only after the grid at bottom-right.
+- Category/topic is inside cover bottom-left; read/listen timing is inside cover bottom-right.
+- Small overlay text remains readable on all three covers.
+- No old top-left taxonomy labels remain.
+- Every card title is two lines maximum at all requested widths.
+- Every card description is two lines maximum and visibly secondary.
+- Oil SAR baked source-header text no longer competes with the editorial layer.
+- Mobile row rhythm is compact; the section scans as a feed rather than three long previews.
+- Before real narration exists, ~ listen times may show but no player is visible.
+- Once real narration exists, the Listen block fits cleanly on desktop/mobile and never autoplays.

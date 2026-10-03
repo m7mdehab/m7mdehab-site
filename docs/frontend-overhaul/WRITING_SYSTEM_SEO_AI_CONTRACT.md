@@ -27,7 +27,8 @@ Only when applicable:
 
 - `image`;
 - `citation`;
-- project relationships in `about`.
+- project relationships in `about`;
+- real narration in `audio` as an `AudioObject` only when a genuine public audio asset exists.
 
 Do not emit empty properties merely to preserve a template.
 
@@ -143,3 +144,12 @@ Keep:
 - machine-readable archive.
 
 Do not add hidden SEO paragraphs, AI-only duplicate content, keyword stuffing, or generic FAQ blocks.
+
+
+## Audio narration
+
+Estimated `listenMinutes` is a display/editorial field and does **not** by itself authorize structured audio.
+
+When a real narration asset exists, BlogPosting may include an `AudioObject` with canonical `contentUrl`, real MIME type, and ISO 8601 duration. Without a real asset, omit AudioObject and any fake media URL entirely.
+
+The complete article text stays visible on the same route. `cardDescription` is browse-only; SEO/Open Graph/JSON-LD continue to use canonical `description`.

@@ -415,6 +415,14 @@ test.describe("Phone composition", () => {
     await expect(writing.locator("[data-writing-card]").nth(0)).toHaveAttribute("href", /\/writing\//);
     await expect(writing.getByRole("link", { name: /All writing/ })).toHaveAttribute("href", "/writing");
     await expect(writing.locator(".carousel-dots")).toHaveCount(0);
+    await expect(
+      writing.getByRole("heading", {
+        level: 2,
+        name: "What I’m thinking through.",
+      }),
+    ).toBeVisible();
+    await expect(writing.locator(".writing-system-card-overlay")).toHaveCount(3);
+    await expect(writing.locator(".writing-system-card-meta")).toHaveCount(0);
     const geometry = await writing.evaluate((section) => ({
       columns: getComputedStyle(section.querySelector(".writing-system-grid")!).gridTemplateColumns.split(" ").length,
       cardColumns: section.querySelectorAll("[data-writing-card]").length,
@@ -494,8 +502,8 @@ test.describe("Phone composition", () => {
     expect(heights.method).toBeLessThanOrEqual(2600);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
-    expect(heights.writing).toBeGreaterThanOrEqual(320);
-    expect(heights.writing).toBeLessThanOrEqual(520);
+    expect(heights.writing).toBeGreaterThanOrEqual(285);
+    expect(heights.writing).toBeLessThanOrEqual(430);
   });
 
   test("OpportunityOS mobile card keeps all six core workflow states legible", async ({

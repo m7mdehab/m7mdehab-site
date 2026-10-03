@@ -1,18 +1,21 @@
 {
-  "version": "1.0",
-  "status": "design-architecture-locked",
+  "version": "1.1",
+  "status": "design-architecture-refinement-locked",
   "scope": [
     "home-writing",
     "/writing",
     "/writing/[slug]",
-    "writing-discovery"
+    "writing-discovery",
+    "article-audio"
   ],
   "copy": {
-    "homeHeading": "Writing.",
-    "homeLede": "Notes on AI, technology, work, projects, and whatever else I’m thinking through.",
+    "homeHeading": "What I’m thinking through.",
+    "homeLede": null,
     "homeCta": "All writing",
-    "archiveHeading": "Writing.",
-    "archiveLede": "Notes on AI, technology, work, projects, and whatever else I’m thinking through."
+    "homeCtaPlacement": "section-bottom-right",
+    "archiveEyebrow": "Writing",
+    "archiveHeading": "What I’m thinking through.",
+    "archiveLede": null
   },
   "layout": {
     "homeMax": 6,
@@ -24,13 +27,18 @@
     "coverAspectRatio": "16/9",
     "columnGapPx": 24,
     "rowGapPxRange": [
-      42,
-      52
+      32,
+      46
     ],
     "coverRadiusPxRange": [
       12,
-      16
-    ]
+      14
+    ],
+    "cardMetadataPlacement": "inside-cover-bottom",
+    "titleMaxLines": 2,
+    "excerptMaxLines": 2,
+    "mobileExcerpt": "visible-for-now",
+    "oilCoverCrop": "scale/crop source header away from editorial foreground"
   },
   "behavior": {
     "carousel": false,
@@ -41,7 +49,18 @@
     "searchInThisPhase": false,
     "paginationInThisPhase": false,
     "hover": "subtle-css-only",
-    "reducedMotion": "no-transform-or-cover-zoom"
+    "reducedMotion": "no-transform-or-cover-zoom",
+    "cardWholeLink": true
+  },
+  "audio": {
+    "cardListenTime": "supported",
+    "playerPlacement": "article-top-before-cover",
+    "renderPlayerOnlyWhenAudioSourceExists": true,
+    "estimatedListenTimePrefix": "~",
+    "currentEstimateBasis": "~1.1k-word current essays at restrained narration pace",
+    "schemaWhenAvailable": "AudioObject",
+    "textArticleIsEquivalentContent": true,
+    "autoplay": false
   },
   "data": {
     "statusRequired": true,
@@ -50,19 +69,11 @@
     "sourcesOptional": true,
     "takeawaysOptional": true,
     "thesisOptional": true,
+    "cardDescriptionOptional": true,
+    "listenMinutesOptional": true,
+    "audioOptional": true,
     "homeSelection": "homeRank",
     "defaultSchema": "BlogPosting"
-  },
-  "categories": {
-    "ai": "AI",
-    "technology": "Technology",
-    "data": "Data",
-    "career": "Career",
-    "projects": "Projects",
-    "notes": "Notes"
-  },
-  "series": {
-    "what-the-work-taught-me": "What the Work Taught Me"
   },
   "currentArticles": [
     {
@@ -73,12 +84,13 @@
         "Calibration",
         "Evaluation"
       ],
+      "cardDescription": "A practical test for knowing when a probabilistic forecast deserves trust.",
+      "readingMinutes": 9,
+      "listenMinutes": 8,
       "series": "what-the-work-taught-me",
       "homeRank": 1,
       "coverVisual": "forecast-calibration",
-      "projectSlugs": [
-        "presaira"
-      ]
+      "projectSlug": "presaira"
     },
     {
       "slug": "why-accuracy-is-not-enough-for-oil-spill-detection",
@@ -88,12 +100,13 @@
         "Metrics",
         "Validation"
       ],
+      "cardDescription": "Why rare oil pixels make accuracy a weak headline metric.",
+      "readingMinutes": 8,
+      "listenMinutes": 8,
       "series": "what-the-work-taught-me",
       "homeRank": 2,
       "coverVisual": "oil-sar",
-      "projectSlugs": [
-        "oil-spill-detection"
-      ]
+      "projectSlug": "oil-spill-detection"
     },
     {
       "slug": "what-an-ai-agent-should-do-when-evidence-is-missing",
@@ -103,19 +116,20 @@
         "Provenance",
         "Governance"
       ],
+      "cardDescription": "How agents should handle missing evidence without inventing certainty.",
+      "readingMinutes": 9,
+      "listenMinutes": 8,
       "series": "what-the-work-taught-me",
       "homeRank": 3,
       "coverVisual": "agent-provenance",
-      "projectSlugs": [
-        "opportunityos"
-      ]
+      "projectSlug": "opportunityos"
     }
   ],
   "selectors": {
     "home": "[data-writing-home]",
     "card": "[data-writing-card]",
-    "cardContext": "data-writing-context",
-    "cardSlug": "data-writing-slug"
+    "listen": "[data-writing-listen]",
+    "overlay": ".writing-system-card-overlay"
   },
   "renderViewports": [
     "1920x1080",
@@ -137,6 +151,12 @@
     "SaaS-card-shells",
     "heavy-card-shadow",
     "premature-filter-search-ui",
-    "active-arabic-public-links"
+    "active-arabic-public-links",
+    "metadata-below-cover",
+    "three-line-card-title",
+    "duplicate-cover-taxonomy-label",
+    "fake-audio-control-without-source",
+    "home-explanatory-lede",
+    "home-header-cta"
   ]
 }

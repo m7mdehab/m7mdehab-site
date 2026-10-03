@@ -1,5 +1,7 @@
 # Writing System Rebuild — Execution Packet
 
+> **v1.1 supersession (2026-10-03):** `WRITING_SYSTEM_REFINEMENT_2026-10-03.md` and `WRITING_SYSTEM_V11_EXECUTION_PROMPT.md` override this packet’s earlier visible heading/lede/CTA/card-metadata details. The current locked Home heading is **What I’m thinking through.**, there is no visible Home lede, `All writing` is post-grid bottom-right, taxonomy/timing is inside the cover bottom, and card titles/descriptions are capped at two visible lines.
+
 **Date:** 2026-10-03  
 **Authority:** Mohammed Ehab ElNomany  
 **Status:** DESIGN / PRODUCT / ARCHITECTURE LOCKED  

@@ -1,5 +1,7 @@
 # Writing System — Zero-Ambiguity Integration Patch
 
+> **v1.1 note:** the implementation now exists on `writing-system-v11-refinement`. Do not rebuild the first-pass components from these historical numbered steps. Use `WRITING_SYSTEM_V11_EXECUTION_PROMPT.md` for current execution and treat this file as architecture history/supporting detail.
+
 This document turns the locked Writing design into mechanical repository work.
 
 ## 0. Before editing
