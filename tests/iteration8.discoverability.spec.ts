@@ -136,7 +136,8 @@ test.describe("Iteration 8 discoverability architecture", () => {
       `${domain}/writing`,
       ...writingSlugs.map((slug) => `${domain}/writing/${slug}`),
     ]);
-    expect(xml).not.toContain("<lastmod>");
+    expect(xml).toContain("<lastmod>");
+    expect((xml.match(/<lastmod>/g) ?? [])).toHaveLength(4);
     expect(xml).not.toContain(".json");
     expect(xml).not.toContain("llms.txt");
     expect(xml).not.toContain("/ar");
