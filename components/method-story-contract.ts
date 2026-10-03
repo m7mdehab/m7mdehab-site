@@ -136,7 +136,7 @@ export const METHOD_STORY_DESKTOP_PASS_02 = {
   breakpoint: 1100,
   connectorCounts: {
     inputToExpose: 4,
-    exposeToReduce: 10,
+    exposeToReduce: 12,
     reduceToBuild: 1,
     buildToOutcomes: 5,
   },
