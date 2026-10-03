@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { WritingArticleView } from "@/components/writing-authority";
 import { profile } from "@/data/public";
-import { getWritingArticle, publishedWritingArticles } from "@/data/writing";
+import {
+  getWritingArticle,
+  publishedWritingArticles,
+  writingAudioObject,
+} from "@/data/writing";
 import { projects } from "@/data/public";
 import { projectVisuals } from "@/data/project-visuals";
 
@@ -91,15 +95,9 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
     } } : {}),
     ...(article.sources?.length ? { citation: article.sources.map((source) => source.href) } : {}),
     ...(image ? { image } : {}),
-    ...(article.audio ? {
-      audio: {
-        "@type": "AudioObject",
-        contentUrl: absoluteMediaUrl(article.audio.src),
-        encodingFormat: article.audio.mimeType,
-        duration: `PT${Math.round(article.audio.durationSeconds)}S`,
-        caption: "Audio narration of this article",
-      },
-    } : {}),
+    ...(writingAudioObject(article, profile.domain)
+      ? { audio: writingAudioObject(article, profile.domain) }
+      : {}),
   };
 
   return (
