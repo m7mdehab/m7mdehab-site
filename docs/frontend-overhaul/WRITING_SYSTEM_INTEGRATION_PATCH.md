@@ -38,8 +38,11 @@ Prepared files already exist:
 - `components/writing-system-cover.tsx`;
 - `components/writing-system-card.tsx`;
 - `components/home-writing-section.tsx`;
+- `components/writing-system-index.tsx`;
 - `components/writing-system-article-blocks.tsx`;
-- `components/writing-system-contract.ts`.
+- `components/writing-system-article.tsx`;
+- `components/writing-system-schema.ts`;
+- `components/writing-system-contract.ts` (temporary).
 
 The cover component already implements:
 
@@ -137,32 +140,43 @@ Tune geometry/typography only after rendered inspection. Do not rewrite it into 
 
 Do not spend the implementation pass deleting every historical selector. First remove all live dependencies on them. Dead CSS cleanup may be a separate housekeeping commit after acceptance.
 
-## 9. Refactor `components/writing-authority.tsx`
+## 9. Activate the prepared archive and article renderer
 
-Archive:
+Use:
+
+- `components/writing-system-index.tsx` for the archive;
+- `components/writing-system-article.tsx` for article pages;
+- `components/writing-system-article-blocks.tsx` for body rendering.
+
+Do not rebuild their behavior inside the legacy `components/writing-authority.tsx`.
+
+Either retire `writing-authority.tsx` after consumer audit or reduce it to a thin adapter during migration. No second visual/article implementation may remain active.
+
+The prepared archive already provides:
 
 - H1 `Writing.`;
 - broad locked lede;
-- shared WritingCard;
-- published entries only;
-- no project-only manifesto.
+- shared WritingSystemCard;
+- deterministic newest-first ordering.
 
-Article:
+The prepared article renderer already supports:
 
-- use `publishedAt`;
-- optional updated date;
-- optional cover/thesis/evidence/takeaways/sources;
-- project links only for project-origin entries;
-- conditional project disclosure;
-- support future typed blocks and current paragraphs/bullets.
+- `publishedAt` plus optional updated date;
+- cover;
+- optional thesis/evidence/takeaways/sources;
+- optional related project links;
+- optional project disclosure;
+- typed blocks plus legacy paragraphs/bullets.
 
 ## 10. Metadata/schema
+
+Use the prepared pure `components/writing-system-schema.ts` builder rather than creating a second JSON-LD implementation.
 
 `app/(en)/writing/page.tsx`:
 
 - broad editorial title/description;
 - CollectionPage;
-- published BlogPosting hasPart only.
+- published BlogPosting `hasPart` only.
 
 `app/(en)/writing/[slug]/page.tsx`:
 
@@ -170,7 +184,7 @@ Article:
 - canonical;
 - OG article;
 - published/modified time if supported by local Next.js 16 types/docs;
-- JSON-LD `BlogPosting`;
+- wire `buildWritingSystemBlogPostingSchema` after repointing it to canonical `data/writing.ts`;
 - `datePublished`;
 - optional `dateModified`;
 - topics as keywords;
@@ -371,7 +385,10 @@ Before calling the integration complete, verify all of the following:
 - `writing-system-cover.tsx` imports canonical runtime types;
 - `writing-system-card.tsx` imports canonical runtime types;
 - `home-writing-section.tsx` imports the canonical Home selector;
+- `writing-system-index.tsx` imports canonical runtime types;
 - `writing-system-article-blocks.tsx` renders canonical section/block types;
+- `writing-system-article.tsx` imports canonical runtime types;
+- `writing-system-schema.ts` imports canonical runtime types;
 - `writing-system.css` is imported only once;
 - `HomeClosing` no longer receives article data;
 - `use-timed-carousel.ts` is deleted if no longer referenced;
