@@ -1,8 +1,18 @@
 import { expect, test } from "@playwright/test";
-import { assertWritingIntegrity, getWritingListenDetails, getWritingTimingLabel, type PublishedWritingArticle } from "@/data/writing";
-import { buildWritingBlogPostingSchema, getRelatedWritingProjects } from "@/data/writing-schema";
+import {
+  assertWritingIntegrity,
+  getWritingListenDetails,
+  getWritingTimingLabel,
+  type PublishedWritingArticle,
+} from "@/data/writing";
+import {
+  buildWritingBlogPostingSchema,
+  getRelatedWritingProjects,
+} from "@/data/writing-schema";
 
-function fixture(overrides: Partial<PublishedWritingArticle> = {}): PublishedWritingArticle {
+function fixture(
+  overrides: Partial<PublishedWritingArticle> = {},
+): PublishedWritingArticle {
   return {
     slug: "independent-audio-note",
     title: "Independent audio note",
@@ -15,7 +25,11 @@ function fixture(overrides: Partial<PublishedWritingArticle> = {}): PublishedWri
     topics: ["Reflection"],
     readingMinutes: 3,
     listenMinutes: 4,
-    cover: { kind: "visual", visual: "agent-provenance", alt: "Public-safe governance diagram." },
+    cover: {
+      kind: "visual",
+      visual: "agent-provenance",
+      alt: "Public-safe governance diagram.",
+    },
     origin: { kind: "independent" },
     sections: [{ title: "Body", paragraphs: ["Fixture body."] }],
     ...overrides,
@@ -27,69 +41,88 @@ test.describe("Writing BlogPosting schema", () => {
     expect(() => assertWritingIntegrity()).not.toThrow();
   });
 
-  test("independent article omits optional relationships and audio when no asset exists", () => {
-    const schema = buildWritingBlogPostingSchema(fixture());
+  test("independent article exposes the governed two-voice narration contract", () => {
+    const article = fixture();
+    const schema = buildWritingBlogPostingSchema(article);
+    const listen = getWritingListenDetails(article);
 
     expect(schema["@type"]).toBe("BlogPosting");
     expect(schema.timeRequired).toBe("PT3M");
-    expect(schema).not.toHaveProperty("audio");
     expect(schema).not.toHaveProperty("about");
     expect(schema).not.toHaveProperty("citation");
     expect(schema).not.toHaveProperty("image");
-    expect(getRelatedWritingProjects(fixture())).toEqual([]);
+    expect(schema.audio).toEqual([
+      {
+        "@type": "AudioObject",
+        name: "Independent audio note — Female narration",
+        contentUrl:
+          "https://m7mdehab.com/audio/writing/independent-audio-note/female.mp3",
+        encodingFormat: "audio/mpeg",
+        caption: "Female AI narration of this article",
+      },
+      {
+        "@type": "AudioObject",
+        name: "Independent audio note — Male narration",
+        contentUrl:
+          "https://m7mdehab.com/audio/writing/independent-audio-note/male.mp3",
+        encodingFormat: "audio/mpeg",
+        caption: "Male AI narration of this article",
+      },
+    ]);
+    expect(listen.defaultVoice).toBe("female");
+    expect(listen.sources.map((source) => [source.id, source.kokoroVoice])).toEqual([
+      ["female", "af_heart"],
+      ["male", "am_michael"],
+    ]);
+    expect(getWritingTimingLabel(article)).toBe("3 min read · ~4 min listen");
+    expect(getRelatedWritingProjects(article)).toEqual([]);
   });
 
-  test("real narration produces an AudioObject without changing article text semantics", () => {
-    const narrated = fixture({
+  test("legacy explicit audio metadata does not replace governed Kokoro narration", () => {
+    const article = fixture({
       audio: {
-        src: "/media/writing/independent-audio-note.mp3",
+        src: "/media/writing/legacy.mp3",
         mimeType: "audio/mpeg",
         durationSeconds: 238,
       },
     });
-    const schema = buildWritingBlogPostingSchema(narrated);
-    const listen = getWritingListenDetails(narrated);
 
-    expect(schema.audio).toEqual({
-      "@type": "AudioObject",
-      contentUrl:
-        "https://m7mdehab.com/media/writing/independent-audio-note.mp3",
-      encodingFormat: "audio/mpeg",
-      duration: "PT238S",
-      caption: "Audio narration of this article",
-    });
-    expect(listen).toEqual({
-      sectionLabel: "Listen to this article",
-      playerLabel: "Audio narration of Independent audio note",
-      listenMinutes: 4,
-      src: "/media/writing/independent-audio-note.mp3",
-      mimeType: "audio/mpeg",
-      preload: "metadata",
-      controls: true,
-    });
-    expect(getWritingTimingLabel(narrated)).toBe("3 min read · 4 min listen");
-  });
-
-  test("estimated listen timing appears without a player until narration exists", () => {
-    const article = fixture();
-
-    expect(getWritingTimingLabel(article)).toBe("3 min read · ~4 min listen");
-    expect(getWritingListenDetails(article)).toBeUndefined();
+    const schema = buildWritingBlogPostingSchema(article);
+    expect(schema.audio).toHaveLength(2);
+    expect(schema.audio[0].contentUrl).toContain("/female.mp3");
+    expect(schema.audio[1].contentUrl).toContain("/male.mp3");
   });
 
   test("project relationships resolve from the public registry for BlogPosting about", () => {
-    const article = fixture({ origin: { kind: "project", projectSlugs: ["presaira"] } });
+    const article = fixture({
+      origin: { kind: "project", projectSlugs: ["presaira"] },
+    });
     expect(getRelatedWritingProjects(article)).toEqual([
-      { slug: "presaira", title: expect.any(String), caseStudyUrl: "https://m7mdehab.com/work/presaira" },
+      {
+        slug: "presaira",
+        title: expect.any(String),
+        caseStudyUrl: "https://m7mdehab.com/work/presaira",
+      },
     ]);
     expect(buildWritingBlogPostingSchema(article).about).toEqual([
-      { "@type": "CreativeWork", name: expect.any(String), url: "https://m7mdehab.com/work/presaira" },
+      {
+        "@type": "CreativeWork",
+        name: expect.any(String),
+        url: "https://m7mdehab.com/work/presaira",
+      },
     ]);
   });
 
   test("unknown project relationships fail validation", () => {
-    expect(() => getRelatedWritingProjects(fixture({
-      origin: { kind: "project", projectSlugs: ["missing-project"] },
-    }))).toThrow("Unknown Writing project relationship: missing-project");
+    expect(() =>
+      getRelatedWritingProjects(
+        fixture({
+          origin: {
+            kind: "project",
+            projectSlugs: ["missing-project"],
+          },
+        }),
+      ),
+    ).toThrow("Unknown Writing project relationship: missing-project");
   });
 });
