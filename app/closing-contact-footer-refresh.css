@@ -538,40 +538,39 @@
 
   .closing-directory-end {
     grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: flex;
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    justify-self: center;
     align-items: center;
-    gap: 10px 18px;
-    width: 100%;
+    justify-content: flex-end;
+    gap: clamp(6px, 2vw, 10px);
     padding: 0;
     border: 0;
-    text-align: left;
+    text-align: right;
   }
 
   .closing-directory-icons {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
-    gap: 12px;
+    order: 2;
+    gap: 8px;
   }
 
   .closing-directory-icons > a {
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    min-height: 46px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .closing-directory-end > p {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    align-self: end;
+    order: 1;
+    min-width: 0;
     min-height: 0;
     margin: 0;
     white-space: nowrap;
-    font-size: clamp(7.5px, 2.15vw, 9px);
-    line-height: 1.35;
-    letter-spacing: 0;
+    font-size: clamp(6px, 1.75vw, 7.5px);
+    line-height: 1;
+    letter-spacing: -.02em;
   }
 }
 
