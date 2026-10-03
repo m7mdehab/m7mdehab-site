@@ -203,6 +203,40 @@ test.describe("Method story rebuild", () => {
     ).toBeTruthy();
   });
 
+  test("desktop pass 02 precision anchors and single-line intro are staged", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    await expect(section.locator('[data-method-anchor^="messy-"]')).toHaveCount(4);
+    await expect(section.locator('[data-method-anchor="expose-stack"]')).toHaveCount(1);
+    await expect(section.locator('[data-method-anchor="reduce-card"]')).toHaveCount(1);
+    await expect(section.locator('[data-method-anchor="build-system"]')).toHaveCount(1);
+    await expect(section.locator('[data-method-anchor^="outcome-"]')).toHaveCount(5);
+    await expect(section.locator("[data-method-bus-node]")).toHaveCount(5);
+    await expect(section.locator(".method-story__eyebrow")).toBeHidden();
+
+    const introLines = await section.evaluate((node) => {
+      const lineCount = (selector: string) => {
+        const element = node.querySelector<HTMLElement>(selector)!;
+        const style = getComputedStyle(element);
+        const lineHeight = Number.parseFloat(style.lineHeight);
+        return Math.round(element.getBoundingClientRect().height / lineHeight);
+      };
+      return {
+        title: lineCount(".method-story__intro h2"),
+        support: lineCount(".method-story__support"),
+      };
+    });
+
+    expect(introLines.title).toBe(1);
+    expect(introLines.support).toBe(1);
+  });
+
   test("desktop connectors and centered viewport resolve before scrolling past the section", async ({
     page,
   }) => {
