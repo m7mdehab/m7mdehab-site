@@ -3,10 +3,12 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import {
   writingSystemCategoryLabel,
   writingSystemSeriesLabel,
+  writingSystemTimingLabel,
   type PublishedWritingSystemArticle,
 } from "@/components/writing-system-contract";
 import { WritingSystemCover } from "@/components/writing-system-cover";
 import { WritingSystemSectionBody } from "@/components/writing-system-article-blocks";
+import { WritingSystemListen } from "@/components/writing-system-listen";
 import type { WritingSystemRelatedProject } from "@/components/writing-system-schema";
 
 function readableDate(value: string) {
@@ -45,7 +47,7 @@ export function WritingSystemArticleView({
         <div className="writing-system-article-meta">
           <span>{writingSystemCategoryLabel(article.category)}</span>
           <span>{article.topics.join(" · ")}</span>
-          <span>{article.readingMinutes} min</span>
+          <span>{writingSystemTimingLabel(article)}</span>
         </div>
 
         {series ? (
@@ -65,6 +67,8 @@ export function WritingSystemArticleView({
             </time>
           ) : null}
         </div>
+
+        <WritingSystemListen article={article} />
 
         <WritingSystemCover article={article} />
 
