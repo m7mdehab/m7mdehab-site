@@ -151,7 +151,7 @@ export function WritingArticleView({
         ) : null}
       </header>
       <div className={styles.readingLayout}><div className={styles.readingMain}><ArticleToc article={article} mobile /><WritingArticleBody article={article} /></div><aside className={styles.tocRail}><ArticleToc article={article} /></aside></div>
-      {relatedArticles.length ? <section className={styles.relatedWriting} aria-labelledby="related-writing-title"><div className={styles.relatedHead}><p className={styles.sectionEyebrow}>Keep exploring</p><h2 id="related-writing-title">Related writing.</h2></div><div className={styles.relatedGrid}>{relatedArticles.map((related) => <WritingCard key={related.slug} article={related} context="archive" />)}</div></section> : null}
+      {relatedArticles.length ? <section className={styles.relatedWriting} aria-labelledby="related-writing-title"><div className={styles.relatedHead}><p className={styles.sectionEyebrow}>Keep exploring</p><h2 id="related-writing-title">Related writing.</h2></div><div className={styles.relatedGrid}>{relatedArticles.map((related) => <WritingCard key={related.slug} article={related} context="related" />)}</div></section> : null}
       <footer className={styles.articleEnd}>
         <div>{origin.kind === "project" && origin.disclosure ? <p>{origin.disclosure}</p> : null}</div>
         <div className={styles.articleEndLinks}>
