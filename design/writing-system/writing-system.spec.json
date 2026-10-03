@@ -1,6 +1,6 @@
 {
-  "version": "1.2",
-  "status": "design-architecture-refinement-locked",
+  "version": "1.3",
+  "status": "mobile-density-refinement-locked",
   "scope": [
     "home-writing",
     "/writing",
@@ -15,13 +15,15 @@
     "homeCtaPlacement": "section-bottom-right",
     "archiveEyebrow": "Writing",
     "archiveHeading": "What I’m thinking through.",
-    "archiveLede": null
+    "archiveLede": null,
+    "homeSubtitle": "Ideas, experiments, and the things I’m exploring.",
+    "archiveSubtitle": "Ideas, experiments, and the things I’m exploring."
   },
   "layout": {
     "homeMax": 6,
     "desktopColumns": 3,
     "tabletColumns": 2,
-    "mobileColumns": 1,
+    "mobileColumns": 2,
     "desktopBreakpoint": 1120,
     "mobileBreakpoint": 720,
     "coverAspectRatio": "16/9",
@@ -39,7 +41,15 @@
     "excerptMaxLines": 2,
     "mobileExcerpt": "hidden",
     "desktopExcerpt": "cardDescription-or-description; maximum two visible lines",
-    "oilCoverCrop": "crop/mask source-strip text so it reads as an editorial cover"
+    "oilCoverCrop": "crop/mask source-strip text so it reads as an editorial cover",
+    "mobileTitleMaxLines": 1,
+    "headingMaxLines": 1,
+    "subtitleMaxLines": 1,
+    "mobileColumnGapPx": 12,
+    "mobileRowGapPx": 24,
+    "mobileCardDescription": "hidden",
+    "orphanCardBehavior": "normal grid flow; do not stretch the final odd card",
+    "mobileTimingLayout": "read/listen stack at bottom-right inside cover"
   },
   "behavior": {
     "carousel": false,
@@ -174,6 +184,11 @@
     "metadata-below-cover",
     "three-line-card-title",
     "duplicate-cover-taxonomy-label",
-    "fake-audio-control-without-source"
+    "fake-audio-control-without-source",
+    "wrapped-writing-heading",
+    "wrapped-writing-subtitle",
+    "one-column-phone-writing-grid",
+    "two-line-phone-card-title",
+    "mobile-description-return"
   ]
 }
