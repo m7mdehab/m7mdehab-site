@@ -401,7 +401,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="messy"
                   progress={progress}
-                  enhanced={!reducedMotion}
+                  enhanced={false}
                 />
                 <div className="method-story__input-field">
                   {METHOD_STORY.inputs.map((input, index) => (
@@ -410,7 +410,7 @@ function MobileMethodStory({
                       input={input}
                       index={index}
                       progress={progress}
-                      enhanced={!reducedMotion}
+                      enhanced={false}
                     />
                   ))}
                   <span className="method-story__noise method-story__noise--1" aria-hidden="true" />
@@ -432,7 +432,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="expose"
                   progress={progress}
-                  enhanced={!reducedMotion}
+                  enhanced={false}
                 />
                 <div className="method-story__evidence-field">
                   <MethodEvidenceIcon className="method-story__stage-symbol" aria-hidden="true" />
@@ -442,7 +442,7 @@ function MobileMethodStory({
                         key={index}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                   </div>
@@ -453,7 +453,7 @@ function MobileMethodStory({
                         tag={tag}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                   </div>
@@ -472,7 +472,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="reduce"
                   progress={progress}
-                  enhanced={!reducedMotion}
+                  enhanced={false}
                 />
                 <div className="method-story__decision-field">
                   <svg
@@ -493,7 +493,7 @@ function MobileMethodStory({
                         d={d}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                     <circle className="method-story__decision-node" cx="112" cy="80" r="5" />
@@ -525,7 +525,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="build"
                   progress={progress}
-                  enhanced={!reducedMotion}
+                  enhanced={false}
                 />
                 <div className="method-story__build-field">
                   <div className="method-story__system-stack">
@@ -534,7 +534,7 @@ function MobileMethodStory({
                         key={index}
                         index={index}
                         progress={progress}
-                        enhanced={!reducedMotion}
+                        enhanced={false}
                       />
                     ))}
                   </div>
@@ -558,7 +558,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="outcomes"
                   progress={progress}
-                  enhanced={!reducedMotion}
+                  enhanced={false}
                 />
                 <ul className="method-story__outputs">
                   {METHOD_STORY.outputs.map((output, index) => (
@@ -567,7 +567,7 @@ function MobileMethodStory({
                       output={output}
                       index={index}
                       progress={progress}
-                      enhanced={!reducedMotion}
+                      enhanced={false}
                     />
                   ))}
                 </ul>
