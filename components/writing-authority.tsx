@@ -153,13 +153,15 @@ export function WritingArticleView({
       <div className={styles.readingLayout}><div className={styles.readingMain}><ArticleToc article={article} mobile /><WritingArticleBody article={article} /></div><aside className={styles.tocRail}><ArticleToc article={article} /></aside></div>
       {relatedArticles.length ? <section className={styles.relatedWriting} aria-labelledby="related-writing-title"><div className={styles.relatedHead}><p className={styles.sectionEyebrow}>Keep exploring</p><h2 id="related-writing-title">Related writing.</h2></div><div className={styles.relatedGrid}>{relatedArticles.map((related) => <WritingCard key={related.slug} article={related} context="archive" />)}</div></section> : null}
       <footer className={styles.articleEnd}>
-        {origin.kind === "project" && origin.disclosure ? <p>{origin.disclosure}</p> : null}
-        {relatedProjects.map((project) => (
-          <Link key={project.slug} className={styles.projectLink} href={project.caseStudyUrl} data-authority-link="article-to-project">
-            {project.title} case study <ArrowUpRight size={15} aria-hidden="true" />
-          </Link>
-        ))}
-        <Link className={styles.projectLink} href="/writing">All writing <ArrowUpRight size={15} aria-hidden="true" /></Link>
+        <div>{origin.kind === "project" && origin.disclosure ? <p>{origin.disclosure}</p> : null}</div>
+        <div className={styles.articleEndLinks}>
+          {relatedProjects.map((project) => (
+            <Link key={project.slug} className={styles.projectLink} href={project.caseStudyUrl} data-authority-link="article-to-project">
+              {project.title} case study <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+          ))}
+          <Link className={styles.projectLink} href="/writing">All writing <ArrowUpRight size={15} aria-hidden="true" /></Link>
+        </div>
       </footer>
       </div></main>
   );
