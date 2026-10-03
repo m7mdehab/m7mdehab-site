@@ -49,7 +49,7 @@ test.describe("Writing publication authority", () => {
       expect(schema.isPartOf.url).toBe(`${domain}/writing`);
       expect(schema.author.url).toBe(`${domain}/about`);
       expect(schema.audio).toHaveLength(2);
-      expect(schema.audio.map((item) => item.contentUrl)).toEqual([
+      expect(schema.audio.map((item: { contentUrl: string }) => item.contentUrl)).toEqual([
         `${domain}/audio/writing/${slug}/female.mp3`,
         `${domain}/audio/writing/${slug}/male.mp3`,
       ]);
