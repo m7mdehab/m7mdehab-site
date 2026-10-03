@@ -165,6 +165,42 @@ test.describe("Method story rebuild", () => {
     });
   });
 
+  test("captures all five normal-motion mobile story states", async ({ page }) => {
+    await mkdir(screenshotRoot, { recursive: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await settle(page);
+
+    const track = page.locator("[data-mobile-method-story]");
+    const sticky = page.locator(".method-story__mobile-sticky");
+    await expect(track).toHaveAttribute("data-motion-mode", "enhanced");
+
+    const checkpoints = [
+      { progress: 0, file: "method-story-mobile-01-messy.png" },
+      { progress: 0.25, file: "method-story-mobile-02-expose.png" },
+      { progress: 0.45, file: "method-story-mobile-03-reduce.png" },
+      { progress: 0.65, file: "method-story-mobile-04-build.png" },
+      { progress: 0.9, file: "method-story-mobile-05-outcomes.png" },
+    ] as const;
+
+    for (const checkpoint of checkpoints) {
+      await track.evaluate((element, progress) => {
+        const bounds = element.getBoundingClientRect();
+        const top = window.scrollY + bounds.top;
+        const distance = Math.max(0, bounds.height - window.innerHeight);
+        window.scrollTo({
+          top: top + distance * progress,
+          behavior: "instant",
+        });
+      }, checkpoint.progress);
+      await page.waitForTimeout(520);
+      await expectNoHorizontalOverflow(page);
+      await sticky.screenshot({
+        path: path.join(screenshotRoot, checkpoint.file),
+      });
+    }
+  });
+
   test("reduced motion keeps the complete story visible without staged motion", async ({
     page,
   }) => {
