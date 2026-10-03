@@ -53,7 +53,7 @@ for (const direction of directions) {
     test(`${direction} renders at mobile and respects reduced motion`, async ({ page }, testInfo) => {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.emulateMedia({ reducedMotion: "reduce" });
-      const response = await page.goto(`/prototypes/${direction}`);
+      const response = await page.goto(`/prototypes/${direction}`, { waitUntil: "domcontentloaded" });
       expect(response?.ok()).toBeTruthy();
       await settle(page);
 

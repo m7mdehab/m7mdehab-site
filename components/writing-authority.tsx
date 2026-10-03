@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { WritingCard } from "@/components/writing-card";
 import { ArticleCover } from "@/components/writing-cover";
 import { WritingListen } from "@/components/writing-listen";
-import { getWritingArticleOptionalContent, type PublishedWritingArticle, type WritingBlock } from "@/data/writing";
+import { getWritingArticleOptionalContent, writingSectionCopy, type PublishedWritingArticle, type WritingBlock } from "@/data/writing";
 import type { RelatedWritingProject } from "@/data/writing-schema";
 import styles from "@/components/writing-authority.module.css";
 
@@ -23,7 +23,8 @@ export function WritingIndex({ articles }: { articles: readonly PublishedWriting
       <div className="writing-system-shell">
         <header className="writing-system-archive-header">
           <p className="writing-system-archive-kicker">Writing</p>
-          <h1>What I’m thinking through.</h1>
+          <h1>{writingSectionCopy.heading}</h1>
+          <p className="writing-system-archive-subtitle">{writingSectionCopy.subtitle}</p>
         </header>
         <div className="writing-system-grid">
           {ordered.map((article) => <WritingCard key={article.slug} article={article} context="archive" />)}
