@@ -27,7 +27,8 @@ Only when applicable:
 
 - `image`;
 - `citation`;
-- project relationships in `about`.
+- project relationships in `about`;
+- real narration in `audio` as an `AudioObject` only when an actual public audio asset exists.
 
 Do not emit empty properties merely to preserve a template.
 
@@ -92,7 +93,9 @@ Must contain published public projections only:
 - canonical URL;
 - relatedProjects[];
 - sourceLinks[];
-- optional stable cover image.
+- optional stable cover image;
+- listenMinutes when configured;
+- real audio metadata only when a playable public asset exists.
 
 Must not contain:
 
@@ -157,3 +160,28 @@ The implementation decisions above were checked against current primary document
 - MDN — Image performance guidance: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/Multimedia
 
 These references reinforce the chosen `BlogPosting` model, meaningful crawlable images when supplied, stable publication/modification dates, native links, visible focus, reserved image dimensions/aspect ratio, and lazy loading for non-critical imagery.
+
+## 12. Audio narration contract
+
+Do not create structured audio merely because the card has an estimated listen time.
+
+When `audio` exists, BlogPosting may expose:
+- `audio.@type = AudioObject`;
+- `contentUrl` as a stable crawlable public URL;
+- `encodingFormat` from the real MIME type;
+- `duration` in ISO 8601 duration form;
+- a short caption such as `Audio narration of this article`.
+
+When no real asset exists:
+- no AudioObject;
+- no fake contentUrl;
+- no player;
+- listenMinutes may remain an estimated browse/display field.
+
+The article text remains present on the same page. This makes narration an alternate representation of the existing textual work rather than a separate information source.
+
+## 13. Card copy vs metadata description
+
+`cardDescription` is a browse-only editorial projection.
+
+SEO/Open Graph/JSON-LD should continue to use canonical `description`, not the shortened cardDescription.
