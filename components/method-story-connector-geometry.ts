@@ -15,6 +15,10 @@ export type MethodStoryRect = {
 };
 
 export type MethodStoryConnectorGeometry = {
+  viewport: {
+    width: number;
+    height: number;
+  };
   inputToExpose: string[];
   exposeToReduce: string[];
   reduceToBuild: string;
@@ -204,6 +208,10 @@ export function measureMethodStoryDesktopGeometry(
   );
 
   return {
+    viewport: {
+      width: rootRect.width,
+      height: rootRect.height,
+    },
     inputToExpose,
     exposeToReduce,
     reduceToBuild,
