@@ -29,7 +29,7 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByText("By Mohammed Ehab ElNomany")).toBeVisible();
       await expect(page.getByText("Key idea")).toBeVisible();
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
-      await expect(page.locator('[data-writing-card][data-writing-context="archive"]')).toHaveCount(2);
+      await expect(page.locator('[data-writing-card][data-writing-context="related"]')).toHaveCount(2);
       await expect(page.locator("[data-writing-listen]")).toHaveCount(0);
 
       const geometry = await page.evaluate(() => {
