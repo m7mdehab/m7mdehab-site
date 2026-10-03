@@ -1,6 +1,6 @@
 # Writing System Refinement — 2026-10-03
 
-**Status:** LOCKED / supersedes the earlier Writing v1.0 presentation details
+**Status:** LOCKED v1.2 / supersedes the earlier Writing v1.0/v1.1 presentation details
 **Scope:** Home Writing + archive card grammar + future article audio
 
 ## Decision summary
@@ -96,11 +96,15 @@ Do not reduce a title’s semantic text or insert manual line breaks merely to p
 
 ### Description rule
 
-Maximum two visual lines.
+Desktop/tablet:
+- keep the concise cardDescription for now while the inventory is small;
+- hard maximum two visual lines.
 
-Current recommendation: keep it on desktop/tablet/mobile while there are only three articles.
+Mobile:
+- hide the card description below 720px;
+- the thumbnail + metadata + two-line title are the complete browse unit.
 
-If content volume later makes the archive too tall, description visibility can be revisited as a new explicit decision.
+This is deliberate density, not missing content. Canonical description remains available to metadata/discovery and on the article route.
 
 ### Cover cleanup
 
@@ -117,7 +121,7 @@ The final rendered overlay must maintain WCAG text contrast against every cover.
 ### Audio architecture
 
 Prepared fields:
-- listenMinutes?: number
+- listenMinutes: number (required for every article)
 - audio?: { src; mimeType; durationSeconds }
 
 Prepared article behavior:
@@ -135,17 +139,17 @@ Mobile is normal one-column document flow.
 
 Refinement targets:
 - smaller section title than v1.0
-- 32px-ish inter-card rhythm rather than 38px+
+- ~30px inter-card rhythm rather than 38px+
 - metadata inside cover
 - two-line title hard cap
-- two-line card-description cap
+- card description hidden
 - CTA only after the final card
 
 No horizontal Writing carousel returns.
 
 ## References checked
 
-- MDN line-clamp: unprefixed support remains incomplete; the -webkit-line-clamp + -webkit-box pattern remains the compatibility path.
+- MDN line-clamp: use the compatible -webkit-line-clamp + -webkit-box pattern alongside the standard property.
 - WCAG 1.4.3 / W3C techniques: text over varying image backgrounds needs sufficient contrast; a dedicated dark overlay is used.
 - WCAG 1.2.1: prerecorded audio-only content needs equivalent text unless it is explicitly an alternative for existing text; article narration is an alternative representation of the article text.
 - Schema.org: BlogPosting inherits CreativeWork audio; a real narration may be represented as AudioObject.
@@ -159,3 +163,15 @@ The section must read, within a few seconds, as:
 Not:
 
 > a project-evidence carousel converted into three cards.
+
+
+## Final v1.2 density decision
+
+The first mobile render was still too tall because each card carried thumbnail + metadata + title + multi-line description. v1.2 removes the description from mobile browse surfaces while retaining concise descriptions on larger viewports.
+
+The cover itself now carries both orientation and effort:
+- bottom-left answers **what is this about?**
+- bottom-right answers **how long will reading/listening take?**
+- the title answers **why should I open it?**
+
+Nothing else is required in the mobile scan path.
