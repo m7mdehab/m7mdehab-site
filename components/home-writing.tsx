@@ -16,6 +16,7 @@ export function HomeWriting() {
       <div className="writing-system-shell">
         <header className="writing-system-home-header">
           <h2>What I’m thinking through.</h2>
+          <p>Ideas, experiments, and the things I’m exploring.</p>
         </header>
 
         <div className="writing-system-grid">
