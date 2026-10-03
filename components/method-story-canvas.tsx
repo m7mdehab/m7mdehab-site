@@ -189,12 +189,14 @@ function ConnectorPath({
   progress,
   enhanced,
   hot = false,
+  group,
 }: {
   d: string;
   window: readonly [number, number];
   progress: Progress;
   enhanced: boolean;
   hot?: boolean;
+  group?: "input-expose" | "expose-reduce" | "reduce-build" | "build-outcomes";
 }) {
   const pathLength = useTransform(progress, [...window], [0, 1]);
   const opacity = useTransform(
@@ -212,6 +214,7 @@ function ConnectorPath({
           : "method-story__path"
       }
       style={enhanced ? { pathLength, opacity } : undefined}
+      data-method-connector={group}
     />
   );
 }
@@ -294,7 +297,13 @@ export function MethodStoryCanvas() {
     target: rootRef,
     offset: [...METHOD_STORY_MOTION.scrollOffset],
   });
-  const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
+  const responsiveProgress = useTransform(() => {
+    const raw = scrollYProgress.get();
+    if (typeof window === "undefined") return raw;
+    const desktop = window.matchMedia("(min-width: 1100px)").matches;
+    return desktop ? Math.min(raw / 0.22, 1) : raw;
+  });
+  const progress = useSpring(responsiveProgress, METHOD_STORY_MOTION.spring);
 
   const exposeOpacity = useTransform(progress, [0.16, 0.3], [0.45, 1]);
   const reduceOpacity = useTransform(progress, [0.34, 0.49], [0.45, 1]);
@@ -325,6 +334,7 @@ export function MethodStoryCanvas() {
             window={[0.08 + index * 0.02, 0.28 + index * 0.02]}
             progress={progress}
             enhanced={enhanced}
+            group="input-expose"
           />
         ))}
         {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
@@ -334,6 +344,7 @@ export function MethodStoryCanvas() {
             window={[0.24 + index * 0.02, 0.46 + index * 0.02]}
             progress={progress}
             enhanced={enhanced}
+            group="expose-reduce"
           />
         ))}
         {METHOD_STORY_CONNECTORS.reduceBranches.map((d, index) => (
@@ -351,6 +362,7 @@ export function MethodStoryCanvas() {
           progress={progress}
           enhanced={enhanced}
           hot
+          group="reduce-build"
         />
         {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
           <ConnectorPath
@@ -359,6 +371,7 @@ export function MethodStoryCanvas() {
             window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
             progress={progress}
             enhanced={enhanced}
+            group="build-outcomes"
           />
         ))}
       </svg>
@@ -479,20 +492,22 @@ export function MethodStoryCanvas() {
                     d="M117 80H150"
                   />
                 </svg>
-                <motion.div
-                  className="method-story__decision-module"
-                  style={
-                    enhanced
-                      ? { scale: decisionScale, opacity: decisionOpacity }
-                      : undefined
-                  }
-                  aria-hidden="true"
-                >
-                  <MethodDecisionIcon />
-                  <i className="is-selected" />
-                  <i />
-                  <i />
-                </motion.div>
+                <div className="method-story__decision-module-anchor">
+                  <motion.div
+                    className="method-story__decision-module"
+                    style={
+                      enhanced
+                        ? { scale: decisionScale, opacity: decisionOpacity }
+                        : undefined
+                    }
+                    aria-hidden="true"
+                  >
+                    <MethodDecisionIcon />
+                    <i className="is-selected" />
+                    <i />
+                    <i />
+                  </motion.div>
+                </div>
               </div>
             </motion.li>
 
