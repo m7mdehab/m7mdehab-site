@@ -1,5 +1,5 @@
-/* Closing/contact/footer + mobile header refresh.
-   Loaded after the legacy mobile dock rules so the current interaction contract wins. */
+/* Closing/contact/footer + responsive header refresh.
+   Loaded after legacy mobile dock rules so the current top-header interaction contract wins. */
 
 .closing-opportunity {
   padding-top: clamp(72px, 7vw, 108px);
