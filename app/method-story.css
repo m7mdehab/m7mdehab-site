@@ -1481,8 +1481,7 @@
   }
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__stage-symbol {
-    left: 5px;
-    top: 20px;
+    display: none;
   }
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__evidence-stack {
@@ -1523,18 +1522,18 @@
   }
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__evidence-tag--mint {
-    left: 2%;
-    top: 6px;
+    left: 1%;
+    top: 8px;
   }
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__evidence-tag--teal {
     right: 1%;
-    top: 44px;
+    top: 8px;
   }
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__evidence-tag--amber {
     right: 2%;
-    bottom: 12%;
+    bottom: 13%;
   }
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__decision-field {
@@ -1569,7 +1568,7 @@
 
   .method-story__canvas[data-mobile-enhanced="true"] .method-story__system-stack {
     margin: 0 auto;
-    transform: scale(1.02);
+    transform: scale(1.12);
     transform-origin: center;
   }
 
