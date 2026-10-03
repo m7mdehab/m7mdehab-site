@@ -164,6 +164,66 @@ test.describe("Phone composition", () => {
         `${width}px opportunity CTA row`,
       ).toBe(1);
 
+      const closingHeading = await page
+        .locator(".closing-opportunity-head h2")
+        .evaluate((element) => {
+          const node = element as HTMLElement;
+          const style = getComputedStyle(node);
+          return {
+            height: node.getBoundingClientRect().height,
+            lineHeight: Number.parseFloat(style.lineHeight),
+            spanRows: new Set(
+              Array.from(node.querySelectorAll("span")).map((span) =>
+                Math.round(span.getBoundingClientRect().top),
+              ),
+            ).size,
+          };
+        });
+      expect(
+        closingHeading.height,
+        `${width}px closing heading stays within two lines`,
+      ).toBeLessThanOrEqual(closingHeading.lineHeight * 2 + 2);
+      expect(
+        closingHeading.spanRows,
+        `${width}px closing heading uses exactly two visual rows`,
+      ).toBe(2);
+
+      const actionChrome = await opportunityCtas.evaluateAll((items) =>
+        items.map((item) => {
+          const style = getComputedStyle(item);
+          const icon = item.querySelector<HTMLElement>(".closing-action-icon");
+          const iconStyle = icon ? getComputedStyle(icon) : null;
+          return {
+            background: style.backgroundColor,
+            borderTopWidth: style.borderTopWidth,
+            borderRadius: style.borderRadius,
+            iconBackground: iconStyle?.backgroundColor ?? "",
+          };
+        }),
+      );
+      for (const chrome of actionChrome) {
+        expect(chrome.background).toBe("rgba(0, 0, 0, 0)");
+        expect(chrome.borderTopWidth).toBe("0px");
+        expect(chrome.borderRadius).toBe("0px");
+        expect(chrome.iconBackground).toBe("rgba(0, 0, 0, 0)");
+      }
+
+      const footerAlignment = await page.evaluate(() => {
+        const footer = document.querySelector<HTMLElement>(".closing-directory")!;
+        const copy = footer.querySelector<HTMLElement>(".closing-directory-end > p")!;
+        const icons = footer.querySelector<HTMLElement>(".closing-directory-icons")!;
+        const footerBox = footer.getBoundingClientRect();
+        const copyBox = copy.getBoundingClientRect();
+        const iconBox = icons.getBoundingClientRect();
+        return {
+          copyLeft: copyBox.left,
+          iconLeft: iconBox.left,
+          iconRightGap: footerBox.right - iconBox.right,
+        };
+      });
+      expect(footerAlignment.iconLeft).toBeGreaterThan(footerAlignment.copyLeft);
+      expect(footerAlignment.iconRightGap).toBeLessThan(width * 0.14);
+
       const title = page.getByRole("heading", { level: 1 });
       await expect(title).toContainText("Mohammed Ehab");
       await expect(title).toContainText("ElNomany");
