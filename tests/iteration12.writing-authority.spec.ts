@@ -50,7 +50,7 @@ test.describe("Writing publication authority", () => {
       expect(schema.author.url).toBe(`${domain}/about`);
       expect(schema.audio).toBeUndefined();
       expect(schema.citation.length).toBeGreaterThanOrEqual(3);
-      await expect(page.locator("[data-writing-listen]")).toHaveCount(0);
+      await expect(page.locator("[data-writing-listen]")).toHaveCount(1);
       await expect(page.getByText("By Mohammed Ehab ElNomany")).toBeVisible();
       await expect(page.getByText("Key idea")).toBeVisible();
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
