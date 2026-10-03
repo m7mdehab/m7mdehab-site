@@ -62,7 +62,7 @@
   max-width: none;
   margin: 0 0 16px;
   white-space: nowrap;
-  font-size: clamp(1.45rem, 1.65vw, 1.85rem);
+  font-size: clamp(1.35rem, 1.5vw, 1.75rem);
   line-height: 1;
   letter-spacing: -.035em;
 }
