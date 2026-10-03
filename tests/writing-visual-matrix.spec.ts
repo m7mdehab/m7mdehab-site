@@ -90,7 +90,7 @@ async function assertCardGeometry(
   }
 }
 
-test("capture and validate the locked Writing v1.2 render matrix", async ({ page }) => {
+test("capture and validate the locked Writing v1.3 render matrix", async ({ page }) => {
   test.setTimeout(180_000);
   await mkdir(output, { recursive: true });
 
