@@ -10,6 +10,7 @@ const independentNote: WritingArticle = {
   category: "notes",
   topics: ["Reflection"],
   readingMinutes: 3,
+  listenMinutes: 3,
   cover: { kind: "visual", visual: "agent-provenance" },
   origin: { kind: "independent" },
   sections: [{ title: "The note", paragraphs: ["This post stands on its own."] }],
