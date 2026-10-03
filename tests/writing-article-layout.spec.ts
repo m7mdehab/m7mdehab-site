@@ -30,7 +30,7 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByText("Key idea")).toBeVisible();
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
       await expect(page.locator('[data-writing-card][data-writing-context="related"]')).toHaveCount(2);
-      await expect(page.locator("[data-writing-listen]")).toHaveCount(0);
+      await expect(page.locator("[data-writing-listen]")).toHaveCount(1);
 
       const geometry = await page.evaluate(() => {
         const article = document.querySelector<HTMLElement>("article")!;
@@ -40,12 +40,17 @@ test("all current articles use the same readable publication shell", async ({ pa
           articleWidth: article.getBoundingClientRect().width,
           paragraphLineHeight: Number.parseFloat(style.lineHeight),
           paragraphFontSize: Number.parseFloat(style.fontSize),
+          textAlign: style.textAlign,
+          bodyLeft: article.getBoundingClientRect().left,
+          heroLeft: document.querySelector<HTMLElement>("main h1")!.getBoundingClientRect().left,
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         };
       });
 
       expect(geometry.overflow).toBeLessThanOrEqual(1);
       expect(geometry.paragraphLineHeight / geometry.paragraphFontSize).toBeGreaterThanOrEqual(1.6);
+      expect(geometry.textAlign).toBe("justify");
+      expect(Math.abs(geometry.bodyLeft - geometry.heroLeft)).toBeLessThanOrEqual(2);
       if (width >= 1000) expect(geometry.articleWidth).toBeLessThanOrEqual(780);
 
       const contents = page.getByRole("navigation", { name: "Article contents" });
