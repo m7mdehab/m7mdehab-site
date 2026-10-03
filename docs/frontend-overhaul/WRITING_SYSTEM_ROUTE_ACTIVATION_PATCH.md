@@ -110,7 +110,7 @@ Each record must contain:
 - publishedAt;
 - updatedAt or null;
 - readingMinutes;
-- listenMinutes or null;
+- listenMinutes (required);
 - canonical URL;
 - optional coverImage only when stable;
 - optional audio object only when a real public audio asset exists;
@@ -211,8 +211,10 @@ Before screenshot QA, verify the activated Home card matches v1.1:
 - taxonomy/timing is overlaid at the bottom of the cover;
 - no separate metadata row under the cover;
 - no old top-left cover taxonomy label;
-- title and cardDescription are each visually capped at two lines;
+- title is visually capped at two lines everywhere;
+- cardDescription is capped at two lines on desktop/tablet and hidden below 720px;
 - current cards use their concise cardDescription values;
-- current listen estimates render with `~` because no narration asset exists yet.
+- current listen estimates render with `~` because no narration asset exists yet;
+- every article record has listenMinutes, even before audio exists.
 
 Do not activate an audio control until a real file is present.
