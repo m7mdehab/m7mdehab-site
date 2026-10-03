@@ -64,6 +64,8 @@ async function assertCardGeometry(
         excerptHeight: excerpt.getBoundingClientRect().height,
         excerptLineHeight: Number.parseFloat(excerptStyle.lineHeight),
         metaText: meta.textContent ?? "",
+        metaClientWidth: meta.clientWidth,
+        metaScrollWidth: meta.scrollWidth,
         coverRatio: coverFrame.getBoundingClientRect().width / coverFrame.getBoundingClientRect().height,
       };
     }),
@@ -72,7 +74,10 @@ async function assertCardGeometry(
   for (const card of report) {
     expect(card.metaInside).toBe(true);
     expect(card.coverRatio).toBeCloseTo(16 / 9, 1);
-    expect(card.titleHeight).toBeLessThanOrEqual(card.titleLineHeight * 2.1);
+    expect(card.titleHeight).toBeLessThanOrEqual(
+      card.titleLineHeight * (viewportWidth < 720 ? 1.15 : 2.1),
+    );
+    expect(card.metaScrollWidth).toBeLessThanOrEqual(card.metaClientWidth + 1);
     expect(card.metaText).toMatch(/min read/i);
     expect(card.metaText).toMatch(/~\d+ min listen/i);
 
@@ -95,8 +100,31 @@ test("capture and validate the locked Writing v1.2 render matrix", async ({ page
     await settle(page);
 
     const section = page.locator("[data-writing-home]");
-    await expect(section.getByRole("heading", { level: 2, name: "What I’m thinking through." })).toBeVisible();
+    const heading = section.getByRole("heading", { level: 2, name: "What I’m thinking through." });
+    await expect(heading).toBeVisible();
+    await expect(section).toContainText("Ideas, experiments, and the things I’m exploring.");
     await expect(section).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
+
+    const headerGeometry = await section.locator(".writing-system-home-header").evaluate((header) => {
+      const title = header.querySelector<HTMLElement>("h2")!;
+      const subtitle = header.querySelector<HTMLElement>("p")!;
+      const titleStyle = getComputedStyle(title);
+      const subtitleStyle = getComputedStyle(subtitle);
+      return {
+        titleHeight: title.getBoundingClientRect().height,
+        titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+        titleClient: title.clientWidth,
+        titleScroll: title.scrollWidth,
+        subtitleHeight: subtitle.getBoundingClientRect().height,
+        subtitleLineHeight: Number.parseFloat(subtitleStyle.lineHeight),
+        subtitleClient: subtitle.clientWidth,
+        subtitleScroll: subtitle.scrollWidth,
+      };
+    });
+    expect(headerGeometry.titleHeight).toBeLessThanOrEqual(headerGeometry.titleLineHeight * 1.1);
+    expect(headerGeometry.titleScroll).toBeLessThanOrEqual(headerGeometry.titleClient + 1);
+    expect(headerGeometry.subtitleHeight).toBeLessThanOrEqual(headerGeometry.subtitleLineHeight * 1.1);
+    expect(headerGeometry.subtitleScroll).toBeLessThanOrEqual(headerGeometry.subtitleClient + 1);
     await expect(section.locator("[data-writing-card]")).toHaveCount(3);
     await expect(section.locator(".writing-system-card-meta")).toHaveCount(0);
     await expect(section.locator(".writing-system-cover-label")).toHaveCount(0);
@@ -104,7 +132,7 @@ test("capture and validate the locked Writing v1.2 render matrix", async ({ page
     const columns = await section
       .locator(".writing-system-grid")
       .evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(" ").length);
-    expect(columns, viewport.name).toBe(viewport.width >= 1120 ? 3 : viewport.width >= 720 ? 2 : 1);
+    expect(columns, viewport.name).toBe(viewport.width >= 1120 ? 3 : 2);
 
     await assertCardGeometry(section, viewport.width);
 
@@ -131,9 +159,32 @@ test("capture and validate the locked Writing v1.2 render matrix", async ({ page
     await page.setViewportSize(viewport);
     await page.goto("/writing");
     await settle(page);
-    await expect(page.getByRole("heading", { level: 1, name: "What I’m thinking through." })).toBeVisible();
+    const archiveHeading = page.getByRole("heading", { level: 1, name: "What I’m thinking through." });
+    await expect(archiveHeading).toBeVisible();
     const archive = page.locator(".writing-system-archive");
+    await expect(archive).toContainText("Ideas, experiments, and the things I’m exploring.");
     await expect(archive).not.toContainText("Notes on AI, technology, work, projects, and whatever else I’m thinking through.");
+
+    const archiveHeaderGeometry = await archive.locator(".writing-system-archive-header").evaluate((header) => {
+      const title = header.querySelector<HTMLElement>("h1")!;
+      const subtitle = header.querySelector<HTMLElement>(".writing-system-archive-subtitle")!;
+      const titleStyle = getComputedStyle(title);
+      const subtitleStyle = getComputedStyle(subtitle);
+      return {
+        titleHeight: title.getBoundingClientRect().height,
+        titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+        titleClient: title.clientWidth,
+        titleScroll: title.scrollWidth,
+        subtitleHeight: subtitle.getBoundingClientRect().height,
+        subtitleLineHeight: Number.parseFloat(subtitleStyle.lineHeight),
+        subtitleClient: subtitle.clientWidth,
+        subtitleScroll: subtitle.scrollWidth,
+      };
+    });
+    expect(archiveHeaderGeometry.titleHeight).toBeLessThanOrEqual(archiveHeaderGeometry.titleLineHeight * 1.1);
+    expect(archiveHeaderGeometry.titleScroll).toBeLessThanOrEqual(archiveHeaderGeometry.titleClient + 1);
+    expect(archiveHeaderGeometry.subtitleHeight).toBeLessThanOrEqual(archiveHeaderGeometry.subtitleLineHeight * 1.1);
+    expect(archiveHeaderGeometry.subtitleScroll).toBeLessThanOrEqual(archiveHeaderGeometry.subtitleClient + 1);
     await expect(page.locator('[data-writing-card][data-writing-context="archive"]')).toHaveCount(3);
     await assertCardGeometry(archive, viewport.width);
     if (viewport.width < 720) {
