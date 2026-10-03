@@ -232,18 +232,25 @@ test.describe("Phone composition", () => {
         const copyStyle = getComputedStyle(copy);
         return {
           copyLeft: copyBox.left,
+          copyRight: copyBox.right,
+          copyCenterY: copyBox.top + copyBox.height / 2,
           copyHeight: copyBox.height,
           copyLineHeight: Number.parseFloat(copyStyle.lineHeight),
+          copyFontSize: Number.parseFloat(copyStyle.fontSize),
           copyClient: copy.clientWidth,
           copyScroll: copy.scrollWidth,
           iconLeft: iconBox.left,
+          iconCenterY: iconBox.top + iconBox.height / 2,
           iconRightGap: footerBox.right - iconBox.right,
         };
       });
       expect(footerAlignment.iconLeft).toBeGreaterThan(footerAlignment.copyLeft);
+      expect(footerAlignment.iconLeft - footerAlignment.copyRight).toBeLessThanOrEqual(12);
+      expect(Math.abs(footerAlignment.iconCenterY - footerAlignment.copyCenterY)).toBeLessThanOrEqual(2);
       expect(footerAlignment.iconRightGap).toBeLessThan(width * 0.14);
       expect(footerAlignment.copyScroll).toBeLessThanOrEqual(footerAlignment.copyClient + 1);
       expect(footerAlignment.copyHeight).toBeLessThanOrEqual(footerAlignment.copyLineHeight + 2);
+      expect(footerAlignment.copyFontSize).toBeLessThanOrEqual(7.5);
 
       const activeOpportunityTitle = await page
         .locator(".closing-path.is-active h3")
