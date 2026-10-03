@@ -25,7 +25,7 @@ All three must render through the same shell.
 4. deck
 5. visible author byline
 6. published/updated/read/listen metadata
-7. browser text-to-speech narration bar
+7. Kokoro dual-voice narration bar
 8. no default in-article cover; imagery is inserted only when it adds information
 9. optional Key idea
 10. optional evidence anchors
