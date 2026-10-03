@@ -42,7 +42,7 @@ export function useMethodStoryDesktopGeometry(
   progress: MotionValue<number>,
   enabled: boolean,
 ): GeometrySnapshot {
-  const store = useMemo(createGeometryStore, []);
+  const store = useMemo(() => createGeometryStore(), []);
 
   useEffect(() => {
     if (!enabled) {
