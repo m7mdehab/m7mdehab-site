@@ -63,7 +63,7 @@ Every article renders through one shell:
 4. Deck/description
 5. Byline linked to /about
 6. Published/updated date + read/listen time
-7. Audio player when a real narration asset exists
+7. Browser text-to-speech narration bar
 8. Representative cover
 9. Optional Key idea
 10. Optional evidence anchors
@@ -80,6 +80,8 @@ Every article renders through one shell:
 - prose target: about 65–72 characters per line;
 - body text: roughly 17–19px desktop-equivalent;
 - line-height: roughly 1.65–1.75;
+- body/deck/key-idea prose is justified, with the final line left-aligned;
+- hero copy, narration bar, body, related-writing section and footer share one primary left edge;
 - H2s strong but not theatrical;
 - generous paragraph spacing;
 - figures/code/tables may break wider than prose;
@@ -100,18 +102,21 @@ Desktop: subtle sticky rail. Mobile/tablet: compact disclosure control before th
 
 ## 10. Audio
 
-Narration is an alternate representation of the article, not separate content.
+Narration is generated in the browser from the same visible article text. Mohammed does not need to record narration or upload an audio file.
 
 Player requirements:
+- the narration bar is always present near the top of an article;
 - play/pause;
-- back/forward 15 seconds;
-- seek/progress;
-- elapsed/total time;
+- previous/next passage navigation;
+- passage progress scrubber;
 - 0.75×, 1×, 1.25×, 1.5×, 1.75×, 2×;
 - remember speed locally;
 - never autoplay;
 - keyboard accessible;
-- no player without a real audio asset.
+- use an available English system/browser voice;
+- fail gracefully when browser speech synthesis is unavailable.
+
+Because this is client-side speech synthesis rather than a hosted recording, do not emit AudioObject schema unless a real audio asset is added later.
 
 ## 11. SEO + AI-search contract
 
