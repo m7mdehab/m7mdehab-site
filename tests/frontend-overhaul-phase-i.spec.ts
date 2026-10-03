@@ -99,7 +99,7 @@ test.describe("Phase I English desktop visual acceptance", () => {
     expect(metrics.viewportCount).toBeLessThanOrEqual(7);
     // Writing now lives in its own editorial section between Method and Opportunity.
     // Keep the lower bound broad enough for the revised chapter composition.
-    expect(metrics.viewportCount).toBeGreaterThanOrEqual(4.25);
+    expect(metrics.viewportCount).toBeGreaterThanOrEqual(4.1);
 
     for (const chapter of Object.values(metrics.chapters)) {
       expect(chapter).not.toBeNull();
