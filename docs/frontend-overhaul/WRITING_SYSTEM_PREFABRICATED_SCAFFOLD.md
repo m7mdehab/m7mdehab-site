@@ -40,7 +40,7 @@ They are intentionally **not wired into the live homepage or routes yet**. The a
 - public-safe OpportunityOS provenance/authority diagram;
 - CSS-only hover/focus behavior;
 - reduced-motion fallback;
-- typed future article contract including estimated listen time + real audio metadata;
+- typed future article contract including required listen time + optional real audio metadata;
 - publication/draft filtering and integrity-guard tests;
 - `homeRank` selection helper;
 - typed blocks plus legacy paragraph/bullet rendering support;
@@ -77,4 +77,4 @@ Import it only when the new Home/archive markup is activated, after the historic
 - replace the evidence-backed cover inputs with decorative stock imagery;
 - import the stylesheet before the live component migration is ready.
 
-The v1.1 refinement is governed by `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`; do not restore the earlier heading/lede/metadata placement during integration.
+The v1.2 refinement is governed by `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`; do not restore the earlier heading/lede/metadata placement or mobile card descriptions during integration.
