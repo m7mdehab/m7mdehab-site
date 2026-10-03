@@ -24,7 +24,7 @@ concurrency:
 
 env:
   NEXT_TELEMETRY_DISABLED: 1
-  STAGING_BASE_URL: https://m7mdehab-site.m7mdehab.workers.dev
+  STAGING_BASE_URL: https://m7mdehab-site-staging.m7mdehab.workers.dev
 
 jobs:
   deploy-staging:
@@ -124,7 +124,7 @@ jobs:
           const fs = require('fs');
           const html = fs.readFileSync('/tmp/staging-home.html', 'utf8');
           if (!html.includes('<link rel="canonical" href="https://m7mdehab.com"')) throw new Error('Homepage canonical is not the production apex URL');
-          if (html.includes('<link rel="canonical" href="https://m7mdehab-site.m7mdehab.workers.dev"')) throw new Error('Staging workers.dev URL must never become canonical');
+          if (html.includes('<link rel="canonical" href="https://m7mdehab-site-staging.m7mdehab.workers.dev"')) throw new Error('Staging workers.dev URL must never become canonical');
           if (/hreflang=["']ar["']/i.test(html)) throw new Error('English homepage still advertises Arabic hreflang');
           if (/href=["']\/ar(?:["'/?#])/i.test(html)) throw new Error('English homepage still links to Arabic');
           NODE
