@@ -429,15 +429,16 @@ test.describe("Phone composition", () => {
     const positions = await stages.evaluateAll((items) =>
       items.map((item) => {
         const rect = item.getBoundingClientRect();
-        return { top: rect.top, left: rect.left, width: rect.width };
+        return {
+          position: getComputedStyle(item).position,
+          left: rect.left,
+          right: rect.right,
+        };
       }),
     );
-    expect(
-      Math.max(...positions.map((item) => item.top)) -
-        Math.min(...positions.map((item) => item.top)),
-    ).toBeLessThanOrEqual(2);
+    expect(positions.every((item) => item.position === "absolute")).toBeTruthy();
     expect(positions.every((item) => item.left >= -1)).toBeTruthy();
-    expect(positions.every((item) => item.left + item.width <= 391)).toBeTruthy();
+    expect(positions.every((item) => item.right <= 391)).toBeTruthy();
 
     await expect(section.locator("[data-method-input]")).toHaveCount(4);
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
