@@ -74,7 +74,6 @@ function ArticleToc({ article, mobile = false }: { article: PublishedWritingArti
 
 export function WritingArticleBody({ article }: { article: PublishedWritingArticle }) {
   const optional = getWritingArticleOptionalContent(article);
-  const category = writingCategories[article.category].label;
   return (
     <article className={styles.articleBody}>
       {article.sections.map((section, sectionIndex) => (
@@ -123,6 +122,7 @@ export function WritingArticleView({
 }) {
   const origin = article.origin;
   const optional = getWritingArticleOptionalContent(article);
+  const category = writingCategories[article.category].label;
   return (
     <main id="main-content" className={styles.articleShell}><div className={styles.articleFrame}>
       <header className={styles.articleHero}>
@@ -141,9 +141,8 @@ export function WritingArticleView({
             <span className={styles.articleMeta}>{article.readingMinutes} min read · {article.audio ? "" : "~"}{article.listenMinutes} min listen</span>
           </div>
         </div>
-        </div>
         <WritingListen article={article} />
-        {article.cover ? <div className="writing-system-article-cover"><ArticleCover article={article} /></div> : null}
+        {article.cover ? <div className={styles.articleCover}><ArticleCover article={article} /></div> : null}
         {optional.thesis ? <aside className={styles.keyIdea}><span className={styles.keyIdeaLabel}>Key idea</span><p>{optional.thesis}</p></aside> : null}
         {optional.evidence.length ? (
           <div className={styles.evidenceGrid} aria-label="Article evidence anchors">
