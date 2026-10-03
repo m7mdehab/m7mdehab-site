@@ -53,7 +53,7 @@ function renderBlock(block: WritingBlock, index: number) {
     case "quote": return <blockquote key={index}><p>{block.text}</p>{block.attribution ? <cite>{block.attribution}</cite> : null}</blockquote>;
     case "image": return <figure key={index}><img src={block.src} alt={block.alt} loading="lazy" />{block.caption ? <figcaption>{block.caption}</figcaption> : null}</figure>;
     case "code": return <pre key={index} data-language={block.language ?? undefined}><code>{block.code}</code></pre>;
-    case "callout": return <aside key={index} className={styles.callout}>{block.title ? <strong>{block.title}</strong> : null}<p>{block.text}</p></aside>;
+    case "callout": return <div key={index} className={styles.callout} role="note">{block.title ? <strong>{block.title}</strong> : null}<p>{block.text}</p></div>;
   }
 }
 
@@ -141,14 +141,14 @@ export function WritingArticleView({
           </div>
         </div>
         <WritingListen article={article} />
-        {optional.thesis ? <aside className={styles.keyIdea}><span className={styles.keyIdeaLabel}>Key idea</span><p>{optional.thesis}</p></aside> : null}
+        {optional.thesis ? <div className={styles.keyIdea} role="note"><span className={styles.keyIdeaLabel}>Key idea</span><p>{optional.thesis}</p></div> : null}
         {optional.evidence.length ? (
           <div className={styles.evidenceGrid} aria-label="Article evidence anchors">
             {optional.evidence.map((item) => <div key={item.label} className={styles.evidenceCard}><p className={styles.evidenceLabel}>{item.label}</p><p className={styles.evidenceValue}><bdi>{item.value}</bdi></p><p className={styles.evidenceDetail}>{item.detail}</p></div>)}
           </div>
         ) : null}
       </header>
-      <div className={styles.readingLayout}><div className={styles.readingMain}><ArticleToc article={article} mobile /><WritingArticleBody article={article} /></div><aside className={styles.tocRail}><ArticleToc article={article} /></aside></div>
+      <div className={styles.readingLayout}><div className={styles.readingMain}><ArticleToc article={article} mobile /><WritingArticleBody article={article} /></div><div className={styles.tocRail}><ArticleToc article={article} /></div></div>
       {relatedArticles.length ? <section className={styles.relatedWriting} aria-labelledby="related-writing-title"><div className={styles.relatedHead}><p className={styles.sectionEyebrow}>Keep exploring</p><h2 id="related-writing-title">Related writing.</h2></div><div className={styles.relatedGrid}>{relatedArticles.map((related) => <WritingCard key={related.slug} article={related} context="related" />)}</div></section> : null}
       <footer className={styles.articleEnd}>
         <div>{origin.kind === "project" && origin.disclosure ? <p>{origin.disclosure}</p> : null}</div>
