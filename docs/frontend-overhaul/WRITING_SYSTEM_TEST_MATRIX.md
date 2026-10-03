@@ -9,7 +9,7 @@
 - current ranks are 1/2/3;
 - current slugs remain unchanged;
 - current cardDescriptions are <= 140 characters;
-- current listenMinutes are 8;
+- current listenMinutes are 8 and every published article requires listenMinutes;
 - real audio metadata, when present, has src/mimeType/positive duration.
 
 ### Independent-post contract
@@ -48,6 +48,7 @@ At 1024:
 At 390:
 
 - computed grid columns = 1;
+- every .writing-system-excerpt is display:none;
 - all three links visible;
 - no horizontal overflow;
 - 16:9 cover ratio within tolerance;
@@ -86,7 +87,7 @@ For each current article:
 - related project link preserved;
 - no Arabic alternate;
 - reading time remains present;
-- configured listen time remains present.
+- required listen time remains present.
 
 Independent fixture:
 
