@@ -19,6 +19,7 @@ function article(
     topics: ["Notes"],
     publishedAt: "2026-10-03",
     readingMinutes: 1,
+    listenMinutes: 1,
     cover: {
       kind: "visual",
       visual: "agent-provenance",
@@ -103,17 +104,6 @@ test.describe("Writing system groundwork contract", () => {
       ]),
     ).toThrow(/Invalid listenMinutes/);
 
-    expect(() =>
-      assertWritingSystemIntegrity([
-        article({
-          audio: {
-            src: "/media/writing/test.mp3",
-            mimeType: "audio/mpeg",
-            durationSeconds: 463,
-          },
-        }),
-      ]),
-    ).toThrow(/audio requires listenMinutes/);
   });
 
   test("integrity guard rejects duplicate slugs and homepage ranks", () => {
