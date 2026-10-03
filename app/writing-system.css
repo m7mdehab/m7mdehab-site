@@ -58,6 +58,61 @@
   outline: none;
 }
 
+.writing-system-cover-frame {
+  position: relative;
+  min-width: 0;
+  border-radius: 14px;
+}
+
+.writing-system-cover-frame::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  height: 42%;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 9, 9, 0),
+    rgba(7, 9, 9, .2) 34%,
+    rgba(7, 9, 9, .76) 100%
+  );
+  pointer-events: none;
+}
+
+.writing-system-cover-meta {
+  position: absolute;
+  z-index: 4;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  color: #f4f5f1;
+  font-size: 9px;
+  font-weight: 760;
+  line-height: 1.25;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .48);
+  pointer-events: none;
+}
+
+.writing-system-cover-meta span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.writing-system-cover-meta span:last-child {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  text-align: right;
+}
+
 .writing-system-cover {
   position: relative;
   overflow: hidden;
@@ -414,6 +469,48 @@
 
 .writing-system-article-head > .writing-system-cover {
   margin-top: 42px;
+}
+
+.writing-system-listen {
+  max-width: 760px;
+  margin-top: 30px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .18);
+}
+
+.writing-system-listen-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.writing-system-listen-head > div {
+  display: grid;
+  gap: 3px;
+}
+
+.writing-system-listen strong {
+  font-size: 13px;
+}
+
+.writing-system-listen span,
+.writing-system-listen > p {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.writing-system-listen audio {
+  width: 100%;
+  height: 38px;
+  display: block;
+}
+
+.writing-system-listen > p {
+  margin: 9px 0 0;
 }
 
 .writing-system-article-thesis {
