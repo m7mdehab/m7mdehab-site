@@ -82,6 +82,7 @@ jobs:
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.production.jsonc
 
       - name: Purge custom-domain cache after deployment
+        continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -151,6 +152,31 @@ jobs:
           }
 
           assert_stable_status "/" "200" "Production root"
+
+          # A Workers custom-domain deploy can become reachable before every edge
+          # serves the new HTML. Require the release-specific homepage marker to
+          # converge before browser QA so stale HTML cannot produce false failures.
+          homepage_marker='Have a question or idea?'
+          marker_ready=0
+          for attempt in {1..45}; do
+            curl --fail --silent --show-error --location \
+              --header 'Cache-Control: no-cache' \
+              --header 'Pragma: no-cache' \
+              --output /tmp/prod-home-convergence.html \
+              "$PROD_BASE_URL/?release=$GITHUB_SHA&attempt=$attempt"
+            if grep -Fq "$homepage_marker" /tmp/prod-home-convergence.html; then
+              marker_ready=1
+              echo "Production homepage marker converged on attempt $attempt."
+              break
+            fi
+            echo "Production homepage still serving pre-release HTML on attempt $attempt."
+            sleep 4
+          done
+          if [ "$marker_ready" -ne 1 ]; then
+            echo "Production homepage did not converge to release $GITHUB_SHA." >&2
+            exit 1
+          fi
+
           curl --fail --silent --show-error --location --dump-header /tmp/prod-headers.txt --output /tmp/prod-home.html "$PROD_BASE_URL/"
           tr -d '\r' < /tmp/prod-headers.txt > artifacts/production-verification/home-headers.txt
           cp /tmp/prod-home.html artifacts/production-verification/home.html
