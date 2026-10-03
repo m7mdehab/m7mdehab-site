@@ -25,25 +25,31 @@ This packet supersedes the old Phase G assumption that Home must show exactly tw
 
 Home heading:
 
-**Writing.**
+**What I’m thinking through.**
 
 Home supporting copy:
 
-**Notes on AI, technology, work, projects, and whatever else I’m thinking through.**
+**None.** The heading already carries the section’s meaning.
 
 Home CTA:
 
-**All writing**
+**All writing** — positioned at the **bottom-right after the grid**, never in the header.
+
+`/writing` eyebrow:
+
+**Writing**
 
 `/writing` H1:
 
-**Writing.**
+**What I’m thinking through.**
 
 `/writing` lede:
 
-**Notes on AI, technology, work, projects, and whatever else I’m thinking through.**
+**None.**
 
 “What the Work Taught Me” survives only as an optional series name.
+
+These v1.1 copy/layout decisions supersede the earlier v1.0 “Writing.” + explanatory lede treatment.
 
 ## 2. Editorial model
 
@@ -119,9 +125,10 @@ The card is a premium editorial / thumbnail-led unit, not a SaaS box.
 Anatomy:
 
 1. 16:9 cover;
-2. compact metadata;
-3. restrained Newsreader title;
-4. short muted excerpt.
+2. category/topic metadata at the **bottom-left inside the cover**;
+3. read/listen timing at the **bottom-right inside the cover**;
+4. restrained Newsreader title — **hard maximum two visual lines**;
+5. concise muted card description — **hard maximum two visual lines**.
 
 Outer card:
 
@@ -142,17 +149,21 @@ Cover:
 
 Title target:
 
-- roughly 26–34px desktop;
+- roughly 25–32px desktop;
 - line-height about 1.02–1.07;
-- Home visual clamp target 2–3 lines;
-- full title remains in semantic DOM.
+- **two lines maximum under every viewport condition**;
+- use standard `line-clamp: 2` plus the WebKit compatibility pattern;
+- full title remains in semantic DOM;
+- do not manually shorten or hard-break titles merely to fit.
 
 Excerpt:
 
-- 13–14px Manrope;
+- keep for now while the inventory is small;
+- use optional `cardDescription` so card copy can stay concise without weakening canonical metadata;
+- 12.5–13px Manrope;
 - muted;
-- line-height roughly 1.55–1.62;
-- Home visual clamp target 2–3 lines.
+- line-height roughly 1.55;
+- **two lines maximum**.
 
 Hover/focus:
 
@@ -177,7 +188,7 @@ Use actual `projectVisuals.presaira.reliability` data:
 - guide lines;
 - calibration reference diagonal;
 - observed calibration curve;
-- tiny `FORECAST / CALIBRATION` label;
+- **no top taxonomy label**;
 - no dashboard chrome or KPI-pill wall.
 
 ### Oil spill — `oil-sar`
@@ -185,8 +196,9 @@ Use actual `projectVisuals.presaira.reliability` data:
 Use the real public-safe Wakashio/Sentinel-1 case-study image:
 
 - meaningful crop;
+- crop/scale enough to suppress the baked-in source header at the extreme top;
 - restrained overlay;
-- tiny `SAR / SEGMENTATION` label;
+- **no duplicate top taxonomy label**;
 - no invented detection boxes or metrics.
 
 ### AI agent — `agent-provenance`
@@ -198,6 +210,7 @@ Create an original public-safe diagram from OpportunityOS public architecture:
 - traceable claim/provenance;
 - authority boundary;
 - graphite + restrained mint;
+- **no duplicate top taxonomy label**;
 - no fake product UI;
 - no private founder/application information.
 
@@ -241,6 +254,9 @@ Generalize `WritingArticle` around:
 - `topics[]`;
 - optional `series`;
 - `readingMinutes`;
+- optional `listenMinutes`;
+- optional real `audio: { src, mimeType, durationSeconds }`;
+- optional concise `cardDescription`;
 - optional `homeRank`;
 - `cover`;
 - `origin: project | independent`;
@@ -282,6 +298,9 @@ Forecast article:
 - publishedAt: 2026-09-11;
 - category: data;
 - topics: Forecasting, Calibration, Evaluation;
+- cardDescription: “A practical test for knowing when a probabilistic forecast deserves trust.”;
+- readingMinutes: 9;
+- listenMinutes: 8 (estimated until real audio exists);
 - series: what-the-work-taught-me;
 - homeRank: 1;
 - cover: forecast-calibration;
@@ -293,6 +312,9 @@ Oil-spill article:
 - publishedAt: 2026-09-11;
 - category: data;
 - topics: Computer vision, Metrics, Validation;
+- cardDescription: “Why rare oil pixels make accuracy a weak headline metric.”;
+- readingMinutes: 8;
+- listenMinutes: 8 (estimated until real audio exists);
 - series: what-the-work-taught-me;
 - homeRank: 2;
 - cover: oil-sar;
@@ -304,6 +326,9 @@ AI-agent article:
 - publishedAt: 2026-09-11;
 - category: ai;
 - topics: AI agents, Provenance, Governance;
+- cardDescription: “How agents should handle missing evidence without inventing certainty.”;
+- readingMinutes: 9;
+- listenMinutes: 8 (estimated until real audio exists);
 - series: what-the-work-taught-me;
 - homeRank: 3;
 - cover: agent-provenance;
@@ -331,11 +356,13 @@ Always render:
 - title;
 - description;
 - publication date;
-- reading time.
+- reading time;
+- listen-time estimate when configured.
 
 Render only when present:
 
 - updated date;
+- a real top-of-article Listen control when `audio` exists;
 - cover;
 - thesis;
 - evidence;
@@ -347,6 +374,17 @@ Render only when present:
 Do not force “What I carry into the next system.” on unrelated writing. Use `takeawaysTitle` or a neutral default such as “Key takeaways.”
 
 The current global project-evidence disclaimer becomes conditional to project-origin writing.
+
+### Audio rule
+
+Prepare the article for audio now, but do not fake availability.
+
+- `listenMinutes` may exist before an audio file and is displayed with a `~` prefix.
+- a Listen player renders only when a real `audio.src` exists;
+- use native `<audio controls preload="metadata">` inside the prepared minimal wrapper;
+- the article text on the same route is the equivalent text representation;
+- do not add browser speech-synthesis as a substitute for authored narration;
+- when real audio exists, expose an `AudioObject` in schema and remove the estimate prefix.
 
 ## 13. SEO / discovery
 
@@ -405,6 +443,11 @@ Reject if:
 - mobile still horizontally swipes Writing;
 - cards look like SaaS features;
 - cards become giant case-study posters;
+- taxonomy/timing sits below the thumbnail instead of inside its bottom edge;
+- any card title visibly exceeds two lines;
+- the redundant explanatory Home lede returns;
+- the All writing CTA returns to the header;
+- a fake/disabled Listen control appears without a real audio source;
 - fake placeholders fill a 3×3;
 - nine Home posts are rendered by default;
 - a non-project post still requires project/evidence fields;
