@@ -12,14 +12,20 @@ async function settle(page: import("@playwright/test").Page) {
   });
 }
 
-async function expectNoHorizontalOverflow(page: import("@playwright/test").Page) {
+async function expectNoHorizontalOverflow(
+  page: import("@playwright/test").Page,
+) {
   const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
   );
   expect(overflow).toBeLessThanOrEqual(1);
 }
 
-async function hideAcceptanceCaptureChrome(page: import("@playwright/test").Page) {
+async function hideAcceptanceCaptureChrome(
+  page: import("@playwright/test").Page,
+) {
   for (const selector of [".site-nav-wrap", ".skip-link"]) {
     const locator = page.locator(selector);
     if (await locator.count()) {
@@ -73,6 +79,7 @@ test.describe("Method story rebuild", () => {
     page,
   }) => {
     await mkdir(screenshotRoot, { recursive: true });
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const response = await page.goto("/");
     expect(response?.ok()).toBeTruthy();
     await settle(page);
@@ -88,6 +95,7 @@ test.describe("Method story rebuild", () => {
 
   test("captures the large-desktop composition", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto("/");
     await settle(page);
@@ -102,6 +110,7 @@ test.describe("Method story rebuild", () => {
 
   test("captures the tablet composition", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 1024, height: 768 });
     await page.goto("/");
     await settle(page);
@@ -128,8 +137,11 @@ test.describe("Method story rebuild", () => {
     ).toEqual([]);
   });
 
-  test("recomposes into a readable vertical story at 390px", async ({ page }) => {
+  test("recomposes into a readable vertical story at 390px", async ({
+    page,
+  }) => {
     await mkdir(screenshotRoot, { recursive: true });
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
@@ -160,5 +172,34 @@ test.describe("Method story rebuild", () => {
     );
     await expect(section.locator("[data-method-stage]")).toHaveCount(5);
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
+  });
+
+  test("normal scrolling resolves every stage and output", async ({ page }) => {
+    await page.goto("/");
+    await settle(page);
+
+    const canvas = page.locator("[data-method-canvas]");
+    await expect(canvas).toHaveAttribute("data-motion-mode", "enhanced");
+    await page.locator("[data-method-story]").evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      window.scrollTo({
+        top: window.scrollY + bounds.bottom - window.innerHeight * 0.28,
+        behavior: "instant",
+      });
+    });
+    await page.waitForTimeout(1400);
+
+    const opacities = await page
+      .locator("[data-method-stage], [data-method-output]")
+      .evaluateAll((elements) =>
+        elements.map((element) =>
+          Number.parseFloat(getComputedStyle(element).opacity),
+        ),
+      );
+    expect(opacities).toHaveLength(10);
+    expect(
+      opacities.every((opacity) => opacity >= 0.99),
+      `Final stage/output opacities: ${JSON.stringify(opacities)}`,
+    ).toBeTruthy();
   });
 });

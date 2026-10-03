@@ -32,7 +32,10 @@ type Progress = MotionValue<number>;
 
 const stageMap = Object.fromEntries(
   METHOD_STORY.stages.map((stage) => [stage.id, stage]),
-) as Record<(typeof METHOD_STORY.stages)[number]["id"], (typeof METHOD_STORY.stages)[number]>;
+) as Record<
+  (typeof METHOD_STORY.stages)[number]["id"],
+  (typeof METHOD_STORY.stages)[number]
+>;
 
 function StageHeader({ id }: { id: keyof typeof stageMap }) {
   const stage = stageMap[id];
@@ -75,15 +78,13 @@ function AnimatedInput({
 }) {
   const x = useTransform(progress, [0, 0.18], [index % 2 ? 14 : -12, 0]);
   const y = useTransform(progress, [0, 0.18], [index % 2 ? -8 : 11, 0]);
-  const rotate = useTransform(
-    progress,
-    [0, 0.18],
-    [index % 2 ? 3 : -3, 0],
-  );
+  const rotate = useTransform(progress, [0, 0.18], [index % 2 ? 3 : -3, 0]);
   const opacity = useTransform(progress, [0, 0.11], [0.42, 1]);
 
   return (
-    <div className={`method-story__input-position method-story__input-position--${index + 1}`}>
+    <div
+      className={`method-story__input-position method-story__input-position--${index + 1}`}
+    >
       <motion.div
         className="method-story__input-card"
         style={enhanced ? { x, y, rotate, opacity } : undefined}
@@ -172,7 +173,11 @@ function BranchPath({
   return (
     <motion.path
       d={d}
-      className={index === 3 ? "method-story__path method-story__path--hot" : "method-story__path"}
+      className={
+        index === 3
+          ? "method-story__path method-story__path--hot"
+          : "method-story__path"
+      }
       style={enhanced ? { pathLength, opacity } : undefined}
     />
   );
@@ -192,12 +197,20 @@ function ConnectorPath({
   hot?: boolean;
 }) {
   const pathLength = useTransform(progress, [...window], [0, 1]);
-  const opacity = useTransform(progress, [...window], [0.16, hot ? 0.95 : 0.58]);
+  const opacity = useTransform(
+    progress,
+    [...window],
+    [0.16, hot ? 0.95 : 0.58],
+  );
 
   return (
     <motion.path
       d={d}
-      className={hot ? "method-story__path method-story__path--hot" : "method-story__path"}
+      className={
+        hot
+          ? "method-story__path method-story__path--hot"
+          : "method-story__path"
+      }
       style={enhanced ? { pathLength, opacity } : undefined}
     />
   );
@@ -295,7 +308,9 @@ export function MethodStoryCanvas() {
       ref={rootRef}
       className="method-story__canvas"
       data-method-canvas
-      data-motion-mode={reducedMotion ? "reduced" : enhanced ? "enhanced" : "static"}
+      data-motion-mode={
+        reducedMotion ? "reduced" : enhanced ? "enhanced" : "static"
+      }
     >
       <svg
         className="method-story__connectors"
@@ -348,8 +363,14 @@ export function MethodStoryCanvas() {
         ))}
       </svg>
 
-      <ol className="method-story__journey" aria-label="From messy reality to reliable outcomes">
-        <li className="method-story__stage method-story__stage--messy" data-method-stage="messy">
+      <ol
+        className="method-story__journey"
+        aria-label="From messy reality to reliable outcomes"
+      >
+        <li
+          className="method-story__stage method-story__stage--messy"
+          data-method-stage="messy"
+        >
           <StageHeader id="messy" />
           <div className="method-story__input-field">
             {METHOD_STORY.inputs.map((input, index) => (
@@ -361,113 +382,146 @@ export function MethodStoryCanvas() {
                 enhanced={enhanced}
               />
             ))}
-            <span className="method-story__noise method-story__noise--1" aria-hidden="true" />
-            <span className="method-story__noise method-story__noise--2" aria-hidden="true" />
-            <span className="method-story__noise method-story__noise--3" aria-hidden="true" />
-            <span className="method-story__noise method-story__noise--4" aria-hidden="true" />
+            <span
+              className="method-story__noise method-story__noise--1"
+              aria-hidden="true"
+            />
+            <span
+              className="method-story__noise method-story__noise--2"
+              aria-hidden="true"
+            />
+            <span
+              className="method-story__noise method-story__noise--3"
+              aria-hidden="true"
+            />
+            <span
+              className="method-story__noise method-story__noise--4"
+              aria-hidden="true"
+            />
           </div>
         </li>
 
-        <motion.li
-          className="method-story__stage method-story__stage--expose"
-          data-method-stage="expose"
-          style={enhanced ? { opacity: exposeOpacity } : undefined}
-        >
-          <StageHeader id="expose" />
-          <div className="method-story__evidence-field">
-            <MethodEvidenceIcon className="method-story__stage-symbol" aria-hidden="true" />
-            <div className="method-story__evidence-stack" aria-hidden="true">
-              {[0, 1, 2, 3, 4].map((index) => (
-                <RevealSheet
-                  key={index}
-                  index={index}
-                  progress={progress}
-                  enhanced={enhanced}
-                />
-              ))}
-            </div>
-            <div className="method-story__evidence-tags">
-              {METHOD_STORY.exposeTags.map((tag, index) => (
-                <RevealTag
-                  key={tag.id}
-                  tag={tag}
-                  index={index}
-                  progress={progress}
-                  enhanced={enhanced}
-                />
-              ))}
-            </div>
-          </div>
-        </motion.li>
-
-        <motion.li
-          className="method-story__stage method-story__stage--reduce"
-          data-method-stage="reduce"
-          style={enhanced ? { opacity: reduceOpacity } : undefined}
-        >
-          <StageHeader id="reduce" />
-          <div className="method-story__decision-field">
-            <svg viewBox="0 0 220 160" aria-hidden="true">
-              {[
-                "M8 24 C60 24 72 80 112 80",
-                "M8 46 C60 46 72 80 112 80",
-                "M8 68 C62 68 74 80 112 80",
-                "M8 90 C62 90 74 80 112 80",
-                "M8 112 C60 112 72 80 112 80",
-                "M8 134 C60 134 72 80 112 80",
-              ].map((d, index) => (
-                <BranchPath
-                  key={d}
-                  d={d}
-                  index={index}
-                  progress={progress}
-                  enhanced={enhanced}
-                />
-              ))}
-              <circle className="method-story__decision-node" cx="112" cy="80" r="5" />
-              <path className="method-story__path method-story__path--hot" d="M117 80H150" />
-            </svg>
-            <motion.div
-              className="method-story__decision-module"
-              style={
-                enhanced
-                  ? { scale: decisionScale, opacity: decisionOpacity }
-                  : undefined
-              }
-              aria-hidden="true"
+        <li className="method-story__transformation">
+          <ol
+            className="method-story__transformation-list"
+            aria-label="Transformation stages"
+          >
+            <motion.li
+              className="method-story__stage method-story__stage--expose"
+              data-method-stage="expose"
+              style={enhanced ? { opacity: exposeOpacity } : undefined}
             >
-              <MethodDecisionIcon />
-              <i className="is-selected" />
-              <i />
-              <i />
-            </motion.div>
-          </div>
-        </motion.li>
-
-        <motion.li
-          className="method-story__stage method-story__stage--build"
-          data-method-stage="build"
-          style={enhanced ? { opacity: buildOpacity } : undefined}
-        >
-          <StageHeader id="build" />
-          <div className="method-story__build-field">
-            <div className="method-story__system-stack">
-              {[0, 1, 2].map((index) => (
-                <BuildLayer
-                  key={index}
-                  index={index}
-                  progress={progress}
-                  enhanced={enhanced}
+              <StageHeader id="expose" />
+              <div className="method-story__evidence-field">
+                <MethodEvidenceIcon
+                  className="method-story__stage-symbol"
+                  aria-hidden="true"
                 />
-              ))}
-            </div>
-            <span className="method-story__system-bus" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-          </div>
-        </motion.li>
+                <div
+                  className="method-story__evidence-stack"
+                  aria-hidden="true"
+                >
+                  {[0, 1, 2, 3, 4].map((index) => (
+                    <RevealSheet
+                      key={index}
+                      index={index}
+                      progress={progress}
+                      enhanced={enhanced}
+                    />
+                  ))}
+                </div>
+                <div className="method-story__evidence-tags">
+                  {METHOD_STORY.exposeTags.map((tag, index) => (
+                    <RevealTag
+                      key={tag.id}
+                      tag={tag}
+                      index={index}
+                      progress={progress}
+                      enhanced={enhanced}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.li>
+
+            <motion.li
+              className="method-story__stage method-story__stage--reduce"
+              data-method-stage="reduce"
+              style={enhanced ? { opacity: reduceOpacity } : undefined}
+            >
+              <StageHeader id="reduce" />
+              <div className="method-story__decision-field">
+                <svg viewBox="0 0 220 160" aria-hidden="true">
+                  {[
+                    "M8 24 C60 24 72 80 112 80",
+                    "M8 46 C60 46 72 80 112 80",
+                    "M8 68 C62 68 74 80 112 80",
+                    "M8 90 C62 90 74 80 112 80",
+                    "M8 112 C60 112 72 80 112 80",
+                    "M8 134 C60 134 72 80 112 80",
+                  ].map((d, index) => (
+                    <BranchPath
+                      key={d}
+                      d={d}
+                      index={index}
+                      progress={progress}
+                      enhanced={enhanced}
+                    />
+                  ))}
+                  <circle
+                    className="method-story__decision-node"
+                    cx="112"
+                    cy="80"
+                    r="5"
+                  />
+                  <path
+                    className="method-story__path method-story__path--hot"
+                    d="M117 80H150"
+                  />
+                </svg>
+                <motion.div
+                  className="method-story__decision-module"
+                  style={
+                    enhanced
+                      ? { scale: decisionScale, opacity: decisionOpacity }
+                      : undefined
+                  }
+                  aria-hidden="true"
+                >
+                  <MethodDecisionIcon />
+                  <i className="is-selected" />
+                  <i />
+                  <i />
+                </motion.div>
+              </div>
+            </motion.li>
+
+            <motion.li
+              className="method-story__stage method-story__stage--build"
+              data-method-stage="build"
+              style={enhanced ? { opacity: buildOpacity } : undefined}
+            >
+              <StageHeader id="build" />
+              <div className="method-story__build-field">
+                <div className="method-story__system-stack">
+                  {[0, 1, 2].map((index) => (
+                    <BuildLayer
+                      key={index}
+                      index={index}
+                      progress={progress}
+                      enhanced={enhanced}
+                    />
+                  ))}
+                </div>
+                <span className="method-story__system-bus" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+              </div>
+            </motion.li>
+          </ol>
+        </li>
 
         <motion.li
           className="method-story__stage method-story__stage--outcomes"

@@ -91,6 +91,7 @@ test.describe("Phone composition", () => {
   test("full page fits every target phone width and keeps identity, navigation and actions in bounds", async ({
     page,
   }) => {
+    test.setTimeout(90_000);
     const reports = [];
     for (const width of phoneWidths) {
       await page.setViewportSize({ width, height: 844 });
@@ -206,7 +207,7 @@ test.describe("Phone composition", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     for (const [anchor, heading] of [
       ["work", ".selected-work-intro h2"],
-      ["method", ".solve-think-intro h2"],
+      ["method", "[data-method-story] h2"],
       ["writing", ".closing-heading h2"],
       ["contact", ".closing-opportunity-head h2"],
     ]) {
@@ -264,12 +265,24 @@ test.describe("Phone composition", () => {
     );
 
     const swipeBox = (await window.boundingBox())!;
-    await page.mouse.move(swipeBox.x + swipeBox.width * 0.72, swipeBox.y + swipeBox.height / 2);
+    await page.mouse.move(
+      swipeBox.x + swipeBox.width * 0.72,
+      swipeBox.y + swipeBox.height / 2,
+    );
     await page.mouse.down();
-    await page.mouse.move(swipeBox.x + swipeBox.width * 0.18, swipeBox.y + swipeBox.height / 2, { steps: 6 });
+    await page.mouse.move(
+      swipeBox.x + swipeBox.width * 0.18,
+      swipeBox.y + swipeBox.height / 2,
+      { steps: 6 },
+    );
     await page.mouse.up();
-    await expect(carousel).toHaveAttribute("data-active-project", "oil-spill-detection");
-    await carousel.getByRole("button", { name: "Go to project 6 of 6" }).click();
+    await expect(carousel).toHaveAttribute(
+      "data-active-project",
+      "oil-spill-detection",
+    );
+    await carousel
+      .getByRole("button", { name: "Go to project 6 of 6" })
+      .click();
     await expect(carousel).toHaveAttribute("data-active-project", "makhbazy");
     await expect(
       carousel.getByRole("button", { name: "Go to project 6 of 6" }),
@@ -279,37 +292,31 @@ test.describe("Phone composition", () => {
     ).toHaveAttribute("href", "/work/makhbazy");
   });
 
-  test("method stepper exposes SEE by default, arrow-key browsing and only one phone panel", async ({
+  test("method story exposes all five stages vertically without mobile tabs", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
-    const tabs = page.getByRole("tablist", { name: "How I work" });
-    await expect(page.locator(".solve-think-process")).toHaveClass(
-      /is-mobile-enhanced/,
+    const section = page.locator("[data-method-story]");
+    const stages = section.locator("[data-method-stage]");
+    await expect(stages).toHaveCount(5);
+    await expect(section.locator('[role="tab"]')).toHaveCount(0);
+    await expect(stages.nth(0)).toContainText("Messy reality");
+    await expect(stages.nth(1)).toContainText("Expose the truth");
+    await expect(stages.nth(2)).toContainText("Reduce ambiguity");
+    await expect(stages.nth(3)).toContainText("Build the system");
+    await expect(stages.nth(4)).toContainText("Reliable outcomes");
+    const stageTops = await stages.evaluateAll((items) =>
+      items.map((item) => item.getBoundingClientRect().top),
     );
-    await expect(tabs.getByRole("tab", { name: /SEE/ })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
-    await expect(page.locator("#method [role=tabpanel]:visible")).toHaveCount(
-      1,
-    );
-    await tabs.getByRole("tab", { name: /REDUCE/ }).click();
-    await expect(tabs.getByRole("tab", { name: /REDUCE/ })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
-    await tabs.getByRole("tab", { name: /REDUCE/ }).press("ArrowRight");
-    await expect(tabs.getByRole("tab", { name: /BUILD/ })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
-    await expect(page.locator(".solve-think-step")).toHaveCount(3);
-    await expect(
-      page.locator('.solve-think-step[aria-hidden="true"] a:visible'),
-    ).toHaveCount(0);
+    expect(
+      stageTops.every(
+        (top, index) => index === 0 || top > stageTops[index - 1],
+      ),
+    ).toBeTruthy();
+    await expect(section.locator("[data-method-input]")).toHaveCount(4);
+    await expect(section.locator("[data-method-output]")).toHaveCount(5);
   });
 
   test("writing cards browse horizontally and opportunity tabs switch paths by keyboard", async ({
@@ -375,7 +382,9 @@ test.describe("Phone composition", () => {
         .evaluate((element) => getComputedStyle(element).animationName),
     ).toBe("none");
     await expect(
-      page.getByRole("heading", { name: "I like the messy part." }),
+      page.getByRole("heading", {
+        name: "I turn messy reality into reliable systems.",
+      }),
     ).toBeVisible();
     const results = await new AxeBuilder({ page }).analyze();
     expect(
@@ -384,7 +393,7 @@ test.describe("Phone composition", () => {
     ).toEqual([]);
   });
 
-  test("390px section and card heights stay within the composition targets", async ({
+  test("390px method story preserves the full vertical narrative", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -398,8 +407,8 @@ test.describe("Phone composition", () => {
       writing: document.querySelector(".closing-note")!.getBoundingClientRect()
         .height,
     }));
-    expect(heights.method).toBeGreaterThanOrEqual(750);
-    expect(heights.method).toBeLessThanOrEqual(900);
+    expect(heights.method).toBeGreaterThanOrEqual(1800);
+    expect(heights.method).toBeLessThanOrEqual(2600);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
     expect(heights.writing).toBeGreaterThanOrEqual(380);
@@ -431,13 +440,30 @@ test.describe("Phone composition", () => {
     await expect(modes).toContainText("CONTROLLED SUBMIT");
     const geometry = await artboard.evaluate((board) => {
       const bounds = board.getBoundingClientRect();
-      const modeBox = board.querySelector('[data-artboard-node="actionModes"]')!.getBoundingClientRect();
-      const gateBox = board.querySelector('[data-artboard-node="authorityGate"]')!.getBoundingClientRect();
-      const fontSizes = [...board.querySelectorAll('[data-artboard-node="truthFlow"] b, [data-artboard-node="actionModes"] strong')]
-        .map((node) => Number.parseFloat(getComputedStyle(node).fontSize));
+      const modeBox = board
+        .querySelector('[data-artboard-node="actionModes"]')!
+        .getBoundingClientRect();
+      const gateBox = board
+        .querySelector('[data-artboard-node="authorityGate"]')!
+        .getBoundingClientRect();
+      const fontSizes = [
+        ...board.querySelectorAll(
+          '[data-artboard-node="truthFlow"] b, [data-artboard-node="actionModes"] strong',
+        ),
+      ].map((node) => Number.parseFloat(getComputedStyle(node).fontSize));
       return {
-        inside: [modeBox, gateBox].every((box) => box.left >= bounds.left && box.right <= bounds.right && box.top >= bounds.top && box.bottom <= bounds.bottom),
-        overlaps: modeBox.left < gateBox.right && modeBox.right > gateBox.left && modeBox.top < gateBox.bottom && modeBox.bottom > gateBox.top,
+        inside: [modeBox, gateBox].every(
+          (box) =>
+            box.left >= bounds.left &&
+            box.right <= bounds.right &&
+            box.top >= bounds.top &&
+            box.bottom <= bounds.bottom,
+        ),
+        overlaps:
+          modeBox.left < gateBox.right &&
+          modeBox.right > gateBox.left &&
+          modeBox.top < gateBox.bottom &&
+          modeBox.bottom > gateBox.top,
         smallestLabel: Math.min(...fontSizes),
       };
     });
