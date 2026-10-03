@@ -389,7 +389,7 @@
 
 @media (max-width: 719px) {
   .writing-system-shell {
-    width: calc(100% - 36px);
+    width: calc(100% - 24px);
   }
 
   .writing-system-home {
@@ -414,8 +414,9 @@
   .writing-system-archive-subtitle {
     margin-top: 7px;
     overflow: hidden;
-    font-size: clamp(10px, 2.85vw, 11.5px);
+    font-size: clamp(7.75px, 2.35vw, 11.5px);
     line-height: 1.3;
+    letter-spacing: -.025em;
     text-overflow: clip;
     white-space: nowrap;
   }
