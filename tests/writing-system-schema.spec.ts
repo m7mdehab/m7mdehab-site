@@ -43,6 +43,7 @@ test.describe("Writing system schema scaffold", () => {
     expect(schema).not.toHaveProperty("about");
     expect(schema).not.toHaveProperty("citation");
     expect(schema).not.toHaveProperty("image");
+    expect(schema).not.toHaveProperty("audio");
     expect(schema).not.toHaveProperty("dateModified");
   });
 
@@ -56,6 +57,12 @@ test.describe("Writing system schema scaffold", () => {
           kind: "image",
           src: "https://m7mdehab.com/media/example.webp",
           alt: "Example.",
+        },
+        listenMinutes: 8,
+        audio: {
+          src: "https://m7mdehab.com/media/writing/project-note.mp3",
+          mimeType: "audio/mpeg",
+          durationSeconds: 463,
         },
         sources: [
           {
@@ -78,6 +85,13 @@ test.describe("Writing system schema scaffold", () => {
 
     expect(schema.dateModified).toBe("2026-10-04");
     expect(schema.image).toBe("https://m7mdehab.com/media/example.webp");
+    expect(schema.audio).toEqual({
+      "@type": "AudioObject",
+      contentUrl: "https://m7mdehab.com/media/writing/project-note.mp3",
+      encodingFormat: "audio/mpeg",
+      duration: "PT463S",
+      caption: "Audio narration of this article",
+    });
     expect(schema.citation).toEqual(["https://example.com/evidence"]);
     expect(schema.about).toEqual([
       {
