@@ -74,22 +74,30 @@ For this chapter:
 
 ## Current writing-system rebuild
 
-The English Writing system is under an explicit design/architecture-locked rebuild. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering or writing discovery/schema, read:
+Writing v1.2 is the current design/implementation authority. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering, audio, or writing discovery/schema, read in this order:
 
-- `docs/frontend-overhaul/WRITING_SYSTEM_EXECUTION_PACKET.md`;
-- `docs/frontend-overhaul/WRITING_SYSTEM_INTEGRATION_PATCH.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_V12_EXECUTION_PROMPT.md`;
+- `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`;
+- `design/writing-system/writing-system.spec.json`;
+- `design/writing-system/WRITING_SYSTEM_BLUEPRINT.html`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`;
-- `docs/frontend-overhaul/WRITING_SYSTEM_SEO_AI_CONTRACT.md`;
-- `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`;
-- `design/writing-system/writing-system.spec.json`.
+- `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`.
+
+Older Writing execution/integration documents remain historical architecture context only. Where they conflict with v1.2, v1.2 wins.
 
 For Writing:
-- the public umbrella is **Writing**, not “What the Work Taught Me”;
+- the route/nav taxonomy remains **Writing**; the visible Home/archive heading is **What I’m thinking through.**;
 - “What the Work Taught Me” is only an optional series for work-derived essays;
-- Home uses a non-carousel 3/2/1 editorial card grid with up to six explicitly curated posts;
+- Home uses a non-carousel 3/2/1 editorial grid with up to six explicitly curated posts;
+- card taxonomy sits inside the cover bottom-left;
+- read + listen time sit inside the cover bottom-right;
+- card titles are hard-capped at two visual lines;
+- concise card descriptions are capped at two lines on desktop/tablet and hidden below 720px;
+- every article has `readingMinutes` and `listenMinutes`; a real `audio` asset is optional;
+- never render a fake/disabled audio player; real audio uses native controls and never autoplays;
 - project relation, evidence, sources, takeaways and thesis are optional;
 - a future independent personal post must not require component/schema redesign;
-- default article schema is `BlogPosting`;
+- default article schema is `BlogPosting`, with `AudioObject` only when real narration exists;
 - drafts must not leak to routes, sitemap, JSON, discovery or Home;
 - preserve the current three article URLs and governed evidence claims;
 - keep Writing semantic/server-readable without JavaScript;
