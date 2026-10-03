@@ -122,3 +122,7 @@ Phase G is acceptable only if:
 9. rendered desktop/mobile captures are inspected before merge.
 
 Phase G does **not** yet remove Experience, Credentials or Additional Experience from Home; those move in Phase H when `/about` is built, avoiding a temporary loss of human-readable chronology.
+
+## Writing-system supersession — 2026-10-03
+
+The historical two-essay Writing preview above is superseded by the accepted Writing System Rebuild. Home now places a standalone `HomeWriting` section between Method and `HomeClosing`; it presents all three published articles in a non-carousel 3/2/1 grid, with up to six posts selected by `homeRank`. Writing is a broad personal publishing surface. Project-derived evidence essays are one optional series. `HomeClosing` contains Opportunity and Footer only. The current locked contract and visual acceptance record live in `docs/frontend-overhaul/WRITING_SYSTEM_EXECUTION_PACKET.md` and `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`.

@@ -14,7 +14,7 @@ async function assertNoHorizontalOverflow(page: import("@playwright/test").Page,
   expect(widths.documentWidth, `${route} horizontal overflow`).toBeLessThanOrEqual(widths.viewportWidth + 1);
 }
 
-test.describe("Iteration 12 evidence-backed authority writing", () => {
+test.describe("Writing publication authority", () => {
   test("writing hub and every essay self-canonicalize without Arabic alternates", async ({ page }) => {
     await page.goto("/writing");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${domain}/writing`);
@@ -31,14 +31,14 @@ test.describe("Iteration 12 evidence-backed authority writing", () => {
     expect((await page.goto("/ar/writing"))?.status()).toBe(404);
   });
 
-  test("authority essays expose substantive TechArticle schema, project provenance and inspectable sources", async ({ page }) => {
+  test("published essays expose BlogPosting schema, project provenance and inspectable sources", async ({ page }) => {
     for (const slug of slugs) {
       await page.goto(`/writing/${slug}`);
       const schema = await page.locator('script[type="application/ld+json"]').last().evaluate((node) => JSON.parse(node.textContent ?? "{}"));
-      expect(schema["@type"]).toBe("TechArticle");
+      expect(schema["@type"]).toBe("BlogPosting");
       expect(schema.author.name).toBe("Mohammed Ehab ElNomany");
       expect(schema.url).toBe(`${domain}/writing/${slug}`);
-      expect(schema.dateCreated).toBe("2026-09-11");
+      expect(schema.datePublished).toBe("2026-09-11");
       expect(schema.citation.length).toBeGreaterThanOrEqual(3);
       expect(await page.locator("article section").count()).toBeGreaterThanOrEqual(9);
       await expect(page.locator('[data-authority-link="article-to-project"]')).toHaveCount(1);
@@ -49,8 +49,9 @@ test.describe("Iteration 12 evidence-backed authority writing", () => {
   test("English Home promotes the evidence-backed writing signal", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator(".site-nav-wrap").getByRole("link", { name: "Writing", exact: true })).toHaveAttribute("href", "/writing");
-    await expect(page.locator('#writing [data-authority-link="article"]')).toHaveCount(2);
+    await expect(page.locator("#writing [data-writing-card]")).toHaveCount(3);
     await expect(page.locator('#writing a[href="/writing/when-to-trust-a-probabilistic-forecast"]')).toBeVisible();
+    await expect(page.locator('#writing a[href="/writing"]')).toContainText("All writing");
     await expect(page.locator('a[href="/ar/writing"]')).toHaveCount(0);
   });
 

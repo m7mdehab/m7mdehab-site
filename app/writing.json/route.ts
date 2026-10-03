@@ -1,30 +1,41 @@
-import { profile } from "@/data/public";
-import { writingArticles } from "@/data/writing";
+import { profile, projects } from "@/data/public";
+import { publishedWritingArticles } from "@/data/writing";
+import { projectVisuals } from "@/data/project-visuals";
 
 export const dynamic = "force-static";
 
+function stableCoverImage(article: (typeof publishedWritingArticles)[number]) {
+  if (article.cover.kind === "image") return article.cover.src;
+  if (article.cover.visual === "oil-sar") return projectVisuals["oil-spill-detection"].image;
+  return undefined;
+}
+
 export function GET() {
-  const records = writingArticles.map((article) => ({
+  const records = publishedWritingArticles.map((article) => {
+    const origin = article.origin;
+    const coverImage = stableCoverImage(article);
+    return ({
     slug: article.slug,
     title: article.title,
     description: article.description,
-    topic: article.topic,
-    createdAt: article.createdAt,
+    category: article.category,
+    topics: article.topics,
+    series: article.series ?? null,
+    publishedAt: article.publishedAt,
+    updatedAt: article.updatedAt ?? null,
     readingMinutes: article.readingMinutes,
     url: `${profile.domain}/writing/${article.slug}`,
-    alternateLanguageUrl: `${profile.domain}/ar/writing/${article.slug}`,
-    project: {
-      slug: article.projectSlug,
-      title: article.projectTitle,
-      caseStudyUrl: `${profile.domain}/work/${article.projectSlug}`,
-    },
-    evidence: article.evidence,
-    sourceLinks: article.sources.map((source) => ({
+    relatedProjects: origin.kind === "project"
+      ? projects.flatMap((project) => project.slug === origin.projectSlug ? [{ slug: project.slug, title: project.title, caseStudyUrl: `${profile.domain}/work/${project.slug}` }] : [])
+      : [],
+    sourceLinks: (article.sources ?? []).map((source) => ({
       label: source.label,
       url: source.href,
       kind: source.kind,
     })),
-  }));
+    ...(coverImage ? { coverImage } : {}),
+  });
+  });
 
   return Response.json(records);
 }

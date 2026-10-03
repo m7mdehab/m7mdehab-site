@@ -80,6 +80,9 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const writing = await writingResponse.json();
     expect(writing.map((article: { slug: string }) => article.slug)).toEqual(writingSlugs);
     expect(writing.every((article: { url: string }) => article.url.startsWith(`${domain}/writing/`))).toBeTruthy();
+    expect(writing.every((article: { category: string; topics: string[]; relatedProjects: unknown[]; publishedAt: string }) => Boolean(article.category && article.topics.length && article.publishedAt) && Array.isArray(article.relatedProjects))).toBeTruthy();
+    expect(JSON.stringify(writing)).not.toContain("alternateLanguageUrl");
+    expect(JSON.stringify(writing)).not.toContain('"project":');
   });
 
   test("LLM discovery surface carries service proof, writing and interpretation boundaries", async ({ request }) => {
@@ -93,6 +96,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     expect(body).toContain(`${domain}/services.json`);
     expect(body).toContain(`${domain}/writing.json`);
     expect(body).not.toContain(`${domain}/ar`);
+    expect(body).not.toContain("Derived from:");
   });
 
   test("sitemap contains only the 14 canonical English HTML routes", async ({ request }) => {
