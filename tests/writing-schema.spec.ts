@@ -8,6 +8,7 @@ function fixture(overrides: Partial<PublishedWritingArticle> = {}): PublishedWri
     title: "Independent audio note",
     description: "Fixture only.",
     cardDescription: "Fixture only.",
+    format: "note",
     status: "published",
     publishedAt: "2026-10-03",
     category: "notes",
