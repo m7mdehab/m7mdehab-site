@@ -89,6 +89,11 @@ For each current article:
 - reading time remains present;
 - required listen time remains present.
 
+Audio fixture:
+
+- no audio: timing contains `~` and Listen block is absent;
+- real audio: timing loses `~`, Listen block exists, source/mime/accessible label are correct.
+
 Independent fixture:
 
 - project link absent;
@@ -106,6 +111,8 @@ Independent fixture:
 - exposes real audio metadata only when an asset actually exists;
 - contains no `/ar`;
 - contains category/topics;
+- contains readingMinutes/listenMinutes;
+- audio URL is absent until a real asset exists;
 - uses `relatedProjects[]`;
 - canonical URLs correct.
 
