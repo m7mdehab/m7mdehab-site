@@ -163,6 +163,23 @@ test.describe("Phone composition", () => {
         new Set(opportunityRows).size,
         `${width}px opportunity CTA row`,
       ).toBe(1);
+      const opportunityCenters = await opportunityCtas.evaluateAll((items) =>
+        items.map((item) => {
+          const box = item.getBoundingClientRect();
+          return box.left + box.width / 2;
+        }),
+      );
+      const centerGaps = opportunityCenters
+        .slice(1)
+        .map((center, index) => center - opportunityCenters[index]);
+      expect(
+        Math.max(...centerGaps) - Math.min(...centerGaps),
+        `${width}px opportunity CTA spacing remains even`,
+      ).toBeLessThanOrEqual(3);
+      expect(
+        Math.max(...centerGaps),
+        `${width}px opportunity CTAs stay visually grouped`,
+      ).toBeLessThanOrEqual(105);
 
       const closingHeading = await page
         .locator(".closing-opportunity-head h2")
@@ -170,23 +187,20 @@ test.describe("Phone composition", () => {
           const node = element as HTMLElement;
           const style = getComputedStyle(node);
           return {
+            client: node.clientWidth,
+            scroll: node.scrollWidth,
             height: node.getBoundingClientRect().height,
             lineHeight: Number.parseFloat(style.lineHeight),
-            spanRows: new Set(
-              Array.from(node.querySelectorAll("span")).map((span) =>
-                Math.round(span.getBoundingClientRect().top),
-              ),
-            ).size,
           };
         });
       expect(
-        closingHeading.height,
-        `${width}px closing heading stays within two lines`,
-      ).toBeLessThanOrEqual(closingHeading.lineHeight * 2 + 2);
+        closingHeading.scroll,
+        `${width}px closing heading stays on one horizontal line`,
+      ).toBeLessThanOrEqual(closingHeading.client + 1);
       expect(
-        closingHeading.spanRows,
-        `${width}px closing heading uses exactly two visual rows`,
-      ).toBe(2);
+        closingHeading.height,
+        `${width}px closing heading stays on one visual line`,
+      ).toBeLessThanOrEqual(closingHeading.lineHeight + 2);
 
       const actionChrome = await opportunityCtas.evaluateAll((items) =>
         items.map((item) => {
@@ -215,14 +229,36 @@ test.describe("Phone composition", () => {
         const footerBox = footer.getBoundingClientRect();
         const copyBox = copy.getBoundingClientRect();
         const iconBox = icons.getBoundingClientRect();
+        const copyStyle = getComputedStyle(copy);
         return {
           copyLeft: copyBox.left,
+          copyHeight: copyBox.height,
+          copyLineHeight: Number.parseFloat(copyStyle.lineHeight),
+          copyClient: copy.clientWidth,
+          copyScroll: copy.scrollWidth,
           iconLeft: iconBox.left,
           iconRightGap: footerBox.right - iconBox.right,
         };
       });
       expect(footerAlignment.iconLeft).toBeGreaterThan(footerAlignment.copyLeft);
       expect(footerAlignment.iconRightGap).toBeLessThan(width * 0.14);
+      expect(footerAlignment.copyScroll).toBeLessThanOrEqual(footerAlignment.copyClient + 1);
+      expect(footerAlignment.copyHeight).toBeLessThanOrEqual(footerAlignment.copyLineHeight + 2);
+
+      const activeOpportunityTitle = await page
+        .locator(".closing-path.is-active h3")
+        .evaluate((element) => {
+          const node = element as HTMLElement;
+          const style = getComputedStyle(node);
+          return {
+            client: node.clientWidth,
+            scroll: node.scrollWidth,
+            height: node.getBoundingClientRect().height,
+            lineHeight: Number.parseFloat(style.lineHeight),
+          };
+        });
+      expect(activeOpportunityTitle.scroll).toBeLessThanOrEqual(activeOpportunityTitle.client + 1);
+      expect(activeOpportunityTitle.height).toBeLessThanOrEqual(activeOpportunityTitle.lineHeight + 2);
 
       const title = page.getByRole("heading", { level: 1 });
       await expect(title).toContainText("Mohammed Ehab");
@@ -571,10 +607,45 @@ test.describe("Phone composition", () => {
           fullPage: true,
         });
       }
-      if (viewport.width >= 1440)
+      if (viewport.width >= 1440) {
         await expect(
           page.locator(".nav-links a[href='/writing']"),
         ).toBeVisible();
+
+        const footerRow = await page.evaluate(() => {
+          const selectors = [
+            ".closing-directory-mark",
+            ".closing-directory-nav",
+            ".closing-directory-icons",
+            ".closing-directory-end > p",
+          ];
+          return selectors.map((selector) => {
+            const box = document.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+            return box.top + box.height / 2;
+          });
+        });
+        expect(
+          Math.max(...footerRow) - Math.min(...footerRow),
+          `${viewport.width}px footer items share one center line`,
+        ).toBeLessThanOrEqual(3);
+
+        const desktopTitles = await page.locator(".closing-path h3").evaluateAll((items) =>
+          items.map((item) => {
+            const node = item as HTMLElement;
+            const style = getComputedStyle(node);
+            return {
+              client: node.clientWidth,
+              scroll: node.scrollWidth,
+              height: node.getBoundingClientRect().height,
+              lineHeight: Number.parseFloat(style.lineHeight),
+            };
+          }),
+        );
+        for (const heading of desktopTitles) {
+          expect(heading.scroll).toBeLessThanOrEqual(heading.client + 1);
+          expect(heading.height).toBeLessThanOrEqual(heading.lineHeight + 2);
+        }
+      }
     }
   });
 });
