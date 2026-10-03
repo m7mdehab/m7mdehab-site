@@ -17,7 +17,8 @@
     "archiveHeading": "What I’m thinking through.",
     "archiveLede": null,
     "homeSubtitle": "Ideas, experiments, and everything that piques my curiosity as I navigate my career.",
-    "archiveSubtitle": "Ideas, experiments, and everything that piques my curiosity as I navigate my career."
+    "archiveSubtitle": "Ideas, experiments, and everything that piques my curiosity as I navigate my career.",
+    "canonicalSource": "data/writing.ts#writingSectionCopy"
   },
   "layout": {
     "homeMax": 6,
