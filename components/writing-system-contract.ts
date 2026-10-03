@@ -89,7 +89,7 @@ type WritingSystemArticleBase = {
   series?: WritingSystemSeriesId;
   updatedAt?: string;
   readingMinutes: number;
-  listenMinutes?: number;
+  listenMinutes: number;
   audio?: WritingSystemAudio;
   homeRank?: number;
   cover: WritingSystemCover;
@@ -165,7 +165,6 @@ export function writingSystemTimingLabel(
   >,
 ) {
   const read = `${article.readingMinutes} min read`;
-  if (!article.listenMinutes) return read;
   const estimate = article.audio ? "" : "~";
   return `${read} · ${estimate}${article.listenMinutes} min listen`;
 }
