@@ -103,7 +103,7 @@ For Writing:
 - Home uses a non-carousel 3/2/2 editorial grid with up to six explicitly curated posts;
 - card taxonomy sits inside the cover bottom-left;
 - read + listen time sit inside the cover bottom-right;
-- the visible Home/archive heading is one visual line and has the subtitle **Ideas, experiments, and the things I’m exploring.** on one visual line;
+- the visible Home/archive heading is one visual line and has the subtitle **Ideas, experiments, and everything that piques my curiosity as I navigate my career.** on one visual line;
 - card titles are hard-capped at two visual lines on desktop/tablet and one visual line below 720px;
 - concise card descriptions are capped at two lines on desktop/tablet and hidden below 720px;
 - phone cards remain two columns even at the 320px acceptance width; the final odd card stays in normal left-column flow;
