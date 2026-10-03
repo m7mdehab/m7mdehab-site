@@ -45,6 +45,7 @@ export const METHOD_STORY_DESKTOP_ANCHORS = {
     '[data-method-port="messy-3-out"]',
     '[data-method-port="messy-4-out"]',
   ],
+  exposeIn: '[data-method-port="expose-in"]',
   evidenceSheets: [
     '[data-method-evidence-sheet="1"]',
     '[data-method-evidence-sheet="2"]',
@@ -235,24 +236,28 @@ export function measureMethodStoryDesktopGeometry(
     (selector) => relativeRect(rootRect, queryRequired(root, selector)),
   );
 
-  // Four incoming cards feed four visually separated sheet edges.
-  // Keep the middle sheet unassigned so the stack still reads as five layers.
-  const incomingSheetIndexes = [0, 1, 3, 4] as const;
-  const exposeLeftTargets = incomingSheetIndexes.map((sheetIndex) =>
-    visibleEdgePoint(
-      evidenceRects[sheetIndex],
-      "left",
-      evidenceRects.slice(0, sheetIndex),
-    ),
+  // All four messy inputs converge into one exact Expose entry point.
+  // This keeps the handoff visually clean instead of implying that each input
+  // belongs to a different evidence sheet.
+  const exposeEntry = relativePoint(
+    rootRect,
+    queryRequired(root, METHOD_STORY_DESKTOP_ANCHORS.exposeIn),
   );
+  const exposeLeftTargets = messySources.map(() => exposeEntry);
 
-  // Two outgoing paths per evidence sheet = ten total paths.
-  // Place them only on edge segments exposed beyond all later sheets.
-  const exposeRightSources = evidenceRects.flatMap((rect, index) =>
-    [0.3, 0.7].map((ratio) =>
-      visibleEdgePoint(rect, "right", evidenceRects.slice(index + 1), ratio),
-    ),
+  // Twelve outgoing paths: one exposed source from each rear sheet plus
+  // eight balanced sources across the front sheet. This adds visual richness
+  // while avoiding the bottom-heavy fan created by occluded rear edges.
+  const rearExposeSources = evidenceRects.slice(0, 4).map((rect, index) =>
+    visibleEdgePoint(rect, "right", evidenceRects.slice(index + 1), 0.5),
   );
+  const frontRect = evidenceRects[4];
+  const frontRatios = [0.07, 0.19, 0.31, 0.43, 0.57, 0.69, 0.81, 0.93];
+  const frontExposeSources = frontRatios.map((ratio) => ({
+    x: frontRect.right,
+    y: frontRect.top + frontRect.height * ratio,
+  }));
+  const exposeRightSources = [...rearExposeSources, ...frontExposeSources];
 
   const reduceLeft = relativePoint(
     rootRect,
@@ -307,10 +312,7 @@ export function measureMethodStoryDesktopGeometry(
 
   const buildBusTop = buildBusNodes[0];
   const buildBusBottom = buildBusNodes[buildBusNodes.length - 1];
-  const buildEntryTarget = {
-    x: busX,
-    y: buildRight.y,
-  };
+  const buildEntryTarget = buildBusNodes[Math.floor(buildBusNodes.length / 2)];
 
   const buildEntry = horizontalCurve(buildRight, buildEntryTarget, 0.5);
   const buildBus = straightPath(buildBusTop, buildBusBottom);
