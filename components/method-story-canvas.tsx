@@ -105,6 +105,7 @@ function AnimatedInput({
         className="method-story__input-card"
         style={enhanced ? { x, y, rotate, opacity } : undefined}
         data-method-input={input.id}
+        data-method-anchor={`messy-${index + 1}`}
       >
         {inputIcon(input.icon)}
         <strong>{input.label}</strong>
@@ -288,6 +289,7 @@ function OutputRow({
       className="method-story__output-row"
       style={enhanced ? { x, opacity } : undefined}
       data-method-output={output.id}
+      data-method-anchor={`outcome-${index + 1}`}
     >
       <motion.span
         className="method-story__output-check"
@@ -439,6 +441,7 @@ export function MethodStoryCanvas() {
                 />
                 <div
                   className="method-story__evidence-stack"
+                  data-method-anchor="expose-stack"
                   aria-hidden="true"
                 >
                   {[0, 1, 2, 3, 4].map((index) => (
@@ -505,6 +508,7 @@ export function MethodStoryCanvas() {
                 </svg>
                 <motion.div
                   className="method-story__decision-module"
+                  data-method-anchor="reduce-card"
                   style={
                     enhanced
                       ? { scale: decisionScale, opacity: decisionOpacity }
@@ -527,7 +531,10 @@ export function MethodStoryCanvas() {
             >
               <StageHeader id="build" />
               <div className="method-story__build-field">
-                <div className="method-story__system-stack">
+                <div
+                  className="method-story__system-stack"
+                  data-method-anchor="build-system"
+                >
                   {[0, 1, 2].map((index) => (
                     <BuildLayer
                       key={index}
@@ -537,10 +544,14 @@ export function MethodStoryCanvas() {
                     />
                   ))}
                 </div>
-                <span className="method-story__system-bus" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
+                <span
+                  className="method-story__system-bus"
+                  data-method-anchor="build-bus"
+                  aria-hidden="true"
+                >
+                  {[0, 1, 2, 3, 4].map((index) => (
+                    <i key={index} data-method-bus-node={index + 1} />
+                  ))}
                 </span>
               </div>
             </motion.li>
