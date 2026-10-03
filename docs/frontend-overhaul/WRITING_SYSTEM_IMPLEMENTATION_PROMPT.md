@@ -21,6 +21,7 @@ Do not propose alternative art directions and do not reinterpret Writing back in
 11. `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`
 12. `docs/frontend-overhaul/WRITING_SYSTEM_REPO_AUDIT.md`
 13. `docs/frontend-overhaul/WRITING_SYSTEM_PREFABRICATED_SCAFFOLD.md`
+14. `docs/frontend-overhaul/WRITING_SYSTEM_AUTHORING_GUIDE.md`
 
 Read the local Next.js 16 documentation mandated by `AGENTS.md` before modifying metadata APIs.
 
