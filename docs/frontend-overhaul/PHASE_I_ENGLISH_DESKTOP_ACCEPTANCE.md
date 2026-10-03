@@ -5,6 +5,8 @@
 **Date:** 2026-09-12  
 **Baseline:** Phase H merged at `daec5ac797279f5004e7b796dbbea402461cbaa0`
 
+> **Writing supersession (2026-10-03):** This document preserves the accepted historical Phase I snapshot. Its two evidence-led Writing previews are superseded by the Writing System Rebuild: a broad personal publishing surface with a curated, non-carousel 3/2/1 Home grid. See the current execution packet and visual QA record; the historical Home acceptance itself is unchanged.
+
 ## 1. Purpose
 
 Phase I is the whole-page English desktop acceptance pass. It adds no new homepage chapter. Its job is to judge the complete Home as one continuous production-rendered experience after Phases D–H established the final information architecture.

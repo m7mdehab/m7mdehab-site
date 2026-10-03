@@ -17,7 +17,7 @@ export function GET() {
   );
 
   const writingLines = writingRecords.map((article) =>
-    `- **${article.title}** — ${article.description} · Derived from: ${article.derivedFromProject.title} · [Essay](${article.url})`,
+    `- **${article.title}**: ${article.description} · Topics: ${article.topics.join(", ")} · [Article](${article.url})${article.relatedProjects[0] ? ` · Related project: [${article.relatedProjects[0].title}](${article.relatedProjects[0].caseStudyUrl})` : ""}`,
   );
 
   const body = [
@@ -42,7 +42,8 @@ export function GET() {
     "",
     "## Interpretation notes",
     "- Service proof is intentionally asymmetric. Public project evidence is used only where it directly supports the claim.",
-    "- Authority writing is first-hand editorial analysis derived from inspectable project evidence; it does not widen the underlying project's publication or ownership claims.",
+    "- Editorial writing may include independent analysis or project-related essays; it is not a new authority for biographical facts.",
+    "- Project-related essays remain within their public project evidence boundaries; independent writing may express personal analysis and cite external references.",
     "- Presaira and Solar Site Selection may demonstrate analytical reasoning, but they are not represented as Power BI artifacts.",
     "- Enterprise migration work is represented only at a public-safe experience level; confidential client systems, mappings and outputs are not reconstructed for the site.",
     "- Project ownership language is project-specific; product leadership is not inflated into sole coding where the evidence does not support that claim.",

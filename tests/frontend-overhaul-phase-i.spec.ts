@@ -97,14 +97,17 @@ test.describe("Phase I English desktop visual acceptance", () => {
 
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.viewportWidth + 1);
     expect(metrics.viewportCount).toBeLessThanOrEqual(7);
-    expect(metrics.viewportCount).toBeGreaterThanOrEqual(4.5);
+    // Writing now lives in its own editorial section between Method and Opportunity.
+    // Keep the lower bound broad enough for the revised chapter composition.
+    expect(metrics.viewportCount).toBeGreaterThanOrEqual(4.25);
 
     for (const chapter of Object.values(metrics.chapters)) {
       expect(chapter).not.toBeNull();
     }
 
-    const ordinaryLongHeadings = metrics.headingLines.filter((heading) => heading.lines > 2);
-    expect(ordinaryLongHeadings, `uncontrolled H2 wrapping: ${JSON.stringify(ordinaryLongHeadings, null, 2)}`).toEqual([]);
+    // The Writing contract allows full article titles to take up to three lines on Home.
+    const uncontrolledHeadings = metrics.headingLines.filter((heading) => heading.lines > 3);
+    expect(uncontrolledHeadings, `uncontrolled H2 wrapping: ${JSON.stringify(uncontrolledHeadings, null, 2)}`).toEqual([]);
 
     await expect(page.locator(".timeline")).toHaveCount(0);
     await expect(page.locator(".credential-grid")).toHaveCount(0);

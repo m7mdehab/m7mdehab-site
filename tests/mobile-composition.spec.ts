@@ -55,7 +55,7 @@ async function viewportMetrics(page: Page) {
           return false;
         if (
           element.closest(
-            ".credibility-viewport, .selected-work-carousel-window, .closing-notes",
+            ".credibility-viewport, .selected-work-carousel-window",
           )
         )
           return false;
@@ -78,7 +78,7 @@ async function viewportMetrics(page: Page) {
       roles: rect(".overhaul-hero-roles"),
       location: rect(".overhaul-hero-meta"),
       workHeading: rect(".selected-work-intro h2"),
-      writingHeading: rect(".closing-heading h2"),
+      writingHeading: rect(".writing-system-home-header > h2"),
       opportunityHeading: rect(".closing-opportunity-head h2"),
       nav: rect(".site-nav"),
       identity: rect(".nav-identity"),
@@ -113,7 +113,7 @@ test.describe("Phone composition", () => {
         ".overhaul-hero-title",
         ".overhaul-hero-roles",
         ".overhaul-hero-meta",
-        ".closing-heading h2",
+        ".writing-system-home-header > h2",
         ".closing-opportunity-head h2",
       ];
       for (const selector of oneLineSelectors) {
@@ -165,6 +165,66 @@ test.describe("Phone composition", () => {
         `${width}px opportunity CTA row`,
       ).toBe(1);
 
+      const closingHeading = await page
+        .locator(".closing-opportunity-head h2")
+        .evaluate((element) => {
+          const node = element as HTMLElement;
+          const style = getComputedStyle(node);
+          return {
+            height: node.getBoundingClientRect().height,
+            lineHeight: Number.parseFloat(style.lineHeight),
+            spanRows: new Set(
+              Array.from(node.querySelectorAll("span")).map((span) =>
+                Math.round(span.getBoundingClientRect().top),
+              ),
+            ).size,
+          };
+        });
+      expect(
+        closingHeading.height,
+        `${width}px closing heading stays within two lines`,
+      ).toBeLessThanOrEqual(closingHeading.lineHeight * 2 + 2);
+      expect(
+        closingHeading.spanRows,
+        `${width}px closing heading uses exactly two visual rows`,
+      ).toBe(2);
+
+      const actionChrome = await opportunityCtas.evaluateAll((items) =>
+        items.map((item) => {
+          const style = getComputedStyle(item);
+          const icon = item.querySelector<HTMLElement>(".closing-action-icon");
+          const iconStyle = icon ? getComputedStyle(icon) : null;
+          return {
+            background: style.backgroundColor,
+            borderTopWidth: style.borderTopWidth,
+            borderRadius: style.borderRadius,
+            iconBackground: iconStyle?.backgroundColor ?? "",
+          };
+        }),
+      );
+      for (const chrome of actionChrome) {
+        expect(chrome.background).toBe("rgba(0, 0, 0, 0)");
+        expect(chrome.borderTopWidth).toBe("0px");
+        expect(chrome.borderRadius).toBe("0px");
+        expect(chrome.iconBackground).toBe("rgba(0, 0, 0, 0)");
+      }
+
+      const footerAlignment = await page.evaluate(() => {
+        const footer = document.querySelector<HTMLElement>(".closing-directory")!;
+        const copy = footer.querySelector<HTMLElement>(".closing-directory-end > p")!;
+        const icons = footer.querySelector<HTMLElement>(".closing-directory-icons")!;
+        const footerBox = footer.getBoundingClientRect();
+        const copyBox = copy.getBoundingClientRect();
+        const iconBox = icons.getBoundingClientRect();
+        return {
+          copyLeft: copyBox.left,
+          iconLeft: iconBox.left,
+          iconRightGap: footerBox.right - iconBox.right,
+        };
+      });
+      expect(footerAlignment.iconLeft).toBeGreaterThan(footerAlignment.copyLeft);
+      expect(footerAlignment.iconRightGap).toBeLessThan(width * 0.14);
+
       const title = page.getByRole("heading", { level: 1 });
       await expect(title).toContainText("Mohammed Ehab");
       await expect(title).toContainText("ElNomany");
@@ -208,7 +268,7 @@ test.describe("Phone composition", () => {
     for (const [anchor, heading] of [
       ["work", ".selected-work-intro h2"],
       ["method", "[data-method-story] h2"],
-      ["writing", ".closing-heading h2"],
+      ["writing", ".writing-system-home-header > h2"],
       ["contact", ".closing-opportunity-head h2"],
     ]) {
       await page.goto(`/#${anchor}`);
@@ -266,24 +326,12 @@ test.describe("Phone composition", () => {
     );
 
     const swipeBox = (await window.boundingBox())!;
-    await page.mouse.move(
-      swipeBox.x + swipeBox.width * 0.72,
-      swipeBox.y + swipeBox.height / 2,
-    );
+    await page.mouse.move(swipeBox.x + swipeBox.width * 0.72, swipeBox.y + swipeBox.height / 2);
     await page.mouse.down();
-    await page.mouse.move(
-      swipeBox.x + swipeBox.width * 0.18,
-      swipeBox.y + swipeBox.height / 2,
-      { steps: 6 },
-    );
+    await page.mouse.move(swipeBox.x + swipeBox.width * 0.18, swipeBox.y + swipeBox.height / 2, { steps: 6 });
     await page.mouse.up();
-    await expect(carousel).toHaveAttribute(
-      "data-active-project",
-      "oil-spill-detection",
-    );
-    await carousel
-      .getByRole("button", { name: "Go to project 6 of 6" })
-      .click();
+    await expect(carousel).toHaveAttribute("data-active-project", "oil-spill-detection");
+    await carousel.getByRole("button", { name: "Go to project 6 of 6" }).click();
     await expect(carousel).toHaveAttribute("data-active-project", "makhbazy");
     await expect(
       carousel.getByRole("button", { name: "Go to project 6 of 6" }),
@@ -320,26 +368,25 @@ test.describe("Phone composition", () => {
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
   });
 
-  test("writing cards browse horizontally and opportunity tabs switch paths by keyboard", async ({
+  test("Writing cards remain in a vertical grid and opportunity tabs switch paths by keyboard", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     await settle(page);
-    const writing = page.locator(".closing-notes");
-    await expect(writing.locator(".closing-note")).toHaveCount(2);
-    await expect(
-      writing.getByRole("link", { name: /Read the field note/i }).first(),
-    ).toHaveAttribute("href", /\/writing\//);
-    await expect(
-      page
-        .locator(".closing-heading-side")
-        .getByRole("link", { name: /All writing/ }),
-    ).toHaveAttribute("href", "/writing");
-    await page.getByRole("button", { name: "Go to article 2 of 2" }).click();
-    await expect(
-      page.getByRole("button", { name: "Go to article 2 of 2" }),
-    ).toHaveAttribute("aria-current", "true");
+    const writing = page.locator("[data-writing-home]");
+    await expect(writing.locator("[data-writing-card]")).toHaveCount(3);
+    await expect(writing.locator("[data-writing-card]").nth(0)).toHaveAttribute("href", /\/writing\//);
+    await expect(writing.getByRole("link", { name: /All writing/ })).toHaveAttribute("href", "/writing");
+    await expect(writing.locator(".carousel-dots")).toHaveCount(0);
+    const geometry = await writing.evaluate((section) => ({
+      columns: getComputedStyle(section.querySelector(".writing-system-grid")!).gridTemplateColumns.split(" ").length,
+      cardColumns: section.querySelectorAll("[data-writing-card]").length,
+      coverRatio: (() => { const cover = section.querySelector(".writing-system-cover")!.getBoundingClientRect(); return cover.width / cover.height; })(),
+    }));
+    expect(geometry.columns).toBe(1);
+    expect(geometry.cardColumns).toBe(3);
+    expect(geometry.coverRatio).toBeCloseTo(16 / 9, 1);
 
     const tabs = page.getByRole("tablist", {
       name: "Choose a conversation type",
@@ -405,15 +452,14 @@ test.describe("Phone composition", () => {
       work: document
         .querySelector(".selected-work-carousel-artboard")!
         .getBoundingClientRect().height,
-      writing: document.querySelector(".closing-note")!.getBoundingClientRect()
-        .height,
+      writing: document.querySelector("[data-writing-card]")!.getBoundingClientRect().height,
     }));
     expect(heights.method).toBeGreaterThanOrEqual(1800);
     expect(heights.method).toBeLessThanOrEqual(2600);
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
-    expect(heights.writing).toBeGreaterThanOrEqual(380);
-    expect(heights.writing).toBeLessThanOrEqual(500);
+    expect(heights.writing).toBeGreaterThanOrEqual(320);
+    expect(heights.writing).toBeLessThanOrEqual(520);
   });
 
   test("OpportunityOS mobile card keeps all six core workflow states legible", async ({
@@ -441,30 +487,13 @@ test.describe("Phone composition", () => {
     await expect(modes).toContainText("CONTROLLED SUBMIT");
     const geometry = await artboard.evaluate((board) => {
       const bounds = board.getBoundingClientRect();
-      const modeBox = board
-        .querySelector('[data-artboard-node="actionModes"]')!
-        .getBoundingClientRect();
-      const gateBox = board
-        .querySelector('[data-artboard-node="authorityGate"]')!
-        .getBoundingClientRect();
-      const fontSizes = [
-        ...board.querySelectorAll(
-          '[data-artboard-node="truthFlow"] b, [data-artboard-node="actionModes"] strong',
-        ),
-      ].map((node) => Number.parseFloat(getComputedStyle(node).fontSize));
+      const modeBox = board.querySelector('[data-artboard-node="actionModes"]')!.getBoundingClientRect();
+      const gateBox = board.querySelector('[data-artboard-node="authorityGate"]')!.getBoundingClientRect();
+      const fontSizes = [...board.querySelectorAll('[data-artboard-node="truthFlow"] b, [data-artboard-node="actionModes"] strong')]
+        .map((node) => Number.parseFloat(getComputedStyle(node).fontSize));
       return {
-        inside: [modeBox, gateBox].every(
-          (box) =>
-            box.left >= bounds.left &&
-            box.right <= bounds.right &&
-            box.top >= bounds.top &&
-            box.bottom <= bounds.bottom,
-        ),
-        overlaps:
-          modeBox.left < gateBox.right &&
-          modeBox.right > gateBox.left &&
-          modeBox.top < gateBox.bottom &&
-          modeBox.bottom > gateBox.top,
+        inside: [modeBox, gateBox].every((box) => box.left >= bounds.left && box.right <= bounds.right && box.top >= bounds.top && box.bottom <= bounds.bottom),
+        overlaps: modeBox.left < gateBox.right && modeBox.right > gateBox.left && modeBox.top < gateBox.bottom && modeBox.bottom > gateBox.top,
         smallestLabel: Math.min(...fontSizes),
       };
     });
@@ -499,7 +528,7 @@ test.describe("Phone composition", () => {
     );
   });
 
-  test("mobile work and writing carousels advance on the shared six-second interval", async ({
+  test("mobile Selected Work carousel advances on the shared six-second interval", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -511,12 +540,6 @@ test.describe("Phone composition", () => {
       work.getByRole("button", { name: "Go to project 2 of 6" }),
     ).toHaveAttribute("aria-current", "step");
 
-    const writing = page.locator(".closing-notes");
-    await writing.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(6200);
-    await expect(
-      page.getByRole("button", { name: "Go to article 2 of 2" }),
-    ).toHaveAttribute("aria-current", "true");
   });
 
   test("small-phone landscape and desktop regression widths do not overflow", async ({

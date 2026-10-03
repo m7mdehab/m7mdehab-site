@@ -1,8 +1,8 @@
 import { HomeClosing } from "@/components/home-closing";
+import { HomeWriting } from "@/components/home-writing";
 import { CredibilityRail, SystemHero } from "@/components/home-overhaul-foundation";
 import { SelectedWorkGallery } from "@/components/home-selected-work";
 import { SolveThinkBridge } from "@/components/home-solve-think";
-import { writingArticles } from "@/data/writing";
 
 export default function Home() {
   return (
@@ -11,7 +11,8 @@ export default function Home() {
       <CredibilityRail />
       <SelectedWorkGallery />
       <SolveThinkBridge />
-      <HomeClosing articles={writingArticles} />
+      <HomeWriting />
+      <HomeClosing />
     </main>
   );
 }

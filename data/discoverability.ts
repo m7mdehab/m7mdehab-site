@@ -7,7 +7,8 @@ import {
   services,
   skillGroups,
 } from "@/data/public";
-import { writingArticles } from "@/data/writing";
+import { publishedWritingArticles } from "@/data/writing";
+import { projectVisuals } from "@/data/project-visuals";
 
 export function projectCaseStudyUrl(slug: string) {
   return `${profile.domain}/work/${slug}`;
@@ -69,22 +70,31 @@ export const projectRecords = projects.map((project) => {
   };
 });
 
-export const writingRecords = writingArticles.map((article) => ({
+export const writingRecords = publishedWritingArticles.map((article) => {
+  const origin = article.origin;
+  const coverImage = article.cover.kind === "image"
+    ? article.cover.src
+    : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
+      ? projectVisuals["oil-spill-detection"].image
+      : undefined;
+  return ({
   slug: article.slug,
   title: article.title,
   description: article.description,
-  topic: article.topic,
-  createdAt: article.createdAt,
+  category: article.category,
+  topics: article.topics,
+  series: article.series ?? null,
+  publishedAt: article.publishedAt,
+  updatedAt: article.updatedAt ?? null,
   readingMinutes: article.readingMinutes,
   url: writingArticleUrl(article.slug),
-  alternateLanguageUrl: `${profile.domain}/ar/writing/${article.slug}`,
-  derivedFromProject: {
-    slug: article.projectSlug,
-    title: article.projectTitle,
-    caseStudyUrl: projectCaseStudyUrl(article.projectSlug),
-  },
-  evidenceAnchors: article.evidence,
-}));
+  relatedProjects: origin.kind === "project"
+    ? projects.flatMap((project) => project.slug === origin.projectSlug ? [{ slug: project.slug, title: project.title, caseStudyUrl: projectCaseStudyUrl(project.slug) }] : [])
+    : [],
+  sourceLinks: (article.sources ?? []).map((source) => ({ label: source.label, url: source.href, kind: source.kind })),
+  ...(coverImage ? { coverImage } : {}),
+  });
+});
 
 export const profileRecord = {
   name: profile.name,
@@ -106,7 +116,7 @@ export const profileRecord = {
   experience,
   education,
   services: serviceRecords.map(({ contact, ...service }) => service),
-  writing: writingRecords.map(({ evidenceAnchors, ...article }) => article),
+  writing: writingRecords,
   machineReadable: {
     profile: `${profile.domain}/profile.json`,
     projects: `${profile.domain}/projects.json`,

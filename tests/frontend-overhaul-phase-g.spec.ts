@@ -25,12 +25,13 @@ async function hideFixedChrome(page: Page) {
 test.describe("Phase G closing system", () => {
   test.use({ viewport: { width: 1440, height: 1000 } });
 
-  test("English Home closes with two evidence notes and three clean conversation paths instead of the service catalogue", async ({ page }) => {
+  test("English Home places the broad Writing grid before three clean conversation paths", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
     await page.goto("/");
     await settle(page);
 
-    await expect(page.locator(".closing-note")).toHaveCount(2);
+    await expect(page.locator("[data-writing-home]")).toHaveAttribute("data-writing-count", "3");
+    await expect(page.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
     await expect(page.locator(".closing-path")).toHaveCount(3);
     await expect(page.locator("#services")).toHaveCount(0);
     await expect(page.locator('[data-conversion="home-to-services"]')).toHaveAttribute("href", "/services");
@@ -43,14 +44,14 @@ test.describe("Phase G closing system", () => {
     await noHorizontalOverflow(page);
 
     await hideFixedChrome(page);
-    await page.locator(".closing-thinking").screenshot({ path: path.join(screenshotRoot, "phase-g-thinking-1440.png") });
+    await page.locator("[data-writing-home]").screenshot({ path: path.join(screenshotRoot, "phase-g-writing-1440.png") });
     await page.locator(".closing-opportunity").screenshot({ path: path.join(screenshotRoot, "phase-g-opportunity-1440.png") });
   });
 
   test("closing sequence and dedicated services route pass axe", async ({ page }) => {
     await page.goto("/");
     await settle(page);
-    const homeResults = await new AxeBuilder({ page }).include(".closing-thinking").include(".closing-opportunity").include(".closing-directory").analyze();
+    const homeResults = await new AxeBuilder({ page }).include("[data-writing-home]").include(".closing-opportunity").include(".closing-directory").analyze();
     expect(homeResults.violations, JSON.stringify(homeResults.violations, null, 2)).toEqual([]);
 
     await page.goto("/services");
@@ -74,13 +75,14 @@ test.describe("Phase G closing system", () => {
     await page.goto("/");
     await settle(page);
 
-    await expect(page.locator(".closing-note")).toHaveCount(2);
+    await expect(page.locator("[data-writing-card][data-writing-context=home]")).toHaveCount(3);
+    await expect(page.locator("[data-writing-home]")).not.toContainText("What the work taught me");
     await expect(page.locator(".closing-path")).toHaveCount(3);
     await noHorizontalOverflow(page);
-    expect(await page.locator(".closing-note-curve").evaluate((element) => getComputedStyle(element).animationName)).toBe("none");
+    expect(await page.locator(".writing-system-cover").first().evaluate((element) => getComputedStyle(element).transform)).toBe("none");
 
     await hideFixedChrome(page);
-    await page.locator(".closing-thinking").screenshot({ path: path.join(screenshotRoot, "phase-g-thinking-390.png") });
+    await page.locator("[data-writing-home]").screenshot({ path: path.join(screenshotRoot, "phase-g-writing-390.png") });
     await page.locator(".closing-opportunity").screenshot({ path: path.join(screenshotRoot, "phase-g-opportunity-390.png") });
   });
 });

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { WritingArticleView } from "@/components/writing-authority";
 import { profile } from "@/data/public";
-import { getWritingArticle, writingArticles } from "@/data/writing";
+import { getWritingArticle, publishedWritingArticles } from "@/data/writing";
+import { projects } from "@/data/public";
+import { projectVisuals } from "@/data/project-visuals";
 
 export function generateStaticParams() {
-  return writingArticles.map((article) => ({ slug: article.slug }));
+  return publishedWritingArticles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -14,10 +16,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return {};
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
+  const image = article.cover.kind === "image"
+    ? article.cover.src
+    : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
+      ? projectVisuals["oil-spill-detection"].image
+      : undefined;
 
   return {
     title: article.title,
     description: article.description,
+    keywords: [...article.topics],
     alternates: { canonical },
     openGraph: {
       title: article.title,
@@ -26,11 +34,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: profile.name,
       type: "article",
       locale: "en_US",
+      publishedTime: article.publishedAt,
+      ...(article.updatedAt ? { modifiedTime: article.updatedAt } : {}),
+      ...(image ? { images: [{ url: image, alt: article.title }] } : {}),
     },
     twitter: {
-      card: "summary",
+      card: image ? "summary_large_image" : "summary",
       title: article.title,
       description: article.description,
+      ...(image ? { images: [image] } : {}),
     },
   };
 }
@@ -41,14 +53,23 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
   if (!article) notFound();
 
   const canonical = `${profile.domain}/writing/${article.slug}`;
+  const image = article.cover.kind === "image"
+    ? article.cover.src
+    : article.cover.kind === "visual" && article.cover.visual === "oil-sar"
+      ? projectVisuals["oil-spill-detection"].image
+      : undefined;
+  const origin = article.origin;
+  const project = origin.kind === "project" ? projects.find((item) => item.slug === origin.projectSlug) : undefined;
   const schema = {
     "@context": "https://schema.org",
-    "@type": "TechArticle",
+    "@type": "BlogPosting",
     "@id": `${canonical}#article`,
     url: canonical,
     headline: article.title,
     description: article.description,
-    dateCreated: article.createdAt,
+    datePublished: article.publishedAt,
+    ...(article.updatedAt ? { dateModified: article.updatedAt } : {}),
+    keywords: article.topics,
     inLanguage: "en",
     author: {
       "@id": `${profile.domain}/#person`,
@@ -57,18 +78,19 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
       url: profile.domain,
     },
     mainEntityOfPage: canonical,
-    about: {
+    ...(project ? { about: {
       "@type": "CreativeWork",
-      name: article.projectTitle,
-      url: `${profile.domain}/work/${article.projectSlug}`,
-    },
-    citation: article.sources.map((source) => source.href),
+      name: project.title,
+      url: `${profile.domain}/work/${project.slug}`,
+    } } : {}),
+    ...(article.sources?.length ? { citation: article.sources.map((source) => source.href) } : {}),
+    ...(image ? { image } : {}),
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <WritingArticleView article={article} locale="en" />
+      <WritingArticleView article={article} />
     </>
   );
 }
