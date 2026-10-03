@@ -20,11 +20,7 @@ export function WritingSystemIndex({
     >
       <header className="writing-system-index-head">
         <p className="eyebrow">Writing</p>
-        <h1>Writing.</h1>
-        <p>
-          Notes on AI, technology, work, projects, and whatever else I’m
-          thinking through.
-        </p>
+        <h1>What I’m thinking through.</h1>
       </header>
 
       <div className="writing-system-grid">
