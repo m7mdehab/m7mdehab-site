@@ -20,7 +20,7 @@ Visible heading remains:
 
 New subtitle:
 
-> **Ideas, experiments, and the things I’m exploring.**
+> **Ideas, experiments, and everything that piques my curiosity as I navigate my career.**
 
 Both are **one visual line only** on desktop and phone.
 
@@ -123,7 +123,7 @@ Archive identity:
 
 - small eyebrow: Writing
 - H1: What I’m thinking through.
-- subtitle: Ideas, experiments, and the things I’m exploring.
+- subtitle: Ideas, experiments, and everything that piques my curiosity as I navigate my career.
 
 Heading and subtitle are one line.
 
