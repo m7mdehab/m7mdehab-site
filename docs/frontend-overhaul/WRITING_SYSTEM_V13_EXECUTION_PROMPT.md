@@ -49,7 +49,7 @@ Heading:
 
 Subtitle:
 
-**Ideas, experiments, and the things I’m exploring.**
+**Ideas, experiments, and everything that piques my curiosity as I navigate my career.**
 
 Home CTA remains:
 
@@ -155,7 +155,7 @@ Archive header:
 
 - eyebrow: Writing
 - H1: What I’m thinking through.
-- subtitle: Ideas, experiments, and the things I’m exploring.
+- subtitle: Ideas, experiments, and everything that piques my curiosity as I navigate my career.
 
 Heading and subtitle both one line.
 
