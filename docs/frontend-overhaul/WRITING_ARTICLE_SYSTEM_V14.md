@@ -1,6 +1,6 @@
 # Writing Article System v1.4
 
-**Status:** draft implementation / rendered QA required  
+**Status:** Kokoro dual-voice implementation / live review required  
 **Scope:** individual Writing article pages, authoring governance, article discovery metadata
 
 ## Locked objective
@@ -56,22 +56,32 @@ Mobile:
 
 ## Audio
 
-The narration bar is functional browser text-to-speech, generated directly from the visible article. No recorded voice asset is required.
+Narration is generated offline at publish/deploy time with Kokoro-82M v1.0 and served as normal static MP3 files. No recording, paid TTS API, visitor-side model download, or browser speech synthesis is used.
+
+Locked voices:
+- Female — Kokoro af_heart — first-visit default.
+- Male — Kokoro am_michael.
 
 Controls:
 - play/pause;
-- previous/next passage;
-- passage progress scrubber;
-- voice presets: Natural, US English, UK English, System;
-- Natural mode prioritizes browser-exposed voices labelled natural/neural/premium/enhanced, then high-quality English fallbacks;
-- speeds 0.75× through 2×;
-- remember voice and speed locally;
-- no autoplay;
-- graceful unsupported-browser state.
+- real ±15-second seek;
+- continuous time-based progress scrubber;
+- elapsed / total duration;
+- speed from 0.75× through 2×;
+- remember Female/Male choice locally;
+- remember playback speed locally;
+- no autoplay.
 
-The browser/OS still determines the actual installed voices. If no neural/natural voice is exposed, the control falls back cleanly rather than pretending otherwise.
+Generation contract:
+- generate both voices for every published article;
+- derive narration from the same canonical article data used to render the visible article;
+- narrate title, deck, Key idea, headings, paragraphs, bullets, quotes/callouts, and takeaways;
+- exclude source URLs, UI labels, metadata, and code;
+- use text/model/voice hashes so unchanged narration can be reused from CI cache;
+- encode final assets as 24 kHz mono 64 kbps MP3;
+- run Kokoro q8 on Node CPU during staging/production deployment.
 
-Do not claim AudioObject schema for this synthesized playback because no stable hosted audio object exists.
+Because stable narration files exist, BlogPosting exposes both files as AudioObject entries.
 
 ## SEO / AI visibility
 
@@ -123,7 +133,10 @@ For every current article:
 - sources visible;
 - two related articles appear;
 - existing project link remains;
-- synthesized narration bar visible and functional without a recorded audio asset;
+- Female/Male Kokoro narration bar visible and functional;
+- Female is the first-visit default;
+- voice choice and playback speed persist locally;
+- all six current narration MP3 assets return HTTP 200 on review staging;
 - BlogPosting and BreadcrumbList validate;
 - no horizontal overflow at 390px;
 - axe clean;
