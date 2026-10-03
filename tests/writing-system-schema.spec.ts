@@ -14,6 +14,7 @@ function fixture(
     topics: ["Notes"],
     publishedAt: "2026-10-03",
     readingMinutes: 1,
+    listenMinutes: 1,
     cover: {
       kind: "visual",
       visual: "agent-provenance",
