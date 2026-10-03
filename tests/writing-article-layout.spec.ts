@@ -31,6 +31,9 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByText("Sources & further reading.")).toBeVisible();
       await expect(page.locator('[data-writing-card][data-writing-context="related"]')).toHaveCount(2);
       await expect(page.locator("[data-writing-listen]")).toHaveCount(1);
+      await expect(page.getByLabel("Narration voice")).toHaveValue("natural");
+      await expect(page.getByLabel("Narration speed")).toHaveValue("1");
+      await expect(page.locator(".writing-system-article-cover")).toHaveCount(0);
 
       const geometry = await page.evaluate(() => {
         const article = document.querySelector<HTMLElement>("article")!;
@@ -51,7 +54,10 @@ test("all current articles use the same readable publication shell", async ({ pa
       expect(geometry.paragraphLineHeight / geometry.paragraphFontSize).toBeGreaterThanOrEqual(1.6);
       expect(geometry.textAlign).toBe("justify");
       expect(Math.abs(geometry.bodyLeft - geometry.heroLeft)).toBeLessThanOrEqual(2);
-      if (width >= 1000) expect(geometry.articleWidth).toBeLessThanOrEqual(780);
+      if (width >= 1000) {
+        expect(geometry.articleWidth).toBeGreaterThanOrEqual(900);
+        expect(geometry.articleWidth).toBeLessThanOrEqual(1160);
+      }
 
       const contents = page.getByRole("navigation", { name: "Article contents" });
       if (width >= 1000) await expect(contents.last()).toBeVisible();
