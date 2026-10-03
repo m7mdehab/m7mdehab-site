@@ -45,22 +45,26 @@ export function WritingAudioPlayer({
     sources.find((source) => source.id === voice) ?? sources[0];
 
   useEffect(() => {
-    const storedVoice = window.localStorage.getItem(
-      narrationVoiceKey,
-    ) as WritingNarrationVoice | null;
-    if (
-      storedVoice &&
-      sources.some((source) => source.id === storedVoice)
-    ) {
-      setVoice(storedVoice);
-    }
+    const timer = window.setTimeout(() => {
+      const storedVoice = window.localStorage.getItem(
+        narrationVoiceKey,
+      ) as WritingNarrationVoice | null;
+      if (
+        storedVoice &&
+        sources.some((source) => source.id === storedVoice)
+      ) {
+        setVoice(storedVoice);
+      }
 
-    const storedRate = Number.parseFloat(
-      window.localStorage.getItem(playbackRateKey) ?? "",
-    );
-    if (playbackRates.includes(storedRate as (typeof playbackRates)[number])) {
-      setRate(storedRate);
-    }
+      const storedRate = Number.parseFloat(
+        window.localStorage.getItem(playbackRateKey) ?? "",
+      );
+      if (playbackRates.includes(storedRate as (typeof playbackRates)[number])) {
+        setRate(storedRate);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [sources]);
 
   useEffect(() => {
