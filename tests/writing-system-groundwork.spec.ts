@@ -73,6 +73,49 @@ test.describe("Writing system groundwork contract", () => {
     ]);
   });
 
+  test("integrity guard accepts concise card copy and audio timing metadata", () => {
+    const fixture = article({
+      cardDescription: "A concise card-only description.",
+      listenMinutes: 8,
+      audio: {
+        src: "/media/writing/test.mp3",
+        mimeType: "audio/mpeg",
+        durationSeconds: 463,
+      },
+    });
+    expect(() => assertWritingSystemIntegrity([fixture])).not.toThrow();
+  });
+
+  test("integrity guard rejects invalid card/audio metadata", () => {
+    expect(() =>
+      assertWritingSystemIntegrity([
+        article({
+          cardDescription: "x".repeat(141),
+        }),
+      ]),
+    ).toThrow(/cardDescription is too long/);
+
+    expect(() =>
+      assertWritingSystemIntegrity([
+        article({
+          listenMinutes: 0,
+        }),
+      ]),
+    ).toThrow(/Invalid listenMinutes/);
+
+    expect(() =>
+      assertWritingSystemIntegrity([
+        article({
+          audio: {
+            src: "/media/writing/test.mp3",
+            mimeType: "audio/mpeg",
+            durationSeconds: 463,
+          },
+        }),
+      ]),
+    ).toThrow(/audio requires listenMinutes/);
+  });
+
   test("integrity guard rejects duplicate slugs and homepage ranks", () => {
     expect(() =>
       assertWritingSystemIntegrity([
