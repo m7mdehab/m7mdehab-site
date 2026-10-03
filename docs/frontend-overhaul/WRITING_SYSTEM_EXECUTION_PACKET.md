@@ -49,7 +49,7 @@ Home CTA:
 
 “What the Work Taught Me” survives only as an optional series name.
 
-These v1.1 copy/layout decisions supersede the earlier v1.0 “Writing.” + explanatory lede treatment.
+These v1.2 copy/layout decisions supersede the earlier v1.0/v1.1 presentation treatment.
 
 ## 2. Editorial model
 
