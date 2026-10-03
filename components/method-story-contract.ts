@@ -130,3 +130,27 @@ export const METHOD_STORY_VISUAL_LIMITS = {
   tablet: { minWidth: 720, maxWidth: 1099 },
   mobile: { maxWidth: 719 },
 } as const;
+
+
+export const METHOD_STORY_DESKTOP_PASS_02 = {
+  breakpoint: 1100,
+  connectorCounts: {
+    inputToExpose: 4,
+    exposeToReduce: 10,
+    reduceToBuild: 1,
+    buildToOutcomes: 5,
+  },
+  edgeTouchTolerancePx: 2,
+  centerAlignmentTolerancePx: 10,
+  intro: {
+    showEyebrow: false,
+    titleSingleLine: true,
+    supportSingleLine: true,
+  },
+  stageIntent: [
+    "distinct",
+    "connected",
+    "precision-anchored",
+    "desktop-only",
+  ],
+} as const;
