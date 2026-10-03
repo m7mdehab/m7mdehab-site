@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import {
   motion,
   useScroll,
@@ -29,6 +29,26 @@ import {
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 
 type Progress = MotionValue<number>;
+
+const desktopMethodQuery = "(min-width: 1100px)";
+
+function subscribeDesktopMethodStory(onStoreChange: () => void) {
+  const media = window.matchMedia(desktopMethodQuery);
+  media.addEventListener("change", onStoreChange);
+  return () => media.removeEventListener("change", onStoreChange);
+}
+
+function getDesktopMethodSnapshot() {
+  return window.matchMedia(desktopMethodQuery).matches;
+}
+
+function useDesktopMethodStory() {
+  return useSyncExternalStore(
+    subscribeDesktopMethodStory,
+    getDesktopMethodSnapshot,
+    () => false,
+  );
+}
 
 const stageMap = Object.fromEntries(
   METHOD_STORY.stages.map((stage) => [stage.id, stage]),
@@ -179,6 +199,7 @@ function BranchPath({
           : "method-story__path"
       }
       style={enhanced ? { pathLength, opacity } : undefined}
+      data-method-connector={kind}
     />
   );
 }
@@ -189,12 +210,14 @@ function ConnectorPath({
   progress,
   enhanced,
   hot = false,
+  kind,
 }: {
   d: string;
   window: readonly [number, number];
   progress: Progress;
   enhanced: boolean;
   hot?: boolean;
+  kind?: string;
 }) {
   const pathLength = useTransform(progress, [...window], [0, 1]);
   const opacity = useTransform(
@@ -289,12 +312,27 @@ function OutputRow({
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const isDesktop = useDesktopMethodStory();
   const enhanced = !reducedMotion;
-  const { scrollYProgress } = useScroll({
+
+  const { scrollYProgress: standardScrollYProgress } = useScroll({
     target: rootRef,
     offset: [...METHOD_STORY_MOTION.scrollOffset],
   });
-  const progress = useSpring(scrollYProgress, METHOD_STORY_MOTION.spring);
+  const { scrollYProgress: desktopScrollYProgress } = useScroll({
+    target: rootRef,
+    offset: [...METHOD_STORY_MOTION.desktopScrollOffset],
+  });
+
+  const standardProgress = useSpring(
+    standardScrollYProgress,
+    METHOD_STORY_MOTION.spring,
+  );
+  const desktopProgress = useSpring(
+    desktopScrollYProgress,
+    METHOD_STORY_MOTION.spring,
+  );
+  const progress = isDesktop ? desktopProgress : standardProgress;
 
   const exposeOpacity = useTransform(progress, [0.16, 0.3], [0.45, 1]);
   const reduceOpacity = useTransform(progress, [0.34, 0.49], [0.45, 1]);
@@ -325,6 +363,7 @@ export function MethodStoryCanvas() {
             window={[0.08 + index * 0.02, 0.28 + index * 0.02]}
             progress={progress}
             enhanced={enhanced}
+            kind="input-to-expose"
           />
         ))}
         {METHOD_STORY_CONNECTORS.exposeToReduce.map((d, index) => (
@@ -334,23 +373,31 @@ export function MethodStoryCanvas() {
             window={[0.24 + index * 0.02, 0.46 + index * 0.02]}
             progress={progress}
             enhanced={enhanced}
+            kind="expose-to-reduce"
           />
         ))}
-        {METHOD_STORY_CONNECTORS.reduceBranches.map((d, index) => (
-          <BranchPath
-            key={d}
-            d={d}
-            index={index}
-            progress={progress}
-            enhanced={enhanced}
-          />
-        ))}
+        <motion.circle
+          className="method-story__decision-node"
+          cx="625"
+          cy="180"
+          r="5"
+          style={enhanced ? { opacity: reduceOpacity } : undefined}
+        />
         <ConnectorPath
-          d={METHOD_STORY_CONNECTORS.reduceToBuild}
-          window={[0.54, 0.7]}
+          d={METHOD_STORY_CONNECTORS.reduceConvergedToDecision}
+          window={[0.43, 0.56]}
           progress={progress}
           enhanced={enhanced}
           hot
+          kind="converged-to-decision"
+        />
+        <ConnectorPath
+          d={METHOD_STORY_CONNECTORS.reduceToBuild}
+          window={[0.54, 0.72]}
+          progress={progress}
+          enhanced={enhanced}
+          hot
+          kind="decision-to-build"
         />
         {METHOD_STORY_CONNECTORS.buildToOutputs.map((d, index) => (
           <ConnectorPath
@@ -359,6 +406,7 @@ export function MethodStoryCanvas() {
             window={[0.7 + index * 0.018, 0.88 + index * 0.018]}
             progress={progress}
             enhanced={enhanced}
+            kind="build-to-output"
           />
         ))}
       </svg>
