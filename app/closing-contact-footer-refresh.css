@@ -148,7 +148,9 @@
 .closing-directory-grid {
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr) auto;
-  gap: clamp(22px, 4vw, 64px);
+  grid-template-rows: auto auto;
+  column-gap: clamp(22px, 4vw, 64px);
+  row-gap: 10px;
   align-items: center;
 }
 
@@ -174,24 +176,25 @@
 }
 
 .closing-directory-end {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: clamp(18px, 2vw, 28px);
-  padding: 0;
-  border: 0;
-  text-align: right;
+  display: contents;
 }
 
 .closing-directory-end p {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
   max-width: none;
   margin: 0;
   white-space: nowrap;
+  text-align: center;
   font-size: 9px;
   line-height: 1.45;
 }
 
 .closing-directory-icons {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
   display: flex;
   gap: 10px;
   color: rgba(241, 239, 232, .54);
@@ -252,15 +255,8 @@
 
   .closing-directory-grid {
     grid-template-columns: 44px minmax(0, 1fr) auto;
-    gap: 20px;
-  }
-
-  .closing-directory-end {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 16px;
-    text-align: right;
+    column-gap: 20px;
+    row-gap: 10px;
   }
 }
 
@@ -507,67 +503,73 @@
   }
 
   .closing-directory-grid {
+    width: calc(100% - 16px);
     display: grid;
-    grid-template-columns: 40px minmax(0, 1fr);
-    gap: 14px 12px;
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    column-gap: clamp(6px, 2vw, 10px);
+    row-gap: 10px;
     align-items: center;
   }
 
   .closing-directory-mark {
-    width: 40px;
-    height: 40px;
-    border-radius: 13px;
+    grid-column: 1;
+    grid-row: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
   }
 
   .closing-directory-nav {
+    grid-column: 2;
+    grid-row: 1;
     display: flex !important;
-    min-height: 44px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0 clamp(10px, 3.5vw, 16px);
+    min-width: 0;
+    min-height: 36px;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 1.8vw, 12px);
     padding: 0;
   }
 
   .closing-directory-nav > a {
     min-width: 0;
-    min-height: 44px;
+    min-height: 36px;
     display: inline-flex;
     align-items: center;
-    font-size: clamp(9px, 2.75vw, 11px);
+    padding: 0;
+    font-size: clamp(7.5px, 2.25vw, 11px);
+    white-space: nowrap;
   }
 
   .closing-directory-end {
-    grid-column: 1 / -1;
-    display: flex;
-    width: calc(100vw - 24px);
-    max-width: calc(100vw - 24px);
-    justify-self: center;
-    align-items: center;
-    justify-content: flex-end;
-    gap: clamp(6px, 2vw, 10px);
-    padding: 0;
-    border: 0;
-    text-align: right;
+    display: contents;
   }
 
   .closing-directory-icons {
-    order: 2;
-    gap: 8px;
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    gap: 6px;
   }
 
   .closing-directory-icons > a {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
   }
 
   .closing-directory-end > p {
-    order: 1;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
     min-width: 0;
     min-height: 0;
     margin: 0;
     white-space: nowrap;
+    text-align: center;
     font-size: clamp(6px, 1.75vw, 7.5px);
     line-height: 1;
     letter-spacing: -.02em;
