@@ -81,13 +81,22 @@ export const writingRecords = publishedWritingArticles.map((article) => {
   slug: article.slug,
   title: article.title,
   description: article.description,
+  cardDescription: article.cardDescription ?? article.description,
   category: article.category,
   topics: article.topics,
   series: article.series ?? null,
   publishedAt: article.publishedAt,
   updatedAt: article.updatedAt ?? null,
   readingMinutes: article.readingMinutes,
+  listenMinutes: article.listenMinutes ?? null,
   url: writingArticleUrl(article.slug),
+  ...(article.audio ? {
+    audio: {
+      url: new URL(article.audio.src, `${profile.domain}/`).toString(),
+      mimeType: article.audio.mimeType,
+      durationSeconds: article.audio.durationSeconds,
+    },
+  } : {}),
   relatedProjects: origin.kind === "project"
     ? projects.flatMap((project) => project.slug === origin.projectSlug ? [{ slug: project.slug, title: project.title, caseStudyUrl: projectCaseStudyUrl(project.slug) }] : [])
     : [],
