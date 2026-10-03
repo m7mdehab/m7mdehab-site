@@ -6,13 +6,37 @@ import styles from "@/components/writing-audio-player.module.css";
 
 const playbackRates = [0.75, 1, 1.25, 1.5, 1.75, 2] as const;
 const playbackRateKey = "m7mdehab-writing-playback-rate";
+const voicePresetKey = "m7mdehab-writing-voice-preset";
 
 type PlaybackStatus = "idle" | "playing" | "paused" | "unsupported";
+type VoicePreset = "natural" | "us" | "uk" | "system";
 
-function preferredEnglishVoice() {
+function voiceScore(voice: SpeechSynthesisVoice, preset: VoicePreset) {
+  const name = voice.name.toLowerCase();
+  const lang = voice.lang.toLowerCase();
+  let score = 0;
+
+  if (!lang.startsWith("en")) return -1000;
+  if (/natural|neural|premium|enhanced/.test(name)) score += 120;
+  if (/aria|jenny|ava|sonia|ryan|samantha|guy/.test(name)) score += 50;
+  if (/google/.test(name)) score += 40;
+  if (/microsoft/.test(name)) score += 20;
+  if (voice.default) score += 12;
+  if (voice.localService) score += 5;
+
+  if (preset === "us") score += lang.startsWith("en-us") ? 100 : -20;
+  if (preset === "uk") score += lang.startsWith("en-gb") ? 100 : -20;
+  if (preset === "system") score += voice.default ? 250 : 0;
+
+  return score;
+}
+
+function selectVoice(preset: VoicePreset) {
   const voices = window.speechSynthesis.getVoices();
-  return voices.find((voice) => /^en[-_]/i.test(voice.lang) && voice.localService)
-    ?? voices.find((voice) => /^en[-_]/i.test(voice.lang));
+  if (!voices.length) return undefined;
+
+  return [...voices]
+    .sort((left, right) => voiceScore(right, preset) - voiceScore(left, preset))[0];
 }
 
 export function WritingAudioPlayer({
@@ -29,13 +53,21 @@ export function WritingAudioPlayer({
   const currentIndexRef = useRef(0);
   const generationRef = useRef(0);
   const rateRef = useRef(1);
+  const voicePresetRef = useRef<VoicePreset>("natural");
   const speedRef = useRef<HTMLSelectElement>(null);
+  const voiceRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    const stored = Number.parseFloat(window.localStorage.getItem(playbackRateKey) ?? "");
-    if (playbackRates.includes(stored as (typeof playbackRates)[number])) {
-      rateRef.current = stored;
-      if (speedRef.current) speedRef.current.value = String(stored);
+    const storedRate = Number.parseFloat(window.localStorage.getItem(playbackRateKey) ?? "");
+    if (playbackRates.includes(storedRate as (typeof playbackRates)[number])) {
+      rateRef.current = storedRate;
+      if (speedRef.current) speedRef.current.value = String(storedRate);
+    }
+
+    const storedVoice = window.localStorage.getItem(voicePresetKey) as VoicePreset | null;
+    if (storedVoice && ["natural", "us", "uk", "system"].includes(storedVoice)) {
+      voicePresetRef.current = storedVoice;
+      if (voiceRef.current) voiceRef.current.value = storedVoice;
     }
 
     return () => {
@@ -67,8 +99,11 @@ export function WritingAudioPlayer({
     const utterance = new SpeechSynthesisUtterance(chunks[bounded]);
     utterance.rate = rateRef.current;
     utterance.lang = "en-US";
-    const voice = preferredEnglishVoice();
-    if (voice) utterance.voice = voice;
+    const voice = selectVoice(voicePresetRef.current);
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    }
 
     utterance.onstart = () => {
       if (generation === generationRef.current) setStatus("playing");
@@ -129,7 +164,7 @@ export function WritingAudioPlayer({
     <section className={styles.player} data-writing-listen aria-label="Listen to this article">
       <div className={styles.identity}>
         <strong>Listen to article</strong>
-        <span>Browser narration · ~{listenMinutes} min at 1×</span>
+        <span>Text-to-speech · ~{listenMinutes} min at 1×</span>
       </div>
 
       <div className={styles.controls}>
@@ -159,8 +194,28 @@ export function WritingAudioPlayer({
           aria-label="Article narration progress"
           disabled={chunks.length <= 1}
         />
-        <span>{status === "unsupported" ? "Text-to-speech is not available in this browser." : `Passage ${progressLabel}`}</span>
+        <span>{status === "unsupported" ? "Text-to-speech is not available in this browser." : `${progressLabel}`}</span>
       </div>
+
+      <label className={styles.voice}>
+        <span>Voice</span>
+        <select
+          ref={voiceRef}
+          defaultValue="natural"
+          onChange={(event) => {
+            const next = event.currentTarget.value as VoicePreset;
+            voicePresetRef.current = next;
+            window.localStorage.setItem(voicePresetKey, next);
+            if (status === "playing" || status === "paused") startAt(currentIndexRef.current);
+          }}
+          aria-label="Narration voice"
+        >
+          <option value="natural">Natural</option>
+          <option value="us">US English</option>
+          <option value="uk">UK English</option>
+          <option value="system">System</option>
+        </select>
+      </label>
 
       <label className={styles.speed}>
         <span>Speed</span>
