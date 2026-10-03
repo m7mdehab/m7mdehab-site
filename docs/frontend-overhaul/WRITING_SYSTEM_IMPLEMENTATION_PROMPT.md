@@ -1,3 +1,5 @@
+> **SUPERSEDED FOR EXECUTION:** Read `WRITING_SYSTEM_FINAL_EXECUTION_PROMPT.md` and `WRITING_SYSTEM_REFINEMENT_PACKET.md` first. They contain the latest locked heading, in-cover metadata, two-line-title and read/listen/audio requirements. This file remains supporting context only.
+
 # Codex / Luna Execution Prompt — Writing System Rebuild
 
 > **v1.1 note:** The final consolidated executor handoff is `WRITING_SYSTEM_V11_EXECUTION_PROMPT.md`. Use that document for implementation; this file remains supporting detail.
