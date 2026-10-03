@@ -24,6 +24,7 @@ export function WritingIndex({ articles }: { articles: readonly PublishedWriting
         <header className="writing-system-archive-header">
           <p className="writing-system-archive-kicker">Writing</p>
           <h1>What I’m thinking through.</h1>
+          <p className="writing-system-archive-subtitle">Ideas, experiments, and the things I’m exploring.</p>
         </header>
         <div className="writing-system-grid">
           {ordered.map((article) => <WritingCard key={article.slug} article={article} context="archive" />)}
