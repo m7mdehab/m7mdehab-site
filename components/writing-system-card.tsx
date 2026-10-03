@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { WritingSystemCover } from "@/components/writing-system-cover";
 import {
+  writingSystemTimingLabel,
   writingSystemTopicLabel,
   type PublishedWritingSystemArticle,
 } from "@/components/writing-system-contract";
@@ -13,16 +13,7 @@ export function WritingSystemCard({
   article: PublishedWritingSystemArticle;
   context: "home" | "archive";
 }) {
-  const title = (
-    <>
-      {article.title}
-      <ArrowUpRight
-        className="writing-system-title-arrow"
-        size={16}
-        aria-hidden="true"
-      />
-    </>
-  );
+  const summary = article.cardDescription ?? article.description;
 
   return (
     <Link
@@ -32,17 +23,21 @@ export function WritingSystemCard({
       data-writing-context={context}
       data-writing-slug={article.slug}
     >
-      <WritingSystemCover article={article} />
-      <div className="writing-system-meta">
-        <span>{writingSystemTopicLabel(article)}</span>
-        <span>{article.readingMinutes} min</span>
+      <div className="writing-system-cover-frame">
+        <WritingSystemCover article={article} />
+        <div className="writing-system-cover-meta" aria-hidden="true">
+          <span>{writingSystemTopicLabel(article)}</span>
+          <span>{writingSystemTimingLabel(article)}</span>
+        </div>
       </div>
+
       {context === "home" ? (
-        <h3 className="writing-system-title">{title}</h3>
+        <h3 className="writing-system-title">{article.title}</h3>
       ) : (
-        <h2 className="writing-system-title">{title}</h2>
+        <h2 className="writing-system-title">{article.title}</h2>
       )}
-      <p className="writing-system-excerpt">{article.description}</p>
+
+      <p className="writing-system-excerpt">{summary}</p>
     </Link>
   );
 }
