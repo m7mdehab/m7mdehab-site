@@ -17,6 +17,28 @@ export const metadata: Metadata = {
   },
 };
 
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${profile.domain}/about#profile-page`,
+  url: `${profile.domain}/about`,
+  name: `About — ${profile.name}`,
+  description,
+  inLanguage: "en",
+  mainEntity: {
+    "@id": `${profile.domain}/#person`,
+    "@type": "Person",
+    name: profile.name,
+    url: `${profile.domain}/about`,
+    sameAs: [profile.github, profile.linkedin],
+  },
+};
+
 export default function AboutRoute() {
-  return <AboutPage />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }} />
+      <AboutPage />
+    </>
+  );
 }
