@@ -2,7 +2,7 @@
 
 import {
   useEffect,
-  useRef,
+  useMemo,
   useSyncExternalStore,
   type RefObject,
 } from "react";
@@ -42,13 +42,7 @@ export function useMethodStoryDesktopGeometry(
   progress: MotionValue<number>,
   enabled: boolean,
 ): GeometrySnapshot {
-  const storeRef = useRef<GeometryStore | null>(null);
-
-  if (storeRef.current === null) {
-    storeRef.current = createGeometryStore();
-  }
-
-  const store = storeRef.current;
+  const store = useMemo(createGeometryStore, []);
 
   useEffect(() => {
     if (!enabled) {
