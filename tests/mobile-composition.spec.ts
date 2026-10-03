@@ -114,6 +114,7 @@ test.describe("Phone composition", () => {
         ".overhaul-hero-roles",
         ".overhaul-hero-meta",
         ".writing-system-home-header > h2",
+        ".writing-system-home-header > p",
         ".closing-opportunity-head h2",
       ];
       for (const selector of oneLineSelectors) {
@@ -129,9 +130,21 @@ test.describe("Phone composition", () => {
           fit.scroll,
           `${width}px ${selector} horizontal fit`,
         ).toBeLessThanOrEqual(fit.client + 1);
-        if ([".overhaul-hero-roles", ".overhaul-hero-meta"].includes(selector))
-          expect(fit.height, `${width}px ${selector} is one line`).toBeLessThan(
-            24,
+        if (
+          [
+            ".overhaul-hero-roles",
+            ".overhaul-hero-meta",
+            ".writing-system-home-header > h2",
+            ".writing-system-home-header > p",
+          ].includes(selector)
+        )
+          expect(
+            fit.height,
+            `${width}px ${selector} is one line`,
+          ).toBeLessThanOrEqual(
+            Number.parseFloat(
+              await page.locator(selector).evaluate((element) => getComputedStyle(element).lineHeight),
+            ) + 2,
           );
       }
       const actionRows = await page
@@ -412,7 +425,7 @@ test.describe("Phone composition", () => {
     await expect(section.locator("[data-method-output]")).toHaveCount(5);
   });
 
-  test("Writing cards remain in a vertical grid and opportunity tabs switch paths by keyboard", async ({
+  test("Writing cards use the compact two-column phone grid and opportunity tabs switch paths by keyboard", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -429,6 +442,7 @@ test.describe("Phone composition", () => {
         name: "What I’m thinking through.",
       }),
     ).toBeVisible();
+    await expect(writing).toContainText("Ideas, experiments, and the things I’m exploring.");
     const excerpts = await writing.locator(".writing-system-excerpt").all();
     expect(excerpts).toHaveLength(3);
     for (const excerpt of excerpts) await expect(excerpt).toHaveCSS("display", "none");
@@ -469,15 +483,18 @@ test.describe("Phone composition", () => {
           metaBox.top >= frameBox.top - 1 &&
           metaBox.bottom <= frameBox.bottom + 1,
         metaText: meta.textContent ?? "",
+        metaClientWidth: meta.clientWidth,
+        metaScrollWidth: meta.scrollWidth,
       };
     });
-    expect(geometry.columns).toBe(1);
+    expect(geometry.columns).toBe(2);
     expect(geometry.cardColumns).toBe(3);
     expect(geometry.coverRatio).toBeCloseTo(16 / 9, 1);
     expect(geometry.titleHeight).toBeLessThanOrEqual(
-      geometry.titleLineHeight * 2.1,
+      geometry.titleLineHeight * 1.15,
     );
     expect(geometry.metaInside).toBe(true);
+    expect(geometry.metaScrollWidth).toBeLessThanOrEqual(geometry.metaClientWidth + 1);
     expect(geometry.metaText).toMatch(/min read/i);
     expect(geometry.metaText).toMatch(/min listen/i);
 
