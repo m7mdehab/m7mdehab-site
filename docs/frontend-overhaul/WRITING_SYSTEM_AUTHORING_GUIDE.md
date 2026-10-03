@@ -32,11 +32,12 @@ Every post needs:
 - at least one topic;
 - publishedAt once published;
 - readingMinutes;
+- listenMinutes;
 - cover;
 - origin;
 - at least one body section.
 
-Everything else is optional, including project evidence and audio.
+Everything else is optional, including project evidence and the audio asset itself.
 
 If the canonical description is too long for cards, do not weaken it. Add a separate `cardDescription` capped at 140 characters.
 
@@ -316,7 +317,7 @@ Before status becomes published:
 - description is useful outside the article;
 - cardDescription is concise when provided and <= 140 characters;
 - title still scans well when visually clamped to two lines;
-- listenMinutes is reasonable if configured;
+- listenMinutes is present, positive and reasonable;
 - audio metadata points to a real playable asset if configured;
 - slug is stable;
 - category/topics are accurate;
