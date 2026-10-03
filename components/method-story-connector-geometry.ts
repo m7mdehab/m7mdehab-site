@@ -158,40 +158,6 @@ function visibleEdgePoint(
   };
 }
 
-function routedHorizontalPath(
-  start: MethodStoryPoint,
-  end: MethodStoryPoint,
-  laneX: number,
-): string {
-  const verticalDistance = end.y - start.y;
-  if (Math.abs(verticalDistance) < 1) {
-    return `M ${start.x.toFixed(2)} ${start.y.toFixed(2)} L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`;
-  }
-
-  const radius = Math.min(
-    12,
-    Math.abs(verticalDistance) / 2,
-    (laneX - start.x) / 3,
-    (end.x - laneX) / 3,
-  );
-  const direction = Math.sign(verticalDistance);
-  const curveFactor = 0.5523;
-  const firstBendEndY = start.y + direction * radius;
-  const secondBendStartY = end.y - direction * radius;
-  return [
-    `M ${start.x.toFixed(2)} ${start.y.toFixed(2)}`,
-    `L ${(laneX - radius).toFixed(2)} ${start.y.toFixed(2)}`,
-    `C ${(laneX - radius + radius * curveFactor).toFixed(2)} ${start.y.toFixed(2)}`,
-    `${laneX.toFixed(2)} ${(firstBendEndY - direction * radius * curveFactor).toFixed(2)}`,
-    `${laneX.toFixed(2)} ${firstBendEndY.toFixed(2)}`,
-    `L ${laneX.toFixed(2)} ${secondBendStartY.toFixed(2)}`,
-    `C ${laneX.toFixed(2)} ${(secondBendStartY + direction * radius * curveFactor).toFixed(2)}`,
-    `${(laneX + radius - radius * curveFactor).toFixed(2)} ${end.y.toFixed(2)}`,
-    `${(laneX + radius).toFixed(2)} ${end.y.toFixed(2)}`,
-    `L ${end.x.toFixed(2)} ${end.y.toFixed(2)}`,
-  ].join(" ");
-}
-
 function horizontalCurve(
   start: MethodStoryPoint,
   end: MethodStoryPoint,
@@ -223,15 +189,6 @@ export function measureMethodStoryDesktopGeometry(
   const messySources = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map((selector) =>
     relativePoint(rootRect, queryRequired(root, selector)),
   );
-  const messyRects = METHOD_STORY_DESKTOP_ANCHORS.messyPorts.map((selector) => {
-    const input = queryRequired(root, selector).closest<HTMLElement>(
-      "[data-method-input]",
-    );
-    if (!input)
-      throw new Error(`Method Story input card missing for ${selector}`);
-    return relativeRect(rootRect, input);
-  });
-
   const evidenceRects = METHOD_STORY_DESKTOP_ANCHORS.evidenceSheets.map(
     (selector) => relativeRect(rootRect, queryRequired(root, selector)),
   );
@@ -294,14 +251,11 @@ export function measureMethodStoryDesktopGeometry(
     y: target.y,
   }));
 
-  const incomingLaneX = Math.max(...messyRects.map((rect) => rect.right)) + 12;
-
-  const inputToExpose = messySources.map((source, index) =>
-    routedHorizontalPath(
-      source,
-      exposeLeftTargets[index],
-      incomingLaneX + index * 5,
-    ),
+  // All four input paths now converge directly into the exact same Expose
+  // entry point with the same horizontal arrival tangent. This removes the
+  // staggered lane effect while preserving each card's exact edge source.
+  const inputToExpose = messySources.map((source) =>
+    horizontalCurve(source, exposeEntry, 0.34),
   );
 
   const exposeToReduce = exposeRightSources.map((source) =>

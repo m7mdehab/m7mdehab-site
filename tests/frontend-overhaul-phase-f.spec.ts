@@ -461,6 +461,29 @@ test.describe("Method story rebuild", () => {
     const maxError = Math.max(...errors);
     expect(maxError, `Maximum connector endpoint error: ${maxError}px`).toBeLessThanOrEqual(2);
   });
+  test("desktop stages keep explicit breathing room without changing the composition", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    const spacing = await section.evaluate((node) => {
+      const journey = node.querySelector<HTMLElement>(".method-story__journey")!;
+      const transformation = node.querySelector<HTMLElement>(
+        ".method-story__transformation-list",
+      )!;
+      return {
+        outer: Number.parseFloat(getComputedStyle(journey).columnGap),
+        inner: Number.parseFloat(getComputedStyle(transformation).columnGap),
+      };
+    });
+
+    expect(spacing.outer).toBeGreaterThanOrEqual(24);
+    expect(spacing.inner).toBeGreaterThanOrEqual(20);
+  });
+
   test("desktop connectors and centered viewport resolve before scrolling past the section", async ({
     page,
   }) => {
