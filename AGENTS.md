@@ -76,6 +76,7 @@ For this chapter:
 
 Writing v1.3 is the current presentation authority. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering, audio, or writing discovery/schema, read in this order:
 
+- `docs/frontend-overhaul/WRITING_SYSTEM_V13_FINAL_HANDOFF.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V13_EXECUTION_PROMPT.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V13_REFINEMENT_2026-10-03.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V12_EXECUTION_PROMPT.md`;
