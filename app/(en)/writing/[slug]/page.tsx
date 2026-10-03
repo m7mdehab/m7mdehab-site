@@ -60,6 +60,18 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
       : undefined;
   const origin = article.origin;
   const project = origin.kind === "project" ? projects.find((item) => item.slug === origin.projectSlug) : undefined;
+  const audio = article.audio
+    ? {
+        "@type": "AudioObject",
+        contentUrl: article.audio.src.startsWith("http")
+          ? article.audio.src
+          : `${profile.domain}${article.audio.src.startsWith("/") ? article.audio.src : `/${article.audio.src}`}`,
+        encodingFormat: article.audio.mimeType,
+        duration: `PT${Math.round(article.audio.durationSeconds)}S`,
+        caption: "Audio narration of this article",
+      }
+    : undefined;
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -70,6 +82,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
     datePublished: article.publishedAt,
     ...(article.updatedAt ? { dateModified: article.updatedAt } : {}),
     keywords: article.topics,
+    timeRequired: `PT${article.readingMinutes}M`,
     inLanguage: "en",
     author: {
       "@id": `${profile.domain}/#person`,
@@ -85,6 +98,7 @@ export default async function WritingArticlePage({ params }: { params: Promise<{
     } } : {}),
     ...(article.sources?.length ? { citation: article.sources.map((source) => source.href) } : {}),
     ...(image ? { image } : {}),
+    ...(audio ? { audio } : {}),
   };
 
   return (
