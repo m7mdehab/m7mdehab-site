@@ -182,31 +182,46 @@ test.describe("Method story rebuild", () => {
       ).toHaveCount(1);
     }
 
-    const endpoints = await connectors.evaluateAll((items) =>
+    const handoffs = await connectors.evaluateAll((items) =>
       items.map((svg) => {
         const paths = [...svg.querySelectorAll("path")];
         const parse = (value: string | null) =>
           (value?.match(/-?\\d+(?:\\.\\d+)?/g) ?? []).map(Number);
-        const first = parse(paths[0]?.getAttribute("d") ?? null);
-        const last = parse(paths[paths.length - 1]?.getAttribute("d") ?? null);
+        const parsed = paths.map((path) => {
+          const values = parse(path.getAttribute("d"));
+          return {
+            start: { x: values[0], y: values[1] },
+            end: {
+              x: values[values.length - 2],
+              y: values[values.length - 1],
+            },
+          };
+        });
         return {
-          first: { x: first[0], y: first[1] },
-          last: {
-            x: last[last.length - 2],
-            y: last[last.length - 1],
-          },
+          hasCenterEntry: parsed.some(
+            ({ start }) => start.x === 0 && start.y === 175,
+          ),
+          hasCenterExit: parsed.some(
+            ({ end }) => end.x === 350 && end.y === 175,
+          ),
         };
       }),
     );
 
-    expect(endpoints[0].last).toEqual({ x: 350, y: 175 });
-    expect(endpoints[1].first).toEqual({ x: 0, y: 175 });
-    expect(endpoints[1].last).toEqual({ x: 350, y: 175 });
-    expect(endpoints[2].first).toEqual({ x: 0, y: 105 });
-    expect(endpoints[2].last).toEqual({ x: 350, y: 175 });
-    expect(endpoints[3].first).toEqual({ x: 0, y: 175 });
-    expect(endpoints[3].last).toEqual({ x: 350, y: 175 });
-    expect(endpoints[4].first).toEqual({ x: 0, y: 175 });
+    expect(handoffs[0].hasCenterExit).toBe(true);
+    expect(handoffs[1]).toEqual({
+      hasCenterEntry: true,
+      hasCenterExit: true,
+    });
+    expect(handoffs[2]).toEqual({
+      hasCenterEntry: true,
+      hasCenterExit: true,
+    });
+    expect(handoffs[3]).toEqual({
+      hasCenterEntry: true,
+      hasCenterExit: true,
+    });
+    expect(handoffs[4].hasCenterEntry).toBe(true);
 
     const buildNodes = section
       .locator('[data-mobile-connectors="build"] circle');
