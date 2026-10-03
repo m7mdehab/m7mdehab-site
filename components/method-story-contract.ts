@@ -71,7 +71,7 @@ export const METHOD_STORY_VIEWBOX = {
 
 export const METHOD_STORY_MOTION = {
   scrollOffset: ["start 78%", "end 28%"] as const,
-  desktopScrollOffset: ["start 90%", "center 58%"] as const,
+  desktopScrollOffset: ["start 90%", "center 68%"] as const,
   spring: { stiffness: 115, damping: 28, mass: 0.35 },
   ranges: {
     messy: [0, 0.18],
