@@ -25,7 +25,7 @@ All three must render through the same shell.
 4. deck
 5. visible author byline
 6. published/updated/read/listen metadata
-7. real-audio player when audio exists
+7. browser text-to-speech narration bar
 8. article cover
 9. optional Key idea
 10. optional evidence anchors
@@ -41,6 +41,8 @@ All three must render through the same shell.
 Desktop:
 - page frame <=1180px;
 - prose <=760px / roughly 65–72 characters;
+- hero/prose/narration/related/footer share one primary left edge;
+- long-form prose is justified with the final line left-aligned;
 - secondary TOC rail about 180–220px;
 - body line-height about 1.7;
 - H2 around 2–3rem, not poster scale.
@@ -53,17 +55,18 @@ Mobile:
 
 ## Audio
 
-Do not render a fake player.
+The narration bar is functional browser text-to-speech, generated directly from the visible article. No recorded voice asset is required.
 
-When a real narration asset exists:
+Controls:
 - play/pause;
-- ±15 seconds;
-- seek;
-- elapsed/total;
+- previous/next passage;
+- passage progress scrubber;
 - speeds 0.75× through 2×;
 - remember speed locally;
 - no autoplay;
-- no-JS native audio fallback.
+- graceful unsupported-browser state.
+
+Do not claim AudioObject schema for this synthesized playback because no stable hosted audio object exists.
 
 ## SEO / AI visibility
 
@@ -112,7 +115,7 @@ For every current article:
 - sources visible;
 - two related articles appear;
 - existing project link remains;
-- no audio player without audio;
+- synthesized narration bar visible and functional without a recorded audio asset;
 - BlogPosting and BreadcrumbList validate;
 - no horizontal overflow at 390px;
 - axe clean;
