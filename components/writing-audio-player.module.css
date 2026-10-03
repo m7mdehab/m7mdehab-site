@@ -1,38 +1,172 @@
 .player {
-  width: min(100%, 760px);
+  width: 100%;
   display: grid;
-  grid-template-columns: auto auto minmax(180px, 1fr) auto;
-  gap: 14px;
+  grid-template-columns: auto auto minmax(220px, 1fr) auto auto;
+  gap: 16px;
   align-items: center;
-  margin-top: 28px;
-  padding: 13px 0;
+  margin-top: 26px;
+  padding: 12px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: transparent;
 }
-.identity { min-width: 116px; display: grid; gap: 2px; }
-.identity strong { font-size: 12px; font-weight: 760; }
-.identity span, .timeline span, .speed span { color: var(--muted); font-size: 10px; line-height: 1.35; }
-.controls { display: flex; gap: 6px; align-items: center; }
+
+.identity {
+  min-width: 150px;
+  display: grid;
+  gap: 2px;
+}
+
+.identity strong {
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.identity span,
+.timeline span,
+.speed span,
+.voice span {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 .controls button {
-  width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center;
-  gap: 2px; border: 1px solid var(--line); border-radius: 999px; background: transparent;
-  color: var(--ink); cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
 }
-.controls button span { font-size: 8px; font-weight: 760; }
-.controls button:disabled { opacity: .35; cursor: default; }
-.controls .play { border-color: var(--ink); background: var(--ink); color: var(--paper); }
-.controls button:focus-visible, .timeline input:focus-visible, .speed select:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.timeline { min-width: 0; display: grid; gap: 5px; }
-.timeline input { width: 100%; accent-color: var(--ink); }
-.timeline span { font-variant-numeric: tabular-nums; }
-.speed { display: grid; gap: 4px; justify-items: end; }
-.speed select { min-width: 72px; height: 34px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font: inherit; font-size: 11px; }
-@media (max-width: 720px) {
-  .player { grid-template-columns: 1fr auto; gap: 10px 12px; }
-  .identity { min-width: 0; }
-  .controls { justify-self: end; }
-  .timeline { grid-column: 1 / -1; }
-  .speed { grid-column: 1 / -1; grid-template-columns: auto auto; align-items: center; justify-content: end; }
+
+.controls button:disabled {
+  opacity: .35;
+  cursor: default;
 }
-@media (prefers-reduced-motion: reduce) { .controls button { transition: none; } }
+
+.controls .play {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.controls button:focus-visible,
+.timeline input:focus-visible,
+.speed select:focus-visible,
+.voice select:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.timeline {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.timeline input {
+  width: 100%;
+  accent-color: var(--ink);
+}
+
+.timeline span {
+  font-variant-numeric: tabular-nums;
+}
+
+.speed,
+.voice {
+  display: grid;
+  gap: 4px;
+  justify-items: end;
+}
+
+.speed select,
+.voice select {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+}
+
+.voice select {
+  min-width: 112px;
+}
+
+.speed select {
+  min-width: 68px;
+}
+
+@media (max-width: 900px) {
+  .player {
+    grid-template-columns: auto auto minmax(160px, 1fr);
+  }
+
+  .voice,
+  .speed {
+    grid-row: 2;
+    justify-items: start;
+  }
+
+  .voice {
+    grid-column: 1 / 3;
+  }
+
+  .speed {
+    grid-column: 3;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 620px) {
+  .player {
+    grid-template-columns: 1fr auto;
+    gap: 10px 12px;
+  }
+
+  .identity {
+    min-width: 0;
+  }
+
+  .controls {
+    justify-self: end;
+  }
+
+  .timeline {
+    grid-column: 1 / -1;
+  }
+
+  .voice,
+  .speed {
+    grid-row: auto;
+  }
+
+  .voice {
+    grid-column: 1;
+  }
+
+  .speed {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .controls button {
+    transition: none;
+  }
+}
