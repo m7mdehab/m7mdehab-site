@@ -21,7 +21,7 @@ export function GET() {
     const relatedProjects = article.relatedProjects.length
       ? ` · Related projects: ${article.relatedProjects.map((project) => `[${project.title}](${project.caseStudyUrl})`).join(", ")}`
       : "";
-    return `- **${article.title}**: ${article.description} · Topics: ${article.topics.join(", ")} · ${article.readingMinutes} min read · ${listenEstimate}${article.listenMinutes} min listen · [Article](${article.url})${relatedProjects}`;
+    return `- **${article.title}**: ${article.description} · Format: ${article.format} · Topics: ${article.topics.join(", ")} · ${article.readingMinutes} min read · ${listenEstimate}${article.listenMinutes} min listen · [Article](${article.url})${relatedProjects}`;
   });
 
   const body = [
