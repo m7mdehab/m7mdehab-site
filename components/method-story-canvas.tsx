@@ -484,7 +484,7 @@ function MobileMethodStory({
                       />
                     ))}
                     <circle className="method-story__decision-node" cx="112" cy="80" r="5" />
-                    <path className="method-story__path method-story__path--hot" d="M117 80H150" />
+                    <path className="method-story__path method-story__path--hot" d="M117 80H220" />
                   </svg>
                   <motion.div
                     className="method-story__decision-module"
