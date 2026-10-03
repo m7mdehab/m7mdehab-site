@@ -283,3 +283,25 @@ Implemented mobile-only art direction on `feat/mobile-composition-pass` from `3b
 Fresh mobile card and section captures cover 320/360/375/390/412/430/480px in `outputs/selected-work-mobile-parity-20261002/after/`; six 390px desktop/mobile comparison sheets are in `pair-review-1.jpg` and `pair-review-2.jpg`. Desktop before/after card captures at 1280/1440/1920 are in `before/` and `after/`; all 18 comparisons were pixel-identical after the final mobile changes. Visual review included contact sheets at every requested phone width, individual 390px card renders, and the six desktop/mobile pairs. Seven-width browser coverage, Android Pixel 7, and iPhone WebKit checks passed; the fixed navigation stayed within its safe-area position.
 
 Fresh verification: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run test:browser` (**167 passed**), and `git diff --check` passed. The browser suite also verified mobile overflow, one-line constraints, landscape cards, drag/swipe, active pagination, active-only motion, reduced motion, CTA-only navigation, rank sequencing, and fixed navigation positioning. No dependency changes, commit, push, merge, or deployment.
+
+## Writing System v1.1 refinement — prepared / pending rendered acceptance
+
+Screenshot review on 2026-10-03 produced a second, denser Writing pass on `writing-system-v11-refinement`.
+
+Locked changes:
+- visible Home/archive heading is `What I’m thinking through.`;
+- explanatory Home/archive lede removed;
+- `All writing` moved after the Home grid at bottom-right;
+- category/topic and read/listen timing moved inside the thumbnail bottom edge;
+- permanent top-left cover taxonomy labels removed;
+- card titles and descriptions hard-capped at two visible lines;
+- current three articles receive concise browse-only `cardDescription` values;
+- current articles receive ~8-minute listen estimates;
+- real-audio-only native Listen component and AudioObject path prepared;
+- Oil Spill cover crop tightened so baked-in source-header text does not compete;
+- mobile row rhythm reduced from the first-pass composition;
+- Writing JSON/discovery model prepared for card/listen/audio fields.
+
+Authority: `docs/frontend-overhaul/WRITING_SYSTEM_REFINEMENT_2026-10-03.md`, `WRITING_SYSTEM_V11_EXECUTION_PROMPT.md`, design spec v1.1.
+
+Implementation is intentionally not claimed accepted/live until Luna/Codex completes clean validation, the full rendered matrix, merge, production deployment and live route verification.
