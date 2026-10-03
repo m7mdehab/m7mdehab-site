@@ -215,11 +215,16 @@ CI is necessary, not sufficient. Rendered visual QA is a separate acceptance gat
 
 At 1440 and 390:
 - compute title line-height and bounding-box height; fail if height exceeds 2.1 lines;
-- compute excerpt line-height and bounding-box height; fail if height exceeds 2.1 lines;
 - verify `.writing-system-cover-meta` is fully contained inside `.writing-system-cover-frame`;
 - verify cover metadata bottom edge aligns with cover bottom within 1px;
 - verify no legacy `.writing-system-meta` row is rendered;
 - verify `All writing` is vertically below the bottom edge of the final card row.
+
+At 1440:
+- compute excerpt line-height and bounding-box height; fail if height exceeds 2.1 lines.
+
+At 390:
+- verify every `.writing-system-excerpt` computes to `display: none`.
 
 ## Copy regression assertions
 
