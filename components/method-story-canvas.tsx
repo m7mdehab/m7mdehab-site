@@ -111,6 +111,11 @@ function AnimatedInput({
       >
         {inputIcon(input.icon)}
         <strong>{input.label}</strong>
+        <span
+          className="method-story__port method-story__port--right"
+          data-method-port={`messy-${index + 1}-out`}
+          aria-hidden="true"
+        />
       </motion.div>
     </div>
   );
@@ -136,6 +141,7 @@ function RevealSheet({
       className={`method-story__evidence-sheet method-story__evidence-sheet--${index + 1}`}
       style={enhanced ? { x, y, opacity } : undefined}
       aria-hidden="true"
+      data-method-evidence-sheet={index + 1}
     >
       <i />
       <i />
@@ -293,6 +299,11 @@ function OutputRow({
       data-method-output={output.id}
       data-method-anchor={`outcome-${index + 1}`}
     >
+      <span
+        className="method-story__port method-story__port--left"
+        data-method-port={`outcome-${index + 1}-in`}
+        aria-hidden="true"
+      />
       <motion.span
         className="method-story__output-check"
         style={enhanced ? { scale: checkScale } : undefined}
@@ -531,6 +542,16 @@ export function MethodStoryCanvas() {
                   }
                   aria-hidden="true"
                 >
+                  <span
+                    className="method-story__port method-story__port--left"
+                    data-method-port="reduce-in"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="method-story__port method-story__port--right"
+                    data-method-port="reduce-out"
+                    aria-hidden="true"
+                  />
                   <MethodDecisionIcon />
                   <i className="is-selected" />
                   <i />
@@ -550,6 +571,16 @@ export function MethodStoryCanvas() {
                   className="method-story__system-stack"
                   data-method-anchor="build-system"
                 >
+                  <span
+                    className="method-story__port method-story__port--system-left"
+                    data-method-port="build-in"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="method-story__port method-story__port--system-right"
+                    data-method-port="build-out"
+                    aria-hidden="true"
+                  />
                   {[0, 1, 2].map((index) => (
                     <BuildLayer
                       key={index}
