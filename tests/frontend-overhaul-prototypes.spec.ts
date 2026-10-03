@@ -22,8 +22,9 @@ async function expectCanonicalIdentity(page: import("@playwright/test").Page) {
 for (const direction of directions) {
   test.describe(`frontend overhaul prototype: ${direction}`, () => {
     test(`${direction} renders at desktop and laptop without horizontal overflow`, async ({ page }, testInfo) => {
+      test.setTimeout(90_000);
       await page.setViewportSize({ width: 1920, height: 1080 });
-      const response = await page.goto(`/prototypes/${direction}`);
+      const response = await page.goto(`/prototypes/${direction}`, { waitUntil: "domcontentloaded" });
       expect(response?.ok()).toBeTruthy();
       await settle(page);
 

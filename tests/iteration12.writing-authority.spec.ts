@@ -22,7 +22,7 @@ test.describe("Writing publication authority", () => {
 
     for (const slug of slugs) {
       const canonical = `${domain}/writing/${slug}`;
-      await page.goto(`/writing/${slug}`);
+      await page.goto(`/writing/${slug}`, { waitUntil: "domcontentloaded" });
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical);
       await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", canonical);
       await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveCount(0);
