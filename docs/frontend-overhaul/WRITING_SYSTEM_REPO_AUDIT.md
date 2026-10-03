@@ -164,3 +164,34 @@ Do not use it as the Writing authority.
 Before this groundwork commit, `AGENTS.md` still contained an older public Arabic/reciprocal-hreflang contract.
 
 This groundwork must reconcile `AGENTS.md` to the current English-only policy so the executor does not reintroduce Arabic routes or writing alternates.
+
+
+## Concurrent PR update — direct integration conflict
+
+### PR #31 — Refine closing contact, footer, and mobile header
+
+This PR directly touches:
+- `components/home-closing.tsx`;
+- `components/opportunity-paths.tsx`;
+- `tests/frontend-overhaul-phase-g.spec.ts`;
+- `tests/mobile-composition.spec.ts`;
+- `app/(en)/layout.tsx`;
+- additional navigation/closing CSS/tests.
+
+Those are also activation surfaces for the Writing rebuild.
+
+Therefore the Writing **execution** branch must not be cut from a base that omits an accepted PR #31. Preferred sequence:
+
+1. finish/merge the accepted closing/contact work;
+2. refresh latest `main`;
+3. branch/rebase Writing activation from that state;
+4. extract Writing from the newest `HomeClosing` without overwriting the accepted Opportunity/Footer changes;
+5. update Phase G/mobile tests from that newest baseline.
+
+Do not restore the older HomeClosing merely because the groundwork audit captured it earlier.
+
+### PR #29 — Method Story
+
+PR #29 still touches `app/(en)/layout.tsx`, `home-solve-think.tsx` and the Method test. Writing must preserve whatever Method version is accepted on latest `main`.
+
+The Writing implementation should begin from the latest accepted main after these concurrent section changes, not by merging stale file snapshots.
