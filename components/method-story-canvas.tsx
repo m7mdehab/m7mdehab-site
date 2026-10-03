@@ -579,10 +579,6 @@ export function MethodStoryCanvas() {
     getMobileServerSnapshot,
   );
 
-  if (isMobile) {
-    return <MobileMethodStory reducedMotion={reducedMotion} />;
-  }
-
   const enhanced = !reducedMotion;
   const scrollOffset = isDesktop
     ? METHOD_STORY_MOTION.desktopScrollOffset
@@ -604,6 +600,10 @@ export function MethodStoryCanvas() {
   const outputOpacity = useTransform(progress, [0.76, 0.88], [0.55, 1]);
   const decisionScale = useTransform(progress, [0.43, 0.58], [0.88, 1]);
   const decisionOpacity = useTransform(progress, [0.43, 0.56], [0.35, 1]);
+
+  if (isMobile) {
+    return <MobileMethodStory reducedMotion={reducedMotion} />;
+  }
 
   return (
     <div
