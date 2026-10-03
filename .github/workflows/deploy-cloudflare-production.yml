@@ -81,51 +81,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4.130.0 deploy --config wrangler.production.jsonc
 
-      - name: Purge custom-domain cache after deployment
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          zone_response="$(curl --fail --silent --show-error \
-            --get 'https://api.cloudflare.com/client/v4/zones' \
-            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            --header 'Content-Type: application/json' \
-            --data-urlencode 'name=m7mdehab.com' \
-            --data-urlencode "account.id=$CLOUDFLARE_ACCOUNT_ID")"
-
-          zone_id="$(ZONE_RESPONSE="$zone_response" node - <<'NODE'
-          const response = JSON.parse(process.env.ZONE_RESPONSE || '{}');
-          if (!response.success) {
-            console.error(JSON.stringify(response.errors || response));
-            process.exit(1);
-          }
-          const zone = response.result?.find((item) => item.name === 'm7mdehab.com');
-          if (!zone?.id) {
-            console.error('Could not resolve Cloudflare zone ID for m7mdehab.com');
-            process.exit(1);
-          }
-          process.stdout.write(zone.id);
-          NODE
-          )"
-
-          purge_response="$(curl --fail --silent --show-error \
-            --request POST "https://api.cloudflare.com/client/v4/zones/$zone_id/purge_cache" \
-            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            --header 'Content-Type: application/json' \
-            --data '{"purge_everything":true}')"
-
-          PURGE_RESPONSE="$purge_response" node - <<'NODE'
-          const response = JSON.parse(process.env.PURGE_RESPONSE || '{}');
-          if (!response.success) {
-            console.error(JSON.stringify(response.errors || response));
-            process.exit(1);
-          }
-          console.log('Cloudflare custom-domain cache purge accepted.');
-          NODE
-
       - name: Verify live production routes, indexing, security, canonical, and Arabic absence
         shell: bash
         run: |
