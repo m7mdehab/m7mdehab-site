@@ -2373,3 +2373,253 @@
     display: none;
   }
 }
+
+
+/* Mobile Method Story final precision pass — screenshot-led optical balance,
+   exact card-edge routing and restrained guidance. Desktop/tablet untouched. */
+@media (max-width: 719px) {
+  .method-story__mobile-stage {
+    /* Keep the caption and action rows identical across all five panels so
+       every connector canvas shares the exact same absolute centerline. */
+    grid-template-rows: auto minmax(300px, 1fr) 32px 66px;
+  }
+
+  .method-story__mobile-swipe-cue {
+    position: absolute;
+    z-index: 6;
+    top: 92px;
+    left: 50%;
+    right: auto;
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    color: rgba(184, 242, 213, 0.72);
+    font-size: 12px;
+    font-weight: 520;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+    pointer-events: none;
+    will-change: transform, opacity;
+    animation: method-story-mobile-cue 1.65s ease-in-out infinite;
+  }
+
+  .method-story__mobile-description {
+    align-self: end;
+    max-width: 288px;
+    margin: 0 10px 8px;
+    color: rgba(169, 179, 173, 0.82);
+    font-size: 9.5px;
+    font-weight: 480;
+    line-height: 1.42;
+    letter-spacing: -0.008em;
+    text-wrap: pretty;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__mobile-description {
+    justify-self: center;
+    max-width: 238px;
+    margin-bottom: 9px;
+    text-align: center;
+    font-size: 9px;
+  }
+
+  /* Expose: enlarge and vertically spread the sheets so the convergence fan
+     has enough travel to read as a transformation rather than a cramped knot. */
+  .method-story__mobile-stage--expose .method-story__stage-symbol {
+    top: 48px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-stack {
+    left: 10%;
+    right: 17%;
+    top: 58px;
+    height: 205px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet {
+    width: 56%;
+    height: 100px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--1 {
+    left: 0;
+    top: 80px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--2 {
+    left: 8%;
+    top: 60px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--3 {
+    left: 16%;
+    top: 40px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--4 {
+    left: 24%;
+    top: 20px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--5 {
+    left: 32%;
+    top: 0;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--mint {
+    left: 5%;
+    top: 18px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--teal {
+    right: 3%;
+    top: 30px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--amber {
+    right: 6%;
+    bottom: 10px;
+  }
+
+  /* Reduce: optical center, slightly larger decision artifact and one subtle
+     side scan to suggest active clarification without adding scroll cost. */
+  .method-story__mobile-stage--reduce .method-story__decision-module {
+    left: 50%;
+    top: 68px;
+    width: 100px;
+    min-height: 180px;
+    padding: 18px 14px;
+    gap: 12px;
+    overflow: hidden;
+    transform: translateX(-50%);
+  }
+
+  .method-story__mobile-stage--reduce .method-story__decision-module svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .method-story__mobile-stage--reduce .method-story__decision-module::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: 18%;
+    width: 2px;
+    height: 28%;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(145, 225, 189, 0.8),
+      transparent
+    );
+    opacity: 0.5;
+    animation: method-story-decision-scan 2.5s ease-in-out infinite;
+  }
+
+  .method-story__mobile-stage--reduce .method-story__decision-module .is-selected {
+    animation: method-story-decision-line 2.5s ease-in-out infinite;
+  }
+
+  /* Build: center the system on the stage axis and give it enough presence
+     without reviving the stage-05 output bus. */
+  .method-story__mobile-stage--build .method-story__system-stack {
+    left: 50%;
+    top: 26px;
+    width: 116px;
+    height: 260px;
+    transform: translateX(-50%) scale(1.08);
+    transform-origin: center center;
+  }
+
+  /* Outcomes: center the complete bus+rows group. Five equal rows arranged
+     symmetrically around 50% put the hot middle node on the exact handoff axis. */
+  .method-story__mobile-stage--outcomes .method-story__outputs {
+    left: 18%;
+    right: 10%;
+    top: 50%;
+    gap: 8px;
+    transform: translateY(-50%);
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-row {
+    min-height: 46px;
+    height: 46px;
+    padding: 7px 9px;
+    grid-template-columns: 18px 17px minmax(0, 1fr);
+    gap: 7px;
+    border-radius: 10px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-row strong {
+    font-size: 10px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-check {
+    width: 17px;
+    height: 17px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-check svg,
+  .method-story__mobile-stage--outcomes .method-story__micro-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .method-story__mobile-next {
+    margin-top: 0;
+  }
+}
+
+@keyframes method-story-mobile-cue {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0.38;
+  }
+  50% {
+    transform: translate(-50%, 5px);
+    opacity: 0.9;
+  }
+}
+
+@keyframes method-story-decision-scan {
+  0%,
+  100% {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.56;
+  }
+  70% {
+    opacity: 0.56;
+  }
+  100% {
+    transform: translateY(138px);
+    opacity: 0;
+  }
+}
+
+@keyframes method-story-decision-line {
+  0%,
+  100% {
+    opacity: 0.62;
+    box-shadow: 0 0 0 3px rgba(145, 225, 189, 0.03);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 0 3px rgba(145, 225, 189, 0.075);
+  }
+}
+
+@media (max-width: 719px) and (prefers-reduced-motion: reduce) {
+  .method-story__mobile-swipe-cue,
+  .method-story__mobile-stage--reduce .method-story__decision-module::after,
+  .method-story__mobile-stage--reduce .method-story__decision-module .is-selected {
+    animation: none !important;
+  }
+}
