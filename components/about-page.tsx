@@ -130,13 +130,6 @@ export function AboutPage() {
     <main id="main-content" className="about-v2-page">
       <section className="about-v2-hero">
         <div className="shell">
-          <Reveal className="about-v2-topline">
-            <span>About · Professional history</span>
-            <Link href="/">
-              Home <ArrowUpRight size={13} aria-hidden="true" />
-            </Link>
-          </Reveal>
-
           <div className="about-v2-hero-grid">
             <Reveal className="about-v2-hero-copy">
               <p className="about-v2-eyebrow">THE THROUGH-LINE</p>
@@ -185,18 +178,7 @@ export function AboutPage() {
 
                 <div className="about-v2-career-role">
                   <h3>{item.role}</h3>
-                  <div className="about-v2-company-line">
-                    <strong>{item.company}</strong>
-                    <OrganizationMark
-                      name={
-                        item.company === "Guksu" ||
-                        item.company === "Egyptian African Trade"
-                          ? "Al Tayseer Group"
-                          : item.company
-                      }
-                      quiet
-                    />
-                  </div>
+                  <p className="about-v2-company-name">{item.company}</p>
                 </div>
 
                 <div className="about-v2-career-copy">
@@ -216,53 +198,47 @@ export function AboutPage() {
           <AboutSectionHead
             index="02"
             eyebrow="Alongside the main lane"
-            title="Teaching, client work and early technical foundations."
-            copy="They matter because they explain communication range, independent ownership and the environments that shaped the work before the main career track."
+            title="Parallel work and technical foundations."
+            copy="Teaching, independent delivery and early technical work explain the range without competing with the main career chronology."
           />
 
-          <div className="about-v2-secondary-grid">
-            <div className="about-v2-parallel">
-              <p className="about-v2-subhead">Parallel work</p>
-              {parallelExperience.map((item, index) => (
-                <Reveal
-                  as="article"
-                  key={item.company}
-                  delay={index * 0.04}
-                  className="about-v2-parallel-row"
-                >
-                  <div className="about-v2-row-meta">
-                    <span>{item.period}</span>
-                    <OrganizationMark name={item.company} quiet />
-                  </div>
+          <div className="about-v2-secondary-list">
+            {parallelExperience.map((item, index) => (
+              <Reveal
+                as="article"
+                key={item.company}
+                delay={index * 0.035}
+                className="about-v2-secondary-row"
+              >
+                <div className="about-v2-secondary-meta">
+                  <span>Parallel work</span>
+                  <strong>{item.period}</strong>
+                </div>
+                <div className="about-v2-secondary-role">
                   <h3>{item.role}</h3>
-                  <p className="about-v2-org">{item.company}</p>
-                  <p>{item.summary}</p>
-                </Reveal>
-              ))}
-            </div>
-
-            <div className="about-v2-foundation">
-              <p className="about-v2-subhead">Foundation</p>
-              {earlyExperience.map((item, index) => (
-                <Reveal
-                  as="article"
-                  key={item.company}
-                  delay={index * 0.035}
-                  className="about-v2-foundation-row"
-                >
-                  <span className="about-v2-foundation-index">0{index + 1}</span>
-                  <div>
-                    <div className="about-v2-row-meta">
-                      <span>{item.period}</span>
-                      <OrganizationMark name={item.company} quiet />
-                    </div>
-                    <h3>{item.role}</h3>
-                    <p className="about-v2-org">{item.company}</p>
-                    <p>{item.summary}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+                  <p>{item.company}</p>
+                </div>
+                <p className="about-v2-secondary-copy">{item.summary}</p>
+              </Reveal>
+            ))}
+            {earlyExperience.map((item, index) => (
+              <Reveal
+                as="article"
+                key={item.company}
+                delay={(parallelExperience.length + index) * 0.035}
+                className="about-v2-secondary-row"
+              >
+                <div className="about-v2-secondary-meta">
+                  <span>Foundation</span>
+                  <strong>{item.period}</strong>
+                </div>
+                <div className="about-v2-secondary-role">
+                  <h3>{item.role}</h3>
+                  <p>{item.company}</p>
+                </div>
+                <p className="about-v2-secondary-copy">{item.summary}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -381,9 +357,6 @@ export function AboutPage() {
             </Link>
             <Link href="/writing">
               Writing <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-            <Link href="/services">
-              Services <ArrowRight size={14} aria-hidden="true" />
             </Link>
             <a
               href={emailComposeHref("Role or project opportunity")}
