@@ -686,7 +686,7 @@
   line-height: 0;
 }
 
-.about-v2-logo img {
+.about-v2 .brand-logo.about-v2-logo img {
   display: block;
   width: 100% !important;
   height: 100% !important;
