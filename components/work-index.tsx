@@ -16,7 +16,22 @@ export function WorkIndex({ locale }: { locale: WorkLocale }) {
       <header className="work-index-header">
         <div>
           <p className="work-index-kicker">{isArabic ? "الأعمال · دليل المشاريع" : "Work · Project directory"}</p>
-          <h1>{isArabic ? <>ستة مشاريع، <em>ستة أنواع من الدليل.</em></> : <>Six projects, <em>six kinds of evidence.</em></>}</h1>
+          <h1>
+            {isArabic ? (
+              <>
+                <span className="work-index-title-line">ستة مشاريع،</span>
+                <em className="work-index-title-line">ستة أنواع من الدليل.</em>
+              </>
+            ) : (
+              <>
+                <span className="work-index-title-line">Six projects,</span>
+                <em className="work-index-title-line">six kinds of evidence.</em>
+              </>
+            )}
+          </h1>
+          <div className="work-index-spectrum" aria-hidden="true">
+            {list.map((project) => <i key={project.slug} data-tone={project.tone} />)}
+          </div>
         </div>
         <div className="work-index-header-copy">
           <p>
