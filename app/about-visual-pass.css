@@ -18,6 +18,10 @@
   z-index: 1;
 }
 
+.about-v2-hero::before {
+  content: none;
+}
+
 .about-v2-hero {
   padding: clamp(126px, 11vw, 166px) 0 clamp(72px, 7vw, 104px);
   border-bottom: 1px solid var(--about-rule);
