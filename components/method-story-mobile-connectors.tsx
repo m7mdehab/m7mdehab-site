@@ -158,13 +158,13 @@ function buildGeometry(
   }
 
   if (stage === "reduce") {
-    const module = root.querySelector<HTMLElement>(
+    const decisionModule = root.querySelector<HTMLElement>(
       ".method-story__decision-module",
     );
-    if (!module) return null;
+    if (!decisionModule) return null;
 
-    const moduleIn = leftEdge(module, rootRect);
-    const moduleOut = rightEdge(module, rootRect);
+    const moduleIn = leftEdge(decisionModule, rootRect);
+    const moduleOut = rightEdge(decisionModule, rootRect);
 
     paths.push({
       key: "reduce-in",
