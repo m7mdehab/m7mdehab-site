@@ -225,7 +225,7 @@ export function getWritingNarrationSegments(
       segments.push({
         id: `section-${sectionIndex}-bullet-${bulletIndex}`,
         text: bullet,
-        prefix: narrationListPrefix(itemIndex),
+        prefix: narrationListPrefix(bulletIndex),
       });
     });
     section.blocks?.forEach((block, blockIndex) => {
