@@ -344,8 +344,7 @@ html[dir="rtl"] .display-strong {
   padding-bottom: 92px !important;
 }
 
-[class*="indexHero"] h1,
-[class*="articleHero"] h1 {
+[class*="indexHero"] h1 {
   font-size: clamp(3.35rem, 6.6vw, 7rem) !important;
   line-height: .91 !important;
 }

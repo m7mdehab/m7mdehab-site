@@ -1,0 +1,6088 @@
+{
+  "version": 1,
+  "model": "shawnahmed/Kokoro-82M-v1.0-ONNX-timestamped",
+  "voice": "male",
+  "kokoroVoice": "am_michael",
+  "durationSeconds": 518.4,
+  "autoScroll": false,
+  "cues": [
+    {
+      "id": "article-title:0",
+      "word": "When",
+      "start": 0.475,
+      "end": 0.675
+    },
+    {
+      "id": "article-title:1",
+      "word": "should",
+      "start": 0.725,
+      "end": 0.825
+    },
+    {
+      "id": "article-title:2",
+      "word": "you",
+      "start": 0.875,
+      "end": 0.95
+    },
+    {
+      "id": "article-title:3",
+      "word": "trust",
+      "start": 1.025,
+      "end": 1.45
+    },
+    {
+      "id": "article-title:4",
+      "word": "a",
+      "start": 1.525,
+      "end": 1.575
+    },
+    {
+      "id": "article-title:5",
+      "word": "probabilistic",
+      "start": 1.65,
+      "end": 2.4
+    },
+    {
+      "id": "article-title:6",
+      "word": "forecast?",
+      "start": 2.475,
+      "end": 3.625
+    },
+    {
+      "id": "article-description:0",
+      "word": "A",
+      "start": 4.1,
+      "end": 4.15
+    },
+    {
+      "id": "article-description:1",
+      "word": "practical",
+      "start": 4.2,
+      "end": 4.7
+    },
+    {
+      "id": "article-description:2",
+      "word": "trust",
+      "start": 4.75,
+      "end": 5
+    },
+    {
+      "id": "article-description:3",
+      "word": "test",
+      "start": 5.075,
+      "end": 5.35
+    },
+    {
+      "id": "article-description:4",
+      "word": "for",
+      "start": 5.4,
+      "end": 5.5
+    },
+    {
+      "id": "article-description:5",
+      "word": "probabilistic",
+      "start": 5.55,
+      "end": 6.275
+    },
+    {
+      "id": "article-description:6",
+      "word": "forecasts:",
+      "start": 6.35,
+      "end": 7.55
+    },
+    {
+      "id": "article-description:7",
+      "word": "proper",
+      "start": 7.625,
+      "end": 7.95
+    },
+    {
+      "id": "article-description:8",
+      "word": "scoring,",
+      "start": 8.025,
+      "end": 8.9
+    },
+    {
+      "id": "article-description:9",
+      "word": "calibration,",
+      "start": 8.975,
+      "end": 9.975
+    },
+    {
+      "id": "article-description:10",
+      "word": "complete",
+      "start": 10.025,
+      "end": 10.5
+    },
+    {
+      "id": "article-description:11",
+      "word": "coverage,",
+      "start": 10.575,
+      "end": 11.45
+    },
+    {
+      "id": "article-description:12",
+      "word": "leakage-resistant",
+      "start": 11.525,
+      "end": 12.425
+    },
+    {
+      "id": "article-description:13",
+      "word": "evaluation,",
+      "start": 12.475,
+      "end": 13.6
+    },
+    {
+      "id": "article-description:14",
+      "word": "reproducibility",
+      "start": 13.675,
+      "end": 14.65
+    },
+    {
+      "id": "article-description:15",
+      "word": "and",
+      "start": 14.725,
+      "end": 14.8
+    },
+    {
+      "id": "article-description:16",
+      "word": "published",
+      "start": 14.875,
+      "end": 15.3
+    },
+    {
+      "id": "article-description:17",
+      "word": "failure",
+      "start": 15.375,
+      "end": 15.725
+    },
+    {
+      "id": "article-description:18",
+      "word": "modes.",
+      "start": 15.775,
+      "end": 16.8
+    },
+    {
+      "id": "article-thesis:0",
+      "word": "A",
+      "start": 18.95,
+      "end": 19
+    },
+    {
+      "id": "article-thesis:1",
+      "word": "forecast",
+      "start": 19.1,
+      "end": 19.75
+    },
+    {
+      "id": "article-thesis:2",
+      "word": "earns",
+      "start": 19.825,
+      "end": 20.1
+    },
+    {
+      "id": "article-thesis:3",
+      "word": "trust",
+      "start": 20.175,
+      "end": 20.525
+    },
+    {
+      "id": "article-thesis:4",
+      "word": "by",
+      "start": 20.575,
+      "end": 20.725
+    },
+    {
+      "id": "article-thesis:5",
+      "word": "surviving",
+      "start": 20.8,
+      "end": 21.4
+    },
+    {
+      "id": "article-thesis:6",
+      "word": "inspection",
+      "start": 21.45,
+      "end": 22.2
+    },
+    {
+      "id": "article-thesis:7",
+      "word": "after",
+      "start": 22.275,
+      "end": 22.525
+    },
+    {
+      "id": "article-thesis:8",
+      "word": "reality",
+      "start": 22.575,
+      "end": 23.15
+    },
+    {
+      "id": "article-thesis:9",
+      "word": "is",
+      "start": 23.2,
+      "end": 23.3
+    },
+    {
+      "id": "article-thesis:10",
+      "word": "known.",
+      "start": 23.375,
+      "end": 24.325
+    },
+    {
+      "id": "article-thesis:11",
+      "word": "The",
+      "start": 24.4,
+      "end": 24.475
+    },
+    {
+      "id": "article-thesis:12",
+      "word": "useful",
+      "start": 24.55,
+      "end": 24.925
+    },
+    {
+      "id": "article-thesis:13",
+      "word": "question",
+      "start": 25,
+      "end": 25.55
+    },
+    {
+      "id": "article-thesis:14",
+      "word": "is",
+      "start": 25.625,
+      "end": 25.725
+    },
+    {
+      "id": "article-thesis:15",
+      "word": "not",
+      "start": 25.8,
+      "end": 26.05
+    },
+    {
+      "id": "article-thesis:16",
+      "word": "whether",
+      "start": 26.1,
+      "end": 26.35
+    },
+    {
+      "id": "article-thesis:17",
+      "word": "one",
+      "start": 26.425,
+      "end": 26.625
+    },
+    {
+      "id": "article-thesis:18",
+      "word": "prediction",
+      "start": 26.675,
+      "end": 27.225
+    },
+    {
+      "id": "article-thesis:19",
+      "word": "was",
+      "start": 27.275,
+      "end": 27.4
+    },
+    {
+      "id": "article-thesis:20",
+      "word": "right,",
+      "start": 27.475,
+      "end": 28.225
+    },
+    {
+      "id": "article-thesis:21",
+      "word": "but",
+      "start": 28.275,
+      "end": 28.375
+    },
+    {
+      "id": "article-thesis:22",
+      "word": "whether",
+      "start": 28.425,
+      "end": 28.65
+    },
+    {
+      "id": "article-thesis:23",
+      "word": "the",
+      "start": 28.7,
+      "end": 28.75
+    },
+    {
+      "id": "article-thesis:24",
+      "word": "probability",
+      "start": 28.825,
+      "end": 29.475
+    },
+    {
+      "id": "article-thesis:25",
+      "word": "system",
+      "start": 29.55,
+      "end": 29.95
+    },
+    {
+      "id": "article-thesis:26",
+      "word": "was",
+      "start": 30,
+      "end": 30.15
+    },
+    {
+      "id": "article-thesis:27",
+      "word": "evaluated",
+      "start": 30.225,
+      "end": 31.025
+    },
+    {
+      "id": "article-thesis:28",
+      "word": "completely,",
+      "start": 31.075,
+      "end": 32.125
+    },
+    {
+      "id": "article-thesis:29",
+      "word": "reproducibly",
+      "start": 32.2,
+      "end": 33.3
+    },
+    {
+      "id": "article-thesis:30",
+      "word": "and",
+      "start": 33.4,
+      "end": 33.475
+    },
+    {
+      "id": "article-thesis:31",
+      "word": "without",
+      "start": 33.525,
+      "end": 33.875
+    },
+    {
+      "id": "article-thesis:32",
+      "word": "hiding",
+      "start": 33.975,
+      "end": 34.4
+    },
+    {
+      "id": "article-thesis:33",
+      "word": "the",
+      "start": 34.45,
+      "end": 34.5
+    },
+    {
+      "id": "article-thesis:34",
+      "word": "ways",
+      "start": 34.55,
+      "end": 34.825
+    },
+    {
+      "id": "article-thesis:35",
+      "word": "it",
+      "start": 34.875,
+      "end": 34.975
+    },
+    {
+      "id": "article-thesis:36",
+      "word": "failed.",
+      "start": 35.075,
+      "end": 36.125
+    },
+    {
+      "id": "section-0-title:0",
+      "word": "A",
+      "start": 36.15,
+      "end": 36.258
+    },
+    {
+      "id": "section-0-title:1",
+      "word": "probability",
+      "start": 36.258,
+      "end": 37.44
+    },
+    {
+      "id": "section-0-title:2",
+      "word": "is",
+      "start": 37.44,
+      "end": 37.655
+    },
+    {
+      "id": "section-0-title:3",
+      "word": "not",
+      "start": 37.655,
+      "end": 37.977
+    },
+    {
+      "id": "section-0-title:4",
+      "word": "a",
+      "start": 37.977,
+      "end": 38.085
+    },
+    {
+      "id": "section-0-title:5",
+      "word": "disguised",
+      "start": 38.085,
+      "end": 39.052
+    },
+    {
+      "id": "section-0-title:6",
+      "word": "yes-or-no",
+      "start": 39.052,
+      "end": 39.805
+    },
+    {
+      "id": "section-0-title:7",
+      "word": "answer.",
+      "start": 39.805,
+      "end": 40.45
+    },
+    {
+      "id": "section-0-paragraph-0:0",
+      "word": "A",
+      "start": 40.925,
+      "end": 40.975
+    },
+    {
+      "id": "section-0-paragraph-0:1",
+      "word": "60%",
+      "start": 41.075,
+      "end": 41.4
+    },
+    {
+      "id": "section-0-paragraph-0:2",
+      "word": "forecast",
+      "start": 41.45,
+      "end": 41.825
+    },
+    {
+      "id": "section-0-paragraph-0:3",
+      "word": "does",
+      "start": 41.9,
+      "end": 42.7
+    },
+    {
+      "id": "section-0-paragraph-0:4",
+      "word": "not",
+      "start": 42.775,
+      "end": 43.2
+    },
+    {
+      "id": "section-0-paragraph-0:5",
+      "word": "promise",
+      "start": 43.275,
+      "end": 43.7
+    },
+    {
+      "id": "section-0-paragraph-0:6",
+      "word": "that",
+      "start": 43.75,
+      "end": 43.875
+    },
+    {
+      "id": "section-0-paragraph-0:7",
+      "word": "this",
+      "start": 43.925,
+      "end": 44.1
+    },
+    {
+      "id": "section-0-paragraph-0:8",
+      "word": "particular",
+      "start": 44.15,
+      "end": 44.75
+    },
+    {
+      "id": "section-0-paragraph-0:9",
+      "word": "event",
+      "start": 44.8,
+      "end": 45.15
+    },
+    {
+      "id": "section-0-paragraph-0:10",
+      "word": "will",
+      "start": 45.2,
+      "end": 45.325
+    },
+    {
+      "id": "section-0-paragraph-0:11",
+      "word": "happen.",
+      "start": 45.375,
+      "end": 46.25
+    },
+    {
+      "id": "section-0-paragraph-0:12",
+      "word": "It",
+      "start": 46.325,
+      "end": 46.4
+    },
+    {
+      "id": "section-0-paragraph-0:13",
+      "word": "makes",
+      "start": 46.45,
+      "end": 46.65
+    },
+    {
+      "id": "section-0-paragraph-0:14",
+      "word": "a",
+      "start": 46.675,
+      "end": 46.7
+    },
+    {
+      "id": "section-0-paragraph-0:15",
+      "word": "statement",
+      "start": 46.775,
+      "end": 47.225
+    },
+    {
+      "id": "section-0-paragraph-0:16",
+      "word": "about",
+      "start": 47.275,
+      "end": 47.675
+    },
+    {
+      "id": "section-0-paragraph-0:17",
+      "word": "repeated",
+      "start": 47.725,
+      "end": 48.225
+    },
+    {
+      "id": "section-0-paragraph-0:18",
+      "word": "behaviour:",
+      "start": 48.275,
+      "end": 49.35
+    },
+    {
+      "id": "section-0-paragraph-0:19",
+      "word": "across",
+      "start": 49.425,
+      "end": 49.825
+    },
+    {
+      "id": "section-0-paragraph-0:20",
+      "word": "a",
+      "start": 49.875,
+      "end": 49.925
+    },
+    {
+      "id": "section-0-paragraph-0:21",
+      "word": "sufficiently",
+      "start": 50,
+      "end": 50.675
+    },
+    {
+      "id": "section-0-paragraph-0:22",
+      "word": "large",
+      "start": 50.75,
+      "end": 51.175
+    },
+    {
+      "id": "section-0-paragraph-0:23",
+      "word": "set",
+      "start": 51.275,
+      "end": 51.5
+    },
+    {
+      "id": "section-0-paragraph-0:24",
+      "word": "of",
+      "start": 51.55,
+      "end": 51.625
+    },
+    {
+      "id": "section-0-paragraph-0:25",
+      "word": "comparable",
+      "start": 51.7,
+      "end": 52.2
+    },
+    {
+      "id": "section-0-paragraph-0:26",
+      "word": "60%",
+      "start": 52.3,
+      "end": 52.625
+    },
+    {
+      "id": "section-0-paragraph-0:27",
+      "word": "forecasts,",
+      "start": 52.675,
+      "end": 53.075
+    },
+    {
+      "id": "section-0-paragraph-0:28",
+      "word": "the",
+      "start": 53.15,
+      "end": 54.3
+    },
+    {
+      "id": "section-0-paragraph-0:29",
+      "word": "event",
+      "start": 54.35,
+      "end": 54.45
+    },
+    {
+      "id": "section-0-paragraph-0:30",
+      "word": "should",
+      "start": 54.5,
+      "end": 54.825
+    },
+    {
+      "id": "section-0-paragraph-0:31",
+      "word": "occur",
+      "start": 54.875,
+      "end": 54.975
+    },
+    {
+      "id": "section-0-paragraph-0:32",
+      "word": "about",
+      "start": 55.025,
+      "end": 55.35
+    },
+    {
+      "id": "section-0-paragraph-0:33",
+      "word": "60%",
+      "start": 55.4,
+      "end": 55.75
+    },
+    {
+      "id": "section-0-paragraph-0:34",
+      "word": "of",
+      "start": 55.875,
+      "end": 56.275
+    },
+    {
+      "id": "section-0-paragraph-0:35",
+      "word": "the",
+      "start": 56.35,
+      "end": 56.725
+    },
+    {
+      "id": "section-0-paragraph-0:36",
+      "word": "time.",
+      "start": 56.75,
+      "end": 56.9
+    },
+    {
+      "id": "section-0-paragraph-0:37",
+      "word": "That",
+      "start": 56.975,
+      "end": 57.95
+    },
+    {
+      "id": "section-0-paragraph-0:38",
+      "word": "distinction",
+      "start": 58.025,
+      "end": 58.175
+    },
+    {
+      "id": "section-0-paragraph-0:39",
+      "word": "changes",
+      "start": 58.225,
+      "end": 58.775
+    },
+    {
+      "id": "section-0-paragraph-0:40",
+      "word": "how",
+      "start": 58.85,
+      "end": 59.45
+    },
+    {
+      "id": "section-0-paragraph-0:41",
+      "word": "the",
+      "start": 59.5,
+      "end": 59.675
+    },
+    {
+      "id": "section-0-paragraph-0:42",
+      "word": "system",
+      "start": 59.725,
+      "end": 59.8
+    },
+    {
+      "id": "section-0-paragraph-0:43",
+      "word": "has",
+      "start": 59.9,
+      "end": 60.325
+    },
+    {
+      "id": "section-0-paragraph-0:44",
+      "word": "to",
+      "start": 60.375,
+      "end": 60.525
+    },
+    {
+      "id": "section-0-paragraph-0:45",
+      "word": "be",
+      "start": 60.575,
+      "end": 60.85
+    },
+    {
+      "id": "section-0-paragraph-0:46",
+      "word": "evaluated.",
+      "start": 60.925,
+      "end": 62.325
+    },
+    {
+      "id": "section-0-paragraph-1:0",
+      "word": "Presaira",
+      "start": 62.35,
+      "end": 63.039
+    },
+    {
+      "id": "section-0-paragraph-1:1",
+      "word": "therefore",
+      "start": 63.039,
+      "end": 63.814
+    },
+    {
+      "id": "section-0-paragraph-1:2",
+      "word": "treats",
+      "start": 63.814,
+      "end": 64.33
+    },
+    {
+      "id": "section-0-paragraph-1:3",
+      "word": "the",
+      "start": 64.33,
+      "end": 64.588
+    },
+    {
+      "id": "section-0-paragraph-1:4",
+      "word": "output",
+      "start": 64.588,
+      "end": 65.105
+    },
+    {
+      "id": "section-0-paragraph-1:5",
+      "word": "as",
+      "start": 65.105,
+      "end": 65.277
+    },
+    {
+      "id": "section-0-paragraph-1:6",
+      "word": "a",
+      "start": 65.277,
+      "end": 65.363
+    },
+    {
+      "id": "section-0-paragraph-1:7",
+      "word": "distribution",
+      "start": 65.363,
+      "end": 66.396
+    },
+    {
+      "id": "section-0-paragraph-1:8",
+      "word": "rather",
+      "start": 66.396,
+      "end": 66.913
+    },
+    {
+      "id": "section-0-paragraph-1:9",
+      "word": "than",
+      "start": 66.913,
+      "end": 67.257
+    },
+    {
+      "id": "section-0-paragraph-1:10",
+      "word": "a",
+      "start": 67.257,
+      "end": 67.343
+    },
+    {
+      "id": "section-0-paragraph-1:11",
+      "word": "single",
+      "start": 67.343,
+      "end": 67.86
+    },
+    {
+      "id": "section-0-paragraph-1:12",
+      "word": "predicted",
+      "start": 67.86,
+      "end": 68.635
+    },
+    {
+      "id": "section-0-paragraph-1:13",
+      "word": "scoreline.",
+      "start": 68.635,
+      "end": 69.41
+    },
+    {
+      "id": "section-0-paragraph-1:14",
+      "word": "Brier",
+      "start": 69.41,
+      "end": 69.84
+    },
+    {
+      "id": "section-0-paragraph-1:15",
+      "word": "score",
+      "start": 69.84,
+      "end": 70.271
+    },
+    {
+      "id": "section-0-paragraph-1:16",
+      "word": "and",
+      "start": 70.271,
+      "end": 70.529
+    },
+    {
+      "id": "section-0-paragraph-1:17",
+      "word": "log",
+      "start": 70.529,
+      "end": 70.787
+    },
+    {
+      "id": "section-0-paragraph-1:18",
+      "word": "loss",
+      "start": 70.787,
+      "end": 71.132
+    },
+    {
+      "id": "section-0-paragraph-1:19",
+      "word": "sit",
+      "start": 71.132,
+      "end": 71.39
+    },
+    {
+      "id": "section-0-paragraph-1:20",
+      "word": "ahead",
+      "start": 71.39,
+      "end": 71.82
+    },
+    {
+      "id": "section-0-paragraph-1:21",
+      "word": "of",
+      "start": 71.82,
+      "end": 71.993
+    },
+    {
+      "id": "section-0-paragraph-1:22",
+      "word": "top-pick",
+      "start": 71.993,
+      "end": 72.595
+    },
+    {
+      "id": "section-0-paragraph-1:23",
+      "word": "accuracy",
+      "start": 72.595,
+      "end": 73.284
+    },
+    {
+      "id": "section-0-paragraph-1:24",
+      "word": "because",
+      "start": 73.284,
+      "end": 73.887
+    },
+    {
+      "id": "section-0-paragraph-1:25",
+      "word": "they",
+      "start": 73.887,
+      "end": 74.231
+    },
+    {
+      "id": "section-0-paragraph-1:26",
+      "word": "score",
+      "start": 74.231,
+      "end": 74.662
+    },
+    {
+      "id": "section-0-paragraph-1:27",
+      "word": "the",
+      "start": 74.662,
+      "end": 74.92
+    },
+    {
+      "id": "section-0-paragraph-1:28",
+      "word": "probabilities",
+      "start": 74.92,
+      "end": 76.039
+    },
+    {
+      "id": "section-0-paragraph-1:29",
+      "word": "themselves.",
+      "start": 76.039,
+      "end": 76.9
+    },
+    {
+      "id": "section-0-paragraph-1:30",
+      "word": "A",
+      "start": 76.9,
+      "end": 76.981
+    },
+    {
+      "id": "section-0-paragraph-1:31",
+      "word": "confidently",
+      "start": 76.981,
+      "end": 77.869
+    },
+    {
+      "id": "section-0-paragraph-1:32",
+      "word": "wrong",
+      "start": 77.869,
+      "end": 78.272
+    },
+    {
+      "id": "section-0-paragraph-1:33",
+      "word": "distribution",
+      "start": 78.272,
+      "end": 79.241
+    },
+    {
+      "id": "section-0-paragraph-1:34",
+      "word": "should",
+      "start": 79.241,
+      "end": 79.725
+    },
+    {
+      "id": "section-0-paragraph-1:35",
+      "word": "be",
+      "start": 79.725,
+      "end": 79.887
+    },
+    {
+      "id": "section-0-paragraph-1:36",
+      "word": "punished",
+      "start": 79.887,
+      "end": 80.532
+    },
+    {
+      "id": "section-0-paragraph-1:37",
+      "word": "more",
+      "start": 80.532,
+      "end": 80.855
+    },
+    {
+      "id": "section-0-paragraph-1:38",
+      "word": "than",
+      "start": 80.855,
+      "end": 81.178
+    },
+    {
+      "id": "section-0-paragraph-1:39",
+      "word": "a",
+      "start": 81.178,
+      "end": 81.259
+    },
+    {
+      "id": "section-0-paragraph-1:40",
+      "word": "cautious",
+      "start": 81.259,
+      "end": 81.905
+    },
+    {
+      "id": "section-0-paragraph-1:41",
+      "word": "miss,",
+      "start": 81.905,
+      "end": 82.227
+    },
+    {
+      "id": "section-0-paragraph-1:42",
+      "word": "and",
+      "start": 82.227,
+      "end": 82.47
+    },
+    {
+      "id": "section-0-paragraph-1:43",
+      "word": "a",
+      "start": 82.47,
+      "end": 82.55
+    },
+    {
+      "id": "section-0-paragraph-1:44",
+      "word": "well-calibrated",
+      "start": 82.55,
+      "end": 83.68
+    },
+    {
+      "id": "section-0-paragraph-1:45",
+      "word": "probability",
+      "start": 83.68,
+      "end": 84.568
+    },
+    {
+      "id": "section-0-paragraph-1:46",
+      "word": "should",
+      "start": 84.568,
+      "end": 85.053
+    },
+    {
+      "id": "section-0-paragraph-1:47",
+      "word": "get",
+      "start": 85.053,
+      "end": 85.295
+    },
+    {
+      "id": "section-0-paragraph-1:48",
+      "word": "credit",
+      "start": 85.295,
+      "end": 85.779
+    },
+    {
+      "id": "section-0-paragraph-1:49",
+      "word": "even",
+      "start": 85.779,
+      "end": 86.102
+    },
+    {
+      "id": "section-0-paragraph-1:50",
+      "word": "when",
+      "start": 86.102,
+      "end": 86.425
+    },
+    {
+      "id": "section-0-paragraph-1:51",
+      "word": "one",
+      "start": 86.425,
+      "end": 86.667
+    },
+    {
+      "id": "section-0-paragraph-1:52",
+      "word": "individual",
+      "start": 86.667,
+      "end": 87.474
+    },
+    {
+      "id": "section-0-paragraph-1:53",
+      "word": "outcome",
+      "start": 87.474,
+      "end": 88.039
+    },
+    {
+      "id": "section-0-paragraph-1:54",
+      "word": "goes",
+      "start": 88.039,
+      "end": 88.362
+    },
+    {
+      "id": "section-0-paragraph-1:55",
+      "word": "the",
+      "start": 88.362,
+      "end": 88.604
+    },
+    {
+      "id": "section-0-paragraph-1:56",
+      "word": "other",
+      "start": 88.604,
+      "end": 89.008
+    },
+    {
+      "id": "section-0-paragraph-1:57",
+      "word": "way.",
+      "start": 89.008,
+      "end": 89.25
+    },
+    {
+      "id": "section-0-paragraph-2:0",
+      "word": "This",
+      "start": 89.25,
+      "end": 89.616
+    },
+    {
+      "id": "section-0-paragraph-2:1",
+      "word": "is",
+      "start": 89.616,
+      "end": 89.799
+    },
+    {
+      "id": "section-0-paragraph-2:2",
+      "word": "also",
+      "start": 89.799,
+      "end": 90.164
+    },
+    {
+      "id": "section-0-paragraph-2:3",
+      "word": "why",
+      "start": 90.164,
+      "end": 90.439
+    },
+    {
+      "id": "section-0-paragraph-2:4",
+      "word": "a",
+      "start": 90.439,
+      "end": 90.53
+    },
+    {
+      "id": "section-0-paragraph-2:5",
+      "word": "single",
+      "start": 90.53,
+      "end": 91.079
+    },
+    {
+      "id": "section-0-paragraph-2:6",
+      "word": "spectacular",
+      "start": 91.079,
+      "end": 92.084
+    },
+    {
+      "id": "section-0-paragraph-2:7",
+      "word": "prediction",
+      "start": 92.084,
+      "end": 92.999
+    },
+    {
+      "id": "section-0-paragraph-2:8",
+      "word": "is",
+      "start": 92.999,
+      "end": 93.181
+    },
+    {
+      "id": "section-0-paragraph-2:9",
+      "word": "weak",
+      "start": 93.181,
+      "end": 93.547
+    },
+    {
+      "id": "section-0-paragraph-2:10",
+      "word": "evidence.",
+      "start": 93.547,
+      "end": 94.279
+    },
+    {
+      "id": "section-0-paragraph-2:11",
+      "word": "Probabilistic",
+      "start": 94.279,
+      "end": 95.467
+    },
+    {
+      "id": "section-0-paragraph-2:12",
+      "word": "quality",
+      "start": 95.467,
+      "end": 96.107
+    },
+    {
+      "id": "section-0-paragraph-2:13",
+      "word": "is",
+      "start": 96.107,
+      "end": 96.29
+    },
+    {
+      "id": "section-0-paragraph-2:14",
+      "word": "a",
+      "start": 96.29,
+      "end": 96.381
+    },
+    {
+      "id": "section-0-paragraph-2:15",
+      "word": "property",
+      "start": 96.381,
+      "end": 97.113
+    },
+    {
+      "id": "section-0-paragraph-2:16",
+      "word": "of",
+      "start": 97.113,
+      "end": 97.296
+    },
+    {
+      "id": "section-0-paragraph-2:17",
+      "word": "a",
+      "start": 97.296,
+      "end": 97.387
+    },
+    {
+      "id": "section-0-paragraph-2:18",
+      "word": "collection",
+      "start": 97.387,
+      "end": 98.301
+    },
+    {
+      "id": "section-0-paragraph-2:19",
+      "word": "of",
+      "start": 98.301,
+      "end": 98.484
+    },
+    {
+      "id": "section-0-paragraph-2:20",
+      "word": "forecasts,",
+      "start": 98.484,
+      "end": 99.307
+    },
+    {
+      "id": "section-0-paragraph-2:21",
+      "word": "not",
+      "start": 99.307,
+      "end": 99.581
+    },
+    {
+      "id": "section-0-paragraph-2:22",
+      "word": "a",
+      "start": 99.581,
+      "end": 99.673
+    },
+    {
+      "id": "section-0-paragraph-2:23",
+      "word": "screenshot",
+      "start": 99.673,
+      "end": 100.587
+    },
+    {
+      "id": "section-0-paragraph-2:24",
+      "word": "of",
+      "start": 100.587,
+      "end": 100.77
+    },
+    {
+      "id": "section-0-paragraph-2:25",
+      "word": "one",
+      "start": 100.77,
+      "end": 101.044
+    },
+    {
+      "id": "section-0-paragraph-2:26",
+      "word": "correct",
+      "start": 101.044,
+      "end": 101.684
+    },
+    {
+      "id": "section-0-paragraph-2:27",
+      "word": "call.",
+      "start": 101.684,
+      "end": 102.05
+    },
+    {
+      "id": "section-1-title:0",
+      "word": "Use",
+      "start": 102.525,
+      "end": 102.775
+    },
+    {
+      "id": "section-1-title:1",
+      "word": "proper",
+      "start": 102.825,
+      "end": 103.175
+    },
+    {
+      "id": "section-1-title:2",
+      "word": "scores,",
+      "start": 103.25,
+      "end": 104.225
+    },
+    {
+      "id": "section-1-title:3",
+      "word": "then",
+      "start": 104.275,
+      "end": 104.375
+    },
+    {
+      "id": "section-1-title:4",
+      "word": "inspect",
+      "start": 104.425,
+      "end": 104.925
+    },
+    {
+      "id": "section-1-title:5",
+      "word": "reliability",
+      "start": 104.975,
+      "end": 105.825
+    },
+    {
+      "id": "section-1-title:6",
+      "word": "instead",
+      "start": 105.9,
+      "end": 106.2
+    },
+    {
+      "id": "section-1-title:7",
+      "word": "of",
+      "start": 106.225,
+      "end": 106.3
+    },
+    {
+      "id": "section-1-title:8",
+      "word": "worshipping",
+      "start": 106.35,
+      "end": 106.85
+    },
+    {
+      "id": "section-1-title:9",
+      "word": "one",
+      "start": 106.9,
+      "end": 107.075
+    },
+    {
+      "id": "section-1-title:10",
+      "word": "number.",
+      "start": 107.125,
+      "end": 108
+    },
+    {
+      "id": "section-1-paragraph-0:0",
+      "word": "A",
+      "start": 108.025,
+      "end": 108.11
+    },
+    {
+      "id": "section-1-paragraph-0:1",
+      "word": "proper",
+      "start": 108.11,
+      "end": 108.618
+    },
+    {
+      "id": "section-1-paragraph-0:2",
+      "word": "scoring",
+      "start": 108.618,
+      "end": 109.211
+    },
+    {
+      "id": "section-1-paragraph-0:3",
+      "word": "rule",
+      "start": 109.211,
+      "end": 109.55
+    },
+    {
+      "id": "section-1-paragraph-0:4",
+      "word": "gives",
+      "start": 109.55,
+      "end": 109.973
+    },
+    {
+      "id": "section-1-paragraph-0:5",
+      "word": "the",
+      "start": 109.973,
+      "end": 110.228
+    },
+    {
+      "id": "section-1-paragraph-0:6",
+      "word": "forecaster",
+      "start": 110.228,
+      "end": 111.075
+    },
+    {
+      "id": "section-1-paragraph-0:7",
+      "word": "an",
+      "start": 111.075,
+      "end": 111.244
+    },
+    {
+      "id": "section-1-paragraph-0:8",
+      "word": "incentive",
+      "start": 111.244,
+      "end": 112.007
+    },
+    {
+      "id": "section-1-paragraph-0:9",
+      "word": "to",
+      "start": 112.007,
+      "end": 112.176
+    },
+    {
+      "id": "section-1-paragraph-0:10",
+      "word": "state",
+      "start": 112.176,
+      "end": 112.6
+    },
+    {
+      "id": "section-1-paragraph-0:11",
+      "word": "the",
+      "start": 112.6,
+      "end": 112.854
+    },
+    {
+      "id": "section-1-paragraph-0:12",
+      "word": "probability",
+      "start": 112.854,
+      "end": 113.786
+    },
+    {
+      "id": "section-1-paragraph-0:13",
+      "word": "it",
+      "start": 113.786,
+      "end": 113.955
+    },
+    {
+      "id": "section-1-paragraph-0:14",
+      "word": "actually",
+      "start": 113.955,
+      "end": 114.633
+    },
+    {
+      "id": "section-1-paragraph-0:15",
+      "word": "believes.",
+      "start": 114.633,
+      "end": 115.311
+    },
+    {
+      "id": "section-1-paragraph-0:16",
+      "word": "In",
+      "start": 115.311,
+      "end": 115.48
+    },
+    {
+      "id": "section-1-paragraph-0:17",
+      "word": "the",
+      "start": 115.48,
+      "end": 115.734
+    },
+    {
+      "id": "section-1-paragraph-0:18",
+      "word": "Presaira",
+      "start": 115.734,
+      "end": 116.412
+    },
+    {
+      "id": "section-1-paragraph-0:19",
+      "word": "evaluation,",
+      "start": 116.412,
+      "end": 117.259
+    },
+    {
+      "id": "section-1-paragraph-0:20",
+      "word": "multiclass",
+      "start": 117.259,
+      "end": 118.106
+    },
+    {
+      "id": "section-1-paragraph-0:21",
+      "word": "Brier",
+      "start": 118.106,
+      "end": 118.53
+    },
+    {
+      "id": "section-1-paragraph-0:22",
+      "word": "score",
+      "start": 118.53,
+      "end": 118.954
+    },
+    {
+      "id": "section-1-paragraph-0:23",
+      "word": "and",
+      "start": 118.954,
+      "end": 119.208
+    },
+    {
+      "id": "section-1-paragraph-0:24",
+      "word": "log",
+      "start": 119.208,
+      "end": 119.462
+    },
+    {
+      "id": "section-1-paragraph-0:25",
+      "word": "loss",
+      "start": 119.462,
+      "end": 119.801
+    },
+    {
+      "id": "section-1-paragraph-0:26",
+      "word": "provide",
+      "start": 119.801,
+      "end": 120.394
+    },
+    {
+      "id": "section-1-paragraph-0:27",
+      "word": "that",
+      "start": 120.394,
+      "end": 120.733
+    },
+    {
+      "id": "section-1-paragraph-0:28",
+      "word": "baseline",
+      "start": 120.733,
+      "end": 121.41
+    },
+    {
+      "id": "section-1-paragraph-0:29",
+      "word": "discipline.",
+      "start": 121.41,
+      "end": 122.258
+    },
+    {
+      "id": "section-1-paragraph-0:30",
+      "word": "A",
+      "start": 122.258,
+      "end": 122.342
+    },
+    {
+      "id": "section-1-paragraph-0:31",
+      "word": "uniform",
+      "start": 122.342,
+      "end": 122.935
+    },
+    {
+      "id": "section-1-paragraph-0:32",
+      "word": "one-third",
+      "start": 122.935,
+      "end": 123.613
+    },
+    {
+      "id": "section-1-paragraph-0:33",
+      "word": "model",
+      "start": 123.613,
+      "end": 124.037
+    },
+    {
+      "id": "section-1-paragraph-0:34",
+      "word": "is",
+      "start": 124.037,
+      "end": 124.206
+    },
+    {
+      "id": "section-1-paragraph-0:35",
+      "word": "also",
+      "start": 124.206,
+      "end": 124.545
+    },
+    {
+      "id": "section-1-paragraph-0:36",
+      "word": "kept",
+      "start": 124.545,
+      "end": 124.884
+    },
+    {
+      "id": "section-1-paragraph-0:37",
+      "word": "visible",
+      "start": 124.884,
+      "end": 125.477
+    },
+    {
+      "id": "section-1-paragraph-0:38",
+      "word": "as",
+      "start": 125.477,
+      "end": 125.646
+    },
+    {
+      "id": "section-1-paragraph-0:39",
+      "word": "a",
+      "start": 125.646,
+      "end": 125.731
+    },
+    {
+      "id": "section-1-paragraph-0:40",
+      "word": "deliberately",
+      "start": 125.731,
+      "end": 126.748
+    },
+    {
+      "id": "section-1-paragraph-0:41",
+      "word": "simple",
+      "start": 126.748,
+      "end": 127.256
+    },
+    {
+      "id": "section-1-paragraph-0:42",
+      "word": "reference",
+      "start": 127.256,
+      "end": 128.018
+    },
+    {
+      "id": "section-1-paragraph-0:43",
+      "word": "rather",
+      "start": 128.018,
+      "end": 128.527
+    },
+    {
+      "id": "section-1-paragraph-0:44",
+      "word": "than",
+      "start": 128.527,
+      "end": 128.865
+    },
+    {
+      "id": "section-1-paragraph-0:45",
+      "word": "letting",
+      "start": 128.865,
+      "end": 129.458
+    },
+    {
+      "id": "section-1-paragraph-0:46",
+      "word": "the",
+      "start": 129.458,
+      "end": 129.713
+    },
+    {
+      "id": "section-1-paragraph-0:47",
+      "word": "model",
+      "start": 129.713,
+      "end": 130.136
+    },
+    {
+      "id": "section-1-paragraph-0:48",
+      "word": "grade",
+      "start": 130.136,
+      "end": 130.56
+    },
+    {
+      "id": "section-1-paragraph-0:49",
+      "word": "itself",
+      "start": 130.56,
+      "end": 131.068
+    },
+    {
+      "id": "section-1-paragraph-0:50",
+      "word": "in",
+      "start": 131.068,
+      "end": 131.238
+    },
+    {
+      "id": "section-1-paragraph-0:51",
+      "word": "isolation.",
+      "start": 131.238,
+      "end": 132
+    },
+    {
+      "id": "section-1-paragraph-1:0",
+      "word": "But",
+      "start": 132.425,
+      "end": 132.525
+    },
+    {
+      "id": "section-1-paragraph-1:1",
+      "word": "a",
+      "start": 132.55,
+      "end": 132.6
+    },
+    {
+      "id": "section-1-paragraph-1:2",
+      "word": "Brier",
+      "start": 132.675,
+      "end": 133.05
+    },
+    {
+      "id": "section-1-paragraph-1:3",
+      "word": "score",
+      "start": 133.125,
+      "end": 133.475
+    },
+    {
+      "id": "section-1-paragraph-1:4",
+      "word": "alone",
+      "start": 133.525,
+      "end": 134.05
+    },
+    {
+      "id": "section-1-paragraph-1:5",
+      "word": "is",
+      "start": 134.125,
+      "end": 134.225
+    },
+    {
+      "id": "section-1-paragraph-1:6",
+      "word": "not",
+      "start": 134.275,
+      "end": 134.525
+    },
+    {
+      "id": "section-1-paragraph-1:7",
+      "word": "a",
+      "start": 134.575,
+      "end": 135.05
+    },
+    {
+      "id": "section-1-paragraph-1:8",
+      "word": "complete",
+      "start": 135.125,
+      "end": 135.375
+    },
+    {
+      "id": "section-1-paragraph-1:9",
+      "word": "trust",
+      "start": 135.425,
+      "end": 136.55
+    },
+    {
+      "id": "section-1-paragraph-1:10",
+      "word": "certificate.",
+      "start": 136.625,
+      "end": 137.375
+    },
+    {
+      "id": "section-1-paragraph-1:11",
+      "word": "Reliability",
+      "start": 137.425,
+      "end": 138.275
+    },
+    {
+      "id": "section-1-paragraph-1:12",
+      "word": "matters:",
+      "start": 138.35,
+      "end": 139.1
+    },
+    {
+      "id": "section-1-paragraph-1:13",
+      "word": "probabilities",
+      "start": 139.15,
+      "end": 139.35
+    },
+    {
+      "id": "section-1-paragraph-1:14",
+      "word": "near",
+      "start": 139.475,
+      "end": 139.85
+    },
+    {
+      "id": "section-1-paragraph-1:15",
+      "word": "0.6",
+      "start": 139.925,
+      "end": 140.825
+    },
+    {
+      "id": "section-1-paragraph-1:16",
+      "word": "should",
+      "start": 140.9,
+      "end": 141.025
+    },
+    {
+      "id": "section-1-paragraph-1:17",
+      "word": "verify",
+      "start": 141.1,
+      "end": 141.625
+    },
+    {
+      "id": "section-1-paragraph-1:18",
+      "word": "near",
+      "start": 141.675,
+      "end": 141.9
+    },
+    {
+      "id": "section-1-paragraph-1:19",
+      "word": "60%",
+      "start": 142.025,
+      "end": 142.875
+    },
+    {
+      "id": "section-1-paragraph-1:20",
+      "word": "over",
+      "start": 142.925,
+      "end": 143.175
+    },
+    {
+      "id": "section-1-paragraph-1:21",
+      "word": "enough",
+      "start": 143.225,
+      "end": 143.5
+    },
+    {
+      "id": "section-1-paragraph-1:22",
+      "word": "observations.",
+      "start": 143.575,
+      "end": 145.075
+    },
+    {
+      "id": "section-1-paragraph-1:23",
+      "word": "Sharpness",
+      "start": 145.2,
+      "end": 145.625
+    },
+    {
+      "id": "section-1-paragraph-1:24",
+      "word": "matters",
+      "start": 145.675,
+      "end": 146.05
+    },
+    {
+      "id": "section-1-paragraph-1:25",
+      "word": "too:",
+      "start": 146.15,
+      "end": 146.9
+    },
+    {
+      "id": "section-1-paragraph-1:26",
+      "word": "a",
+      "start": 146.975,
+      "end": 147.025
+    },
+    {
+      "id": "section-1-paragraph-1:27",
+      "word": "model",
+      "start": 147.1,
+      "end": 147.475
+    },
+    {
+      "id": "section-1-paragraph-1:28",
+      "word": "that",
+      "start": 147.525,
+      "end": 147.65
+    },
+    {
+      "id": "section-1-paragraph-1:29",
+      "word": "always",
+      "start": 147.725,
+      "end": 148.125
+    },
+    {
+      "id": "section-1-paragraph-1:30",
+      "word": "predicts",
+      "start": 148.175,
+      "end": 148.6
+    },
+    {
+      "id": "section-1-paragraph-1:31",
+      "word": "the",
+      "start": 148.65,
+      "end": 148.725
+    },
+    {
+      "id": "section-1-paragraph-1:32",
+      "word": "base",
+      "start": 148.8,
+      "end": 149.075
+    },
+    {
+      "id": "section-1-paragraph-1:33",
+      "word": "rate",
+      "start": 149.125,
+      "end": 149.425
+    },
+    {
+      "id": "section-1-paragraph-1:34",
+      "word": "can",
+      "start": 149.5,
+      "end": 149.65
+    },
+    {
+      "id": "section-1-paragraph-1:35",
+      "word": "look",
+      "start": 149.7,
+      "end": 149.875
+    },
+    {
+      "id": "section-1-paragraph-1:36",
+      "word": "reliably",
+      "start": 149.95,
+      "end": 150.6
+    },
+    {
+      "id": "section-1-paragraph-1:37",
+      "word": "cautious",
+      "start": 150.675,
+      "end": 151.425
+    },
+    {
+      "id": "section-1-paragraph-1:38",
+      "word": "while",
+      "start": 151.475,
+      "end": 151.6
+    },
+    {
+      "id": "section-1-paragraph-1:39",
+      "word": "contributing",
+      "start": 151.65,
+      "end": 152.35
+    },
+    {
+      "id": "section-1-paragraph-1:40",
+      "word": "little",
+      "start": 152.4,
+      "end": 152.6
+    },
+    {
+      "id": "section-1-paragraph-1:41",
+      "word": "decision",
+      "start": 152.65,
+      "end": 153.1
+    },
+    {
+      "id": "section-1-paragraph-1:42",
+      "word": "value.",
+      "start": 153.15,
+      "end": 154.175
+    },
+    {
+      "id": "section-1-paragraph-1:43",
+      "word": "Reliability",
+      "start": 154.675,
+      "end": 155.45
+    },
+    {
+      "id": "section-1-paragraph-1:44",
+      "word": "diagrams",
+      "start": 155.5,
+      "end": 156.2
+    },
+    {
+      "id": "section-1-paragraph-1:45",
+      "word": "help",
+      "start": 156.275,
+      "end": 156.5
+    },
+    {
+      "id": "section-1-paragraph-1:46",
+      "word": "separate",
+      "start": 156.6,
+      "end": 156.925
+    },
+    {
+      "id": "section-1-paragraph-1:47",
+      "word": "those",
+      "start": 156.975,
+      "end": 157.2
+    },
+    {
+      "id": "section-1-paragraph-1:48",
+      "word": "behaviours,",
+      "start": 157.25,
+      "end": 158.375
+    },
+    {
+      "id": "section-1-paragraph-1:49",
+      "word": "provided",
+      "start": 158.425,
+      "end": 158.9
+    },
+    {
+      "id": "section-1-paragraph-1:50",
+      "word": "the",
+      "start": 158.95,
+      "end": 159.025
+    },
+    {
+      "id": "section-1-paragraph-1:51",
+      "word": "bins",
+      "start": 159.1,
+      "end": 159.475
+    },
+    {
+      "id": "section-1-paragraph-1:52",
+      "word": "contain",
+      "start": 159.525,
+      "end": 159.95
+    },
+    {
+      "id": "section-1-paragraph-1:53",
+      "word": "enough",
+      "start": 160,
+      "end": 160.325
+    },
+    {
+      "id": "section-1-paragraph-1:54",
+      "word": "observations",
+      "start": 160.4,
+      "end": 161.25
+    },
+    {
+      "id": "section-1-paragraph-1:55",
+      "word": "to",
+      "start": 161.3,
+      "end": 161.375
+    },
+    {
+      "id": "section-1-paragraph-1:56",
+      "word": "mean",
+      "start": 161.425,
+      "end": 161.625
+    },
+    {
+      "id": "section-1-paragraph-1:57",
+      "word": "something.",
+      "start": 161.7,
+      "end": 162.7
+    },
+    {
+      "id": "section-1-paragraph-2:0",
+      "word": "Tournament",
+      "start": 162.725,
+      "end": 163.603
+    },
+    {
+      "id": "section-1-paragraph-2:1",
+      "word": "samples",
+      "start": 163.603,
+      "end": 164.217
+    },
+    {
+      "id": "section-1-paragraph-2:2",
+      "word": "are",
+      "start": 164.217,
+      "end": 164.48
+    },
+    {
+      "id": "section-1-paragraph-2:3",
+      "word": "small.",
+      "start": 164.48,
+      "end": 164.919
+    },
+    {
+      "id": "section-1-paragraph-2:4",
+      "word": "Presaira",
+      "start": 164.919,
+      "end": 165.621
+    },
+    {
+      "id": "section-1-paragraph-2:5",
+      "word": "explicitly",
+      "start": 165.621,
+      "end": 166.498
+    },
+    {
+      "id": "section-1-paragraph-2:6",
+      "word": "notes",
+      "start": 166.498,
+      "end": 166.937
+    },
+    {
+      "id": "section-1-paragraph-2:7",
+      "word": "that",
+      "start": 166.937,
+      "end": 167.288
+    },
+    {
+      "id": "section-1-paragraph-2:8",
+      "word": "calibration",
+      "start": 167.288,
+      "end": 168.254
+    },
+    {
+      "id": "section-1-paragraph-2:9",
+      "word": "bins",
+      "start": 168.254,
+      "end": 168.605
+    },
+    {
+      "id": "section-1-paragraph-2:10",
+      "word": "at",
+      "start": 168.605,
+      "end": 168.78
+    },
+    {
+      "id": "section-1-paragraph-2:11",
+      "word": "the",
+      "start": 168.78,
+      "end": 169.043
+    },
+    {
+      "id": "section-1-paragraph-2:12",
+      "word": "tails",
+      "start": 169.043,
+      "end": 169.482
+    },
+    {
+      "id": "section-1-paragraph-2:13",
+      "word": "can",
+      "start": 169.482,
+      "end": 169.745
+    },
+    {
+      "id": "section-1-paragraph-2:14",
+      "word": "be",
+      "start": 169.745,
+      "end": 169.921
+    },
+    {
+      "id": "section-1-paragraph-2:15",
+      "word": "dominated",
+      "start": 169.921,
+      "end": 170.711
+    },
+    {
+      "id": "section-1-paragraph-2:16",
+      "word": "by",
+      "start": 170.711,
+      "end": 170.886
+    },
+    {
+      "id": "section-1-paragraph-2:17",
+      "word": "one",
+      "start": 170.886,
+      "end": 171.149
+    },
+    {
+      "id": "section-1-paragraph-2:18",
+      "word": "or",
+      "start": 171.149,
+      "end": 171.325
+    },
+    {
+      "id": "section-1-paragraph-2:19",
+      "word": "two",
+      "start": 171.325,
+      "end": 171.588
+    },
+    {
+      "id": "section-1-paragraph-2:20",
+      "word": "matches.",
+      "start": 171.588,
+      "end": 172.203
+    },
+    {
+      "id": "section-1-paragraph-2:21",
+      "word": "A",
+      "start": 172.203,
+      "end": 172.29
+    },
+    {
+      "id": "section-1-paragraph-2:22",
+      "word": "diagram",
+      "start": 172.29,
+      "end": 172.905
+    },
+    {
+      "id": "section-1-paragraph-2:23",
+      "word": "with",
+      "start": 172.905,
+      "end": 173.256
+    },
+    {
+      "id": "section-1-paragraph-2:24",
+      "word": "sparse",
+      "start": 173.256,
+      "end": 173.782
+    },
+    {
+      "id": "section-1-paragraph-2:25",
+      "word": "bins",
+      "start": 173.782,
+      "end": 174.133
+    },
+    {
+      "id": "section-1-paragraph-2:26",
+      "word": "should",
+      "start": 174.133,
+      "end": 174.66
+    },
+    {
+      "id": "section-1-paragraph-2:27",
+      "word": "reduce",
+      "start": 174.66,
+      "end": 175.186
+    },
+    {
+      "id": "section-1-paragraph-2:28",
+      "word": "confidence",
+      "start": 175.186,
+      "end": 176.064
+    },
+    {
+      "id": "section-1-paragraph-2:29",
+      "word": "in",
+      "start": 176.064,
+      "end": 176.239
+    },
+    {
+      "id": "section-1-paragraph-2:30",
+      "word": "the",
+      "start": 176.239,
+      "end": 176.503
+    },
+    {
+      "id": "section-1-paragraph-2:31",
+      "word": "conclusion,",
+      "start": 176.503,
+      "end": 177.38
+    },
+    {
+      "id": "section-1-paragraph-2:32",
+      "word": "not",
+      "start": 177.38,
+      "end": 177.643
+    },
+    {
+      "id": "section-1-paragraph-2:33",
+      "word": "invite",
+      "start": 177.643,
+      "end": 178.17
+    },
+    {
+      "id": "section-1-paragraph-2:34",
+      "word": "stronger",
+      "start": 178.17,
+      "end": 178.872
+    },
+    {
+      "id": "section-1-paragraph-2:35",
+      "word": "storytelling.",
+      "start": 178.872,
+      "end": 179.925
+    },
+    {
+      "id": "section-1-bullet-0:0",
+      "word": "Score",
+      "start": 182.15,
+      "end": 182.5
+    },
+    {
+      "id": "section-1-bullet-0:1",
+      "word": "the",
+      "start": 182.55,
+      "end": 182.625
+    },
+    {
+      "id": "section-1-bullet-0:2",
+      "word": "full",
+      "start": 182.725,
+      "end": 182.95
+    },
+    {
+      "id": "section-1-bullet-0:3",
+      "word": "probability",
+      "start": 183,
+      "end": 183.6
+    },
+    {
+      "id": "section-1-bullet-0:4",
+      "word": "vector,",
+      "start": 183.65,
+      "end": 184.425
+    },
+    {
+      "id": "section-1-bullet-0:5",
+      "word": "not",
+      "start": 184.5,
+      "end": 184.65
+    },
+    {
+      "id": "section-1-bullet-0:6",
+      "word": "only",
+      "start": 184.675,
+      "end": 184.975
+    },
+    {
+      "id": "section-1-bullet-0:7",
+      "word": "the",
+      "start": 185.025,
+      "end": 185.1
+    },
+    {
+      "id": "section-1-bullet-0:8",
+      "word": "winning",
+      "start": 185.175,
+      "end": 185.45
+    },
+    {
+      "id": "section-1-bullet-0:9",
+      "word": "class.",
+      "start": 185.525,
+      "end": 186.5
+    },
+    {
+      "id": "section-1-bullet-1:0",
+      "word": "Keep",
+      "start": 188.7,
+      "end": 189.025
+    },
+    {
+      "id": "section-1-bullet-1:1",
+      "word": "a",
+      "start": 189.1,
+      "end": 189.15
+    },
+    {
+      "id": "section-1-bullet-1:2",
+      "word": "simple",
+      "start": 189.25,
+      "end": 189.575
+    },
+    {
+      "id": "section-1-bullet-1:3",
+      "word": "reference",
+      "start": 189.625,
+      "end": 190.075
+    },
+    {
+      "id": "section-1-bullet-1:4",
+      "word": "model",
+      "start": 190.15,
+      "end": 190.475
+    },
+    {
+      "id": "section-1-bullet-1:5",
+      "word": "visible.",
+      "start": 190.525,
+      "end": 191.45
+    },
+    {
+      "id": "section-1-bullet-2:0",
+      "word": "Read",
+      "start": 193.7,
+      "end": 193.95
+    },
+    {
+      "id": "section-1-bullet-2:1",
+      "word": "calibration",
+      "start": 194,
+      "end": 194.675
+    },
+    {
+      "id": "section-1-bullet-2:2",
+      "word": "together",
+      "start": 194.725,
+      "end": 195.225
+    },
+    {
+      "id": "section-1-bullet-2:3",
+      "word": "with",
+      "start": 195.275,
+      "end": 195.4
+    },
+    {
+      "id": "section-1-bullet-2:4",
+      "word": "bin",
+      "start": 195.475,
+      "end": 195.675
+    },
+    {
+      "id": "section-1-bullet-2:5",
+      "word": "counts",
+      "start": 195.75,
+      "end": 196.225
+    },
+    {
+      "id": "section-1-bullet-2:6",
+      "word": "and",
+      "start": 196.275,
+      "end": 196.35
+    },
+    {
+      "id": "section-1-bullet-2:7",
+      "word": "sample",
+      "start": 196.425,
+      "end": 196.775
+    },
+    {
+      "id": "section-1-bullet-2:8",
+      "word": "size.",
+      "start": 196.85,
+      "end": 197.875
+    },
+    {
+      "id": "section-2-title:0",
+      "word": "A",
+      "start": 198.35,
+      "end": 198.4
+    },
+    {
+      "id": "section-2-title:1",
+      "word": "clean",
+      "start": 198.475,
+      "end": 198.825
+    },
+    {
+      "id": "section-2-title:2",
+      "word": "metric",
+      "start": 198.875,
+      "end": 199.275
+    },
+    {
+      "id": "section-2-title:3",
+      "word": "is",
+      "start": 199.325,
+      "end": 199.425
+    },
+    {
+      "id": "section-2-title:4",
+      "word": "worthless",
+      "start": 199.525,
+      "end": 200.375
+    },
+    {
+      "id": "section-2-title:5",
+      "word": "if",
+      "start": 200.475,
+      "end": 200.575
+    },
+    {
+      "id": "section-2-title:6",
+      "word": "future",
+      "start": 200.675,
+      "end": 201.075
+    },
+    {
+      "id": "section-2-title:7",
+      "word": "information",
+      "start": 201.125,
+      "end": 201.825
+    },
+    {
+      "id": "section-2-title:8",
+      "word": "leaked",
+      "start": 201.9,
+      "end": 202.125
+    },
+    {
+      "id": "section-2-title:9",
+      "word": "into",
+      "start": 202.15,
+      "end": 202.3
+    },
+    {
+      "id": "section-2-title:10",
+      "word": "the",
+      "start": 202.325,
+      "end": 202.375
+    },
+    {
+      "id": "section-2-title:11",
+      "word": "past.",
+      "start": 202.45,
+      "end": 203.4
+    },
+    {
+      "id": "section-2-paragraph-0:0",
+      "word": "Temporal",
+      "start": 203.85,
+      "end": 204.2
+    },
+    {
+      "id": "section-2-paragraph-0:1",
+      "word": "leakage",
+      "start": 204.25,
+      "end": 204.7
+    },
+    {
+      "id": "section-2-paragraph-0:2",
+      "word": "is",
+      "start": 204.775,
+      "end": 204.875
+    },
+    {
+      "id": "section-2-paragraph-0:3",
+      "word": "one",
+      "start": 204.925,
+      "end": 205.025
+    },
+    {
+      "id": "section-2-paragraph-0:4",
+      "word": "of",
+      "start": 205.05,
+      "end": 205.25
+    },
+    {
+      "id": "section-2-paragraph-0:5",
+      "word": "the",
+      "start": 205.35,
+      "end": 205.875
+    },
+    {
+      "id": "section-2-paragraph-0:6",
+      "word": "easiest",
+      "start": 205.925,
+      "end": 206.25
+    },
+    {
+      "id": "section-2-paragraph-0:7",
+      "word": "ways",
+      "start": 206.3,
+      "end": 206.35
+    },
+    {
+      "id": "section-2-paragraph-0:8",
+      "word": "to",
+      "start": 206.4,
+      "end": 206.55
+    },
+    {
+      "id": "section-2-paragraph-0:9",
+      "word": "make",
+      "start": 206.575,
+      "end": 206.625
+    },
+    {
+      "id": "section-2-paragraph-0:10",
+      "word": "a",
+      "start": 206.725,
+      "end": 207.375
+    },
+    {
+      "id": "section-2-paragraph-0:11",
+      "word": "forecasting",
+      "start": 207.425,
+      "end": 207.975
+    },
+    {
+      "id": "section-2-paragraph-0:12",
+      "word": "model",
+      "start": 208.05,
+      "end": 208.325
+    },
+    {
+      "id": "section-2-paragraph-0:13",
+      "word": "look",
+      "start": 208.375,
+      "end": 208.45
+    },
+    {
+      "id": "section-2-paragraph-0:14",
+      "word": "better",
+      "start": 208.475,
+      "end": 208.575
+    },
+    {
+      "id": "section-2-paragraph-0:15",
+      "word": "than",
+      "start": 208.65,
+      "end": 209.625
+    },
+    {
+      "id": "section-2-paragraph-0:16",
+      "word": "it",
+      "start": 209.7,
+      "end": 209.75
+    },
+    {
+      "id": "section-2-paragraph-0:17",
+      "word": "was.",
+      "start": 209.825,
+      "end": 210.2
+    },
+    {
+      "id": "section-2-paragraph-0:18",
+      "word": "The",
+      "start": 210.25,
+      "end": 210.825
+    },
+    {
+      "id": "section-2-paragraph-0:19",
+      "word": "training",
+      "start": 210.875,
+      "end": 211.025
+    },
+    {
+      "id": "section-2-paragraph-0:20",
+      "word": "boundary",
+      "start": 211.075,
+      "end": 211.325
+    },
+    {
+      "id": "section-2-paragraph-0:21",
+      "word": "has",
+      "start": 211.375,
+      "end": 211.475
+    },
+    {
+      "id": "section-2-paragraph-0:22",
+      "word": "to",
+      "start": 211.55,
+      "end": 212.325
+    },
+    {
+      "id": "section-2-paragraph-0:23",
+      "word": "be",
+      "start": 212.4,
+      "end": 213.175
+    },
+    {
+      "id": "section-2-paragraph-0:24",
+      "word": "an",
+      "start": 213.25,
+      "end": 213.5
+    },
+    {
+      "id": "section-2-paragraph-0:25",
+      "word": "executable",
+      "start": 213.6,
+      "end": 214.2
+    },
+    {
+      "id": "section-2-paragraph-0:26",
+      "word": "rule,",
+      "start": 214.225,
+      "end": 214.275
+    },
+    {
+      "id": "section-2-paragraph-0:27",
+      "word": "not",
+      "start": 214.35,
+      "end": 215.425
+    },
+    {
+      "id": "section-2-paragraph-0:28",
+      "word": "a",
+      "start": 215.5,
+      "end": 216.025
+    },
+    {
+      "id": "section-2-paragraph-0:29",
+      "word": "sentence",
+      "start": 216.075,
+      "end": 216.5
+    },
+    {
+      "id": "section-2-paragraph-0:30",
+      "word": "in",
+      "start": 216.55,
+      "end": 216.6
+    },
+    {
+      "id": "section-2-paragraph-0:31",
+      "word": "a",
+      "start": 216.675,
+      "end": 216.95
+    },
+    {
+      "id": "section-2-paragraph-0:32",
+      "word": "README.",
+      "start": 217,
+      "end": 217.25
+    },
+    {
+      "id": "section-2-paragraph-0:33",
+      "word": "Presaira",
+      "start": 217.35,
+      "end": 217.6
+    },
+    {
+      "id": "section-2-paragraph-0:34",
+      "word": "records",
+      "start": 217.65,
+      "end": 217.725
+    },
+    {
+      "id": "section-2-paragraph-0:35",
+      "word": "a",
+      "start": 217.8,
+      "end": 218.175
+    },
+    {
+      "id": "section-2-paragraph-0:36",
+      "word": "2026-06-10",
+      "start": 218.275,
+      "end": 218.65
+    },
+    {
+      "id": "section-2-paragraph-0:37",
+      "word": "training",
+      "start": 218.725,
+      "end": 218.95
+    },
+    {
+      "id": "section-2-paragraph-0:38",
+      "word": "cutoff",
+      "start": 219.025,
+      "end": 219.4
+    },
+    {
+      "id": "section-2-paragraph-0:39",
+      "word": "for",
+      "start": 219.45,
+      "end": 220.05
+    },
+    {
+      "id": "section-2-paragraph-0:40",
+      "word": "the",
+      "start": 220.125,
+      "end": 220.3
+    },
+    {
+      "id": "section-2-paragraph-0:41",
+      "word": "published",
+      "start": 220.375,
+      "end": 220.75
+    },
+    {
+      "id": "section-2-paragraph-0:42",
+      "word": "tournament",
+      "start": 220.825,
+      "end": 221.325
+    },
+    {
+      "id": "section-2-paragraph-0:43",
+      "word": "run",
+      "start": 221.375,
+      "end": 222.025
+    },
+    {
+      "id": "section-2-paragraph-0:44",
+      "word": "and",
+      "start": 222.125,
+      "end": 222.2
+    },
+    {
+      "id": "section-2-paragraph-0:45",
+      "word": "contains",
+      "start": 222.25,
+      "end": 222.75
+    },
+    {
+      "id": "section-2-paragraph-0:46",
+      "word": "a",
+      "start": 222.8,
+      "end": 222.85
+    },
+    {
+      "id": "section-2-paragraph-0:47",
+      "word": "pre-cutoff",
+      "start": 222.925,
+      "end": 223.625
+    },
+    {
+      "id": "section-2-paragraph-0:48",
+      "word": "assertion",
+      "start": 223.675,
+      "end": 224.3
+    },
+    {
+      "id": "section-2-paragraph-0:49",
+      "word": "that",
+      "start": 224.35,
+      "end": 224.5
+    },
+    {
+      "id": "section-2-paragraph-0:50",
+      "word": "raises",
+      "start": 224.6,
+      "end": 225.125
+    },
+    {
+      "id": "section-2-paragraph-0:51",
+      "word": "when",
+      "start": 225.175,
+      "end": 225.3
+    },
+    {
+      "id": "section-2-paragraph-0:52",
+      "word": "future",
+      "start": 225.4,
+      "end": 225.9
+    },
+    {
+      "id": "section-2-paragraph-0:53",
+      "word": "rows",
+      "start": 226,
+      "end": 226.375
+    },
+    {
+      "id": "section-2-paragraph-0:54",
+      "word": "enter",
+      "start": 226.4,
+      "end": 226.6
+    },
+    {
+      "id": "section-2-paragraph-0:55",
+      "word": "the",
+      "start": 226.65,
+      "end": 226.7
+    },
+    {
+      "id": "section-2-paragraph-0:56",
+      "word": "training",
+      "start": 226.775,
+      "end": 227.15
+    },
+    {
+      "id": "section-2-paragraph-0:57",
+      "word": "set.",
+      "start": 227.225,
+      "end": 227.975
+    },
+    {
+      "id": "section-2-paragraph-1:0",
+      "word": "The",
+      "start": 228.45,
+      "end": 228.5
+    },
+    {
+      "id": "section-2-paragraph-1:1",
+      "word": "historical",
+      "start": 228.55,
+      "end": 229.15
+    },
+    {
+      "id": "section-2-paragraph-1:2",
+      "word": "evaluation",
+      "start": 229.2,
+      "end": 230.025
+    },
+    {
+      "id": "section-2-paragraph-1:3",
+      "word": "separates",
+      "start": 230.125,
+      "end": 230.625
+    },
+    {
+      "id": "section-2-paragraph-1:4",
+      "word": "tuning",
+      "start": 230.7,
+      "end": 231.075
+    },
+    {
+      "id": "section-2-paragraph-1:5",
+      "word": "from",
+      "start": 231.125,
+      "end": 231.25
+    },
+    {
+      "id": "section-2-paragraph-1:6",
+      "word": "holding",
+      "start": 231.3,
+      "end": 231.65
+    },
+    {
+      "id": "section-2-paragraph-1:7",
+      "word": "out:",
+      "start": 231.7,
+      "end": 232.475
+    },
+    {
+      "id": "section-2-paragraph-1:8",
+      "word": "2022",
+      "start": 232.55,
+      "end": 233.125
+    },
+    {
+      "id": "section-2-paragraph-1:9",
+      "word": "was",
+      "start": 233.225,
+      "end": 233.875
+    },
+    {
+      "id": "section-2-paragraph-1:10",
+      "word": "used",
+      "start": 233.975,
+      "end": 234.125
+    },
+    {
+      "id": "section-2-paragraph-1:11",
+      "word": "for",
+      "start": 234.2,
+      "end": 234.5
+    },
+    {
+      "id": "section-2-paragraph-1:12",
+      "word": "tuning",
+      "start": 234.55,
+      "end": 234.675
+    },
+    {
+      "id": "section-2-paragraph-1:13",
+      "word": "while",
+      "start": 234.75,
+      "end": 235.45
+    },
+    {
+      "id": "section-2-paragraph-1:14",
+      "word": "2018",
+      "start": 235.525,
+      "end": 236.025
+    },
+    {
+      "id": "section-2-paragraph-1:15",
+      "word": "remained",
+      "start": 236.1,
+      "end": 236.6
+    },
+    {
+      "id": "section-2-paragraph-1:16",
+      "word": "held",
+      "start": 236.65,
+      "end": 237.1
+    },
+    {
+      "id": "section-2-paragraph-1:17",
+      "word": "out",
+      "start": 237.175,
+      "end": 237.425
+    },
+    {
+      "id": "section-2-paragraph-1:18",
+      "word": "for",
+      "start": 237.475,
+      "end": 237.675
+    },
+    {
+      "id": "section-2-paragraph-1:19",
+      "word": "evaluation.",
+      "start": 237.725,
+      "end": 239.325
+    },
+    {
+      "id": "section-2-paragraph-1:20",
+      "word": "That",
+      "start": 239.4,
+      "end": 239.55
+    },
+    {
+      "id": "section-2-paragraph-1:21",
+      "word": "is",
+      "start": 239.6,
+      "end": 239.7
+    },
+    {
+      "id": "section-2-paragraph-1:22",
+      "word": "more",
+      "start": 239.775,
+      "end": 239.975
+    },
+    {
+      "id": "section-2-paragraph-1:23",
+      "word": "informative",
+      "start": 240.025,
+      "end": 240.85
+    },
+    {
+      "id": "section-2-paragraph-1:24",
+      "word": "than",
+      "start": 240.9,
+      "end": 241.025
+    },
+    {
+      "id": "section-2-paragraph-1:25",
+      "word": "reporting",
+      "start": 241.075,
+      "end": 241.625
+    },
+    {
+      "id": "section-2-paragraph-1:26",
+      "word": "a",
+      "start": 241.675,
+      "end": 241.725
+    },
+    {
+      "id": "section-2-paragraph-1:27",
+      "word": "score",
+      "start": 241.8,
+      "end": 242.225
+    },
+    {
+      "id": "section-2-paragraph-1:28",
+      "word": "from",
+      "start": 242.275,
+      "end": 242.4
+    },
+    {
+      "id": "section-2-paragraph-1:29",
+      "word": "a",
+      "start": 242.425,
+      "end": 242.475
+    },
+    {
+      "id": "section-2-paragraph-1:30",
+      "word": "dataset",
+      "start": 242.55,
+      "end": 243.15
+    },
+    {
+      "id": "section-2-paragraph-1:31",
+      "word": "that",
+      "start": 243.2,
+      "end": 243.35
+    },
+    {
+      "id": "section-2-paragraph-1:32",
+      "word": "influenced",
+      "start": 243.4,
+      "end": 244.025
+    },
+    {
+      "id": "section-2-paragraph-1:33",
+      "word": "every",
+      "start": 244.125,
+      "end": 244.4
+    },
+    {
+      "id": "section-2-paragraph-1:34",
+      "word": "modeling",
+      "start": 244.475,
+      "end": 244.975
+    },
+    {
+      "id": "section-2-paragraph-1:35",
+      "word": "choice.",
+      "start": 245.05,
+      "end": 246.1
+    },
+    {
+      "id": "section-2-paragraph-2:0",
+      "word": "The",
+      "start": 246.125,
+      "end": 246.382
+    },
+    {
+      "id": "section-2-paragraph-2:1",
+      "word": "general",
+      "start": 246.382,
+      "end": 246.98
+    },
+    {
+      "id": "section-2-paragraph-2:2",
+      "word": "test",
+      "start": 246.98,
+      "end": 247.322
+    },
+    {
+      "id": "section-2-paragraph-2:3",
+      "word": "is",
+      "start": 247.322,
+      "end": 247.493
+    },
+    {
+      "id": "section-2-paragraph-2:4",
+      "word": "simple:",
+      "start": 247.493,
+      "end": 248.006
+    },
+    {
+      "id": "section-2-paragraph-2:5",
+      "word": "if",
+      "start": 248.006,
+      "end": 248.177
+    },
+    {
+      "id": "section-2-paragraph-2:6",
+      "word": "I",
+      "start": 248.177,
+      "end": 248.263
+    },
+    {
+      "id": "section-2-paragraph-2:7",
+      "word": "cannot",
+      "start": 248.263,
+      "end": 248.776
+    },
+    {
+      "id": "section-2-paragraph-2:8",
+      "word": "explain",
+      "start": 248.776,
+      "end": 249.375
+    },
+    {
+      "id": "section-2-paragraph-2:9",
+      "word": "what",
+      "start": 249.375,
+      "end": 249.717
+    },
+    {
+      "id": "section-2-paragraph-2:10",
+      "word": "information",
+      "start": 249.717,
+      "end": 250.657
+    },
+    {
+      "id": "section-2-paragraph-2:11",
+      "word": "was",
+      "start": 250.657,
+      "end": 250.914
+    },
+    {
+      "id": "section-2-paragraph-2:12",
+      "word": "available",
+      "start": 250.914,
+      "end": 251.684
+    },
+    {
+      "id": "section-2-paragraph-2:13",
+      "word": "at",
+      "start": 251.684,
+      "end": 251.855
+    },
+    {
+      "id": "section-2-paragraph-2:14",
+      "word": "the",
+      "start": 251.855,
+      "end": 252.111
+    },
+    {
+      "id": "section-2-paragraph-2:15",
+      "word": "moment",
+      "start": 252.111,
+      "end": 252.624
+    },
+    {
+      "id": "section-2-paragraph-2:16",
+      "word": "each",
+      "start": 252.624,
+      "end": 252.966
+    },
+    {
+      "id": "section-2-paragraph-2:17",
+      "word": "forecast",
+      "start": 252.966,
+      "end": 253.651
+    },
+    {
+      "id": "section-2-paragraph-2:18",
+      "word": "would",
+      "start": 253.651,
+      "end": 254.078
+    },
+    {
+      "id": "section-2-paragraph-2:19",
+      "word": "have",
+      "start": 254.078,
+      "end": 254.42
+    },
+    {
+      "id": "section-2-paragraph-2:20",
+      "word": "been",
+      "start": 254.42,
+      "end": 254.762
+    },
+    {
+      "id": "section-2-paragraph-2:21",
+      "word": "issued,",
+      "start": 254.762,
+      "end": 255.275
+    },
+    {
+      "id": "section-2-paragraph-2:22",
+      "word": "I",
+      "start": 255.275,
+      "end": 255.361
+    },
+    {
+      "id": "section-2-paragraph-2:23",
+      "word": "do",
+      "start": 255.361,
+      "end": 255.532
+    },
+    {
+      "id": "section-2-paragraph-2:24",
+      "word": "not",
+      "start": 255.532,
+      "end": 255.788
+    },
+    {
+      "id": "section-2-paragraph-2:25",
+      "word": "yet",
+      "start": 255.788,
+      "end": 256.045
+    },
+    {
+      "id": "section-2-paragraph-2:26",
+      "word": "have",
+      "start": 256.045,
+      "end": 256.387
+    },
+    {
+      "id": "section-2-paragraph-2:27",
+      "word": "an",
+      "start": 256.387,
+      "end": 256.558
+    },
+    {
+      "id": "section-2-paragraph-2:28",
+      "word": "honest",
+      "start": 256.558,
+      "end": 257.071
+    },
+    {
+      "id": "section-2-paragraph-2:29",
+      "word": "out-of-sample",
+      "start": 257.071,
+      "end": 258.012
+    },
+    {
+      "id": "section-2-paragraph-2:30",
+      "word": "result.",
+      "start": 258.012,
+      "end": 258.525
+    },
+    {
+      "id": "section-3-title:0",
+      "word": "Coverage",
+      "start": 258.525,
+      "end": 259.389
+    },
+    {
+      "id": "section-3-title:1",
+      "word": "is",
+      "start": 259.389,
+      "end": 259.605
+    },
+    {
+      "id": "section-3-title:2",
+      "word": "part",
+      "start": 259.605,
+      "end": 260.037
+    },
+    {
+      "id": "section-3-title:3",
+      "word": "of",
+      "start": 260.037,
+      "end": 260.253
+    },
+    {
+      "id": "section-3-title:4",
+      "word": "the",
+      "start": 260.253,
+      "end": 260.577
+    },
+    {
+      "id": "section-3-title:5",
+      "word": "metric.",
+      "start": 260.577,
+      "end": 261.225
+    },
+    {
+      "id": "section-3-paragraph-0:0",
+      "word": "A",
+      "start": 261.7,
+      "end": 261.75
+    },
+    {
+      "id": "section-3-paragraph-0:1",
+      "word": "good",
+      "start": 261.825,
+      "end": 262
+    },
+    {
+      "id": "section-3-paragraph-0:2",
+      "word": "average",
+      "start": 262.1,
+      "end": 262.55
+    },
+    {
+      "id": "section-3-paragraph-0:3",
+      "word": "can",
+      "start": 262.6,
+      "end": 262.675
+    },
+    {
+      "id": "section-3-paragraph-0:4",
+      "word": "be",
+      "start": 262.7,
+      "end": 262.775
+    },
+    {
+      "id": "section-3-paragraph-0:5",
+      "word": "manufactured",
+      "start": 262.825,
+      "end": 263.625
+    },
+    {
+      "id": "section-3-paragraph-0:6",
+      "word": "by",
+      "start": 263.675,
+      "end": 263.825
+    },
+    {
+      "id": "section-3-paragraph-0:7",
+      "word": "quietly",
+      "start": 263.9,
+      "end": 264.375
+    },
+    {
+      "id": "section-3-paragraph-0:8",
+      "word": "dropping",
+      "start": 264.45,
+      "end": 264.9
+    },
+    {
+      "id": "section-3-paragraph-0:9",
+      "word": "awkward",
+      "start": 264.975,
+      "end": 265.35
+    },
+    {
+      "id": "section-3-paragraph-0:10",
+      "word": "observations.",
+      "start": 265.4,
+      "end": 266.8
+    },
+    {
+      "id": "section-3-paragraph-0:11",
+      "word": "For",
+      "start": 266.875,
+      "end": 267.025
+    },
+    {
+      "id": "section-3-paragraph-0:12",
+      "word": "the",
+      "start": 267.075,
+      "end": 267.325
+    },
+    {
+      "id": "section-3-paragraph-0:13",
+      "word": "2026",
+      "start": 267.375,
+      "end": 267.95
+    },
+    {
+      "id": "section-3-paragraph-0:14",
+      "word": "tournament,",
+      "start": 268.025,
+      "end": 268.85
+    },
+    {
+      "id": "section-3-paragraph-0:15",
+      "word": "Presaira",
+      "start": 268.9,
+      "end": 269.4
+    },
+    {
+      "id": "section-3-paragraph-0:16",
+      "word": "records",
+      "start": 269.45,
+      "end": 269.825
+    },
+    {
+      "id": "section-3-paragraph-0:17",
+      "word": "72",
+      "start": 269.925,
+      "end": 270.625
+    },
+    {
+      "id": "section-3-paragraph-0:18",
+      "word": "of",
+      "start": 270.675,
+      "end": 270.75
+    },
+    {
+      "id": "section-3-paragraph-0:19",
+      "word": "72",
+      "start": 270.825,
+      "end": 271.375
+    },
+    {
+      "id": "section-3-paragraph-0:20",
+      "word": "group",
+      "start": 271.425,
+      "end": 271.675
+    },
+    {
+      "id": "section-3-paragraph-0:21",
+      "word": "matches",
+      "start": 271.725,
+      "end": 272.55
+    },
+    {
+      "id": "section-3-paragraph-0:22",
+      "word": "and",
+      "start": 272.65,
+      "end": 272.75
+    },
+    {
+      "id": "section-3-paragraph-0:23",
+      "word": "32",
+      "start": 272.85,
+      "end": 273.475
+    },
+    {
+      "id": "section-3-paragraph-0:24",
+      "word": "of",
+      "start": 273.525,
+      "end": 273.625
+    },
+    {
+      "id": "section-3-paragraph-0:25",
+      "word": "32",
+      "start": 273.725,
+      "end": 274.225
+    },
+    {
+      "id": "section-3-paragraph-0:26",
+      "word": "knockout",
+      "start": 274.275,
+      "end": 274.775
+    },
+    {
+      "id": "section-3-paragraph-0:27",
+      "word": "matches,",
+      "start": 274.825,
+      "end": 275.75
+    },
+    {
+      "id": "section-3-paragraph-0:28",
+      "word": "with",
+      "start": 275.8,
+      "end": 275.925
+    },
+    {
+      "id": "section-3-paragraph-0:29",
+      "word": "an",
+      "start": 275.95,
+      "end": 276.05
+    },
+    {
+      "id": "section-3-paragraph-0:30",
+      "word": "empty",
+      "start": 276.15,
+      "end": 276.6
+    },
+    {
+      "id": "section-3-paragraph-0:31",
+      "word": "omitted",
+      "start": 276.7,
+      "end": 277.125
+    },
+    {
+      "id": "section-3-paragraph-0:32",
+      "word": "list.",
+      "start": 277.175,
+      "end": 278.15
+    },
+    {
+      "id": "section-3-paragraph-0:33",
+      "word": "That",
+      "start": 278.225,
+      "end": 278.4
+    },
+    {
+      "id": "section-3-paragraph-0:34",
+      "word": "coverage",
+      "start": 278.475,
+      "end": 278.875
+    },
+    {
+      "id": "section-3-paragraph-0:35",
+      "word": "statement",
+      "start": 278.925,
+      "end": 279.35
+    },
+    {
+      "id": "section-3-paragraph-0:36",
+      "word": "belongs",
+      "start": 279.4,
+      "end": 279.9
+    },
+    {
+      "id": "section-3-paragraph-0:37",
+      "word": "beside",
+      "start": 279.95,
+      "end": 280.325
+    },
+    {
+      "id": "section-3-paragraph-0:38",
+      "word": "the",
+      "start": 280.35,
+      "end": 280.4
+    },
+    {
+      "id": "section-3-paragraph-0:39",
+      "word": "score",
+      "start": 280.475,
+      "end": 281.175
+    },
+    {
+      "id": "section-3-paragraph-0:40",
+      "word": "because",
+      "start": 281.25,
+      "end": 281.525
+    },
+    {
+      "id": "section-3-paragraph-0:41",
+      "word": "the",
+      "start": 281.575,
+      "end": 281.625
+    },
+    {
+      "id": "section-3-paragraph-0:42",
+      "word": "score",
+      "start": 281.7,
+      "end": 282.125
+    },
+    {
+      "id": "section-3-paragraph-0:43",
+      "word": "is",
+      "start": 282.175,
+      "end": 282.275
+    },
+    {
+      "id": "section-3-paragraph-0:44",
+      "word": "only",
+      "start": 282.35,
+      "end": 282.675
+    },
+    {
+      "id": "section-3-paragraph-0:45",
+      "word": "meaningful",
+      "start": 282.75,
+      "end": 283.225
+    },
+    {
+      "id": "section-3-paragraph-0:46",
+      "word": "over",
+      "start": 283.275,
+      "end": 283.45
+    },
+    {
+      "id": "section-3-paragraph-0:47",
+      "word": "the",
+      "start": 283.5,
+      "end": 283.575
+    },
+    {
+      "id": "section-3-paragraph-0:48",
+      "word": "set",
+      "start": 283.675,
+      "end": 283.9
+    },
+    {
+      "id": "section-3-paragraph-0:49",
+      "word": "it",
+      "start": 283.95,
+      "end": 284.025
+    },
+    {
+      "id": "section-3-paragraph-0:50",
+      "word": "actually",
+      "start": 284.125,
+      "end": 284.55
+    },
+    {
+      "id": "section-3-paragraph-0:51",
+      "word": "represents.",
+      "start": 284.6,
+      "end": 285.775
+    },
+    {
+      "id": "section-3-paragraph-1:0",
+      "word": "The",
+      "start": 286.25,
+      "end": 286.325
+    },
+    {
+      "id": "section-3-paragraph-1:1",
+      "word": "same",
+      "start": 286.4,
+      "end": 286.65
+    },
+    {
+      "id": "section-3-paragraph-1:2",
+      "word": "principle",
+      "start": 286.7,
+      "end": 287.175
+    },
+    {
+      "id": "section-3-paragraph-1:3",
+      "word": "applies",
+      "start": 287.25,
+      "end": 287.775
+    },
+    {
+      "id": "section-3-paragraph-1:4",
+      "word": "well",
+      "start": 287.85,
+      "end": 288.1
+    },
+    {
+      "id": "section-3-paragraph-1:5",
+      "word": "beyond",
+      "start": 288.15,
+      "end": 288.45
+    },
+    {
+      "id": "section-3-paragraph-1:6",
+      "word": "sport.",
+      "start": 288.525,
+      "end": 289.45
+    },
+    {
+      "id": "section-3-paragraph-1:7",
+      "word": "If",
+      "start": 289.525,
+      "end": 289.6
+    },
+    {
+      "id": "section-3-paragraph-1:8",
+      "word": "a",
+      "start": 289.625,
+      "end": 289.675
+    },
+    {
+      "id": "section-3-paragraph-1:9",
+      "word": "pipeline",
+      "start": 289.75,
+      "end": 290.35
+    },
+    {
+      "id": "section-3-paragraph-1:10",
+      "word": "rejects",
+      "start": 290.4,
+      "end": 290.875
+    },
+    {
+      "id": "section-3-paragraph-1:11",
+      "word": "difficult",
+      "start": 290.95,
+      "end": 291.35
+    },
+    {
+      "id": "section-3-paragraph-1:12",
+      "word": "records,",
+      "start": 291.4,
+      "end": 292.25
+    },
+    {
+      "id": "section-3-paragraph-1:13",
+      "word": "if",
+      "start": 292.325,
+      "end": 292.4
+    },
+    {
+      "id": "section-3-paragraph-1:14",
+      "word": "a",
+      "start": 292.425,
+      "end": 292.475
+    },
+    {
+      "id": "section-3-paragraph-1:15",
+      "word": "sensor",
+      "start": 292.575,
+      "end": 292.95
+    },
+    {
+      "id": "section-3-paragraph-1:16",
+      "word": "disappears",
+      "start": 293.025,
+      "end": 293.7
+    },
+    {
+      "id": "section-3-paragraph-1:17",
+      "word": "during",
+      "start": 293.75,
+      "end": 294.025
+    },
+    {
+      "id": "section-3-paragraph-1:18",
+      "word": "bad",
+      "start": 294.1,
+      "end": 294.4
+    },
+    {
+      "id": "section-3-paragraph-1:19",
+      "word": "conditions,",
+      "start": 294.45,
+      "end": 295.55
+    },
+    {
+      "id": "section-3-paragraph-1:20",
+      "word": "or",
+      "start": 295.625,
+      "end": 296.025
+    },
+    {
+      "id": "section-3-paragraph-1:21",
+      "word": "if",
+      "start": 296.125,
+      "end": 296.225
+    },
+    {
+      "id": "section-3-paragraph-1:22",
+      "word": "an",
+      "start": 296.25,
+      "end": 296.3
+    },
+    {
+      "id": "section-3-paragraph-1:23",
+      "word": "evaluation",
+      "start": 296.35,
+      "end": 297.175
+    },
+    {
+      "id": "section-3-paragraph-1:24",
+      "word": "excludes",
+      "start": 297.225,
+      "end": 297.75
+    },
+    {
+      "id": "section-3-paragraph-1:25",
+      "word": "cases",
+      "start": 297.825,
+      "end": 298.3
+    },
+    {
+      "id": "section-3-paragraph-1:26",
+      "word": "after",
+      "start": 298.35,
+      "end": 298.6
+    },
+    {
+      "id": "section-3-paragraph-1:27",
+      "word": "seeing",
+      "start": 298.7,
+      "end": 299
+    },
+    {
+      "id": "section-3-paragraph-1:28",
+      "word": "their",
+      "start": 299.05,
+      "end": 299.2
+    },
+    {
+      "id": "section-3-paragraph-1:29",
+      "word": "outcomes,",
+      "start": 299.275,
+      "end": 300.3
+    },
+    {
+      "id": "section-3-paragraph-1:30",
+      "word": "the",
+      "start": 300.35,
+      "end": 300.4
+    },
+    {
+      "id": "section-3-paragraph-1:31",
+      "word": "denominator",
+      "start": 300.45,
+      "end": 301.225
+    },
+    {
+      "id": "section-3-paragraph-1:32",
+      "word": "becomes",
+      "start": 301.275,
+      "end": 301.675
+    },
+    {
+      "id": "section-3-paragraph-1:33",
+      "word": "a",
+      "start": 301.725,
+      "end": 301.775
+    },
+    {
+      "id": "section-3-paragraph-1:34",
+      "word": "modeling",
+      "start": 301.875,
+      "end": 302.375
+    },
+    {
+      "id": "section-3-paragraph-1:35",
+      "word": "decision.",
+      "start": 302.425,
+      "end": 303.475
+    },
+    {
+      "id": "section-3-paragraph-1:36",
+      "word": "Report",
+      "start": 303.55,
+      "end": 304
+    },
+    {
+      "id": "section-3-paragraph-1:37",
+      "word": "it",
+      "start": 304.05,
+      "end": 304.15
+    },
+    {
+      "id": "section-3-paragraph-1:38",
+      "word": "explicitly.",
+      "start": 304.225,
+      "end": 305.5
+    },
+    {
+      "id": "section-4-title:0",
+      "word": "Calibration",
+      "start": 305.525,
+      "end": 306.694
+    },
+    {
+      "id": "section-4-title:1",
+      "word": "is",
+      "start": 306.694,
+      "end": 306.906
+    },
+    {
+      "id": "section-4-title:2",
+      "word": "a",
+      "start": 306.906,
+      "end": 307.012
+    },
+    {
+      "id": "section-4-title:3",
+      "word": "model",
+      "start": 307.012,
+      "end": 307.544
+    },
+    {
+      "id": "section-4-title:4",
+      "word": "choice,",
+      "start": 307.544,
+      "end": 308.181
+    },
+    {
+      "id": "section-4-title:5",
+      "word": "not",
+      "start": 308.181,
+      "end": 308.5
+    },
+    {
+      "id": "section-4-title:6",
+      "word": "a",
+      "start": 308.5,
+      "end": 308.606
+    },
+    {
+      "id": "section-4-title:7",
+      "word": "ceremonial",
+      "start": 308.606,
+      "end": 309.669
+    },
+    {
+      "id": "section-4-title:8",
+      "word": "final",
+      "start": 309.669,
+      "end": 310.2
+    },
+    {
+      "id": "section-4-title:9",
+      "word": "step.",
+      "start": 310.2,
+      "end": 310.625
+    },
+    {
+      "id": "section-4-paragraph-0:0",
+      "word": "Post-hoc",
+      "start": 311.05,
+      "end": 311.6
+    },
+    {
+      "id": "section-4-paragraph-0:1",
+      "word": "calibration",
+      "start": 311.65,
+      "end": 312.475
+    },
+    {
+      "id": "section-4-paragraph-0:2",
+      "word": "can",
+      "start": 312.525,
+      "end": 313
+    },
+    {
+      "id": "section-4-paragraph-0:3",
+      "word": "improve",
+      "start": 313.05,
+      "end": 313.675
+    },
+    {
+      "id": "section-4-paragraph-0:4",
+      "word": "probability",
+      "start": 313.75,
+      "end": 314.825
+    },
+    {
+      "id": "section-4-paragraph-0:5",
+      "word": "quality,",
+      "start": 314.85,
+      "end": 314.9
+    },
+    {
+      "id": "section-4-paragraph-0:6",
+      "word": "but",
+      "start": 314.925,
+      "end": 315
+    },
+    {
+      "id": "section-4-paragraph-0:7",
+      "word": "it",
+      "start": 315.05,
+      "end": 315.425
+    },
+    {
+      "id": "section-4-paragraph-0:8",
+      "word": "can",
+      "start": 315.475,
+      "end": 315.95
+    },
+    {
+      "id": "section-4-paragraph-0:9",
+      "word": "also",
+      "start": 316,
+      "end": 316.05
+    },
+    {
+      "id": "section-4-paragraph-0:10",
+      "word": "overfit",
+      "start": 316.15,
+      "end": 316.5
+    },
+    {
+      "id": "section-4-paragraph-0:11",
+      "word": "a",
+      "start": 316.575,
+      "end": 317.3
+    },
+    {
+      "id": "section-4-paragraph-0:12",
+      "word": "small",
+      "start": 317.35,
+      "end": 318.275
+    },
+    {
+      "id": "section-4-paragraph-0:13",
+      "word": "calibration",
+      "start": 318.35,
+      "end": 319.375
+    },
+    {
+      "id": "section-4-paragraph-0:14",
+      "word": "window.",
+      "start": 319.45,
+      "end": 319.7
+    },
+    {
+      "id": "section-4-paragraph-0:15",
+      "word": "In",
+      "start": 319.775,
+      "end": 320.275
+    },
+    {
+      "id": "section-4-paragraph-0:16",
+      "word": "Presaira,",
+      "start": 320.325,
+      "end": 320.4
+    },
+    {
+      "id": "section-4-paragraph-0:17",
+      "word": "Platt",
+      "start": 320.45,
+      "end": 321.125
+    },
+    {
+      "id": "section-4-paragraph-0:18",
+      "word": "scaling",
+      "start": 321.175,
+      "end": 321.675
+    },
+    {
+      "id": "section-4-paragraph-0:19",
+      "word": "and",
+      "start": 321.725,
+      "end": 321.8
+    },
+    {
+      "id": "section-4-paragraph-0:20",
+      "word": "isotonic",
+      "start": 321.875,
+      "end": 322.125
+    },
+    {
+      "id": "section-4-paragraph-0:21",
+      "word": "regression",
+      "start": 322.2,
+      "end": 323.175
+    },
+    {
+      "id": "section-4-paragraph-0:22",
+      "word": "were",
+      "start": 323.275,
+      "end": 323.55
+    },
+    {
+      "id": "section-4-paragraph-0:23",
+      "word": "both",
+      "start": 323.6,
+      "end": 323.7
+    },
+    {
+      "id": "section-4-paragraph-0:24",
+      "word": "tested.",
+      "start": 323.75,
+      "end": 324.3
+    },
+    {
+      "id": "section-4-paragraph-0:25",
+      "word": "Platt",
+      "start": 324.375,
+      "end": 324.75
+    },
+    {
+      "id": "section-4-paragraph-0:26",
+      "word": "was",
+      "start": 324.8,
+      "end": 324.95
+    },
+    {
+      "id": "section-4-paragraph-0:27",
+      "word": "effectively",
+      "start": 325.025,
+      "end": 325.6
+    },
+    {
+      "id": "section-4-paragraph-0:28",
+      "word": "neutral",
+      "start": 325.65,
+      "end": 325.775
+    },
+    {
+      "id": "section-4-paragraph-0:29",
+      "word": "on",
+      "start": 325.825,
+      "end": 326.35
+    },
+    {
+      "id": "section-4-paragraph-0:30",
+      "word": "Brier",
+      "start": 326.425,
+      "end": 326.725
+    },
+    {
+      "id": "section-4-paragraph-0:31",
+      "word": "while",
+      "start": 326.8,
+      "end": 327.625
+    },
+    {
+      "id": "section-4-paragraph-0:32",
+      "word": "degrading",
+      "start": 327.7,
+      "end": 328.35
+    },
+    {
+      "id": "section-4-paragraph-0:33",
+      "word": "log",
+      "start": 328.425,
+      "end": 328.8
+    },
+    {
+      "id": "section-4-paragraph-0:34",
+      "word": "loss;",
+      "start": 328.825,
+      "end": 328.875
+    },
+    {
+      "id": "section-4-paragraph-0:35",
+      "word": "isotonic",
+      "start": 328.95,
+      "end": 329.225
+    },
+    {
+      "id": "section-4-paragraph-0:36",
+      "word": "worsened",
+      "start": 329.275,
+      "end": 329.55
+    },
+    {
+      "id": "section-4-paragraph-0:37",
+      "word": "the",
+      "start": 329.65,
+      "end": 329.9
+    },
+    {
+      "id": "section-4-paragraph-0:38",
+      "word": "2022",
+      "start": 329.975,
+      "end": 330.85
+    },
+    {
+      "id": "section-4-paragraph-0:39",
+      "word": "Brier",
+      "start": 330.9,
+      "end": 331.05
+    },
+    {
+      "id": "section-4-paragraph-0:40",
+      "word": "score",
+      "start": 331.15,
+      "end": 331.35
+    },
+    {
+      "id": "section-4-paragraph-0:41",
+      "word": "by",
+      "start": 331.425,
+      "end": 331.75
+    },
+    {
+      "id": "section-4-paragraph-0:42",
+      "word": "2.3%.",
+      "start": 331.825,
+      "end": 333.05
+    },
+    {
+      "id": "section-4-paragraph-0:43",
+      "word": "The",
+      "start": 333.125,
+      "end": 333.175
+    },
+    {
+      "id": "section-4-paragraph-0:44",
+      "word": "recorded",
+      "start": 333.225,
+      "end": 333.675
+    },
+    {
+      "id": "section-4-paragraph-0:45",
+      "word": "decision",
+      "start": 333.725,
+      "end": 334.25
+    },
+    {
+      "id": "section-4-paragraph-0:46",
+      "word": "was",
+      "start": 334.3,
+      "end": 334.425
+    },
+    {
+      "id": "section-4-paragraph-0:47",
+      "word": "therefore",
+      "start": 334.475,
+      "end": 334.85
+    },
+    {
+      "id": "section-4-paragraph-0:48",
+      "word": "calibration_method:",
+      "start": 334.925,
+      "end": 336.5
+    },
+    {
+      "id": "section-4-paragraph-0:49",
+      "word": "none.",
+      "start": 336.625,
+      "end": 337.5
+    },
+    {
+      "id": "section-4-paragraph-1:0",
+      "word": "That",
+      "start": 337.525,
+      "end": 337.88
+    },
+    {
+      "id": "section-4-paragraph-1:1",
+      "word": "result",
+      "start": 337.88,
+      "end": 338.414
+    },
+    {
+      "id": "section-4-paragraph-1:2",
+      "word": "matters",
+      "start": 338.414,
+      "end": 339.036
+    },
+    {
+      "id": "section-4-paragraph-1:3",
+      "word": "because",
+      "start": 339.036,
+      "end": 339.658
+    },
+    {
+      "id": "section-4-paragraph-1:4",
+      "word": "'no",
+      "start": 339.658,
+      "end": 339.835
+    },
+    {
+      "id": "section-4-paragraph-1:5",
+      "word": "calibration'",
+      "start": 339.835,
+      "end": 340.813
+    },
+    {
+      "id": "section-4-paragraph-1:6",
+      "word": "can",
+      "start": 340.813,
+      "end": 341.079
+    },
+    {
+      "id": "section-4-paragraph-1:7",
+      "word": "mean",
+      "start": 341.079,
+      "end": 341.435
+    },
+    {
+      "id": "section-4-paragraph-1:8",
+      "word": "two",
+      "start": 341.435,
+      "end": 341.701
+    },
+    {
+      "id": "section-4-paragraph-1:9",
+      "word": "very",
+      "start": 341.701,
+      "end": 342.057
+    },
+    {
+      "id": "section-4-paragraph-1:10",
+      "word": "different",
+      "start": 342.057,
+      "end": 342.857
+    },
+    {
+      "id": "section-4-paragraph-1:11",
+      "word": "things:",
+      "start": 342.857,
+      "end": 343.39
+    },
+    {
+      "id": "section-4-paragraph-1:12",
+      "word": "nobody",
+      "start": 343.39,
+      "end": 343.923
+    },
+    {
+      "id": "section-4-paragraph-1:13",
+      "word": "checked,",
+      "start": 343.923,
+      "end": 344.545
+    },
+    {
+      "id": "section-4-paragraph-1:14",
+      "word": "or",
+      "start": 344.545,
+      "end": 344.723
+    },
+    {
+      "id": "section-4-paragraph-1:15",
+      "word": "calibration",
+      "start": 344.723,
+      "end": 345.7
+    },
+    {
+      "id": "section-4-paragraph-1:16",
+      "word": "methods",
+      "start": 345.7,
+      "end": 346.322
+    },
+    {
+      "id": "section-4-paragraph-1:17",
+      "word": "were",
+      "start": 346.322,
+      "end": 346.678
+    },
+    {
+      "id": "section-4-paragraph-1:18",
+      "word": "evaluated",
+      "start": 346.678,
+      "end": 347.477
+    },
+    {
+      "id": "section-4-paragraph-1:19",
+      "word": "and",
+      "start": 347.477,
+      "end": 347.744
+    },
+    {
+      "id": "section-4-paragraph-1:20",
+      "word": "the",
+      "start": 347.744,
+      "end": 348.01
+    },
+    {
+      "id": "section-4-paragraph-1:21",
+      "word": "evidence",
+      "start": 348.01,
+      "end": 348.721
+    },
+    {
+      "id": "section-4-paragraph-1:22",
+      "word": "did",
+      "start": 348.721,
+      "end": 348.988
+    },
+    {
+      "id": "section-4-paragraph-1:23",
+      "word": "not",
+      "start": 348.988,
+      "end": 349.255
+    },
+    {
+      "id": "section-4-paragraph-1:24",
+      "word": "justify",
+      "start": 349.255,
+      "end": 349.877
+    },
+    {
+      "id": "section-4-paragraph-1:25",
+      "word": "adding",
+      "start": 349.877,
+      "end": 350.41
+    },
+    {
+      "id": "section-4-paragraph-1:26",
+      "word": "one.",
+      "start": 350.41,
+      "end": 350.676
+    },
+    {
+      "id": "section-4-paragraph-1:27",
+      "word": "Only",
+      "start": 350.676,
+      "end": 351.032
+    },
+    {
+      "id": "section-4-paragraph-1:28",
+      "word": "the",
+      "start": 351.032,
+      "end": 351.298
+    },
+    {
+      "id": "section-4-paragraph-1:29",
+      "word": "second",
+      "start": 351.298,
+      "end": 351.831
+    },
+    {
+      "id": "section-4-paragraph-1:30",
+      "word": "is",
+      "start": 351.831,
+      "end": 352.009
+    },
+    {
+      "id": "section-4-paragraph-1:31",
+      "word": "a",
+      "start": 352.009,
+      "end": 352.098
+    },
+    {
+      "id": "section-4-paragraph-1:32",
+      "word": "defensible",
+      "start": 352.098,
+      "end": 352.987
+    },
+    {
+      "id": "section-4-paragraph-1:33",
+      "word": "engineering",
+      "start": 352.987,
+      "end": 353.964
+    },
+    {
+      "id": "section-4-paragraph-1:34",
+      "word": "decision.",
+      "start": 353.964,
+      "end": 354.675
+    },
+    {
+      "id": "section-4-paragraph-2:0",
+      "word": "A",
+      "start": 355.15,
+      "end": 355.2
+    },
+    {
+      "id": "section-4-paragraph-2:1",
+      "word": "trustworthy",
+      "start": 355.275,
+      "end": 355.9
+    },
+    {
+      "id": "section-4-paragraph-2:2",
+      "word": "pipeline",
+      "start": 355.975,
+      "end": 356.575
+    },
+    {
+      "id": "section-4-paragraph-2:3",
+      "word": "should",
+      "start": 356.65,
+      "end": 356.8
+    },
+    {
+      "id": "section-4-paragraph-2:4",
+      "word": "make",
+      "start": 356.85,
+      "end": 357.1
+    },
+    {
+      "id": "section-4-paragraph-2:5",
+      "word": "rejected",
+      "start": 357.175,
+      "end": 357.775
+    },
+    {
+      "id": "section-4-paragraph-2:6",
+      "word": "interventions",
+      "start": 357.825,
+      "end": 358.55
+    },
+    {
+      "id": "section-4-paragraph-2:7",
+      "word": "visible.",
+      "start": 358.625,
+      "end": 359.6
+    },
+    {
+      "id": "section-4-paragraph-2:8",
+      "word": "Otherwise",
+      "start": 359.675,
+      "end": 360.325
+    },
+    {
+      "id": "section-4-paragraph-2:9",
+      "word": "the",
+      "start": 360.375,
+      "end": 360.45
+    },
+    {
+      "id": "section-4-paragraph-2:10",
+      "word": "published",
+      "start": 360.525,
+      "end": 360.925
+    },
+    {
+      "id": "section-4-paragraph-2:11",
+      "word": "model",
+      "start": 361,
+      "end": 361.425
+    },
+    {
+      "id": "section-4-paragraph-2:12",
+      "word": "becomes",
+      "start": 361.475,
+      "end": 361.85
+    },
+    {
+      "id": "section-4-paragraph-2:13",
+      "word": "a",
+      "start": 361.875,
+      "end": 361.925
+    },
+    {
+      "id": "section-4-paragraph-2:14",
+      "word": "survivor",
+      "start": 362,
+      "end": 362.575
+    },
+    {
+      "id": "section-4-paragraph-2:15",
+      "word": "selected",
+      "start": 362.65,
+      "end": 363.2
+    },
+    {
+      "id": "section-4-paragraph-2:16",
+      "word": "from",
+      "start": 363.25,
+      "end": 363.45
+    },
+    {
+      "id": "section-4-paragraph-2:17",
+      "word": "an",
+      "start": 363.5,
+      "end": 363.625
+    },
+    {
+      "id": "section-4-paragraph-2:18",
+      "word": "invisible",
+      "start": 363.7,
+      "end": 364.3
+    },
+    {
+      "id": "section-4-paragraph-2:19",
+      "word": "garden",
+      "start": 364.375,
+      "end": 364.825
+    },
+    {
+      "id": "section-4-paragraph-2:20",
+      "word": "of",
+      "start": 364.9,
+      "end": 364.975
+    },
+    {
+      "id": "section-4-paragraph-2:21",
+      "word": "experiments.",
+      "start": 365.025,
+      "end": 366.3
+    },
+    {
+      "id": "section-5-title:0",
+      "word": "Reproducibility",
+      "start": 366.775,
+      "end": 367.675
+    },
+    {
+      "id": "section-5-title:1",
+      "word": "includes",
+      "start": 367.725,
+      "end": 368.15
+    },
+    {
+      "id": "section-5-title:2",
+      "word": "simulation,",
+      "start": 368.225,
+      "end": 369.3
+    },
+    {
+      "id": "section-5-title:3",
+      "word": "versions",
+      "start": 369.375,
+      "end": 369.925
+    },
+    {
+      "id": "section-5-title:4",
+      "word": "and",
+      "start": 369.975,
+      "end": 370.05
+    },
+    {
+      "id": "section-5-title:5",
+      "word": "failed",
+      "start": 370.125,
+      "end": 370.475
+    },
+    {
+      "id": "section-5-title:6",
+      "word": "checks.",
+      "start": 370.55,
+      "end": 371.475
+    },
+    {
+      "id": "section-5-paragraph-0:0",
+      "word": "Tournament",
+      "start": 371.925,
+      "end": 372.375
+    },
+    {
+      "id": "section-5-paragraph-0:1",
+      "word": "probabilities",
+      "start": 372.425,
+      "end": 373.15
+    },
+    {
+      "id": "section-5-paragraph-0:2",
+      "word": "depend",
+      "start": 373.2,
+      "end": 373.6
+    },
+    {
+      "id": "section-5-paragraph-0:3",
+      "word": "on",
+      "start": 373.625,
+      "end": 373.775
+    },
+    {
+      "id": "section-5-paragraph-0:4",
+      "word": "more",
+      "start": 373.85,
+      "end": 374.125
+    },
+    {
+      "id": "section-5-paragraph-0:5",
+      "word": "than",
+      "start": 374.175,
+      "end": 374.25
+    },
+    {
+      "id": "section-5-paragraph-0:6",
+      "word": "the",
+      "start": 374.275,
+      "end": 374.325
+    },
+    {
+      "id": "section-5-paragraph-0:7",
+      "word": "match",
+      "start": 374.375,
+      "end": 374.675
+    },
+    {
+      "id": "section-5-paragraph-0:8",
+      "word": "model.",
+      "start": 374.725,
+      "end": 375.7
+    },
+    {
+      "id": "section-5-paragraph-0:9",
+      "word": "Group",
+      "start": 375.8,
+      "end": 376.075
+    },
+    {
+      "id": "section-5-paragraph-0:10",
+      "word": "rules,",
+      "start": 376.15,
+      "end": 377.025
+    },
+    {
+      "id": "section-5-paragraph-0:11",
+      "word": "knockout",
+      "start": 377.1,
+      "end": 377.625
+    },
+    {
+      "id": "section-5-paragraph-0:12",
+      "word": "progression,",
+      "start": 377.675,
+      "end": 378.675
+    },
+    {
+      "id": "section-5-paragraph-0:13",
+      "word": "third-place",
+      "start": 378.775,
+      "end": 379.375
+    },
+    {
+      "id": "section-5-paragraph-0:14",
+      "word": "qualification,",
+      "start": 379.425,
+      "end": 380.65
+    },
+    {
+      "id": "section-5-paragraph-0:15",
+      "word": "random",
+      "start": 380.725,
+      "end": 381.125
+    },
+    {
+      "id": "section-5-paragraph-0:16",
+      "word": "sampling",
+      "start": 381.225,
+      "end": 381.7
+    },
+    {
+      "id": "section-5-paragraph-0:17",
+      "word": "and",
+      "start": 381.75,
+      "end": 381.825
+    },
+    {
+      "id": "section-5-paragraph-0:18",
+      "word": "simulation",
+      "start": 381.9,
+      "end": 382.55
+    },
+    {
+      "id": "section-5-paragraph-0:19",
+      "word": "count",
+      "start": 382.625,
+      "end": 383.15
+    },
+    {
+      "id": "section-5-paragraph-0:20",
+      "word": "all",
+      "start": 383.275,
+      "end": 383.525
+    },
+    {
+      "id": "section-5-paragraph-0:21",
+      "word": "affect",
+      "start": 383.575,
+      "end": 383.9
+    },
+    {
+      "id": "section-5-paragraph-0:22",
+      "word": "the",
+      "start": 383.95,
+      "end": 384.025
+    },
+    {
+      "id": "section-5-paragraph-0:23",
+      "word": "final",
+      "start": 384.125,
+      "end": 384.5
+    },
+    {
+      "id": "section-5-paragraph-0:24",
+      "word": "distribution.",
+      "start": 384.55,
+      "end": 385.8
+    },
+    {
+      "id": "section-5-paragraph-0:25",
+      "word": "Presaira",
+      "start": 386.25,
+      "end": 386.9
+    },
+    {
+      "id": "section-5-paragraph-0:26",
+      "word": "runs",
+      "start": 386.975,
+      "end": 387.25
+    },
+    {
+      "id": "section-5-paragraph-0:27",
+      "word": "the",
+      "start": 387.3,
+      "end": 387.375
+    },
+    {
+      "id": "section-5-paragraph-0:28",
+      "word": "tournament",
+      "start": 387.45,
+      "end": 387.925
+    },
+    {
+      "id": "section-5-paragraph-0:29",
+      "word": "50,000",
+      "start": 388.025,
+      "end": 388.875
+    },
+    {
+      "id": "section-5-paragraph-0:30",
+      "word": "times",
+      "start": 388.95,
+      "end": 389.45
+    },
+    {
+      "id": "section-5-paragraph-0:31",
+      "word": "with",
+      "start": 389.5,
+      "end": 389.6
+    },
+    {
+      "id": "section-5-paragraph-0:32",
+      "word": "a",
+      "start": 389.625,
+      "end": 389.675
+    },
+    {
+      "id": "section-5-paragraph-0:33",
+      "word": "fixed",
+      "start": 389.775,
+      "end": 390.075
+    },
+    {
+      "id": "section-5-paragraph-0:34",
+      "word": "seed",
+      "start": 390.175,
+      "end": 390.95
+    },
+    {
+      "id": "section-5-paragraph-0:35",
+      "word": "and",
+      "start": 391.05,
+      "end": 391.125
+    },
+    {
+      "id": "section-5-paragraph-0:36",
+      "word": "records",
+      "start": 391.2,
+      "end": 391.6
+    },
+    {
+      "id": "section-5-paragraph-0:37",
+      "word": "model",
+      "start": 391.7,
+      "end": 392.125
+    },
+    {
+      "id": "section-5-paragraph-0:38",
+      "word": "and",
+      "start": 392.175,
+      "end": 392.25
+    },
+    {
+      "id": "section-5-paragraph-0:39",
+      "word": "simulator",
+      "start": 392.35,
+      "end": 392.85
+    },
+    {
+      "id": "section-5-paragraph-0:40",
+      "word": "versions",
+      "start": 392.9,
+      "end": 393.8
+    },
+    {
+      "id": "section-5-paragraph-0:41",
+      "word": "so",
+      "start": 393.925,
+      "end": 394.025
+    },
+    {
+      "id": "section-5-paragraph-0:42",
+      "word": "the",
+      "start": 394.05,
+      "end": 394.125
+    },
+    {
+      "id": "section-5-paragraph-0:43",
+      "word": "published",
+      "start": 394.2,
+      "end": 394.6
+    },
+    {
+      "id": "section-5-paragraph-0:44",
+      "word": "artifact",
+      "start": 394.675,
+      "end": 395.35
+    },
+    {
+      "id": "section-5-paragraph-0:45",
+      "word": "has",
+      "start": 395.4,
+      "end": 395.625
+    },
+    {
+      "id": "section-5-paragraph-0:46",
+      "word": "an",
+      "start": 395.675,
+      "end": 395.825
+    },
+    {
+      "id": "section-5-paragraph-0:47",
+      "word": "inspectable",
+      "start": 395.9,
+      "end": 396.6
+    },
+    {
+      "id": "section-5-paragraph-0:48",
+      "word": "computational",
+      "start": 396.675,
+      "end": 397.55
+    },
+    {
+      "id": "section-5-paragraph-0:49",
+      "word": "context.",
+      "start": 397.6,
+      "end": 398.85
+    },
+    {
+      "id": "section-5-paragraph-1:0",
+      "word": "One",
+      "start": 399.35,
+      "end": 399.475
+    },
+    {
+      "id": "section-5-paragraph-1:1",
+      "word": "of",
+      "start": 399.55,
+      "end": 399.7
+    },
+    {
+      "id": "section-5-paragraph-1:2",
+      "word": "the",
+      "start": 399.725,
+      "end": 400.025
+    },
+    {
+      "id": "section-5-paragraph-1:3",
+      "word": "most",
+      "start": 400.075,
+      "end": 400.475
+    },
+    {
+      "id": "section-5-paragraph-1:4",
+      "word": "useful",
+      "start": 400.525,
+      "end": 400.9
+    },
+    {
+      "id": "section-5-paragraph-1:5",
+      "word": "pieces",
+      "start": 400.925,
+      "end": 401.05
+    },
+    {
+      "id": "section-5-paragraph-1:6",
+      "word": "of",
+      "start": 401.1,
+      "end": 401.6
+    },
+    {
+      "id": "section-5-paragraph-1:7",
+      "word": "evidence",
+      "start": 401.65,
+      "end": 401.75
+    },
+    {
+      "id": "section-5-paragraph-1:8",
+      "word": "is",
+      "start": 401.8,
+      "end": 401.95
+    },
+    {
+      "id": "section-5-paragraph-1:9",
+      "word": "a",
+      "start": 402,
+      "end": 402.375
+    },
+    {
+      "id": "section-5-paragraph-1:10",
+      "word": "failed",
+      "start": 402.425,
+      "end": 403.05
+    },
+    {
+      "id": "section-5-paragraph-1:11",
+      "word": "convergence",
+      "start": 403.1,
+      "end": 403.975
+    },
+    {
+      "id": "section-5-paragraph-1:12",
+      "word": "check:",
+      "start": 404,
+      "end": 404.075
+    },
+    {
+      "id": "section-5-paragraph-1:13",
+      "word": "the",
+      "start": 404.125,
+      "end": 404.525
+    },
+    {
+      "id": "section-5-paragraph-1:14",
+      "word": "committed",
+      "start": 404.575,
+      "end": 404.875
+    },
+    {
+      "id": "section-5-paragraph-1:15",
+      "word": "10,000-versus-50,000",
+      "start": 404.925,
+      "end": 406.325
+    },
+    {
+      "id": "section-5-paragraph-1:16",
+      "word": "target",
+      "start": 406.4,
+      "end": 406.8
+    },
+    {
+      "id": "section-5-paragraph-1:17",
+      "word": "does",
+      "start": 406.875,
+      "end": 407.55
+    },
+    {
+      "id": "section-5-paragraph-1:18",
+      "word": "not",
+      "start": 407.625,
+      "end": 408.025
+    },
+    {
+      "id": "section-5-paragraph-1:19",
+      "word": "pass",
+      "start": 408.075,
+      "end": 408.35
+    },
+    {
+      "id": "section-5-paragraph-1:20",
+      "word": "its",
+      "start": 408.375,
+      "end": 408.525
+    },
+    {
+      "id": "section-5-paragraph-1:21",
+      "word": "chosen",
+      "start": 408.6,
+      "end": 409.025
+    },
+    {
+      "id": "section-5-paragraph-1:22",
+      "word": "threshold,",
+      "start": 409.1,
+      "end": 410.1
+    },
+    {
+      "id": "section-5-paragraph-1:23",
+      "word": "so",
+      "start": 410.175,
+      "end": 410.275
+    },
+    {
+      "id": "section-5-paragraph-1:24",
+      "word": "production",
+      "start": 410.325,
+      "end": 410.825
+    },
+    {
+      "id": "section-5-paragraph-1:25",
+      "word": "stays",
+      "start": 410.875,
+      "end": 411.225
+    },
+    {
+      "id": "section-5-paragraph-1:26",
+      "word": "at",
+      "start": 411.275,
+      "end": 411.375
+    },
+    {
+      "id": "section-5-paragraph-1:27",
+      "word": "50,000.",
+      "start": 411.475,
+      "end": 413.075
+    },
+    {
+      "id": "section-5-paragraph-1:28",
+      "word": "Keeping",
+      "start": 413.15,
+      "end": 413.5
+    },
+    {
+      "id": "section-5-paragraph-1:29",
+      "word": "that",
+      "start": 413.55,
+      "end": 413.725
+    },
+    {
+      "id": "section-5-paragraph-1:30",
+      "word": "failure",
+      "start": 413.825,
+      "end": 414.325
+    },
+    {
+      "id": "section-5-paragraph-1:31",
+      "word": "is",
+      "start": 414.4,
+      "end": 414.475
+    },
+    {
+      "id": "section-5-paragraph-1:32",
+      "word": "stronger",
+      "start": 414.575,
+      "end": 415.15
+    },
+    {
+      "id": "section-5-paragraph-1:33",
+      "word": "evidence",
+      "start": 415.225,
+      "end": 415.85
+    },
+    {
+      "id": "section-5-paragraph-1:34",
+      "word": "than",
+      "start": 415.9,
+      "end": 416.075
+    },
+    {
+      "id": "section-5-paragraph-1:35",
+      "word": "retroactively",
+      "start": 416.15,
+      "end": 417.025
+    },
+    {
+      "id": "section-5-paragraph-1:36",
+      "word": "choosing",
+      "start": 417.1,
+      "end": 417.5
+    },
+    {
+      "id": "section-5-paragraph-1:37",
+      "word": "a",
+      "start": 417.55,
+      "end": 417.6
+    },
+    {
+      "id": "section-5-paragraph-1:38",
+      "word": "threshold",
+      "start": 417.7,
+      "end": 418.35
+    },
+    {
+      "id": "section-5-paragraph-1:39",
+      "word": "that",
+      "start": 418.4,
+      "end": 418.55
+    },
+    {
+      "id": "section-5-paragraph-1:40",
+      "word": "makes",
+      "start": 418.6,
+      "end": 418.85
+    },
+    {
+      "id": "section-5-paragraph-1:41",
+      "word": "the",
+      "start": 418.9,
+      "end": 418.975
+    },
+    {
+      "id": "section-5-paragraph-1:42",
+      "word": "run",
+      "start": 419.05,
+      "end": 419.325
+    },
+    {
+      "id": "section-5-paragraph-1:43",
+      "word": "look",
+      "start": 419.375,
+      "end": 419.55
+    },
+    {
+      "id": "section-5-paragraph-1:44",
+      "word": "clean.",
+      "start": 419.625,
+      "end": 420.65
+    },
+    {
+      "id": "section-6-title:0",
+      "word": "A",
+      "start": 420.675,
+      "end": 420.775
+    },
+    {
+      "id": "section-6-title:1",
+      "word": "model",
+      "start": 420.775,
+      "end": 421.275
+    },
+    {
+      "id": "section-6-title:2",
+      "word": "can",
+      "start": 421.275,
+      "end": 421.575
+    },
+    {
+      "id": "section-6-title:3",
+      "word": "be",
+      "start": 421.575,
+      "end": 421.775
+    },
+    {
+      "id": "section-6-title:4",
+      "word": "useful",
+      "start": 421.775,
+      "end": 422.375
+    },
+    {
+      "id": "section-6-title:5",
+      "word": "without",
+      "start": 422.375,
+      "end": 423.075
+    },
+    {
+      "id": "section-6-title:6",
+      "word": "pretending",
+      "start": 423.075,
+      "end": 424.075
+    },
+    {
+      "id": "section-6-title:7",
+      "word": "to",
+      "start": 424.075,
+      "end": 424.275
+    },
+    {
+      "id": "section-6-title:8",
+      "word": "be",
+      "start": 424.275,
+      "end": 424.475
+    },
+    {
+      "id": "section-6-title:9",
+      "word": "an",
+      "start": 424.475,
+      "end": 424.675
+    },
+    {
+      "id": "section-6-title:10",
+      "word": "oracle.",
+      "start": 424.675,
+      "end": 425.275
+    },
+    {
+      "id": "section-6-paragraph-0:0",
+      "word": "Presaira",
+      "start": 425.275,
+      "end": 425.99
+    },
+    {
+      "id": "section-6-paragraph-0:1",
+      "word": "does",
+      "start": 425.99,
+      "end": 426.348
+    },
+    {
+      "id": "section-6-paragraph-0:2",
+      "word": "not",
+      "start": 426.348,
+      "end": 426.616
+    },
+    {
+      "id": "section-6-paragraph-0:3",
+      "word": "see",
+      "start": 426.616,
+      "end": 426.884
+    },
+    {
+      "id": "section-6-paragraph-0:4",
+      "word": "team",
+      "start": 426.884,
+      "end": 427.242
+    },
+    {
+      "id": "section-6-paragraph-0:5",
+      "word": "news,",
+      "start": 427.242,
+      "end": 427.6
+    },
+    {
+      "id": "section-6-paragraph-0:6",
+      "word": "injuries,",
+      "start": 427.6,
+      "end": 428.315
+    },
+    {
+      "id": "section-6-paragraph-0:7",
+      "word": "suspensions",
+      "start": 428.315,
+      "end": 429.299
+    },
+    {
+      "id": "section-6-paragraph-0:8",
+      "word": "or",
+      "start": 429.299,
+      "end": 429.477
+    },
+    {
+      "id": "section-6-paragraph-0:9",
+      "word": "lineups.",
+      "start": 429.477,
+      "end": 430.103
+    },
+    {
+      "id": "section-6-paragraph-0:10",
+      "word": "It",
+      "start": 430.103,
+      "end": 430.282
+    },
+    {
+      "id": "section-6-paragraph-0:11",
+      "word": "was",
+      "start": 430.282,
+      "end": 430.55
+    },
+    {
+      "id": "section-6-paragraph-0:12",
+      "word": "also",
+      "start": 430.55,
+      "end": 430.908
+    },
+    {
+      "id": "section-6-paragraph-0:13",
+      "word": "under-confident",
+      "start": 430.908,
+      "end": 432.16
+    },
+    {
+      "id": "section-6-paragraph-0:14",
+      "word": "in",
+      "start": 432.16,
+      "end": 432.339
+    },
+    {
+      "id": "section-6-paragraph-0:15",
+      "word": "parts",
+      "start": 432.339,
+      "end": 432.786
+    },
+    {
+      "id": "section-6-paragraph-0:16",
+      "word": "of",
+      "start": 432.786,
+      "end": 432.965
+    },
+    {
+      "id": "section-6-paragraph-0:17",
+      "word": "the",
+      "start": 432.965,
+      "end": 433.233
+    },
+    {
+      "id": "section-6-paragraph-0:18",
+      "word": "2026",
+      "start": 433.233,
+      "end": 433.59
+    },
+    {
+      "id": "section-6-paragraph-0:19",
+      "word": "probability",
+      "start": 433.59,
+      "end": 434.574
+    },
+    {
+      "id": "section-6-paragraph-0:20",
+      "word": "range,",
+      "start": 434.574,
+      "end": 435.021
+    },
+    {
+      "id": "section-6-paragraph-0:21",
+      "word": "and",
+      "start": 435.021,
+      "end": 435.289
+    },
+    {
+      "id": "section-6-paragraph-0:22",
+      "word": "the",
+      "start": 435.289,
+      "end": 435.557
+    },
+    {
+      "id": "section-6-paragraph-0:23",
+      "word": "historical",
+      "start": 435.557,
+      "end": 436.452
+    },
+    {
+      "id": "section-6-paragraph-0:24",
+      "word": "backtests",
+      "start": 436.452,
+      "end": 437.256
+    },
+    {
+      "id": "section-6-paragraph-0:25",
+      "word": "sit",
+      "start": 437.256,
+      "end": 437.525
+    },
+    {
+      "id": "section-6-paragraph-0:26",
+      "word": "within",
+      "start": 437.525,
+      "end": 438.061
+    },
+    {
+      "id": "section-6-paragraph-0:27",
+      "word": "one",
+      "start": 438.061,
+      "end": 438.329
+    },
+    {
+      "id": "section-6-paragraph-0:28",
+      "word": "standard",
+      "start": 438.329,
+      "end": 439.045
+    },
+    {
+      "id": "section-6-paragraph-0:29",
+      "word": "deviation",
+      "start": 439.045,
+      "end": 439.849
+    },
+    {
+      "id": "section-6-paragraph-0:30",
+      "word": "of",
+      "start": 439.849,
+      "end": 440.028
+    },
+    {
+      "id": "section-6-paragraph-0:31",
+      "word": "a",
+      "start": 440.028,
+      "end": 440.118
+    },
+    {
+      "id": "section-6-paragraph-0:32",
+      "word": "strong",
+      "start": 440.118,
+      "end": 440.654
+    },
+    {
+      "id": "section-6-paragraph-0:33",
+      "word": "Elo-based",
+      "start": 440.654,
+      "end": 441.369
+    },
+    {
+      "id": "section-6-paragraph-0:34",
+      "word": "baseline.",
+      "start": 441.369,
+      "end": 442.085
+    },
+    {
+      "id": "section-6-paragraph-0:35",
+      "word": "Those",
+      "start": 442.085,
+      "end": 442.532
+    },
+    {
+      "id": "section-6-paragraph-0:36",
+      "word": "limitations",
+      "start": 442.532,
+      "end": 443.515
+    },
+    {
+      "id": "section-6-paragraph-0:37",
+      "word": "are",
+      "start": 443.515,
+      "end": 443.783
+    },
+    {
+      "id": "section-6-paragraph-0:38",
+      "word": "not",
+      "start": 443.783,
+      "end": 444.052
+    },
+    {
+      "id": "section-6-paragraph-0:39",
+      "word": "footnotes",
+      "start": 444.052,
+      "end": 444.856
+    },
+    {
+      "id": "section-6-paragraph-0:40",
+      "word": "to",
+      "start": 444.856,
+      "end": 445.035
+    },
+    {
+      "id": "section-6-paragraph-0:41",
+      "word": "remove",
+      "start": 445.035,
+      "end": 445.572
+    },
+    {
+      "id": "section-6-paragraph-0:42",
+      "word": "from",
+      "start": 445.572,
+      "end": 445.929
+    },
+    {
+      "id": "section-6-paragraph-0:43",
+      "word": "the",
+      "start": 445.929,
+      "end": 446.198
+    },
+    {
+      "id": "section-6-paragraph-0:44",
+      "word": "story;",
+      "start": 446.198,
+      "end": 446.645
+    },
+    {
+      "id": "section-6-paragraph-0:45",
+      "word": "they",
+      "start": 446.645,
+      "end": 447.002
+    },
+    {
+      "id": "section-6-paragraph-0:46",
+      "word": "define",
+      "start": 447.002,
+      "end": 447.539
+    },
+    {
+      "id": "section-6-paragraph-0:47",
+      "word": "where",
+      "start": 447.539,
+      "end": 447.986
+    },
+    {
+      "id": "section-6-paragraph-0:48",
+      "word": "the",
+      "start": 447.986,
+      "end": 448.254
+    },
+    {
+      "id": "section-6-paragraph-0:49",
+      "word": "forecast",
+      "start": 448.254,
+      "end": 448.969
+    },
+    {
+      "id": "section-6-paragraph-0:50",
+      "word": "deserves",
+      "start": 448.969,
+      "end": 449.685
+    },
+    {
+      "id": "section-6-paragraph-0:51",
+      "word": "reliance.",
+      "start": 449.685,
+      "end": 450.4
+    },
+    {
+      "id": "section-6-paragraph-1:0",
+      "word": "My",
+      "start": 450.875,
+      "end": 451.025
+    },
+    {
+      "id": "section-6-paragraph-1:1",
+      "word": "practical",
+      "start": 451.075,
+      "end": 451.575
+    },
+    {
+      "id": "section-6-paragraph-1:2",
+      "word": "trust",
+      "start": 451.625,
+      "end": 451.875
+    },
+    {
+      "id": "section-6-paragraph-1:3",
+      "word": "test",
+      "start": 451.95,
+      "end": 452.225
+    },
+    {
+      "id": "section-6-paragraph-1:4",
+      "word": "is",
+      "start": 452.275,
+      "end": 452.375
+    },
+    {
+      "id": "section-6-paragraph-1:5",
+      "word": "therefore",
+      "start": 452.425,
+      "end": 452.775
+    },
+    {
+      "id": "section-6-paragraph-1:6",
+      "word": "cumulative.",
+      "start": 452.85,
+      "end": 454.15
+    },
+    {
+      "id": "section-6-paragraph-1:7",
+      "word": "I",
+      "start": 454.225,
+      "end": 454.325
+    },
+    {
+      "id": "section-6-paragraph-1:8",
+      "word": "want",
+      "start": 454.375,
+      "end": 454.575
+    },
+    {
+      "id": "section-6-paragraph-1:9",
+      "word": "proper",
+      "start": 454.65,
+      "end": 454.975
+    },
+    {
+      "id": "section-6-paragraph-1:10",
+      "word": "scoring,",
+      "start": 455.05,
+      "end": 455.825
+    },
+    {
+      "id": "section-6-paragraph-1:11",
+      "word": "calibration",
+      "start": 455.9,
+      "end": 456.6
+    },
+    {
+      "id": "section-6-paragraph-1:12",
+      "word": "evidence,",
+      "start": 456.675,
+      "end": 457.425
+    },
+    {
+      "id": "section-6-paragraph-1:13",
+      "word": "complete",
+      "start": 457.475,
+      "end": 457.95
+    },
+    {
+      "id": "section-6-paragraph-1:14",
+      "word": "coverage,",
+      "start": 458.025,
+      "end": 458.85
+    },
+    {
+      "id": "section-6-paragraph-1:15",
+      "word": "leakage",
+      "start": 458.925,
+      "end": 459.3
+    },
+    {
+      "id": "section-6-paragraph-1:16",
+      "word": "protection,",
+      "start": 459.35,
+      "end": 460.225
+    },
+    {
+      "id": "section-6-paragraph-1:17",
+      "word": "reproducible",
+      "start": 460.275,
+      "end": 460.975
+    },
+    {
+      "id": "section-6-paragraph-1:18",
+      "word": "artifacts",
+      "start": 461.025,
+      "end": 461.725
+    },
+    {
+      "id": "section-6-paragraph-1:19",
+      "word": "and",
+      "start": 461.8,
+      "end": 461.875
+    },
+    {
+      "id": "section-6-paragraph-1:20",
+      "word": "explicit",
+      "start": 461.925,
+      "end": 462.45
+    },
+    {
+      "id": "section-6-paragraph-1:21",
+      "word": "limitations.",
+      "start": 462.5,
+      "end": 463.9
+    },
+    {
+      "id": "section-6-paragraph-1:22",
+      "word": "None",
+      "start": 464,
+      "end": 464.25
+    },
+    {
+      "id": "section-6-paragraph-1:23",
+      "word": "proves",
+      "start": 464.325,
+      "end": 464.7
+    },
+    {
+      "id": "section-6-paragraph-1:24",
+      "word": "a",
+      "start": 464.725,
+      "end": 464.775
+    },
+    {
+      "id": "section-6-paragraph-1:25",
+      "word": "forecast",
+      "start": 464.875,
+      "end": 465.55
+    },
+    {
+      "id": "section-6-paragraph-1:26",
+      "word": "is",
+      "start": 465.6,
+      "end": 465.7
+    },
+    {
+      "id": "section-6-paragraph-1:27",
+      "word": "'correct'.",
+      "start": 465.775,
+      "end": 466.7
+    },
+    {
+      "id": "section-6-paragraph-1:28",
+      "word": "Together",
+      "start": 466.775,
+      "end": 467.175
+    },
+    {
+      "id": "section-6-paragraph-1:29",
+      "word": "they",
+      "start": 467.225,
+      "end": 467.325
+    },
+    {
+      "id": "section-6-paragraph-1:30",
+      "word": "make",
+      "start": 467.375,
+      "end": 467.525
+    },
+    {
+      "id": "section-6-paragraph-1:31",
+      "word": "it",
+      "start": 467.55,
+      "end": 467.625
+    },
+    {
+      "id": "section-6-paragraph-1:32",
+      "word": "possible",
+      "start": 467.7,
+      "end": 468.25
+    },
+    {
+      "id": "section-6-paragraph-1:33",
+      "word": "to",
+      "start": 468.3,
+      "end": 468.375
+    },
+    {
+      "id": "section-6-paragraph-1:34",
+      "word": "understand",
+      "start": 468.425,
+      "end": 469.075
+    },
+    {
+      "id": "section-6-paragraph-1:35",
+      "word": "what",
+      "start": 469.125,
+      "end": 469.225
+    },
+    {
+      "id": "section-6-paragraph-1:36",
+      "word": "the",
+      "start": 469.275,
+      "end": 469.35
+    },
+    {
+      "id": "section-6-paragraph-1:37",
+      "word": "numbers",
+      "start": 469.425,
+      "end": 469.825
+    },
+    {
+      "id": "section-6-paragraph-1:38",
+      "word": "actually",
+      "start": 469.925,
+      "end": 470.35
+    },
+    {
+      "id": "section-6-paragraph-1:39",
+      "word": "deserve.",
+      "start": 470.4,
+      "end": 471.575
+    },
+    {
+      "id": "takeaways-title:0",
+      "word": "What",
+      "start": 472.05,
+      "end": 472.15
+    },
+    {
+      "id": "takeaways-title:1",
+      "word": "I",
+      "start": 472.2,
+      "end": 472.3
+    },
+    {
+      "id": "takeaways-title:2",
+      "word": "carry",
+      "start": 472.375,
+      "end": 472.75
+    },
+    {
+      "id": "takeaways-title:3",
+      "word": "into",
+      "start": 472.775,
+      "end": 472.925
+    },
+    {
+      "id": "takeaways-title:4",
+      "word": "the",
+      "start": 472.95,
+      "end": 473
+    },
+    {
+      "id": "takeaways-title:5",
+      "word": "next",
+      "start": 473.05,
+      "end": 473.3
+    },
+    {
+      "id": "takeaways-title:6",
+      "word": "system.",
+      "start": 473.35,
+      "end": 474.275
+    },
+    {
+      "id": "takeaway-0:0",
+      "word": "Judge",
+      "start": 476.3,
+      "end": 476.65
+    },
+    {
+      "id": "takeaway-0:1",
+      "word": "probabilistic",
+      "start": 476.725,
+      "end": 477.475
+    },
+    {
+      "id": "takeaway-0:2",
+      "word": "systems",
+      "start": 477.55,
+      "end": 478.05
+    },
+    {
+      "id": "takeaway-0:3",
+      "word": "over",
+      "start": 478.1,
+      "end": 478.3
+    },
+    {
+      "id": "takeaway-0:4",
+      "word": "many",
+      "start": 478.375,
+      "end": 478.55
+    },
+    {
+      "id": "takeaway-0:5",
+      "word": "forecasts",
+      "start": 478.65,
+      "end": 479.35
+    },
+    {
+      "id": "takeaway-0:6",
+      "word": "with",
+      "start": 479.4,
+      "end": 479.525
+    },
+    {
+      "id": "takeaway-0:7",
+      "word": "proper",
+      "start": 479.6,
+      "end": 479.925
+    },
+    {
+      "id": "takeaway-0:8",
+      "word": "scoring",
+      "start": 480,
+      "end": 480.425
+    },
+    {
+      "id": "takeaway-0:9",
+      "word": "rules,",
+      "start": 480.475,
+      "end": 481.275
+    },
+    {
+      "id": "takeaway-0:10",
+      "word": "not",
+      "start": 481.35,
+      "end": 481.575
+    },
+    {
+      "id": "takeaway-0:11",
+      "word": "isolated",
+      "start": 481.65,
+      "end": 482.3
+    },
+    {
+      "id": "takeaway-0:12",
+      "word": "wins.",
+      "start": 482.375,
+      "end": 483.35
+    },
+    {
+      "id": "takeaway-1:0",
+      "word": "Treat",
+      "start": 484.9,
+      "end": 485.372
+    },
+    {
+      "id": "takeaway-1:1",
+      "word": "coverage",
+      "start": 485.372,
+      "end": 486.126
+    },
+    {
+      "id": "takeaway-1:2",
+      "word": "and",
+      "start": 486.126,
+      "end": 486.409
+    },
+    {
+      "id": "takeaway-1:3",
+      "word": "temporal",
+      "start": 486.409,
+      "end": 487.164
+    },
+    {
+      "id": "takeaway-1:4",
+      "word": "cutoffs",
+      "start": 487.164,
+      "end": 487.824
+    },
+    {
+      "id": "takeaway-1:5",
+      "word": "as",
+      "start": 487.824,
+      "end": 488.013
+    },
+    {
+      "id": "takeaway-1:6",
+      "word": "part",
+      "start": 488.013,
+      "end": 488.39
+    },
+    {
+      "id": "takeaway-1:7",
+      "word": "of",
+      "start": 488.39,
+      "end": 488.579
+    },
+    {
+      "id": "takeaway-1:8",
+      "word": "the",
+      "start": 488.579,
+      "end": 488.862
+    },
+    {
+      "id": "takeaway-1:9",
+      "word": "evaluation,",
+      "start": 488.862,
+      "end": 489.805
+    },
+    {
+      "id": "takeaway-1:10",
+      "word": "not",
+      "start": 489.805,
+      "end": 490.088
+    },
+    {
+      "id": "takeaway-1:11",
+      "word": "implementation",
+      "start": 490.088,
+      "end": 491.409
+    },
+    {
+      "id": "takeaway-1:12",
+      "word": "trivia.",
+      "start": 491.409,
+      "end": 491.975
+    },
+    {
+      "id": "takeaway-2:0",
+      "word": "Calibration",
+      "start": 493.5,
+      "end": 494.472
+    },
+    {
+      "id": "takeaway-2:1",
+      "word": "should",
+      "start": 494.472,
+      "end": 495.002
+    },
+    {
+      "id": "takeaway-2:2",
+      "word": "be",
+      "start": 495.002,
+      "end": 495.179
+    },
+    {
+      "id": "takeaway-2:3",
+      "word": "tested",
+      "start": 495.179,
+      "end": 495.71
+    },
+    {
+      "id": "takeaway-2:4",
+      "word": "and",
+      "start": 495.71,
+      "end": 495.975
+    },
+    {
+      "id": "takeaway-2:5",
+      "word": "rejected",
+      "start": 495.975,
+      "end": 496.682
+    },
+    {
+      "id": "takeaway-2:6",
+      "word": "when",
+      "start": 496.682,
+      "end": 497.035
+    },
+    {
+      "id": "takeaway-2:7",
+      "word": "it",
+      "start": 497.035,
+      "end": 497.212
+    },
+    {
+      "id": "takeaway-2:8",
+      "word": "does",
+      "start": 497.212,
+      "end": 497.565
+    },
+    {
+      "id": "takeaway-2:9",
+      "word": "not",
+      "start": 497.565,
+      "end": 497.831
+    },
+    {
+      "id": "takeaway-2:10",
+      "word": "improve",
+      "start": 497.831,
+      "end": 498.449
+    },
+    {
+      "id": "takeaway-2:11",
+      "word": "held-out",
+      "start": 498.449,
+      "end": 499.068
+    },
+    {
+      "id": "takeaway-2:12",
+      "word": "evidence.",
+      "start": 499.068,
+      "end": 499.775
+    },
+    {
+      "id": "takeaway-3:0",
+      "word": "Version",
+      "start": 501.8,
+      "end": 502.2
+    },
+    {
+      "id": "takeaway-3:1",
+      "word": "simulation",
+      "start": 502.275,
+      "end": 502.925
+    },
+    {
+      "id": "takeaway-3:2",
+      "word": "assumptions",
+      "start": 502.975,
+      "end": 503.825
+    },
+    {
+      "id": "takeaway-3:3",
+      "word": "and",
+      "start": 503.9,
+      "end": 503.975
+    },
+    {
+      "id": "takeaway-3:4",
+      "word": "preserve",
+      "start": 504.025,
+      "end": 504.525
+    },
+    {
+      "id": "takeaway-3:5",
+      "word": "failed",
+      "start": 504.625,
+      "end": 504.975
+    },
+    {
+      "id": "takeaway-3:6",
+      "word": "checks;",
+      "start": 505.05,
+      "end": 505.95
+    },
+    {
+      "id": "takeaway-3:7",
+      "word": "reproducibility",
+      "start": 506.025,
+      "end": 506.925
+    },
+    {
+      "id": "takeaway-3:8",
+      "word": "includes",
+      "start": 506.975,
+      "end": 507.575
+    },
+    {
+      "id": "takeaway-3:9",
+      "word": "uncomfortable",
+      "start": 507.7,
+      "end": 508.4
+    },
+    {
+      "id": "takeaway-3:10",
+      "word": "results.",
+      "start": 508.45,
+      "end": 509.525
+    },
+    {
+      "id": "takeaway-4:0",
+      "word": "Trust",
+      "start": 511.5,
+      "end": 511.75
+    },
+    {
+      "id": "takeaway-4:1",
+      "word": "should",
+      "start": 511.8,
+      "end": 511.95
+    },
+    {
+      "id": "takeaway-4:2",
+      "word": "shrink",
+      "start": 512.05,
+      "end": 512.375
+    },
+    {
+      "id": "takeaway-4:3",
+      "word": "when",
+      "start": 512.425,
+      "end": 512.55
+    },
+    {
+      "id": "takeaway-4:4",
+      "word": "sample",
+      "start": 512.625,
+      "end": 513
+    },
+    {
+      "id": "takeaway-4:5",
+      "word": "size,",
+      "start": 513.075,
+      "end": 514
+    },
+    {
+      "id": "takeaway-4:6",
+      "word": "missing",
+      "start": 514.075,
+      "end": 514.35
+    },
+    {
+      "id": "takeaway-4:7",
+      "word": "inputs",
+      "start": 514.425,
+      "end": 514.95
+    },
+    {
+      "id": "takeaway-4:8",
+      "word": "or",
+      "start": 515.025,
+      "end": 515.275
+    },
+    {
+      "id": "takeaway-4:9",
+      "word": "observed",
+      "start": 515.35,
+      "end": 515.875
+    },
+    {
+      "id": "takeaway-4:10",
+      "word": "calibration",
+      "start": 515.925,
+      "end": 516.625
+    },
+    {
+      "id": "takeaway-4:11",
+      "word": "behaviour",
+      "start": 516.675,
+      "end": 517.175
+    },
+    {
+      "id": "takeaway-4:12",
+      "word": "demand",
+      "start": 517.225,
+      "end": 517.65
+    },
+    {
+      "id": "takeaway-4:13",
+      "word": "it.",
+      "start": 517.7,
+      "end": 518.325
+    }
+  ]
+}

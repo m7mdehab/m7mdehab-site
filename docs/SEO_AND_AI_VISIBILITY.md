@@ -35,3 +35,35 @@ These are consistency/accessibility surfaces, not guaranteed ranking factors.
 
 ## Measurement
 After ownership exists, use Google Search Console (including the Generative AI performance report), Bing Webmaster Tools, standard search/query data, referral traffic and the fixed LLM benchmark.
+
+
+## Writing / article visibility
+
+The Writing system is an authority-building surface, not a keyword farm.
+
+### Google Search and AI features
+- Normal SEO fundamentals remain the basis for AI Overviews and AI Mode; there is no special AI schema or required AI-only file.
+- Articles must be crawlable, indexable, visible as normal semantic text and internally linked.
+- Use truthful BlogPosting data with a visible author, author URL, publication/update dates, topics, citations and representative imagery when available.
+- Article pages permit large image previews so qualifying images can appear more prominently.
+- Serious articles should move toward representative images at least 1200px wide, ideally with strong landscape crops for Discover/social surfaces.
+- Do not add FAQ/HowTo markup unless the visible article genuinely contains that structure and it remains relevant to supported search features.
+
+### AI citation readiness
+- OAI-SearchBot remains allowed for ChatGPT search visibility. Training crawler policy is a separate decision.
+- Important claims should be easy to understand and attribute in normal semantic HTML: descriptive headings, concise lead/deck, a visible key idea, sources and self-contained explanatory paragraphs.
+- /llms.txt and /writing.json remain auxiliary discovery/context surfaces, never substitutes for the canonical article.
+- Original analysis, first-hand evidence and explicit source trails matter more than artificial “AI answer” blocks.
+
+### Bing / Copilot
+- Bing Webmaster Tools now includes AI Performance/citation reporting.
+- IndexNow is the recommended next discovery integration so new or materially updated articles can be submitted promptly to Bing and participating engines.
+- IndexNow should be implemented in the publishing/deployment workflow, not as client-side page code.
+
+### Measurement after publication
+Track:
+- Google Search Console queries/pages and Discover/generative/multimodal surfaces when data exists;
+- Bing Webmaster Tools search, IndexNow receipt and AI Performance;
+- server/CDN crawler logs for intended search crawlers;
+- referrals from search and AI surfaces;
+- topic clusters earning impressions/citations, then deepen them with original follow-up writing rather than duplicative keyword pages.

@@ -33,6 +33,40 @@ export type WritingAudio = {
   durationSeconds: number;
 };
 
+export type WritingFormat =
+  | "note"
+  | "analysis"
+  | "deep-dive"
+  | "project-reflection";
+
+export const writingNarrationVoices = {
+  female: {
+    label: "Female",
+    kokoroVoice: "af_heart",
+    fileName: "female.mp3",
+  },
+  male: {
+    label: "Male",
+    kokoroVoice: "am_michael",
+    fileName: "male.mp3",
+  },
+} as const;
+
+export type WritingNarrationVoice = keyof typeof writingNarrationVoices;
+
+export function getWritingNarrationSources(
+  article: Pick<WritingArticleBase, "slug">,
+) {
+  return Object.entries(writingNarrationVoices).map(([id, voice]) => ({
+    id: id as WritingNarrationVoice,
+    label: voice.label,
+    kokoroVoice: voice.kokoroVoice,
+    src: `/audio/writing/${article.slug}/${voice.fileName}`,
+    timingsSrc: `/audio/writing/${article.slug}/${id}.timings.json`,
+    mimeType: "audio/mpeg" as const,
+  }));
+}
+
 export const writingCategories = {
   ai: { label: "AI" },
   technology: { label: "Technology" },
@@ -65,6 +99,7 @@ export type WritingArticleBase = {
   title: string;
   description: string;
   cardDescription?: string;
+  format: WritingFormat;
   updatedAt?: string;
   category: WritingCategory;
   topics: readonly string[];
@@ -95,6 +130,112 @@ export type DraftWritingArticle = WritingArticleBase & {
 
 export type WritingArticle = PublishedWritingArticle | DraftWritingArticle;
 
+
+export type WritingNarrationSegment = {
+  id: string;
+  text: string;
+  prefix?: string;
+};
+
+function writingBlockNarrationSegments(
+  block: WritingBlock,
+  sectionIndex: number,
+  blockIndex: number,
+): WritingNarrationSegment[] {
+  const base = `section-${sectionIndex}-block-${blockIndex}`;
+  switch (block.type) {
+    case "paragraph":
+      return [{ id: `${base}-paragraph`, text: block.text }];
+    case "bullets":
+      return block.items.map((item, itemIndex) => ({
+        id: `${base}-bullet-${itemIndex}`,
+        text: item,
+        prefix: "Bullet point.",
+      }));
+    case "quote":
+      return [
+        { id: `${base}-quote`, text: block.text },
+        ...(block.attribution
+          ? [{ id: `${base}-attribution`, text: block.attribution, prefix: "Quote attribution." }]
+          : []),
+      ];
+    case "image":
+      return block.caption
+        ? [{ id: `${base}-caption`, text: block.caption }]
+        : [];
+    case "code":
+      return [];
+    case "callout":
+      return [
+        ...(block.title ? [{ id: `${base}-title`, text: block.title }] : []),
+        { id: `${base}-text`, text: block.text },
+      ];
+  }
+}
+
+export function getWritingNarrationSegments(
+  article: Pick<
+    WritingArticleBase,
+    "title" | "description" | "thesis" | "sections" | "takeaways" | "takeawaysTitle"
+  >,
+): WritingNarrationSegment[] {
+  const segments: WritingNarrationSegment[] = [
+    { id: "article-title", text: article.title },
+    { id: "article-description", text: article.description },
+  ];
+
+  if (article.thesis) {
+    segments.push({
+      id: "article-thesis",
+      text: article.thesis,
+      prefix: "Key idea.",
+    });
+  }
+
+  article.sections.forEach((section, sectionIndex) => {
+    if (section.title) {
+      segments.push({
+        id: `section-${sectionIndex}-title`,
+        text: section.title,
+      });
+    }
+    section.paragraphs?.forEach((paragraph, paragraphIndex) => {
+      segments.push({
+        id: `section-${sectionIndex}-paragraph-${paragraphIndex}`,
+        text: paragraph,
+      });
+    });
+    section.bullets?.forEach((bullet, bulletIndex) => {
+      segments.push({
+        id: `section-${sectionIndex}-bullet-${bulletIndex}`,
+        text: bullet,
+        prefix: "Bullet point.",
+      });
+    });
+    section.blocks?.forEach((block, blockIndex) => {
+      segments.push(
+        ...writingBlockNarrationSegments(block, sectionIndex, blockIndex),
+      );
+    });
+  });
+
+  if (article.takeaways?.length) {
+    segments.push({
+      id: "takeaways-title",
+      text: article.takeawaysTitle ?? "Key takeaways",
+    });
+    article.takeaways.forEach((takeaway, takeawayIndex) => {
+      segments.push({
+        id: `takeaway-${takeawayIndex}`,
+        text: takeaway,
+        prefix: "Takeaway.",
+      });
+    });
+  }
+
+  return segments;
+}
+
 /**
  * Editorial content is subordinate to the governed public truth and evidence model.
  *
@@ -110,6 +251,7 @@ export const writingArticles: readonly WritingArticle[] = [
       "A practical trust test for probabilistic forecasts: proper scoring, calibration, complete coverage, leakage-resistant evaluation, reproducibility and published failure modes.",
     cardDescription:
       "A practical test for knowing when a probabilistic forecast deserves trust.",
+    format: "deep-dive",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
@@ -247,6 +389,7 @@ export const writingArticles: readonly WritingArticle[] = [
       "A metric-design case study from Sentinel-1 SAR segmentation: why rare oil pixels, look-alikes and deployment domain gaps make overall accuracy a weak headline measure.",
     cardDescription:
       "Why rare oil pixels make accuracy a weak headline metric.",
+    format: "deep-dive",
     status: "published",
     publishedAt: "2026-09-11",
     category: "data",
@@ -385,6 +528,7 @@ export const writingArticles: readonly WritingArticle[] = [
       "A practical governance pattern for agentic systems: preserve unknowns, trace material claims to evidence and separate content generation from authority to take external action.",
     cardDescription:
       "How agents should handle missing evidence without inventing certainty.",
+    format: "analysis",
     status: "published",
     publishedAt: "2026-09-11",
     category: "ai",
@@ -545,6 +689,90 @@ export function getHomepageWriting(limit = 6) {
     .slice(0, Math.max(0, Math.min(limit, 6)));
 }
 
+function slugifyWritingHeading(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function writingSectionAnchor(section: WritingSection, index: number) {
+  if (section.id?.trim()) return section.id;
+  const label = section.title ?? section.eyebrow ?? `section-${index + 1}`;
+  const slug = slugifyWritingHeading(label) || `section-${index + 1}`;
+  return `section-${index + 1}-${slug}`;
+}
+
+export function getWritingTocEntries(article: Pick<WritingArticleBase, "sections">) {
+  return article.sections.flatMap((section, index) =>
+    section.title
+      ? [{ id: writingSectionAnchor(section, index), label: section.title }]
+      : [],
+  );
+}
+
+function blockPlainText(block: WritingBlock) {
+  switch (block.type) {
+    case "paragraph":
+      return block.text;
+    case "bullets":
+      return block.items.join(" ");
+    case "quote":
+      return [block.text, block.attribution ?? ""].join(" ");
+    case "image":
+      return block.caption ?? "";
+    case "code":
+      return "";
+    case "callout":
+      return [block.title ?? "", block.text].join(" ");
+  }
+}
+
+export function getWritingWordCount(article: Pick<WritingArticleBase, "thesis" | "sections" | "takeaways">) {
+  const body = [
+    article.thesis ?? "",
+    ...article.sections.flatMap((section) => [
+      section.title ?? "",
+      ...(section.paragraphs ?? []),
+      ...(section.bullets ?? []),
+      ...(section.blocks ?? []).map(blockPlainText),
+    ]),
+    ...(article.takeaways ?? []),
+  ]
+    .join(" ")
+    .trim();
+
+  return body ? body.split(/\s+/u).filter(Boolean).length : 0;
+}
+
+export function getRelatedWritingArticles(article: PublishedWritingArticle, limit = 2) {
+  const articleTopics = new Set(article.topics.map((topic) => topic.toLowerCase()));
+
+  return publishedWritingArticles
+    .filter((candidate) => candidate.slug !== article.slug)
+    .map((candidate) => {
+      const sharedTopics = candidate.topics.reduce(
+        (count, topic) => count + (articleTopics.has(topic.toLowerCase()) ? 1 : 0),
+        0,
+      );
+      const score =
+        (candidate.category === article.category ? 4 : 0) +
+        sharedTopics * 2 +
+        (candidate.series && candidate.series === article.series ? 1 : 0);
+      return { candidate, score };
+    })
+    .sort(
+      (left, right) =>
+        right.score - left.score ||
+        right.candidate.publishedAt.localeCompare(left.candidate.publishedAt) ||
+        left.candidate.slug.localeCompare(right.candidate.slug),
+    )
+    .slice(0, Math.max(0, limit))
+    .map(({ candidate }) => candidate);
+}
+
 export function getWritingArticleOptionalContent(article: WritingArticle) {
   return {
     thesis: article.thesis,
@@ -571,6 +799,9 @@ export function assertWritingIntegrity(articles: readonly WritingArticle[] = wri
       ranks.add(article.homeRank);
     }
 
+    if (!["note", "analysis", "deep-dive", "project-reflection"].includes(article.format)) {
+      throw new Error(`Writing article needs a valid format: ${article.slug}`);
+    }
     if (article.status === "published" && !/^\d{4}-\d{2}-\d{2}$/.test(article.publishedAt)) {
       throw new Error(`Published Writing article needs an ISO date: ${article.slug}`);
     }
@@ -596,22 +827,19 @@ export function writingArticleUrl(slug: string) {
 }
 
 export function getWritingTimingLabel(
-  article: Pick<WritingArticleBase, "readingMinutes" | "listenMinutes" | "audio">,
+  article: Pick<WritingArticleBase, "readingMinutes" | "listenMinutes">,
 ) {
-  return `${article.readingMinutes} min read · ${article.audio ? "" : "~"}${article.listenMinutes} min listen`;
+  return `${article.readingMinutes} min read · ~${article.listenMinutes} min listen`;
 }
 
 export function getWritingListenDetails(
-  article: Pick<WritingArticleBase, "title" | "listenMinutes" | "audio">,
+  article: Pick<WritingArticleBase, "slug" | "title" | "listenMinutes">,
 ) {
-  if (!article.audio) return undefined;
   return {
     sectionLabel: "Listen to this article",
     playerLabel: `Audio narration of ${article.title}`,
     listenMinutes: article.listenMinutes,
-    src: article.audio.src,
-    mimeType: article.audio.mimeType,
-    preload: "metadata" as const,
-    controls: true as const,
+    defaultVoice: "female" as const,
+    sources: getWritingNarrationSources(article),
   };
 }

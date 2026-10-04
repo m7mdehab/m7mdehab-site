@@ -1,5 +1,5 @@
 import { profile } from "@/data/public";
-import { publishedWritingArticles } from "@/data/writing";
+import { getWritingNarrationSources, getWritingWordCount, publishedWritingArticles } from "@/data/writing";
 import { projectVisuals } from "@/data/project-visuals";
 import { getRelatedWritingProjects } from "@/data/writing-schema";
 
@@ -19,6 +19,7 @@ export function GET() {
     title: article.title,
     description: article.description,
     cardDescription: article.cardDescription ?? null,
+    format: article.format,
     category: article.category,
     topics: article.topics,
     series: article.series ?? null,
@@ -26,15 +27,13 @@ export function GET() {
     updatedAt: article.updatedAt ?? null,
     readingMinutes: article.readingMinutes,
     listenMinutes: article.listenMinutes,
-    ...(article.audio
-      ? { audio: {
-          url: article.audio.src.startsWith("http")
-            ? article.audio.src
-            : `${profile.domain}${article.audio.src.startsWith("/") ? article.audio.src : `/${article.audio.src}`}`,
-          mimeType: article.audio.mimeType,
-          durationSeconds: article.audio.durationSeconds,
-        } }
-      : {}),
+    wordCount: getWritingWordCount(article),
+    narration: getWritingNarrationSources(article).map((source) => ({
+      voice: source.id,
+      label: source.label,
+      url: `${profile.domain}${source.src}`,
+      mimeType: source.mimeType,
+    })),
     url: `${profile.domain}/writing/${article.slug}`,
     relatedProjects: getRelatedWritingProjects(article),
     sourceLinks: (article.sources ?? []).map((source) => ({

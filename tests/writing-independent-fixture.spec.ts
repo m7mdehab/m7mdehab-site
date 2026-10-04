@@ -5,6 +5,7 @@ const independentNote: PublishedWritingArticle = {
   slug: "a-note-without-project-evidence",
   title: "A note without project evidence",
   description: "An independent personal note for the renderer contract.",
+  format: "note",
   status: "published",
   publishedAt: "2026-10-03",
   category: "notes",

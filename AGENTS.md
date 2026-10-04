@@ -85,8 +85,10 @@ Before touching this pass, inspect:
 
 ## Current writing-system rebuild
 
-Writing v1.3 is the current presentation authority. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering, audio, or writing discovery/schema, read in this order:
+Writing v1.3 remains the Home/archive presentation authority. Writing Article System v1.4 governs individual article pages, article audio, article schema, and article authoring rules. Before touching `data/writing.ts`, Home Writing, `/writing`, article rendering, audio, or writing discovery/schema, read in this order:
 
+- `docs/frontend-overhaul/WRITING_ARTICLE_SYSTEM_V14.md`;
+- `docs/WRITING_ARTICLE_RUNBOOK.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V13_FINAL_HANDOFF.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V13_EXECUTION_PROMPT.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_V13_REFINEMENT_2026-10-03.md`;
@@ -97,7 +99,7 @@ Writing v1.3 is the current presentation authority. Before touching `data/writin
 - `docs/frontend-overhaul/WRITING_SYSTEM_VISUAL_QA.md`;
 - `docs/frontend-overhaul/WRITING_SYSTEM_TEST_MATRIX.md`.
 
-Older Writing execution/integration documents remain historical architecture context only. v1.3 supersedes v1.2 only for heading/subtitle wrapping, phone grid density, phone title clamping, and phone metadata geometry. For all other Writing architecture, v1.2 remains the underlying implementation authority.
+Older Writing execution/integration documents remain historical architecture context only. v1.3 supersedes v1.2 for Home/archive heading/subtitle wrapping, phone grid density, phone title clamping, and phone metadata geometry. v1.4 supersedes older article-page/audio rules only for the individual article shell, article narration, article schema, and article authoring governance.
 
 For Writing:
 - the route/nav taxonomy remains **Writing**; the visible Home/archive heading is **What I’m thinking through.**;
@@ -109,8 +111,11 @@ For Writing:
 - card titles are hard-capped at two visual lines on desktop/tablet and one visual line below 720px;
 - concise card descriptions are capped at two lines on desktop/tablet and hidden below 720px;
 - phone cards remain two columns even at the 320px acceptance width; the final odd card stays in normal left-column flow;
-- every article has `readingMinutes` and `listenMinutes`; a real `audio` asset is optional;
-- never render a fake/disabled audio player; real audio uses native controls and never autoplays;
+- every article has `readingMinutes` and `listenMinutes`;
+- every published article gets two generated static narration assets at publish/deploy time: Female = Kokoro `af_heart` (first-visit default), Male = Kokoro `am_michael`;
+- visitors never download/run Kokoro and no paid TTS API is required;
+- narration never autoplays; remember voice and playback-speed preferences locally;
+- optional Follow narration mode highlights the currently spoken word from generated timing sidecars, defaults off, remains user-controlled, and must never auto-scroll, call scrollIntoView, trap focus, or otherwise move the reader's viewport;
 - project relation, evidence, sources, takeaways and thesis are optional;
 - a future independent personal post must not require component/schema redesign;
 - default article schema is `BlogPosting`, with `AudioObject` only when real narration exists;
@@ -118,6 +123,12 @@ For Writing:
 - preserve the current three article URLs and governed evidence claims;
 - keep Writing semantic/server-readable without JavaScript;
 - do not add search/filter/category-route UI until real content volume justifies it.
+
+## Writing article governance
+
+For article-body layout, article narration, article schema, or authoring rules, `docs/frontend-overhaul/WRITING_ARTICLE_SYSTEM_V14.md` and `docs/WRITING_ARTICLE_RUNBOOK.md` are authoritative. The article shell is uniform; the rhetorical structure is format-dependent.
+
+Do not add hidden AI-only summaries, unsupported schema, fake freshness dates, generic FAQ blocks for ranking, browser-dependent TTS, or mandatory giant hero imagery. Article-body images are contextual and should appear only where they add information.
 
 ## Visual evidence and asset provenance
 Use `data/project-evidence.public.yaml` as the governing registry for project proof, visual candidates, asset status and project-specific interaction direction. See `docs/PROJECT_EVIDENCE_VISUAL_AUDIT_2026-09-09.md` for the audit rationale.

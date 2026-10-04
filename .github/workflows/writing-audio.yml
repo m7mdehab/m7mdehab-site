@@ -1,0 +1,169 @@
+name: Generate Writing Narration
+
+on:
+  push:
+    branches:
+      - writing-article-system-v14-groundwork
+    paths:
+      - ".github/workflows/writing-audio.yml"
+      - "scripts/generate-writing-audio.mjs"
+      - "data/writing.ts"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: writing-audio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - slug: when-to-trust-a-probabilistic-forecast
+            voice: female
+          - slug: when-to-trust-a-probabilistic-forecast
+            voice: male
+          - slug: why-accuracy-is-not-enough-for-oil-spill-detection
+            voice: female
+          - slug: why-accuracy-is-not-enough-for-oil-spill-detection
+            voice: male
+          - slug: what-an-ai-agent-should-do-when-evidence-is-missing
+            voice: female
+          - slug: what-an-ai-agent-should-do-when-evidence-is-missing
+            voice: male
+
+    steps:
+      - name: Checkout narration branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Restore Kokoro model cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/kokoro
+          key: kokoro-82m-shawnahmed-timestamped-v1-q8-${{ runner.os }}-node22
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install Kokoro generation tooling
+        run: npm install --no-save --package-lock=false kokoro-js@1.2.1 @huggingface/transformers@3.8.1
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Generate narration
+        env:
+          KOKORO_CACHE_DIR: .cache/kokoro
+        run: npm run writing:audio -- --slug "${{ matrix.slug }}" --voice "${{ matrix.voice }}"
+
+      - name: Stage narration artifact
+        run: |
+          mkdir -p "artifact/audio/writing/${{ matrix.slug }}"
+          cp "public/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.mp3" "artifact/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.mp3"
+          cp "public/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.timings.json" "artifact/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.timings.json"
+
+      - name: Upload narration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: narration-${{ matrix.slug }}-${{ matrix.voice }}
+          path: artifact
+          if-no-files-found: error
+          retention-days: 1
+
+  commit:
+    if: github.actor != 'github-actions[bot]'
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout latest narration branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Download generated narration
+        uses: actions/download-artifact@v4
+        with:
+          pattern: narration-*
+          path: public
+          merge-multiple: true
+
+      - name: Rebuild narration manifest
+        run: npm run writing:audio -- --manifest-only
+
+      - name: Verify complete dual-voice narration set
+        run: |
+          node - <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const manifest = JSON.parse(fs.readFileSync("public/audio/writing/manifest.json", "utf8"));
+          const expected = [
+            "when-to-trust-a-probabilistic-forecast",
+            "why-accuracy-is-not-enough-for-oil-spill-detection",
+            "what-an-ai-agent-should-do-when-evidence-is-missing",
+          ];
+          for (const slug of expected) {
+            for (const voice of ["female", "male"]) {
+              const entry = manifest.articles?.[slug]?.voices?.[voice];
+              if (!entry) throw new Error(`Missing ${voice} narration metadata for ${slug}`);
+              const file = path.join("public", entry.path.replace(/^\//, ""));
+              const timings = path.join("public", entry.timingsPath.replace(/^\//, ""));
+              if (!fs.existsSync(file)) throw new Error(`Missing audio file: ${file}`);
+              if (fs.statSync(file).size < 100000) throw new Error(`Audio file looks too small: ${file}`);
+              if (!fs.existsSync(timings)) throw new Error(`Missing timing file: ${timings}`);
+              const timingPayload = JSON.parse(fs.readFileSync(timings, "utf8"));
+              if (!Array.isArray(timingPayload.cues) || timingPayload.cues.length < 100) {
+                throw new Error(`Timing file has too few cues: ${timings}`);
+              }
+            }
+          }
+          console.log("Verified female + male Kokoro narration and word timings for all three articles.");
+          NODE
+
+      - name: Commit generated narration
+        run: |
+          if git diff --quiet -- public/audio/writing && [ -z "$(git status --porcelain public/audio/writing)" ]; then
+            echo "Narration assets already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/audio/writing
+          git commit -m "chore(writing): generate Kokoro article narration"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

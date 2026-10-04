@@ -1,0 +1,96 @@
+{
+  "version": 2,
+  "model": "shawnahmed/Kokoro-82M-v1.0-ONNX-timestamped",
+  "dtype": "q8",
+  "generatorVersion": "kokoro-writing-v2-word-timings",
+  "articles": {
+    "when-to-trust-a-probabilistic-forecast": {
+      "textHash": "e3d6c7a1dd1e41f72823f373d3c6a8becbc347aa5084314ac270783f9aafe598",
+      "voices": {
+        "female": {
+          "hash": "4cd4b1eed447f06c83aad5ee242c8d8f7e76a2c17873f2a6e2d4fa2e2a56bfa0",
+          "path": "/audio/writing/when-to-trust-a-probabilistic-forecast/female.mp3",
+          "timingsPath": "/audio/writing/when-to-trust-a-probabilistic-forecast/female.timings.json",
+          "kokoroVoice": "af_heart",
+          "durationSeconds": 473,
+          "bytes": 3784365,
+          "sha256": "0298554f7f139787c27aa3ca4f6d51110a9c50071ac274c9644953d17b823476",
+          "timingsBytes": 119918,
+          "timingsSha256": "8de56bae6cd13a82da5dcdd1fb9a6d3a39856e83509ac1704b561b4041cb10a2",
+          "cueCount": 1013
+        },
+        "male": {
+          "hash": "4c91a68c1e7b35bc2adc2aeabd10bfa6e7cf9cc9691eca04888810a0e1da358e",
+          "path": "/audio/writing/when-to-trust-a-probabilistic-forecast/male.mp3",
+          "timingsPath": "/audio/writing/when-to-trust-a-probabilistic-forecast/male.timings.json",
+          "kokoroVoice": "am_michael",
+          "durationSeconds": 518,
+          "bytes": 4147437,
+          "sha256": "989e0c9b9b16707fbcf9f181b312eda7b07b18f2c6ad8d524ef1ca6d101e7a68",
+          "timingsBytes": 119997,
+          "timingsSha256": "ec8722b6900e0e9fe5a131d9028c905db30e154c605dcca7657faedf7452896a",
+          "cueCount": 1013
+        }
+      }
+    },
+    "why-accuracy-is-not-enough-for-oil-spill-detection": {
+      "textHash": "f8140d2aa470a843cacc45de3e15287550bb28317bc7b27416a287876a9aea35",
+      "voices": {
+        "female": {
+          "hash": "4190809bd059f8afce97552927bc788de2ba38a8b78a9abd169671a48af1b29d",
+          "path": "/audio/writing/why-accuracy-is-not-enough-for-oil-spill-detection/female.mp3",
+          "timingsPath": "/audio/writing/why-accuracy-is-not-enough-for-oil-spill-detection/female.timings.json",
+          "kokoroVoice": "af_heart",
+          "durationSeconds": 459,
+          "bytes": 3668589,
+          "sha256": "d5e06a235a6136d18f2fc4662c5172542541f7e63c509615018610956afc68a3",
+          "timingsBytes": 118211,
+          "timingsSha256": "5168f58e2936a3e704b724f0bb2b6b15e24591af1898dc3ec63dea9d14a6cde8",
+          "cueCount": 1001
+        },
+        "male": {
+          "hash": "c0254bb3e363c26e5828ce5c333e484bcc66765e8c5d2c11fb295a8bb3e9edac",
+          "path": "/audio/writing/why-accuracy-is-not-enough-for-oil-spill-detection/male.mp3",
+          "timingsPath": "/audio/writing/why-accuracy-is-not-enough-for-oil-spill-detection/male.timings.json",
+          "kokoroVoice": "am_michael",
+          "durationSeconds": 503,
+          "bytes": 4025901,
+          "sha256": "d7b352a2ca1db932423580a9581a2c687f1128e3bbc8b89f10244deb8f60a1f3",
+          "timingsBytes": 118299,
+          "timingsSha256": "5bef440890f40e70d36e4ec6587e451e1d5434a87b10ee762fc2413b8f887e2c",
+          "cueCount": 1001
+        }
+      }
+    },
+    "what-an-ai-agent-should-do-when-evidence-is-missing": {
+      "textHash": "031e11661baf8ed881abd4911f5367884282196a354d5782ce5565d45efa890e",
+      "voices": {
+        "female": {
+          "hash": "67144198813542abca977ec3a08fcd26c71ae8fe3037c5ca744c0a09865bef14",
+          "path": "/audio/writing/what-an-ai-agent-should-do-when-evidence-is-missing/female.mp3",
+          "timingsPath": "/audio/writing/what-an-ai-agent-should-do-when-evidence-is-missing/female.timings.json",
+          "kokoroVoice": "af_heart",
+          "durationSeconds": 457,
+          "bytes": 3656877,
+          "sha256": "80eb86b29dd68d669ed9aaca7e74c28863372323cfcccea865dfbc8e1d97a833",
+          "timingsBytes": 117850,
+          "timingsSha256": "eca9f4a851c282554c9059c8921a9804e458bce3b86107464bedf6b5771a2bdc",
+          "cueCount": 997
+        },
+        "male": {
+          "hash": "5d5758c8235cfad5989e1027f207144b688b3de756f959e070f0eb51c397820e",
+          "path": "/audio/writing/what-an-ai-agent-should-do-when-evidence-is-missing/male.mp3",
+          "timingsPath": "/audio/writing/what-an-ai-agent-should-do-when-evidence-is-missing/male.timings.json",
+          "kokoroVoice": "am_michael",
+          "durationSeconds": 502,
+          "bytes": 4017453,
+          "sha256": "dbdc04eb59d27bae81475f85ba345d3fd602faa715047245883ef5e6649400c4",
+          "timingsBytes": 117931,
+          "timingsSha256": "2dd3b9256e3a54a1414caf08b67aac283cb33dd2f7c85faaec79677de03b04eb",
+          "cueCount": 997
+        }
+      }
+    }
+  },
+  "generatedAt": "2026-10-04T01:50:16.197Z"
+}

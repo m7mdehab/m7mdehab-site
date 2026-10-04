@@ -204,7 +204,8 @@ test("capture and validate the locked Writing v1.3 render matrix", async ({ page
     await page.goto("/writing/when-to-trust-a-probabilistic-forecast");
     await settle(page);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.locator("[data-writing-listen]")).toHaveCount(0);
+    await expect(page.locator("[data-writing-listen]")).toHaveCount(1);
+    await expect(page.getByLabel("Narration voice")).toHaveValue("female");
     await hideFixedChrome(page);
     await page.screenshot({ path: path.join(output, `${viewport.name}.png`) });
     await page.screenshot({ path: path.join(output, `${viewport.name}-full.png`), fullPage: true });
