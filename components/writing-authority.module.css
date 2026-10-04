@@ -9,8 +9,8 @@
 }
 
 .narrationWord[data-narration-active="true"] {
-  background: color-mix(in srgb, var(--ink) 13%, transparent);
-  box-shadow: 0 0 0 .12em color-mix(in srgb, var(--ink) 13%, transparent);
+  background: color-mix(in srgb, #7759c9 20%, transparent);
+  box-shadow: 0 0 0 .12em color-mix(in srgb, #7759c9 16%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -92,7 +92,7 @@
   max-width: 20ch;
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(2.1rem, 2.6vw, 3.15rem);
+  font-size: clamp(2.4rem, 3.25vw, 4rem);
   font-weight: 430;
   line-height: .96;
   letter-spacing: -.045em;
@@ -260,7 +260,13 @@
 .takeaways ul {
   max-width: none;
   margin: 22px 0 0;
-  padding-left: 1.25rem;
+  padding-left: 1.35rem;
+  list-style: disc outside;
+}
+
+.articleSection li::marker,
+.takeaways li::marker {
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
 }
 
 .articleSection li,
