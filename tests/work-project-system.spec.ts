@@ -121,16 +121,24 @@ test("Presaira case visual stacks a wide graph above proofs and calibration capt
 
     const geometry = await page.evaluate(() => {
       const stage = document.querySelector<HTMLElement>('[data-project-visual-stage][data-project-slug="presaira"]')!;
+      const figure = document.querySelector<HTMLElement>("[data-presaira-case-visual]")!;
       const chart = document.querySelector<HTMLElement>("[data-presaira-chart]")!;
       const proof = document.querySelector<HTMLElement>("[data-presaira-proof]")!;
       const caption = document.querySelector<HTMLElement>("[data-presaira-caption]")!;
       const svg = chart.querySelector<SVGElement>("svg")!;
       const stageRect = stage.getBoundingClientRect();
+      const figureRect = figure.getBoundingClientRect();
+      const figureStyle = getComputedStyle(figure);
+      const contentWidth =
+        figureRect.width -
+        Number.parseFloat(figureStyle.paddingLeft) -
+        Number.parseFloat(figureStyle.paddingRight);
       const chartRect = chart.getBoundingClientRect();
       const proofRect = proof.getBoundingClientRect();
       const captionRect = caption.getBoundingClientRect();
       return {
         stageWidth: stageRect.width,
+        contentWidth,
         chartWidth: chartRect.width,
         chartBottom: chartRect.bottom,
         proofTop: proofRect.top,
@@ -140,7 +148,7 @@ test("Presaira case visual stacks a wide graph above proofs and calibration capt
       };
     });
 
-    expect(geometry.chartWidth).toBeGreaterThanOrEqual(geometry.stageWidth * 0.94);
+    expect(geometry.chartWidth).toBeGreaterThanOrEqual(geometry.contentWidth - 1);
     expect(geometry.chartBottom).toBeLessThanOrEqual(geometry.proofTop + 1);
     expect(geometry.proofBottom).toBeLessThanOrEqual(geometry.captionTop + 1);
     expect(geometry.viewBox).toBe("0 0 1200 180");
