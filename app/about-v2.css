@@ -1033,6 +1033,10 @@
 }
 
 @media (max-width: 980px) {
+  .about-v2-close-grid {
+    grid-template-columns: 1fr;
+  }
+
   .about-v2-secondary-row {
     grid-template-columns: 116px minmax(210px, .72fr) minmax(0, 1fr);
     gap: 22px;
