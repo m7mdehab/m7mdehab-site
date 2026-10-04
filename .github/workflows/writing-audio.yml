@@ -58,7 +58,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .cache/kokoro
-          key: kokoro-82m-v1-q8-${{ runner.os }}-node22
+          key: kokoro-82m-timestamped-v1-q8-${{ runner.os }}-node22
 
       - name: Install project dependencies
         run: npm ci
@@ -80,6 +80,7 @@ jobs:
         run: |
           mkdir -p "artifact/audio/writing/${{ matrix.slug }}"
           cp "public/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.mp3" "artifact/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.mp3"
+          cp "public/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.timings.json" "artifact/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.timings.json"
 
       - name: Upload narration artifact
         uses: actions/upload-artifact@v4
@@ -142,11 +143,17 @@ jobs:
               const entry = manifest.articles?.[slug]?.voices?.[voice];
               if (!entry) throw new Error(`Missing ${voice} narration metadata for ${slug}`);
               const file = path.join("public", entry.path.replace(/^\//, ""));
+              const timings = path.join("public", entry.timingsPath.replace(/^\//, ""));
               if (!fs.existsSync(file)) throw new Error(`Missing audio file: ${file}`);
               if (fs.statSync(file).size < 100000) throw new Error(`Audio file looks too small: ${file}`);
+              if (!fs.existsSync(timings)) throw new Error(`Missing timing file: ${timings}`);
+              const timingPayload = JSON.parse(fs.readFileSync(timings, "utf8"));
+              if (!Array.isArray(timingPayload.cues) || timingPayload.cues.length < 100) {
+                throw new Error(`Timing file has too few cues: ${timings}`);
+              }
             }
           }
-          console.log("Verified female + male Kokoro narration for all three articles.");
+          console.log("Verified female + male Kokoro narration and word timings for all three articles.");
           NODE
 
       - name: Commit generated narration
