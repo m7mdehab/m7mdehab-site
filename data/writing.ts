@@ -62,6 +62,7 @@ export function getWritingNarrationSources(
     label: voice.label,
     kokoroVoice: voice.kokoroVoice,
     src: `/audio/writing/${article.slug}/${voice.fileName}`,
+    timingsSrc: `/audio/writing/${article.slug}/${id}.timings.json`,
     mimeType: "audio/mpeg" as const,
   }));
 }
@@ -128,6 +129,112 @@ export type DraftWritingArticle = WritingArticleBase & {
 };
 
 export type WritingArticle = PublishedWritingArticle | DraftWritingArticle;
+
+
+export type WritingNarrationSegment = {
+  id: string;
+  text: string;
+  prefix?: string;
+};
+
+function writingBlockNarrationSegments(
+  block: WritingBlock,
+  sectionIndex: number,
+  blockIndex: number,
+): WritingNarrationSegment[] {
+  const base = `section-${sectionIndex}-block-${blockIndex}`;
+  switch (block.type) {
+    case "paragraph":
+      return [{ id: `${base}-paragraph`, text: block.text }];
+    case "bullets":
+      return block.items.map((item, itemIndex) => ({
+        id: `${base}-bullet-${itemIndex}`,
+        text: item,
+        prefix: "Bullet point.",
+      }));
+    case "quote":
+      return [
+        { id: `${base}-quote`, text: block.text },
+        ...(block.attribution
+          ? [{ id: `${base}-attribution`, text: block.attribution, prefix: "Quote attribution." }]
+          : []),
+      ];
+    case "image":
+      return block.caption
+        ? [{ id: `${base}-caption`, text: block.caption }]
+        : [];
+    case "code":
+      return [];
+    case "callout":
+      return [
+        ...(block.title ? [{ id: `${base}-title`, text: block.title }] : []),
+        { id: `${base}-text`, text: block.text },
+      ];
+  }
+}
+
+export function getWritingNarrationSegments(
+  article: Pick<
+    WritingArticleBase,
+    "title" | "description" | "thesis" | "sections" | "takeaways" | "takeawaysTitle"
+  >,
+): WritingNarrationSegment[] {
+  const segments: WritingNarrationSegment[] = [
+    { id: "article-title", text: article.title },
+    { id: "article-description", text: article.description },
+  ];
+
+  if (article.thesis) {
+    segments.push({
+      id: "article-thesis",
+      text: article.thesis,
+      prefix: "Key idea.",
+    });
+  }
+
+  article.sections.forEach((section, sectionIndex) => {
+    if (section.title) {
+      segments.push({
+        id: `section-${sectionIndex}-title`,
+        text: section.title,
+      });
+    }
+    section.paragraphs?.forEach((paragraph, paragraphIndex) => {
+      segments.push({
+        id: `section-${sectionIndex}-paragraph-${paragraphIndex}`,
+        text: paragraph,
+      });
+    });
+    section.bullets?.forEach((bullet, bulletIndex) => {
+      segments.push({
+        id: `section-${sectionIndex}-bullet-${bulletIndex}`,
+        text: bullet,
+        prefix: "Bullet point.",
+      });
+    });
+    section.blocks?.forEach((block, blockIndex) => {
+      segments.push(
+        ...writingBlockNarrationSegments(block, sectionIndex, blockIndex),
+      );
+    });
+  });
+
+  if (article.takeaways?.length) {
+    segments.push({
+      id: "takeaways-title",
+      text: article.takeawaysTitle ?? "Key takeaways",
+    });
+    article.takeaways.forEach((takeaway, takeawayIndex) => {
+      segments.push({
+        id: `takeaway-${takeawayIndex}`,
+        text: takeaway,
+        prefix: "Takeaway.",
+      });
+    });
+  }
+
+  return segments;
+}
 
 /**
  * Editorial content is subordinate to the governed public truth and evidence model.
