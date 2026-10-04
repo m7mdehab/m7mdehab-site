@@ -19,12 +19,14 @@ function AnimatedPath({
   window,
   enhanced,
   hot = false,
+  handoff,
 }: {
   d: string;
   progress: Progress;
   window: readonly [number, number];
   enhanced: boolean;
   hot?: boolean;
+  handoff?: "in" | "out";
 }) {
   const pathLength = useTransform(progress, [...window], [0, 1]);
   const opacity = useTransform(
@@ -42,6 +44,7 @@ function AnimatedPath({
           : "method-story__mobile-path"
       }
       style={enhanced ? { pathLength, opacity } : undefined}
+      data-mobile-handoff={handoff}
     />
   );
 }
@@ -114,6 +117,7 @@ export function MethodStoryMobileConnectors({
             window={window}
             enhanced={enhanced}
             hot={index === paths.length - 1}
+            handoff={index === paths.length - 1 ? "out" : undefined}
           />
         ))}
         <Node
@@ -155,6 +159,7 @@ export function MethodStoryMobileConnectors({
           window={window}
           enhanced={enhanced}
           hot
+          handoff="in"
         />
         {fan.map((d, index) => (
           <AnimatedPath
@@ -172,6 +177,7 @@ export function MethodStoryMobileConnectors({
           window={window}
           enhanced={enhanced}
           hot
+          handoff="out"
         />
         <Node
           cx={308}
@@ -211,6 +217,7 @@ export function MethodStoryMobileConnectors({
             window={window}
             enhanced={enhanced}
             hot={index === 3}
+            handoff={index === 3 ? "in" : undefined}
           />
         ))}
         <AnimatedPath
@@ -226,6 +233,7 @@ export function MethodStoryMobileConnectors({
           window={window}
           enhanced={enhanced}
           hot
+          handoff="out"
         />
         <Node
           cx={118}
@@ -255,6 +263,7 @@ export function MethodStoryMobileConnectors({
           window={window}
           enhanced={enhanced}
           hot
+          handoff="in"
         />
         <AnimatedPath
           d="M 220 175 C 242 175 260 175 276 175"
@@ -286,6 +295,7 @@ export function MethodStoryMobileConnectors({
           window={window}
           enhanced={enhanced}
           hot
+          handoff="out"
         />
       </svg>
     );
@@ -306,6 +316,7 @@ export function MethodStoryMobileConnectors({
         window={window}
         enhanced={enhanced}
         hot
+        handoff="in"
       />
       <AnimatedPath
         d="M 48 72 L 48 278"
