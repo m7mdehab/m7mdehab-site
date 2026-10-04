@@ -3,7 +3,7 @@
 .about-v2 {
   --about-rule: color-mix(in srgb, var(--ink) 14%, transparent);
   --about-rule-strong: color-mix(in srgb, var(--ink) 24%, transparent);
-  --about-muted: color-mix(in srgb, var(--ink) 58%, var(--paper));
+  --about-muted: color-mix(in srgb, var(--ink) 66%, var(--paper));
   --about-soft: color-mix(in srgb, var(--paper) 96%, #d9d7cf 4%);
   background: var(--paper);
   color: var(--ink);
@@ -249,7 +249,7 @@
 }
 
 .about-v2-section-label span {
-  color: color-mix(in srgb, var(--ink) 38%, var(--paper));
+  color: var(--about-muted);
   font-size: 9px;
   letter-spacing: .1em;
 }
@@ -569,11 +569,11 @@
 
 .about-v2-principles .about-v2-section-label,
 .about-v2-principles .about-v2-section-copy {
-  color: rgba(241, 240, 234, .56);
+  color: rgba(241, 240, 234, .72);
 }
 
 .about-v2-principles .about-v2-section-label span {
-  color: rgba(241, 240, 234, .34);
+  color: rgba(241, 240, 234, .68);
 }
 
 .about-v2-principles .about-v2-section-head h2 {
@@ -597,7 +597,7 @@
 }
 
 .about-v2-principle > span {
-  color: rgba(241, 240, 234, .42);
+  color: rgba(241, 240, 234, .68);
   font-size: 8px;
   letter-spacing: .1em;
 }
@@ -681,15 +681,15 @@
   border: 0;
   border-radius: 0;
   background: transparent;
-  overflow: visible;
+  overflow: hidden;
   justify-items: start;
   line-height: 0;
 }
 
 .about-v2-logo img {
   display: block;
-  width: auto !important;
-  height: auto !important;
+  width: 100% !important;
+  height: 100% !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain;
