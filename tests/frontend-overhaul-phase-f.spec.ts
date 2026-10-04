@@ -258,7 +258,145 @@ test.describe("Method story rebuild", () => {
     expect(paint.stickyImage).toBe("none");
     expect(paint.stickyColor).toBe("rgba(0, 0, 0, 0)");
 
-    await expect(section.locator(".method-story__mobile-swipe-cue")).toBeVisible();
+    const cues = section.locator(".method-story__mobile-swipe-cue");
+    await expect(cues).toHaveCount(5);
+    await expect(cues.first()).toHaveText("↓");
+    await expect(section.getByText("Swipe down to progress")).toHaveCount(0);
+    await expect(section.locator(".method-story__mobile-description")).toHaveCount(5);
+
+    // Messy Reality must leave each rotated card from its true transformed
+    // right-edge midpoint, then stay clear of every sibling card.
+    const messyVisual = section.locator(".method-story__mobile-visual--messy");
+    const messyPaths = section.locator(
+      '[data-mobile-connectors="messy"] [data-mobile-path^="messy-"]:not([data-mobile-path="messy-out"])',
+    );
+    await expect(messyPaths).toHaveCount(4);
+    const messyCards = section.locator(
+      '[data-method-stage="messy"] [data-method-input]',
+    );
+
+    for (let index = 0; index < 4; index += 1) {
+      const path = messyPaths.nth(index);
+      const endpoints = await readSvgPathEndpoints(path);
+      const portRect = await readLocalRect(
+        messyVisual,
+        section.locator(
+          `[data-method-stage="messy"] [data-method-port="messy-${index + 1}-out"]`,
+        ),
+      );
+      expect(
+        pointError(endpoints.start, {
+          x: portRect.centerX,
+          y: portRect.centerY,
+        }),
+      ).toBeLessThanOrEqual(1);
+
+      const blockers = await Promise.all(
+        Array.from({ length: 4 }, (_, blockerIndex) => blockerIndex)
+          .filter((blockerIndex) => blockerIndex !== index)
+          .map((blockerIndex) =>
+            readLocalRect(messyVisual, messyCards.nth(blockerIndex)),
+          ),
+      );
+      const samples = await readSvgPathSamples(path, 100);
+      const crossesSibling = samples.some((point) =>
+        blockers.some(
+          (rect) =>
+            point.x > rect.left + 1 &&
+            point.x < rect.right - 1 &&
+            point.y > rect.top + 1 &&
+            point.y < rect.bottom - 1,
+        ),
+      );
+      expect(crossesSibling).toBe(false);
+    }
+
+    // Expose should have enough room for the fan to read clearly.
+    const exposeFanLengths = await section
+      .locator('[data-mobile-connectors="expose"] [data-mobile-path^="expose-fan-"]')
+      .evaluateAll((paths) =>
+        paths.map((path) => (path as SVGPathElement).getTotalLength()),
+      );
+    expect(Math.min(...exposeFanLengths)).toBeGreaterThan(50);
+
+    // Reduce and Build are optically centered; Outcomes centers the whole
+    // bus+rows composition and places its hot middle node on the shared axis.
+    for (const [stage, selector] of [
+      ["reduce", ".method-story__decision-module"],
+      ["build", ".method-story__system-stack"],
+    ] as const) {
+      const visual = section.locator(`.method-story__mobile-visual--${stage}`);
+      const width = await visual.evaluate(
+        (element) => element.getBoundingClientRect().width,
+      );
+      const rect = await readLocalRect(visual, section.locator(selector));
+      expect(Math.abs(rect.centerX - width / 2)).toBeLessThanOrEqual(4);
+    }
+
+    const outcomeVisual = section.locator(
+      ".method-story__mobile-visual--outcomes",
+    );
+    const outcomeSize = await outcomeVisual.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    });
+    const outcomeRowsRect = await readLocalRect(
+      outcomeVisual,
+      section.locator(
+        '[data-method-stage="outcomes"] .method-story__outputs',
+      ),
+    );
+    const firstOutcomeNode = section.locator(
+      '[data-mobile-node="outcomes-node-1"]',
+    );
+    const middleOutcomeNode = section.locator(
+      '[data-mobile-node="outcomes-node-3"]',
+    );
+    const busX = Number(await firstOutcomeNode.getAttribute("cx"));
+    const middleNodeY = Number(await middleOutcomeNode.getAttribute("cy"));
+    expect(
+      Math.abs((busX + outcomeRowsRect.right) / 2 - outcomeSize.width / 2),
+    ).toBeLessThanOrEqual(8);
+    expect(Math.abs(middleNodeY - outcomeSize.height / 2)).toBeLessThanOrEqual(1);
+
+    // The stage-04 exit and stage-05 entry must occupy the same absolute Y
+    // position while both panels sit on the shared rail.
+    const buildOut = section.locator(
+      '[data-mobile-connectors="build"] [data-mobile-handoff="out"]',
+    );
+    const outcomesIn = section.locator(
+      '[data-mobile-connectors="outcomes"] [data-mobile-handoff="in"]',
+    );
+    const absoluteHandoffY = async (
+      locator: import("@playwright/test").Locator,
+      atEnd: boolean,
+    ) =>
+      locator.evaluate((element, useEnd) => {
+        const path = element as SVGPathElement;
+        const svg = path.ownerSVGElement!;
+        const rect = svg.getBoundingClientRect();
+        const box = svg.viewBox.baseVal;
+        const point = path.getPointAtLength(
+          useEnd ? path.getTotalLength() : 0,
+        );
+        return rect.top + (point.y / box.height) * rect.height;
+      }, atEnd);
+    expect(
+      Math.abs(
+        (await absoluteHandoffY(buildOut, true)) -
+          (await absoluteHandoffY(outcomesIn, false)),
+      ),
+    ).toBeLessThanOrEqual(0.5);
+
+    const decisionAnimation = await section
+      .locator(
+        '[data-method-stage="reduce"] .method-story__decision-module',
+      )
+      .evaluate(
+        (element) => getComputedStyle(element, "::after").animationName,
+      );
+    expect(decisionAnimation).toContain("method-story-decision-scan");
+
     await expectNoHorizontalOverflow(page);
   });
 

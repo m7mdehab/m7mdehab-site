@@ -56,6 +56,14 @@ function rightEdge(element: Element, rootRect: DOMRect, ratio = 0.5): Point {
   };
 }
 
+function pointAt(element: Element, rootRect: DOMRect): Point {
+  const rect = localRect(element, rootRect);
+  return {
+    x: rect.centerX,
+    y: rect.centerY,
+  };
+}
+
 function curve(from: Point, to: Point, tension = 0.42) {
   const distance = Math.max(0, to.x - from.x);
   const handle = Math.max(12, distance * tension);
@@ -68,6 +76,17 @@ function curve(from: Point, to: Point, tension = 0.42) {
 
 function line(from: Point, to: Point) {
   return `M ${from.x.toFixed(2)} ${from.y.toFixed(2)} L ${to.x.toFixed(
+    2,
+  )} ${to.y.toFixed(2)}`;
+}
+
+function convergeViaLane(from: Point, to: Point, laneX: number) {
+  const bendX = laneX + Math.max(4, (to.x - laneX) * 0.52);
+  return `M ${from.x.toFixed(2)} ${from.y.toFixed(2)} L ${laneX.toFixed(
+    2,
+  )} ${from.y.toFixed(2)} C ${bendX.toFixed(2)} ${from.y.toFixed(
+    2,
+  )} ${to.x.toFixed(2)} ${to.y.toFixed(2)} ${to.x.toFixed(
     2,
   )} ${to.y.toFixed(2)}`;
 }
@@ -87,22 +106,28 @@ function buildGeometry(
   const nodes: MobileConnectorGeometry["nodes"] = [];
 
   if (stage === "messy") {
-    const cards = Array.from(
-      root.querySelectorAll<HTMLElement>(".method-story__input-card"),
+    const ports = Array.from(
+      root.querySelectorAll<HTMLElement>(
+        '[data-method-port^="messy-"][data-method-port$="-out"]',
+      ),
     );
-    if (cards.length !== 4) return null;
+    if (ports.length !== 4) return null;
 
-    const sources = cards.map((card) => rightEdge(card, rootRect));
+    // The zero-size ports live at the true transformed right-edge midpoint of
+    // each rotated card. Measuring the card bounding box itself is not precise
+    // enough once rotation is applied.
+    const sources = ports.map((port) => pointAt(port, rootRect));
     const maxSourceX = Math.max(...sources.map((point) => point.x));
     const node = {
-      x: Math.min(width - 22, Math.max(width * 0.84, maxSourceX + 12)),
+      x: Math.min(width - 22, Math.max(width * 0.84, maxSourceX + 28)),
       y: centerY,
     };
+    const laneX = Math.min(node.x - 18, maxSourceX + 16);
 
     sources.forEach((source, index) => {
       paths.push({
         key: `messy-${index + 1}`,
-        d: curve(source, node),
+        d: convergeViaLane(source, node, laneX),
       });
     });
     paths.push({

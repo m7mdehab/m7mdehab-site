@@ -335,6 +335,34 @@ function OutputRow({
 }
 
 
+const MOBILE_STAGE_DESCRIPTIONS = {
+  messy: "Four fragmented inputs converge into one shared problem signal.",
+  expose: "Evidence is separated from constraints and unresolved unknowns.",
+  reduce: "One explicit decision replaces competing interpretations.",
+  build: "The decision becomes a compact system with only what the work needs.",
+  outcomes: "Five dependable outputs emerge from one governed path.",
+} as const;
+
+function MobileProgressCue() {
+  return (
+    <span className="method-story__mobile-swipe-cue" aria-hidden="true">
+      ↓
+    </span>
+  );
+}
+
+function MobileStageDescription({
+  stage,
+}: {
+  stage: keyof typeof MOBILE_STAGE_DESCRIPTIONS;
+}) {
+  return (
+    <p className="method-story__mobile-description">
+      {MOBILE_STAGE_DESCRIPTIONS[stage]}
+    </p>
+  );
+}
+
 function MobileMethodStory({
   reducedMotion,
 }: {
@@ -356,8 +384,6 @@ function MobileMethodStory({
   );
   const progressScale = useTransform(progress, [0, 1], [0, 1]);
 
-  const cueOpacity = useTransform(progress, [0, 0.015, 0.04], [1, 1, 0]);
-  const cueY = useTransform(progress, [0, 0.04], [0, -6]);
   const ctaOpacity = useTransform(progress, [0.68, 0.74], [0, 1]);
   const ctaY = useTransform(progress, [0.68, 0.74], [10, 0]);
   return (
@@ -385,14 +411,6 @@ function MobileMethodStory({
           ))}
         </div>
 
-        <motion.p
-          className="method-story__mobile-swipe-cue"
-          style={reducedMotion ? undefined : { opacity: cueOpacity, y: cueY }}
-          aria-hidden="true"
-        >
-          Swipe down to progress <span>↓</span>
-        </motion.p>
-
         <div className="method-story__mobile-window">
           <motion.ol
             className="method-story__mobile-rail"
@@ -404,6 +422,7 @@ function MobileMethodStory({
               data-method-stage="messy"
             >
               <StageHeader id="messy" />
+              <MobileProgressCue />
               <div className="method-story__mobile-visual method-story__mobile-visual--messy">
                 <MethodStoryMobileConnectors stage="messy" />
                 <div className="method-story__input-field">
@@ -422,6 +441,7 @@ function MobileMethodStory({
                   <span className="method-story__noise method-story__noise--4" aria-hidden="true" />
                 </div>
               </div>
+              <MobileStageDescription stage="messy" />
               <span className="method-story__mobile-next" aria-hidden="true">01 → 02</span>
             </li>
 
@@ -430,6 +450,7 @@ function MobileMethodStory({
               data-method-stage="expose"
             >
               <StageHeader id="expose" />
+              <MobileProgressCue />
               <div className="method-story__mobile-visual method-story__mobile-visual--expose">
                 <MethodStoryMobileConnectors stage="expose" />
                 <div className="method-story__evidence-field">
@@ -457,6 +478,7 @@ function MobileMethodStory({
                   </div>
                 </div>
               </div>
+              <MobileStageDescription stage="expose" />
               <span className="method-story__mobile-next" aria-hidden="true">02 → 03</span>
             </motion.li>
 
@@ -465,6 +487,7 @@ function MobileMethodStory({
               data-method-stage="reduce"
             >
               <StageHeader id="reduce" />
+              <MobileProgressCue />
               <div className="method-story__mobile-visual method-story__mobile-visual--reduce">
                 <MethodStoryMobileConnectors stage="reduce" />
                 <div className="method-story__decision-field">
@@ -505,6 +528,7 @@ function MobileMethodStory({
                   </motion.div>
                 </div>
               </div>
+              <MobileStageDescription stage="reduce" />
               <span className="method-story__mobile-next" aria-hidden="true">03 → 04</span>
             </motion.li>
 
@@ -513,6 +537,7 @@ function MobileMethodStory({
               data-method-stage="build"
             >
               <StageHeader id="build" />
+              <MobileProgressCue />
               <div className="method-story__mobile-visual method-story__mobile-visual--build">
                 <MethodStoryMobileConnectors stage="build" />
                 <div className="method-story__build-field">
@@ -533,6 +558,7 @@ function MobileMethodStory({
                   </span>
                 </div>
               </div>
+              <MobileStageDescription stage="build" />
               <span className="method-story__mobile-next" aria-hidden="true">04 → 05</span>
             </motion.li>
 
@@ -541,6 +567,7 @@ function MobileMethodStory({
               data-method-stage="outcomes"
             >
               <StageHeader id="outcomes" />
+              <MobileProgressCue />
               <div className="method-story__mobile-visual method-story__mobile-visual--outcomes">
                 <MethodStoryMobileConnectors stage="outcomes" />
                 <ul className="method-story__outputs">
@@ -555,6 +582,7 @@ function MobileMethodStory({
                   ))}
                 </ul>
               </div>
+              <MobileStageDescription stage="outcomes" />
               <motion.div
                 className="method-story__mobile-stage-cta"
                 data-mobile-stage-cta
