@@ -336,11 +336,31 @@ function OutputRow({
 
 
 const MOBILE_STAGE_DESCRIPTIONS = {
-  messy: "Four fragmented inputs converge into one shared problem signal.",
-  expose: "Evidence is separated from constraints and unresolved unknowns.",
-  reduce: "One explicit decision replaces competing interpretations.",
-  build: "The decision becomes a compact system with only what the work needs.",
-  outcomes: "Five dependable outputs emerge from one governed path.",
+  messy: [
+    "Fragmented inputs arrive with different assumptions and missing context.",
+    "I bring them into one view before deciding what matters.",
+    "The problem becomes visible before the solution begins.",
+  ],
+  expose: [
+    "Evidence, constraints and unknowns are separated and made explicit.",
+    "What can be proved is distinguished from what still needs an answer.",
+    "That clarity prevents false confidence.",
+  ],
+  reduce: [
+    "Fuzzy questions become explicit mappings, rules and decisions.",
+    "Competing interpretations collapse into one usable direction.",
+    "The work becomes clear enough to execute.",
+  ],
+  build: [
+    "The clarified path becomes the smallest system that can carry the work.",
+    "Data, logic and outputs are assembled around the decision.",
+    "Nothing unnecessary is added.",
+  ],
+  outcomes: [
+    "The result is validated, usable and governed.",
+    "Each output is tied back to the same reliable path.",
+    "The system is ready for real work.",
+  ],
 } as const;
 
 function MobileProgressCue() {
@@ -358,7 +378,9 @@ function MobileStageDescription({
 }) {
   return (
     <p className="method-story__mobile-description">
-      {MOBILE_STAGE_DESCRIPTIONS[stage]}
+      {MOBILE_STAGE_DESCRIPTIONS[stage].map((sentence) => (
+        <span key={sentence}>{sentence}</span>
+      ))}
     </p>
   );
 }
