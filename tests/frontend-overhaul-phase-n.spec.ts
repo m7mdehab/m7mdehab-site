@@ -156,10 +156,10 @@ test.describe("Phase N brand evidence and computational atmosphere", () => {
     await page.goto("/about");
     await settle(page);
     const aboutLogos = page.locator("[data-brand-logo]");
-    expect(await aboutLogos.count()).toBeGreaterThanOrEqual(8);
-    expect(
-      await page.locator(".brand-logo-native").count(),
-    ).toBeGreaterThanOrEqual(8);
+    expect(await aboutLogos.count()).toBe(4);
+    expect(await page.locator(".brand-logo-native").count()).toBe(4);
+    await expect(page.locator(".about-v2-databricks")).toBeVisible();
+    await expect(page.locator(".about-v2-mckinsey")).toBeVisible();
 
     await page.goto("/work/ghareeb-oglu");
     await settle(page);
