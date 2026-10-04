@@ -165,7 +165,7 @@ test.describe("Method story rebuild", () => {
     });
   });
 
-  test("mobile sticky story keeps a continuous left-to-right signal across all five states", async ({
+  test("mobile sticky story keeps one measured signal across all five states", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -175,6 +175,7 @@ test.describe("Method story rebuild", () => {
     const section = page.locator("[data-method-story]");
     const connectors = section.locator("[data-mobile-connectors]");
     await expect(connectors).toHaveCount(5);
+    await expect(section.locator('[data-mobile-geometry="measured"]')).toHaveCount(5);
 
     for (const stage of ["messy", "expose", "reduce", "build", "outcomes"]) {
       await expect(
@@ -200,11 +201,15 @@ test.describe("Method story rebuild", () => {
     const handoffGeometry = await handoffPaths.evaluateAll((paths) =>
       paths.map((path) => {
         const svgPath = path as SVGPathElement;
+        const svg = svgPath.ownerSVGElement!;
+        const box = svg.viewBox.baseVal;
         const length = svgPath.getTotalLength();
         const startPoint = svgPath.getPointAtLength(0);
         const endPoint = svgPath.getPointAtLength(length);
         return {
           direction: path.getAttribute("data-mobile-handoff"),
+          width: box.width,
+          height: box.height,
           start: { x: startPoint.x, y: startPoint.y },
           end: { x: endPoint.x, y: endPoint.y },
         };
@@ -212,20 +217,90 @@ test.describe("Method story rebuild", () => {
     );
 
     for (const path of handoffGeometry) {
+      const centerY = path.height / 2;
       if (path.direction === "in") {
-        expect(Math.abs(path.start.x)).toBeLessThanOrEqual(0.01);
-        expect(Math.abs(path.start.y - 175)).toBeLessThanOrEqual(0.01);
+        expect(Math.abs(path.start.x)).toBeLessThanOrEqual(0.05);
+        expect(Math.abs(path.start.y - centerY)).toBeLessThanOrEqual(0.05);
       } else {
-        expect(Math.abs(path.end.x - 350)).toBeLessThanOrEqual(0.01);
-        expect(Math.abs(path.end.y - 175)).toBeLessThanOrEqual(0.01);
+        expect(Math.abs(path.end.x - path.width)).toBeLessThanOrEqual(0.05);
+        expect(Math.abs(path.end.y - centerY)).toBeLessThanOrEqual(0.05);
       }
     }
 
-    const buildNodes = section.locator(
-      '[data-mobile-connectors="build"] circle',
-    );
-    await expect(buildNodes).toHaveCount(5);
+    // The fan exists only in Expose. Reduce must not recreate it after convergence.
+    await expect(
+      section.locator('[data-mobile-connectors="expose"] [data-mobile-path^="expose-fan-"]'),
+    ).toHaveCount(10);
+    await expect(
+      section.locator('[data-mobile-connectors="reduce"] path'),
+    ).toHaveCount(2);
 
+    // The five-node output bus belongs only to stage 05, never stage 04.
+    await expect(
+      section.locator('[data-mobile-connectors="build"] circle'),
+    ).toHaveCount(0);
+    await expect(
+      section.locator('[data-mobile-connectors="outcomes"] circle'),
+    ).toHaveCount(5);
+
+    // The sticky viewport is transparent over one solid Method Story paint field.
+    const paint = await section.evaluate((element) => {
+      const sticky = element.querySelector<HTMLElement>(".method-story__mobile-sticky")!;
+      const sectionStyle = getComputedStyle(element);
+      const stickyStyle = getComputedStyle(sticky);
+      return {
+        sectionImage: sectionStyle.backgroundImage,
+        stickyImage: stickyStyle.backgroundImage,
+        stickyColor: stickyStyle.backgroundColor,
+      };
+    });
+    expect(paint.sectionImage).toBe("none");
+    expect(paint.stickyImage).toBe("none");
+    expect(paint.stickyColor).toBe("rgba(0, 0, 0, 0)");
+
+    await expect(section.locator(".method-story__mobile-swipe-cue")).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test("mobile intro stays compact and stage 05 owns the CTA/status", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    const introLines = await section.evaluate((element) => {
+      const heading = element.querySelector<HTMLElement>(".method-story__intro h2")!;
+      const support = element.querySelector<HTMLElement>(".method-story__support")!;
+      const lineCount = (node: HTMLElement) => {
+        const lineHeight = Number.parseFloat(getComputedStyle(node).lineHeight);
+        return Math.round(node.getBoundingClientRect().height / lineHeight);
+      };
+      return {
+        heading: lineCount(heading),
+        support: lineCount(support),
+      };
+    });
+
+    expect(introLines.heading).toBe(2);
+    expect(introLines.support).toBeLessThanOrEqual(2);
+
+    const track = section.locator("[data-mobile-method-story]");
+    await track.evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      const top = window.scrollY + bounds.top;
+      const distance = Math.max(0, bounds.height - window.innerHeight);
+      window.scrollTo({
+        top: top + distance * 0.86,
+        behavior: "instant",
+      });
+    });
+    await page.waitForTimeout(180);
+
+    await expect(section.locator("[data-mobile-stage-cta]")).toBeVisible();
+    await expect(section.locator(".method-story__mobile-stage-status")).toBeVisible();
+    await expect(section.locator(".method-story__footer")).toBeHidden();
     await expectNoHorizontalOverflow(page);
   });
 
