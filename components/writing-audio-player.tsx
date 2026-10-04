@@ -67,7 +67,7 @@ export function WritingAudioPlayer({
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(listenMinutes * 60);
-  const [followNarration, setFollowNarration] = useState(false);
+  const [followNarration, setFollowNarration] = useState(true);
   const [timings, setTimings] = useState<NarrationTimingCue[]>([]);
 
   const activeSource =
@@ -117,7 +117,7 @@ export function WritingAudioPlayer({
       }
 
       setFollowNarration(
-        window.localStorage.getItem(followNarrationKey) === "true",
+        window.localStorage.getItem(followNarrationKey) !== "false",
       );
     }, 0);
 
