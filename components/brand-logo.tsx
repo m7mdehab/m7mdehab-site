@@ -26,7 +26,7 @@ export function BrandLogo({
       data-brand-logo={brand}
     >
       <img
-        src={src ?? logoAssets[brand]}
+        src={src ?? (brand === "network" ? "/logos/network-international.png" : logoAssets[brand])}
         alt={alt}
         decoding="async"
         loading="eager"

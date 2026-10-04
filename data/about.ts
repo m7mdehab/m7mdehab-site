@@ -90,6 +90,12 @@ export const aboutEducation = [
     institution: "ExploreAI Academy / ALX / African Leadership University",
     detail: "15-month scholarship",
   },
+  {
+    period: "2017",
+    qualification: "High School Diploma — British Curriculum & IGCSE",
+    institution: "Manarat Jeddah International Schools · Egypt & Jeddah, Saudi Arabia",
+    detail: "8 O-Level · 3 AS",
+  },
 ] as const;
 
 export const aboutCertifications = [

@@ -149,8 +149,10 @@
 }
 
 .credibility-brand-item[data-brand-card="network"] .brand-logo {
-  width: 70px;
-  max-width: 70px;
+  width: 84px;
+  max-width: 84px;
+  height: 24px;
+  max-height: 24px;
 }
 
 .overhaul-hero-shell {

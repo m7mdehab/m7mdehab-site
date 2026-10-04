@@ -36,6 +36,7 @@ import "../selected-work-transitions.css";
 import "../method-story.css";
 import "../closing-contact-footer-refresh.css";
 import "../writing-system.css";
+import "../about-v2.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
@@ -109,6 +110,10 @@ const siteSchema = {
         {
           "@type": "EducationalOrganization",
           name: "ExploreAI Academy / ALX / African Leadership University",
+        },
+        {
+          "@type": "EducationalOrganization",
+          name: "Manarat Jeddah International Schools",
         },
       ],
       knowsAbout: [

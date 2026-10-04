@@ -82,7 +82,7 @@
 }
 
 /* Optical normalization for marks whose source artwork has very different proportions. */
-.credibility-brand-item[data-brand-card="network"] .brand-logo { width: 104px; height: 25px; }
+.credibility-brand-item[data-brand-card="network"] .brand-logo { width: 84px; height: 24px; }
 .credibility-brand-item[data-brand-card="altayseer"] .brand-logo { width: 86px; height: 28px; }
 .credibility-brand-item[data-brand-card="orcas"] .brand-logo { width: 96px; height: 27px; }
 .credibility-brand-item[data-brand-card="narss"] .brand-logo,
