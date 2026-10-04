@@ -81,12 +81,40 @@ function line(from: Point, to: Point) {
 }
 
 function convergeViaLane(from: Point, to: Point, laneX: number) {
-  const bendX = laneX + Math.max(4, (to.x - laneX) * 0.52);
-  return `M ${from.x.toFixed(2)} ${from.y.toFixed(2)} L ${laneX.toFixed(
+  const deltaY = to.y - from.y;
+  const easedY = from.y + deltaY * 0.09;
+  const departureX = from.x + Math.max(7, (laneX - from.x) * 0.34);
+  const laneApproachX = laneX - Math.max(5, (laneX - from.x) * 0.12);
+  const bendX = laneX + Math.max(5, (to.x - laneX) * 0.46);
+
+  return `M ${from.x.toFixed(2)} ${from.y.toFixed(2)} C ${departureX.toFixed(
     2,
-  )} ${from.y.toFixed(2)} C ${bendX.toFixed(2)} ${from.y.toFixed(
+  )} ${from.y.toFixed(2)} ${laneApproachX.toFixed(2)} ${easedY.toFixed(
     2,
-  )} ${to.x.toFixed(2)} ${to.y.toFixed(2)} ${to.x.toFixed(
+  )} ${laneX.toFixed(2)} ${easedY.toFixed(2)} C ${bendX.toFixed(
+    2,
+  )} ${easedY.toFixed(2)} ${(to.x - 8).toFixed(2)} ${to.y.toFixed(
+    2,
+  )} ${to.x.toFixed(2)} ${to.y.toFixed(2)}`;
+}
+
+function softSignal(from: Point, to: Point, amplitude = 3) {
+  const distance = to.x - from.x;
+  const firstX = from.x + distance * 0.32;
+  const midpointX = from.x + distance * 0.52;
+  const secondX = from.x + distance * 0.72;
+  const direction = to.y >= from.y ? 1 : -1;
+  const offset = amplitude * direction;
+
+  return `M ${from.x.toFixed(2)} ${from.y.toFixed(2)} C ${firstX.toFixed(
+    2,
+  )} ${from.y.toFixed(2)} ${(midpointX - 6).toFixed(2)} ${(
+    (from.y + to.y) / 2 + offset
+  ).toFixed(2)} ${midpointX.toFixed(2)} ${(
+    (from.y + to.y) / 2 + offset
+  ).toFixed(2)} C ${(midpointX + 6).toFixed(2)} ${(
+    (from.y + to.y) / 2 + offset
+  ).toFixed(2)} ${secondX.toFixed(2)} ${to.y.toFixed(2)} ${to.x.toFixed(
     2,
   )} ${to.y.toFixed(2)}`;
 }
@@ -209,20 +237,28 @@ function buildGeometry(
     const system = root.querySelector<HTMLElement>(
       ".method-story__system-stack",
     );
-    if (!system) return null;
+    const middleFront = root.querySelector<HTMLElement>(
+      ".method-story__system-layer--2 .method-story__system-front",
+    );
+    const middleSide = root.querySelector<HTMLElement>(
+      ".method-story__system-layer--2 .method-story__system-side",
+    );
+    if (!system || !middleFront || !middleSide) return null;
 
-    const systemIn = leftEdge(system, rootRect);
-    const systemOut = rightEdge(system, rootRect);
+    // Attach to the visible middle-layer faces rather than the outer stack box.
+    // This makes the signal visibly touch the system on both entry and exit.
+    const systemIn = leftEdge(middleFront, rootRect);
+    const systemOut = rightEdge(middleSide, rootRect);
 
     paths.push({
       key: "build-in",
-      d: line({ x: 0, y: centerY }, systemIn),
+      d: softSignal({ x: 0, y: centerY }, systemIn, 2.5),
       hot: true,
       handoff: "in",
     });
     paths.push({
       key: "build-out",
-      d: line(systemOut, { x: width, y: centerY }),
+      d: softSignal(systemOut, { x: width, y: centerY }, 2.5),
       hot: true,
       handoff: "out",
     });
