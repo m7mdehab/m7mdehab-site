@@ -271,12 +271,37 @@ async function generateVoice(tts, article, narrationText, voiceId, voiceConfig) 
   }
 }
 
+function argumentValue(name) {
+  const index = process.argv.indexOf(name);
+  return index >= 0 ? process.argv[index + 1] : undefined;
+}
+
 async function main() {
   ensureFfmpeg();
   fs.mkdirSync(OUTPUT_ROOT, { recursive: true });
 
+  const onlySlug = argumentValue("--slug");
+  const onlyVoice = argumentValue("--voice");
+  const manifestOnly = process.argv.includes("--manifest-only");
+
+  if (onlyVoice && !VOICES[onlyVoice]) {
+    throw new Error(`Unknown narration voice: ${onlyVoice}`);
+  }
+
   const writing = await readWritingModule();
-  const articles = writing.writingArticles.filter((article) => article.status === "published");
+  const allArticles = writing.writingArticles.filter((article) => article.status === "published");
+  const articles = onlySlug
+    ? allArticles.filter((article) => article.slug === onlySlug)
+    : allArticles;
+
+  if (onlySlug && articles.length !== 1) {
+    throw new Error(`Unknown published Writing slug: ${onlySlug}`);
+  }
+
+  const selectedVoices = onlyVoice
+    ? Object.entries(VOICES).filter(([voiceId]) => voiceId === onlyVoice)
+    : Object.entries(VOICES);
+
   const manifest = readManifest();
   manifest.version = 1;
   manifest.model = MODEL_ID;
@@ -285,12 +310,57 @@ async function main() {
   manifest.generatedAt = new Date().toISOString();
   manifest.articles ??= {};
 
-  const activeSlugs = new Set(articles.map((article) => article.slug));
-  for (const slug of Object.keys(manifest.articles)) {
-    if (!activeSlugs.has(slug)) {
-      delete manifest.articles[slug];
-      fs.rmSync(path.join(OUTPUT_ROOT, slug), { recursive: true, force: true });
+  if (!onlySlug && !onlyVoice && !manifestOnly) {
+    const activeSlugs = new Set(allArticles.map((article) => article.slug));
+    for (const slug of Object.keys(manifest.articles)) {
+      if (!activeSlugs.has(slug)) {
+        delete manifest.articles[slug];
+        fs.rmSync(path.join(OUTPUT_ROOT, slug), { recursive: true, force: true });
+      }
     }
+  }
+
+  if (manifestOnly) {
+    manifest.articles = {};
+    for (const article of allArticles) {
+      const narrationText = articleNarrationText(article);
+      const textHash = sha256(
+        JSON.stringify({
+          generatorVersion: GENERATOR_VERSION,
+          model: MODEL_ID,
+          dtype: DTYPE,
+          narrationText,
+        }),
+      );
+
+      manifest.articles[article.slug] = { textHash, voices: {} };
+
+      for (const [voiceId, voiceConfig] of selectedVoices) {
+        const outputPath = path.join(OUTPUT_ROOT, article.slug, voiceConfig.fileName);
+        if (!fs.existsSync(outputPath)) {
+          throw new Error(`Missing generated narration: ${outputPath}`);
+        }
+        const voiceHash = sha256(
+          JSON.stringify({
+            textHash,
+            voiceId,
+            kokoroVoice: voiceConfig.kokoroVoice,
+          }),
+        );
+        manifest.articles[article.slug].voices[voiceId] = {
+          hash: voiceHash,
+          path: `/audio/writing/${article.slug}/${voiceConfig.fileName}`,
+          kokoroVoice: voiceConfig.kokoroVoice,
+          durationSeconds: Math.round(audioDurationSeconds(outputPath)),
+          bytes: fs.statSync(outputPath).size,
+          sha256: sha256(fs.readFileSync(outputPath)),
+        };
+      }
+    }
+
+    fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");
+    console.log(`Narration manifest rebuilt for ${allArticles.length} published article(s).`);
+    return;
   }
 
   const work = [];
@@ -366,7 +436,7 @@ async function main() {
 
   fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");
   console.log(
-    `Narration ready for ${articles.length} published article(s) in ${OUTPUT_ROOT}.`,
+    `Narration ready for ${articles.length} published article(s) / ${selectedVoices.length} voice(s) in ${OUTPUT_ROOT}.`,
   );
 }
 
