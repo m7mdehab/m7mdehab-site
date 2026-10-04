@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { CaseStudyNarrative } from "@/components/case-study";
-import { ProjectVisual } from "@/components/project-visual";
+import { ProjectCaseStudy } from "@/components/case-study";
 import { caseStudies } from "@/data/case-studies";
 import { projectCaseStudyUrl } from "@/data/discoverability";
 import { profile, projects } from "@/data/public";
@@ -25,6 +22,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title,
     description: project.statement,
     alternates: { canonical },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
       title,
       description: project.statement,
@@ -54,25 +62,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const evidenceHref = projectHref ?? ("evidenceHref" in visual ? visual.evidenceHref : undefined);
 
   return (
-    <main id="main-content" className="case-shell shell">
-      <Link className="back-link" href="/work"><ArrowLeft size={17} aria-hidden="true" /> All work</Link>
-      <div className="case-hero">
-        <div>
-          <p className="eyebrow">{project.kicker}</p>
-          <h1>{project.title}</h1>
-          <p className="case-lede">{project.statement}</p>
-          <p className="project-proof">{project.proof}</p>
-          {evidenceHref ? (
-            <a className="round-link" href={evidenceHref} target="_blank" rel="noreferrer">
-              Open public evidence <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-          ) : null}
-        </div>
-        <div className="case-hero-artboard-anchor" style={{ viewTransitionName: `project-${project.slug}` }}>
-          <ProjectVisual slug={project.slug} context="case" />
-        </div>
-      </div>
-      <CaseStudyNarrative study={study} nextProject={nextProject} projectSlug={project.slug} />
-    </main>
+    <ProjectCaseStudy
+      project={project}
+      study={study}
+      nextProject={nextProject}
+      evidenceHref={evidenceHref}
+    />
   );
 }
