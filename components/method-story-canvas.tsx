@@ -361,6 +361,8 @@ function MobileMethodStory({
   const reduceOpacity = useTransform(progress, [0.3, 0.42], [0.42, 1]);
   const buildOpacity = useTransform(progress, [0.5, 0.62], [0.42, 1]);
   const outputOpacity = useTransform(progress, [0.7, 0.82], [0.52, 1]);
+  const mobileDecisionScale = useTransform(progress, [0.38, 0.5], [0.9, 1]);
+  const mobileDecisionOpacity = useTransform(progress, [0.36, 0.48], [0.35, 1]);
   return (
     <div
       ref={trackRef}
@@ -401,7 +403,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="messy"
                   progress={progress}
-                  enhanced={false}
+                  enhanced={!reducedMotion}
                 />
                 <div className="method-story__input-field">
                   {METHOD_STORY.inputs.map((input, index) => (
@@ -410,7 +412,7 @@ function MobileMethodStory({
                       input={input}
                       index={index}
                       progress={progress}
-                      enhanced={false}
+                      enhanced={!reducedMotion}
                     />
                   ))}
                   <span className="method-story__noise method-story__noise--1" aria-hidden="true" />
@@ -432,7 +434,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="expose"
                   progress={progress}
-                  enhanced={false}
+                  enhanced={!reducedMotion}
                 />
                 <div className="method-story__evidence-field">
                   <MethodEvidenceIcon className="method-story__stage-symbol" aria-hidden="true" />
@@ -442,7 +444,7 @@ function MobileMethodStory({
                         key={index}
                         index={index}
                         progress={progress}
-                        enhanced={false}
+                        enhanced={!reducedMotion}
                       />
                     ))}
                   </div>
@@ -453,7 +455,7 @@ function MobileMethodStory({
                         tag={tag}
                         index={index}
                         progress={progress}
-                        enhanced={false}
+                        enhanced={!reducedMotion}
                       />
                     ))}
                   </div>
@@ -472,7 +474,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="reduce"
                   progress={progress}
-                  enhanced={false}
+                  enhanced={!reducedMotion}
                 />
                 <div className="method-story__decision-field">
                   <svg
@@ -493,7 +495,7 @@ function MobileMethodStory({
                         d={d}
                         index={index}
                         progress={progress}
-                        enhanced={false}
+                        enhanced={!reducedMotion}
                       />
                     ))}
                     <circle className="method-story__decision-node" cx="112" cy="80" r="5" />
@@ -501,6 +503,14 @@ function MobileMethodStory({
                   </svg>
                   <motion.div
                     className="method-story__decision-module"
+                    style={
+                      reducedMotion
+                        ? undefined
+                        : {
+                            scale: mobileDecisionScale,
+                            opacity: mobileDecisionOpacity,
+                          }
+                    }
                     aria-hidden="true"
                   >
                     <MethodDecisionIcon />
@@ -525,7 +535,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="build"
                   progress={progress}
-                  enhanced={false}
+                  enhanced={!reducedMotion}
                 />
                 <div className="method-story__build-field">
                   <div className="method-story__system-stack">
@@ -534,7 +544,7 @@ function MobileMethodStory({
                         key={index}
                         index={index}
                         progress={progress}
-                        enhanced={false}
+                        enhanced={!reducedMotion}
                       />
                     ))}
                   </div>
@@ -558,7 +568,7 @@ function MobileMethodStory({
                 <MethodStoryMobileConnectors
                   stage="outcomes"
                   progress={progress}
-                  enhanced={false}
+                  enhanced={!reducedMotion}
                 />
                 <ul className="method-story__outputs">
                   {METHOD_STORY.outputs.map((output, index) => (
@@ -567,7 +577,7 @@ function MobileMethodStory({
                       output={output}
                       index={index}
                       progress={progress}
-                      enhanced={false}
+                      enhanced={!reducedMotion}
                     />
                   ))}
                 </ul>
