@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { WritingCard } from "@/components/writing-card";
 import { WritingListen } from "@/components/writing-listen";
+import { WritingNarrationText } from "@/components/writing-narration-text";
 import { profile } from "@/data/public";
 import {
   getWritingArticleOptionalContent,
@@ -48,14 +49,64 @@ export function WritingIndex({ articles }: { articles: readonly PublishedWriting
   );
 }
 
-function renderBlock(block: WritingBlock, index: number) {
+function narratedText(segmentId: string, text: string) {
+  return (
+    <WritingNarrationText
+      segmentId={segmentId}
+      text={text}
+      className={styles.narrationWord}
+    />
+  );
+}
+
+function renderBlock(
+  block: WritingBlock,
+  sectionIndex: number,
+  blockIndex: number,
+) {
+  const base = `section-${sectionIndex}-block-${blockIndex}`;
   switch (block.type) {
-    case "paragraph": return <p key={index}>{block.text}</p>;
-    case "bullets": return <ul key={index}>{block.items.map((item) => <li key={item}>{item}</li>)}</ul>;
-    case "quote": return <blockquote key={index}><p>{block.text}</p>{block.attribution ? <cite>{block.attribution}</cite> : null}</blockquote>;
-    case "image": return <figure key={index}><img src={block.src} alt={block.alt} loading="lazy" />{block.caption ? <figcaption>{block.caption}</figcaption> : null}</figure>;
-    case "code": return <pre key={index} data-language={block.language ?? undefined}><code>{block.code}</code></pre>;
-    case "callout": return <div key={index} className={styles.callout} role="note">{block.title ? <strong>{block.title}</strong> : null}<p>{block.text}</p></div>;
+    case "paragraph":
+      return <p key={blockIndex}>{narratedText(`${base}-paragraph`, block.text)}</p>;
+    case "bullets":
+      return (
+        <ul key={blockIndex}>
+          {block.items.map((item, itemIndex) => (
+            <li key={item}>
+              {narratedText(`${base}-bullet-${itemIndex}`, item)}
+            </li>
+          ))}
+        </ul>
+      );
+    case "quote":
+      return (
+        <blockquote key={blockIndex}>
+          <p>{narratedText(`${base}-quote`, block.text)}</p>
+          {block.attribution ? (
+            <cite>{narratedText(`${base}-attribution`, block.attribution)}</cite>
+          ) : null}
+        </blockquote>
+      );
+    case "image":
+      return (
+        <figure key={blockIndex}>
+          <img src={block.src} alt={block.alt} loading="lazy" />
+          {block.caption ? (
+            <figcaption>{narratedText(`${base}-caption`, block.caption)}</figcaption>
+          ) : null}
+        </figure>
+      );
+    case "code":
+      return <pre key={blockIndex} data-language={block.language ?? undefined}><code>{block.code}</code></pre>;
+    case "callout":
+      return (
+        <div key={blockIndex} className={styles.callout} role="note">
+          {block.title ? (
+            <strong>{narratedText(`${base}-title`, block.title)}</strong>
+          ) : null}
+          <p>{narratedText(`${base}-text`, block.text)}</p>
+        </div>
+      );
   }
 }
 
@@ -80,17 +131,31 @@ export function WritingArticleBody({ article }: { article: PublishedWritingArtic
       {article.sections.map((section, sectionIndex) => (
         <section key={section.id ?? `${section.title ?? "section"}-${sectionIndex}`} id={writingSectionAnchor(section, sectionIndex)} className={styles.articleSection}>
           {section.eyebrow ? <p className={styles.sectionEyebrow}>{section.eyebrow}</p> : null}
-          {section.title ? <h2>{section.title}</h2> : null}
-          {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {section.bullets?.length ? <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul> : null}
-          {section.blocks?.map(renderBlock)}
+          {section.title ? <h2>{narratedText(`section-${sectionIndex}-title`, section.title)}</h2> : null}
+          {section.paragraphs?.map((paragraph, paragraphIndex) => (
+            <p key={paragraph}>
+              {narratedText(`section-${sectionIndex}-paragraph-${paragraphIndex}`, paragraph)}
+            </p>
+          ))}
+          {section.bullets?.length ? (
+            <ul>
+              {section.bullets.map((bullet, bulletIndex) => (
+                <li key={bullet}>
+                  {narratedText(`section-${sectionIndex}-bullet-${bulletIndex}`, bullet)}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {section.blocks?.map((block, blockIndex) => renderBlock(block, sectionIndex, blockIndex))}
         </section>
       ))}
 
       {optional.takeaways.length ? (
         <section className={styles.takeaways} id="key-takeaways" data-writing-takeaways>
-          <h2>{optional.takeawaysTitle ?? "Key takeaways."}</h2>
-          <ul>{optional.takeaways.map((takeaway) => <li key={takeaway}>{takeaway}</li>)}</ul>
+          <h2>{narratedText("takeaways-title", optional.takeawaysTitle ?? "Key takeaways.")}</h2>
+          <ul>{optional.takeaways.map((takeaway, takeawayIndex) => (
+            <li key={takeaway}>{narratedText(`takeaway-${takeawayIndex}`, takeaway)}</li>
+          ))}</ul>
         </section>
       ) : null}
 
@@ -132,8 +197,8 @@ export function WritingArticleView({
           <span className={styles.articleFormat}>{formatLabel(article.format)}</span>
         </div>
         <p className={styles.articleEyebrow}>{category} · {article.topics.join(" · ")}</p>
-        <h1>{article.title}</h1>
-        <p className={styles.articleDeck}>{article.description}</p>
+        <h1>{narratedText("article-title", article.title)}</h1>
+        <p className={styles.articleDeck}>{narratedText("article-description", article.description)}</p>
         <div className={styles.articleBylineRow}>
           <p className={styles.byline}>By <Link href="/about">{profile.name}</Link></p>
           <div className={styles.articleMetaGroup}>
@@ -143,7 +208,7 @@ export function WritingArticleView({
           </div>
         </div>
         <WritingListen article={article} />
-        {optional.thesis ? <div className={styles.keyIdea} role="note"><span className={styles.keyIdeaLabel}>Key idea</span><p>{optional.thesis}</p></div> : null}
+        {optional.thesis ? <div className={styles.keyIdea} role="note"><span className={styles.keyIdeaLabel}>Key idea</span><p>{narratedText("article-thesis", optional.thesis)}</p></div> : null}
         {optional.evidence.length ? (
           <div className={styles.evidenceGrid} aria-label="Article evidence anchors">
             {optional.evidence.map((item) => <div key={item.label} className={styles.evidenceCard}><p className={styles.evidenceLabel}>{item.label}</p><p className={styles.evidenceValue}><bdi>{item.value}</bdi></p><p className={styles.evidenceDetail}>{item.detail}</p></div>)}
