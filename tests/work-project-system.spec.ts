@@ -30,13 +30,15 @@ test("work directory keeps the heading to two intentional lines and separates ro
     return {
       firstBottom: headingLines[0].bottom,
       secondTop: headingLines[1].top,
+      lineGap: headingLines[1].top - headingLines[0].bottom,
       numberPadding: Number.parseFloat(getComputedStyle(number).paddingInlineStart),
       accentWidth: Number.parseFloat(accent.width),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     };
   });
 
-  expect(geometry.secondTop).toBeGreaterThanOrEqual(geometry.firstBottom - 2);
+  expect(geometry.secondTop).toBeGreaterThan(geometry.firstBottom);
+  expect(geometry.lineGap).toBeGreaterThanOrEqual(8);
   expect(geometry.numberPadding).toBeGreaterThanOrEqual(14);
   expect(geometry.accentWidth).toBeLessThanOrEqual(3);
   expect(geometry.overflow).toBeLessThanOrEqual(1);
@@ -64,17 +66,22 @@ test("all project routes use the same governed case-study shell", async ({ page 
       const geometry = await page.evaluate(() => {
         const h1 = document.querySelector<HTMLElement>("main h1")!;
         const caseStudy = document.querySelector<HTMLElement>("[data-project-case-study]")!;
+        const visualAnchor = document.querySelector<HTMLElement>(".case-hero-artboard-anchor")!;
         return {
           h1FontSize: Number.parseFloat(getComputedStyle(h1).fontSize),
           caseWidth: caseStudy.getBoundingClientRect().width,
+          visualHeight: visualAnchor.getBoundingClientRect().height,
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         };
       });
 
       expect(geometry.overflow).toBeLessThanOrEqual(1);
       if (width >= 1000) {
+        expect(geometry.visualHeight).toBeLessThanOrEqual(325);
         expect(geometry.h1FontSize).toBeGreaterThanOrEqual(46);
         expect(geometry.h1FontSize).toBeLessThanOrEqual(82);
+      } else {
+        expect(geometry.visualHeight).toBeLessThanOrEqual(245);
       }
 
       const contents = page.getByRole("navigation", { name: "Case study contents" });
