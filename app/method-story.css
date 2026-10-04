@@ -2623,3 +2623,54 @@
     animation: none !important;
   }
 }
+
+
+/* Mobile Method Story micro-polish — final cue, supporting copy rhythm and
+   signal personality. Keep the accepted stage composition intact. */
+@media (max-width: 719px) {
+  .method-story__mobile-stage {
+    grid-template-rows: auto minmax(300px, 1fr) 82px 66px;
+  }
+
+  .method-story__mobile-swipe-cue {
+    width: 28px;
+    height: 28px;
+    font-size: 17px;
+    color: rgba(184, 242, 213, 0.84);
+  }
+
+  .method-story__mobile-description {
+    align-self: start;
+    display: grid;
+    gap: 2px;
+    max-width: 310px;
+    margin: 4px 12px 0;
+    color: rgba(169, 179, 173, 0.84);
+    font-size: 9.2px;
+    line-height: 1.38;
+  }
+
+  .method-story__mobile-description span {
+    display: block;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__mobile-description {
+    align-self: start;
+    max-width: 272px;
+    margin: 4px auto 0;
+    font-size: 9px;
+    line-height: 1.36;
+  }
+}
+
+@keyframes method-story-mobile-cue {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0.44;
+  }
+  50% {
+    transform: translate(-50%, 7px);
+    opacity: 0.96;
+  }
+}
