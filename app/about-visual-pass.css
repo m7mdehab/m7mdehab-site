@@ -674,6 +674,8 @@
 
 /* About logos: no visible plate, no forced square, no overflow. */
 .about-v2-logo {
+  position: relative;
+  display: block;
   width: 72px;
   height: 22px;
   margin: 0;
@@ -687,6 +689,8 @@
 }
 
 .about-v2 .brand-logo.about-v2-logo img {
+  position: absolute !important;
+  inset: 0 !important;
   display: block;
   width: 100% !important;
   height: 100% !important;
