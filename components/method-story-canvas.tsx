@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useSyncExternalStore } from "react";
 import {
   motion,
@@ -344,11 +345,9 @@ function MobileMethodStory({
     target: trackRef,
     offset: ["start start", "end end"],
   });
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 110,
-    damping: 28,
-    mass: 0.35,
-  });
+  // The phone rail follows native scroll progress directly. A spring here made
+  // the story visibly trail the finger and was perceived as lag on real devices.
+  const progress = scrollYProgress;
 
   const railX = useTransform(
     progress,
@@ -357,10 +356,10 @@ function MobileMethodStory({
   );
   const progressScale = useTransform(progress, [0, 1], [0, 1]);
 
-  const exposeOpacity = useTransform(progress, [0.1, 0.22], [0.42, 1]);
-  const reduceOpacity = useTransform(progress, [0.3, 0.42], [0.42, 1]);
-  const buildOpacity = useTransform(progress, [0.5, 0.62], [0.42, 1]);
-  const outputOpacity = useTransform(progress, [0.7, 0.82], [0.52, 1]);
+  const cueOpacity = useTransform(progress, [0, 0.015, 0.04], [1, 1, 0]);
+  const cueY = useTransform(progress, [0, 0.04], [0, -6]);
+  const ctaOpacity = useTransform(progress, [0.68, 0.74], [0, 1]);
+  const ctaY = useTransform(progress, [0.68, 0.74], [10, 0]);
   return (
     <div
       ref={trackRef}
@@ -386,6 +385,14 @@ function MobileMethodStory({
           ))}
         </div>
 
+        <motion.p
+          className="method-story__mobile-swipe-cue"
+          style={reducedMotion ? undefined : { opacity: cueOpacity, y: cueY }}
+          aria-hidden="true"
+        >
+          Swipe down to progress <span>↓</span>
+        </motion.p>
+
         <div className="method-story__mobile-window">
           <motion.ol
             className="method-story__mobile-rail"
@@ -398,11 +405,7 @@ function MobileMethodStory({
             >
               <StageHeader id="messy" />
               <div className="method-story__mobile-visual method-story__mobile-visual--messy">
-                <MethodStoryMobileConnectors
-                  stage="messy"
-                  progress={progress}
-                  enhanced={false}
-                />
+                <MethodStoryMobileConnectors stage="messy" />
                 <div className="method-story__input-field">
                   {METHOD_STORY.inputs.map((input, index) => (
                     <AnimatedInput
@@ -425,15 +428,10 @@ function MobileMethodStory({
             <motion.li
               className="method-story__mobile-stage method-story__mobile-stage--expose"
               data-method-stage="expose"
-              style={reducedMotion ? undefined : { opacity: exposeOpacity }}
             >
               <StageHeader id="expose" />
               <div className="method-story__mobile-visual method-story__mobile-visual--expose">
-                <MethodStoryMobileConnectors
-                  stage="expose"
-                  progress={progress}
-                  enhanced={false}
-                />
+                <MethodStoryMobileConnectors stage="expose" />
                 <div className="method-story__evidence-field">
                   <MethodEvidenceIcon className="method-story__stage-symbol" aria-hidden="true" />
                   <div className="method-story__evidence-stack" aria-hidden="true">
@@ -465,15 +463,10 @@ function MobileMethodStory({
             <motion.li
               className="method-story__mobile-stage method-story__mobile-stage--reduce"
               data-method-stage="reduce"
-              style={reducedMotion ? undefined : { opacity: reduceOpacity }}
             >
               <StageHeader id="reduce" />
               <div className="method-story__mobile-visual method-story__mobile-visual--reduce">
-                <MethodStoryMobileConnectors
-                  stage="reduce"
-                  progress={progress}
-                  enhanced={false}
-                />
+                <MethodStoryMobileConnectors stage="reduce" />
                 <div className="method-story__decision-field">
                   <svg
                     className="method-story__decision-branches"
@@ -518,15 +511,10 @@ function MobileMethodStory({
             <motion.li
               className="method-story__mobile-stage method-story__mobile-stage--build"
               data-method-stage="build"
-              style={reducedMotion ? undefined : { opacity: buildOpacity }}
             >
               <StageHeader id="build" />
               <div className="method-story__mobile-visual method-story__mobile-visual--build">
-                <MethodStoryMobileConnectors
-                  stage="build"
-                  progress={progress}
-                  enhanced={false}
-                />
+                <MethodStoryMobileConnectors stage="build" />
                 <div className="method-story__build-field">
                   <div className="method-story__system-stack">
                     {[0, 1, 2].map((index) => (
@@ -551,15 +539,10 @@ function MobileMethodStory({
             <motion.li
               className="method-story__mobile-stage method-story__mobile-stage--outcomes"
               data-method-stage="outcomes"
-              style={reducedMotion ? undefined : { opacity: outputOpacity }}
             >
               <StageHeader id="outcomes" />
               <div className="method-story__mobile-visual method-story__mobile-visual--outcomes">
-                <MethodStoryMobileConnectors
-                  stage="outcomes"
-                  progress={progress}
-                  enhanced={false}
-                />
+                <MethodStoryMobileConnectors stage="outcomes" />
                 <ul className="method-story__outputs">
                   {METHOD_STORY.outputs.map((output, index) => (
                     <OutputRow
@@ -572,9 +555,20 @@ function MobileMethodStory({
                   ))}
                 </ul>
               </div>
-              <span className="method-story__mobile-complete" aria-hidden="true">
-                DECISION-READY
-              </span>
+              <motion.div
+                className="method-story__mobile-stage-cta"
+                data-mobile-stage-cta
+                style={reducedMotion ? undefined : { opacity: ctaOpacity, y: ctaY }}
+              >
+                <Link href={METHOD_STORY.cta.href} data-conversion="method-to-work">
+                  {METHOD_STORY.cta.label}
+                  <span aria-hidden="true">↗</span>
+                </Link>
+                <p className="method-story__mobile-stage-status">
+                  <i aria-hidden="true" />
+                  {METHOD_STORY.status}
+                </p>
+              </motion.div>
             </motion.li>
           </motion.ol>
         </div>
