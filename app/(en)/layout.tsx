@@ -36,6 +36,7 @@ import "../selected-work-transitions.css";
 import "../method-story.css";
 import "../closing-contact-footer-refresh.css";
 import "../writing-system.css";
+import "../about-visual-pass.css";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { projectRecords, serviceRecords } from "@/data/discoverability";
