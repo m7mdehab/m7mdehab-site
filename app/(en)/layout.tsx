@@ -111,6 +111,10 @@ const siteSchema = {
           "@type": "EducationalOrganization",
           name: "ExploreAI Academy / ALX / African Leadership University",
         },
+        {
+          "@type": "EducationalOrganization",
+          name: "Manarat Jeddah International Schools",
+        },
       ],
       knowsAbout: [
         "Data Engineering",
