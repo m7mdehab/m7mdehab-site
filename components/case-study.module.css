@@ -517,6 +517,11 @@
   background: color-mix(in srgb, var(--case-accent) 5%, var(--paper));
 }
 
+.visualStage[data-project-slug="presaira"] {
+  height: clamp(320px, 24vw, 350px);
+  max-height: 350px;
+}
+
 .visualAnchor {
   min-width: 0;
   height: 100%;
@@ -912,6 +917,11 @@
     max-height: 200px;
     margin-top: 26px;
     border-radius: 14px;
+  }
+
+  .visualStage[data-project-slug="presaira"] {
+    height: clamp(250px, 72vw, 280px);
+    max-height: 280px;
   }
 
   .visualAnchor > * {
