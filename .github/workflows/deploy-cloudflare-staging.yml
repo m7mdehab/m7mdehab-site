@@ -8,6 +8,9 @@ on:
     paths-ignore:
       - "docs/**"
       - "*.md"
+      - "data/writing.ts"
+      - "scripts/generate-writing-audio.mjs"
+      - ".github/workflows/writing-audio.yml"
   pull_request:
     branches:
       - main
@@ -31,7 +34,7 @@ jobs:
     name: Deploy and verify workers.dev staging
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
-    timeout-minutes: 55
+    timeout-minutes: 90
     steps:
       - name: Checkout accepted candidate
         uses: actions/checkout@v7
@@ -54,37 +57,14 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Install Kokoro narration tooling
-        run: npm install --no-save --package-lock=false --no-audit --no-fund kokoro-js@1.2.1 @huggingface/transformers@3.8.1
-
-      - name: Restore Kokoro model cache
-        uses: actions/cache@v4
-        with:
-          path: .cache/kokoro
-          key: kokoro-model-shawnahmed-timestamped-v1-q8-${{ runner.os }}
-          restore-keys: |
-            kokoro-model-shawnahmed-timestamped-v1-q8-
-
-      - name: Restore generated Writing narration cache
-        uses: actions/cache@v4
-        with:
-          path: public/audio/writing
-          key: writing-audio-kokoro-v2-timings-${{ runner.os }}-${{ hashFiles('data/writing.ts', 'scripts/generate-writing-audio.mjs') }}
-          restore-keys: |
-            writing-audio-kokoro-v2-timings-${{ runner.os }}-
-
-      - name: Ensure ffmpeg is available
+      - name: Verify checked-in Writing narration assets
         shell: bash
         run: |
-          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y ffmpeg
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            npm run writing:audio:verify -- --files-only
+          else
+            npm run writing:audio:verify
           fi
-
-      - name: Generate Writing narration with Kokoro
-        env:
-          KOKORO_CACHE_DIR: .cache/kokoro
-        run: npm run writing:audio
 
       - name: Build staging static artifact
         run: CLOUDFLARE_STATIC_EXPORT=1 npm run build
