@@ -45,7 +45,12 @@
   width: 13px;
   height: 13px;
   margin: 0;
-  accent-color: var(--ink);
+  accent-color: #7759c9;
+}
+
+.follow input:checked + span {
+  color: #6d50bb;
+  font-weight: 700;
 }
 
 .follow input:disabled + span {
@@ -90,6 +95,10 @@
 .voice select:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
+}
+
+.follow input:focus-visible {
+  outline-color: #7759c9;
 }
 
 .timeline {
