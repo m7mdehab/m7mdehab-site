@@ -349,15 +349,18 @@
 }
 
 .work-index-header h1 {
+  display: grid;
+  row-gap: clamp(12px, 1vw, 18px);
   margin: 0;
   font-size: clamp(3.8rem, 6.15vw, 6.4rem);
-  line-height: .88;
+  line-height: .96;
   letter-spacing: -.062em;
   font-weight: 680;
 }
 
 .work-index-title-line {
   display: block;
+  line-height: .96;
   white-space: nowrap;
 }
 
@@ -365,6 +368,7 @@
   font-family: var(--serif);
   font-style: italic;
   font-weight: 430;
+  line-height: 1;
   letter-spacing: -.045em;
 }
 
@@ -633,11 +637,13 @@ html[dir="rtl"] .work-index-row:focus-visible {
   }
 
   .work-index-header h1 {
+    row-gap: 8px;
     font-size: clamp(2rem, 8.9vw, 2.65rem);
-    line-height: .92;
+    line-height: .98;
   }
 
   .work-index-title-line {
+    line-height: .98;
     white-space: nowrap;
   }
 
