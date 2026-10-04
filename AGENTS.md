@@ -130,6 +130,12 @@ For article-body layout, article narration, article schema, or authoring rules, 
 
 Do not add hidden AI-only summaries, unsupported schema, fake freshness dates, generic FAQ blocks for ranking, browser-dependent TTS, or mandatory giant hero imagery. Article-body images are contextual and should appear only where they add information.
 
+## Project case-study governance
+
+For `/work`, `/work/[slug]`, project-detail layout, case-study storytelling, evidence anchors, publication boundaries, or future project-page authoring, `docs/frontend-overhaul/PROJECT_CASE_STUDY_SYSTEM_V1.md` is authoritative.
+
+The project shell deliberately inherits the Writing v1.4 reading geometry and restraint. Keep one shared case-study shell; express project personality through governed evidence, `ProjectVisual` and the existing project tone rather than one-off templates. Future projects should enter through the structured project/case-study data model rather than bespoke page code unless a real content requirement cannot fit the shared system.
+
 ## Visual evidence and asset provenance
 Use `data/project-evidence.public.yaml` as the governing registry for project proof, visual candidates, asset status and project-specific interaction direction. See `docs/PROJECT_EVIDENCE_VISUAL_AUDIT_2026-09-09.md` for the audit rationale.
 
