@@ -1,10 +1,20 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ProjectVisual } from "@/components/project-visual";
 import type { CaseStudy } from "@/data/case-studies";
 import { emailComposeHref } from "@/data/contact-links";
 import { services } from "@/data/public";
+import type { EvidenceProjectSlug } from "@/data/project-visuals";
 import styles from "@/components/case-study.module.css";
-import serviceStyles from "@/components/service-conversion.module.css";
+
+type ProjectSummary = {
+  slug: EvidenceProjectSlug;
+  title: string;
+  kicker: string;
+  statement: string;
+  proof: string;
+  tone: string;
+};
 
 type NextProject = {
   slug: string;
@@ -12,104 +22,168 @@ type NextProject = {
   kicker: string;
 };
 
-export function CaseStudyNarrative({
+const toc = [
+  ["project-question", "The project"],
+  ["role-and-scope", "Role & scope"],
+  ["approach", "Approach"],
+  ["evidence", "Evidence"],
+  ["limits", "Limits & boundaries"],
+  ["public-record", "Public record"],
+] as const;
+
+export function ProjectCaseStudy({
+  project,
   study,
   nextProject,
-  projectSlug,
+  evidenceHref,
 }: {
+  project: ProjectSummary;
   study: CaseStudy;
   nextProject: NextProject;
-  projectSlug: string;
+  evidenceHref?: string;
 }) {
-  const relevantServices = services.filter((service) => service.directProjectSlugs.includes(projectSlug));
+  const relevantServices = services.filter((service) => service.directProjectSlugs.includes(project.slug));
 
   return (
-    <article className={styles.story}>
-      <section className={styles.statement} aria-labelledby="case-study-thesis">
-        <p className={styles.eyebrow}>Case study</p>
-        <h2 id="case-study-thesis" className={styles.thesis}>{study.thesis}</h2>
-        <p className={styles.challenge}>{study.challenge}</p>
-      </section>
+    <main
+      id="main-content"
+      className={styles.projectShell}
+      data-project-case-study
+      data-tone={project.tone}
+    >
+      <div className={styles.projectFrame}>
+        <header className={styles.projectHero}>
+          <div className={styles.topline}>
+            <Link className={styles.backLink} href="/work">
+              <ArrowLeft size={16} aria-hidden="true" /> All work
+            </Link>
+            <span className={styles.format}>Case study</span>
+          </div>
 
-      <section className={styles.scope} aria-labelledby="case-study-scope">
-        <p className={styles.eyebrow}>Role & scope</p>
-        <p id="case-study-scope">{study.scope}</p>
-      </section>
+          <p className={styles.caseEyebrow}>{project.kicker}</p>
+          <h1>{project.title}</h1>
+          <p className={styles.projectDeck}>{project.statement}</p>
 
-      <section className={styles.section} aria-labelledby="case-study-approach">
-        <div className={styles.sectionHead}>
-          <p className={styles.eyebrow}>Approach</p>
-          <h2 id="case-study-approach">How the system earns the result.</h2>
-        </div>
-        <div className={styles.steps}>
-          {study.steps.map((step) => (
-            <section key={step.eyebrow} className={styles.step}>
-              <p className={styles.eyebrow}>{step.eyebrow}</p>
-              <h3>{step.title}</h3>
-              <p>{step.detail}</p>
-            </section>
-          ))}
-        </div>
-      </section>
+          <div className={styles.projectMetaRow}>
+            <p className={styles.proofMeta}>
+              <span>Evidence domain</span>
+              {project.proof}
+            </p>
+            {evidenceHref ? (
+              <a className={styles.publicEvidence} href={evidenceHref} target="_blank" rel="noreferrer">
+                Open public evidence <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+            ) : null}
+          </div>
 
-      <section className={styles.section} aria-labelledby="case-study-evidence">
-        <div className={styles.sectionHead}>
-          <p className={styles.eyebrow}>Evidence</p>
-          <h2 id="case-study-evidence">What can actually be checked.</h2>
-        </div>
-        <div className={styles.evidenceGrid}>
-          {study.evidence.map((item) => (
-            <article key={`${item.label}-${item.value ?? "evidence"}`} className={styles.evidenceCard}>
-              <p className={styles.evidenceLabel}>{item.label}</p>
-              {item.value ? <p className={styles.evidenceValue}>{item.value}</p> : null}
-              <p className={styles.evidenceDetail}>{item.detail}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.constraints} aria-labelledby="case-study-constraints">
-        <div>
-          <p className={styles.eyebrow}>Limits & boundaries</p>
-          <h2 id="case-study-constraints">What the case study does not pretend.</h2>
-        </div>
-        <div className={styles.constraintList}>
-          {study.constraints.map((constraint) => (
-            <p key={constraint} className={styles.constraintItem}>{constraint}</p>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.publication} aria-labelledby="case-study-publication">
-        <p className={styles.eyebrow}>Publication boundary</p>
-        <div className={styles.publicationBody}>
-          <p id="case-study-publication">{study.publicationNote}</p>
-          {study.links.length ? (
-            <div className={styles.links} aria-label="Public project evidence">
-              {study.links.map((link) => (
-                <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-                  {link.label} <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
-              ))}
+          <div className={styles.visualStage}>
+            <div
+              className={"case-hero-artboard-anchor " + styles.visualAnchor}
+              style={{ viewTransitionName: `project-${project.slug}` }}
+            >
+              <ProjectVisual slug={project.slug} context="case" />
             </div>
-          ) : null}
-        </div>
-      </section>
+          </div>
+        </header>
 
-      {relevantServices.length ? (
-        <section className={serviceStyles.bridge} aria-labelledby="project-service-heading">
-          <p className={serviceStyles.bridgeEyebrow}>From proof to useful work</p>
-          <div className={serviceStyles.bridgeBody}>
-            <h2 id="project-service-heading">Where this project maps to real service work.</h2>
-            <p>These links come from the governed project/service evidence map. They are not generic cross-sells and do not widen the claims made above.</p>
-            <div className={serviceStyles.bridgeItems}>
+        <section className={styles.evidenceSection} id="evidence" aria-labelledby="case-evidence-heading">
+          <div className={styles.evidenceIntro}>
+            <p className={styles.sectionEyebrow}>Evidence</p>
+            <h2 id="case-evidence-heading">What can actually be checked.</h2>
+          </div>
+          <div className={styles.evidenceGridV2}>
+            {study.evidence.map((item) => (
+              <article key={`${item.label}-${item.value ?? "evidence"}`} className={styles.evidenceCardV2}>
+                <p className={styles.evidenceLabelV2}>{item.label}</p>
+                {item.value ? <p className={styles.evidenceValueV2}>{item.value}</p> : null}
+                <p className={styles.evidenceDetailV2}>{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <div className={styles.readingLayout}>
+          <article className={styles.readingMain}>
+            <section className={styles.articleSection} id="project-question">
+              <p className={styles.sectionEyebrow}>The project</p>
+              <div className={styles.keyIdea}>
+                <p>{study.thesis}</p>
+              </div>
+              <p>{study.challenge}</p>
+            </section>
+
+            <section className={styles.articleSection} id="role-and-scope">
+              <p className={styles.sectionEyebrow}>Role & scope</p>
+              <h2>What this case study covers.</h2>
+              <p>{study.scope}</p>
+            </section>
+
+            <section className={styles.articleSection} id="approach">
+              <p className={styles.sectionEyebrow}>Approach</p>
+              <h2>How the system earns the result.</h2>
+              <div className={styles.approachList}>
+                {study.steps.map((step) => (
+                  <section key={step.eyebrow} className={styles.approachStep}>
+                    <p className={styles.stepIndex}>{step.eyebrow}</p>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.detail}</p>
+                    </div>
+                  </section>
+                ))}
+              </div>
+            </section>
+
+            <section className={styles.articleSection} id="limits">
+              <p className={styles.sectionEyebrow}>Limits & boundaries</p>
+              <h2>What the case study does not pretend.</h2>
+              <ul className={styles.boundaryList}>
+                {study.constraints.map((constraint) => <li key={constraint}>{constraint}</li>)}
+              </ul>
+            </section>
+
+            <section className={styles.articleSection} id="public-record">
+              <p className={styles.sectionEyebrow}>Public record</p>
+              <h2>What is publishable, and where the evidence lives.</h2>
+              <p>{study.publicationNote}</p>
+              {study.links.length ? (
+                <div className={styles.sourceList} aria-label="Public project evidence">
+                  {study.links.map((link) => (
+                    <a key={link.href} className={styles.sourceLink} href={link.href} target="_blank" rel="noreferrer">
+                      <span>{link.label}</span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          </article>
+
+          <aside className={styles.tocRail}>
+            <nav className={styles.toc} aria-label="Case study contents">
+              <p>On this page</p>
+              <ol>
+                {toc.map(([id, label]) => <li key={id}><a href={`#${id}`}>{label}</a></li>)}
+              </ol>
+            </nav>
+          </aside>
+        </div>
+
+        {relevantServices.length ? (
+          <section className={styles.serviceBridge} aria-labelledby="project-service-heading">
+            <div>
+              <p className={styles.sectionEyebrow}>From proof to useful work</p>
+              <h2 id="project-service-heading">Relevant service pathways.</h2>
+            </div>
+            <div className={styles.serviceList}>
               {relevantServices.map((service) => (
-                <article key={service.id} className={serviceStyles.bridgeItem}>
-                  <small>{service.proofLabel}</small>
-                  <strong>{service.title}</strong>
-                  <div className={serviceStyles.bridgeActions}>
+                <article key={service.id} className={styles.serviceItem}>
+                  <div>
+                    <small>{service.proofLabel}</small>
+                    <strong>{service.title}</strong>
+                  </div>
+                  <div className={styles.serviceActions}>
                     <Link
-                      className={serviceStyles.bridgeLink}
                       href={`/services#service-${service.id}`}
                       data-conversion="project-to-service"
                       data-service-id={service.id}
@@ -117,7 +191,6 @@ export function CaseStudyNarrative({
                       Service context <ArrowUpRight size={14} aria-hidden="true" />
                     </Link>
                     <a
-                      className={serviceStyles.bridgeLink}
                       href={emailComposeHref(service.contactSubject)}
                       target="_blank"
                       rel="noreferrer"
@@ -130,15 +203,20 @@ export function CaseStudyNarrative({
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-      ) : null}
+          </section>
+        ) : null}
 
-      <Link data-case-next className={styles.nextProject} href={`/work/${nextProject.slug}`}>
-        <p className={styles.eyebrow}>Next project · {nextProject.kicker}</p>
-        <strong>{nextProject.title}</strong>
-        <span aria-hidden="true"><ArrowUpRight size={19} /></span>
-      </Link>
-    </article>
+        <footer className={styles.projectEnd}>
+          <div>
+            <p className={styles.sectionEyebrow}>Next project · {nextProject.kicker}</p>
+            <p>Continue through the full work archive.</p>
+          </div>
+          <Link data-case-next className={styles.nextProjectV2} href={`/work/${nextProject.slug}`}>
+            <span>{nextProject.title}</span>
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </footer>
+      </div>
+    </main>
   );
 }
