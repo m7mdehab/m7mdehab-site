@@ -91,11 +91,11 @@ test.describe("Phase H About architecture", () => {
     const response = await page.goto("/about");
     expect(response?.ok()).toBeTruthy();
     await page.waitForLoadState("domcontentloaded");
-    await expect(page.locator(".about-hero")).toBeVisible();
+    await expect(page.locator(".about-v2-hero")).toBeVisible();
     await expect(page.locator("#career")).toBeVisible();
-    await expect(page.locator(".about-learning")).toBeVisible();
-    await expect(page.locator(".about-stack")).toBeVisible();
-    await expect(page.locator(".about-principles")).toBeVisible();
+    await expect(page.locator(".about-v2-learning")).toBeVisible();
+    await expect(page.locator(".about-v2-stack")).toBeVisible();
+    await expect(page.locator(".about-v2-principles")).toBeVisible();
     await context.close();
   });
 
