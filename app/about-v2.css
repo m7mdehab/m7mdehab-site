@@ -217,7 +217,7 @@
 }
 
 .about-page-v2 .about-v2-section-kicker span {
-  color: color-mix(in srgb, var(--ink) 42%, transparent);
+  color: var(--muted);
 }
 
 .about-page-v2 .about-v2-section-head h2 {
@@ -572,7 +572,7 @@
 }
 
 .about-page-v2 .about-v2-principles .about-v2-section-kicker span {
-  color: rgba(241, 239, 232, .34);
+  color: rgba(241, 239, 232, .68);
 }
 
 .about-page-v2 .about-v2-principles-grid {
@@ -592,7 +592,7 @@
 }
 
 .about-page-v2 .about-v2-principle > span {
-  color: rgba(241, 239, 232, .38);
+  color: rgba(241, 239, 232, .68);
   font-size: 8px;
   letter-spacing: .11em;
 }
