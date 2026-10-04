@@ -83,8 +83,8 @@ export function WritingAudioPlayer({
     activeCueRef.current = null;
   }
 
-  function syncActiveCue(time: number) {
-    if (!followNarration || timings.length === 0) {
+  function syncActiveCue(time: number, enabled = followNarration) {
+    if (!enabled || timings.length === 0) {
       clearActiveCue();
       return;
     }
@@ -132,7 +132,6 @@ export function WritingAudioPlayer({
   useEffect(() => {
     let cancelled = false;
     clearActiveCue();
-    setTimings([]);
     fetch(activeSource.timingsSrc)
       .then((response) => {
         if (!response.ok) {
@@ -157,15 +156,6 @@ export function WritingAudioPlayer({
     const audio = audioRef.current;
     if (audio) audio.load();
   }, [activeSource.src]);
-
-  useEffect(() => {
-    if (!followNarration) {
-      clearActiveCue();
-      return;
-    }
-    syncActiveCue(audioRef.current?.currentTime ?? currentTime);
-    // Highlighting is visual only. Never scroll, focus, or move the viewport.
-  }, [followNarration, timings]);
 
   async function togglePlayback() {
     const audio = audioRef.current;
@@ -271,6 +261,7 @@ export function WritingAudioPlayer({
               setFollowNarration(next);
               window.localStorage.setItem(followNarrationKey, String(next));
               if (!next) clearActiveCue();
+              else syncActiveCue(audioRef.current?.currentTime ?? currentTime, true);
             }}
             aria-label="Follow narration"
           />
