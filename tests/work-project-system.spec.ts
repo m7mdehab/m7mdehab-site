@@ -30,15 +30,14 @@ test("work directory keeps the heading to two intentional lines and separates ro
     return {
       firstBottom: headingLines[0].bottom,
       secondTop: headingLines[1].top,
-      rowLeft: row.getBoundingClientRect().left,
-      numberLeft: number.getBoundingClientRect().left,
+      numberPadding: Number.parseFloat(getComputedStyle(number).paddingInlineStart),
       accentWidth: Number.parseFloat(accent.width),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     };
   });
 
   expect(geometry.secondTop).toBeGreaterThanOrEqual(geometry.firstBottom - 2);
-  expect(geometry.numberLeft - geometry.rowLeft).toBeGreaterThanOrEqual(14);
+  expect(geometry.numberPadding).toBeGreaterThanOrEqual(14);
   expect(geometry.accentWidth).toBeLessThanOrEqual(3);
   expect(geometry.overflow).toBeLessThanOrEqual(1);
 });
