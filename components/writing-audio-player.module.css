@@ -45,7 +45,7 @@
   width: 13px;
   height: 13px;
   margin: 0;
-  accent-color: var(--ink);
+  accent-color: #7457df;
 }
 
 .follow input:disabled + span {
