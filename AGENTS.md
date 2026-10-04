@@ -115,7 +115,9 @@ For Writing:
 - every published article gets two generated static narration assets at publish/deploy time: Female = Kokoro `af_heart` (first-visit default), Male = Kokoro `am_michael`;
 - visitors never download/run Kokoro and no paid TTS API is required;
 - narration never autoplays; remember voice and playback-speed preferences locally;
-- optional Follow narration mode highlights the currently spoken word from generated timing sidecars, defaults off, remains user-controlled, and must never auto-scroll, call scrollIntoView, trap focus, or otherwise move the reader's viewport;
+- optional Follow narration mode highlights the currently spoken word from generated timing sidecars, defaults on for new visitors, preserves an explicit user opt-out locally, and must never auto-scroll, call scrollIntoView, trap focus, or otherwise move the reader's viewport;
+- Writing card titles on phone widths must always render in full; responsive sizing/wrapping is allowed, truncation, ellipsis and line clamping are not;
+- article list markers must remain visibly rendered, while narration must use natural ordered transitions such as First/Second/Third rather than literally speaking “Bullet point”;
 - project relation, evidence, sources, takeaways and thesis are optional;
 - a future independent personal post must not require component/schema redesign;
 - default article schema is `BlogPosting`, with `AudioObject` only when real narration exists;

@@ -472,13 +472,14 @@
   .writing-system-card :is(h2, h3) {
     display: block;
     margin: 7px 0 0;
-    overflow: hidden;
-    font-size: clamp(16px, 4.55vw, 19px);
+    overflow: visible;
+    font-size: clamp(14px, 4vw, 18px);
     line-height: 1.08;
     letter-spacing: -.025em;
-    text-overflow: ellipsis;
-    text-wrap: nowrap;
-    white-space: nowrap;
+    text-overflow: clip;
+    text-wrap: balance;
+    white-space: normal;
+    overflow-wrap: normal;
     -webkit-line-clamp: unset;
     line-clamp: unset;
   }
