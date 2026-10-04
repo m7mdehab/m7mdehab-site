@@ -12,8 +12,14 @@ function cx(...values: Array<string | false | undefined>) {
 function PresairaVisual({ context, locale }: { context: "card" | "case"; locale: Locale }) {
   const data = projectVisuals.presaira;
   const homeCard = context === "card" && locale === "en";
-  const x = (value: number) => 38 + value * 388;
-  const y = (value: number) => 238 - value * 196;
+  const caseStudy = context === "case";
+  const chart = caseStudy
+    ? { viewBox: "0 0 1200 180", left: 80, right: 1120, top: 24, bottom: 135, labelX: 600, labelY: 172, tickX: 28, domainMin: 0.15, domainMax: 0.85 }
+    : { viewBox: "0 0 464 280", left: 38, right: 426, top: 42, bottom: 238, labelX: 230, labelY: 272, tickX: 12, domainMin: 0, domainMax: 1 };
+  const x = (value: number) =>
+    chart.left + ((value - chart.domainMin) / (chart.domainMax - chart.domainMin)) * (chart.right - chart.left);
+  const y = (value: number) =>
+    chart.bottom - ((value - chart.domainMin) / (chart.domainMax - chart.domainMin)) * (chart.bottom - chart.top);
   const points = data.reliability.map((point) => `${x(point.predicted)},${y(point.observed)}`).join(" ");
   const ar = locale === "ar";
   const proof = ar
@@ -23,16 +29,20 @@ function PresairaVisual({ context, locale }: { context: "card" | "case"; locale:
       : data.proof;
 
   return (
-    <figure dir={ar ? "rtl" : "ltr"} className={cx(styles.visual, styles.presaira, context === "case" && styles.caseVisual, homeCard && styles.homeCardVisual, homeCard && "home-selected-work-visual")}>
+    <figure
+      dir={ar ? "rtl" : "ltr"}
+      className={cx(styles.visual, styles.presaira, context === "case" && styles.caseVisual, homeCard && styles.homeCardVisual, homeCard && "home-selected-work-visual")}
+      data-presaira-case-visual={caseStudy ? "" : undefined}
+    >
       <div className={styles.visualHeader}><span>{ar ? "ارسم / طوّر" : homeCard ? "Forecast / calibrate" : data.verb}</span><span>{ar ? "دليل من الكود العام" : data.provenance}</span></div>
-      <div className={styles.chartFrame} dir="ltr">
-        <svg viewBox="0 0 464 280" role="img" aria-labelledby="presaira-chart-title presaira-chart-desc">
+      <div className={styles.chartFrame} dir="ltr" data-presaira-chart={caseStudy ? "" : undefined}>
+        <svg viewBox={chart.viewBox} role="img" aria-labelledby="presaira-chart-title presaira-chart-desc">
           <title id="presaira-chart-title">{ar ? "دليل معايرة Presaira لاحتمالات فوز صاحب الأرض في 2026" : "Presaira 2026 home-win reliability evidence"}</title>
           <desc id="presaira-chart-desc">{ar ? "تقارن نقاط المعايرة المحفوظة متوسط احتمال الفوز المتوقع بالتكرار المرصود. الخط القطري يمثل المعايرة المثالية." : "Committed calibration points compare mean predicted home-win probability with observed frequency. The diagonal is ideal calibration."}</desc>
           {[0.2, 0.4, 0.6, 0.8].map((tick) => (
             <g key={tick} className={styles.chartGrid}>
-              <line x1={38} x2={426} y1={y(tick)} y2={y(tick)} />
-              <text x={12} y={y(tick) + 4}>{Math.round(tick * 100)}%</text>
+              <line x1={chart.left} x2={chart.right} y1={y(tick)} y2={y(tick)} />
+              <text x={chart.tickX} y={y(tick) + 4}>{Math.round(tick * 100)}%</text>
             </g>
           ))}
           <line className={styles.idealLine} x1={x(0.2)} y1={y(0.2)} x2={x(0.8)} y2={y(0.8)} />
@@ -43,17 +53,17 @@ function PresairaVisual({ context, locale }: { context: "card" | "case"; locale:
               <title>{ar ? `${Math.round(point.predicted * 100)}% متوقع → ${Math.round(point.observed * 100)}% مرصود؛ n=${point.n}` : `${Math.round(point.predicted * 100)}% predicted → ${Math.round(point.observed * 100)}% observed; n=${point.n}`}</title>
             </g>
           ))}
-          <text className={styles.axisLabel} x="230" y="272">{ar ? "متوسط الاحتمال المتوقع" : "Mean predicted probability"}</text>
+          <text className={styles.axisLabel} x={chart.labelX} y={chart.labelY}>{ar ? "متوسط الاحتمال المتوقع" : "Mean predicted probability"}</text>
         </svg>
       </div>
-      <div className={`${styles.proofStrip}${homeCard ? " presaira-card-proof" : ""}`}>
+      <div className={`${styles.proofStrip}${homeCard ? " presaira-card-proof" : ""}`} data-presaira-proof={caseStudy ? "" : undefined}>
         {proof.map((item) => <span className={homeCard ? "presaira-proof-desktop" : undefined} key={item}>{item}</span>)}
         {homeCard ? <>
           <span className="presaira-proof-mobile">104 matches</span>
           <span className="presaira-proof-mobile">Post-event evaluation</span>
         </> : null}
       </div>
-      <figcaption>
+      <figcaption data-presaira-caption={caseStudy ? "" : undefined}>
         <strong>{ar ? "دليل معايرة 2026 المحفوظ" : homeCard ? "2026 calibration evidence" : data.label}</strong>
         <span className={homeCard ? "presaira-caption-desktop" : undefined}>{ar ? "ثقة التوقع مقارنة بالنتائج المرصودة بعد اكتمال مباريات البطولة الـ104." : homeCard ? "Predicted probabilities compared with observed outcomes across all 104 matches." : data.caption}</span>
         {homeCard ? <span className="presaira-caption-mobile">Predicted probabilities vs. observed outcomes across all 104 matches.</span> : null}

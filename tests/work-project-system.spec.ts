@@ -81,21 +81,76 @@ test("all project routes use the same governed case-study shell", async ({ page 
 
       expect(geometry.overflow).toBeLessThanOrEqual(1);
       if (width >= 1000) {
-        expect(geometry.stageHeight).toBeLessThanOrEqual(241);
-        expect(geometry.stageHeight).toBeGreaterThanOrEqual(209);
+        if (slug === "presaira") {
+          expect(geometry.stageHeight).toBeLessThanOrEqual(351);
+          expect(geometry.stageHeight).toBeGreaterThanOrEqual(319);
+          expect(geometry.visualHeight).toBeLessThanOrEqual(351);
+        } else {
+          expect(geometry.stageHeight).toBeLessThanOrEqual(241);
+          expect(geometry.stageHeight).toBeGreaterThanOrEqual(209);
+          expect(geometry.visualHeight).toBeLessThanOrEqual(241);
+        }
         expect(geometry.stageWidth).toBeGreaterThanOrEqual(geometry.frameWidth * 0.98);
-        expect(geometry.visualHeight).toBeLessThanOrEqual(241);
         expect(geometry.h1FontSize).toBeGreaterThanOrEqual(46);
         expect(geometry.h1FontSize).toBeLessThanOrEqual(82);
       } else {
-        expect(geometry.stageHeight).toBeLessThanOrEqual(201);
-        expect(geometry.stageHeight).toBeGreaterThanOrEqual(169);
+        if (slug === "presaira") {
+          expect(geometry.stageHeight).toBeLessThanOrEqual(281);
+          expect(geometry.stageHeight).toBeGreaterThanOrEqual(249);
+          expect(geometry.visualHeight).toBeLessThanOrEqual(281);
+        } else {
+          expect(geometry.stageHeight).toBeLessThanOrEqual(201);
+          expect(geometry.stageHeight).toBeGreaterThanOrEqual(169);
+          expect(geometry.visualHeight).toBeLessThanOrEqual(201);
+        }
         expect(geometry.stageWidth).toBeGreaterThanOrEqual(geometry.frameWidth * 0.98);
-        expect(geometry.visualHeight).toBeLessThanOrEqual(201);
       }
 
       const contents = page.getByRole("navigation", { name: "Case study contents" });
       await expect(contents).toBeVisible();
     }
+  }
+});
+
+
+test("Presaira case visual stacks a wide graph above proofs and calibration caption", async ({ page }) => {
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: width === 1440 ? 1000 : 844 });
+    await page.goto("/work/presaira");
+    await settle(page);
+
+    const geometry = await page.evaluate(() => {
+      const stage = document.querySelector<HTMLElement>('[data-project-visual-stage][data-project-slug="presaira"]')!;
+      const figure = document.querySelector<HTMLElement>("[data-presaira-case-visual]")!;
+      const chart = document.querySelector<HTMLElement>("[data-presaira-chart]")!;
+      const proof = document.querySelector<HTMLElement>("[data-presaira-proof]")!;
+      const caption = document.querySelector<HTMLElement>("[data-presaira-caption]")!;
+      const svg = chart.querySelector<SVGElement>("svg")!;
+      const stageRect = stage.getBoundingClientRect();
+      const figureRect = figure.getBoundingClientRect();
+      const figureStyle = getComputedStyle(figure);
+      const contentWidth =
+        figureRect.width -
+        Number.parseFloat(figureStyle.paddingLeft) -
+        Number.parseFloat(figureStyle.paddingRight);
+      const chartRect = chart.getBoundingClientRect();
+      const proofRect = proof.getBoundingClientRect();
+      const captionRect = caption.getBoundingClientRect();
+      return {
+        stageWidth: stageRect.width,
+        contentWidth,
+        chartWidth: chartRect.width,
+        chartBottom: chartRect.bottom,
+        proofTop: proofRect.top,
+        proofBottom: proofRect.bottom,
+        captionTop: captionRect.top,
+        viewBox: svg.getAttribute("viewBox"),
+      };
+    });
+
+    expect(geometry.chartWidth).toBeGreaterThanOrEqual(geometry.contentWidth - 1);
+    expect(geometry.chartBottom).toBeLessThanOrEqual(geometry.proofTop + 1);
+    expect(geometry.proofBottom).toBeLessThanOrEqual(geometry.captionTop + 1);
+    expect(geometry.viewBox).toBe("0 0 1200 180");
   }
 });
