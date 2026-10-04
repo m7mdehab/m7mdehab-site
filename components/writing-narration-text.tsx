@@ -9,16 +9,22 @@ export function WritingNarrationText({
   text: string;
   className?: string;
 }) {
-  let wordIndex = 0;
+  const parts = text.split(/(\s+)/u);
+
   return (
     <>
-      {text.split(/(\s+)/u).map((part, index) => {
+      {parts.map((part, index) => {
         if (!part) return null;
         if (/^\s+$/u.test(part)) {
           return <Fragment key={`space-${index}`}>{part}</Fragment>;
         }
+
+        const wordIndex = parts
+          .slice(0, index)
+          .filter((candidate) => candidate && !/^\s+$/u.test(candidate))
+          .length;
         const cueId = `${segmentId}:${wordIndex}`;
-        wordIndex += 1;
+
         return (
           <span
             key={cueId}
