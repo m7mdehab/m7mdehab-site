@@ -506,6 +506,7 @@
 }
 
 .visualStage {
+  height: clamp(270px, 21vw, 320px);
   margin-top: clamp(36px, 4vw, 52px);
   overflow: hidden;
   border: 1px solid var(--line);
@@ -516,11 +517,13 @@
 
 .visualAnchor {
   min-width: 0;
+  height: 100%;
 }
 
 .visualAnchor > * {
+  height: 100%;
+  min-height: 0;
   margin: 0;
-  min-height: clamp(420px, 43vw, 620px);
   border-radius: 0;
 }
 
@@ -902,12 +905,14 @@
   }
 
   .visualStage {
+    height: 240px;
     margin-top: 30px;
     border-radius: 14px;
   }
 
   .visualAnchor > * {
-    min-height: 390px;
+    height: 100%;
+    min-height: 0;
   }
 
   .evidenceIntro {
