@@ -22,13 +22,34 @@
   font-weight: 760;
 }
 
-.identity span,
+.identity > span,
 .timeline span,
 .speed span,
-.voice span {
+.voice span,
+.follow span {
   color: var(--muted);
   font-size: 10px;
   line-height: 1.35;
+}
+
+.follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.follow input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.follow input:disabled + span {
+  opacity: .52;
 }
 
 .controls {
@@ -63,6 +84,7 @@
 }
 
 .controls button:focus-visible,
+.follow input:focus-visible,
 .timeline input:focus-visible,
 .speed select:focus-visible,
 .voice select:focus-visible {
