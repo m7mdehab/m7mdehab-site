@@ -137,6 +137,22 @@ export type WritingNarrationSegment = {
   prefix?: string;
 };
 
+function narrationListPrefix(index: number) {
+  const ordinals = [
+    "First.",
+    "Second.",
+    "Third.",
+    "Fourth.",
+    "Fifth.",
+    "Sixth.",
+    "Seventh.",
+    "Eighth.",
+    "Ninth.",
+    "Tenth.",
+  ] as const;
+  return ordinals[index] ?? `Item ${index + 1}.`;
+}
+
 function writingBlockNarrationSegments(
   block: WritingBlock,
   sectionIndex: number,
@@ -150,7 +166,7 @@ function writingBlockNarrationSegments(
       return block.items.map((item, itemIndex) => ({
         id: `${base}-bullet-${itemIndex}`,
         text: item,
-        prefix: "Bullet point.",
+        prefix: narrationListPrefix(itemIndex),
       }));
     case "quote":
       return [
@@ -209,7 +225,7 @@ export function getWritingNarrationSegments(
       segments.push({
         id: `section-${sectionIndex}-bullet-${bulletIndex}`,
         text: bullet,
-        prefix: "Bullet point.",
+        prefix: narrationListPrefix(bulletIndex),
       });
     });
     section.blocks?.forEach((block, blockIndex) => {
@@ -228,7 +244,7 @@ export function getWritingNarrationSegments(
       segments.push({
         id: `takeaway-${takeawayIndex}`,
         text: takeaway,
-        prefix: "Takeaway.",
+        prefix: narrationListPrefix(takeawayIndex),
       });
     });
   }

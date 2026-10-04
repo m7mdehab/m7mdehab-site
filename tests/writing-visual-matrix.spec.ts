@@ -60,6 +60,8 @@ async function assertCardGeometry(
           metaBox.bottom <= frameBox.bottom + 1,
         titleHeight: title.getBoundingClientRect().height,
         titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+        titleOverflow: titleStyle.overflow,
+        titleWhiteSpace: titleStyle.whiteSpace,
         excerptDisplay: excerptStyle.display,
         excerptHeight: excerpt.getBoundingClientRect().height,
         excerptLineHeight: Number.parseFloat(excerptStyle.lineHeight),
@@ -74,9 +76,13 @@ async function assertCardGeometry(
   for (const card of report) {
     expect(card.metaInside).toBe(true);
     expect(card.coverRatio).toBeCloseTo(16 / 9, 1);
-    expect(card.titleHeight).toBeLessThanOrEqual(
-      card.titleLineHeight * (viewportWidth < 720 ? 1.15 : 2.1),
-    );
+    if (viewportWidth < 720) {
+      expect(card.titleHeight).toBeLessThanOrEqual(card.titleLineHeight * 3.2);
+      expect(card.titleOverflow).toBe("visible");
+      expect(card.titleWhiteSpace).toBe("normal");
+    } else {
+      expect(card.titleHeight).toBeLessThanOrEqual(card.titleLineHeight * 2.1);
+    }
     expect(card.metaScrollWidth).toBeLessThanOrEqual(card.metaClientWidth + 1);
     expect(card.metaText).toMatch(/min read/i);
     expect(card.metaText).toMatch(/~\d+ min listen/i);

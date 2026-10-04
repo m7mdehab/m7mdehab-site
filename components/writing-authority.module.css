@@ -9,8 +9,9 @@
 }
 
 .narrationWord[data-narration-active="true"] {
-  background: color-mix(in srgb, var(--ink) 13%, transparent);
-  box-shadow: 0 0 0 .12em color-mix(in srgb, var(--ink) 13%, transparent);
+  color: color-mix(in srgb, #6546c8 82%, var(--ink));
+  background: color-mix(in srgb, #7c5cff 18%, transparent);
+  box-shadow: 0 0 0 .12em color-mix(in srgb, #7c5cff 18%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -92,7 +93,7 @@
   max-width: 20ch;
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(2.1rem, 2.6vw, 3.15rem);
+  font-size: clamp(2.75rem, 3.6vw, 4.25rem);
   font-weight: 430;
   line-height: .96;
   letter-spacing: -.045em;
@@ -260,7 +261,14 @@
 .takeaways ul {
   max-width: none;
   margin: 22px 0 0;
-  padding-left: 1.25rem;
+  padding-left: 1.45rem;
+  list-style: disc outside;
+}
+
+.articleSection li::marker,
+.takeaways li::marker {
+  color: color-mix(in srgb, #7c5cff 52%, var(--muted));
+  font-size: .78em;
 }
 
 .articleSection li,

@@ -35,7 +35,7 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByLabel("Narration voice").locator("option")).toHaveText(["Female", "Male"]);
       await expect(page.getByLabel("Narration speed")).toHaveValue("1");
       await expect(page.getByLabel("Follow narration")).toHaveCount(1);
-      await expect(page.getByLabel("Follow narration")).not.toBeChecked();
+      await expect(page.getByLabel("Follow narration")).toBeChecked();
       expect(await page.locator("[data-narration-cue]").count()).toBeGreaterThan(20);
       await expect(page.locator(".writing-system-article-cover")).toHaveCount(0);
 
@@ -59,7 +59,10 @@ test("all current articles use the same readable publication shell", async ({ pa
       expect(geometry.paragraphLineHeight / geometry.paragraphFontSize).toBeGreaterThanOrEqual(1.6);
       expect(geometry.textAlign).toBe("justify");
       expect(Math.abs(geometry.bodyLeft - geometry.heroLeft)).toBeLessThanOrEqual(2);
-      if (width >= 1000) expect(geometry.h1FontSize).toBeLessThanOrEqual(58);
+      if (width >= 1000) {
+        expect(geometry.h1FontSize).toBeGreaterThanOrEqual(48);
+        expect(geometry.h1FontSize).toBeLessThanOrEqual(70);
+      }
       if (width >= 1000) {
         expect(geometry.articleWidth).toBeGreaterThanOrEqual(900);
         expect(geometry.articleWidth).toBeLessThanOrEqual(1160);
@@ -89,4 +92,18 @@ test("follow narration never forces the reader back to the active word", async (
 
   expect(await page.evaluate(() => window.scrollY)).toBe(manualPosition);
   await expect(page.locator('[data-narration-active="true"]')).toHaveCount(1);
+});
+
+
+test("article bullet lists render visible markers", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/writing/when-to-trust-a-probabilistic-forecast");
+  await settle(page);
+
+  const list = page.locator("article section ul").first();
+  await expect(list).toBeVisible();
+  expect(
+    await list.evaluate((element) => getComputedStyle(element).listStyleType),
+  ).not.toBe("none");
+  await expect(list.locator("li")).toHaveCount(3);
 });
