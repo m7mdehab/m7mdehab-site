@@ -5,7 +5,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import ts from "typescript";
 
-const MODEL_ID = "onnx-community/Kokoro-82M-v1.0-ONNX-timestamped";
+const MODEL_ID = "shawnahmed/Kokoro-82M-v1.0-ONNX-timestamped";
 const DTYPE = "q8";
 const GENERATOR_VERSION = "kokoro-writing-v2-word-timings";
 const VOICES = {
