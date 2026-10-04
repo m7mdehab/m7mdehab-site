@@ -67,21 +67,27 @@ test("all project routes use the same governed case-study shell", async ({ page 
         const h1 = document.querySelector<HTMLElement>("main h1")!;
         const caseStudy = document.querySelector<HTMLElement>("[data-project-case-study]")!;
         const visualAnchor = document.querySelector<HTMLElement>(".case-hero-artboard-anchor")!;
+        const visualStage = document.querySelector<HTMLElement>("[data-project-visual-stage]")!;
         return {
           h1FontSize: Number.parseFloat(getComputedStyle(h1).fontSize),
           caseWidth: caseStudy.getBoundingClientRect().width,
           visualHeight: visualAnchor.getBoundingClientRect().height,
+          stageHeight: visualStage.getBoundingClientRect().height,
+          stageWidth: visualStage.getBoundingClientRect().width,
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         };
       });
 
       expect(geometry.overflow).toBeLessThanOrEqual(1);
       if (width >= 1000) {
-        expect(geometry.visualHeight).toBeLessThanOrEqual(245);
+        expect(geometry.stageHeight).toBeLessThanOrEqual(161);
+        expect(geometry.stageWidth).toBeLessThanOrEqual(721);
+        expect(geometry.visualHeight).toBeLessThanOrEqual(161);
         expect(geometry.h1FontSize).toBeGreaterThanOrEqual(46);
         expect(geometry.h1FontSize).toBeLessThanOrEqual(82);
       } else {
-        expect(geometry.visualHeight).toBeLessThanOrEqual(205);
+        expect(geometry.stageHeight).toBeLessThanOrEqual(161);
+        expect(geometry.visualHeight).toBeLessThanOrEqual(161);
       }
 
       const contents = page.getByRole("navigation", { name: "Case study contents" });
