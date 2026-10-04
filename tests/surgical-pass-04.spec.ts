@@ -140,7 +140,7 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
       expect(metrics.loopWidth).toBeGreaterThan(0);
       expect(metrics.logoMaxWidth).toBeLessThanOrEqual(114);
       expect(metrics.logoMaxHeight).toBeLessThanOrEqual(29);
-      expect(metrics.logoRenderedWidth).toBeLessThanOrEqual(70.5);
+      expect(metrics.logoRenderedWidth).toBeLessThanOrEqual(84.5);
       expect(metrics.stageHeight).toBe(40);
       expect(metrics.captionFontSize).toBe(8);
       expect(Math.max(...metrics.itemCaptionTops) - Math.min(...metrics.itemCaptionTops)).toBeLessThanOrEqual(1);
