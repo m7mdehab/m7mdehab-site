@@ -110,6 +110,10 @@ test.describe("Phase G closing system", () => {
         subtitleClient: subtitle.clientWidth,
         titleHeight: firstTitle.getBoundingClientRect().height,
         titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+        titleClientHeight: firstTitle.clientHeight,
+        titleScrollHeight: firstTitle.scrollHeight,
+        titleOverflow: titleStyle.overflow,
+        titleWhiteSpace: titleStyle.whiteSpace,
       };
     });
 
@@ -118,7 +122,11 @@ test.describe("Phase G closing system", () => {
     expect(compactGeometry.headingScroll).toBeLessThanOrEqual(compactGeometry.headingClient + 1);
     expect(compactGeometry.subtitleHeight).toBeLessThanOrEqual(compactGeometry.subtitleLineHeight + 2);
     expect(compactGeometry.subtitleScroll).toBeLessThanOrEqual(compactGeometry.subtitleClient + 1);
-    expect(compactGeometry.titleHeight).toBeLessThanOrEqual(compactGeometry.titleLineHeight * 1.15);
+    expect(compactGeometry.titleScrollHeight).toBeLessThanOrEqual(
+      compactGeometry.titleClientHeight + 1,
+    );
+    expect(compactGeometry.titleOverflow).toBe("visible");
+    expect(compactGeometry.titleWhiteSpace).not.toBe("nowrap");
 
     await expect(page.locator(".closing-path")).toHaveCount(3);
     await noHorizontalOverflow(page);
