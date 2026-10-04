@@ -55,6 +55,44 @@ test.describe("Phase H About architecture", () => {
     await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-1440.png"), fullPage: true });
   });
 
+  test("About logos stay optically contained without white cards", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/about");
+    await settle(page);
+
+    const report = await page.locator(".about-v2-logo, .about-v2-issuer-mark").evaluateAll((marks) =>
+      marks.map((mark) => {
+        const rect = mark.getBoundingClientRect();
+        const style = getComputedStyle(mark);
+        const image = mark.querySelector<HTMLImageElement>("img");
+        const imageRect = image?.getBoundingClientRect();
+        return {
+          background: style.backgroundColor,
+          overflow:
+            imageRect
+              ? imageRect.left < rect.left - 1 ||
+                imageRect.right > rect.right + 1 ||
+                imageRect.top < rect.top - 1 ||
+                imageRect.bottom > rect.bottom + 1
+              : false,
+          imageLoaded: image ? image.naturalWidth > 0 : true,
+        };
+      }),
+    );
+
+    expect(report.length).toBeGreaterThanOrEqual(8);
+    expect(report.every((item) => item.background === "rgba(0, 0, 0, 0)")).toBeTruthy();
+    expect(report.every((item) => !item.overflow)).toBeTruthy();
+    expect(report.every((item) => item.imageLoaded)).toBeTruthy();
+
+    await expect(page.locator(".about-v2-databricks img")).toHaveAttribute(
+      "src",
+      "/brand/databricks.svg",
+    );
+    await expect(page.locator(".about-v2-mckinsey-name")).toHaveText("McKinsey");
+    await expect(page.locator(".about-v2-mckinsey-forward")).toHaveText("Forward");
+  });
+
   test("About passes axe on desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/about");
