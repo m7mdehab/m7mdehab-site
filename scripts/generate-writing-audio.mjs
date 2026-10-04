@@ -7,7 +7,7 @@ import ts from "typescript";
 
 const MODEL_ID = "shawnahmed/Kokoro-82M-v1.0-ONNX-timestamped";
 const DTYPE = "q8";
-const GENERATOR_VERSION = "kokoro-writing-v2-word-timings";
+const GENERATOR_VERSION = "kokoro-writing-v3-natural-lists";
 const VOICES = {
   female: {
     kokoroVoice: "af_heart",
