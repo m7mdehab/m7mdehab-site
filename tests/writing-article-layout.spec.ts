@@ -34,6 +34,9 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByLabel("Narration voice")).toHaveValue("female");
       await expect(page.getByLabel("Narration voice").locator("option")).toHaveText(["Female", "Male"]);
       await expect(page.getByLabel("Narration speed")).toHaveValue("1");
+      await expect(page.getByLabel("Follow narration")).toHaveCount(1);
+      await expect(page.getByLabel("Follow narration")).not.toBeChecked();
+      expect(await page.locator("[data-narration-cue]").count()).toBeGreaterThan(20);
       await expect(page.locator(".writing-system-article-cover")).toHaveCount(0);
 
       const geometry = await page.evaluate(() => {
@@ -68,4 +71,22 @@ test("all current articles use the same readable publication shell", async ({ pa
       await page.screenshot({ path: path.join(output, `${slug}-${width}.png`), fullPage: true });
     }
   }
+});
+
+test("follow narration never forces the reader back to the active word", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/writing/when-to-trust-a-probabilistic-forecast");
+  await settle(page);
+
+  await page.evaluate(() => window.scrollTo({ top: 700, behavior: "instant" }));
+  const manualPosition = await page.evaluate(() => window.scrollY);
+  expect(manualPosition).toBeGreaterThan(0);
+
+  await page.evaluate(() => {
+    const first = document.querySelector<HTMLElement>("[data-narration-cue]");
+    first?.setAttribute("data-narration-active", "true");
+  });
+
+  expect(await page.evaluate(() => window.scrollY)).toBe(manualPosition);
+  await expect(page.locator('[data-narration-active="true"]')).toHaveCount(1);
 });
