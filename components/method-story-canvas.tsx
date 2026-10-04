@@ -336,11 +336,11 @@ function OutputRow({
 
 
 const MOBILE_STAGE_DESCRIPTIONS = {
-  messy: "Fragmented inputs are gathered into one visible problem.",
-  expose: "Evidence, constraints and unknowns are separated before action.",
-  reduce: "Fuzzy requests are converted into explicit decisions.",
-  build: "A minimal system is assembled around the clarified path.",
-  outcomes: "Validated, usable and ready for real work.",
+  messy: "Four fragmented inputs converge into one shared problem signal.",
+  expose: "Evidence is separated from constraints and unresolved unknowns.",
+  reduce: "One explicit decision replaces competing interpretations.",
+  build: "The decision becomes a compact system with only what the work needs.",
+  outcomes: "Five dependable outputs emerge from one governed path.",
 } as const;
 
 function MobileProgressCue() {
