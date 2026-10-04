@@ -35,7 +35,7 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
       };
     });
 
-    expect(metrics.src).toContain("data:image/webp");
+    expect(metrics.src).toContain("/logos/network-international.png");
     expect(metrics.naturalWidth).toBe(140);
     expect(metrics.naturalHeight).toBe(32);
     expect(metrics.renderedWidth).toBeLessThanOrEqual(84.5);
