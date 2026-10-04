@@ -35,17 +35,45 @@ test.describe("Phase H About architecture", () => {
     const response = await page.goto("/about");
     expect(response?.ok()).toBeTruthy();
     await settle(page);
-    await expect(page.getByRole("heading", { level: 1, name: "The through-line matters more than titles." })).toBeVisible();
+    const heroHeading = page.getByRole("heading", { level: 1, name: "The through-line matters more than titles." });
+    await expect(heroHeading).toBeVisible();
+    await expect(heroHeading.locator("span")).toHaveCount(2);
     await expect(page.getByText("Network International", { exact: true }).first()).toBeVisible();
     await expect(page.getByText("Business Analyst Team Lead", { exact: true })).toBeVisible();
     await expect(page.getByText("Data Analyst & Supply Chain Analyst", { exact: true })).toBeVisible();
     await expect(page.getByText("Orcas Online", { exact: true })).toBeVisible();
     await expect(page.getByText("Pharaonic Petroleum Company (PhPC)", { exact: true })).toBeVisible();
     await expect(page.getByText("Canadian International College", { exact: true }).first()).toBeVisible();
+    await expect(page.getByText(/Manarat Jeddah International Schools/)).toBeVisible();
     await expect(page.getByText("Databricks", { exact: true }).first()).toBeVisible();
     await expect(page.getByText("McKinsey Academy", { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Tools grouped by the problems they help solve." })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Make the truth visible." })).toBeVisible();
+    const learningColumns = page.locator(".about-v2-learning-grid > div");
+    await expect(learningColumns.nth(0).locator(".about-v2-subhead")).toHaveText("Credentials");
+    await expect(learningColumns.nth(1).locator(".about-v2-subhead")).toHaveText("Education");
+
+    const headingLayout = await page.locator(".about-v2-section-head").evaluateAll((heads) =>
+      heads.map((head) => {
+        const kicker = head.querySelector<HTMLElement>(".about-v2-section-kicker")!;
+        const title = head.querySelector<HTMLElement>(".about-v2-section-title h2")!;
+        return {
+          deltaX: Math.abs(kicker.getBoundingClientRect().left - title.getBoundingClientRect().left),
+        };
+      }),
+    );
+    expect(headingLayout.every((item) => item.deltaX <= 1)).toBeTruthy();
+
+    const titleLines = await page
+      .locator(".about-v2-hero-copy h1, .about-v2-section-title h2, .about-v2-close h2")
+      .evaluateAll((titles) =>
+        titles.map((title) => {
+          const style = getComputedStyle(title);
+          const lineHeight = Number.parseFloat(style.lineHeight);
+          return Math.ceil(title.getBoundingClientRect().height / lineHeight - 0.05);
+        }),
+      );
+    expect(titleLines.every((lines) => lines <= 2)).toBeTruthy();
     await expect(page.getByText("WordPress", { exact: true })).toHaveCount(0);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://m7mdehab.com/about");
     await expect(page.locator('link[rel="alternate"][hreflang="ar"]')).toHaveCount(0);
