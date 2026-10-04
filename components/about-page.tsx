@@ -160,7 +160,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="about-v2-section about-v2-career">
+      <section id="career" className="about-v2-section about-v2-career">
         <div className="shell">
           <AboutSectionHead
             index="01"
