@@ -138,6 +138,16 @@ test.describe("Phase H About architecture", () => {
     await expectNoHorizontalOverflow(page);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.getByText("Data Engineer", { exact: true }).first()).toBeVisible();
+    const mobileTitleLines = await page
+      .locator(".about-v2-hero-copy h1, .about-v2-section-title h2, .about-v2-close h2")
+      .evaluateAll((titles) =>
+        titles.map((title) => {
+          const style = getComputedStyle(title);
+          const lineHeight = Number.parseFloat(style.lineHeight);
+          return Math.ceil(title.getBoundingClientRect().height / lineHeight - 0.05);
+        }),
+      );
+    expect(mobileTitleLines.every((lines) => lines <= 2)).toBeTruthy();
     await mkdir(artifactRoot, { recursive: true });
     await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-390.png"), fullPage: true });
   });
