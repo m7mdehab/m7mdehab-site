@@ -2408,8 +2408,8 @@
     align-self: end;
     max-width: 288px;
     margin: 0 10px 8px;
-    color: rgba(169, 179, 173, 0.74);
-    font-size: 9px;
+    color: rgba(169, 179, 173, 0.82);
+    font-size: 9.5px;
     font-weight: 480;
     line-height: 1.42;
     letter-spacing: -0.008em;
@@ -2421,7 +2421,7 @@
     max-width: 238px;
     margin-bottom: 9px;
     text-align: center;
-    font-size: 8.5px;
+    font-size: 9px;
   }
 
   /* Expose: enlarge and vertically spread the sheets so the convergence fan
