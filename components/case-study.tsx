@@ -79,7 +79,6 @@ export function ProjectCaseStudy({
           <div
             className={styles.visualStage}
             data-project-visual-stage
-            style={{ width: "min(720px, 100%)", height: "160px", maxHeight: "160px" }}
           >
             <div
               className={"case-hero-artboard-anchor " + styles.visualAnchor}
