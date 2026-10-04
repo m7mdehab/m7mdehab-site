@@ -1989,3 +1989,387 @@
     opacity: 0.82;
   }
 }
+
+
+/* Mobile Method Story final seam pass — keep the accepted desktop/tablet
+   composition untouched while making the phone story one continuous canvas. */
+.method-story__mobile-title-break {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  /* One paint field from the intro through stage 05. No nested panel tint. */
+  .method-story {
+    padding: 46px 0 54px;
+    background: var(--method-bg);
+  }
+
+  .method-story__mobile-title-break {
+    display: block;
+  }
+
+  .method-story__intro h2 {
+    max-width: none;
+    font-size: clamp(25px, 7.6vw, 31px);
+    line-height: 1;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  .method-story__support {
+    width: 100%;
+    max-width: none;
+    margin-top: 10px;
+    font-size: 10.5px;
+    line-height: 1.36;
+    letter-spacing: -0.012em;
+    text-wrap: pretty;
+  }
+
+  .method-story__mobile-track {
+    height: 380svh;
+    margin-top: 22px;
+  }
+
+  .method-story__mobile-sticky {
+    top: 62px;
+    height: calc(100svh - 74px);
+    min-height: 548px;
+    grid-template-rows: 30px minmax(0, 1fr);
+    gap: 8px;
+    background: transparent;
+    border-color: rgba(186, 226, 205, 0.07);
+    contain: paint;
+  }
+
+  .method-story__mobile-progress {
+    padding-inline: 2px;
+  }
+
+  .method-story__mobile-progress-node {
+    width: 22px;
+    height: 22px;
+    font-size: 7px;
+    background: var(--method-bg);
+  }
+
+  .method-story__mobile-swipe-cue {
+    position: absolute;
+    z-index: 6;
+    top: 35px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    color: rgba(184, 242, 213, 0.72);
+    font-size: 7.5px;
+    font-weight: 720;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    pointer-events: none;
+    will-change: opacity, transform;
+  }
+
+  .method-story__mobile-swipe-cue span {
+    color: var(--method-accent-bright);
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .method-story__mobile-window {
+    contain: paint;
+  }
+
+  .method-story__mobile-rail {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .method-story__mobile-stage {
+    padding: 14px 0 18px;
+    contain: paint;
+  }
+
+  .method-story__mobile-stage + .method-story__mobile-stage {
+    border-left: 0;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head {
+    min-height: 68px;
+    padding: 0 8px;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head > span {
+    margin-bottom: 5px;
+    font-size: 8px;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head h3 {
+    margin-bottom: 5px;
+    font-size: 19px;
+  }
+
+  .method-story__mobile-stage .method-story__stage-head p {
+    max-width: 300px;
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .method-story__mobile-visual,
+  .method-story__mobile-stage .method-story__input-field,
+  .method-story__mobile-stage .method-story__evidence-field,
+  .method-story__mobile-stage .method-story__decision-field,
+  .method-story__mobile-stage .method-story__build-field {
+    height: 320px;
+  }
+
+  .method-story__mobile-connectors {
+    overflow: hidden;
+  }
+
+  .method-story__mobile-path {
+    stroke-width: 1.05;
+    opacity: 0.5;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .method-story__mobile-path--hot {
+    stroke-width: 1.35;
+    opacity: 0.96;
+  }
+
+  .method-story__mobile-node {
+    vector-effect: non-scaling-stroke;
+  }
+
+  /* Messy: smaller cards, exact measured edge-center fan, one shared exit. */
+  .method-story__mobile-stage--messy .method-story__input-position--1 {
+    left: 5%;
+    top: 24px;
+    width: 43%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-position--2 {
+    left: 19%;
+    top: 84px;
+    width: 49%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-position--3 {
+    left: 7%;
+    top: 151px;
+    width: 43%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-position--4 {
+    left: 28%;
+    top: 216px;
+    width: 46%;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-card {
+    min-height: 42px;
+    padding: 8px 10px;
+  }
+
+  .method-story__mobile-stage--messy .method-story__input-card strong {
+    font-size: 9.5px;
+  }
+
+  .method-story__mobile-stage--messy .method-story__micro-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Expose: the incoming signal reaches the stack, then ten sheet-edge
+     samples converge once. The fan is never recreated in stage 03. */
+  .method-story__mobile-stage--expose .method-story__stage-symbol {
+    left: 7px;
+    top: 45px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-stack {
+    left: 12%;
+    right: 14%;
+    top: 74px;
+    height: 172px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet {
+    width: 58%;
+    height: 86px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--1 {
+    left: 0;
+    top: 64px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--2 {
+    left: 8%;
+    top: 48px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--3 {
+    left: 16%;
+    top: 32px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--4 {
+    left: 24%;
+    top: 16px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-sheet--5 {
+    left: 32%;
+    top: 0;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag {
+    padding: 7px 9px;
+    font-size: 9px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--mint {
+    left: 6%;
+    top: 22px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--teal {
+    right: 3%;
+    top: 28px;
+  }
+
+  .method-story__mobile-stage--expose .method-story__evidence-tag--amber {
+    right: 6%;
+    bottom: 16px;
+  }
+
+  /* Reduce: one signal enters the decision object and one signal exits.
+     There is deliberately no second convergence fan here. */
+  .method-story__mobile-stage--reduce .method-story__decision-module {
+    left: 57%;
+    top: 80px;
+    width: 82px;
+    min-height: 160px;
+    padding: 16px 12px;
+    gap: 11px;
+  }
+
+  .method-story__mobile-stage--reduce .method-story__decision-module svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Build: only the system lives in stage 04. The five-node output bus is
+     owned exclusively by stage 05 so it cannot appear twice at the seam. */
+  .method-story__mobile-stage--build .method-story__system-stack {
+    left: 28%;
+    top: 30px;
+    width: 116px;
+    height: 260px;
+    transform: scale(0.92);
+  }
+
+  /* Outcomes: the single incoming line lands on the only five-node bus,
+     and each branch terminates at the exact left-edge center of its row. */
+  .method-story__mobile-stage--outcomes .method-story__outputs {
+    left: 24%;
+    right: 0;
+    top: 46px;
+    gap: 7px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-row {
+    min-height: 40px;
+    height: 40px;
+    padding: 6px 8px;
+    grid-template-columns: 17px 16px minmax(0, 1fr);
+    gap: 6px;
+    border-radius: 9px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-row strong {
+    font-size: 9.5px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-check {
+    width: 16px;
+    height: 16px;
+  }
+
+  .method-story__mobile-stage--outcomes .method-story__output-check svg,
+  .method-story__mobile-stage--outcomes .method-story__micro-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .method-story__mobile-next {
+    margin-right: 8px;
+    font-size: 7px;
+  }
+
+  .method-story__mobile-complete {
+    display: none;
+  }
+
+  .method-story__mobile-stage-cta {
+    align-self: end;
+    justify-self: center;
+    display: grid;
+    justify-items: center;
+    gap: 9px;
+    padding-bottom: 2px;
+    will-change: opacity, transform;
+  }
+
+  .method-story__mobile-stage-cta a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid rgba(145, 225, 189, 0.58);
+    border-radius: 999px;
+    color: #edf4f0;
+    font-size: 10.5px;
+    font-weight: 720;
+  }
+
+  .method-story__mobile-stage-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    color: var(--method-dim);
+    font-size: 7.5px;
+    font-weight: 760;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .method-story__mobile-stage-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--method-accent);
+    box-shadow:
+      0 0 0 4px rgba(145, 225, 189, 0.06),
+      0 0 12px rgba(145, 225, 189, 0.34);
+  }
+
+  /* Stage 05 owns the phone CTA/status. Do not require an extra scroll into
+     the desktop footer, and do not repeat DECISION-READY. */
+  .method-story__footer {
+    display: none;
+  }
+
+  .method-story__mobile-track[data-motion-mode="reduced"] .method-story__mobile-swipe-cue {
+    display: none;
+  }
+}
