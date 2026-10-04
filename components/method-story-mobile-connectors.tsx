@@ -341,6 +341,7 @@ export function MethodStoryMobileConnectors({
               ? "method-story__mobile-path method-story__mobile-path--hot"
               : "method-story__mobile-path"
           }
+          data-mobile-path={path.key}
           data-mobile-handoff={path.handoff}
         />
       ))}
@@ -355,6 +356,7 @@ export function MethodStoryMobileConnectors({
               ? "method-story__mobile-node method-story__mobile-node--hot"
               : "method-story__mobile-node"
           }
+          data-mobile-node={node.key}
         />
       ))}
     </svg>
