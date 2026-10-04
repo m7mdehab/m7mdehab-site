@@ -263,6 +263,11 @@ test.describe("Method story rebuild", () => {
     await expect(cues.first()).toHaveText("↓");
     await expect(section.getByText("Swipe down to progress")).toHaveCount(0);
     await expect(section.locator(".method-story__mobile-description")).toHaveCount(5);
+    await expect(section.locator(".method-story__mobile-description span")).toHaveCount(15);
+    const cueFontSize = await cues.first().evaluate((element) =>
+      Number.parseFloat(getComputedStyle(element).fontSize),
+    );
+    expect(cueFontSize).toBeGreaterThanOrEqual(16);
 
     // Messy Reality must leave each rotated card from its true transformed
     // right-edge midpoint, then stay clear of every sibling card.
@@ -332,6 +337,42 @@ test.describe("Method story rebuild", () => {
       const rect = await readLocalRect(visual, section.locator(selector));
       expect(Math.abs(rect.centerX - width / 2)).toBeLessThanOrEqual(4);
     }
+
+    // Build must visibly touch the middle system layer on both sides while
+    // preserving the shared viewport handoff axis.
+    const buildVisual = section.locator(".method-story__mobile-visual--build");
+    const buildIn = section.locator(
+      '[data-mobile-connectors="build"] [data-mobile-path="build-in"]',
+    );
+    const buildOutPath = section.locator(
+      '[data-mobile-connectors="build"] [data-mobile-path="build-out"]',
+    );
+    const buildFrontRect = await readLocalRect(
+      buildVisual,
+      section.locator(
+        '[data-method-stage="build"] .method-story__system-layer--2 .method-story__system-front',
+      ),
+    );
+    const buildSideRect = await readLocalRect(
+      buildVisual,
+      section.locator(
+        '[data-method-stage="build"] .method-story__system-layer--2 .method-story__system-side',
+      ),
+    );
+    const buildInEndpoints = await readSvgPathEndpoints(buildIn);
+    const buildOutEndpoints = await readSvgPathEndpoints(buildOutPath);
+    expect(
+      pointError(buildInEndpoints.end, {
+        x: buildFrontRect.left,
+        y: buildFrontRect.centerY,
+      }),
+    ).toBeLessThanOrEqual(1);
+    expect(
+      pointError(buildOutEndpoints.start, {
+        x: buildSideRect.right,
+        y: buildSideRect.centerY,
+      }),
+    ).toBeLessThanOrEqual(1);
 
     const outcomeVisual = section.locator(
       ".method-story__mobile-visual--outcomes",
