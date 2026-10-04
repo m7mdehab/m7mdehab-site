@@ -77,11 +77,11 @@ test("all project routes use the same governed case-study shell", async ({ page 
 
       expect(geometry.overflow).toBeLessThanOrEqual(1);
       if (width >= 1000) {
-        expect(geometry.visualHeight).toBeLessThanOrEqual(205);
+        expect(geometry.visualHeight).toBeLessThanOrEqual(245);
         expect(geometry.h1FontSize).toBeGreaterThanOrEqual(46);
         expect(geometry.h1FontSize).toBeLessThanOrEqual(82);
       } else {
-        expect(geometry.visualHeight).toBeLessThanOrEqual(245);
+        expect(geometry.visualHeight).toBeLessThanOrEqual(205);
       }
 
       const contents = page.getByRole("navigation", { name: "Case study contents" });
