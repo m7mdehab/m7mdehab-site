@@ -506,7 +506,7 @@
 }
 
 .visualStage {
-  height: clamp(270px, 21vw, 320px);
+  height: clamp(210px, 16vw, 240px);
   margin-top: clamp(36px, 4vw, 52px);
   overflow: hidden;
   border: 1px solid var(--line);
@@ -905,7 +905,7 @@
   }
 
   .visualStage {
-    height: 240px;
+    height: clamp(170px, 48vw, 200px);
     margin-top: 30px;
     border-radius: 14px;
   }
