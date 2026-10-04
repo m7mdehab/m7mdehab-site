@@ -133,7 +133,10 @@ export function AboutPage() {
           <div className="about-v2-hero-grid">
             <Reveal className="about-v2-hero-copy">
               <p className="about-v2-eyebrow">THE THROUGH-LINE</p>
-              <h1>{aboutIntro.headline}</h1>
+              <h1 aria-label={aboutIntro.headline}>
+                <span aria-hidden="true">The through-line matters</span>{" "}
+                <span aria-hidden="true">more than titles.</span>
+              </h1>
               <p className="about-v2-intro">{aboutIntro.body}</p>
               <div className="about-v2-hero-links">
                 <Link href="/work">
@@ -254,6 +257,24 @@ export function AboutPage() {
 
           <div className="about-v2-learning-grid">
             <div>
+              <p className="about-v2-subhead">Credentials</p>
+              <div className="about-v2-ledger">
+                {aboutCertifications.map((item) => (
+                  <Reveal as="article" key={item.name} className="about-v2-ledger-row about-v2-cert-row">
+                    <span>{item.year}</span>
+                    <div className="about-v2-ledger-main">
+                      <h3>{item.name}</h3>
+                      <p>{item.issuer}</p>
+                    </div>
+                    <div className="about-v2-ledger-end">
+                      <OrganizationMark name={item.issuer} quiet />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+
+            <div>
               <p className="about-v2-subhead">Education</p>
               <div className="about-v2-ledger">
                 {aboutEducation.map((item) => (
@@ -266,24 +287,6 @@ export function AboutPage() {
                     <div className="about-v2-ledger-end">
                       <OrganizationMark name={item.institution} quiet />
                       <strong>{item.detail}</strong>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="about-v2-subhead">Credentials</p>
-              <div className="about-v2-ledger">
-                {aboutCertifications.map((item) => (
-                  <Reveal as="article" key={item.name} className="about-v2-ledger-row about-v2-cert-row">
-                    <span>{item.year}</span>
-                    <div className="about-v2-ledger-main">
-                      <h3>{item.name}</h3>
-                      <p>{item.issuer}</p>
-                    </div>
-                    <div className="about-v2-ledger-end">
-                      <OrganizationMark name={item.issuer} quiet />
                     </div>
                   </Reveal>
                 ))}
