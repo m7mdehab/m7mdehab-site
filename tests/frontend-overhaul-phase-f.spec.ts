@@ -165,6 +165,70 @@ test.describe("Method story rebuild", () => {
     });
   });
 
+  test("mobile sticky story keeps a continuous left-to-right signal across all five states", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    await settle(page);
+
+    const section = page.locator("[data-method-story]");
+    const connectors = section.locator("[data-mobile-connectors]");
+    await expect(connectors).toHaveCount(5);
+
+    for (const stage of ["messy", "expose", "reduce", "build", "outcomes"]) {
+      await expect(
+        section.locator(`[data-mobile-connectors="${stage}"]`),
+      ).toHaveCount(1);
+    }
+
+    await expect(
+      section.locator('[data-mobile-connectors="messy"] [data-mobile-handoff="out"]'),
+    ).toHaveCount(1);
+
+    for (const stage of ["expose", "reduce", "build"]) {
+      const connector = section.locator(`[data-mobile-connectors="${stage}"]`);
+      await expect(connector.locator('[data-mobile-handoff="in"]')).toHaveCount(1);
+      await expect(connector.locator('[data-mobile-handoff="out"]')).toHaveCount(1);
+    }
+
+    await expect(
+      section.locator('[data-mobile-connectors="outcomes"] [data-mobile-handoff="in"]'),
+    ).toHaveCount(1);
+
+    const handoffPaths = section.locator("[data-mobile-handoff]");
+    const handoffGeometry = await handoffPaths.evaluateAll((paths) =>
+      paths.map((path) => {
+        const svgPath = path as SVGPathElement;
+        const length = svgPath.getTotalLength();
+        const startPoint = svgPath.getPointAtLength(0);
+        const endPoint = svgPath.getPointAtLength(length);
+        return {
+          direction: path.getAttribute("data-mobile-handoff"),
+          start: { x: startPoint.x, y: startPoint.y },
+          end: { x: endPoint.x, y: endPoint.y },
+        };
+      }),
+    );
+
+    for (const path of handoffGeometry) {
+      if (path.direction === "in") {
+        expect(Math.abs(path.start.x)).toBeLessThanOrEqual(0.01);
+        expect(Math.abs(path.start.y - 175)).toBeLessThanOrEqual(0.01);
+      } else {
+        expect(Math.abs(path.end.x - 350)).toBeLessThanOrEqual(0.01);
+        expect(Math.abs(path.end.y - 175)).toBeLessThanOrEqual(0.01);
+      }
+    }
+
+    const buildNodes = section.locator(
+      '[data-mobile-connectors="build"] circle',
+    );
+    await expect(buildNodes).toHaveCount(5);
+
+    await expectNoHorizontalOverflow(page);
+  });
+
   test("captures all five normal-motion mobile story states", async ({ page }) => {
     await mkdir(screenshotRoot, { recursive: true });
     await page.setViewportSize({ width: 390, height: 844 });

@@ -62,25 +62,26 @@ The site is a custom synthesis of multiple references. Do not reskin one templat
 
 ## Current method-story rebuild
 
-The base Method Story is live. The active follow-up is **Desktop Pass 02 precision geometry** on branch `method-story-desktop-pass-02-setup`.
+The desktop Method Story is accepted and must remain unchanged. The active follow-up is **Mobile Pass 02 — connected sticky narrative** on branch `method-story-mobile-pass-02`.
 
-Before touching the Method Story in this pass, read:
-1. `docs/frontend-overhaul/METHOD_STORY_DESKTOP_PASS_02_EXECUTION.md`;
-2. `docs/frontend-overhaul/METHOD_STORY_DESKTOP_PASS_02_LUNA_PROMPT.md`;
-3. `components/method-story-connector-geometry.ts`;
-4. `components/use-method-story-desktop-geometry.ts`;
-5. `components/method-story-desktop-connectors.tsx`.
+For this mobile pass:
+- vertical page scroll drives one sticky five-stage horizontal story below 720px;
+- keep the five full-width stages on one horizontal rail;
+- preserve the same narrative order: Messy → Expose → Reduce → Build → Reliable outcomes;
+- maintain one continuous centerline handoff across stage boundaries;
+- mobile connector overlays animate, but internal cards/sheets/system modules stay geometrically stable so connector attachment never drifts;
+- keep the persistent 01→05 progress indicator;
+- preserve the complete reduced-motion static fallback;
+- do not modify accepted desktop/tablet geometry, measured desktop connectors, copy, or stage order;
+- use existing `motion/react`; add no new runtime dependency;
+- no touch-only horizontal-scroll requirement: normal vertical scrolling remains the primary control;
+- no scroll hijacking beyond the bounded sticky section; once stage 05 completes, release the page naturally.
 
-For this pass:
-- desktop only; do not redesign tablet/mobile;
-- exact edge-to-edge connector geometry is the primary quality bar;
-- use the prepared DOM-measured geometry system; do not return to hand-authored desktop path strings;
-- required counts are 4 Messy→Expose, 10 Expose→Reduce, 1 Reduce→Build, 5 Build→Outcome;
-- use exactly 5 build bus nodes aligned to the 5 outcome-card centers;
-- desktop title/support are single-line; the eyebrow is hidden;
-- endpoint acceptance tolerance is 2px;
-- use the existing `motion/react` dependency; do not add GSAP or any new runtime dependency;
-- preserve semantic server-rendered content and reduced-motion behavior.
+Before touching this pass, inspect:
+- `components/method-story-canvas.tsx`;
+- `components/method-story-mobile-connectors.tsx`;
+- the Mobile Method Story rules at the end of `app/method-story.css`;
+- Phase F and mobile-composition acceptance tests.
 
 ## Current writing-system rebuild
 

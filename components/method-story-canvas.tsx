@@ -28,6 +28,7 @@ import {
 } from "@/components/method-story-icons";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { MethodStoryDesktopConnectors } from "@/components/method-story-desktop-connectors";
+import { MethodStoryMobileConnectors } from "@/components/method-story-mobile-connectors";
 import { useMethodStoryDesktopGeometry } from "@/components/use-method-story-desktop-geometry";
 
 type Progress = MotionValue<number>;
@@ -397,6 +398,11 @@ function MobileMethodStory({
             >
               <StageHeader id="messy" />
               <div className="method-story__mobile-visual method-story__mobile-visual--messy">
+                <MethodStoryMobileConnectors
+                  stage="messy"
+                  progress={progress}
+                  enhanced={false}
+                />
                 <div className="method-story__input-field">
                   {METHOD_STORY.inputs.map((input, index) => (
                     <AnimatedInput
@@ -423,6 +429,11 @@ function MobileMethodStory({
             >
               <StageHeader id="expose" />
               <div className="method-story__mobile-visual method-story__mobile-visual--expose">
+                <MethodStoryMobileConnectors
+                  stage="expose"
+                  progress={progress}
+                  enhanced={false}
+                />
                 <div className="method-story__evidence-field">
                   <MethodEvidenceIcon className="method-story__stage-symbol" aria-hidden="true" />
                   <div className="method-story__evidence-stack" aria-hidden="true">
@@ -458,6 +469,11 @@ function MobileMethodStory({
             >
               <StageHeader id="reduce" />
               <div className="method-story__mobile-visual method-story__mobile-visual--reduce">
+                <MethodStoryMobileConnectors
+                  stage="reduce"
+                  progress={progress}
+                  enhanced={false}
+                />
                 <div className="method-story__decision-field">
                   <svg
                     className="method-story__decision-branches"
@@ -506,6 +522,11 @@ function MobileMethodStory({
             >
               <StageHeader id="build" />
               <div className="method-story__mobile-visual method-story__mobile-visual--build">
+                <MethodStoryMobileConnectors
+                  stage="build"
+                  progress={progress}
+                  enhanced={false}
+                />
                 <div className="method-story__build-field">
                   <div className="method-story__system-stack">
                     {[0, 1, 2].map((index) => (
@@ -534,6 +555,11 @@ function MobileMethodStory({
             >
               <StageHeader id="outcomes" />
               <div className="method-story__mobile-visual method-story__mobile-visual--outcomes">
+                <MethodStoryMobileConnectors
+                  stage="outcomes"
+                  progress={progress}
+                  enhanced={false}
+                />
                 <ul className="method-story__outputs">
                   {METHOD_STORY.outputs.map((output, index) => (
                     <OutputRow
