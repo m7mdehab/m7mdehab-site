@@ -273,6 +273,7 @@
 .takeaways li {
   margin: .75rem 0;
   padding-left: .2rem;
+  list-style: disc outside;
 }
 
 .articleBody blockquote {
