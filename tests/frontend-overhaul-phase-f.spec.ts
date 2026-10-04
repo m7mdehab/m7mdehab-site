@@ -199,23 +199,25 @@ test.describe("Method story rebuild", () => {
     const handoffPaths = section.locator("[data-mobile-handoff]");
     const handoffGeometry = await handoffPaths.evaluateAll((paths) =>
       paths.map((path) => {
-        const values = (path.getAttribute("d")?.match(/-?\\d+(?:\\.\\d+)?/g) ?? []).map(Number);
+        const svgPath = path as SVGPathElement;
+        const length = svgPath.getTotalLength();
+        const startPoint = svgPath.getPointAtLength(0);
+        const endPoint = svgPath.getPointAtLength(length);
         return {
           direction: path.getAttribute("data-mobile-handoff"),
-          start: { x: values[0], y: values[1] },
-          end: {
-            x: values[values.length - 2],
-            y: values[values.length - 1],
-          },
+          start: { x: startPoint.x, y: startPoint.y },
+          end: { x: endPoint.x, y: endPoint.y },
         };
       }),
     );
 
     for (const path of handoffGeometry) {
       if (path.direction === "in") {
-        expect(path.start).toEqual({ x: 0, y: 175 });
+        expect(Math.abs(path.start.x)).toBeLessThanOrEqual(0.01);
+        expect(Math.abs(path.start.y - 175)).toBeLessThanOrEqual(0.01);
       } else {
-        expect(path.end).toEqual({ x: 350, y: 175 });
+        expect(Math.abs(path.end.x - 350)).toBeLessThanOrEqual(0.01);
+        expect(Math.abs(path.end.y - 175)).toBeLessThanOrEqual(0.01);
       }
     }
 
