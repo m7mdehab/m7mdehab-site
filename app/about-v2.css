@@ -261,7 +261,7 @@
 }
 
 .about-v2-section-kicker > span {
-  color: color-mix(in srgb, var(--muted) 70%, transparent);
+  color: #68665f;
 }
 
 .about-v2-section-title {
@@ -575,7 +575,11 @@
 
 .about-v2-principles .about-v2-section-kicker,
 .about-v2-principles .about-v2-section-title > p {
-  color: rgba(242, 240, 233, .55);
+  color: rgba(242, 240, 233, .64);
+}
+
+.about-v2-principles .about-v2-section-kicker > span {
+  color: #8a8b85;
 }
 
 .about-v2-principles .about-v2-section-title h2 {
@@ -600,7 +604,7 @@
 }
 
 .about-v2-principle > span {
-  color: rgba(242, 240, 233, .44);
+  color: #83847f;
   font-size: 8px;
   letter-spacing: .1em;
 }
