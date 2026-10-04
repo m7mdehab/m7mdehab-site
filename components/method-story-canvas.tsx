@@ -356,10 +356,10 @@ function MobileMethodStory({
   );
   const progressScale = useTransform(progress, [0, 1], [0, 1]);
 
-  const cueOpacity = useTransform(progress, [0, 0.06, 0.14], [1, 1, 0]);
-  const cueY = useTransform(progress, [0, 0.14], [0, -6]);
-  const ctaOpacity = useTransform(progress, [0.72, 0.82], [0, 1]);
-  const ctaY = useTransform(progress, [0.72, 0.82], [10, 0]);
+  const cueOpacity = useTransform(progress, [0, 0.015, 0.04], [1, 1, 0]);
+  const cueY = useTransform(progress, [0, 0.04], [0, -6]);
+  const ctaOpacity = useTransform(progress, [0.68, 0.74], [0, 1]);
+  const ctaY = useTransform(progress, [0.68, 0.74], [10, 0]);
   return (
     <div
       ref={trackRef}
@@ -390,7 +390,7 @@ function MobileMethodStory({
           style={reducedMotion ? undefined : { opacity: cueOpacity, y: cueY }}
           aria-hidden="true"
         >
-          Swipe to progress <span>↓</span>
+          Swipe down to progress <span>↓</span>
         </motion.p>
 
         <div className="method-story__mobile-window">
