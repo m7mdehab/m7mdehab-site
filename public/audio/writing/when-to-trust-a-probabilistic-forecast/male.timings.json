@@ -3,7 +3,7 @@
   "model": "shawnahmed/Kokoro-82M-v1.0-ONNX-timestamped",
   "voice": "male",
   "kokoroVoice": "am_michael",
-  "durationSeconds": 518.4,
+  "durationSeconds": 516.624,
   "autoScroll": false,
   "cues": [
     {
@@ -2175,3914 +2175,3914 @@
     {
       "id": "section-1-bullet-0:0",
       "word": "Score",
-      "start": 182.15,
-      "end": 182.5
+      "start": 181.775,
+      "end": 182.125
     },
     {
       "id": "section-1-bullet-0:1",
       "word": "the",
-      "start": 182.55,
-      "end": 182.625
+      "start": 182.175,
+      "end": 182.25
     },
     {
       "id": "section-1-bullet-0:2",
       "word": "full",
-      "start": 182.725,
-      "end": 182.95
+      "start": 182.35,
+      "end": 182.575
     },
     {
       "id": "section-1-bullet-0:3",
       "word": "probability",
-      "start": 183,
-      "end": 183.6
+      "start": 182.625,
+      "end": 183.225
     },
     {
       "id": "section-1-bullet-0:4",
       "word": "vector,",
-      "start": 183.65,
-      "end": 184.425
+      "start": 183.275,
+      "end": 184.05
     },
     {
       "id": "section-1-bullet-0:5",
       "word": "not",
-      "start": 184.5,
-      "end": 184.65
+      "start": 184.125,
+      "end": 184.275
     },
     {
       "id": "section-1-bullet-0:6",
       "word": "only",
-      "start": 184.675,
-      "end": 184.975
+      "start": 184.3,
+      "end": 184.6
     },
     {
       "id": "section-1-bullet-0:7",
       "word": "the",
-      "start": 185.025,
-      "end": 185.1
+      "start": 184.65,
+      "end": 184.725
     },
     {
       "id": "section-1-bullet-0:8",
       "word": "winning",
-      "start": 185.175,
-      "end": 185.45
+      "start": 184.8,
+      "end": 185.075
     },
     {
       "id": "section-1-bullet-0:9",
       "word": "class.",
-      "start": 185.525,
-      "end": 186.5
+      "start": 185.15,
+      "end": 186.125
     },
     {
       "id": "section-1-bullet-1:0",
       "word": "Keep",
-      "start": 188.7,
-      "end": 189.025
+      "start": 188.05,
+      "end": 188.375
     },
     {
       "id": "section-1-bullet-1:1",
       "word": "a",
-      "start": 189.1,
-      "end": 189.15
+      "start": 188.45,
+      "end": 188.5
     },
     {
       "id": "section-1-bullet-1:2",
       "word": "simple",
-      "start": 189.25,
-      "end": 189.575
+      "start": 188.6,
+      "end": 188.925
     },
     {
       "id": "section-1-bullet-1:3",
       "word": "reference",
-      "start": 189.625,
-      "end": 190.075
+      "start": 188.975,
+      "end": 189.425
     },
     {
       "id": "section-1-bullet-1:4",
       "word": "model",
-      "start": 190.15,
-      "end": 190.475
+      "start": 189.5,
+      "end": 189.825
     },
     {
       "id": "section-1-bullet-1:5",
       "word": "visible.",
-      "start": 190.525,
-      "end": 191.45
+      "start": 189.875,
+      "end": 190.8
     },
     {
       "id": "section-1-bullet-2:0",
       "word": "Read",
-      "start": 193.7,
-      "end": 193.95
+      "start": 192.675,
+      "end": 192.925
     },
     {
       "id": "section-1-bullet-2:1",
       "word": "calibration",
-      "start": 194,
-      "end": 194.675
+      "start": 192.975,
+      "end": 193.65
     },
     {
       "id": "section-1-bullet-2:2",
       "word": "together",
-      "start": 194.725,
-      "end": 195.225
+      "start": 193.7,
+      "end": 194.2
     },
     {
       "id": "section-1-bullet-2:3",
       "word": "with",
-      "start": 195.275,
-      "end": 195.4
+      "start": 194.25,
+      "end": 194.375
     },
     {
       "id": "section-1-bullet-2:4",
       "word": "bin",
-      "start": 195.475,
-      "end": 195.675
+      "start": 194.45,
+      "end": 194.65
     },
     {
       "id": "section-1-bullet-2:5",
       "word": "counts",
-      "start": 195.75,
-      "end": 196.225
+      "start": 194.725,
+      "end": 195.2
     },
     {
       "id": "section-1-bullet-2:6",
       "word": "and",
-      "start": 196.275,
-      "end": 196.35
+      "start": 195.25,
+      "end": 195.325
     },
     {
       "id": "section-1-bullet-2:7",
       "word": "sample",
-      "start": 196.425,
-      "end": 196.775
+      "start": 195.4,
+      "end": 195.75
     },
     {
       "id": "section-1-bullet-2:8",
       "word": "size.",
-      "start": 196.85,
-      "end": 197.875
+      "start": 195.825,
+      "end": 196.85
     },
     {
       "id": "section-2-title:0",
       "word": "A",
-      "start": 198.35,
-      "end": 198.4
+      "start": 197.325,
+      "end": 197.375
     },
     {
       "id": "section-2-title:1",
       "word": "clean",
-      "start": 198.475,
-      "end": 198.825
+      "start": 197.45,
+      "end": 197.8
     },
     {
       "id": "section-2-title:2",
       "word": "metric",
-      "start": 198.875,
-      "end": 199.275
+      "start": 197.85,
+      "end": 198.25
     },
     {
       "id": "section-2-title:3",
       "word": "is",
-      "start": 199.325,
-      "end": 199.425
+      "start": 198.3,
+      "end": 198.4
     },
     {
       "id": "section-2-title:4",
       "word": "worthless",
-      "start": 199.525,
-      "end": 200.375
+      "start": 198.5,
+      "end": 199.35
     },
     {
       "id": "section-2-title:5",
       "word": "if",
-      "start": 200.475,
-      "end": 200.575
+      "start": 199.45,
+      "end": 199.55
     },
     {
       "id": "section-2-title:6",
       "word": "future",
-      "start": 200.675,
-      "end": 201.075
+      "start": 199.65,
+      "end": 200.05
     },
     {
       "id": "section-2-title:7",
       "word": "information",
-      "start": 201.125,
-      "end": 201.825
+      "start": 200.1,
+      "end": 200.8
     },
     {
       "id": "section-2-title:8",
       "word": "leaked",
-      "start": 201.9,
-      "end": 202.125
+      "start": 200.875,
+      "end": 201.1
     },
     {
       "id": "section-2-title:9",
       "word": "into",
-      "start": 202.15,
-      "end": 202.3
+      "start": 201.125,
+      "end": 201.275
     },
     {
       "id": "section-2-title:10",
       "word": "the",
-      "start": 202.325,
-      "end": 202.375
+      "start": 201.3,
+      "end": 201.35
     },
     {
       "id": "section-2-title:11",
       "word": "past.",
-      "start": 202.45,
-      "end": 203.4
+      "start": 201.425,
+      "end": 202.375
     },
     {
       "id": "section-2-paragraph-0:0",
       "word": "Temporal",
-      "start": 203.85,
-      "end": 204.2
+      "start": 202.825,
+      "end": 203.175
     },
     {
       "id": "section-2-paragraph-0:1",
       "word": "leakage",
-      "start": 204.25,
-      "end": 204.7
+      "start": 203.225,
+      "end": 203.675
     },
     {
       "id": "section-2-paragraph-0:2",
       "word": "is",
-      "start": 204.775,
-      "end": 204.875
+      "start": 203.75,
+      "end": 203.85
     },
     {
       "id": "section-2-paragraph-0:3",
       "word": "one",
-      "start": 204.925,
-      "end": 205.025
+      "start": 203.9,
+      "end": 204
     },
     {
       "id": "section-2-paragraph-0:4",
       "word": "of",
-      "start": 205.05,
-      "end": 205.25
+      "start": 204.025,
+      "end": 204.225
     },
     {
       "id": "section-2-paragraph-0:5",
       "word": "the",
-      "start": 205.35,
-      "end": 205.875
+      "start": 204.325,
+      "end": 204.85
     },
     {
       "id": "section-2-paragraph-0:6",
       "word": "easiest",
-      "start": 205.925,
-      "end": 206.25
+      "start": 204.9,
+      "end": 205.225
     },
     {
       "id": "section-2-paragraph-0:7",
       "word": "ways",
-      "start": 206.3,
-      "end": 206.35
+      "start": 205.275,
+      "end": 205.325
     },
     {
       "id": "section-2-paragraph-0:8",
       "word": "to",
-      "start": 206.4,
-      "end": 206.55
+      "start": 205.375,
+      "end": 205.525
     },
     {
       "id": "section-2-paragraph-0:9",
       "word": "make",
-      "start": 206.575,
-      "end": 206.625
+      "start": 205.55,
+      "end": 205.6
     },
     {
       "id": "section-2-paragraph-0:10",
       "word": "a",
-      "start": 206.725,
-      "end": 207.375
+      "start": 205.7,
+      "end": 206.35
     },
     {
       "id": "section-2-paragraph-0:11",
       "word": "forecasting",
-      "start": 207.425,
-      "end": 207.975
+      "start": 206.4,
+      "end": 206.95
     },
     {
       "id": "section-2-paragraph-0:12",
       "word": "model",
-      "start": 208.05,
-      "end": 208.325
+      "start": 207.025,
+      "end": 207.3
     },
     {
       "id": "section-2-paragraph-0:13",
       "word": "look",
-      "start": 208.375,
-      "end": 208.45
+      "start": 207.35,
+      "end": 207.425
     },
     {
       "id": "section-2-paragraph-0:14",
       "word": "better",
-      "start": 208.475,
-      "end": 208.575
+      "start": 207.45,
+      "end": 207.55
     },
     {
       "id": "section-2-paragraph-0:15",
       "word": "than",
-      "start": 208.65,
-      "end": 209.625
+      "start": 207.625,
+      "end": 208.6
     },
     {
       "id": "section-2-paragraph-0:16",
       "word": "it",
-      "start": 209.7,
-      "end": 209.75
+      "start": 208.675,
+      "end": 208.725
     },
     {
       "id": "section-2-paragraph-0:17",
       "word": "was.",
-      "start": 209.825,
-      "end": 210.2
+      "start": 208.8,
+      "end": 209.175
     },
     {
       "id": "section-2-paragraph-0:18",
       "word": "The",
-      "start": 210.25,
-      "end": 210.825
+      "start": 209.225,
+      "end": 209.8
     },
     {
       "id": "section-2-paragraph-0:19",
       "word": "training",
-      "start": 210.875,
-      "end": 211.025
+      "start": 209.85,
+      "end": 210
     },
     {
       "id": "section-2-paragraph-0:20",
       "word": "boundary",
-      "start": 211.075,
-      "end": 211.325
+      "start": 210.05,
+      "end": 210.3
     },
     {
       "id": "section-2-paragraph-0:21",
       "word": "has",
-      "start": 211.375,
-      "end": 211.475
+      "start": 210.35,
+      "end": 210.45
     },
     {
       "id": "section-2-paragraph-0:22",
       "word": "to",
-      "start": 211.55,
-      "end": 212.325
+      "start": 210.525,
+      "end": 211.3
     },
     {
       "id": "section-2-paragraph-0:23",
       "word": "be",
-      "start": 212.4,
-      "end": 213.175
+      "start": 211.375,
+      "end": 212.15
     },
     {
       "id": "section-2-paragraph-0:24",
       "word": "an",
-      "start": 213.25,
-      "end": 213.5
+      "start": 212.225,
+      "end": 212.475
     },
     {
       "id": "section-2-paragraph-0:25",
       "word": "executable",
-      "start": 213.6,
-      "end": 214.2
+      "start": 212.575,
+      "end": 213.175
     },
     {
       "id": "section-2-paragraph-0:26",
       "word": "rule,",
-      "start": 214.225,
-      "end": 214.275
+      "start": 213.2,
+      "end": 213.25
     },
     {
       "id": "section-2-paragraph-0:27",
       "word": "not",
-      "start": 214.35,
-      "end": 215.425
+      "start": 213.325,
+      "end": 214.4
     },
     {
       "id": "section-2-paragraph-0:28",
       "word": "a",
-      "start": 215.5,
-      "end": 216.025
+      "start": 214.475,
+      "end": 215
     },
     {
       "id": "section-2-paragraph-0:29",
       "word": "sentence",
-      "start": 216.075,
-      "end": 216.5
+      "start": 215.05,
+      "end": 215.475
     },
     {
       "id": "section-2-paragraph-0:30",
       "word": "in",
-      "start": 216.55,
-      "end": 216.6
+      "start": 215.525,
+      "end": 215.575
     },
     {
       "id": "section-2-paragraph-0:31",
       "word": "a",
-      "start": 216.675,
-      "end": 216.95
+      "start": 215.65,
+      "end": 215.925
     },
     {
       "id": "section-2-paragraph-0:32",
       "word": "README.",
-      "start": 217,
-      "end": 217.25
+      "start": 215.975,
+      "end": 216.225
     },
     {
       "id": "section-2-paragraph-0:33",
       "word": "Presaira",
-      "start": 217.35,
-      "end": 217.6
+      "start": 216.325,
+      "end": 216.575
     },
     {
       "id": "section-2-paragraph-0:34",
       "word": "records",
-      "start": 217.65,
-      "end": 217.725
+      "start": 216.625,
+      "end": 216.7
     },
     {
       "id": "section-2-paragraph-0:35",
       "word": "a",
-      "start": 217.8,
-      "end": 218.175
+      "start": 216.775,
+      "end": 217.15
     },
     {
       "id": "section-2-paragraph-0:36",
       "word": "2026-06-10",
-      "start": 218.275,
-      "end": 218.65
+      "start": 217.25,
+      "end": 217.625
     },
     {
       "id": "section-2-paragraph-0:37",
       "word": "training",
-      "start": 218.725,
-      "end": 218.95
+      "start": 217.7,
+      "end": 217.925
     },
     {
       "id": "section-2-paragraph-0:38",
       "word": "cutoff",
-      "start": 219.025,
-      "end": 219.4
+      "start": 218,
+      "end": 218.375
     },
     {
       "id": "section-2-paragraph-0:39",
       "word": "for",
-      "start": 219.45,
-      "end": 220.05
+      "start": 218.425,
+      "end": 219.025
     },
     {
       "id": "section-2-paragraph-0:40",
       "word": "the",
-      "start": 220.125,
-      "end": 220.3
+      "start": 219.1,
+      "end": 219.275
     },
     {
       "id": "section-2-paragraph-0:41",
       "word": "published",
-      "start": 220.375,
-      "end": 220.75
+      "start": 219.35,
+      "end": 219.725
     },
     {
       "id": "section-2-paragraph-0:42",
       "word": "tournament",
-      "start": 220.825,
-      "end": 221.325
+      "start": 219.8,
+      "end": 220.3
     },
     {
       "id": "section-2-paragraph-0:43",
       "word": "run",
-      "start": 221.375,
-      "end": 222.025
+      "start": 220.35,
+      "end": 221
     },
     {
       "id": "section-2-paragraph-0:44",
       "word": "and",
-      "start": 222.125,
-      "end": 222.2
+      "start": 221.1,
+      "end": 221.175
     },
     {
       "id": "section-2-paragraph-0:45",
       "word": "contains",
-      "start": 222.25,
-      "end": 222.75
+      "start": 221.225,
+      "end": 221.725
     },
     {
       "id": "section-2-paragraph-0:46",
       "word": "a",
-      "start": 222.8,
-      "end": 222.85
+      "start": 221.775,
+      "end": 221.825
     },
     {
       "id": "section-2-paragraph-0:47",
       "word": "pre-cutoff",
-      "start": 222.925,
-      "end": 223.625
+      "start": 221.9,
+      "end": 222.6
     },
     {
       "id": "section-2-paragraph-0:48",
       "word": "assertion",
-      "start": 223.675,
-      "end": 224.3
+      "start": 222.65,
+      "end": 223.275
     },
     {
       "id": "section-2-paragraph-0:49",
       "word": "that",
-      "start": 224.35,
-      "end": 224.5
+      "start": 223.325,
+      "end": 223.475
     },
     {
       "id": "section-2-paragraph-0:50",
       "word": "raises",
-      "start": 224.6,
-      "end": 225.125
+      "start": 223.575,
+      "end": 224.1
     },
     {
       "id": "section-2-paragraph-0:51",
       "word": "when",
-      "start": 225.175,
-      "end": 225.3
+      "start": 224.15,
+      "end": 224.275
     },
     {
       "id": "section-2-paragraph-0:52",
       "word": "future",
-      "start": 225.4,
-      "end": 225.9
+      "start": 224.375,
+      "end": 224.875
     },
     {
       "id": "section-2-paragraph-0:53",
       "word": "rows",
-      "start": 226,
-      "end": 226.375
+      "start": 224.975,
+      "end": 225.35
     },
     {
       "id": "section-2-paragraph-0:54",
       "word": "enter",
-      "start": 226.4,
-      "end": 226.6
+      "start": 225.375,
+      "end": 225.575
     },
     {
       "id": "section-2-paragraph-0:55",
       "word": "the",
-      "start": 226.65,
-      "end": 226.7
+      "start": 225.625,
+      "end": 225.675
     },
     {
       "id": "section-2-paragraph-0:56",
       "word": "training",
-      "start": 226.775,
-      "end": 227.15
+      "start": 225.75,
+      "end": 226.125
     },
     {
       "id": "section-2-paragraph-0:57",
       "word": "set.",
-      "start": 227.225,
-      "end": 227.975
+      "start": 226.2,
+      "end": 226.95
     },
     {
       "id": "section-2-paragraph-1:0",
       "word": "The",
-      "start": 228.45,
-      "end": 228.5
+      "start": 227.425,
+      "end": 227.475
     },
     {
       "id": "section-2-paragraph-1:1",
       "word": "historical",
-      "start": 228.55,
-      "end": 229.15
+      "start": 227.525,
+      "end": 228.125
     },
     {
       "id": "section-2-paragraph-1:2",
       "word": "evaluation",
-      "start": 229.2,
-      "end": 230.025
+      "start": 228.175,
+      "end": 229
     },
     {
       "id": "section-2-paragraph-1:3",
       "word": "separates",
-      "start": 230.125,
-      "end": 230.625
+      "start": 229.1,
+      "end": 229.6
     },
     {
       "id": "section-2-paragraph-1:4",
       "word": "tuning",
-      "start": 230.7,
-      "end": 231.075
+      "start": 229.675,
+      "end": 230.05
     },
     {
       "id": "section-2-paragraph-1:5",
       "word": "from",
-      "start": 231.125,
-      "end": 231.25
+      "start": 230.1,
+      "end": 230.225
     },
     {
       "id": "section-2-paragraph-1:6",
       "word": "holding",
-      "start": 231.3,
-      "end": 231.65
+      "start": 230.275,
+      "end": 230.625
     },
     {
       "id": "section-2-paragraph-1:7",
       "word": "out:",
-      "start": 231.7,
-      "end": 232.475
+      "start": 230.675,
+      "end": 231.45
     },
     {
       "id": "section-2-paragraph-1:8",
       "word": "2022",
-      "start": 232.55,
-      "end": 233.125
+      "start": 231.525,
+      "end": 232.1
     },
     {
       "id": "section-2-paragraph-1:9",
       "word": "was",
-      "start": 233.225,
-      "end": 233.875
+      "start": 232.2,
+      "end": 232.85
     },
     {
       "id": "section-2-paragraph-1:10",
       "word": "used",
-      "start": 233.975,
-      "end": 234.125
+      "start": 232.95,
+      "end": 233.1
     },
     {
       "id": "section-2-paragraph-1:11",
       "word": "for",
-      "start": 234.2,
-      "end": 234.5
+      "start": 233.175,
+      "end": 233.475
     },
     {
       "id": "section-2-paragraph-1:12",
       "word": "tuning",
-      "start": 234.55,
-      "end": 234.675
+      "start": 233.525,
+      "end": 233.65
     },
     {
       "id": "section-2-paragraph-1:13",
       "word": "while",
-      "start": 234.75,
-      "end": 235.45
+      "start": 233.725,
+      "end": 234.425
     },
     {
       "id": "section-2-paragraph-1:14",
       "word": "2018",
-      "start": 235.525,
-      "end": 236.025
+      "start": 234.5,
+      "end": 235
     },
     {
       "id": "section-2-paragraph-1:15",
       "word": "remained",
-      "start": 236.1,
-      "end": 236.6
+      "start": 235.075,
+      "end": 235.575
     },
     {
       "id": "section-2-paragraph-1:16",
       "word": "held",
-      "start": 236.65,
-      "end": 237.1
+      "start": 235.625,
+      "end": 236.075
     },
     {
       "id": "section-2-paragraph-1:17",
       "word": "out",
-      "start": 237.175,
-      "end": 237.425
+      "start": 236.15,
+      "end": 236.4
     },
     {
       "id": "section-2-paragraph-1:18",
       "word": "for",
-      "start": 237.475,
-      "end": 237.675
+      "start": 236.45,
+      "end": 236.65
     },
     {
       "id": "section-2-paragraph-1:19",
       "word": "evaluation.",
-      "start": 237.725,
-      "end": 239.325
+      "start": 236.7,
+      "end": 238.3
     },
     {
       "id": "section-2-paragraph-1:20",
       "word": "That",
-      "start": 239.4,
-      "end": 239.55
+      "start": 238.375,
+      "end": 238.525
     },
     {
       "id": "section-2-paragraph-1:21",
       "word": "is",
-      "start": 239.6,
-      "end": 239.7
+      "start": 238.575,
+      "end": 238.675
     },
     {
       "id": "section-2-paragraph-1:22",
       "word": "more",
-      "start": 239.775,
-      "end": 239.975
+      "start": 238.75,
+      "end": 238.95
     },
     {
       "id": "section-2-paragraph-1:23",
       "word": "informative",
-      "start": 240.025,
-      "end": 240.85
+      "start": 239,
+      "end": 239.825
     },
     {
       "id": "section-2-paragraph-1:24",
       "word": "than",
-      "start": 240.9,
-      "end": 241.025
+      "start": 239.875,
+      "end": 240
     },
     {
       "id": "section-2-paragraph-1:25",
       "word": "reporting",
-      "start": 241.075,
-      "end": 241.625
+      "start": 240.05,
+      "end": 240.6
     },
     {
       "id": "section-2-paragraph-1:26",
       "word": "a",
-      "start": 241.675,
-      "end": 241.725
+      "start": 240.65,
+      "end": 240.7
     },
     {
       "id": "section-2-paragraph-1:27",
       "word": "score",
-      "start": 241.8,
-      "end": 242.225
+      "start": 240.775,
+      "end": 241.2
     },
     {
       "id": "section-2-paragraph-1:28",
       "word": "from",
-      "start": 242.275,
-      "end": 242.4
+      "start": 241.25,
+      "end": 241.375
     },
     {
       "id": "section-2-paragraph-1:29",
       "word": "a",
-      "start": 242.425,
-      "end": 242.475
+      "start": 241.4,
+      "end": 241.45
     },
     {
       "id": "section-2-paragraph-1:30",
       "word": "dataset",
-      "start": 242.55,
-      "end": 243.15
+      "start": 241.525,
+      "end": 242.125
     },
     {
       "id": "section-2-paragraph-1:31",
       "word": "that",
-      "start": 243.2,
-      "end": 243.35
+      "start": 242.175,
+      "end": 242.325
     },
     {
       "id": "section-2-paragraph-1:32",
       "word": "influenced",
-      "start": 243.4,
-      "end": 244.025
+      "start": 242.375,
+      "end": 243
     },
     {
       "id": "section-2-paragraph-1:33",
       "word": "every",
-      "start": 244.125,
-      "end": 244.4
+      "start": 243.1,
+      "end": 243.375
     },
     {
       "id": "section-2-paragraph-1:34",
       "word": "modeling",
-      "start": 244.475,
-      "end": 244.975
+      "start": 243.45,
+      "end": 243.95
     },
     {
       "id": "section-2-paragraph-1:35",
       "word": "choice.",
-      "start": 245.05,
-      "end": 246.1
+      "start": 244.025,
+      "end": 245.075
     },
     {
       "id": "section-2-paragraph-2:0",
       "word": "The",
-      "start": 246.125,
-      "end": 246.382
+      "start": 245.1,
+      "end": 245.357
     },
     {
       "id": "section-2-paragraph-2:1",
       "word": "general",
-      "start": 246.382,
-      "end": 246.98
+      "start": 245.357,
+      "end": 245.955
     },
     {
       "id": "section-2-paragraph-2:2",
       "word": "test",
-      "start": 246.98,
-      "end": 247.322
+      "start": 245.955,
+      "end": 246.297
     },
     {
       "id": "section-2-paragraph-2:3",
       "word": "is",
-      "start": 247.322,
-      "end": 247.493
+      "start": 246.297,
+      "end": 246.468
     },
     {
       "id": "section-2-paragraph-2:4",
       "word": "simple:",
-      "start": 247.493,
-      "end": 248.006
+      "start": 246.468,
+      "end": 246.981
     },
     {
       "id": "section-2-paragraph-2:5",
       "word": "if",
-      "start": 248.006,
-      "end": 248.177
+      "start": 246.981,
+      "end": 247.152
     },
     {
       "id": "section-2-paragraph-2:6",
       "word": "I",
-      "start": 248.177,
-      "end": 248.263
+      "start": 247.152,
+      "end": 247.238
     },
     {
       "id": "section-2-paragraph-2:7",
       "word": "cannot",
-      "start": 248.263,
-      "end": 248.776
+      "start": 247.238,
+      "end": 247.751
     },
     {
       "id": "section-2-paragraph-2:8",
       "word": "explain",
-      "start": 248.776,
-      "end": 249.375
+      "start": 247.751,
+      "end": 248.35
     },
     {
       "id": "section-2-paragraph-2:9",
       "word": "what",
-      "start": 249.375,
-      "end": 249.717
+      "start": 248.35,
+      "end": 248.692
     },
     {
       "id": "section-2-paragraph-2:10",
       "word": "information",
-      "start": 249.717,
-      "end": 250.657
+      "start": 248.692,
+      "end": 249.632
     },
     {
       "id": "section-2-paragraph-2:11",
       "word": "was",
-      "start": 250.657,
-      "end": 250.914
+      "start": 249.632,
+      "end": 249.889
     },
     {
       "id": "section-2-paragraph-2:12",
       "word": "available",
-      "start": 250.914,
-      "end": 251.684
+      "start": 249.889,
+      "end": 250.659
     },
     {
       "id": "section-2-paragraph-2:13",
       "word": "at",
-      "start": 251.684,
-      "end": 251.855
+      "start": 250.659,
+      "end": 250.83
     },
     {
       "id": "section-2-paragraph-2:14",
       "word": "the",
-      "start": 251.855,
-      "end": 252.111
+      "start": 250.83,
+      "end": 251.086
     },
     {
       "id": "section-2-paragraph-2:15",
       "word": "moment",
-      "start": 252.111,
-      "end": 252.624
+      "start": 251.086,
+      "end": 251.599
     },
     {
       "id": "section-2-paragraph-2:16",
       "word": "each",
-      "start": 252.624,
-      "end": 252.966
+      "start": 251.599,
+      "end": 251.941
     },
     {
       "id": "section-2-paragraph-2:17",
       "word": "forecast",
-      "start": 252.966,
-      "end": 253.651
+      "start": 251.941,
+      "end": 252.626
     },
     {
       "id": "section-2-paragraph-2:18",
       "word": "would",
-      "start": 253.651,
-      "end": 254.078
+      "start": 252.626,
+      "end": 253.053
     },
     {
       "id": "section-2-paragraph-2:19",
       "word": "have",
-      "start": 254.078,
-      "end": 254.42
+      "start": 253.053,
+      "end": 253.395
     },
     {
       "id": "section-2-paragraph-2:20",
       "word": "been",
-      "start": 254.42,
-      "end": 254.762
+      "start": 253.395,
+      "end": 253.737
     },
     {
       "id": "section-2-paragraph-2:21",
       "word": "issued,",
-      "start": 254.762,
-      "end": 255.275
+      "start": 253.737,
+      "end": 254.25
     },
     {
       "id": "section-2-paragraph-2:22",
       "word": "I",
-      "start": 255.275,
-      "end": 255.361
+      "start": 254.25,
+      "end": 254.336
     },
     {
       "id": "section-2-paragraph-2:23",
       "word": "do",
-      "start": 255.361,
-      "end": 255.532
+      "start": 254.336,
+      "end": 254.507
     },
     {
       "id": "section-2-paragraph-2:24",
       "word": "not",
-      "start": 255.532,
-      "end": 255.788
+      "start": 254.507,
+      "end": 254.763
     },
     {
       "id": "section-2-paragraph-2:25",
       "word": "yet",
-      "start": 255.788,
-      "end": 256.045
+      "start": 254.763,
+      "end": 255.02
     },
     {
       "id": "section-2-paragraph-2:26",
       "word": "have",
-      "start": 256.045,
-      "end": 256.387
+      "start": 255.02,
+      "end": 255.362
     },
     {
       "id": "section-2-paragraph-2:27",
       "word": "an",
-      "start": 256.387,
-      "end": 256.558
+      "start": 255.362,
+      "end": 255.533
     },
     {
       "id": "section-2-paragraph-2:28",
       "word": "honest",
-      "start": 256.558,
-      "end": 257.071
+      "start": 255.533,
+      "end": 256.046
     },
     {
       "id": "section-2-paragraph-2:29",
       "word": "out-of-sample",
-      "start": 257.071,
-      "end": 258.012
+      "start": 256.046,
+      "end": 256.987
     },
     {
       "id": "section-2-paragraph-2:30",
       "word": "result.",
-      "start": 258.012,
-      "end": 258.525
+      "start": 256.987,
+      "end": 257.5
     },
     {
       "id": "section-3-title:0",
       "word": "Coverage",
-      "start": 258.525,
-      "end": 259.389
+      "start": 257.5,
+      "end": 258.364
     },
     {
       "id": "section-3-title:1",
       "word": "is",
-      "start": 259.389,
-      "end": 259.605
+      "start": 258.364,
+      "end": 258.58
     },
     {
       "id": "section-3-title:2",
       "word": "part",
-      "start": 259.605,
-      "end": 260.037
+      "start": 258.58,
+      "end": 259.012
     },
     {
       "id": "section-3-title:3",
       "word": "of",
-      "start": 260.037,
-      "end": 260.253
+      "start": 259.012,
+      "end": 259.228
     },
     {
       "id": "section-3-title:4",
       "word": "the",
-      "start": 260.253,
-      "end": 260.577
+      "start": 259.228,
+      "end": 259.552
     },
     {
       "id": "section-3-title:5",
       "word": "metric.",
-      "start": 260.577,
-      "end": 261.225
+      "start": 259.552,
+      "end": 260.2
     },
     {
       "id": "section-3-paragraph-0:0",
       "word": "A",
-      "start": 261.7,
-      "end": 261.75
+      "start": 260.675,
+      "end": 260.725
     },
     {
       "id": "section-3-paragraph-0:1",
       "word": "good",
-      "start": 261.825,
-      "end": 262
+      "start": 260.8,
+      "end": 260.975
     },
     {
       "id": "section-3-paragraph-0:2",
       "word": "average",
-      "start": 262.1,
-      "end": 262.55
+      "start": 261.075,
+      "end": 261.525
     },
     {
       "id": "section-3-paragraph-0:3",
       "word": "can",
-      "start": 262.6,
-      "end": 262.675
+      "start": 261.575,
+      "end": 261.65
     },
     {
       "id": "section-3-paragraph-0:4",
       "word": "be",
-      "start": 262.7,
-      "end": 262.775
+      "start": 261.675,
+      "end": 261.75
     },
     {
       "id": "section-3-paragraph-0:5",
       "word": "manufactured",
-      "start": 262.825,
-      "end": 263.625
+      "start": 261.8,
+      "end": 262.6
     },
     {
       "id": "section-3-paragraph-0:6",
       "word": "by",
-      "start": 263.675,
-      "end": 263.825
+      "start": 262.65,
+      "end": 262.8
     },
     {
       "id": "section-3-paragraph-0:7",
       "word": "quietly",
-      "start": 263.9,
-      "end": 264.375
+      "start": 262.875,
+      "end": 263.35
     },
     {
       "id": "section-3-paragraph-0:8",
       "word": "dropping",
-      "start": 264.45,
-      "end": 264.9
+      "start": 263.425,
+      "end": 263.875
     },
     {
       "id": "section-3-paragraph-0:9",
       "word": "awkward",
-      "start": 264.975,
-      "end": 265.35
+      "start": 263.95,
+      "end": 264.325
     },
     {
       "id": "section-3-paragraph-0:10",
       "word": "observations.",
-      "start": 265.4,
-      "end": 266.8
+      "start": 264.375,
+      "end": 265.775
     },
     {
       "id": "section-3-paragraph-0:11",
       "word": "For",
-      "start": 266.875,
-      "end": 267.025
+      "start": 265.85,
+      "end": 266
     },
     {
       "id": "section-3-paragraph-0:12",
       "word": "the",
-      "start": 267.075,
-      "end": 267.325
+      "start": 266.05,
+      "end": 266.3
     },
     {
       "id": "section-3-paragraph-0:13",
       "word": "2026",
-      "start": 267.375,
-      "end": 267.95
+      "start": 266.35,
+      "end": 266.925
     },
     {
       "id": "section-3-paragraph-0:14",
       "word": "tournament,",
-      "start": 268.025,
-      "end": 268.85
+      "start": 267,
+      "end": 267.825
     },
     {
       "id": "section-3-paragraph-0:15",
       "word": "Presaira",
-      "start": 268.9,
-      "end": 269.4
+      "start": 267.875,
+      "end": 268.375
     },
     {
       "id": "section-3-paragraph-0:16",
       "word": "records",
-      "start": 269.45,
-      "end": 269.825
+      "start": 268.425,
+      "end": 268.8
     },
     {
       "id": "section-3-paragraph-0:17",
       "word": "72",
-      "start": 269.925,
-      "end": 270.625
+      "start": 268.9,
+      "end": 269.6
     },
     {
       "id": "section-3-paragraph-0:18",
       "word": "of",
-      "start": 270.675,
-      "end": 270.75
+      "start": 269.65,
+      "end": 269.725
     },
     {
       "id": "section-3-paragraph-0:19",
       "word": "72",
-      "start": 270.825,
-      "end": 271.375
+      "start": 269.8,
+      "end": 270.35
     },
     {
       "id": "section-3-paragraph-0:20",
       "word": "group",
-      "start": 271.425,
-      "end": 271.675
+      "start": 270.4,
+      "end": 270.65
     },
     {
       "id": "section-3-paragraph-0:21",
       "word": "matches",
-      "start": 271.725,
-      "end": 272.55
+      "start": 270.7,
+      "end": 271.525
     },
     {
       "id": "section-3-paragraph-0:22",
       "word": "and",
-      "start": 272.65,
-      "end": 272.75
+      "start": 271.625,
+      "end": 271.725
     },
     {
       "id": "section-3-paragraph-0:23",
       "word": "32",
-      "start": 272.85,
-      "end": 273.475
+      "start": 271.825,
+      "end": 272.45
     },
     {
       "id": "section-3-paragraph-0:24",
       "word": "of",
-      "start": 273.525,
-      "end": 273.625
+      "start": 272.5,
+      "end": 272.6
     },
     {
       "id": "section-3-paragraph-0:25",
       "word": "32",
-      "start": 273.725,
-      "end": 274.225
+      "start": 272.7,
+      "end": 273.2
     },
     {
       "id": "section-3-paragraph-0:26",
       "word": "knockout",
-      "start": 274.275,
-      "end": 274.775
+      "start": 273.25,
+      "end": 273.75
     },
     {
       "id": "section-3-paragraph-0:27",
       "word": "matches,",
-      "start": 274.825,
-      "end": 275.75
+      "start": 273.8,
+      "end": 274.725
     },
     {
       "id": "section-3-paragraph-0:28",
       "word": "with",
-      "start": 275.8,
-      "end": 275.925
+      "start": 274.775,
+      "end": 274.9
     },
     {
       "id": "section-3-paragraph-0:29",
       "word": "an",
-      "start": 275.95,
-      "end": 276.05
+      "start": 274.925,
+      "end": 275.025
     },
     {
       "id": "section-3-paragraph-0:30",
       "word": "empty",
-      "start": 276.15,
-      "end": 276.6
+      "start": 275.125,
+      "end": 275.575
     },
     {
       "id": "section-3-paragraph-0:31",
       "word": "omitted",
-      "start": 276.7,
-      "end": 277.125
+      "start": 275.675,
+      "end": 276.1
     },
     {
       "id": "section-3-paragraph-0:32",
       "word": "list.",
-      "start": 277.175,
-      "end": 278.15
+      "start": 276.15,
+      "end": 277.125
     },
     {
       "id": "section-3-paragraph-0:33",
       "word": "That",
-      "start": 278.225,
-      "end": 278.4
+      "start": 277.2,
+      "end": 277.375
     },
     {
       "id": "section-3-paragraph-0:34",
       "word": "coverage",
-      "start": 278.475,
-      "end": 278.875
+      "start": 277.45,
+      "end": 277.85
     },
     {
       "id": "section-3-paragraph-0:35",
       "word": "statement",
-      "start": 278.925,
-      "end": 279.35
+      "start": 277.9,
+      "end": 278.325
     },
     {
       "id": "section-3-paragraph-0:36",
       "word": "belongs",
-      "start": 279.4,
-      "end": 279.9
+      "start": 278.375,
+      "end": 278.875
     },
     {
       "id": "section-3-paragraph-0:37",
       "word": "beside",
-      "start": 279.95,
-      "end": 280.325
+      "start": 278.925,
+      "end": 279.3
     },
     {
       "id": "section-3-paragraph-0:38",
       "word": "the",
-      "start": 280.35,
-      "end": 280.4
+      "start": 279.325,
+      "end": 279.375
     },
     {
       "id": "section-3-paragraph-0:39",
       "word": "score",
-      "start": 280.475,
-      "end": 281.175
+      "start": 279.45,
+      "end": 280.15
     },
     {
       "id": "section-3-paragraph-0:40",
       "word": "because",
-      "start": 281.25,
-      "end": 281.525
+      "start": 280.225,
+      "end": 280.5
     },
     {
       "id": "section-3-paragraph-0:41",
       "word": "the",
-      "start": 281.575,
-      "end": 281.625
+      "start": 280.55,
+      "end": 280.6
     },
     {
       "id": "section-3-paragraph-0:42",
       "word": "score",
-      "start": 281.7,
-      "end": 282.125
+      "start": 280.675,
+      "end": 281.1
     },
     {
       "id": "section-3-paragraph-0:43",
       "word": "is",
-      "start": 282.175,
-      "end": 282.275
+      "start": 281.15,
+      "end": 281.25
     },
     {
       "id": "section-3-paragraph-0:44",
       "word": "only",
-      "start": 282.35,
-      "end": 282.675
+      "start": 281.325,
+      "end": 281.65
     },
     {
       "id": "section-3-paragraph-0:45",
       "word": "meaningful",
-      "start": 282.75,
-      "end": 283.225
+      "start": 281.725,
+      "end": 282.2
     },
     {
       "id": "section-3-paragraph-0:46",
       "word": "over",
-      "start": 283.275,
-      "end": 283.45
+      "start": 282.25,
+      "end": 282.425
     },
     {
       "id": "section-3-paragraph-0:47",
       "word": "the",
-      "start": 283.5,
-      "end": 283.575
+      "start": 282.475,
+      "end": 282.55
     },
     {
       "id": "section-3-paragraph-0:48",
       "word": "set",
-      "start": 283.675,
-      "end": 283.9
+      "start": 282.65,
+      "end": 282.875
     },
     {
       "id": "section-3-paragraph-0:49",
       "word": "it",
-      "start": 283.95,
-      "end": 284.025
+      "start": 282.925,
+      "end": 283
     },
     {
       "id": "section-3-paragraph-0:50",
       "word": "actually",
-      "start": 284.125,
-      "end": 284.55
+      "start": 283.1,
+      "end": 283.525
     },
     {
       "id": "section-3-paragraph-0:51",
       "word": "represents.",
-      "start": 284.6,
-      "end": 285.775
+      "start": 283.575,
+      "end": 284.75
     },
     {
       "id": "section-3-paragraph-1:0",
       "word": "The",
-      "start": 286.25,
-      "end": 286.325
+      "start": 285.225,
+      "end": 285.3
     },
     {
       "id": "section-3-paragraph-1:1",
       "word": "same",
-      "start": 286.4,
-      "end": 286.65
+      "start": 285.375,
+      "end": 285.625
     },
     {
       "id": "section-3-paragraph-1:2",
       "word": "principle",
-      "start": 286.7,
-      "end": 287.175
+      "start": 285.675,
+      "end": 286.15
     },
     {
       "id": "section-3-paragraph-1:3",
       "word": "applies",
-      "start": 287.25,
-      "end": 287.775
+      "start": 286.225,
+      "end": 286.75
     },
     {
       "id": "section-3-paragraph-1:4",
       "word": "well",
-      "start": 287.85,
-      "end": 288.1
+      "start": 286.825,
+      "end": 287.075
     },
     {
       "id": "section-3-paragraph-1:5",
       "word": "beyond",
-      "start": 288.15,
-      "end": 288.45
+      "start": 287.125,
+      "end": 287.425
     },
     {
       "id": "section-3-paragraph-1:6",
       "word": "sport.",
-      "start": 288.525,
-      "end": 289.45
+      "start": 287.5,
+      "end": 288.425
     },
     {
       "id": "section-3-paragraph-1:7",
       "word": "If",
-      "start": 289.525,
-      "end": 289.6
+      "start": 288.5,
+      "end": 288.575
     },
     {
       "id": "section-3-paragraph-1:8",
       "word": "a",
-      "start": 289.625,
-      "end": 289.675
+      "start": 288.6,
+      "end": 288.65
     },
     {
       "id": "section-3-paragraph-1:9",
       "word": "pipeline",
-      "start": 289.75,
-      "end": 290.35
+      "start": 288.725,
+      "end": 289.325
     },
     {
       "id": "section-3-paragraph-1:10",
       "word": "rejects",
-      "start": 290.4,
-      "end": 290.875
+      "start": 289.375,
+      "end": 289.85
     },
     {
       "id": "section-3-paragraph-1:11",
       "word": "difficult",
-      "start": 290.95,
-      "end": 291.35
+      "start": 289.925,
+      "end": 290.325
     },
     {
       "id": "section-3-paragraph-1:12",
       "word": "records,",
-      "start": 291.4,
-      "end": 292.25
+      "start": 290.375,
+      "end": 291.225
     },
     {
       "id": "section-3-paragraph-1:13",
       "word": "if",
-      "start": 292.325,
-      "end": 292.4
+      "start": 291.3,
+      "end": 291.375
     },
     {
       "id": "section-3-paragraph-1:14",
       "word": "a",
-      "start": 292.425,
-      "end": 292.475
+      "start": 291.4,
+      "end": 291.45
     },
     {
       "id": "section-3-paragraph-1:15",
       "word": "sensor",
-      "start": 292.575,
-      "end": 292.95
+      "start": 291.55,
+      "end": 291.925
     },
     {
       "id": "section-3-paragraph-1:16",
       "word": "disappears",
-      "start": 293.025,
-      "end": 293.7
+      "start": 292,
+      "end": 292.675
     },
     {
       "id": "section-3-paragraph-1:17",
       "word": "during",
-      "start": 293.75,
-      "end": 294.025
+      "start": 292.725,
+      "end": 293
     },
     {
       "id": "section-3-paragraph-1:18",
       "word": "bad",
-      "start": 294.1,
-      "end": 294.4
+      "start": 293.075,
+      "end": 293.375
     },
     {
       "id": "section-3-paragraph-1:19",
       "word": "conditions,",
-      "start": 294.45,
-      "end": 295.55
+      "start": 293.425,
+      "end": 294.525
     },
     {
       "id": "section-3-paragraph-1:20",
       "word": "or",
-      "start": 295.625,
-      "end": 296.025
+      "start": 294.6,
+      "end": 295
     },
     {
       "id": "section-3-paragraph-1:21",
       "word": "if",
-      "start": 296.125,
-      "end": 296.225
+      "start": 295.1,
+      "end": 295.2
     },
     {
       "id": "section-3-paragraph-1:22",
       "word": "an",
-      "start": 296.25,
-      "end": 296.3
+      "start": 295.225,
+      "end": 295.275
     },
     {
       "id": "section-3-paragraph-1:23",
       "word": "evaluation",
-      "start": 296.35,
-      "end": 297.175
+      "start": 295.325,
+      "end": 296.15
     },
     {
       "id": "section-3-paragraph-1:24",
       "word": "excludes",
-      "start": 297.225,
-      "end": 297.75
+      "start": 296.2,
+      "end": 296.725
     },
     {
       "id": "section-3-paragraph-1:25",
       "word": "cases",
-      "start": 297.825,
-      "end": 298.3
+      "start": 296.8,
+      "end": 297.275
     },
     {
       "id": "section-3-paragraph-1:26",
       "word": "after",
-      "start": 298.35,
-      "end": 298.6
+      "start": 297.325,
+      "end": 297.575
     },
     {
       "id": "section-3-paragraph-1:27",
       "word": "seeing",
-      "start": 298.7,
-      "end": 299
+      "start": 297.675,
+      "end": 297.975
     },
     {
       "id": "section-3-paragraph-1:28",
       "word": "their",
-      "start": 299.05,
-      "end": 299.2
+      "start": 298.025,
+      "end": 298.175
     },
     {
       "id": "section-3-paragraph-1:29",
       "word": "outcomes,",
-      "start": 299.275,
-      "end": 300.3
+      "start": 298.25,
+      "end": 299.275
     },
     {
       "id": "section-3-paragraph-1:30",
       "word": "the",
-      "start": 300.35,
-      "end": 300.4
+      "start": 299.325,
+      "end": 299.375
     },
     {
       "id": "section-3-paragraph-1:31",
       "word": "denominator",
-      "start": 300.45,
-      "end": 301.225
+      "start": 299.425,
+      "end": 300.2
     },
     {
       "id": "section-3-paragraph-1:32",
       "word": "becomes",
-      "start": 301.275,
-      "end": 301.675
+      "start": 300.25,
+      "end": 300.65
     },
     {
       "id": "section-3-paragraph-1:33",
       "word": "a",
-      "start": 301.725,
-      "end": 301.775
+      "start": 300.7,
+      "end": 300.75
     },
     {
       "id": "section-3-paragraph-1:34",
       "word": "modeling",
-      "start": 301.875,
-      "end": 302.375
+      "start": 300.85,
+      "end": 301.35
     },
     {
       "id": "section-3-paragraph-1:35",
       "word": "decision.",
-      "start": 302.425,
-      "end": 303.475
+      "start": 301.4,
+      "end": 302.45
     },
     {
       "id": "section-3-paragraph-1:36",
       "word": "Report",
-      "start": 303.55,
-      "end": 304
+      "start": 302.525,
+      "end": 302.975
     },
     {
       "id": "section-3-paragraph-1:37",
       "word": "it",
-      "start": 304.05,
-      "end": 304.15
+      "start": 303.025,
+      "end": 303.125
     },
     {
       "id": "section-3-paragraph-1:38",
       "word": "explicitly.",
-      "start": 304.225,
-      "end": 305.5
+      "start": 303.2,
+      "end": 304.475
     },
     {
       "id": "section-4-title:0",
       "word": "Calibration",
-      "start": 305.525,
-      "end": 306.694
+      "start": 304.5,
+      "end": 305.669
     },
     {
       "id": "section-4-title:1",
       "word": "is",
-      "start": 306.694,
-      "end": 306.906
+      "start": 305.669,
+      "end": 305.881
     },
     {
       "id": "section-4-title:2",
       "word": "a",
-      "start": 306.906,
-      "end": 307.012
+      "start": 305.881,
+      "end": 305.987
     },
     {
       "id": "section-4-title:3",
       "word": "model",
-      "start": 307.012,
-      "end": 307.544
+      "start": 305.987,
+      "end": 306.519
     },
     {
       "id": "section-4-title:4",
       "word": "choice,",
-      "start": 307.544,
-      "end": 308.181
+      "start": 306.519,
+      "end": 307.156
     },
     {
       "id": "section-4-title:5",
       "word": "not",
-      "start": 308.181,
-      "end": 308.5
+      "start": 307.156,
+      "end": 307.475
     },
     {
       "id": "section-4-title:6",
       "word": "a",
-      "start": 308.5,
-      "end": 308.606
+      "start": 307.475,
+      "end": 307.581
     },
     {
       "id": "section-4-title:7",
       "word": "ceremonial",
-      "start": 308.606,
-      "end": 309.669
+      "start": 307.581,
+      "end": 308.644
     },
     {
       "id": "section-4-title:8",
       "word": "final",
-      "start": 309.669,
-      "end": 310.2
+      "start": 308.644,
+      "end": 309.175
     },
     {
       "id": "section-4-title:9",
       "word": "step.",
-      "start": 310.2,
-      "end": 310.625
+      "start": 309.175,
+      "end": 309.6
     },
     {
       "id": "section-4-paragraph-0:0",
       "word": "Post-hoc",
-      "start": 311.05,
-      "end": 311.6
+      "start": 310.025,
+      "end": 310.575
     },
     {
       "id": "section-4-paragraph-0:1",
       "word": "calibration",
-      "start": 311.65,
-      "end": 312.475
+      "start": 310.625,
+      "end": 311.45
     },
     {
       "id": "section-4-paragraph-0:2",
       "word": "can",
-      "start": 312.525,
-      "end": 313
+      "start": 311.5,
+      "end": 311.975
     },
     {
       "id": "section-4-paragraph-0:3",
       "word": "improve",
-      "start": 313.05,
-      "end": 313.675
+      "start": 312.025,
+      "end": 312.65
     },
     {
       "id": "section-4-paragraph-0:4",
       "word": "probability",
-      "start": 313.75,
-      "end": 314.825
+      "start": 312.725,
+      "end": 313.8
     },
     {
       "id": "section-4-paragraph-0:5",
       "word": "quality,",
-      "start": 314.85,
-      "end": 314.9
+      "start": 313.825,
+      "end": 313.875
     },
     {
       "id": "section-4-paragraph-0:6",
       "word": "but",
-      "start": 314.925,
-      "end": 315
+      "start": 313.9,
+      "end": 313.975
     },
     {
       "id": "section-4-paragraph-0:7",
       "word": "it",
-      "start": 315.05,
-      "end": 315.425
+      "start": 314.025,
+      "end": 314.4
     },
     {
       "id": "section-4-paragraph-0:8",
       "word": "can",
-      "start": 315.475,
-      "end": 315.95
+      "start": 314.45,
+      "end": 314.925
     },
     {
       "id": "section-4-paragraph-0:9",
       "word": "also",
-      "start": 316,
-      "end": 316.05
+      "start": 314.975,
+      "end": 315.025
     },
     {
       "id": "section-4-paragraph-0:10",
       "word": "overfit",
-      "start": 316.15,
-      "end": 316.5
+      "start": 315.125,
+      "end": 315.475
     },
     {
       "id": "section-4-paragraph-0:11",
       "word": "a",
-      "start": 316.575,
-      "end": 317.3
+      "start": 315.55,
+      "end": 316.275
     },
     {
       "id": "section-4-paragraph-0:12",
       "word": "small",
-      "start": 317.35,
-      "end": 318.275
+      "start": 316.325,
+      "end": 317.25
     },
     {
       "id": "section-4-paragraph-0:13",
       "word": "calibration",
-      "start": 318.35,
-      "end": 319.375
+      "start": 317.325,
+      "end": 318.35
     },
     {
       "id": "section-4-paragraph-0:14",
       "word": "window.",
-      "start": 319.45,
-      "end": 319.7
+      "start": 318.425,
+      "end": 318.675
     },
     {
       "id": "section-4-paragraph-0:15",
       "word": "In",
-      "start": 319.775,
-      "end": 320.275
+      "start": 318.75,
+      "end": 319.25
     },
     {
       "id": "section-4-paragraph-0:16",
       "word": "Presaira,",
-      "start": 320.325,
-      "end": 320.4
+      "start": 319.3,
+      "end": 319.375
     },
     {
       "id": "section-4-paragraph-0:17",
       "word": "Platt",
-      "start": 320.45,
-      "end": 321.125
+      "start": 319.425,
+      "end": 320.1
     },
     {
       "id": "section-4-paragraph-0:18",
       "word": "scaling",
-      "start": 321.175,
-      "end": 321.675
+      "start": 320.15,
+      "end": 320.65
     },
     {
       "id": "section-4-paragraph-0:19",
       "word": "and",
-      "start": 321.725,
-      "end": 321.8
+      "start": 320.7,
+      "end": 320.775
     },
     {
       "id": "section-4-paragraph-0:20",
       "word": "isotonic",
-      "start": 321.875,
-      "end": 322.125
+      "start": 320.85,
+      "end": 321.1
     },
     {
       "id": "section-4-paragraph-0:21",
       "word": "regression",
-      "start": 322.2,
-      "end": 323.175
+      "start": 321.175,
+      "end": 322.15
     },
     {
       "id": "section-4-paragraph-0:22",
       "word": "were",
-      "start": 323.275,
-      "end": 323.55
+      "start": 322.25,
+      "end": 322.525
     },
     {
       "id": "section-4-paragraph-0:23",
       "word": "both",
-      "start": 323.6,
-      "end": 323.7
+      "start": 322.575,
+      "end": 322.675
     },
     {
       "id": "section-4-paragraph-0:24",
       "word": "tested.",
-      "start": 323.75,
-      "end": 324.3
+      "start": 322.725,
+      "end": 323.275
     },
     {
       "id": "section-4-paragraph-0:25",
       "word": "Platt",
-      "start": 324.375,
-      "end": 324.75
+      "start": 323.35,
+      "end": 323.725
     },
     {
       "id": "section-4-paragraph-0:26",
       "word": "was",
-      "start": 324.8,
-      "end": 324.95
+      "start": 323.775,
+      "end": 323.925
     },
     {
       "id": "section-4-paragraph-0:27",
       "word": "effectively",
-      "start": 325.025,
-      "end": 325.6
+      "start": 324,
+      "end": 324.575
     },
     {
       "id": "section-4-paragraph-0:28",
       "word": "neutral",
-      "start": 325.65,
-      "end": 325.775
+      "start": 324.625,
+      "end": 324.75
     },
     {
       "id": "section-4-paragraph-0:29",
       "word": "on",
-      "start": 325.825,
-      "end": 326.35
+      "start": 324.8,
+      "end": 325.325
     },
     {
       "id": "section-4-paragraph-0:30",
       "word": "Brier",
-      "start": 326.425,
-      "end": 326.725
+      "start": 325.4,
+      "end": 325.7
     },
     {
       "id": "section-4-paragraph-0:31",
       "word": "while",
-      "start": 326.8,
-      "end": 327.625
+      "start": 325.775,
+      "end": 326.6
     },
     {
       "id": "section-4-paragraph-0:32",
       "word": "degrading",
-      "start": 327.7,
-      "end": 328.35
+      "start": 326.675,
+      "end": 327.325
     },
     {
       "id": "section-4-paragraph-0:33",
       "word": "log",
-      "start": 328.425,
-      "end": 328.8
+      "start": 327.4,
+      "end": 327.775
     },
     {
       "id": "section-4-paragraph-0:34",
       "word": "loss;",
-      "start": 328.825,
-      "end": 328.875
+      "start": 327.8,
+      "end": 327.85
     },
     {
       "id": "section-4-paragraph-0:35",
       "word": "isotonic",
-      "start": 328.95,
-      "end": 329.225
+      "start": 327.925,
+      "end": 328.2
     },
     {
       "id": "section-4-paragraph-0:36",
       "word": "worsened",
-      "start": 329.275,
-      "end": 329.55
+      "start": 328.25,
+      "end": 328.525
     },
     {
       "id": "section-4-paragraph-0:37",
       "word": "the",
-      "start": 329.65,
-      "end": 329.9
+      "start": 328.625,
+      "end": 328.875
     },
     {
       "id": "section-4-paragraph-0:38",
       "word": "2022",
-      "start": 329.975,
-      "end": 330.85
+      "start": 328.95,
+      "end": 329.825
     },
     {
       "id": "section-4-paragraph-0:39",
       "word": "Brier",
-      "start": 330.9,
-      "end": 331.05
+      "start": 329.875,
+      "end": 330.025
     },
     {
       "id": "section-4-paragraph-0:40",
       "word": "score",
-      "start": 331.15,
-      "end": 331.35
+      "start": 330.125,
+      "end": 330.325
     },
     {
       "id": "section-4-paragraph-0:41",
       "word": "by",
-      "start": 331.425,
-      "end": 331.75
+      "start": 330.4,
+      "end": 330.725
     },
     {
       "id": "section-4-paragraph-0:42",
       "word": "2.3%.",
-      "start": 331.825,
-      "end": 333.05
+      "start": 330.8,
+      "end": 332.025
     },
     {
       "id": "section-4-paragraph-0:43",
       "word": "The",
-      "start": 333.125,
-      "end": 333.175
+      "start": 332.1,
+      "end": 332.15
     },
     {
       "id": "section-4-paragraph-0:44",
       "word": "recorded",
-      "start": 333.225,
-      "end": 333.675
+      "start": 332.2,
+      "end": 332.65
     },
     {
       "id": "section-4-paragraph-0:45",
       "word": "decision",
-      "start": 333.725,
-      "end": 334.25
+      "start": 332.7,
+      "end": 333.225
     },
     {
       "id": "section-4-paragraph-0:46",
       "word": "was",
-      "start": 334.3,
-      "end": 334.425
+      "start": 333.275,
+      "end": 333.4
     },
     {
       "id": "section-4-paragraph-0:47",
       "word": "therefore",
-      "start": 334.475,
-      "end": 334.85
+      "start": 333.45,
+      "end": 333.825
     },
     {
       "id": "section-4-paragraph-0:48",
       "word": "calibration_method:",
-      "start": 334.925,
-      "end": 336.5
+      "start": 333.9,
+      "end": 335.475
     },
     {
       "id": "section-4-paragraph-0:49",
       "word": "none.",
-      "start": 336.625,
-      "end": 337.5
+      "start": 335.6,
+      "end": 336.475
     },
     {
       "id": "section-4-paragraph-1:0",
       "word": "That",
-      "start": 337.525,
-      "end": 337.88
+      "start": 336.5,
+      "end": 336.855
     },
     {
       "id": "section-4-paragraph-1:1",
       "word": "result",
-      "start": 337.88,
-      "end": 338.414
+      "start": 336.855,
+      "end": 337.389
     },
     {
       "id": "section-4-paragraph-1:2",
       "word": "matters",
-      "start": 338.414,
-      "end": 339.036
+      "start": 337.389,
+      "end": 338.011
     },
     {
       "id": "section-4-paragraph-1:3",
       "word": "because",
-      "start": 339.036,
-      "end": 339.658
+      "start": 338.011,
+      "end": 338.633
     },
     {
       "id": "section-4-paragraph-1:4",
       "word": "'no",
-      "start": 339.658,
-      "end": 339.835
+      "start": 338.633,
+      "end": 338.81
     },
     {
       "id": "section-4-paragraph-1:5",
       "word": "calibration'",
-      "start": 339.835,
-      "end": 340.813
+      "start": 338.81,
+      "end": 339.788
     },
     {
       "id": "section-4-paragraph-1:6",
       "word": "can",
-      "start": 340.813,
-      "end": 341.079
+      "start": 339.788,
+      "end": 340.054
     },
     {
       "id": "section-4-paragraph-1:7",
       "word": "mean",
-      "start": 341.079,
-      "end": 341.435
+      "start": 340.054,
+      "end": 340.41
     },
     {
       "id": "section-4-paragraph-1:8",
       "word": "two",
-      "start": 341.435,
-      "end": 341.701
+      "start": 340.41,
+      "end": 340.676
     },
     {
       "id": "section-4-paragraph-1:9",
       "word": "very",
-      "start": 341.701,
-      "end": 342.057
+      "start": 340.676,
+      "end": 341.032
     },
     {
       "id": "section-4-paragraph-1:10",
       "word": "different",
-      "start": 342.057,
-      "end": 342.857
+      "start": 341.032,
+      "end": 341.832
     },
     {
       "id": "section-4-paragraph-1:11",
       "word": "things:",
-      "start": 342.857,
-      "end": 343.39
+      "start": 341.832,
+      "end": 342.365
     },
     {
       "id": "section-4-paragraph-1:12",
       "word": "nobody",
-      "start": 343.39,
-      "end": 343.923
+      "start": 342.365,
+      "end": 342.898
     },
     {
       "id": "section-4-paragraph-1:13",
       "word": "checked,",
-      "start": 343.923,
-      "end": 344.545
+      "start": 342.898,
+      "end": 343.52
     },
     {
       "id": "section-4-paragraph-1:14",
       "word": "or",
-      "start": 344.545,
-      "end": 344.723
+      "start": 343.52,
+      "end": 343.698
     },
     {
       "id": "section-4-paragraph-1:15",
       "word": "calibration",
-      "start": 344.723,
-      "end": 345.7
+      "start": 343.698,
+      "end": 344.675
     },
     {
       "id": "section-4-paragraph-1:16",
       "word": "methods",
-      "start": 345.7,
-      "end": 346.322
+      "start": 344.675,
+      "end": 345.297
     },
     {
       "id": "section-4-paragraph-1:17",
       "word": "were",
-      "start": 346.322,
-      "end": 346.678
+      "start": 345.297,
+      "end": 345.653
     },
     {
       "id": "section-4-paragraph-1:18",
       "word": "evaluated",
-      "start": 346.678,
-      "end": 347.477
+      "start": 345.653,
+      "end": 346.452
     },
     {
       "id": "section-4-paragraph-1:19",
       "word": "and",
-      "start": 347.477,
-      "end": 347.744
+      "start": 346.452,
+      "end": 346.719
     },
     {
       "id": "section-4-paragraph-1:20",
       "word": "the",
-      "start": 347.744,
-      "end": 348.01
+      "start": 346.719,
+      "end": 346.985
     },
     {
       "id": "section-4-paragraph-1:21",
       "word": "evidence",
-      "start": 348.01,
-      "end": 348.721
+      "start": 346.985,
+      "end": 347.696
     },
     {
       "id": "section-4-paragraph-1:22",
       "word": "did",
-      "start": 348.721,
-      "end": 348.988
+      "start": 347.696,
+      "end": 347.963
     },
     {
       "id": "section-4-paragraph-1:23",
       "word": "not",
-      "start": 348.988,
-      "end": 349.255
+      "start": 347.963,
+      "end": 348.23
     },
     {
       "id": "section-4-paragraph-1:24",
       "word": "justify",
-      "start": 349.255,
-      "end": 349.877
+      "start": 348.23,
+      "end": 348.852
     },
     {
       "id": "section-4-paragraph-1:25",
       "word": "adding",
-      "start": 349.877,
-      "end": 350.41
+      "start": 348.852,
+      "end": 349.385
     },
     {
       "id": "section-4-paragraph-1:26",
       "word": "one.",
-      "start": 350.41,
-      "end": 350.676
+      "start": 349.385,
+      "end": 349.651
     },
     {
       "id": "section-4-paragraph-1:27",
       "word": "Only",
-      "start": 350.676,
-      "end": 351.032
+      "start": 349.651,
+      "end": 350.007
     },
     {
       "id": "section-4-paragraph-1:28",
       "word": "the",
-      "start": 351.032,
-      "end": 351.298
+      "start": 350.007,
+      "end": 350.273
     },
     {
       "id": "section-4-paragraph-1:29",
       "word": "second",
-      "start": 351.298,
-      "end": 351.831
+      "start": 350.273,
+      "end": 350.806
     },
     {
       "id": "section-4-paragraph-1:30",
       "word": "is",
-      "start": 351.831,
-      "end": 352.009
+      "start": 350.806,
+      "end": 350.984
     },
     {
       "id": "section-4-paragraph-1:31",
       "word": "a",
-      "start": 352.009,
-      "end": 352.098
+      "start": 350.984,
+      "end": 351.073
     },
     {
       "id": "section-4-paragraph-1:32",
       "word": "defensible",
-      "start": 352.098,
-      "end": 352.987
+      "start": 351.073,
+      "end": 351.962
     },
     {
       "id": "section-4-paragraph-1:33",
       "word": "engineering",
-      "start": 352.987,
-      "end": 353.964
+      "start": 351.962,
+      "end": 352.939
     },
     {
       "id": "section-4-paragraph-1:34",
       "word": "decision.",
-      "start": 353.964,
-      "end": 354.675
+      "start": 352.939,
+      "end": 353.65
     },
     {
       "id": "section-4-paragraph-2:0",
       "word": "A",
-      "start": 355.15,
-      "end": 355.2
+      "start": 354.125,
+      "end": 354.175
     },
     {
       "id": "section-4-paragraph-2:1",
       "word": "trustworthy",
-      "start": 355.275,
-      "end": 355.9
+      "start": 354.25,
+      "end": 354.875
     },
     {
       "id": "section-4-paragraph-2:2",
       "word": "pipeline",
-      "start": 355.975,
-      "end": 356.575
+      "start": 354.95,
+      "end": 355.55
     },
     {
       "id": "section-4-paragraph-2:3",
       "word": "should",
-      "start": 356.65,
-      "end": 356.8
+      "start": 355.625,
+      "end": 355.775
     },
     {
       "id": "section-4-paragraph-2:4",
       "word": "make",
-      "start": 356.85,
-      "end": 357.1
+      "start": 355.825,
+      "end": 356.075
     },
     {
       "id": "section-4-paragraph-2:5",
       "word": "rejected",
-      "start": 357.175,
-      "end": 357.775
+      "start": 356.15,
+      "end": 356.75
     },
     {
       "id": "section-4-paragraph-2:6",
       "word": "interventions",
-      "start": 357.825,
-      "end": 358.55
+      "start": 356.8,
+      "end": 357.525
     },
     {
       "id": "section-4-paragraph-2:7",
       "word": "visible.",
-      "start": 358.625,
-      "end": 359.6
+      "start": 357.6,
+      "end": 358.575
     },
     {
       "id": "section-4-paragraph-2:8",
       "word": "Otherwise",
-      "start": 359.675,
-      "end": 360.325
+      "start": 358.65,
+      "end": 359.3
     },
     {
       "id": "section-4-paragraph-2:9",
       "word": "the",
-      "start": 360.375,
-      "end": 360.45
+      "start": 359.35,
+      "end": 359.425
     },
     {
       "id": "section-4-paragraph-2:10",
       "word": "published",
-      "start": 360.525,
-      "end": 360.925
+      "start": 359.5,
+      "end": 359.9
     },
     {
       "id": "section-4-paragraph-2:11",
       "word": "model",
-      "start": 361,
-      "end": 361.425
+      "start": 359.975,
+      "end": 360.4
     },
     {
       "id": "section-4-paragraph-2:12",
       "word": "becomes",
-      "start": 361.475,
-      "end": 361.85
+      "start": 360.45,
+      "end": 360.825
     },
     {
       "id": "section-4-paragraph-2:13",
       "word": "a",
-      "start": 361.875,
-      "end": 361.925
+      "start": 360.85,
+      "end": 360.9
     },
     {
       "id": "section-4-paragraph-2:14",
       "word": "survivor",
-      "start": 362,
-      "end": 362.575
+      "start": 360.975,
+      "end": 361.55
     },
     {
       "id": "section-4-paragraph-2:15",
       "word": "selected",
-      "start": 362.65,
-      "end": 363.2
+      "start": 361.625,
+      "end": 362.175
     },
     {
       "id": "section-4-paragraph-2:16",
       "word": "from",
-      "start": 363.25,
-      "end": 363.45
+      "start": 362.225,
+      "end": 362.425
     },
     {
       "id": "section-4-paragraph-2:17",
       "word": "an",
-      "start": 363.5,
-      "end": 363.625
+      "start": 362.475,
+      "end": 362.6
     },
     {
       "id": "section-4-paragraph-2:18",
       "word": "invisible",
-      "start": 363.7,
-      "end": 364.3
+      "start": 362.675,
+      "end": 363.275
     },
     {
       "id": "section-4-paragraph-2:19",
       "word": "garden",
-      "start": 364.375,
-      "end": 364.825
+      "start": 363.35,
+      "end": 363.8
     },
     {
       "id": "section-4-paragraph-2:20",
       "word": "of",
-      "start": 364.9,
-      "end": 364.975
+      "start": 363.875,
+      "end": 363.95
     },
     {
       "id": "section-4-paragraph-2:21",
       "word": "experiments.",
-      "start": 365.025,
-      "end": 366.3
+      "start": 364,
+      "end": 365.275
     },
     {
       "id": "section-5-title:0",
       "word": "Reproducibility",
-      "start": 366.775,
-      "end": 367.675
+      "start": 365.75,
+      "end": 366.65
     },
     {
       "id": "section-5-title:1",
       "word": "includes",
-      "start": 367.725,
-      "end": 368.15
+      "start": 366.7,
+      "end": 367.125
     },
     {
       "id": "section-5-title:2",
       "word": "simulation,",
-      "start": 368.225,
-      "end": 369.3
+      "start": 367.2,
+      "end": 368.275
     },
     {
       "id": "section-5-title:3",
       "word": "versions",
-      "start": 369.375,
-      "end": 369.925
+      "start": 368.35,
+      "end": 368.9
     },
     {
       "id": "section-5-title:4",
       "word": "and",
-      "start": 369.975,
-      "end": 370.05
+      "start": 368.95,
+      "end": 369.025
     },
     {
       "id": "section-5-title:5",
       "word": "failed",
-      "start": 370.125,
-      "end": 370.475
+      "start": 369.1,
+      "end": 369.45
     },
     {
       "id": "section-5-title:6",
       "word": "checks.",
-      "start": 370.55,
-      "end": 371.475
+      "start": 369.525,
+      "end": 370.45
     },
     {
       "id": "section-5-paragraph-0:0",
       "word": "Tournament",
-      "start": 371.925,
-      "end": 372.375
+      "start": 370.9,
+      "end": 371.35
     },
     {
       "id": "section-5-paragraph-0:1",
       "word": "probabilities",
-      "start": 372.425,
-      "end": 373.15
+      "start": 371.4,
+      "end": 372.125
     },
     {
       "id": "section-5-paragraph-0:2",
       "word": "depend",
-      "start": 373.2,
-      "end": 373.6
+      "start": 372.175,
+      "end": 372.575
     },
     {
       "id": "section-5-paragraph-0:3",
       "word": "on",
-      "start": 373.625,
-      "end": 373.775
+      "start": 372.6,
+      "end": 372.75
     },
     {
       "id": "section-5-paragraph-0:4",
       "word": "more",
-      "start": 373.85,
-      "end": 374.125
+      "start": 372.825,
+      "end": 373.1
     },
     {
       "id": "section-5-paragraph-0:5",
       "word": "than",
-      "start": 374.175,
-      "end": 374.25
+      "start": 373.15,
+      "end": 373.225
     },
     {
       "id": "section-5-paragraph-0:6",
       "word": "the",
-      "start": 374.275,
-      "end": 374.325
+      "start": 373.25,
+      "end": 373.3
     },
     {
       "id": "section-5-paragraph-0:7",
       "word": "match",
-      "start": 374.375,
-      "end": 374.675
+      "start": 373.35,
+      "end": 373.65
     },
     {
       "id": "section-5-paragraph-0:8",
       "word": "model.",
-      "start": 374.725,
-      "end": 375.7
+      "start": 373.7,
+      "end": 374.675
     },
     {
       "id": "section-5-paragraph-0:9",
       "word": "Group",
-      "start": 375.8,
-      "end": 376.075
+      "start": 374.775,
+      "end": 375.05
     },
     {
       "id": "section-5-paragraph-0:10",
       "word": "rules,",
-      "start": 376.15,
-      "end": 377.025
+      "start": 375.125,
+      "end": 376
     },
     {
       "id": "section-5-paragraph-0:11",
       "word": "knockout",
-      "start": 377.1,
-      "end": 377.625
+      "start": 376.075,
+      "end": 376.6
     },
     {
       "id": "section-5-paragraph-0:12",
       "word": "progression,",
-      "start": 377.675,
-      "end": 378.675
+      "start": 376.65,
+      "end": 377.65
     },
     {
       "id": "section-5-paragraph-0:13",
       "word": "third-place",
-      "start": 378.775,
-      "end": 379.375
+      "start": 377.75,
+      "end": 378.35
     },
     {
       "id": "section-5-paragraph-0:14",
       "word": "qualification,",
-      "start": 379.425,
-      "end": 380.65
+      "start": 378.4,
+      "end": 379.625
     },
     {
       "id": "section-5-paragraph-0:15",
       "word": "random",
-      "start": 380.725,
-      "end": 381.125
+      "start": 379.7,
+      "end": 380.1
     },
     {
       "id": "section-5-paragraph-0:16",
       "word": "sampling",
-      "start": 381.225,
-      "end": 381.7
+      "start": 380.2,
+      "end": 380.675
     },
     {
       "id": "section-5-paragraph-0:17",
       "word": "and",
-      "start": 381.75,
-      "end": 381.825
+      "start": 380.725,
+      "end": 380.8
     },
     {
       "id": "section-5-paragraph-0:18",
       "word": "simulation",
-      "start": 381.9,
-      "end": 382.55
+      "start": 380.875,
+      "end": 381.525
     },
     {
       "id": "section-5-paragraph-0:19",
       "word": "count",
-      "start": 382.625,
-      "end": 383.15
+      "start": 381.6,
+      "end": 382.125
     },
     {
       "id": "section-5-paragraph-0:20",
       "word": "all",
-      "start": 383.275,
-      "end": 383.525
+      "start": 382.25,
+      "end": 382.5
     },
     {
       "id": "section-5-paragraph-0:21",
       "word": "affect",
-      "start": 383.575,
-      "end": 383.9
+      "start": 382.55,
+      "end": 382.875
     },
     {
       "id": "section-5-paragraph-0:22",
       "word": "the",
-      "start": 383.95,
-      "end": 384.025
+      "start": 382.925,
+      "end": 383
     },
     {
       "id": "section-5-paragraph-0:23",
       "word": "final",
-      "start": 384.125,
-      "end": 384.5
+      "start": 383.1,
+      "end": 383.475
     },
     {
       "id": "section-5-paragraph-0:24",
       "word": "distribution.",
-      "start": 384.55,
-      "end": 385.8
+      "start": 383.525,
+      "end": 384.775
     },
     {
       "id": "section-5-paragraph-0:25",
       "word": "Presaira",
-      "start": 386.25,
-      "end": 386.9
+      "start": 385.225,
+      "end": 385.875
     },
     {
       "id": "section-5-paragraph-0:26",
       "word": "runs",
-      "start": 386.975,
-      "end": 387.25
+      "start": 385.95,
+      "end": 386.225
     },
     {
       "id": "section-5-paragraph-0:27",
       "word": "the",
-      "start": 387.3,
-      "end": 387.375
+      "start": 386.275,
+      "end": 386.35
     },
     {
       "id": "section-5-paragraph-0:28",
       "word": "tournament",
-      "start": 387.45,
-      "end": 387.925
+      "start": 386.425,
+      "end": 386.9
     },
     {
       "id": "section-5-paragraph-0:29",
       "word": "50,000",
-      "start": 388.025,
-      "end": 388.875
+      "start": 387,
+      "end": 387.85
     },
     {
       "id": "section-5-paragraph-0:30",
       "word": "times",
-      "start": 388.95,
-      "end": 389.45
+      "start": 387.925,
+      "end": 388.425
     },
     {
       "id": "section-5-paragraph-0:31",
       "word": "with",
-      "start": 389.5,
-      "end": 389.6
+      "start": 388.475,
+      "end": 388.575
     },
     {
       "id": "section-5-paragraph-0:32",
       "word": "a",
-      "start": 389.625,
-      "end": 389.675
+      "start": 388.6,
+      "end": 388.65
     },
     {
       "id": "section-5-paragraph-0:33",
       "word": "fixed",
-      "start": 389.775,
-      "end": 390.075
+      "start": 388.75,
+      "end": 389.05
     },
     {
       "id": "section-5-paragraph-0:34",
       "word": "seed",
-      "start": 390.175,
-      "end": 390.95
+      "start": 389.15,
+      "end": 389.925
     },
     {
       "id": "section-5-paragraph-0:35",
       "word": "and",
-      "start": 391.05,
-      "end": 391.125
+      "start": 390.025,
+      "end": 390.1
     },
     {
       "id": "section-5-paragraph-0:36",
       "word": "records",
-      "start": 391.2,
-      "end": 391.6
+      "start": 390.175,
+      "end": 390.575
     },
     {
       "id": "section-5-paragraph-0:37",
       "word": "model",
-      "start": 391.7,
-      "end": 392.125
+      "start": 390.675,
+      "end": 391.1
     },
     {
       "id": "section-5-paragraph-0:38",
       "word": "and",
-      "start": 392.175,
-      "end": 392.25
+      "start": 391.15,
+      "end": 391.225
     },
     {
       "id": "section-5-paragraph-0:39",
       "word": "simulator",
-      "start": 392.35,
-      "end": 392.85
+      "start": 391.325,
+      "end": 391.825
     },
     {
       "id": "section-5-paragraph-0:40",
       "word": "versions",
-      "start": 392.9,
-      "end": 393.8
+      "start": 391.875,
+      "end": 392.775
     },
     {
       "id": "section-5-paragraph-0:41",
       "word": "so",
-      "start": 393.925,
-      "end": 394.025
+      "start": 392.9,
+      "end": 393
     },
     {
       "id": "section-5-paragraph-0:42",
       "word": "the",
-      "start": 394.05,
-      "end": 394.125
+      "start": 393.025,
+      "end": 393.1
     },
     {
       "id": "section-5-paragraph-0:43",
       "word": "published",
-      "start": 394.2,
-      "end": 394.6
+      "start": 393.175,
+      "end": 393.575
     },
     {
       "id": "section-5-paragraph-0:44",
       "word": "artifact",
-      "start": 394.675,
-      "end": 395.35
+      "start": 393.65,
+      "end": 394.325
     },
     {
       "id": "section-5-paragraph-0:45",
       "word": "has",
-      "start": 395.4,
-      "end": 395.625
+      "start": 394.375,
+      "end": 394.6
     },
     {
       "id": "section-5-paragraph-0:46",
       "word": "an",
-      "start": 395.675,
-      "end": 395.825
+      "start": 394.65,
+      "end": 394.8
     },
     {
       "id": "section-5-paragraph-0:47",
       "word": "inspectable",
-      "start": 395.9,
-      "end": 396.6
+      "start": 394.875,
+      "end": 395.575
     },
     {
       "id": "section-5-paragraph-0:48",
       "word": "computational",
-      "start": 396.675,
-      "end": 397.55
+      "start": 395.65,
+      "end": 396.525
     },
     {
       "id": "section-5-paragraph-0:49",
       "word": "context.",
-      "start": 397.6,
-      "end": 398.85
+      "start": 396.575,
+      "end": 397.825
     },
     {
       "id": "section-5-paragraph-1:0",
       "word": "One",
-      "start": 399.35,
-      "end": 399.475
+      "start": 398.325,
+      "end": 398.45
     },
     {
       "id": "section-5-paragraph-1:1",
       "word": "of",
-      "start": 399.55,
-      "end": 399.7
+      "start": 398.525,
+      "end": 398.675
     },
     {
       "id": "section-5-paragraph-1:2",
       "word": "the",
-      "start": 399.725,
-      "end": 400.025
+      "start": 398.7,
+      "end": 399
     },
     {
       "id": "section-5-paragraph-1:3",
       "word": "most",
-      "start": 400.075,
-      "end": 400.475
+      "start": 399.05,
+      "end": 399.45
     },
     {
       "id": "section-5-paragraph-1:4",
       "word": "useful",
-      "start": 400.525,
-      "end": 400.9
+      "start": 399.5,
+      "end": 399.875
     },
     {
       "id": "section-5-paragraph-1:5",
       "word": "pieces",
-      "start": 400.925,
-      "end": 401.05
+      "start": 399.9,
+      "end": 400.025
     },
     {
       "id": "section-5-paragraph-1:6",
       "word": "of",
-      "start": 401.1,
-      "end": 401.6
+      "start": 400.075,
+      "end": 400.575
     },
     {
       "id": "section-5-paragraph-1:7",
       "word": "evidence",
-      "start": 401.65,
-      "end": 401.75
+      "start": 400.625,
+      "end": 400.725
     },
     {
       "id": "section-5-paragraph-1:8",
       "word": "is",
-      "start": 401.8,
-      "end": 401.95
+      "start": 400.775,
+      "end": 400.925
     },
     {
       "id": "section-5-paragraph-1:9",
       "word": "a",
-      "start": 402,
-      "end": 402.375
+      "start": 400.975,
+      "end": 401.35
     },
     {
       "id": "section-5-paragraph-1:10",
       "word": "failed",
-      "start": 402.425,
-      "end": 403.05
+      "start": 401.4,
+      "end": 402.025
     },
     {
       "id": "section-5-paragraph-1:11",
       "word": "convergence",
-      "start": 403.1,
-      "end": 403.975
+      "start": 402.075,
+      "end": 402.95
     },
     {
       "id": "section-5-paragraph-1:12",
       "word": "check:",
-      "start": 404,
-      "end": 404.075
+      "start": 402.975,
+      "end": 403.05
     },
     {
       "id": "section-5-paragraph-1:13",
       "word": "the",
-      "start": 404.125,
-      "end": 404.525
+      "start": 403.1,
+      "end": 403.5
     },
     {
       "id": "section-5-paragraph-1:14",
       "word": "committed",
-      "start": 404.575,
-      "end": 404.875
+      "start": 403.55,
+      "end": 403.85
     },
     {
       "id": "section-5-paragraph-1:15",
       "word": "10,000-versus-50,000",
-      "start": 404.925,
-      "end": 406.325
+      "start": 403.9,
+      "end": 405.3
     },
     {
       "id": "section-5-paragraph-1:16",
       "word": "target",
-      "start": 406.4,
-      "end": 406.8
+      "start": 405.375,
+      "end": 405.775
     },
     {
       "id": "section-5-paragraph-1:17",
       "word": "does",
-      "start": 406.875,
-      "end": 407.55
+      "start": 405.85,
+      "end": 406.525
     },
     {
       "id": "section-5-paragraph-1:18",
       "word": "not",
-      "start": 407.625,
-      "end": 408.025
+      "start": 406.6,
+      "end": 407
     },
     {
       "id": "section-5-paragraph-1:19",
       "word": "pass",
-      "start": 408.075,
-      "end": 408.35
+      "start": 407.05,
+      "end": 407.325
     },
     {
       "id": "section-5-paragraph-1:20",
       "word": "its",
-      "start": 408.375,
-      "end": 408.525
+      "start": 407.35,
+      "end": 407.5
     },
     {
       "id": "section-5-paragraph-1:21",
       "word": "chosen",
-      "start": 408.6,
-      "end": 409.025
+      "start": 407.575,
+      "end": 408
     },
     {
       "id": "section-5-paragraph-1:22",
       "word": "threshold,",
-      "start": 409.1,
-      "end": 410.1
+      "start": 408.075,
+      "end": 409.075
     },
     {
       "id": "section-5-paragraph-1:23",
       "word": "so",
-      "start": 410.175,
-      "end": 410.275
+      "start": 409.15,
+      "end": 409.25
     },
     {
       "id": "section-5-paragraph-1:24",
       "word": "production",
-      "start": 410.325,
-      "end": 410.825
+      "start": 409.3,
+      "end": 409.8
     },
     {
       "id": "section-5-paragraph-1:25",
       "word": "stays",
-      "start": 410.875,
-      "end": 411.225
+      "start": 409.85,
+      "end": 410.2
     },
     {
       "id": "section-5-paragraph-1:26",
       "word": "at",
-      "start": 411.275,
-      "end": 411.375
+      "start": 410.25,
+      "end": 410.35
     },
     {
       "id": "section-5-paragraph-1:27",
       "word": "50,000.",
-      "start": 411.475,
-      "end": 413.075
+      "start": 410.45,
+      "end": 412.05
     },
     {
       "id": "section-5-paragraph-1:28",
       "word": "Keeping",
-      "start": 413.15,
-      "end": 413.5
+      "start": 412.125,
+      "end": 412.475
     },
     {
       "id": "section-5-paragraph-1:29",
       "word": "that",
-      "start": 413.55,
-      "end": 413.725
+      "start": 412.525,
+      "end": 412.7
     },
     {
       "id": "section-5-paragraph-1:30",
       "word": "failure",
-      "start": 413.825,
-      "end": 414.325
+      "start": 412.8,
+      "end": 413.3
     },
     {
       "id": "section-5-paragraph-1:31",
       "word": "is",
-      "start": 414.4,
-      "end": 414.475
+      "start": 413.375,
+      "end": 413.45
     },
     {
       "id": "section-5-paragraph-1:32",
       "word": "stronger",
-      "start": 414.575,
-      "end": 415.15
+      "start": 413.55,
+      "end": 414.125
     },
     {
       "id": "section-5-paragraph-1:33",
       "word": "evidence",
-      "start": 415.225,
-      "end": 415.85
+      "start": 414.2,
+      "end": 414.825
     },
     {
       "id": "section-5-paragraph-1:34",
       "word": "than",
-      "start": 415.9,
-      "end": 416.075
+      "start": 414.875,
+      "end": 415.05
     },
     {
       "id": "section-5-paragraph-1:35",
       "word": "retroactively",
-      "start": 416.15,
-      "end": 417.025
+      "start": 415.125,
+      "end": 416
     },
     {
       "id": "section-5-paragraph-1:36",
       "word": "choosing",
-      "start": 417.1,
-      "end": 417.5
+      "start": 416.075,
+      "end": 416.475
     },
     {
       "id": "section-5-paragraph-1:37",
       "word": "a",
-      "start": 417.55,
-      "end": 417.6
+      "start": 416.525,
+      "end": 416.575
     },
     {
       "id": "section-5-paragraph-1:38",
       "word": "threshold",
-      "start": 417.7,
-      "end": 418.35
+      "start": 416.675,
+      "end": 417.325
     },
     {
       "id": "section-5-paragraph-1:39",
       "word": "that",
-      "start": 418.4,
-      "end": 418.55
+      "start": 417.375,
+      "end": 417.525
     },
     {
       "id": "section-5-paragraph-1:40",
       "word": "makes",
-      "start": 418.6,
-      "end": 418.85
+      "start": 417.575,
+      "end": 417.825
     },
     {
       "id": "section-5-paragraph-1:41",
       "word": "the",
-      "start": 418.9,
-      "end": 418.975
+      "start": 417.875,
+      "end": 417.95
     },
     {
       "id": "section-5-paragraph-1:42",
       "word": "run",
-      "start": 419.05,
-      "end": 419.325
+      "start": 418.025,
+      "end": 418.3
     },
     {
       "id": "section-5-paragraph-1:43",
       "word": "look",
-      "start": 419.375,
-      "end": 419.55
+      "start": 418.35,
+      "end": 418.525
     },
     {
       "id": "section-5-paragraph-1:44",
       "word": "clean.",
-      "start": 419.625,
-      "end": 420.65
+      "start": 418.6,
+      "end": 419.625
     },
     {
       "id": "section-6-title:0",
       "word": "A",
-      "start": 420.675,
-      "end": 420.775
+      "start": 419.65,
+      "end": 419.75
     },
     {
       "id": "section-6-title:1",
       "word": "model",
-      "start": 420.775,
-      "end": 421.275
+      "start": 419.75,
+      "end": 420.25
     },
     {
       "id": "section-6-title:2",
       "word": "can",
-      "start": 421.275,
-      "end": 421.575
+      "start": 420.25,
+      "end": 420.55
     },
     {
       "id": "section-6-title:3",
       "word": "be",
-      "start": 421.575,
-      "end": 421.775
+      "start": 420.55,
+      "end": 420.75
     },
     {
       "id": "section-6-title:4",
       "word": "useful",
-      "start": 421.775,
-      "end": 422.375
+      "start": 420.75,
+      "end": 421.35
     },
     {
       "id": "section-6-title:5",
       "word": "without",
-      "start": 422.375,
-      "end": 423.075
+      "start": 421.35,
+      "end": 422.05
     },
     {
       "id": "section-6-title:6",
       "word": "pretending",
-      "start": 423.075,
-      "end": 424.075
+      "start": 422.05,
+      "end": 423.05
     },
     {
       "id": "section-6-title:7",
       "word": "to",
-      "start": 424.075,
-      "end": 424.275
+      "start": 423.05,
+      "end": 423.25
     },
     {
       "id": "section-6-title:8",
       "word": "be",
-      "start": 424.275,
-      "end": 424.475
+      "start": 423.25,
+      "end": 423.45
     },
     {
       "id": "section-6-title:9",
       "word": "an",
-      "start": 424.475,
-      "end": 424.675
+      "start": 423.45,
+      "end": 423.65
     },
     {
       "id": "section-6-title:10",
       "word": "oracle.",
-      "start": 424.675,
-      "end": 425.275
+      "start": 423.65,
+      "end": 424.25
     },
     {
       "id": "section-6-paragraph-0:0",
       "word": "Presaira",
-      "start": 425.275,
-      "end": 425.99
+      "start": 424.25,
+      "end": 424.965
     },
     {
       "id": "section-6-paragraph-0:1",
       "word": "does",
-      "start": 425.99,
-      "end": 426.348
+      "start": 424.965,
+      "end": 425.323
     },
     {
       "id": "section-6-paragraph-0:2",
       "word": "not",
-      "start": 426.348,
-      "end": 426.616
+      "start": 425.323,
+      "end": 425.591
     },
     {
       "id": "section-6-paragraph-0:3",
       "word": "see",
-      "start": 426.616,
-      "end": 426.884
+      "start": 425.591,
+      "end": 425.859
     },
     {
       "id": "section-6-paragraph-0:4",
       "word": "team",
-      "start": 426.884,
-      "end": 427.242
+      "start": 425.859,
+      "end": 426.217
     },
     {
       "id": "section-6-paragraph-0:5",
       "word": "news,",
-      "start": 427.242,
-      "end": 427.6
+      "start": 426.217,
+      "end": 426.575
     },
     {
       "id": "section-6-paragraph-0:6",
       "word": "injuries,",
-      "start": 427.6,
-      "end": 428.315
+      "start": 426.575,
+      "end": 427.29
     },
     {
       "id": "section-6-paragraph-0:7",
       "word": "suspensions",
-      "start": 428.315,
-      "end": 429.299
+      "start": 427.29,
+      "end": 428.274
     },
     {
       "id": "section-6-paragraph-0:8",
       "word": "or",
-      "start": 429.299,
-      "end": 429.477
+      "start": 428.274,
+      "end": 428.452
     },
     {
       "id": "section-6-paragraph-0:9",
       "word": "lineups.",
-      "start": 429.477,
-      "end": 430.103
+      "start": 428.452,
+      "end": 429.078
     },
     {
       "id": "section-6-paragraph-0:10",
       "word": "It",
-      "start": 430.103,
-      "end": 430.282
+      "start": 429.078,
+      "end": 429.257
     },
     {
       "id": "section-6-paragraph-0:11",
       "word": "was",
-      "start": 430.282,
-      "end": 430.55
+      "start": 429.257,
+      "end": 429.525
     },
     {
       "id": "section-6-paragraph-0:12",
       "word": "also",
-      "start": 430.55,
-      "end": 430.908
+      "start": 429.525,
+      "end": 429.883
     },
     {
       "id": "section-6-paragraph-0:13",
       "word": "under-confident",
-      "start": 430.908,
-      "end": 432.16
+      "start": 429.883,
+      "end": 431.135
     },
     {
       "id": "section-6-paragraph-0:14",
       "word": "in",
-      "start": 432.16,
-      "end": 432.339
+      "start": 431.135,
+      "end": 431.314
     },
     {
       "id": "section-6-paragraph-0:15",
       "word": "parts",
-      "start": 432.339,
-      "end": 432.786
+      "start": 431.314,
+      "end": 431.761
     },
     {
       "id": "section-6-paragraph-0:16",
       "word": "of",
-      "start": 432.786,
-      "end": 432.965
+      "start": 431.761,
+      "end": 431.94
     },
     {
       "id": "section-6-paragraph-0:17",
       "word": "the",
-      "start": 432.965,
-      "end": 433.233
+      "start": 431.94,
+      "end": 432.208
     },
     {
       "id": "section-6-paragraph-0:18",
       "word": "2026",
-      "start": 433.233,
-      "end": 433.59
+      "start": 432.208,
+      "end": 432.565
     },
     {
       "id": "section-6-paragraph-0:19",
       "word": "probability",
-      "start": 433.59,
-      "end": 434.574
+      "start": 432.565,
+      "end": 433.549
     },
     {
       "id": "section-6-paragraph-0:20",
       "word": "range,",
-      "start": 434.574,
-      "end": 435.021
+      "start": 433.549,
+      "end": 433.996
     },
     {
       "id": "section-6-paragraph-0:21",
       "word": "and",
-      "start": 435.021,
-      "end": 435.289
+      "start": 433.996,
+      "end": 434.264
     },
     {
       "id": "section-6-paragraph-0:22",
       "word": "the",
-      "start": 435.289,
-      "end": 435.557
+      "start": 434.264,
+      "end": 434.532
     },
     {
       "id": "section-6-paragraph-0:23",
       "word": "historical",
-      "start": 435.557,
-      "end": 436.452
+      "start": 434.532,
+      "end": 435.427
     },
     {
       "id": "section-6-paragraph-0:24",
       "word": "backtests",
-      "start": 436.452,
-      "end": 437.256
+      "start": 435.427,
+      "end": 436.231
     },
     {
       "id": "section-6-paragraph-0:25",
       "word": "sit",
-      "start": 437.256,
-      "end": 437.525
+      "start": 436.231,
+      "end": 436.5
     },
     {
       "id": "section-6-paragraph-0:26",
       "word": "within",
-      "start": 437.525,
-      "end": 438.061
+      "start": 436.5,
+      "end": 437.036
     },
     {
       "id": "section-6-paragraph-0:27",
       "word": "one",
-      "start": 438.061,
-      "end": 438.329
+      "start": 437.036,
+      "end": 437.304
     },
     {
       "id": "section-6-paragraph-0:28",
       "word": "standard",
-      "start": 438.329,
-      "end": 439.045
+      "start": 437.304,
+      "end": 438.02
     },
     {
       "id": "section-6-paragraph-0:29",
       "word": "deviation",
-      "start": 439.045,
-      "end": 439.849
+      "start": 438.02,
+      "end": 438.824
     },
     {
       "id": "section-6-paragraph-0:30",
       "word": "of",
-      "start": 439.849,
-      "end": 440.028
+      "start": 438.824,
+      "end": 439.003
     },
     {
       "id": "section-6-paragraph-0:31",
       "word": "a",
-      "start": 440.028,
-      "end": 440.118
+      "start": 439.003,
+      "end": 439.093
     },
     {
       "id": "section-6-paragraph-0:32",
       "word": "strong",
-      "start": 440.118,
-      "end": 440.654
+      "start": 439.093,
+      "end": 439.629
     },
     {
       "id": "section-6-paragraph-0:33",
       "word": "Elo-based",
-      "start": 440.654,
-      "end": 441.369
+      "start": 439.629,
+      "end": 440.344
     },
     {
       "id": "section-6-paragraph-0:34",
       "word": "baseline.",
-      "start": 441.369,
-      "end": 442.085
+      "start": 440.344,
+      "end": 441.06
     },
     {
       "id": "section-6-paragraph-0:35",
       "word": "Those",
-      "start": 442.085,
-      "end": 442.532
+      "start": 441.06,
+      "end": 441.507
     },
     {
       "id": "section-6-paragraph-0:36",
       "word": "limitations",
-      "start": 442.532,
-      "end": 443.515
+      "start": 441.507,
+      "end": 442.49
     },
     {
       "id": "section-6-paragraph-0:37",
       "word": "are",
-      "start": 443.515,
-      "end": 443.783
+      "start": 442.49,
+      "end": 442.758
     },
     {
       "id": "section-6-paragraph-0:38",
       "word": "not",
-      "start": 443.783,
-      "end": 444.052
+      "start": 442.758,
+      "end": 443.027
     },
     {
       "id": "section-6-paragraph-0:39",
       "word": "footnotes",
-      "start": 444.052,
-      "end": 444.856
+      "start": 443.027,
+      "end": 443.831
     },
     {
       "id": "section-6-paragraph-0:40",
       "word": "to",
-      "start": 444.856,
-      "end": 445.035
+      "start": 443.831,
+      "end": 444.01
     },
     {
       "id": "section-6-paragraph-0:41",
       "word": "remove",
-      "start": 445.035,
-      "end": 445.572
+      "start": 444.01,
+      "end": 444.547
     },
     {
       "id": "section-6-paragraph-0:42",
       "word": "from",
-      "start": 445.572,
-      "end": 445.929
+      "start": 444.547,
+      "end": 444.904
     },
     {
       "id": "section-6-paragraph-0:43",
       "word": "the",
-      "start": 445.929,
-      "end": 446.198
+      "start": 444.904,
+      "end": 445.173
     },
     {
       "id": "section-6-paragraph-0:44",
       "word": "story;",
-      "start": 446.198,
-      "end": 446.645
+      "start": 445.173,
+      "end": 445.62
     },
     {
       "id": "section-6-paragraph-0:45",
       "word": "they",
-      "start": 446.645,
-      "end": 447.002
+      "start": 445.62,
+      "end": 445.977
     },
     {
       "id": "section-6-paragraph-0:46",
       "word": "define",
-      "start": 447.002,
-      "end": 447.539
+      "start": 445.977,
+      "end": 446.514
     },
     {
       "id": "section-6-paragraph-0:47",
       "word": "where",
-      "start": 447.539,
-      "end": 447.986
+      "start": 446.514,
+      "end": 446.961
     },
     {
       "id": "section-6-paragraph-0:48",
       "word": "the",
-      "start": 447.986,
-      "end": 448.254
+      "start": 446.961,
+      "end": 447.229
     },
     {
       "id": "section-6-paragraph-0:49",
       "word": "forecast",
-      "start": 448.254,
-      "end": 448.969
+      "start": 447.229,
+      "end": 447.944
     },
     {
       "id": "section-6-paragraph-0:50",
       "word": "deserves",
-      "start": 448.969,
-      "end": 449.685
+      "start": 447.944,
+      "end": 448.66
     },
     {
       "id": "section-6-paragraph-0:51",
       "word": "reliance.",
-      "start": 449.685,
-      "end": 450.4
+      "start": 448.66,
+      "end": 449.375
     },
     {
       "id": "section-6-paragraph-1:0",
       "word": "My",
-      "start": 450.875,
-      "end": 451.025
+      "start": 449.85,
+      "end": 450
     },
     {
       "id": "section-6-paragraph-1:1",
       "word": "practical",
-      "start": 451.075,
-      "end": 451.575
+      "start": 450.05,
+      "end": 450.55
     },
     {
       "id": "section-6-paragraph-1:2",
       "word": "trust",
-      "start": 451.625,
-      "end": 451.875
+      "start": 450.6,
+      "end": 450.85
     },
     {
       "id": "section-6-paragraph-1:3",
       "word": "test",
-      "start": 451.95,
-      "end": 452.225
+      "start": 450.925,
+      "end": 451.2
     },
     {
       "id": "section-6-paragraph-1:4",
       "word": "is",
-      "start": 452.275,
-      "end": 452.375
+      "start": 451.25,
+      "end": 451.35
     },
     {
       "id": "section-6-paragraph-1:5",
       "word": "therefore",
-      "start": 452.425,
-      "end": 452.775
+      "start": 451.4,
+      "end": 451.75
     },
     {
       "id": "section-6-paragraph-1:6",
       "word": "cumulative.",
-      "start": 452.85,
-      "end": 454.15
+      "start": 451.825,
+      "end": 453.125
     },
     {
       "id": "section-6-paragraph-1:7",
       "word": "I",
-      "start": 454.225,
-      "end": 454.325
+      "start": 453.2,
+      "end": 453.3
     },
     {
       "id": "section-6-paragraph-1:8",
       "word": "want",
-      "start": 454.375,
-      "end": 454.575
+      "start": 453.35,
+      "end": 453.55
     },
     {
       "id": "section-6-paragraph-1:9",
       "word": "proper",
-      "start": 454.65,
-      "end": 454.975
+      "start": 453.625,
+      "end": 453.95
     },
     {
       "id": "section-6-paragraph-1:10",
       "word": "scoring,",
-      "start": 455.05,
-      "end": 455.825
+      "start": 454.025,
+      "end": 454.8
     },
     {
       "id": "section-6-paragraph-1:11",
       "word": "calibration",
-      "start": 455.9,
-      "end": 456.6
+      "start": 454.875,
+      "end": 455.575
     },
     {
       "id": "section-6-paragraph-1:12",
       "word": "evidence,",
-      "start": 456.675,
-      "end": 457.425
+      "start": 455.65,
+      "end": 456.4
     },
     {
       "id": "section-6-paragraph-1:13",
       "word": "complete",
-      "start": 457.475,
-      "end": 457.95
+      "start": 456.45,
+      "end": 456.925
     },
     {
       "id": "section-6-paragraph-1:14",
       "word": "coverage,",
-      "start": 458.025,
-      "end": 458.85
+      "start": 457,
+      "end": 457.825
     },
     {
       "id": "section-6-paragraph-1:15",
       "word": "leakage",
-      "start": 458.925,
-      "end": 459.3
+      "start": 457.9,
+      "end": 458.275
     },
     {
       "id": "section-6-paragraph-1:16",
       "word": "protection,",
-      "start": 459.35,
-      "end": 460.225
+      "start": 458.325,
+      "end": 459.2
     },
     {
       "id": "section-6-paragraph-1:17",
       "word": "reproducible",
-      "start": 460.275,
-      "end": 460.975
+      "start": 459.25,
+      "end": 459.95
     },
     {
       "id": "section-6-paragraph-1:18",
       "word": "artifacts",
-      "start": 461.025,
-      "end": 461.725
+      "start": 460,
+      "end": 460.7
     },
     {
       "id": "section-6-paragraph-1:19",
       "word": "and",
-      "start": 461.8,
-      "end": 461.875
+      "start": 460.775,
+      "end": 460.85
     },
     {
       "id": "section-6-paragraph-1:20",
       "word": "explicit",
-      "start": 461.925,
-      "end": 462.45
+      "start": 460.9,
+      "end": 461.425
     },
     {
       "id": "section-6-paragraph-1:21",
       "word": "limitations.",
-      "start": 462.5,
-      "end": 463.9
+      "start": 461.475,
+      "end": 462.875
     },
     {
       "id": "section-6-paragraph-1:22",
       "word": "None",
-      "start": 464,
-      "end": 464.25
+      "start": 462.975,
+      "end": 463.225
     },
     {
       "id": "section-6-paragraph-1:23",
       "word": "proves",
-      "start": 464.325,
-      "end": 464.7
+      "start": 463.3,
+      "end": 463.675
     },
     {
       "id": "section-6-paragraph-1:24",
       "word": "a",
-      "start": 464.725,
-      "end": 464.775
+      "start": 463.7,
+      "end": 463.75
     },
     {
       "id": "section-6-paragraph-1:25",
       "word": "forecast",
-      "start": 464.875,
-      "end": 465.55
+      "start": 463.85,
+      "end": 464.525
     },
     {
       "id": "section-6-paragraph-1:26",
       "word": "is",
-      "start": 465.6,
-      "end": 465.7
+      "start": 464.575,
+      "end": 464.675
     },
     {
       "id": "section-6-paragraph-1:27",
       "word": "'correct'.",
-      "start": 465.775,
-      "end": 466.7
+      "start": 464.75,
+      "end": 465.675
     },
     {
       "id": "section-6-paragraph-1:28",
       "word": "Together",
-      "start": 466.775,
-      "end": 467.175
+      "start": 465.75,
+      "end": 466.15
     },
     {
       "id": "section-6-paragraph-1:29",
       "word": "they",
-      "start": 467.225,
-      "end": 467.325
+      "start": 466.2,
+      "end": 466.3
     },
     {
       "id": "section-6-paragraph-1:30",
       "word": "make",
-      "start": 467.375,
-      "end": 467.525
+      "start": 466.35,
+      "end": 466.5
     },
     {
       "id": "section-6-paragraph-1:31",
       "word": "it",
-      "start": 467.55,
-      "end": 467.625
+      "start": 466.525,
+      "end": 466.6
     },
     {
       "id": "section-6-paragraph-1:32",
       "word": "possible",
-      "start": 467.7,
-      "end": 468.25
+      "start": 466.675,
+      "end": 467.225
     },
     {
       "id": "section-6-paragraph-1:33",
       "word": "to",
-      "start": 468.3,
-      "end": 468.375
+      "start": 467.275,
+      "end": 467.35
     },
     {
       "id": "section-6-paragraph-1:34",
       "word": "understand",
-      "start": 468.425,
-      "end": 469.075
+      "start": 467.4,
+      "end": 468.05
     },
     {
       "id": "section-6-paragraph-1:35",
       "word": "what",
-      "start": 469.125,
-      "end": 469.225
+      "start": 468.1,
+      "end": 468.2
     },
     {
       "id": "section-6-paragraph-1:36",
       "word": "the",
-      "start": 469.275,
-      "end": 469.35
+      "start": 468.25,
+      "end": 468.325
     },
     {
       "id": "section-6-paragraph-1:37",
       "word": "numbers",
-      "start": 469.425,
-      "end": 469.825
+      "start": 468.4,
+      "end": 468.8
     },
     {
       "id": "section-6-paragraph-1:38",
       "word": "actually",
-      "start": 469.925,
-      "end": 470.35
+      "start": 468.9,
+      "end": 469.325
     },
     {
       "id": "section-6-paragraph-1:39",
       "word": "deserve.",
-      "start": 470.4,
-      "end": 471.575
+      "start": 469.375,
+      "end": 470.55
     },
     {
       "id": "takeaways-title:0",
       "word": "What",
-      "start": 472.05,
-      "end": 472.15
+      "start": 471.025,
+      "end": 471.125
     },
     {
       "id": "takeaways-title:1",
       "word": "I",
-      "start": 472.2,
-      "end": 472.3
+      "start": 471.175,
+      "end": 471.275
     },
     {
       "id": "takeaways-title:2",
       "word": "carry",
-      "start": 472.375,
-      "end": 472.75
+      "start": 471.35,
+      "end": 471.725
     },
     {
       "id": "takeaways-title:3",
       "word": "into",
-      "start": 472.775,
-      "end": 472.925
+      "start": 471.75,
+      "end": 471.9
     },
     {
       "id": "takeaways-title:4",
       "word": "the",
-      "start": 472.95,
-      "end": 473
+      "start": 471.925,
+      "end": 471.975
     },
     {
       "id": "takeaways-title:5",
       "word": "next",
-      "start": 473.05,
-      "end": 473.3
+      "start": 472.025,
+      "end": 472.275
     },
     {
       "id": "takeaways-title:6",
       "word": "system.",
-      "start": 473.35,
-      "end": 474.275
+      "start": 472.325,
+      "end": 473.25
     },
     {
       "id": "takeaway-0:0",
       "word": "Judge",
-      "start": 476.3,
-      "end": 476.65
+      "start": 475.125,
+      "end": 475.475
     },
     {
       "id": "takeaway-0:1",
       "word": "probabilistic",
-      "start": 476.725,
-      "end": 477.475
+      "start": 475.55,
+      "end": 476.3
     },
     {
       "id": "takeaway-0:2",
       "word": "systems",
-      "start": 477.55,
-      "end": 478.05
+      "start": 476.375,
+      "end": 476.875
     },
     {
       "id": "takeaway-0:3",
       "word": "over",
-      "start": 478.1,
-      "end": 478.3
+      "start": 476.925,
+      "end": 477.125
     },
     {
       "id": "takeaway-0:4",
       "word": "many",
-      "start": 478.375,
-      "end": 478.55
+      "start": 477.2,
+      "end": 477.375
     },
     {
       "id": "takeaway-0:5",
       "word": "forecasts",
-      "start": 478.65,
-      "end": 479.35
+      "start": 477.475,
+      "end": 478.175
     },
     {
       "id": "takeaway-0:6",
       "word": "with",
-      "start": 479.4,
-      "end": 479.525
+      "start": 478.225,
+      "end": 478.35
     },
     {
       "id": "takeaway-0:7",
       "word": "proper",
-      "start": 479.6,
-      "end": 479.925
+      "start": 478.425,
+      "end": 478.75
     },
     {
       "id": "takeaway-0:8",
       "word": "scoring",
-      "start": 480,
-      "end": 480.425
+      "start": 478.825,
+      "end": 479.25
     },
     {
       "id": "takeaway-0:9",
       "word": "rules,",
-      "start": 480.475,
-      "end": 481.275
+      "start": 479.3,
+      "end": 480.1
     },
     {
       "id": "takeaway-0:10",
       "word": "not",
-      "start": 481.35,
-      "end": 481.575
+      "start": 480.175,
+      "end": 480.4
     },
     {
       "id": "takeaway-0:11",
       "word": "isolated",
-      "start": 481.65,
-      "end": 482.3
+      "start": 480.475,
+      "end": 481.125
     },
     {
       "id": "takeaway-0:12",
       "word": "wins.",
-      "start": 482.375,
-      "end": 483.35
+      "start": 481.2,
+      "end": 482.175
     },
     {
       "id": "takeaway-1:0",
       "word": "Treat",
-      "start": 484.9,
-      "end": 485.372
+      "start": 483.675,
+      "end": 484.147
     },
     {
       "id": "takeaway-1:1",
       "word": "coverage",
-      "start": 485.372,
-      "end": 486.126
+      "start": 484.147,
+      "end": 484.901
     },
     {
       "id": "takeaway-1:2",
       "word": "and",
-      "start": 486.126,
-      "end": 486.409
+      "start": 484.901,
+      "end": 485.184
     },
     {
       "id": "takeaway-1:3",
       "word": "temporal",
-      "start": 486.409,
-      "end": 487.164
+      "start": 485.184,
+      "end": 485.939
     },
     {
       "id": "takeaway-1:4",
       "word": "cutoffs",
-      "start": 487.164,
-      "end": 487.824
+      "start": 485.939,
+      "end": 486.599
     },
     {
       "id": "takeaway-1:5",
       "word": "as",
-      "start": 487.824,
-      "end": 488.013
+      "start": 486.599,
+      "end": 486.788
     },
     {
       "id": "takeaway-1:6",
       "word": "part",
-      "start": 488.013,
-      "end": 488.39
+      "start": 486.788,
+      "end": 487.165
     },
     {
       "id": "takeaway-1:7",
       "word": "of",
-      "start": 488.39,
-      "end": 488.579
+      "start": 487.165,
+      "end": 487.354
     },
     {
       "id": "takeaway-1:8",
       "word": "the",
-      "start": 488.579,
-      "end": 488.862
+      "start": 487.354,
+      "end": 487.637
     },
     {
       "id": "takeaway-1:9",
       "word": "evaluation,",
-      "start": 488.862,
-      "end": 489.805
+      "start": 487.637,
+      "end": 488.58
     },
     {
       "id": "takeaway-1:10",
       "word": "not",
-      "start": 489.805,
-      "end": 490.088
+      "start": 488.58,
+      "end": 488.863
     },
     {
       "id": "takeaway-1:11",
       "word": "implementation",
-      "start": 490.088,
-      "end": 491.409
+      "start": 488.863,
+      "end": 490.184
     },
     {
       "id": "takeaway-1:12",
       "word": "trivia.",
-      "start": 491.409,
-      "end": 491.975
+      "start": 490.184,
+      "end": 490.75
     },
     {
       "id": "takeaway-2:0",
       "word": "Calibration",
-      "start": 493.5,
-      "end": 494.472
+      "start": 492.125,
+      "end": 493.097
     },
     {
       "id": "takeaway-2:1",
       "word": "should",
-      "start": 494.472,
-      "end": 495.002
+      "start": 493.097,
+      "end": 493.627
     },
     {
       "id": "takeaway-2:2",
       "word": "be",
-      "start": 495.002,
-      "end": 495.179
+      "start": 493.627,
+      "end": 493.804
     },
     {
       "id": "takeaway-2:3",
       "word": "tested",
-      "start": 495.179,
-      "end": 495.71
+      "start": 493.804,
+      "end": 494.335
     },
     {
       "id": "takeaway-2:4",
       "word": "and",
-      "start": 495.71,
-      "end": 495.975
+      "start": 494.335,
+      "end": 494.6
     },
     {
       "id": "takeaway-2:5",
       "word": "rejected",
-      "start": 495.975,
-      "end": 496.682
+      "start": 494.6,
+      "end": 495.307
     },
     {
       "id": "takeaway-2:6",
       "word": "when",
-      "start": 496.682,
-      "end": 497.035
+      "start": 495.307,
+      "end": 495.66
     },
     {
       "id": "takeaway-2:7",
       "word": "it",
-      "start": 497.035,
-      "end": 497.212
+      "start": 495.66,
+      "end": 495.837
     },
     {
       "id": "takeaway-2:8",
       "word": "does",
-      "start": 497.212,
-      "end": 497.565
+      "start": 495.837,
+      "end": 496.19
     },
     {
       "id": "takeaway-2:9",
       "word": "not",
-      "start": 497.565,
-      "end": 497.831
+      "start": 496.19,
+      "end": 496.456
     },
     {
       "id": "takeaway-2:10",
       "word": "improve",
-      "start": 497.831,
-      "end": 498.449
+      "start": 496.456,
+      "end": 497.074
     },
     {
       "id": "takeaway-2:11",
       "word": "held-out",
-      "start": 498.449,
-      "end": 499.068
+      "start": 497.074,
+      "end": 497.693
     },
     {
       "id": "takeaway-2:12",
       "word": "evidence.",
-      "start": 499.068,
-      "end": 499.775
+      "start": 497.693,
+      "end": 498.4
     },
     {
       "id": "takeaway-3:0",
       "word": "Version",
-      "start": 501.8,
-      "end": 502.2
+      "start": 500.275,
+      "end": 500.675
     },
     {
       "id": "takeaway-3:1",
       "word": "simulation",
-      "start": 502.275,
-      "end": 502.925
+      "start": 500.75,
+      "end": 501.4
     },
     {
       "id": "takeaway-3:2",
       "word": "assumptions",
-      "start": 502.975,
-      "end": 503.825
+      "start": 501.45,
+      "end": 502.3
     },
     {
       "id": "takeaway-3:3",
       "word": "and",
-      "start": 503.9,
-      "end": 503.975
+      "start": 502.375,
+      "end": 502.45
     },
     {
       "id": "takeaway-3:4",
       "word": "preserve",
-      "start": 504.025,
-      "end": 504.525
+      "start": 502.5,
+      "end": 503
     },
     {
       "id": "takeaway-3:5",
       "word": "failed",
-      "start": 504.625,
-      "end": 504.975
+      "start": 503.1,
+      "end": 503.45
     },
     {
       "id": "takeaway-3:6",
       "word": "checks;",
-      "start": 505.05,
-      "end": 505.95
+      "start": 503.525,
+      "end": 504.425
     },
     {
       "id": "takeaway-3:7",
       "word": "reproducibility",
-      "start": 506.025,
-      "end": 506.925
+      "start": 504.5,
+      "end": 505.4
     },
     {
       "id": "takeaway-3:8",
       "word": "includes",
-      "start": 506.975,
-      "end": 507.575
+      "start": 505.45,
+      "end": 506.05
     },
     {
       "id": "takeaway-3:9",
       "word": "uncomfortable",
-      "start": 507.7,
-      "end": 508.4
+      "start": 506.175,
+      "end": 506.875
     },
     {
       "id": "takeaway-3:10",
       "word": "results.",
-      "start": 508.45,
-      "end": 509.525
+      "start": 506.925,
+      "end": 508
     },
     {
       "id": "takeaway-4:0",
       "word": "Trust",
-      "start": 511.5,
-      "end": 511.75
+      "start": 509.725,
+      "end": 509.975
     },
     {
       "id": "takeaway-4:1",
       "word": "should",
-      "start": 511.8,
-      "end": 511.95
+      "start": 510.025,
+      "end": 510.175
     },
     {
       "id": "takeaway-4:2",
       "word": "shrink",
-      "start": 512.05,
-      "end": 512.375
+      "start": 510.275,
+      "end": 510.6
     },
     {
       "id": "takeaway-4:3",
       "word": "when",
-      "start": 512.425,
-      "end": 512.55
+      "start": 510.65,
+      "end": 510.775
     },
     {
       "id": "takeaway-4:4",
       "word": "sample",
-      "start": 512.625,
-      "end": 513
+      "start": 510.85,
+      "end": 511.225
     },
     {
       "id": "takeaway-4:5",
       "word": "size,",
-      "start": 513.075,
-      "end": 514
+      "start": 511.3,
+      "end": 512.225
     },
     {
       "id": "takeaway-4:6",
       "word": "missing",
-      "start": 514.075,
-      "end": 514.35
+      "start": 512.3,
+      "end": 512.575
     },
     {
       "id": "takeaway-4:7",
       "word": "inputs",
-      "start": 514.425,
-      "end": 514.95
+      "start": 512.65,
+      "end": 513.175
     },
     {
       "id": "takeaway-4:8",
       "word": "or",
-      "start": 515.025,
-      "end": 515.275
+      "start": 513.25,
+      "end": 513.5
     },
     {
       "id": "takeaway-4:9",
       "word": "observed",
-      "start": 515.35,
-      "end": 515.875
+      "start": 513.575,
+      "end": 514.1
     },
     {
       "id": "takeaway-4:10",
       "word": "calibration",
-      "start": 515.925,
-      "end": 516.625
+      "start": 514.15,
+      "end": 514.85
     },
     {
       "id": "takeaway-4:11",
       "word": "behaviour",
-      "start": 516.675,
-      "end": 517.175
+      "start": 514.9,
+      "end": 515.4
     },
     {
       "id": "takeaway-4:12",
       "word": "demand",
-      "start": 517.225,
-      "end": 517.65
+      "start": 515.45,
+      "end": 515.875
     },
     {
       "id": "takeaway-4:13",
       "word": "it.",
-      "start": 517.7,
-      "end": 518.325
+      "start": 515.925,
+      "end": 516.55
     }
   ]
 }

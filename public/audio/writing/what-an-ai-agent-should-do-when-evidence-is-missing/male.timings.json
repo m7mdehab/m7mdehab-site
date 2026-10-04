@@ -3,7 +3,7 @@
   "model": "shawnahmed/Kokoro-82M-v1.0-ONNX-timestamped",
   "voice": "male",
   "kokoroVoice": "am_michael",
-  "durationSeconds": 502.152,
+  "durationSeconds": 501.408,
   "autoScroll": false,
   "cues": [
     {
@@ -5565,428 +5565,428 @@
     {
       "id": "takeaway-0:0",
       "word": "Keep",
-      "start": 456.475,
-      "end": 456.75
+      "start": 456.325,
+      "end": 456.6
     },
     {
       "id": "takeaway-0:1",
       "word": "UNKNOWN",
-      "start": 456.875,
-      "end": 457.475
+      "start": 456.725,
+      "end": 457.325
     },
     {
       "id": "takeaway-0:2",
       "word": "distinct",
-      "start": 457.525,
-      "end": 458
+      "start": 457.375,
+      "end": 457.85
     },
     {
       "id": "takeaway-0:3",
       "word": "from",
-      "start": 458.05,
-      "end": 458.2
+      "start": 457.9,
+      "end": 458.05
     },
     {
       "id": "takeaway-0:4",
       "word": "FALSE;",
-      "start": 458.275,
-      "end": 459.175
+      "start": 458.125,
+      "end": 459.025
     },
     {
       "id": "takeaway-0:5",
       "word": "missing",
-      "start": 459.25,
-      "end": 459.525
+      "start": 459.1,
+      "end": 459.375
     },
     {
       "id": "takeaway-0:6",
       "word": "evidence",
-      "start": 459.6,
-      "end": 460.025
+      "start": 459.45,
+      "end": 459.875
     },
     {
       "id": "takeaway-0:7",
       "word": "should",
-      "start": 460.075,
-      "end": 460.225
+      "start": 459.925,
+      "end": 460.075
     },
     {
       "id": "takeaway-0:8",
       "word": "not",
-      "start": 460.275,
-      "end": 460.5
+      "start": 460.125,
+      "end": 460.35
     },
     {
       "id": "takeaway-0:9",
       "word": "become",
-      "start": 460.55,
-      "end": 460.875
+      "start": 460.4,
+      "end": 460.725
     },
     {
       "id": "takeaway-0:10",
       "word": "a",
-      "start": 460.925,
-      "end": 460.975
+      "start": 460.775,
+      "end": 460.825
     },
     {
       "id": "takeaway-0:11",
       "word": "negative",
-      "start": 461.05,
-      "end": 461.475
+      "start": 460.9,
+      "end": 461.325
     },
     {
       "id": "takeaway-0:12",
       "word": "fact.",
-      "start": 461.55,
-      "end": 462.425
+      "start": 461.4,
+      "end": 462.275
     },
     {
       "id": "takeaway-1:0",
       "word": "Bind",
-      "start": 464.475,
-      "end": 464.85
+      "start": 464.275,
+      "end": 464.65
     },
     {
       "id": "takeaway-1:1",
       "word": "material",
-      "start": 464.9,
-      "end": 465.475
+      "start": 464.7,
+      "end": 465.275
     },
     {
       "id": "takeaway-1:2",
       "word": "generated",
-      "start": 465.55,
-      "end": 466.15
+      "start": 465.35,
+      "end": 465.95
     },
     {
       "id": "takeaway-1:3",
       "word": "claims",
-      "start": 466.2,
-      "end": 466.55
+      "start": 466,
+      "end": 466.35
     },
     {
       "id": "takeaway-1:4",
       "word": "to",
-      "start": 466.625,
-      "end": 466.75
+      "start": 466.425,
+      "end": 466.55
     },
     {
       "id": "takeaway-1:5",
       "word": "explicit",
-      "start": 466.825,
-      "end": 467.35
+      "start": 466.625,
+      "end": 467.15
     },
     {
       "id": "takeaway-1:6",
       "word": "provenance",
-      "start": 467.425,
-      "end": 467.875
+      "start": 467.225,
+      "end": 467.675
     },
     {
       "id": "takeaway-1:7",
       "word": "before",
-      "start": 467.925,
-      "end": 468.225
+      "start": 467.725,
+      "end": 468.025
     },
     {
       "id": "takeaway-1:8",
       "word": "generation,",
-      "start": 468.275,
-      "end": 469.475
+      "start": 468.075,
+      "end": 469.275
     },
     {
       "id": "takeaway-1:9",
       "word": "not",
-      "start": 469.55,
-      "end": 469.8
+      "start": 469.35,
+      "end": 469.6
     },
     {
       "id": "takeaway-1:10",
       "word": "as",
-      "start": 469.875,
-      "end": 470
+      "start": 469.675,
+      "end": 469.8
     },
     {
       "id": "takeaway-1:11",
       "word": "a",
-      "start": 470.05,
-      "end": 470.125
+      "start": 469.85,
+      "end": 469.925
     },
     {
       "id": "takeaway-1:12",
       "word": "cosmetic",
-      "start": 470.2,
-      "end": 470.9
+      "start": 470,
+      "end": 470.7
     },
     {
       "id": "takeaway-1:13",
       "word": "citation",
-      "start": 470.95,
-      "end": 471.6
+      "start": 470.75,
+      "end": 471.4
     },
     {
       "id": "takeaway-1:14",
       "word": "step",
-      "start": 471.65,
-      "end": 471.925
+      "start": 471.45,
+      "end": 471.725
     },
     {
       "id": "takeaway-1:15",
       "word": "afterward.",
-      "start": 472.025,
-      "end": 473.15
+      "start": 471.825,
+      "end": 472.95
     },
     {
       "id": "takeaway-2:0",
       "word": "Require",
-      "start": 475.15,
-      "end": 475.7
+      "start": 474.8,
+      "end": 475.35
     },
     {
       "id": "takeaway-2:1",
       "word": "verified",
-      "start": 475.775,
-      "end": 476.325
+      "start": 475.425,
+      "end": 475.975
     },
     {
       "id": "takeaway-2:2",
       "word": "conflicts",
-      "start": 476.4,
-      "end": 477
+      "start": 476.05,
+      "end": 476.65
     },
     {
       "id": "takeaway-2:3",
       "word": "for",
-      "start": 477.05,
-      "end": 477.15
+      "start": 476.7,
+      "end": 476.8
     },
     {
       "id": "takeaway-2:4",
       "word": "hard",
-      "start": 477.225,
-      "end": 477.55
+      "start": 476.875,
+      "end": 477.2
     },
     {
       "id": "takeaway-2:5",
       "word": "rejection",
-      "start": 477.6,
-      "end": 478.575
+      "start": 477.25,
+      "end": 478.225
     },
     {
       "id": "takeaway-2:6",
       "word": "and",
-      "start": 478.675,
-      "end": 478.75
+      "start": 478.325,
+      "end": 478.4
     },
     {
       "id": "takeaway-2:7",
       "word": "let",
-      "start": 478.8,
-      "end": 478.95
+      "start": 478.45,
+      "end": 478.6
     },
     {
       "id": "takeaway-2:8",
       "word": "uncertainty",
-      "start": 479.025,
-      "end": 479.625
+      "start": 478.675,
+      "end": 479.275
     },
     {
       "id": "takeaway-2:9",
       "word": "change",
-      "start": 479.7,
-      "end": 480.075
+      "start": 479.35,
+      "end": 479.725
     },
     {
       "id": "takeaway-2:10",
       "word": "confidence",
-      "start": 480.15,
-      "end": 480.8
+      "start": 479.8,
+      "end": 480.45
     },
     {
       "id": "takeaway-2:11",
       "word": "or",
-      "start": 480.85,
-      "end": 480.975
+      "start": 480.5,
+      "end": 480.625
     },
     {
       "id": "takeaway-2:12",
       "word": "workflow",
-      "start": 481.05,
-      "end": 481.575
+      "start": 480.7,
+      "end": 481.225
     },
     {
       "id": "takeaway-2:13",
       "word": "instead.",
-      "start": 481.625,
-      "end": 482.725
+      "start": 481.275,
+      "end": 482.375
     },
     {
       "id": "takeaway-3:0",
       "word": "Model",
-      "start": 484.75,
-      "end": 485.075
+      "start": 484.25,
+      "end": 484.575
     },
     {
       "id": "takeaway-3:1",
       "word": "preparation,",
-      "start": 485.125,
-      "end": 486.3
+      "start": 484.625,
+      "end": 485.8
     },
     {
       "id": "takeaway-3:2",
       "word": "assisted",
-      "start": 486.375,
-      "end": 486.875
+      "start": 485.875,
+      "end": 486.375
     },
     {
       "id": "takeaway-3:3",
       "word": "interaction",
-      "start": 486.95,
-      "end": 487.65
+      "start": 486.45,
+      "end": 487.15
     },
     {
       "id": "takeaway-3:4",
       "word": "and",
-      "start": 487.7,
-      "end": 487.775
+      "start": 487.2,
+      "end": 487.275
     },
     {
       "id": "takeaway-3:5",
       "word": "external",
-      "start": 487.825,
-      "end": 488.325
+      "start": 487.325,
+      "end": 487.825
     },
     {
       "id": "takeaway-3:6",
       "word": "submission",
-      "start": 488.4,
-      "end": 489.225
+      "start": 487.9,
+      "end": 488.725
     },
     {
       "id": "takeaway-3:7",
       "word": "as",
-      "start": 489.35,
-      "end": 489.5
+      "start": 488.85,
+      "end": 489
     },
     {
       "id": "takeaway-3:8",
       "word": "different",
-      "start": 489.575,
-      "end": 489.9
+      "start": 489.075,
+      "end": 489.4
     },
     {
       "id": "takeaway-3:9",
       "word": "authority",
-      "start": 489.95,
-      "end": 490.525
+      "start": 489.45,
+      "end": 490.025
     },
     {
       "id": "takeaway-3:10",
       "word": "levels.",
-      "start": 490.575,
-      "end": 491.525
+      "start": 490.075,
+      "end": 491.025
     },
     {
       "id": "takeaway-4:0",
       "word": "Treat",
-      "start": 493.5,
-      "end": 493.825
+      "start": 492.75,
+      "end": 493.075
     },
     {
       "id": "takeaway-4:1",
       "word": "ambiguous",
-      "start": 493.925,
-      "end": 494.575
+      "start": 493.175,
+      "end": 493.825
     },
     {
       "id": "takeaway-4:2",
       "word": "side",
-      "start": 494.675,
-      "end": 495
+      "start": 493.925,
+      "end": 494.25
     },
     {
       "id": "takeaway-4:3",
       "word": "effects",
-      "start": 495.05,
-      "end": 495.55
+      "start": 494.3,
+      "end": 494.8
     },
     {
       "id": "takeaway-4:4",
       "word": "as",
-      "start": 495.625,
-      "end": 495.725
+      "start": 494.875,
+      "end": 494.975
     },
     {
       "id": "takeaway-4:5",
       "word": "an",
-      "start": 495.75,
-      "end": 495.825
+      "start": 495,
+      "end": 495.075
     },
     {
       "id": "takeaway-4:6",
       "word": "explicit",
-      "start": 495.9,
-      "end": 496.425
+      "start": 495.15,
+      "end": 495.675
     },
     {
       "id": "takeaway-4:7",
       "word": "state",
-      "start": 496.5,
-      "end": 497.3
+      "start": 495.75,
+      "end": 496.55
     },
     {
       "id": "takeaway-4:8",
       "word": "and",
-      "start": 497.4,
-      "end": 497.475
+      "start": 496.65,
+      "end": 496.725
     },
     {
       "id": "takeaway-4:9",
       "word": "keep",
-      "start": 497.55,
-      "end": 497.775
+      "start": 496.8,
+      "end": 497.025
     },
     {
       "id": "takeaway-4:10",
       "word": "learning",
-      "start": 497.85,
-      "end": 498.2
+      "start": 497.1,
+      "end": 497.45
     },
     {
       "id": "takeaway-4:11",
       "word": "loops",
-      "start": 498.275,
-      "end": 498.525
+      "start": 497.525,
+      "end": 497.775
     },
     {
       "id": "takeaway-4:12",
       "word": "downstream",
-      "start": 498.6,
-      "end": 499.4
+      "start": 497.85,
+      "end": 498.65
     },
     {
       "id": "takeaway-4:13",
       "word": "of",
-      "start": 499.475,
-      "end": 499.6
+      "start": 498.725,
+      "end": 498.85
     },
     {
       "id": "takeaway-4:14",
       "word": "deterministic",
-      "start": 499.65,
-      "end": 500.475
+      "start": 498.9,
+      "end": 499.725
     },
     {
       "id": "takeaway-4:15",
       "word": "truth",
-      "start": 500.55,
-      "end": 500.8
+      "start": 499.8,
+      "end": 500.05
     },
     {
       "id": "takeaway-4:16",
       "word": "controls.",
-      "start": 500.85,
-      "end": 502.075
+      "start": 500.1,
+      "end": 501.325
     }
   ]
 }
