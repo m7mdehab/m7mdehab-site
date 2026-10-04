@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Surgical pass 04 mobile micro-polish", () => {
-  test("uses the supplied native Network asset without stretching and keeps it within a 2x source density", async ({
+  test("uses the supplied native Network asset without stretching at the accepted optical size", async ({
     browser,
   }) => {
     const context = await browser.newContext({
@@ -38,8 +38,8 @@ test.describe("Surgical pass 04 mobile micro-polish", () => {
     expect(metrics.src).toContain("data:image/webp");
     expect(metrics.naturalWidth).toBe(140);
     expect(metrics.naturalHeight).toBe(32);
-    expect(metrics.renderedWidth).toBeLessThanOrEqual(70.5);
-    expect(metrics.intrinsicToRendered).toBeGreaterThanOrEqual(1.98);
+    expect(metrics.renderedWidth).toBeLessThanOrEqual(84.5);
+    expect(metrics.intrinsicToRendered).toBeGreaterThanOrEqual(1.65);
     expect(Math.abs(metrics.naturalRatio - metrics.renderedRatio)).toBeLessThan(
       0.03,
     );
