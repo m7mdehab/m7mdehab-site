@@ -376,7 +376,7 @@ async function main() {
     );
     const previous = manifest.articles[article.slug];
 
-    for (const [voiceId, voiceConfig] of Object.entries(VOICES)) {
+    for (const [voiceId, voiceConfig] of selectedVoices) {
       const outputPath = path.join(OUTPUT_ROOT, article.slug, voiceConfig.fileName);
       const voiceHash = sha256(
         JSON.stringify({
