@@ -23,14 +23,30 @@ jobs:
   generate:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - slug: when-to-trust-a-probabilistic-forecast
+            voice: female
+          - slug: when-to-trust-a-probabilistic-forecast
+            voice: male
+          - slug: why-accuracy-is-not-enough-for-oil-spill-detection
+            voice: female
+          - slug: why-accuracy-is-not-enough-for-oil-spill-detection
+            voice: male
+          - slug: what-an-ai-agent-should-do-when-evidence-is-missing
+            voice: female
+          - slug: what-an-ai-agent-should-do-when-evidence-is-missing
+            voice: male
 
     steps:
       - name: Checkout narration branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -55,42 +71,82 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
-      - name: Verify ffmpeg
-        run: |
-          ffmpeg -version
-          ffprobe -version
-
-      - name: Generate female and male article narration
+      - name: Generate narration
         env:
           KOKORO_CACHE_DIR: .cache/kokoro
-        run: npm run writing:audio
+        run: npm run writing:audio -- --slug "${{ matrix.slug }}" --voice "${{ matrix.voice }}"
 
-      - name: Verify generated narration set
+      - name: Stage narration artifact
+        run: |
+          mkdir -p "artifact/audio/writing/${{ matrix.slug }}"
+          cp "public/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.mp3" "artifact/audio/writing/${{ matrix.slug }}/${{ matrix.voice }}.mp3"
+
+      - name: Upload narration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: narration-${{ matrix.slug }}-${{ matrix.voice }}
+          path: artifact
+          if-no-files-found: error
+          retention-days: 1
+
+  commit:
+    if: github.actor != 'github-actions[bot]'
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout latest narration branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Download generated narration
+        uses: actions/download-artifact@v4
+        with:
+          pattern: narration-*
+          path: public
+          merge-multiple: true
+
+      - name: Rebuild narration manifest
+        run: npm run writing:audio -- --manifest-only
+
+      - name: Verify complete dual-voice narration set
         run: |
           node - <<'NODE'
           const fs = require("node:fs");
           const path = require("node:path");
-          const manifestPath = path.resolve("public/audio/writing/manifest.json");
-          if (!fs.existsSync(manifestPath)) throw new Error("Narration manifest missing.");
-          const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+          const manifest = JSON.parse(fs.readFileSync("public/audio/writing/manifest.json", "utf8"));
           const expected = [
             "when-to-trust-a-probabilistic-forecast",
             "why-accuracy-is-not-enough-for-oil-spill-detection",
             "what-an-ai-agent-should-do-when-evidence-is-missing",
           ];
           for (const slug of expected) {
-            const entry = manifest.articles?.[slug];
-            if (!entry?.voices?.female || !entry?.voices?.male) {
-              throw new Error(`Missing dual narration for ${slug}`);
-            }
             for (const voice of ["female", "male"]) {
-              const rel = entry.voices[voice].path.replace(/^\//, "");
-              const full = path.resolve("public", rel.replace(/^audio\//, "audio/"));
-              if (!fs.existsSync(full)) throw new Error(`Missing ${voice} audio for ${slug}: ${full}`);
-              if (fs.statSync(full).size < 100000) throw new Error(`Audio file looks too small: ${full}`);
+              const entry = manifest.articles?.[slug]?.voices?.[voice];
+              if (!entry) throw new Error(`Missing ${voice} narration metadata for ${slug}`);
+              const file = path.join("public", entry.path.replace(/^\//, ""));
+              if (!fs.existsSync(file)) throw new Error(`Missing audio file: ${file}`);
+              if (fs.statSync(file).size < 100000) throw new Error(`Audio file looks too small: ${file}`);
             }
           }
-          console.log("Verified dual Kokoro narration for all current articles.");
+          console.log("Verified female + male Kokoro narration for all three articles.");
           NODE
 
       - name: Commit generated narration
