@@ -40,6 +40,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Verify checked-in Writing narration file integrity
+        run: npm run writing:audio:verify -- --files-only
+
       - name: Build
         run: npm run build
 
