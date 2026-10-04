@@ -182,49 +182,46 @@ test.describe("Method story rebuild", () => {
       ).toHaveCount(1);
     }
 
-    const handoffs = await connectors.evaluateAll((items) =>
-      items.map((svg) => {
-        const paths = [...svg.querySelectorAll("path")];
-        const parse = (value: string | null) =>
-          (value?.match(/-?\\d+(?:\\.\\d+)?/g) ?? []).map(Number);
-        const parsed = paths.map((path) => {
-          const values = parse(path.getAttribute("d"));
-          return {
-            start: { x: values[0], y: values[1] },
-            end: {
-              x: values[values.length - 2],
-              y: values[values.length - 1],
-            },
-          };
-        });
+    await expect(
+      section.locator('[data-mobile-connectors="messy"] [data-mobile-handoff="out"]'),
+    ).toHaveCount(1);
+
+    for (const stage of ["expose", "reduce", "build"]) {
+      const connector = section.locator(`[data-mobile-connectors="${stage}"]`);
+      await expect(connector.locator('[data-mobile-handoff="in"]')).toHaveCount(1);
+      await expect(connector.locator('[data-mobile-handoff="out"]')).toHaveCount(1);
+    }
+
+    await expect(
+      section.locator('[data-mobile-connectors="outcomes"] [data-mobile-handoff="in"]'),
+    ).toHaveCount(1);
+
+    const handoffPaths = section.locator("[data-mobile-handoff]");
+    const handoffGeometry = await handoffPaths.evaluateAll((paths) =>
+      paths.map((path) => {
+        const values = (path.getAttribute("d")?.match(/-?\\d+(?:\\.\\d+)?/g) ?? []).map(Number);
         return {
-          hasCenterEntry: parsed.some(
-            ({ start }) => start.x === 0 && start.y === 175,
-          ),
-          hasCenterExit: parsed.some(
-            ({ end }) => end.x === 350 && end.y === 175,
-          ),
+          direction: path.getAttribute("data-mobile-handoff"),
+          start: { x: values[0], y: values[1] },
+          end: {
+            x: values[values.length - 2],
+            y: values[values.length - 1],
+          },
         };
       }),
     );
 
-    expect(handoffs[0].hasCenterExit).toBe(true);
-    expect(handoffs[1]).toEqual({
-      hasCenterEntry: true,
-      hasCenterExit: true,
-    });
-    expect(handoffs[2]).toEqual({
-      hasCenterEntry: true,
-      hasCenterExit: true,
-    });
-    expect(handoffs[3]).toEqual({
-      hasCenterEntry: true,
-      hasCenterExit: true,
-    });
-    expect(handoffs[4].hasCenterEntry).toBe(true);
+    for (const path of handoffGeometry) {
+      if (path.direction === "in") {
+        expect(path.start).toEqual({ x: 0, y: 175 });
+      } else {
+        expect(path.end).toEqual({ x: 350, y: 175 });
+      }
+    }
 
-    const buildNodes = section
-      .locator('[data-mobile-connectors="build"] circle');
+    const buildNodes = section.locator(
+      '[data-mobile-connectors="build"] circle',
+    );
     await expect(buildNodes).toHaveCount(5);
 
     await expectNoHorizontalOverflow(page);
