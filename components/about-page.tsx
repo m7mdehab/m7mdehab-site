@@ -351,7 +351,10 @@ export function AboutPage() {
         <div className="shell about-v2-close-grid">
           <Reveal>
             <p className="about-v2-eyebrow">NEXT</p>
-            <h2>The background is context. The work is the proof.</h2>
+            <h2 aria-label="The background is context. The work is the proof.">
+              <span aria-hidden="true">The background is context.</span>{" "}
+              <span aria-hidden="true">The work is the proof.</span>
+            </h2>
           </Reveal>
 
           <Reveal className="about-v2-close-links" delay={0.04}>
