@@ -183,9 +183,10 @@ education:
     institution: "Manarat Jeddah International Schools"
     qualification: "High School Diploma (British Curriculum & IGCSE)"
     end: "2017"
+    locations: ["Egypt", "Jeddah, Saudi Arabia"]
     detail: "8 O-Level and 3 AS subjects"
-    classification: public_eligible_deprioritized
-    evidence: ["September 2026 CV"]
+    classification: public
+    evidence: ["September 2026 CV", "latest explicit instruction"]
 
 certifications:
   - { name: "Databricks Certified Data Engineer Associate", issuer: "Databricks", year: 2026, classification: public, evidence: ["September 2026 CV"] }
