@@ -79,6 +79,7 @@ export function ProjectCaseStudy({
           <div
             className={styles.visualStage}
             data-project-visual-stage
+            data-project-slug={project.slug}
           >
             <div
               className={"case-hero-artboard-anchor " + styles.visualAnchor}
