@@ -1722,7 +1722,7 @@
    Desktop and tablet remain unchanged. */
 @media (max-width: 719px) {
   .method-story__mobile-track {
-    height: 420svh;
+    height: 390svh;
   }
 
   .method-story__mobile-sticky {
