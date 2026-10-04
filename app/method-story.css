@@ -2379,7 +2379,9 @@
    exact card-edge routing and restrained guidance. Desktop/tablet untouched. */
 @media (max-width: 719px) {
   .method-story__mobile-stage {
-    grid-template-rows: auto minmax(300px, 1fr) auto 66px;
+    /* Keep the caption and action rows identical across all five panels so
+       every connector canvas shares the exact same absolute centerline. */
+    grid-template-rows: auto minmax(300px, 1fr) 32px 66px;
   }
 
   .method-story__mobile-swipe-cue {
