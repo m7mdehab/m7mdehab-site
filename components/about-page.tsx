@@ -153,7 +153,7 @@ export function AboutPage() {
               <p className="about-v2-hero-lede">{aboutIntro.body}</p>
             </Reveal>
 
-            <Reveal delay={0.06} as="aside" className="about-v2-now" aria-label="Current professional position">
+            <Reveal delay={0.06} className="about-v2-now" aria-label="Current professional position">
               <div className="about-v2-now-top">
                 <span>Now</span>
                 <span>2026</span>
