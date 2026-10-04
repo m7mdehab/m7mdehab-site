@@ -1,3 +1,24 @@
+.narrationWord {
+  border-radius: .18em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.narrationWord[data-narration-active="true"] {
+  background: color-mix(in srgb, var(--ink) 13%, transparent);
+  box-shadow: 0 0 0 .12em color-mix(in srgb, var(--ink) 13%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .narrationWord {
+    transition: none;
+  }
+}
+
 
 .articleShell {
   padding: clamp(112px, 7vw, 136px) 48px clamp(76px, 6vw, 108px);
