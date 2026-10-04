@@ -28,11 +28,13 @@ import {
 } from "@/components/method-story-icons";
 import { usePrefersReducedMotion } from "@/components/use-prefers-reduced-motion";
 import { MethodStoryDesktopConnectors } from "@/components/method-story-desktop-connectors";
+import { MethodStoryMobileConnectors } from "@/components/method-story-mobile-connectors";
 import { useMethodStoryDesktopGeometry } from "@/components/use-method-story-desktop-geometry";
 
 type Progress = MotionValue<number>;
 
 const DESKTOP_QUERY = "(min-width: 1100px)";
+const MOBILE_QUERY = "(max-width: 719px)";
 
 function subscribeDesktopMatch(callback: () => void) {
   const media = window.matchMedia(DESKTOP_QUERY);
@@ -45,6 +47,20 @@ function getDesktopSnapshot() {
 }
 
 function getDesktopServerSnapshot() {
+  return false;
+}
+
+function subscribeMobileMatch(callback: () => void) {
+  const media = window.matchMedia(MOBILE_QUERY);
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function getMobileSnapshot() {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+
+function getMobileServerSnapshot() {
   return false;
 }
 
@@ -317,6 +333,256 @@ function OutputRow({
   );
 }
 
+
+function MobileMethodStory({
+  reducedMotion,
+}: {
+  reducedMotion: boolean;
+}) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start start", "end end"],
+  });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 28,
+    mass: 0.35,
+  });
+
+  const railX = useTransform(
+    progress,
+    [0, 0.08, 0.22, 0.28, 0.42, 0.48, 0.62, 0.68, 0.82, 0.92, 1],
+    ["0%", "0%", "-20%", "-20%", "-40%", "-40%", "-60%", "-60%", "-80%", "-80%", "-80%"],
+  );
+  const progressScale = useTransform(progress, [0, 1], [0, 1]);
+
+  const exposeOpacity = useTransform(progress, [0.1, 0.22], [0.42, 1]);
+  const reduceOpacity = useTransform(progress, [0.3, 0.42], [0.42, 1]);
+  const buildOpacity = useTransform(progress, [0.5, 0.62], [0.42, 1]);
+  const outputOpacity = useTransform(progress, [0.7, 0.82], [0.52, 1]);
+  return (
+    <div
+      ref={trackRef}
+      className="method-story__mobile-track"
+      data-method-canvas
+      data-mobile-method-story
+      data-motion-mode={reducedMotion ? "reduced" : "enhanced"}
+    >
+      <div className="method-story__mobile-sticky">
+        <div className="method-story__mobile-progress" aria-hidden="true">
+          <span className="method-story__mobile-progress-line" />
+          <motion.span
+            className="method-story__mobile-progress-fill"
+            style={reducedMotion ? undefined : { scaleX: progressScale }}
+          />
+          {METHOD_STORY.stages.map((stage) => (
+            <span
+              key={stage.id}
+              className="method-story__mobile-progress-node"
+            >
+              {stage.index}
+            </span>
+          ))}
+        </div>
+
+        <div className="method-story__mobile-window">
+          <motion.ol
+            className="method-story__mobile-rail"
+            aria-label="From messy reality to reliable outcomes"
+            style={reducedMotion ? undefined : { x: railX }}
+          >
+            <li
+              className="method-story__mobile-stage method-story__mobile-stage--messy"
+              data-method-stage="messy"
+            >
+              <StageHeader id="messy" />
+              <div className="method-story__mobile-visual method-story__mobile-visual--messy">
+                <MethodStoryMobileConnectors
+                  stage="messy"
+                  progress={progress}
+                  enhanced={false}
+                />
+                <div className="method-story__input-field">
+                  {METHOD_STORY.inputs.map((input, index) => (
+                    <AnimatedInput
+                      key={input.id}
+                      input={input}
+                      index={index}
+                      progress={progress}
+                      enhanced={false}
+                    />
+                  ))}
+                  <span className="method-story__noise method-story__noise--1" aria-hidden="true" />
+                  <span className="method-story__noise method-story__noise--2" aria-hidden="true" />
+                  <span className="method-story__noise method-story__noise--3" aria-hidden="true" />
+                  <span className="method-story__noise method-story__noise--4" aria-hidden="true" />
+                </div>
+              </div>
+              <span className="method-story__mobile-next" aria-hidden="true">01 → 02</span>
+            </li>
+
+            <motion.li
+              className="method-story__mobile-stage method-story__mobile-stage--expose"
+              data-method-stage="expose"
+              style={reducedMotion ? undefined : { opacity: exposeOpacity }}
+            >
+              <StageHeader id="expose" />
+              <div className="method-story__mobile-visual method-story__mobile-visual--expose">
+                <MethodStoryMobileConnectors
+                  stage="expose"
+                  progress={progress}
+                  enhanced={false}
+                />
+                <div className="method-story__evidence-field">
+                  <MethodEvidenceIcon className="method-story__stage-symbol" aria-hidden="true" />
+                  <div className="method-story__evidence-stack" aria-hidden="true">
+                    {[0, 1, 2, 3, 4].map((index) => (
+                      <RevealSheet
+                        key={index}
+                        index={index}
+                        progress={progress}
+                        enhanced={false}
+                      />
+                    ))}
+                  </div>
+                  <div className="method-story__evidence-tags">
+                    {METHOD_STORY.exposeTags.map((tag, index) => (
+                      <RevealTag
+                        key={tag.id}
+                        tag={tag}
+                        index={index}
+                        progress={progress}
+                        enhanced={false}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <span className="method-story__mobile-next" aria-hidden="true">02 → 03</span>
+            </motion.li>
+
+            <motion.li
+              className="method-story__mobile-stage method-story__mobile-stage--reduce"
+              data-method-stage="reduce"
+              style={reducedMotion ? undefined : { opacity: reduceOpacity }}
+            >
+              <StageHeader id="reduce" />
+              <div className="method-story__mobile-visual method-story__mobile-visual--reduce">
+                <MethodStoryMobileConnectors
+                  stage="reduce"
+                  progress={progress}
+                  enhanced={false}
+                />
+                <div className="method-story__decision-field">
+                  <svg
+                    className="method-story__decision-branches"
+                    viewBox="0 0 220 160"
+                    aria-hidden="true"
+                  >
+                    {[
+                      "M8 24 C60 24 72 80 112 80",
+                      "M8 46 C60 46 72 80 112 80",
+                      "M8 68 C62 68 74 80 112 80",
+                      "M8 90 C62 90 74 80 112 80",
+                      "M8 112 C60 112 72 80 112 80",
+                      "M8 134 C60 134 72 80 112 80",
+                    ].map((d, index) => (
+                      <BranchPath
+                        key={d}
+                        d={d}
+                        index={index}
+                        progress={progress}
+                        enhanced={false}
+                      />
+                    ))}
+                    <circle className="method-story__decision-node" cx="112" cy="80" r="5" />
+                    <path className="method-story__path method-story__path--hot" d="M117 80H220" />
+                  </svg>
+                  <motion.div
+                    className="method-story__decision-module"
+                    aria-hidden="true"
+                  >
+                    <MethodDecisionIcon />
+                    <i />
+                    <i className="is-selected" />
+                    <i />
+                    <i />
+                    <i />
+                  </motion.div>
+                </div>
+              </div>
+              <span className="method-story__mobile-next" aria-hidden="true">03 → 04</span>
+            </motion.li>
+
+            <motion.li
+              className="method-story__mobile-stage method-story__mobile-stage--build"
+              data-method-stage="build"
+              style={reducedMotion ? undefined : { opacity: buildOpacity }}
+            >
+              <StageHeader id="build" />
+              <div className="method-story__mobile-visual method-story__mobile-visual--build">
+                <MethodStoryMobileConnectors
+                  stage="build"
+                  progress={progress}
+                  enhanced={false}
+                />
+                <div className="method-story__build-field">
+                  <div className="method-story__system-stack">
+                    {[0, 1, 2].map((index) => (
+                      <BuildLayer
+                        key={index}
+                        index={index}
+                        progress={progress}
+                        enhanced={false}
+                      />
+                    ))}
+                  </div>
+                  <span className="method-story__system-bus" aria-hidden="true">
+                    {[0, 1, 2, 3, 4].map((index) => (
+                      <i key={index} />
+                    ))}
+                  </span>
+                </div>
+              </div>
+              <span className="method-story__mobile-next" aria-hidden="true">04 → 05</span>
+            </motion.li>
+
+            <motion.li
+              className="method-story__mobile-stage method-story__mobile-stage--outcomes"
+              data-method-stage="outcomes"
+              style={reducedMotion ? undefined : { opacity: outputOpacity }}
+            >
+              <StageHeader id="outcomes" />
+              <div className="method-story__mobile-visual method-story__mobile-visual--outcomes">
+                <MethodStoryMobileConnectors
+                  stage="outcomes"
+                  progress={progress}
+                  enhanced={false}
+                />
+                <ul className="method-story__outputs">
+                  {METHOD_STORY.outputs.map((output, index) => (
+                    <OutputRow
+                      key={output.id}
+                      output={output}
+                      index={index}
+                      progress={progress}
+                      enhanced={false}
+                    />
+                  ))}
+                </ul>
+              </div>
+              <span className="method-story__mobile-complete" aria-hidden="true">
+                DECISION-READY
+              </span>
+            </motion.li>
+          </motion.ol>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function MethodStoryCanvas() {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
@@ -325,6 +591,12 @@ export function MethodStoryCanvas() {
     getDesktopSnapshot,
     getDesktopServerSnapshot,
   );
+  const isMobile = useSyncExternalStore(
+    subscribeMobileMatch,
+    getMobileSnapshot,
+    getMobileServerSnapshot,
+  );
+
   const enhanced = !reducedMotion;
   const scrollOffset = isDesktop
     ? METHOD_STORY_MOTION.desktopScrollOffset
@@ -346,6 +618,10 @@ export function MethodStoryCanvas() {
   const outputOpacity = useTransform(progress, [0.76, 0.88], [0.55, 1]);
   const decisionScale = useTransform(progress, [0.43, 0.58], [0.88, 1]);
   const decisionOpacity = useTransform(progress, [0.43, 0.56], [0.35, 1]);
+
+  if (isMobile) {
+    return <MobileMethodStory reducedMotion={reducedMotion} />;
+  }
 
   return (
     <div
