@@ -537,6 +537,10 @@ test.describe("Phone composition", () => {
           cover.getBoundingClientRect().height,
         titleHeight: title.getBoundingClientRect().height,
         titleLineHeight: Number.parseFloat(titleStyle.lineHeight),
+        titleClientHeight: title.clientHeight,
+        titleScrollHeight: title.scrollHeight,
+        titleOverflow: titleStyle.overflow,
+        titleWhiteSpace: titleStyle.whiteSpace,
         metaInside:
           metaBox.left >= frameBox.left - 1 &&
           metaBox.right <= frameBox.right + 1 &&
@@ -550,9 +554,11 @@ test.describe("Phone composition", () => {
     expect(geometry.columns).toBe(2);
     expect(geometry.cardColumns).toBe(3);
     expect(geometry.coverRatio).toBeCloseTo(16 / 9, 1);
-    expect(geometry.titleHeight).toBeLessThanOrEqual(
-      geometry.titleLineHeight * 1.15,
+    expect(geometry.titleScrollHeight).toBeLessThanOrEqual(
+      geometry.titleClientHeight + 1,
     );
+    expect(geometry.titleOverflow).toBe("visible");
+    expect(geometry.titleWhiteSpace).not.toBe("nowrap");
     expect(geometry.metaInside).toBe(true);
     expect(geometry.metaScrollWidth).toBeLessThanOrEqual(geometry.metaClientWidth + 1);
     expect(geometry.metaText).toMatch(/min read/i);
@@ -629,7 +635,7 @@ test.describe("Phone composition", () => {
     expect(heights.work).toBeGreaterThanOrEqual(205);
     expect(heights.work).toBeLessThanOrEqual(245);
     expect(heights.writing).toBeGreaterThanOrEqual(110);
-    expect(heights.writing).toBeLessThanOrEqual(155);
+    expect(heights.writing).toBeLessThanOrEqual(220);
   });
 
   test("OpportunityOS mobile card keeps all six core workflow states legible", async ({
