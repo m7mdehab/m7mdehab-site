@@ -79,6 +79,7 @@ export const certifications = [
 export const education = [
   { qualification: "BSc Computer Science — Data Science Major", institution: "Canadian International College", period: "2021 — 2024", detail: "CGPA 3.55" },
   { qualification: "Data Science & AI Scholarship", institution: "ExploreAI Academy / ALX / African Leadership University", period: "2023 — 2024", detail: "15-month program" },
+  { qualification: "High School Diploma — British Curriculum & IGCSE", institution: "Manarat Jeddah International Schools · Egypt & Jeddah, Saudi Arabia", period: "2017", detail: "8 O-Level · 3 AS" },
 ] as const;
 
 // Runtime service/conversion projection. Proof strength and project relationships are reconciled
