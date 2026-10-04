@@ -1,6 +1,7 @@
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
+import { getWritingNarrationSegments, writingArticles } from "../data/writing";
 
 const output = path.resolve("artifacts", "writing-article-system");
 const slugs = [
@@ -35,7 +36,7 @@ test("all current articles use the same readable publication shell", async ({ pa
       await expect(page.getByLabel("Narration voice").locator("option")).toHaveText(["Female", "Male"]);
       await expect(page.getByLabel("Narration speed")).toHaveValue("1");
       await expect(page.getByLabel("Follow narration")).toHaveCount(1);
-      await expect(page.getByLabel("Follow narration")).not.toBeChecked();
+      await expect(page.getByLabel("Follow narration")).toBeChecked();
       expect(await page.locator("[data-narration-cue]").count()).toBeGreaterThan(20);
       await expect(page.locator(".writing-system-article-cover")).toHaveCount(0);
 
@@ -59,7 +60,10 @@ test("all current articles use the same readable publication shell", async ({ pa
       expect(geometry.paragraphLineHeight / geometry.paragraphFontSize).toBeGreaterThanOrEqual(1.6);
       expect(geometry.textAlign).toBe("justify");
       expect(Math.abs(geometry.bodyLeft - geometry.heroLeft)).toBeLessThanOrEqual(2);
-      if (width >= 1000) expect(geometry.h1FontSize).toBeLessThanOrEqual(58);
+      if (width >= 1000) {
+        expect(geometry.h1FontSize).toBeGreaterThanOrEqual(44);
+        expect(geometry.h1FontSize).toBeLessThanOrEqual(64);
+      }
       if (width >= 1000) {
         expect(geometry.articleWidth).toBeGreaterThanOrEqual(900);
         expect(geometry.articleWidth).toBeLessThanOrEqual(1160);
@@ -73,10 +77,17 @@ test("all current articles use the same readable publication shell", async ({ pa
   }
 });
 
-test("follow narration never forces the reader back to the active word", async ({ page }) => {
+test("follow narration defaults on, stays optional, and never forces the reader back to the active word", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/writing/when-to-trust-a-probabilistic-forecast");
   await settle(page);
+
+  const follow = page.getByLabel("Follow narration");
+  await expect(follow).toBeChecked();
+  await follow.uncheck();
+  await page.reload();
+  await settle(page);
+  await expect(page.getByLabel("Follow narration")).not.toBeChecked();
 
   await page.evaluate(() => window.scrollTo({ top: 700, behavior: "instant" }));
   const manualPosition = await page.evaluate(() => window.scrollY);
@@ -89,4 +100,38 @@ test("follow narration never forces the reader back to the active word", async (
 
   expect(await page.evaluate(() => window.scrollY)).toBe(manualPosition);
   await expect(page.locator('[data-narration-active="true"]')).toHaveCount(1);
+});
+
+
+test("article lists keep visible markers and narration never says literal bullet point", async ({ page }) => {
+  const article = writingArticles.find(
+    (candidate) => candidate.slug === "when-to-trust-a-probabilistic-forecast",
+  );
+  expect(article).toBeTruthy();
+
+  const segments = getWritingNarrationSegments(article!);
+  const bulletSegments = segments.filter((segment) =>
+    segment.id.includes("-bullet-"),
+  );
+  expect(bulletSegments.length).toBeGreaterThan(0);
+  expect(bulletSegments.map((segment) => segment.prefix)).not.toContain("Bullet point.");
+  expect(bulletSegments.slice(0, 3).map((segment) => segment.prefix)).toEqual([
+    "First.",
+    "Second.",
+    "Third.",
+  ]);
+
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/writing/when-to-trust-a-probabilistic-forecast");
+  await settle(page);
+
+  const scoreHeading = page.getByRole("heading", {
+    name: /Use proper scores, then inspect reliability/i,
+  });
+  const scoreSection = scoreHeading.locator("..");
+  const list = scoreSection.locator("ul").first();
+  await expect(list.locator("li")).toHaveCount(3);
+  expect(
+    await list.evaluate((element) => getComputedStyle(element).listStyleType),
+  ).toBe("disc");
 });
