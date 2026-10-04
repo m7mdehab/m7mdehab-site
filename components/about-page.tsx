@@ -65,7 +65,7 @@ function OrganizationMark({
     return (
       <span className="about-v2-issuer-mark about-v2-databricks" aria-label="Databricks">
         <img
-          src="https://cdn.simpleicons.org/databricks/FF3621?viewbox=auto"
+          src="/brand/databricks.svg"
           alt=""
           aria-hidden="true"
           decoding="async"
