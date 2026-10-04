@@ -74,20 +74,24 @@ test("all project routes use the same governed case-study shell", async ({ page 
           visualHeight: visualAnchor.getBoundingClientRect().height,
           stageHeight: visualStage.getBoundingClientRect().height,
           stageWidth: visualStage.getBoundingClientRect().width,
+          frameWidth: visualStage.parentElement?.getBoundingClientRect().width ?? 0,
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         };
       });
 
       expect(geometry.overflow).toBeLessThanOrEqual(1);
       if (width >= 1000) {
-        expect(geometry.stageHeight).toBeLessThanOrEqual(161);
-        expect(geometry.stageWidth).toBeLessThanOrEqual(721);
-        expect(geometry.visualHeight).toBeLessThanOrEqual(161);
+        expect(geometry.stageHeight).toBeLessThanOrEqual(241);
+        expect(geometry.stageHeight).toBeGreaterThanOrEqual(209);
+        expect(geometry.stageWidth).toBeGreaterThanOrEqual(geometry.frameWidth * 0.98);
+        expect(geometry.visualHeight).toBeLessThanOrEqual(241);
         expect(geometry.h1FontSize).toBeGreaterThanOrEqual(46);
         expect(geometry.h1FontSize).toBeLessThanOrEqual(82);
       } else {
-        expect(geometry.stageHeight).toBeLessThanOrEqual(161);
-        expect(geometry.visualHeight).toBeLessThanOrEqual(161);
+        expect(geometry.stageHeight).toBeLessThanOrEqual(201);
+        expect(geometry.stageHeight).toBeGreaterThanOrEqual(169);
+        expect(geometry.stageWidth).toBeGreaterThanOrEqual(geometry.frameWidth * 0.98);
+        expect(geometry.visualHeight).toBeLessThanOrEqual(201);
       }
 
       const contents = page.getByRole("navigation", { name: "Case study contents" });
