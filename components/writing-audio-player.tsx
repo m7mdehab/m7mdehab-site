@@ -8,12 +8,25 @@ import styles from "@/components/writing-audio-player.module.css";
 const playbackRates = [0.75, 1, 1.25, 1.5, 1.75, 2] as const;
 const playbackRateKey = "m7mdehab-writing-playback-rate";
 const narrationVoiceKey = "m7mdehab-writing-narration-voice";
+const followNarrationKey = "m7mdehab-writing-follow-narration";
 
 type NarrationSource = {
   id: WritingNarrationVoice;
   label: string;
   src: string;
+  timingsSrc: string;
   mimeType: "audio/mpeg";
+};
+
+type NarrationTimingCue = {
+  id: string;
+  start: number;
+  end: number;
+};
+
+type NarrationTimingFile = {
+  version: number;
+  cues: NarrationTimingCue[];
 };
 
 function formatTime(seconds: number) {
@@ -21,6 +34,19 @@ function formatTime(seconds: number) {
   const minutes = Math.floor(seconds / 60);
   const remainder = Math.floor(seconds % 60);
   return `${minutes}:${remainder.toString().padStart(2, "0")}`;
+}
+
+function findCue(cues: readonly NarrationTimingCue[], time: number) {
+  let low = 0;
+  let high = cues.length - 1;
+  while (low <= high) {
+    const middle = Math.floor((low + high) / 2);
+    const cue = cues[middle];
+    if (time < cue.start) high = middle - 1;
+    else if (time >= cue.end) low = middle + 1;
+    else return cue;
+  }
+  return null;
 }
 
 export function WritingAudioPlayer({
@@ -35,24 +61,51 @@ export function WritingAudioPlayer({
   const audioRef = useRef<HTMLAudioElement>(null);
   const pendingSeekRatioRef = useRef<number | null>(null);
   const pendingResumeRef = useRef(false);
+  const activeCueRef = useRef<string | null>(null);
   const [voice, setVoice] = useState<WritingNarrationVoice>("female");
   const [rate, setRate] = useState(1);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(listenMinutes * 60);
+  const [followNarration, setFollowNarration] = useState(false);
+  const [timings, setTimings] = useState<NarrationTimingCue[]>([]);
 
   const activeSource =
     sources.find((source) => source.id === voice) ?? sources[0];
+
+  function clearActiveCue() {
+    if (!activeCueRef.current) return;
+    document
+      .querySelector<HTMLElement>(
+        `[data-narration-cue="${activeCueRef.current}"]`,
+      )
+      ?.removeAttribute("data-narration-active");
+    activeCueRef.current = null;
+  }
+
+  function syncActiveCue(time: number) {
+    if (!followNarration || timings.length === 0) {
+      clearActiveCue();
+      return;
+    }
+    const cue = findCue(timings, time);
+    if (cue?.id === activeCueRef.current) return;
+    clearActiveCue();
+    if (!cue) return;
+    const element = document.querySelector<HTMLElement>(
+      `[data-narration-cue="${cue.id}"]`,
+    );
+    if (!element) return;
+    element.setAttribute("data-narration-active", "true");
+    activeCueRef.current = cue.id;
+  }
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       const storedVoice = window.localStorage.getItem(
         narrationVoiceKey,
       ) as WritingNarrationVoice | null;
-      if (
-        storedVoice &&
-        sources.some((source) => source.id === storedVoice)
-      ) {
+      if (storedVoice && sources.some((source) => source.id === storedVoice)) {
         setVoice(storedVoice);
       }
 
@@ -62,6 +115,10 @@ export function WritingAudioPlayer({
       if (playbackRates.includes(storedRate as (typeof playbackRates)[number])) {
         setRate(storedRate);
       }
+
+      setFollowNarration(
+        window.localStorage.getItem(followNarrationKey) === "true",
+      );
     }, 0);
 
     return () => window.clearTimeout(timer);
@@ -69,25 +126,52 @@ export function WritingAudioPlayer({
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
-    audio.playbackRate = rate;
+    if (audio) audio.playbackRate = rate;
   }, [rate]);
 
   useEffect(() => {
+    let cancelled = false;
+    clearActiveCue();
+    setTimings([]);
+    fetch(activeSource.timingsSrc)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Narration timings request failed: ${response.status}`);
+        }
+        return response.json() as Promise<NarrationTimingFile>;
+      })
+      .then((payload) => {
+        if (!cancelled && Array.isArray(payload.cues)) setTimings(payload.cues);
+      })
+      .catch(() => {
+        if (!cancelled) setTimings([]);
+      });
+
+    return () => {
+      cancelled = true;
+      clearActiveCue();
+    };
+  }, [activeSource.timingsSrc]);
+
+  useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
-    audio.load();
+    if (audio) audio.load();
   }, [activeSource.src]);
+
+  useEffect(() => {
+    if (!followNarration) {
+      clearActiveCue();
+      return;
+    }
+    syncActiveCue(audioRef.current?.currentTime ?? currentTime);
+    // Highlighting is visual only. Never scroll, focus, or move the viewport.
+  }, [followNarration, timings]);
 
   async function togglePlayback() {
     const audio = audioRef.current;
     if (!audio) return;
-
-    if (audio.paused) {
-      await audio.play();
-    } else {
-      audio.pause();
-    }
+    if (audio.paused) await audio.play();
+    else audio.pause();
   }
 
   function seekBy(delta: number) {
@@ -98,9 +182,11 @@ export function WritingAudioPlayer({
       Math.max(0, audio.currentTime + delta),
       Math.max(max, 0),
     );
+    syncActiveCue(audio.currentTime);
   }
 
   function changeVoice(next: WritingNarrationVoice) {
+    clearActiveCue();
     const audio = audioRef.current;
     const max = audio?.duration;
     const hasFiniteDuration =
@@ -140,6 +226,8 @@ export function WritingAudioPlayer({
             }
           }
 
+          syncActiveCue(audio.currentTime);
+
           if (pendingResumeRef.current) {
             pendingResumeRef.current = false;
             try {
@@ -149,22 +237,45 @@ export function WritingAudioPlayer({
             }
           }
         }}
-        onTimeUpdate={(event) =>
-          setCurrentTime(event.currentTarget.currentTime)
-        }
+        onTimeUpdate={(event) => {
+          const next = event.currentTarget.currentTime;
+          setCurrentTime(next);
+          syncActiveCue(next);
+        }}
         onDurationChange={(event) => {
           const next = event.currentTarget.duration;
           if (Number.isFinite(next) && next > 0) setDuration(next);
         }}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
+        onEnded={() => {
+          setPlaying(false);
+          clearActiveCue();
+        }}
         aria-label={`${activeSource.label} narration of ${title}`}
       />
 
       <div className={styles.identity}>
         <strong>Listen to article</strong>
         <span>AI narration · ~{listenMinutes} min</span>
+        <label
+          className={styles.follow}
+          title="Highlight the spoken word without moving the page"
+        >
+          <input
+            type="checkbox"
+            checked={followNarration}
+            disabled={timings.length === 0}
+            onChange={(event) => {
+              const next = event.currentTarget.checked;
+              setFollowNarration(next);
+              window.localStorage.setItem(followNarrationKey, String(next));
+              if (!next) clearActiveCue();
+            }}
+            aria-label="Follow narration"
+          />
+          <span>Follow narration</span>
+        </label>
       </div>
 
       <div className={styles.controls}>
@@ -181,15 +292,9 @@ export function WritingAudioPlayer({
           className={styles.play}
           type="button"
           onClick={togglePlayback}
-          aria-label={
-            playing ? "Pause article narration" : "Play article narration"
-          }
+          aria-label={playing ? "Pause article narration" : "Play article narration"}
         >
-          {playing ? (
-            <Pause size={17} aria-hidden="true" />
-          ) : (
-            <Play size={17} aria-hidden="true" />
-          )}
+          {playing ? <Pause size={17} aria-hidden="true" /> : <Play size={17} aria-hidden="true" />}
         </button>
         <button
           type="button"
@@ -213,12 +318,11 @@ export function WritingAudioPlayer({
             const next = Number(event.currentTarget.value);
             setCurrentTime(next);
             if (audioRef.current) audioRef.current.currentTime = next;
+            syncActiveCue(next);
           }}
           aria-label="Article narration progress"
         />
-        <span>
-          {formatTime(currentTime)} / {formatTime(duration)}
-        </span>
+        <span>{formatTime(currentTime)} / {formatTime(duration)}</span>
       </div>
 
       <label className={styles.voice}>
@@ -231,9 +335,7 @@ export function WritingAudioPlayer({
           aria-label="Narration voice"
         >
           {sources.map((source) => (
-            <option key={source.id} value={source.id}>
-              {source.label}
-            </option>
+            <option key={source.id} value={source.id}>{source.label}</option>
           ))}
         </select>
       </label>
@@ -251,9 +353,7 @@ export function WritingAudioPlayer({
           aria-label="Narration speed"
         >
           {playbackRates.map((value) => (
-            <option key={value} value={value}>
-              {value}×
-            </option>
+            <option key={value} value={value}>{value}×</option>
           ))}
         </select>
       </label>
