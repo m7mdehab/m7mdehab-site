@@ -80,10 +80,12 @@ test.describe("Phase H About architecture", () => {
       }),
     );
 
-    expect(report.length).toBeGreaterThanOrEqual(8);
+    expect(report.length).toBeGreaterThanOrEqual(5);
     expect(report.every((item) => item.background === "rgba(0, 0, 0, 0)")).toBeTruthy();
     expect(report.every((item) => !item.overflow)).toBeTruthy();
     expect(report.every((item) => item.imageLoaded)).toBeTruthy();
+    await expect(page.locator(".about-v2-career .about-v2-logo")).toHaveCount(0);
+    await expect(page.locator(".about-v2-secondary .about-v2-logo")).toHaveCount(0);
 
     await expect(page.locator(".about-v2-databricks img")).toHaveAttribute(
       "src",
