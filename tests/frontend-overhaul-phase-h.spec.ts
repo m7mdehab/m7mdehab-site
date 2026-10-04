@@ -55,6 +55,62 @@ test.describe("Phase H About architecture", () => {
     await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-1440.png"), fullPage: true });
   });
 
+  test("About logos stay transparent, contained and use crisp vector replacements", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/about");
+    await settle(page);
+
+    await expect(page.locator(".about-page-v2")).toHaveCount(1);
+    await expect(page.locator('[data-brand-logo="databricks"] img')).toHaveAttribute(
+      "src",
+      "/brand/about/databricks.svg",
+    );
+    await expect(page.locator('[data-brand-logo="mckinsey"] img')).toHaveAttribute(
+      "src",
+      "/brand/about/mckinsey.svg",
+    );
+
+    const logoReport = await page.locator(".about-v2-logo").evaluateAll((logos) =>
+      logos.map((logo) => {
+        const element = logo as HTMLElement;
+        const image = element.querySelector("img") as HTMLImageElement | null;
+        const box = element.getBoundingClientRect();
+        const imageBox = image?.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return {
+          brand: element.dataset.brandLogo ?? "",
+          background: style.backgroundColor,
+          borderTopWidth: style.borderTopWidth,
+          paddingTop: style.paddingTop,
+          paddingRight: style.paddingRight,
+          paddingBottom: style.paddingBottom,
+          paddingLeft: style.paddingLeft,
+          contained:
+            Boolean(imageBox) &&
+            imageBox!.left >= box.left - 1 &&
+            imageBox!.right <= box.right + 1 &&
+            imageBox!.top >= box.top - 1 &&
+            imageBox!.bottom <= box.bottom + 1,
+          naturalWidth: image?.naturalWidth ?? 0,
+          naturalHeight: image?.naturalHeight ?? 0,
+        };
+      }),
+    );
+
+    expect(logoReport.length).toBeGreaterThanOrEqual(8);
+    for (const logo of logoReport) {
+      expect(logo.background).toBe("rgba(0, 0, 0, 0)");
+      expect(logo.borderTopWidth).toBe("0px");
+      expect(logo.paddingTop).toBe("0px");
+      expect(logo.paddingRight).toBe("0px");
+      expect(logo.paddingBottom).toBe("0px");
+      expect(logo.paddingLeft).toBe("0px");
+      expect(logo.contained, logo.brand).toBe(true);
+      expect(logo.naturalWidth, logo.brand).toBeGreaterThan(0);
+      expect(logo.naturalHeight, logo.brand).toBeGreaterThan(0);
+    }
+  });
+
   test("About passes axe on desktop", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/about");
@@ -70,6 +126,20 @@ test.describe("Phase H About architecture", () => {
     await expectNoHorizontalOverflow(page);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.getByText("Data Engineer", { exact: true }).first()).toBeVisible();
+    const mobileLogoOverflow = await page.locator(".about-v2-logo").evaluateAll((logos) =>
+      logos.some((logo) => {
+        const box = (logo as HTMLElement).getBoundingClientRect();
+        const image = logo.querySelector("img")?.getBoundingClientRect();
+        return Boolean(
+          image &&
+            (image.left < box.left - 1 ||
+              image.right > box.right + 1 ||
+              image.top < box.top - 1 ||
+              image.bottom > box.bottom + 1),
+        );
+      }),
+    );
+    expect(mobileLogoOverflow).toBe(false);
     await mkdir(artifactRoot, { recursive: true });
     await page.screenshot({ path: path.join(artifactRoot, "phase-h-about-390.png"), fullPage: true });
   });
