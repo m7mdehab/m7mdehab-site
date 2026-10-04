@@ -132,6 +132,8 @@ test("article lists keep visible markers and narration never says literal bullet
   const list = scoreSection.locator("ul").first();
   await expect(list.locator("li")).toHaveCount(3);
   expect(
-    await list.evaluate((element) => getComputedStyle(element).listStyleType),
+    await list.locator("li").first().evaluate(
+      (element) => getComputedStyle(element).listStyleType,
+    ),
   ).toBe("disc");
 });
