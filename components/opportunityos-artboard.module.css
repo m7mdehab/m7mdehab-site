@@ -112,7 +112,7 @@
   .flowNode2 { left: 37.897%; top: 44%; }
   .flowNode3 { left: 57.39%; top: 44%; }
   .flowNode4 { left: 73.383%; top: 44%; width: 25%; text-align: center; }
-  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7.2px, 1.72cqw, 8.6px); letter-spacing: 0; }
+  .flowNode4 > b { width: 100%; margin-inline: auto; font-size: clamp(7.1px, 1.66cqw, 8.3px); letter-spacing: 0; }
   .gateDesktopLabel { display: inline; }
   .gate > span { display: flex; margin-top: 0.55cqw; gap: 0.12cqw; font-size: clamp(5.5px, 1.22cqw, 6.5px); line-height: 1.05; }
   .gate > span > span { white-space: nowrap; }
