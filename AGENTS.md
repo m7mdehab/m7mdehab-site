@@ -249,6 +249,12 @@ The durable rendered gate is the **pull-request rendered QA lane inside `.github
 
 Do not narrow this suite when an iteration ends. Lighthouse is a comparative lab signal, not a substitute for behavioral checks. Interpret score changes with the report's CPU `benchmarkIndex`, payload/chunk changes and actual runtime behavior before modifying useful content merely to chase a score.
 
+## Future CI migration / Cloudflare Workers Builds (documentation only)
+
+**Mandatory first read for any task about CircleCI, CI provider replacement, CI cost optimization outside GitHub Actions, signed CircleCI failure webhooks, or Cloudflare Workers Builds:** `docs/CI_CLOUDFLARE_MIGRATION_PLAYBOOK_2026-10-11.md`, then the existing `docs/CI_EFFICIENCY_POLICY.md` and `docs/DEPLOYMENT.md`.
+
+This website is NOT yet migrated to CircleCI and has NO website-specific CI failure bridge. Its Cloudflare Workers Static Assets production deployment is separate from potential new event-driven diagnostic Workers and separate from the Workers Builds product. The 100,000/day Cloudflare Worker HTTP-request allowance is **not CI minutes**; Workers Builds minutes are a different account-metered resource. Before using any provider, verify **this repository's** provider rights, effective free balance and full independent test parity; no paid upgrades, duplicate builds, automatic costly triggers or unapproved production credentials. The current GitHub workflows and production promotion safeguards remain authoritative until independently replaced and enforced. Preserve public-safe truth: never import confidential private-repo implementation, IDs, raw job logs or secrets into this public repo.
+
 ## GitHub Actions efficiency
 Read `docs/CI_EFFICIENCY_POLICY.md` before changing workflow triggers, runner types, job boundaries, caching, or test placement.
 
