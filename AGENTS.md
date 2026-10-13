@@ -294,3 +294,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Owner CI testing override — 2026-10-13
+See `.github/CI_EXECUTION_POLICY.md`: existing Free CI credits are an authorized testing budget. Run necessary test/acceptance jobs, conserve duplicate runs, do not block work just to save credits, and never infer another project's budget. No paid upgrades or bypassed release/privacy gates.
