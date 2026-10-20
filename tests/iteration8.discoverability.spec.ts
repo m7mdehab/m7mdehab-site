@@ -36,7 +36,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const person = graph.find((node) => node["@type"] === "Person") as Record<string, unknown> | undefined;
     const creativeWorks = graph.filter((node) => node["@type"] === "CreativeWork");
     expect(profilePage?.inLanguage).toBe("en");
-    expect(person?.sameAs).toEqual(["https://github.com/m7mdehab", "https://www.linkedin.com/in/mohammed-ehab"]);
+    expect(person?.sameAs).toEqual(["https://github.com/m7mdehab", "https://www.linkedin.com/in/mohammed-ehab", "https://tutor.m7mdehab.com/"]);
     expect(JSON.stringify(person)).not.toContain("presaira.com");
     expect(person?.makesOffer).toHaveLength(4);
     expect(JSON.stringify(person?.makesOffer)).toContain(`${domain}/services#service-`);
@@ -50,6 +50,7 @@ test.describe("Iteration 8 discoverability architecture", () => {
     const profile = await profileResponse.json();
     expect(profile.services).toHaveLength(4);
     expect(profile.writing).toHaveLength(3);
+    expect(profile.links.tutoring).toBe("https://tutor.m7mdehab.com/");
     expect(profile.machineReadable.services).toBe(`${domain}/services.json`);
     expect(profile.machineReadable.writing).toBe(`${domain}/writing.json`);
 
