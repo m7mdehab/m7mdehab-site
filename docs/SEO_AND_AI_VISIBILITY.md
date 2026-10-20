@@ -1,5 +1,13 @@
 # SEO & AI Visibility Architecture
 
+## 2026-10-21 — Owner-approved linked tutoring identity
+
+The owner also operates **[Personal English & STEM Tutoring](https://tutor.m7mdehab.com/)**. This is a separate, verified personal tutoring practice, **not** a new employer, employer partnership, another career service offer, or a claim about exam-board accreditation. The personal homepage footer provides a direct visible `Tutoring` link to its canonical homepage.
+
+Update the existing Person `sameAs` lists for the primary layout and About route and `/profile.json` linked identities to include this **owner-controlled** tutoring website. Expose the link in `/llms.txt` as a supplementary cross-reference; `llms.txt` is not a ranking mechanism. The tutoring site's own footer reciprocates with personal website, LinkedIn and GitHub profile links and matches `Person.sameAs`.
+
+Do not add the individual Orcas tutor profile without its **exact verified public profile URL**. Personal paid teaching through Orcas remains a documented fact; an Orcas signup page or unrelated tutor page must never be substituted. Keep canonical professional identity `Mohammed Ehab ElNomany`, publish no child information or tuition prices, and retain the current professional website UI and conversion hierarchy. Check the 320px footer does not overflow when adding a navigation link.
+
 ## Entity
 Canonical public entity: **Mohammed Ehab ElNomany**.
 Secondary handle: **M7mdehab**.
