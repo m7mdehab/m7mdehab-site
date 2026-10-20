@@ -1,3 +1,5 @@
+> **2026-10-21 operational correction:** Never deploy staging and production with the same Cloudflare Worker `name`. Staging uses **`m7mdehab-site-staging`** with workers.dev enabled; production keeps **`m7mdehab-site`** with only the custom domain enabled. This change fixes the after-merge staging 404 caused by concurrent deploys of a single Worker under conflicting configs. See [staging runbook](STAGING_DEPLOYMENT.md) and [regression script](../scripts/verify-cloudflare-worker-isolation.mjs).
+
 # Deployment
 
 Updated: 2026-09-11
@@ -65,7 +67,7 @@ The deployment-readiness workflow verifies that the export contains the English 
 Purpose:
 
 - CI dry-run packaging;
-- permanent-account pre-domain staging at `https://m7mdehab-site.m7mdehab.workers.dev`;
+- permanent-account pre-domain staging at `https://m7mdehab-site-staging.m7mdehab.workers.dev`;
 - temporary preview infrastructure.
 
 The configuration intentionally leaves `workers_dev` and preview URLs available. `public/_headers` applies `X-Robots-Tag: noindex` to matching `workers.dev` hosts so staging validation endpoints are not intended to become search-result duplicates.

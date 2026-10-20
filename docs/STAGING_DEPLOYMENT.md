@@ -1,3 +1,5 @@
+> **Live correction — 2026-10-21:** A staging failure after merging PR #75 revealed that production and staging used the **same** Cloudflare Worker name despite opposite `workers_dev` settings. Concurrent staging/production deployments caused successful staging routes to become HTTP 404 after production updated the shared Worker. Staging now has a dedicated Worker `m7mdehab-site-staging`. Only `m7mdehab-site` serves the production `m7mdehab.com` custom domain. The future-name-collision regression check is `scripts/verify-cloudflare-worker-isolation.mjs`. Older staging deployments and old worker hostname references in archived milestone notes are historical.
+
 # Cloudflare Staging Deployment
 
 Updated: 2026-09-12
@@ -6,7 +8,7 @@ Updated: 2026-09-12
 
 The permanent pre-domain staging origin is:
 
-`https://m7mdehab-site.m7mdehab.workers.dev`
+`https://m7mdehab-site-staging.m7mdehab.workers.dev`
 
 It exists to validate the real Cloudflare-hosted artifact before `m7mdehab.com` is purchased and activated. It is never a canonical production surface and must remain excluded from indexing.
 
@@ -29,9 +31,9 @@ Do not commit or print secret values.
 
 ## Staging invariants
 
-- Worker name: `m7mdehab-site`.
+- Dedicated staging Worker name: `m7mdehab-site-staging` (distinct from production `m7mdehab-site`).
 - Cloudflare account subdomain: `m7mdehab.workers.dev`.
-- Staging URL: `m7mdehab-site.m7mdehab.workers.dev`.
+- Staging URL: `m7mdehab-site-staging.m7mdehab.workers.dev`.
 - `workers.dev` remains enabled only for staging/preview use.
 - `public/_headers` must apply `X-Robots-Tag: noindex` to the staging hostname.
 - Canonical HTML metadata continues to point to production URLs under `https://m7mdehab.com`, never to the staging hostname.

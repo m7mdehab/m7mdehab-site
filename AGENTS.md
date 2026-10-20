@@ -1,3 +1,5 @@
+> **2026-10-21 DEPLOYMENT ISOLATION:** Staging and production MUST deploy to separate Workers. Staging `wrangler.static.jsonc` uses `m7mdehab-site-staging` (`workers_dev: true`); production `wrangler.production.jsonc` remains `m7mdehab-site` (`workers_dev: false`, custom domain). Deploying both modes to one Worker can disable staging and flip tested routes to HTTP 404. `scripts/verify-cloudflare-worker-isolation.mjs` is mandatory CI evidence. Older mentions of the former staging hostname are historical only.
+
 # Agent Guide
 
 > **2026-10-21 OWNER AUTHORITY LINK UPDATE:** The owner operates [tutor.m7mdehab.com](https://tutor.m7mdehab.com/). Its reciprocal link from the professional site footer, `Person.sameAs`, `/profile.json`, and `/llms.txt` is governed by `data/public.ts`, `data/source-of-truth.public.yaml` and [SEO entity notes](docs/SEO_AND_AI_VISIBILITY.md). This does **not** convert the professional site into a tutoring website; keep the existing hero and conversion hierarchy. Orcas profile *URL* is not verified; do not invent it. No new published rates or tutoring credentials.
@@ -193,7 +195,7 @@ Current public contract:
 - The canonical application source remains a normal Next.js application. Do not make local development or ordinary CI depend on a Cloudflare-specific runtime adapter without a concrete server-side requirement.
 - The current production target is **Cloudflare Workers Static Assets** because every launch route is statically prerenderable. Use `CLOUDFLARE_STATIC_EXPORT=1 npm run build` for the explicit export lane; ordinary `npm run build` remains the normal Next.js build.
 - `wrangler.static.jsonc` is preview/dry-run infrastructure. `workers.dev` and temporary preview hosts are never canonical production surfaces and must remain non-index targets.
-- The permanent pre-domain staging origin is `https://m7mdehab-site.m7mdehab.workers.dev`; it is manually deployed and must remain `noindex`.
+- The permanent pre-domain staging origin is `https://m7mdehab-site-staging.m7mdehab.workers.dev`; it is manually deployed and must remain `noindex`.
 - `wrangler.production.jsonc` is the production custom-domain contract. The canonical public host is the apex `m7mdehab.com`; production disables `workers.dev` and preview URLs.
 - `www.m7mdehab.com` is redirect-only. Implement `www` → apex as a Cloudflare edge redirect with path/query preservation; never serve a second independently indexable content copy.
 - Production deployment is automated by `.github/workflows/deploy-cloudflare-production.yml` after non-documentation changes reach `main`; it may also be started manually with `workflow_dispatch`. The workflow requires authorized `CLOUDFLARE_API_TOKEN` plus `CLOUDFLARE_ACCOUNT_ID`. Never commit Cloudflare tokens, account credentials or temporary-account claim tokens.
