@@ -1,5 +1,7 @@
 # Agent Guide
 
+> **2026-10-21 OWNER AUTHORITY LINK UPDATE:** The owner operates [tutor.m7mdehab.com](https://tutor.m7mdehab.com/). Its reciprocal link from the professional site footer, `Person.sameAs`, `/profile.json`, and `/llms.txt` is governed by `data/public.ts`, `data/source-of-truth.public.yaml` and [SEO entity notes](docs/SEO_AND_AI_VISIBILITY.md). This does **not** convert the professional site into a tutoring website; keep the existing hero and conversion hierarchy. Orcas profile *URL* is not verified; do not invent it. No new published rates or tutoring credentials.
+
 ## What this repository is
 A durable professional web identity and opportunity-acquisition system for Mohammed Ehab ElNomany. Do not reduce it to "a portfolio website."
 
