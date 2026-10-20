@@ -115,6 +115,7 @@ export const profileRecord = {
     website: profile.domain,
     github: profile.github,
     linkedin: profile.linkedin,
+    tutoring: profile.tutoring,
   },
   contact: {
     email: profile.email,

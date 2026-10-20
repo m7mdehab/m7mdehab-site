@@ -18,6 +18,7 @@ export const profile = {
   github: "https://github.com/m7mdehab",
   linkedin: "https://www.linkedin.com/in/mohammed-ehab",
   domain: "https://m7mdehab.com",
+  tutoring: "https://tutor.m7mdehab.com/",
 } as const;
 
 export const capabilities = [

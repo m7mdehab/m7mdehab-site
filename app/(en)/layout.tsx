@@ -100,7 +100,7 @@ const siteSchema = {
         addressLocality: "Cairo",
         addressCountry: "EG",
       },
-      sameAs: [profile.github, profile.linkedin],
+      sameAs: [profile.github, profile.linkedin, profile.tutoring],
       worksFor: { "@type": "Organization", name: profile.employer },
       alumniOf: [
         {

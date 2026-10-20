@@ -33,6 +33,7 @@ export function GET() {
     `- [Professional history / About](${profile.domain}/about)`,
     `- [GitHub](${profile.github})`,
     `- [LinkedIn](${profile.linkedin})`,
+    `- [Personal tutoring practice](${profile.tutoring})`,
     "",
     "## Services",
     ...serviceLines,

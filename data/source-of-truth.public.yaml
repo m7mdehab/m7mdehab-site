@@ -50,6 +50,11 @@ identity:
     value: "https://github.com/m7mdehab"
     classification: public
     evidence: ["September 2026 CV", "GitHub"]
+  tutoring_practice:
+    value: "https://tutor.m7mdehab.com/"
+    classification: public
+    evidence: ["Owner instruction 2026-10-21", "Tutor.M7mdEhab.com public deployed website and verified Person identity"]
+    note: "Owner-operated personal tutoring practice, not a new employer, credential, or tutoring marketplace."
   languages:
     value:
       - { language: "English", proficiency: "Native" }

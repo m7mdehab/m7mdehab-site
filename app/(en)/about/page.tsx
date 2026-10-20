@@ -30,7 +30,7 @@ const aboutSchema = {
     "@type": "Person",
     name: profile.name,
     url: `${profile.domain}/about`,
-    sameAs: [profile.github, profile.linkedin],
+    sameAs: [profile.github, profile.linkedin, profile.tutoring],
   },
 };
 
