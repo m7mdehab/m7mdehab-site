@@ -23,10 +23,10 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Upgrade Next.js to patched release and regenerate npm lockfile
-        run: npm install next@16.4.2 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund
-      - name: Apply safe, in-range transitive fixes to regenerated lockfile
-        run: npm audit fix --package-lock-only --ignore-scripts --no-fund
+      - name: Upgrade Next.js and matching ESLint config to patched release
+        run: npm install next@16.4.2 eslint-config-next@16.4.2 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Update Sharp and source-map-js within supported dependency ranges
+        run: npm update sharp source-map-js --package-lock-only --ignore-scripts --no-audit --no-fund
       - name: Verify clean installation and absence of production dependency advisories
         run: |
           npm ci --ignore-scripts --no-audit --no-fund
