@@ -65,7 +65,7 @@ The deployment-readiness workflow verifies that the export contains the English 
 Purpose:
 
 - CI dry-run packaging;
-- permanent-account pre-domain staging at `https://m7mdehab-site.m7mdehab.workers.dev`;
+- permanent-account pre-domain staging at `https://m7mdehab-site-staging.m7mdehab.workers.dev`;
 - temporary preview infrastructure.
 
 The configuration intentionally leaves `workers_dev` and preview URLs available. `public/_headers` applies `X-Robots-Tag: noindex` to matching `workers.dev` hosts so staging validation endpoints are not intended to become search-result duplicates.
