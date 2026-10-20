@@ -24,6 +24,7 @@ export function HomeClosing() {
             <Link href="/about">About</Link>
             <Link href="/services">Services</Link>
             <Link href="/writing">Writing</Link>
+            <a href={profile.tutoring} title="Personal English & STEM tutoring">Tutoring</a>
           </nav>
           <div className="closing-directory-end">
             <div className="closing-directory-icons" aria-label="Contact links">
