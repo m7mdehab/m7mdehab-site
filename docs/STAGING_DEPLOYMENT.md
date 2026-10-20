@@ -6,7 +6,7 @@ Updated: 2026-09-12
 
 The permanent pre-domain staging origin is:
 
-`https://m7mdehab-site.m7mdehab.workers.dev`
+`https://m7mdehab-site-staging.m7mdehab.workers.dev`
 
 It exists to validate the real Cloudflare-hosted artifact before `m7mdehab.com` is purchased and activated. It is never a canonical production surface and must remain excluded from indexing.
 
