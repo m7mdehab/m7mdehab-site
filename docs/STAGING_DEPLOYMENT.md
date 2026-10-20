@@ -1,6 +1,6 @@
 # Cloudflare Staging Deployment
 
-Updated: 2026-09-12
+Updated: 2026-10-21
 
 ## Purpose
 
@@ -9,6 +9,14 @@ The permanent pre-domain staging origin is:
 `https://m7mdehab-site-staging.m7mdehab.workers.dev`
 
 It exists to validate the real Cloudflare-hosted artifact before `m7mdehab.com` is purchased and activated. It is never a canonical production surface and must remain excluded from indexing.
+
+## October 21, 2026 — staging and production separation
+
+The staging and production Wrangler configurations previously both used `name: m7mdehab-site`. Production requires `workers_dev: false`; staging requires `workers_dev: true`. Deploying the production configuration disabled the staging Workers URL, causing the post-merge staging workflow to fail with 404s (especially `/work`) despite a healthy production host.
+
+**Fixed architecture:** `wrangler.static.jsonc` uses dedicated `m7mdehab-site-staging`, with `workers_dev: true`. `wrangler.production.jsonc` retains `m7mdehab-site`, with the canonical custom domain and `workers_dev: false`. The environments must never share a Worker name again. Site production URLs, routing and canonical tags remain unchanged. The old staging hostname is retired and not a supported acceptance target.
+
+The CI regression test enforces different Worker names and validates that the staging workflow URL matches the staging config. Always test actual deployment and deployed-origin routes after changing Cloudflare configuration.
 
 ## Deployment workflow
 
@@ -29,9 +37,9 @@ Do not commit or print secret values.
 
 ## Staging invariants
 
-- Worker name: `m7mdehab-site`.
+- Worker name: **`m7mdehab-site-staging`**, separate from production `m7mdehab-site`.
 - Cloudflare account subdomain: `m7mdehab.workers.dev`.
-- Staging URL: `m7mdehab-site.m7mdehab.workers.dev`.
+- Staging URL: **`m7mdehab-site-staging.m7mdehab.workers.dev`**.
 - `workers.dev` remains enabled only for staging/preview use.
 - `public/_headers` must apply `X-Robots-Tag: noindex` to the staging hostname.
 - Canonical HTML metadata continues to point to production URLs under `https://m7mdehab.com`, never to the staging hostname.
