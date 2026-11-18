@@ -1,3 +1,5 @@
+> **BINDING OWNER CI/CD CREDIT RULE (2026-11-18):** All LLMs, coding agents and human contributors MUST read [CI_CREDIT_GUARDRAILS.md](CI_CREDIT_GUARDRAILS.md) BEFORE triggering any hosted testing, CI or deployment. Routine iteration spends **ZERO** hosted minutes. Run only change-relevant checks with verified remaining quota; do not duplicate full suites across providers. Preserve every required security, production, payment, backup and independent-monitoring gate. Project-specific stricter safeguards remain authoritative.
+
 # Agent Guide
 
 > **2026-10-21 OWNER AUTHORITY LINK UPDATE:** The owner operates [tutor.m7mdehab.com](https://tutor.m7mdehab.com/). Its reciprocal link from the professional site footer, `Person.sameAs`, `/profile.json`, and `/llms.txt` is governed by `data/public.ts`, `data/source-of-truth.public.yaml` and [SEO entity notes](docs/SEO_AND_AI_VISIBILITY.md). This does **not** convert the professional site into a tutoring website; keep the existing hero and conversion hierarchy. Orcas profile *URL* is not verified; do not invent it. No new published rates or tutoring credentials.
